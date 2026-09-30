@@ -1,0 +1,149 @@
+{
+  "measurements": [
+    {
+      "width": 1440,
+      "height": 900,
+      "baselineTile": {
+        "width": 83.671875,
+        "height": 56.1875
+      },
+      "overflow": 0,
+      "tileCount": 42,
+      "boardWithinViewport": true,
+      "ledgerOverTile": false,
+      "dockOverBoard": false,
+      "dockOverSideOps": false,
+      "piecesOnStart": true,
+      "mapBackground": "linear-gradient(rgba(2, 52, 89, 0.13), rgba(2, 52, 89, 0.13)), url(\"http://127.0.0.1:12054/assets/world-map-ocean.png\"), url(\"http://127.0.0.1:12054/assets/ocean-surface.png\")",
+      "ledgerText": "我的资产 · 航海家总资产￥150,000现金￥150,000城市0 座机场0 座持股0 股查看完整资产 ↗暂无城市资产等待掷骰子",
+      "otherPlayer": "其他玩家乙总资产￥150,000当前现金￥150,000丙总资产￥150,000当前现金￥150,000丁总资产￥150,000当前现金￥150,000",
+      "events": "暂无事件记录",
+      "tileWidth": 82.5,
+      "tileHeight": 70.40625
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "baselineTile": {
+        "width": 77.5,
+        "height": 51.90625
+      },
+      "overflow": 0,
+      "tileCount": 42,
+      "boardWithinViewport": true,
+      "ledgerOverTile": false,
+      "dockOverBoard": false,
+      "dockOverSideOps": false,
+      "piecesOnStart": true,
+      "mapBackground": "linear-gradient(rgba(2, 52, 89, 0.13), rgba(2, 52, 89, 0.13)), url(\"http://127.0.0.1:12054/assets/world-map-ocean.png\"), url(\"http://127.0.0.1:12054/assets/ocean-surface.png\")",
+      "ledgerText": "我的资产 · 航海家总资产￥150,000现金￥150,000城市0 座机场0 座持股0 股查看完整资产 ↗暂无城市资产等待掷骰子",
+      "otherPlayer": "其他玩家乙总资产￥150,000当前现金￥150,000丙总资产￥150,000当前现金￥150,000丁总资产￥150,000当前现金￥150,000",
+      "events": "暂无事件记录",
+      "tileWidth": 76.53125,
+      "tileHeight": 56.515625
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "overflow": 0,
+      "tileCount": 42,
+      "boardWithinViewport": true,
+      "ledgerOverTile": false,
+      "dockOverBoard": false,
+      "dockOverSideOps": false,
+      "piecesOnStart": true,
+      "mapBackground": "linear-gradient(rgba(2, 52, 89, 0.13), rgba(2, 52, 89, 0.13)), url(\"http://127.0.0.1:12054/assets/world-map-ocean.png\"), url(\"http://127.0.0.1:12054/assets/ocean-surface.png\")",
+      "ledgerText": "我的资产 · 航海家总资产￥150,000现金￥150,000城市0 座机场0 座持股0 股查看完整资产 ↗暂无城市资产等待掷骰子",
+      "otherPlayer": "其他玩家乙总资产￥150,000当前现金￥150,000丙总资产￥150,000当前现金￥150,000丁总资产￥150,000当前现金￥150,000",
+      "events": "暂无事件记录",
+      "tileWidth": 74.4375,
+      "tileHeight": 53.890625
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "overflow": 0,
+      "tileCount": 42,
+      "boardWithinViewport": true,
+      "ledgerOverTile": false,
+      "dockOverBoard": false,
+      "dockOverSideOps": false,
+      "piecesOnStart": true,
+      "mapBackground": "linear-gradient(rgba(2, 52, 89, 0.13), rgba(2, 52, 89, 0.13)), url(\"http://127.0.0.1:12054/assets/world-map-ocean.png\"), url(\"http://127.0.0.1:12054/assets/ocean-surface.png\")",
+      "ledgerText": "我的资产 · 航海家总资产￥150,000现金￥150,000城市0 座机场0 座持股0 股查看完整资产 ↗暂无城市资产等待掷骰子",
+      "otherPlayer": "其他玩家乙总资产￥150,000当前现金￥150,000丙总资产￥150,000当前现金￥150,000丁总资产￥150,000当前现金￥150,000",
+      "events": "暂无事件记录",
+      "tileWidth": 53.78125,
+      "tileHeight": 66.734375
+    },
+    {
+      "width": 430,
+      "height": 800,
+      "overflow": 0,
+      "tileCount": 42,
+      "boardWithinViewport": true,
+      "ledgerOverTile": false,
+      "dockOverBoard": false,
+      "dockOverSideOps": false,
+      "piecesOnStart": true,
+      "mapBackground": "linear-gradient(rgba(2, 52, 89, 0.13), rgba(2, 52, 89, 0.13)), url(\"http://127.0.0.1:12054/assets/world-map-ocean.png\"), url(\"http://127.0.0.1:12054/assets/ocean-surface.png\")",
+      "ledgerText": "我的资产 · 航海家总资产￥150,000现金￥150,000城市0 座机场0 座持股0 股查看完整资产 ↗暂无城市资产等待掷骰子",
+      "otherPlayer": "其他玩家乙总资产￥150,000当前现金￥150,000丙总资产￥150,000当前现金￥150,000丁总资产￥150,000当前现金￥150,000",
+      "events": "暂无事件记录",
+      "tileWidth": 32.578125,
+      "tileHeight": 39.28125
+    },
+    {
+      "width": 375,
+      "height": 800,
+      "overflow": 0,
+      "tileCount": 42,
+      "boardWithinViewport": true,
+      "ledgerOverTile": false,
+      "dockOverBoard": false,
+      "dockOverSideOps": false,
+      "piecesOnStart": true,
+      "mapBackground": "linear-gradient(rgba(2, 52, 89, 0.13), rgba(2, 52, 89, 0.13)), url(\"http://127.0.0.1:12054/assets/world-map-ocean.png\"), url(\"http://127.0.0.1:12054/assets/ocean-surface.png\")",
+      "ledgerText": "我的资产 · 航海家总资产￥150,000现金￥150,000城市0 座机场0 座持股0 股查看完整资产 ↗暂无城市资产等待掷骰子",
+      "otherPlayer": "其他玩家乙总资产￥150,000当前现金￥150,000丙总资产￥150,000当前现金￥150,000丁总资产￥150,000当前现金￥150,000",
+      "events": "暂无事件记录",
+      "tileWidth": 28.328125,
+      "tileHeight": 34.1875
+    },
+    {
+      "width": 320,
+      "height": 800,
+      "overflow": 0,
+      "tileCount": 42,
+      "boardWithinViewport": true,
+      "ledgerOverTile": false,
+      "dockOverBoard": false,
+      "dockOverSideOps": false,
+      "piecesOnStart": true,
+      "mapBackground": "linear-gradient(rgba(2, 52, 89, 0.13), rgba(2, 52, 89, 0.13)), url(\"http://127.0.0.1:12054/assets/world-map-ocean.png\"), url(\"http://127.0.0.1:12054/assets/ocean-surface.png\")",
+      "ledgerText": "我的资产 · 航海家总资产￥150,000现金￥150,000城市0 座机场0 座持股0 股查看完整资产 ↗暂无城市资产等待掷骰子",
+      "otherPlayer": "其他玩家乙总资产￥150,000当前现金￥150,000丙总资产￥150,000当前现金￥150,000丁总资产￥150,000当前现金￥150,000",
+      "events": "暂无事件记录",
+      "tileWidth": 23.75,
+      "tileHeight": 28.6875
+    }
+  ],
+  "bottomClearance": 50.953125,
+  "fallback": {
+    "color": "rgb(18, 107, 159)",
+    "pageColor": "rgb(18, 107, 159)",
+    "tiles": 42,
+    "assets": "查看完整资产 ↗"
+  },
+  "cacheNames": [
+    "global-tycoon-v3-ocean"
+  ],
+  "cached": [
+    true,
+    true
+  ],
+  "offlineImages": [
+    true,
+    true
+  ]
+}

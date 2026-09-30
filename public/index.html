@@ -2,10 +2,10 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>环球大亨 · 资本博弈</title>
-  <link rel="stylesheet" href="style.css?v=20260815a1" />
-  <meta name="theme-color" content="#E6D9BC" />
+  <link rel="stylesheet" href="style.css?v=20260930-ocean" />
+  <meta name="theme-color" content="#0b354b" />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" type="image/svg+xml" href="icon.svg" />
 </head>
@@ -105,7 +105,7 @@
 
   <!-- 通用操作弹窗 -->
   <div id="modal" class="overlay hidden">
-    <div class="modal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <div class="mh"><h3 id="modalTitle"></h3></div>
       <div id="modalBody"></div>
     </div>
@@ -113,8 +113,8 @@
 
   <!-- 股票市场 -->
   <div id="stockModal" class="overlay hidden">
-    <div class="modal wide">
-      <div class="mh"><h3>股票市场</h3><p id="stockHint" class="hint"></p></div>
+    <div class="modal wide" role="dialog" aria-modal="true" aria-labelledby="stockTitle">
+      <div class="mh"><h3 id="stockTitle">股票市场</h3><p id="stockHint" class="hint"></p></div>
       <div id="stockList"></div>
       <div class="mf">
         <button id="btnStockSkip" class="secondary">放弃交易</button>
@@ -125,8 +125,8 @@
 
   <!-- 规则速查 -->
   <div id="rulesModal" class="overlay hidden">
-    <div class="modal wide">
-      <div class="mh"><h3>规则速查</h3></div>
+    <div class="modal wide" role="dialog" aria-modal="true" aria-labelledby="rulesTitle">
+      <div class="mh"><h3 id="rulesTitle">规则速查</h3></div>
       <div id="rulesBody"></div>
       <div class="mf"><button id="btnRulesClose" class="primary">关闭</button></div>
     </div>
@@ -135,6 +135,6 @@
   <div id="toast" class="hidden"></div>
 
   <script src="/socket.io/socket.io.js"></script>
-  <script src="client.js?v=20260815a1"></script>
+  <script src="client.js?v=20260930-ocean"></script>
 </body>
 </html>

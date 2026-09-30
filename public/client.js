@@ -38,6 +38,16 @@ let timerIv = null;
 let lastRecord = null;
 
 const $ = (id) => document.getElementById(id);
+let pieceResizeFrame = 0;
+function requestPieceLayout() {
+  if (!game || pieceResizeFrame) return;
+  pieceResizeFrame = window.requestAnimationFrame(() => {
+    pieceResizeFrame = 0;
+    renderPieces();
+  });
+}
+if ('ResizeObserver' in window) new window.ResizeObserver(requestPieceLayout).observe($('board'));
+window.addEventListener('resize', requestPieceLayout);
 
 function show(id) {
   ['view-lobby', 'view-room', 'view-game'].forEach((v) => $(v).classList.toggle('hidden', v !== id));
@@ -123,8 +133,10 @@ function renderBoard() {
   board.innerHTML = '';
   for (const sq of game.board) {
     const [r, c] = gridPos(sq.id);
-    const div = document.createElement('div');
+    const div = document.createElement('button');
+    div.type = 'button';
     div.className = 'sq ' + typeClass(sq);
+    div.dataset.squareId = String(sq.id);
     div.style.gridRow = r;
     div.style.gridColumn = c;
     let owner = '', sub = '';
@@ -139,7 +151,10 @@ function renderBoard() {
       const a = game.airports[sq.airportId];
       owner = a.ownerId ? (playerById(a.ownerId)?.name || '') : '';
     }
-    div.innerHTML = '<span class="num">' + sq.id + '</span><span class="nm">' + sqLabel(sq) + '</span>'
+    if (sq.type !== 'city') div.onclick = () => openSquareDetail(sq.id);
+    const glyph = { start: '↗', city: '◆', chance: '?', airport: '✈', rest: '☀', jail: '▥', pole: '✦' }[sq.type] || '•';
+    div.setAttribute('aria-label', sq.id + ' 号地块：' + sqLabel(sq) + (owner ? '，持有者 ' + owner : ''));
+    div.innerHTML = '<span class="num">' + sq.id + '</span><span class="glyph" aria-hidden="true">' + glyph + '</span><span class="nm">' + sqLabel(sq) + '</span>'
       + (sub ? '<span class="subrow">' + sub + '</span>' : '')
       + (owner ? '<span class="own">' + owner + '</span>' : '');
     board.appendChild(div);
@@ -149,11 +164,11 @@ function renderBoard() {
 // ---------- 掷骰 / 棋子移动动画 ----------
 function pieceXY(posId) {
   const sq = $('board').children[posId];
-  if (!sq) return { x: 0, y: 0 };
+  if (!sq) return { x: 0, y: 0, width: 0, height: 0 };
   const bd = $('board');
   const br = bd.getBoundingClientRect();
   const sr = sq.getBoundingClientRect();
-  return { x: sr.left - br.left + sr.width / 2, y: sr.top - br.top + sr.height / 2 };
+  return { x: sr.left - br.left + sr.width / 2, y: sr.top - br.top + sr.height / 2, width: sr.width, height: sr.height };
 }
 function renderPieces() {
   const layer = $('pieces');
@@ -165,16 +180,20 @@ function renderPieces() {
     const pos = lastPos[p.id] != null ? lastPos[p.id] : p.position;
     offsets[pos] = (offsets[pos] || 0) + 1;
   });
+  const counts = { ...offsets };
   alive.forEach((p) => {
     const pos = lastPos[p.id] != null ? lastPos[p.id] : p.position;
     const xy = pieceXY(pos);
-    const idx = offsets[pos]--;
+    const idx = offsets[pos]-- - 1;
     const d = document.createElement('span');
     d.className = 'piece';
     d.style.background = p.color;
-    const gap = (idx - 1) * 14;
-    d.style.left = (xy.x + gap) + 'px';
-    d.style.top = (xy.y + gap) + 'px';
+    const columns = Math.min(2, counts[pos]);
+    const rows = Math.ceil(counts[pos] / columns);
+    const gapX = Math.min(14, xy.width / (columns + 1));
+    const gapY = Math.min(14, xy.height / (rows + 1));
+    d.style.left = (xy.x + (idx % columns - (columns - 1) / 2) * gapX) + 'px';
+    d.style.top = (xy.y + (Math.floor(idx / columns) - (rows - 1) / 2) * gapY) + 'px';
     layer.appendChild(d);
   });
 }
@@ -191,6 +210,12 @@ function playMoveAnim(movers, done) {
   const steps = movers.map((p) => ({ id: p.id, path: movePath(lastPos[p.id] != null ? lastPos[p.id] : p.position, p.position) }));
   const maxLen = steps.reduce((m, st) => Math.max(m, st.path.length), 0);
   if (!maxLen) { done(); return; }
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    for (const st of steps) lastPos[st.id] = st.path[st.path.length - 1];
+    renderPieces();
+    done();
+    return;
+  }
   let i = 0;
   const iv = setInterval(() => {
     i++;
@@ -202,6 +227,11 @@ function playMoveAnim(movers, done) {
 function playDiceAnim() {
   const el = $('dice');
   if (!el) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    diceAnimating = false;
+    if (animQueued) { const st = animQueued; animQueued = null; processState(st); }
+    return;
+  }
   diceAnimating = true;
   el.classList.add('rolling');
   const iv = setInterval(() => {
@@ -231,7 +261,7 @@ function afterAnim(state) {
 function finishRender(state) {
   if (state.phase !== 'stock') {
     stockAutoShown = false;
-    $('stockModal').classList.add('hidden'); // 股票阶段结束（含超时自动跳过）后收起股票弹窗，防止遮罩拦截后续弹窗
+    hideOverlay('stockModal'); // 股票阶段结束（含超时自动跳过）后收起股票弹窗，防止遮罩拦截后续弹窗
   }
   renderBoard();
   renderPieces();
@@ -284,15 +314,9 @@ function renderSide() {
   if (!cur.alive) state = ' <span class="badge bankrupt">已破产</span>';
   if (cur.jailed) state += ' <span class="badge host">入狱</span>';
   if (cur.frozen) state += ' <span class="badge host">冰冻</span>';
-  const stocks = Object.entries(cur.stocks || {}).filter(([, n]) => n > 0);
-  panel.innerHTML = '<h3>我的信息</h3>'
-    + '<div class="pinfo"><b>' + cur.name + '</b>' + (isHost ? ' <span class="badge host">房主</span>' : '') + state + '</div>'
-    + '<div class="assets">'
-    + '<div class="asset-row"><span>总资产</span><b class="total">' + fmt(totalAssetsFor(cur)) + '</b></div>'
-    + '<div class="asset-row"><span>当前现金</span><b class="total">' + fmt(cur.cash) + '</b></div>'
-    + '<div class="asset-row"><span>城市 ' + cur.cities.length + '（抵押 ' + cur.cities.filter((id) => game.cities[id].mortgaged).length + '）</span><b>' + (cur.airports || []).length + ' 机场</b></div>'
-    + '<div class="asset-row"><span>持股</span><b>' + (stocks.map(([c, n]) => (game.cities[c].country ? game.cities[c].country + '·' : '') + c + '×' + n).join('、') || '无') + '</b></div>'
-    + '</div>';
+  panel.innerHTML = '<h3>当前玩家</h3>'
+    + '<div class="pinfo"><span class="pdot" style="background:' + cur.color + '"></span><b>' + cur.name + '</b>' + (isHost ? ' <span class="badge host">房主</span>' : '') + state + '</div>'
+    + '<div class="turn-phase">' + (isMyTurn() ? '轮到你行动' : '等待其他玩家行动') + ' · 第 ' + game.rounds + ' 轮</div>';
   const others = game.players.filter((p) => p.id !== me.gameId);
   const othersEl = $('sideOthers');
   if (othersEl) {
@@ -319,6 +343,11 @@ function renderSide() {
     d.textContent = e.text;
     log.appendChild(d);
   });
+  for (const heading of $('side').querySelectorAll('.panel h3')) {
+    heading.tabIndex = 0;
+    heading.setAttribute('role', 'button');
+    heading.setAttribute('aria-expanded', String(!heading.parentElement.classList.contains('closed')));
+  }
 }
 
 // ---------- 中心资产台账 ----------
@@ -369,6 +398,7 @@ function renderLedger() {
   const meP = game.players.find((p) => p.id === me.gameId);
   const body = $('ledgerBody');
   if (!meP) return;
+  body.innerHTML = '';
   if (!meP.alive) {
     box.classList.remove('dim');
     body.innerHTML = '<div class="ledger-liquidate"><h4>破产清算文书</h4>'
@@ -378,24 +408,30 @@ function renderLedger() {
   const waitingRoll = game.phase === 'waiting_roll' && isMyTurn();
   box.classList.toggle('dim', waitingRoll);
   const stocks = Object.entries(meP.stocks || {}).filter(([, n]) => n > 0);
+  const stockCount = stocks.reduce((sum, [, n]) => sum + n, 0);
   const mgCount = meP.cities.filter((id) => game.cities[id].mortgaged).length;
   const allowOps = isMyTurn() && game.phase !== 'game_over';
+  body.innerHTML = '<div class="ledger-title">我的资产 <em>· 航海家</em></div>'
+    + '<div class="ledger-total"><span>总资产</span><strong>' + fmt(totalAssetsFor(meP)) + '</strong></div>'
+    + '<div class="ledger-summary">'
+    + '<div><span>现金</span><b>' + fmt(meP.cash) + '</b></div>'
+    + '<div><span>城市</span><b>' + meP.cities.length + ' 座</b></div>'
+    + '<div><span>机场</span><b>' + (meP.airports || []).length + ' 座</b></div>'
+    + '<div><span>持股</span><b>' + stockCount + ' 股</b></div></div>';
+  const open = document.createElement('button');
+  open.type = 'button';
+  open.className = 'ledger-open';
+  open.textContent = '查看完整资产 ↗';
+  open.onclick = openAssetOverview;
+  body.appendChild(open);
   if (meP.cities.length) {
     const wrap = document.createElement('div');
     wrap.className = 'ledger-list';
     for (const id of meP.cities) wrap.appendChild(ledgerCityRow(meP, id, allowOps));
-    body.innerHTML = '<div class="ledger-title">资产台账 · 我的资产</div>'
-      + '<div class="ledger-cash"><span class="lbl">当前现金</span><span class="amt">' + fmt(meP.cash) + '</span></div>'
-      + '<div class="ledger-sum"><span>城市 <b>' + meP.cities.length + '</b>（抵押 <b>' + mgCount + '</b> / 上限 2 座）</span>'
-      + '<span>机场 <b>' + (meP.airports || []).length + '</b></span>'
-      + '<span>持股 <b>' + (stocks.map(([c, n]) => (game.cities[c].country ? game.cities[c].country + '·' : '') + c + '×' + n).join('、') || '无') + '</b></span></div>';
     body.appendChild(wrap);
-    body.insertAdjacentHTML('beforeend', '<div class="ledger-note">抵押上限最多 2 座城市；赎回需足额现金（抵押金 + 累计利息）；起点地产支持出售清算。点击城市行查看地产详情。</div>');
+    body.insertAdjacentHTML('beforeend', '<div class="ledger-note">抵押 ' + mgCount + ' / 2 座 · 点击城市查看详情</div>');
   } else {
-    body.innerHTML = '<div class="ledger-title">资产台账 · 我的资产</div>'
-      + '<div class="ledger-cash"><span class="lbl">当前现金</span><span class="amt">' + fmt(meP.cash) + '</span></div>'
-      + '<div class="ledger-list"><div class="lrow"><span class="nm" style="color:var(--off)">暂无城市资产</span></div></div>'
-      + '<div class="ledger-note">掷骰落子、收购城市后，台账将在此列出明细。</div>';
+    body.insertAdjacentHTML('beforeend', '<div class="ledger-empty">暂无城市资产</div>');
   }
   if (waitingRoll) body.insertAdjacentHTML('beforeend', '<div class="ledger-wait">等待掷骰子</div>');
 }
@@ -413,9 +449,45 @@ function renderActionBar() {
 }
 
 // ---------- 通用弹窗 ----------
-function openModal(title) { $('modalTitle').textContent = title; $('modal').classList.remove('hidden'); }
-function closeModal() { $('modal').classList.add('hidden'); }
+const overlayReturnFocus = new Map();
+function showOverlay(id) {
+  const overlay = $(id);
+  if (overlay.classList.contains('hidden')) {
+    const active = document.activeElement;
+    overlayReturnFocus.set(id, { element: active, squareId: active?.dataset?.squareId });
+  }
+  overlay.classList.remove('hidden');
+  const title = overlay.querySelector('.mh h3');
+  if (title) { title.tabIndex = -1; title.focus({ preventScroll: true }); }
+}
+function hideOverlay(id) {
+  const overlay = $(id);
+  if (overlay.classList.contains('hidden')) return;
+  overlay.classList.add('hidden');
+  const previous = overlayReturnFocus.get(id);
+  overlayReturnFocus.delete(id);
+  const target = previous?.element?.isConnected && !previous.element.closest('.overlay.hidden')
+    ? previous.element
+    : (previous?.squareId ? document.querySelector('#board [data-square-id="' + previous.squareId + '"]') : null);
+  if (target && typeof target.focus === 'function') target.focus({ preventScroll: true });
+}
+function openModal(title) { $('modalTitle').textContent = title; showOverlay('modal'); }
+function closeModal() { hideOverlay('modal'); }
 function emitAct(action) { socket.emit('action', action); closeModal(); }
+document.addEventListener('keydown', (event) => {
+  if (event.key !== 'Tab') return;
+  const overlay = ['modal', 'stockModal', 'rulesModal'].map($).find((el) => !el.classList.contains('hidden'));
+  if (!overlay) return;
+  const items = [...overlay.querySelectorAll('button:not(:disabled),input:not(:disabled),select:not(:disabled),[tabindex="0"]')]
+    .filter((el) => el.getClientRects().length);
+  if (!items.length) return;
+  const first = items[0], last = items[items.length - 1];
+  if (event.shiftKey && (document.activeElement === first || !items.includes(document.activeElement))) {
+    event.preventDefault(); last.focus();
+  } else if (!event.shiftKey && (document.activeElement === last || !items.includes(document.activeElement))) {
+    event.preventDefault(); first.focus();
+  }
+});
 function kv(label, val, cls) { return '<div class="kv"><span>' + label + '</span><b class="' + (cls || '') + '">' + val + '</b></div>'; }
 
 function renderPending() {
@@ -551,7 +623,7 @@ function renderPending() {
         stockAutoShown = true;
         closeModal(); // 关闭机会卡等上一弹窗，避免残留
         renderStock();
-        $('stockModal').classList.remove('hidden');
+        showOverlay('stockModal');
       }
       break;
     case 'flight':
@@ -661,16 +733,15 @@ function openAssetOverview() {
     + kv('总资产', fmt(totalAssetsFor(meP)), 'g')
     + kv('当前现金', fmt(meP.cash))
     + kv('城市 / 抵押', meP.cities.length + ' / ' + meP.cities.filter((id) => game.cities[id].mortgaged).length)
-    + kv('机场', (meP.airports || []).length)
-    + '<div style="margin-top:6px">';
+    + kv('机场', (meP.airports || []).length);
   if (meP.cities.length) {
     const wrap = document.createElement('div');
     wrap.className = 'ledger-list';
     for (const id of meP.cities) wrap.appendChild(ledgerCityRow(meP, id, true));
     body.appendChild(wrap);
-  } else body.innerHTML += '<p class="hint">暂无城市资产</p>';
-  body.innerHTML += '<p class="hint">抵押时机：轮到你行动时可随时抵押（竞拍、交易确认期间除外）；每名玩家最多同时抵押 2 座城市；赎回需先落到该城市，本界面不提供赎回。</p>';
-  body.innerHTML += '<div class="row"><button class="secondary" onclick="clickTransferEntry()">股票转让</button><button class="primary" onclick="closeModal()">关闭</button></div>';
+  } else body.insertAdjacentHTML('beforeend', '<p class="hint">暂无城市资产</p>');
+  body.insertAdjacentHTML('beforeend', '<p class="hint">抵押时机：轮到你行动时可随时抵押（竞拍、交易确认期间除外）；每名玩家最多同时抵押 2 座城市；赎回需先落到该城市，本界面不提供赎回。</p>');
+  body.insertAdjacentHTML('beforeend', '<div class="row"><button class="secondary" onclick="clickTransferEntry()">股票转让</button><button class="primary" onclick="closeModal()">关闭</button></div>');
   openModal('资产总览');
 }
 
@@ -708,11 +779,11 @@ function setupLobby() {
   };
   $('btnSurrender').onclick = () => { if (confirm('确认认输？')) socket.emit('action', { type: 'surrender' }); };
   $('btnDisband').onclick = () => { if (confirm('解散房间？')) socket.emit('disbandRoom'); };
-  $('btnStock').onclick = () => { if (game && game.phase !== 'stock') { toast('仅经过起点时可交易（跨过/停在起点会自动弹出）'); return; } renderStock(); $('stockModal').classList.remove('hidden'); };
-  $('btnStockSkip').onclick = () => { socket.emit('action', { type: 'stock_done' }); $('stockModal').classList.add('hidden'); stockDraft = {}; };
+  $('btnStock').onclick = () => { if (game && game.phase !== 'stock') { toast('仅经过起点时可交易（跨过/停在起点会自动弹出）'); return; } renderStock(); showOverlay('stockModal'); };
+  $('btnStockSkip').onclick = () => { socket.emit('action', { type: 'stock_done' }); hideOverlay('stockModal'); stockDraft = {}; };
   $('btnStockConfirm').onclick = submitStock;
-  $('btnRules').onclick = () => { $('rulesModal').classList.remove('hidden'); };
-  $('btnRulesClose').onclick = () => $('rulesModal').classList.add('hidden');
+  $('btnRules').onclick = () => { showOverlay('rulesModal'); };
+  $('btnRulesClose').onclick = () => hideOverlay('rulesModal');
   $('btnRoll').onclick = () => { playDiceAnim(); socket.emit('action', { type: 'roll_dice' }); };
   $('btnEndTurn').onclick = () => { playDiceAnim(); socket.emit('action', { type: 'roll_dice' }); };
   $('btnAssets').onclick = openAssetOverview;
@@ -732,9 +803,18 @@ function setupLobby() {
   });
   // 侧栏卡片点击标题折叠/展开（手机可折叠面板）
   const sideEl = $('side');
+  const toggleSidePanel = (heading) => {
+    heading.parentElement.classList.toggle('closed');
+    heading.setAttribute('aria-expanded', String(!heading.parentElement.classList.contains('closed')));
+  };
   if (sideEl) sideEl.addEventListener('click', (e) => {
     const h = e.target.closest('.panel h3');
-    if (h) h.parentElement.classList.toggle('closed');
+    if (h) toggleSidePanel(h);
+  });
+  if (sideEl) sideEl.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    const h = e.target.closest('.panel h3');
+    if (h) { e.preventDefault(); toggleSidePanel(h); }
   });
 }
 
@@ -1020,7 +1100,7 @@ function submitStock() {
   socket.emit('action', { type: 'stock_trade', orders });
   socket.emit('action', { type: 'stock_done' });
   stockDraft = {};
-  $('stockModal').classList.add('hidden');
+  hideOverlay('stockModal');
 }
 function renderTransferPanel() {
   const meP = game.players.find((p) => p.id === me.gameId);
@@ -1123,9 +1203,9 @@ function openBank() {
       wrap.appendChild(r);
     }
     body.appendChild(wrap);
-  } else body.innerHTML += '<p class="hint">没有可抵押的城市</p>';
-  body.innerHTML += '<p class="hint">赎回需落到对应城市后才能进行（在银行/资产界面不提供，抵押可随时进行）。</p>';
-  body.innerHTML += '<div class="row"><button class="textbtn" onclick="closeModal()">关闭</button></div>';
+  } else body.insertAdjacentHTML('beforeend', '<p class="hint">没有可抵押的城市</p>');
+  body.insertAdjacentHTML('beforeend', '<p class="hint">赎回需落到对应城市后才能进行（在银行/资产界面不提供，抵押可随时进行）。</p>');
+  body.insertAdjacentHTML('beforeend', '<div class="row"><button class="textbtn" onclick="closeModal()">关闭</button></div>');
   openModal('银行交易');
 }
 function openCityDetail(cityId) {
@@ -1156,6 +1236,56 @@ function openCityDetail(cityId) {
     + (mine && !c.mortgaged && meP && meP.position === 0 ? '<button class="risk" onclick="sellChoice(\'' + cityId + '\')">出售</button>' : '')
     + '<button class="textbtn" onclick="closeModal()">关闭</button></div>';
   openModal('地产详情');
+}
+function openSquareDetail(squareId) {
+  const sq = game && game.board.find((item) => item.id === squareId);
+  if (!sq) return;
+  if (sq.type === 'city') { openCityDetail(sq.cityId); return; }
+  const labels = { start: '起点', airport: '机场', chance: '机会', rest: '休闲', jail: '监狱', pole: '极地' };
+  const descriptions = {
+    start: '经过或停在起点时按当前规则领取奖励与股息，并开放股票窗口。',
+    chance: '落在此格时抽取机会卡，按实际卡面效果结算。',
+    rest: '休闲地块不可购买；落点效果以当前对局状态为准。',
+    jail: '落在此格时按对应监狱规则处理，具体选项以当次对局提示为准。',
+    pole: '落在此格时按极地冰冻规则处理，具体选项以当次对局提示为准。',
+    airport: '机场可按当前对局阶段购买或使用，具体操作以落点提示为准。'
+  };
+  const body = $('modalBody');
+  body.innerHTML = '<div class="card-tag">BOARD SQUARE</div>';
+  const addRow = (label, value) => {
+    const row = document.createElement('div');
+    row.className = 'kv';
+    const key = document.createElement('span');
+    key.textContent = label;
+    const val = document.createElement('b');
+    val.textContent = value;
+    row.append(key, val);
+    body.appendChild(row);
+  };
+  addRow('地块编号', String(sq.id));
+  addRow('地块名称', sqLabel(sq));
+  addRow('地块类别', labels[sq.type] || '特殊地块');
+  if (sq.type === 'airport') {
+    const airport = game.airports[sq.airportId];
+    const owner = airport && playerById(airport.ownerId);
+    addRow('持有者', owner ? owner.name : '无');
+    addRow('购买价格', fmt(15000));
+    if (owner) addRow('当前机场费', fmt(3000 * owner.airports.length));
+  }
+  const note = document.createElement('p');
+  note.className = 'hint';
+  note.textContent = descriptions[sq.type] || '落点效果以当前对局状态为准。';
+  body.appendChild(note);
+  const actions = document.createElement('div');
+  actions.className = 'row';
+  const close = document.createElement('button');
+  close.type = 'button';
+  close.className = 'primary';
+  close.textContent = '关闭';
+  close.onclick = closeModal;
+  actions.appendChild(close);
+  body.appendChild(actions);
+  openModal('地块详情');
 }
 function openReceipt(ev) {
   const body = $('modalBody');

@@ -1,11 +1,12 @@
 'use strict';
-const CACHE = 'global-tycoon-v2';
+const CACHE = 'global-tycoon-v3-ocean';
 const CORE = [
   './',
   './index.html',
   './style.css',
   './client.js',
-  './map-bg.png',
+  './assets/world-map-ocean.png',
+  './assets/ocean-surface.png',
   './manifest.webmanifest',
   './icon.svg'
 ];

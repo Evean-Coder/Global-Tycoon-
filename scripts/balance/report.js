@@ -16,7 +16,7 @@ function renderReport(summary, evidenceIndex) {
     `来源：**${summary.source === 'formal' ? 'formal 正式抽样' : 'debug 开发调试，不作为正式胜率证据'}**。配置：\`${summary.configHash}\`。代码：\`${summary.codeFingerprint.hash}\`。`, '',
     `计划 ${c.planned} 局；实际开局 ${c.started}；已终止 ${c.terminated}（自然 ${c.natural}、截断 ${c.censored}、异常 ${c.error}）；待恢复 ${c.pending}；未执行 ${c.unstarted}。独立完整组 ${c.completeGroups}/${c.plannedGroups}。`, '',
     `自然完赛率（自然/实际开局）：${percent(c.completionRate)}。停止原因：${summary.stopReason || '计划完成'}。${summary.provisional ? '计划仍不完整，主要强弱结论降级为证据不足。' : '计划完成不等于已证明玩法等强。'}`, '',
-    `对局逻辑上限：${summary.limits.rounds} 完整轮或 ${summary.limits.actions} 成功动作；累计计算预算 ${summary.limits.computeMs / 60000} 分钟，输出上限 ${summary.limits.outputBytes} 字节。本批计算 ${number((summary.computeMs || 0) / 60000)} 分钟，所有正式版本累计 ${number((summary.totalComputeMs || 0) / 60000)} 分钟。CPU user+system记录计算量，实际操作墙钟时间另存预算台账；等待及挂起不计入CPU计算。`, '',
+    `对局逻辑上限：${summary.limits.rounds} 完整轮或 ${summary.limits.actions} 成功动作；累计计算预算 ${summary.limits.computeMs / 60000} 分钟，输出上限 ${summary.limits.outputBytes} 字节。本批计算 ${number((summary.computeMs || 0) / 60000)} 分钟，所有正式版本累计 ${number((summary.totalComputeMs || 0) / 60000)} 分钟。执行时间含同步落盘，操作间等待不计入；≥60秒且CPU低于1秒的异常静止区间单独记录为推定挂起，预算台账同时保留原墙钟、CPU与排除量以便复核。`, '',
     '## 各实验覆盖与胜率', '',
     '开局胜场占比的分母包含待恢复；条件胜率只以自然完赛局为分母。截断资产领先者没有胜场。中性基线开局均匀参考为自然完赛率/人数。', '',
   ];

@@ -106,6 +106,17 @@ test('计算预算：片段停止不是截断，累计预算跨版本保留且�
   const ledger = JSON.parse(fs.readFileSync(path.join(f.root, 'artifacts/gameplay-balance/formal-budget.json'), 'utf8'));
   assert.equal(ledger.computeMs, 10); assert.equal(Object.keys(ledger.runs).length, 2);
 });
+test('计算预算：同步执行及落盘时间计入，挂起推定与原墙钟/CPU分别保留', t => {
+  const f = fixture(t), { openBudget } = require('../scripts/balance/batch');
+  let wall = 0, cpu = 0;
+  const budget = openBudget(f.config, { root: f.root, workNow: () => wall, cpuNow: () => cpu });
+  const start = budget.beginWork(); wall = 20; cpu = 1; budget.endWork(start);
+  assert.equal(budget.computeMs, 20);
+  wall += 600000; const afterWait = budget.beginWork(); wall += 600000; cpu++;
+  budget.endWork(afterWait); assert.equal(budget.computeMs, 21);
+  const ledger = budget.snapshot(); assert.equal(ledger.excludedInactiveGapMs, 599999); assert.equal(ledger.runs[f.config.runId].wallWorkMs, 600020);
+  budget.close();
+});
 test('异常中断：首个策略失败保存异常，停止其他样本，恢复不覆盖旧失败', async t => {
   const { temporaryRun } = require('./helpers/balanceFixtures'), { runBatch } = require('../scripts/balance/batch');
   const f = temporaryRun(t); delete f.config.policyConfigs.neutral; f.config.configHash = hashConfig(f.config);

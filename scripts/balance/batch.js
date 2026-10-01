@@ -11,10 +11,13 @@ const { summarizeObservations } = require('./observe');
 
 const copy = v => globalThis.structuredClone(v);
 const yieldLoop = () => new Promise(resolve => require('node:timers').setImmediate(resolve));
-// Only measured synchronous work consumes the budget. Event-loop/user waits do
-// not count; process CPU time also excludes a suspended host, including suspension
-// during a synchronous operation. Both CPU and wall time are retained for audit.
-function openBudget(config, { root = ROOT, cpuNow = () => { const t = process.cpuUsage(); return (t.user + t.system) / 1000; } } = {}) {
+// Measure active operations, including synchronous evidence I/O. Waiting between
+// operations is excluded. A long low-CPU interruption is recorded separately;
+// every production action is far shorter than this suspension detection window.
+function openBudget(config, options = {}) {
+  const root = options.root || ROOT;
+  const cpuNow = options.cpuNow || (() => { const t = process.cpuUsage(); return (t.user + t.system) / 1000; });
+  const workNow = options.workNow || (options.cpuNow ? options.cpuNow : performanceNow);
   const base = path.resolve(root, 'artifacts/gameplay-balance');
   resolveRun(path.join(base, 'budget-path-check'), root);
   fs.mkdirSync(base, { recursive: true });
@@ -22,7 +25,7 @@ function openBudget(config, { root = ROOT, cpuNow = () => { const t = process.cp
   const budgetDir = config.source === 'formal' ? base : resolveRun(config.output, root);
   fs.mkdirSync(budgetDir, { recursive: true });
   const file = path.join(budgetDir, config.source === 'formal' ? 'formal-budget.json' : 'budget.json'), lock = path.join(base, 'formal-budget.lock');
-  let ledger = { version: 1, limitMs: config.limits.computeMs, computeMs: 0, runs: {}, accounting: 'process-cpu-user-system' }, lockFd;
+  let ledger = { version: 2, limitMs: config.limits.computeMs, computeMs: 0, excludedInactiveGapMs: 0, runs: {}, accounting: 'active-operation-wall-with-cpu-suspension-check' }, lockFd;
   if (config.source === 'formal') {
     if (fs.existsSync(lock)) {
       if (fs.lstatSync(lock).isSymbolicLink()) throw new Error('预算锁不能是链接');
@@ -40,10 +43,10 @@ function openBudget(config, { root = ROOT, cpuNow = () => { const t = process.cp
       if (fs.lstatSync(file).isSymbolicLink()) { if (lockFd !== undefined) { fs.closeSync(lockFd); fs.unlinkSync(lock); } throw new Error('预算文件不能是链接'); }
       try { ledger = JSON.parse(fs.readFileSync(file, 'utf8')); }
       catch (error) { if (lockFd !== undefined) { fs.closeSync(lockFd); fs.unlinkSync(lock); } throw error; }
-      if (ledger.version !== 1 || ledger.limitMs !== config.limits.computeMs || !Number.isFinite(ledger.computeMs) || ledger.computeMs < 0) { if (lockFd !== undefined) { fs.closeSync(lockFd); fs.unlinkSync(lock); } throw new Error('累计预算记录无效'); }
+      if (ledger.version !== 2 || ledger.limitMs !== config.limits.computeMs || !Number.isFinite(ledger.computeMs) || ledger.computeMs < 0) { if (lockFd !== undefined) { fs.closeSync(lockFd); fs.unlinkSync(lock); } throw new Error('累计预算记录无效'); }
     }
   const runId = config.runId;
-  ledger.runs[runId] ||= { computeMs: 0, wallWorkMs: 0, configHash: config.configHash };
+  ledger.runs[runId] ||= { computeMs: 0, wallWorkMs: 0, cpuMs: 0, excludedInactiveGapMs: 0, configHash: config.configHash };
   if (ledger.runs[runId].configHash !== config.configHash) { if (lockFd !== undefined) { fs.closeSync(lockFd); fs.unlinkSync(lock); } throw new Error('预算批次配置不匹配'); }
   let closed = false;
   function flush() {
@@ -51,11 +54,14 @@ function openBudget(config, { root = ROOT, cpuNow = () => { const t = process.cp
     try { fs.writeFileSync(fd, JSON.stringify(ledger, null, 2) + '\n'); fs.fsyncSync(fd); } finally { fs.closeSync(fd); }
     fs.renameSync(temp, file);
   }
-  function beginWork() { return { cpu: cpuNow(), wall: performanceNow() }; }
+  function beginWork() { return { cpu: cpuNow(), wall: workNow() }; }
   function endWork(start) {
     if (!start) return 0;
-    const delta = Math.max(0, cpuNow() - start.cpu);
-    ledger.computeMs += delta; ledger.runs[runId].computeMs += delta; ledger.runs[runId].wallWorkMs += Math.max(0, performanceNow() - start.wall);
+    const wall = Math.max(0, workNow() - start.wall), cpu = Math.max(0, cpuNow() - start.cpu);
+    const inactive = wall >= 60000 && cpu < 1000 ? Math.max(0, wall - cpu) : 0;
+    const delta = Math.max(cpu, wall - inactive);
+    ledger.computeMs += delta; ledger.runs[runId].computeMs += delta; ledger.runs[runId].wallWorkMs += wall; ledger.runs[runId].cpuMs += cpu;
+    ledger.excludedInactiveGapMs += inactive; ledger.runs[runId].excludedInactiveGapMs += inactive;
     return delta;
   }
   return { beginWork, endWork, flush, exhausted: () => ledger.computeMs >= ledger.limitMs, get computeMs() { return ledger.computeMs; }, get runComputeMs() { return ledger.runs[runId].computeMs; }, snapshot: () => copy(ledger), close() { if (closed) return; closed = true; try { flush(); } finally { if (lockFd !== undefined) { fs.closeSync(lockFd); fs.unlinkSync(lock); } } } };

@@ -65,8 +65,9 @@ function openRun(config, options = {}) {
     const saved = loadRun(config.output, { root, fingerprint: options.fingerprint || config.codeFingerprint });
     if (saved.config.configHash !== config.configHash) throw new Error('恢复配置不匹配');
   } else fs.mkdirSync(dir, { recursive: true });
-  const maxBytes = options.maxBytes ?? config.limits.outputBytes;
   let bytes = sizeTree(dir);
+  const otherBytes = sizeTree(path.resolve(root, 'artifacts/gameplay-balance')) - bytes;
+  const maxBytes = options.maxBytes ?? config.limits.outputBytes - otherBytes;
   const writers = new Map();
   function target(relative) {
     const file = path.resolve(dir, relative);
@@ -107,7 +108,12 @@ function openRun(config, options = {}) {
   }
   function saveResult(result) { validateResult(result); return atomic(samplePath(result.sampleId, 'result.json'), result, { exclusive: true }); }
   function results(schedule) {
+    const directory = target('samples');
+    if (!fs.existsSync(directory)) return [];
+    const available = new Set(fs.readdirSync(directory)), planned = new Set(schedule.map(s => s.sampleId));
+    if ([...available].some(id => !planned.has(id))) throw new Error('逐局目录包含未知样本');
     return schedule.flatMap(spec => {
+      if (!available.has(spec.sampleId)) return [];
       const rel = samplePath(spec.sampleId, 'result.json');
       if (!fs.existsSync(target(rel))) return [];
       const r = read(rel); validateResult(r);

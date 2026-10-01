@@ -9,6 +9,12 @@ const { createTrackedRng } = require('../scripts/balance/random');
 const { createRng } = require('../src/random');
 const { buildSchedule } = require('../scripts/balance/schedule');
 const fingerprint = { hash: 'fixture', commit: 'fixture', worktree: '', files: [] };
+test('帮助入口：准确说明模式/上限，npm别名不改变生产依赖', () => {
+  const { HELP } = require('../scripts/simulate-balance');
+  for (const text of ['--games', '--formal', '--resume', '--replay', '--report', '4200', '2240', '240', '2GiB']) assert.ok(HELP.includes(text));
+  const pkg = require('../package.json'); assert.equal(pkg.scripts.balance, 'node scripts/simulate-balance.js');
+  assert.deepEqual(Object.keys(pkg.dependencies).sort(), ['express', 'socket.io']);
+});
 
 test('参数模式：五入口严格校验，不允许正式临时参数', () => {
   assert.deepEqual(parseArgs([]), { mode: 'debug', games: 20, seed: 22, players: 4 });

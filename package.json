@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
+    "balance": "node scripts/simulate-balance.js",
     "test": "node --test --test-force-exit",
     "lint": "eslint server.js src scripts public/client.js test e2e",
     "test:e2e": "node --test --test-force-exit e2e/flow.spec.js e2e/gameplay.spec.js e2e/responsive.spec.js e2e/cache.spec.js"

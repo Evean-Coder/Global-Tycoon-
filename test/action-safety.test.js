@@ -33,4 +33,3 @@ test('转让确认只使用保存的接收方，失败不产生部分成交', ()
   assert.equal(s.stocks[cityId].holders.p1, 1);
   assert.equal(s.players[2].cash, 150000);
 });
-

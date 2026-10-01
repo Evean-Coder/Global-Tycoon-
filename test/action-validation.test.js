@@ -105,4 +105,3 @@ test('待确认接收方固定，不能改写目标或代替当前玩家认输',
   assert.equal(normalizeAction(s, { type: 'stock_transfer', targetId: 'p1', accept: true }).ok, true);
   assert.equal(normalizeAction(s, { type: 'surrender' }).ok, false);
 });
-

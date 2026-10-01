@@ -1,4 +1,3 @@
 
 > global-tycoon@0.1.0 lint
 > eslint server.js src scripts public/client.js test e2e
-

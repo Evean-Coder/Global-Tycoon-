@@ -92,4 +92,3 @@ test('同阶段同玩家的新决定也重新取得完整期限', () => {
   assert.equal(c.remainingMs, 60000);
   assert.equal(c.decisionId, 2);
 });
-

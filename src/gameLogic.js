@@ -164,6 +164,7 @@ function completeRoundBoundary(state, events, rng) {
 
 function resolveChoices(state, events, rng, cause) {
   const stage = state.opportunityStage;
+  if (stage && !stage.resolved && alivePlayers(state).length <= 1) { finishGame(state, events); return; }
   const continuation = opportunities.resolveOpportunityStage(state, stage?.stageId, cause, events);
   if (!continuation) return;
   for (const id of stage.participantIds) {
@@ -711,7 +712,7 @@ function auctionWin(state, events, rng) {
     return;
   }
   city.ownerId = winner.id;
-  winner.cities.push(pend.cityId);
+  if (!winner.cities.includes(pend.cityId)) winner.cities.push(pend.cityId);
   city.buildReady = false; // 获得后需再次到达才能建房
   bumpStock(state, pend.cityId, 0.1);
   winner.lapBuys = (winner.lapBuys || 0) + 1; // 拍卖所得计入每圈 4 座上限制
@@ -1020,7 +1021,7 @@ function buyAction(state, p, action, events, rng) {
     p.cash -= city.price;
     if (modern(state)) stocks.transferCity(state, {cityId:pend.cityId,newOwnerId:p.id}, events);
     city.ownerId = p.id;
-    p.cities.push(pend.cityId);
+    if (!p.cities.includes(pend.cityId)) p.cities.push(pend.cityId);
     p.lapBuys = (p.lapBuys || 0) + 1;
     city.buildReady = false; // 购买后需再次到达才能建房
     bumpStock(state, pend.cityId, 0.1);
@@ -1165,7 +1166,7 @@ function buyFundraise(state, p, action, events, rng) {
       p.cash -= city.price;
       if (modern(state)) stocks.transferCity(state, {cityId:target.cityId,newOwnerId:p.id}, events);
       city.ownerId = p.id;
-      p.cities.push(target.cityId);
+      if (!p.cities.includes(target.cityId)) p.cities.push(target.cityId);
       p.lapBuys = (p.lapBuys || 0) + 1;
       city.buildReady = false; // 购买后需再次到达才能建房
       bumpStock(state, target.cityId, 0.1);

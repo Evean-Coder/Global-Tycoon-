@@ -11,7 +11,7 @@ function snapshot(s,viewerId,clockView){
   x.assetSummary=assetSummary(s,p.id);return x;
  });
  out.cities=Object.fromEntries(Object.entries(s.cities).map(([id,c])=>[id,{...c,standardRent:c.mortgaged?0:econ.rentFor(c)}]));
- out.stocks=Object.fromEntries(Object.entries(s.stocks).map(([id,st])=>[id,{price:st.price,holders:{...st.holders},operatingPrice:st.operatingPrice,dividendFund:st.dividendFund,lastDividendPerShare:st.lastDividendPerShare,priceChange:st.priceChange,listingEpoch:st.listingEpoch,quoteVersion:st.quoteVersion,clearing:st.clearing}]));
+ out.stocks=Object.fromEntries(Object.entries(s.stocks).map(([id,st])=>[id,{price:st.price,holders:{...st.holders},operatingPrice:st.operatingPrice,dividendFund:st.dividendFund,rentHistory:st.rentHistory.slice(),lastDividendPerShare:st.lastDividendPerShare,priceChange:st.priceChange,listingEpoch:st.listingEpoch,quoteVersion:st.quoteVersion,clearing:st.clearing}]));
  out.world={status:s.world.status,active:s.world.active?{...s.world.active}:null,preview:s.world.preview?{...s.world.preview}:null,roundsCompleted:s.world.roundsCompleted};
  out.completeRounds=s.roundFlow.index;
  out.pending=null;

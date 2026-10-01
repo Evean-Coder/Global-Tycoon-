@@ -61,7 +61,7 @@ function rentAmounts(s,{playerId,cityId,baseAmount}){
   const cut=Math.min(1000,Math.max(0,2000-opp.used(p,'H6')),rounded(amount,10));
   if(cut){amount-=cut;effects.push(discount('H6','股东礼遇',cut,cut));quotaChanges.push({id:'H6',amount:cut});}
  }
- if(amount>0&&opp.has(p,'H11')&&!opp.used(p,'H11')){
+ if(amount>0&&c.ownerId!==p.id&&opp.has(p,'H11')&&!opp.used(p,'H11')){
   const cut=Math.min(2000,rounded(amount,20));
   if(cut){amount-=cut;effects.push(discount('H11','风险准备金',cut,cut));quotaChanges.push({id:'H11',amount:1});}
  }
@@ -101,7 +101,9 @@ function applySettlement(s,q,events){
  if(q.roundRent!==undefined)s.stocks[q.cityId].roundRent+=q.roundRent;
  s.settlementSeq=(s.settlementSeq||0)+1;
  const label={build:'建房',demolish:'拆房返还',city_rent:'城市租金',flight:'机票'};
- events.push({type:q.kind==='city_rent'?'rent':q.kind,kind:q.kind,settlementId:s.gameId+':money:'+s.settlementSeq,playerId:p.id,cityId:q.cityId,baseAmount:q.baseAmount,finalAmount:q.finalAmount,effects:q.effects,bankSupplement:q.bankSupplement||0,cashDeltas:{...q.cashDeltas},fundDeltas:{...q.fundDeltas},text:p.name+' '+label[q.kind]+' '+Math.abs(q.finalAmount)+(q.effects.length?'（'+q.effects.map(e=>e.name+' '+e.amount).join('，')+'）':'')});
+ let text=p.name+' '+label[q.kind]+' '+Math.abs(q.finalAmount)+(q.effects.length?'（'+q.effects.map(e=>e.name+' '+e.amount).join('，')+'）':'');
+ if(q.kind==='city_rent'){const owner=getPlayer(s,s.cities[q.cityId].ownerId);text=p.name+' 向 '+owner.name+' 支付 '+q.cityId+' 租金：标准 '+q.baseAmount+'，资讯后 '+q.income+'，实际支付 '+q.finalAmount+'，银行补足 '+q.bankSupplement+'，城主现金 '+(q.income-q.fundDeltas[q.cityId])+'，待分红 '+q.fundDeltas[q.cityId]+(q.effects.length?'（'+q.effects.map(e=>e.name+' '+e.amount).join('，')+'）':'');}
+ events.push({type:q.kind==='city_rent'?'rent':q.kind,kind:q.kind,settlementId:s.gameId+':money:'+s.settlementSeq,playerId:p.id,cityId:q.cityId,baseAmount:q.baseAmount,finalAmount:q.finalAmount,effects:q.effects,bankSupplement:q.bankSupplement||0,cashDeltas:{...q.cashDeltas},fundDeltas:{...q.fundDeltas},text});
 }
 function reward(s,p,amount,id,events,reason){
  if(!p.alive||!amount)return;

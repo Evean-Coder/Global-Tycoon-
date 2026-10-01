@@ -68,7 +68,7 @@ function computeStats(state, events) {
     if (text.indexOf('抵押') !== -1) stats.mortgageEvents++;
   }
   if(state?.ruleVersion===2){
-    stats.economy={baseDividends:0,bankBonuses:0,retainedIncome:0,stockLiquidation:0,bankRentSupplement:0};
+    stats.economy={baseDividends:0,bankBonuses:0,retainedIncome:0,stockLiquidation:0,bankRentSupplement:0,buildSavings:0,flightSavings:0};
     stats.selectedOpportunities=state.players.map(p=>({playerId:p.id,selectedIds:p.opportunities.selectedIds.slice()}));
     stats.news=events.filter(e=>e.kind==='news').map(e=>({...e.news}));
     for(const e of events){
@@ -77,6 +77,8 @@ function computeStats(state, events) {
       if(e.kind==='retained_income')stats.economy.retainedIncome+=e.amount;
       if(e.kind==='stock_liquidation')stats.economy.stockLiquidation+=e.amount;
       if(e.kind==='city_rent')stats.economy.bankRentSupplement+=e.bankSupplement||0;
+      if(e.kind==='build')stats.economy.buildSavings+=e.baseAmount-e.finalAmount;
+      if(e.kind==='flight')stats.economy.flightSavings+=e.baseAmount-e.finalAmount;
     }
   }
   return stats;

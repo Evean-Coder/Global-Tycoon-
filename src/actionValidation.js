@@ -225,6 +225,14 @@ function normalizeAction(state, raw, context = {}) {
     if (!cityExists(state, raw.cityId) || !['direct', 'auction'].includes(raw.mode)) return fail('出售动作无效');
   }
   if (state.ruleVersion === 2) {
+    if(type==='direct_sale_respond'&&raw.decision==='buy'){
+      const city=state.cities[state.pending.cityId];
+      if(!city||(player.lapBuys||0)>=4||player.cash<economy.cityTotalValue(city))return fail('购买资格或现金不足，未成交');
+    }
+    if(type==='buy_fundraise'&&raw.decision==='confirm'){
+      const target=state.pending.target,c=target.kind==='city'?state.cities[target.cityId]:state.airports[target.airportId];
+      if(!c||c.ownerId||player.cash<(target.kind==='city'?c.price:15000)||(target.kind==='city'&&(player.lapBuys||0)>=4))return fail('购买目标或现金条件已失效');
+    }
     let quote=null;
     if(['remote_build','build_house'].includes(type))quote=economy.quoteBuild(state,{playerId:actorId,cityId:raw.cityId,mode:type==='remote_build'?'remote':'normal'});
     if(type==='respond_build'&&raw.decision!=='pass')quote=raw.decision==='build'?economy.quoteBuild(state,{playerId:actorId,cityId:state.pending.cityId}):economy.quoteDemolition(state,{playerId:actorId,cityId:state.pending.cityId});
@@ -243,6 +251,7 @@ function normalizeAction(state, raw, context = {}) {
 }
 
 function validateEnvelope(state,raw,actorId,clock){
+ if(!plainObject(raw)||raw.gameId===undefined||raw.actionId===undefined||raw.decisionId===undefined||raw.actorRevision===undefined)return fail('页面版本已更新，请刷新后重新操作');
  if(!plainObject(raw)||raw.gameId!==state.gameId||typeof raw.actionId!=='string'||raw.actionId.length<1||raw.actionId.length>128||raw.decisionId!==clock.decisionId||raw.actorRevision!==state.actorRevision[actorId])return fail('操作已过期，请根据当前页面重新操作');
  return {ok:true};
 }

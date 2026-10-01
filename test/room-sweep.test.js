@@ -5,7 +5,7 @@ const assert = require('node:assert');
 const os = require('os');
 const path = require('path');
 const fs = require('fs');
-const { io: Client } = require('socket.io-client');
+const { Client, waitState } = require('./helpers/trackedClient');
 const { server, rooms, shouldSweepRoom, sweepRooms } = require('../server');
 
 const sockets = [];
@@ -118,16 +118,33 @@ test('集成：规则引擎异常时服务器不退出、房间保留、操作�
   const code = await new Promise((r) => a.emit('createRoom', { name: '甲' }, (x) => r(x.roomCode)));
   await new Promise((r) => b.emit('joinRoom', { roomCode: code, name: '乙' }, r));
   await new Promise((r) => a.emit('startGame', {}, r));
-  logic.apply = () => { throw new Error('injected boom'); };
+  await waitState(a, 'waiting_roll');
+  const before = JSON.stringify({
+    players: rooms.get(code).state.players,
+    phase: rooms.get(code).state.phase,
+    eventSeq: rooms.get(code).eventSeq,
+    events: rooms.get(code).events,
+  });
+  logic.apply = (candidate) => {
+    candidate.players[0].cash = 1;
+    candidate.phase = 'game_over';
+    throw new Error('injected boom');
+  };
   try {
     const errP = once(a, 'error', 4000);
     await new Promise((r) => a.emit('action', { type: 'roll_dice' }, r));
     const err = await errP;
-    assert.ok(err.message.indexOf('操作异常') !== -1);
+    assert.ok(err.message.includes('injected boom'));
   } finally {
     logic.apply = originalApply;
   }
   assert.strictEqual(rooms.has(code), true);
+  assert.deepStrictEqual(JSON.stringify({
+    players: rooms.get(code).state.players,
+    phase: rooms.get(code).state.phase,
+    eventSeq: rooms.get(code).eventSeq,
+    events: rooms.get(code).events,
+  }), before);
 });
 
 test('集成：破产玩家断开不影响对局，存活玩家断开仍暂停', async () => {
@@ -141,6 +158,7 @@ test('集成：破产玩家断开不影响对局，存活玩家断开仍暂停',
   await new Promise((r) => b.emit('joinRoom', { roomCode: code, name: '乙' }, r));
   await new Promise((r) => c.emit('joinRoom', { roomCode: code, name: '丙' }, r));
   await new Promise((r) => a.emit('startGame', {}, r));
+  await waitState(a, 'waiting_roll');
   // 乙破产并断开
   rooms.get(code).state.players[1].alive = false;
   b.close();

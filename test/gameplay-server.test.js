@@ -4,6 +4,7 @@ const {io:Client}=require('socket.io-client');
 const api=require('../server'),f=require('./helpers/gameplayFixtures');
 const {createActionClock}=require('../src/actionClock');
 const {snapshot}=require('../src/state');
+const stocks=require('../src/stocks');
 let url,seq=0;
 const sockets=[];
 const ack=(s,event,data)=>new Promise(resolve=>s.emit(event,data,resolve));
@@ -17,7 +18,7 @@ test.before(async()=>{await new Promise(r=>api.server.listen(0,'127.0.0.1',r));u
 test.afterEach(()=>{for(const s of sockets.splice(0))s.close();for(const room of api.rooms.values()){room.actionClock.clear();if(room.hostTimer)clearTimeout(room.hostTimer);}api.rooms.clear();});
 test.after(async()=>{await new Promise(r=>api.io.close(r));});
 test('逐人私有投影 / 三十秒时钟 / 迟到消息与同时提交',async()=>{
- const {room,clients,fake}=await setup(),[a,b,c]=clients;
+ const {room,clients,fake}=await setup(),[a,b,c]=clients,outsider=await connect();
  await until(()=>clients.every(s=>s.game?.self.choice));
  assert.equal(room.actionClock.remainingMs,30000);
  const publicBefore=snapshot(room.state);assert.equal(publicBefore.self,undefined);
@@ -32,6 +33,7 @@ test('逐人私有投影 / 三十秒时钟 / 迟到消息与同时提交',async(
  const late=envelope(c,choice(c));fake.advance(29999);assert.equal(room.state.phase,'opportunity_choose');fake.advance(1);
  await until(()=>c.game.phase!=='opportunity_choose');assert.equal(room.state.opportunityStage.resolved,true);assert.equal(room.state.players[2].opportunities.selectedIds[0],c.game.players[2].opportunities.selectedIds[0]);
  assert.equal((await ack(c,'action',late)).ok,false);
+ assert.equal(outsider.game,undefined,'无房间身份连接不得收到对局私有状态');
 });
 test('换组选项不延长倒计时 / 断线暂停 / 重连保留选项和剩余秒数',async()=>{
  const {room,clients,fake}=await setup(2),[a,b]=clients;await until(()=>b.game?.self.choice);
@@ -57,4 +59,41 @@ test('普通动作封装 / 费用版本 / 去重缓存 / 新开局隔离 / 未�
  assert.equal((await ack(a,'startGame',{})).ok,true);await until(()=>a.game.gameId!==id);
  assert.equal(room.successfulActions.size,0);assert.equal(room.eventSeq,0);assert.equal(room.gameRecord,null);assert.equal((await ack(a,'action',payload)).ok,false);
  await ack(a,'disbandRoom',{});assert.equal(room.state.players[0].opportunities.selectedIds.length,0);assert.equal(room.state.players[0].cash,150000);
+});
+
+// 以下单项边界用独立账务夹具；连续合法经营流程见 gameplay-scenario.test.js。
+async function publish(room,clients,state){room.state=state;room.actionClock.clear();api.emitGame(room);await until(()=>clients.every(s=>s.game?.revision===state.revision&&s.game.gameId===state.gameId));}
+test('V1、V5 二至四人真实开局、健康检查与重新开局',async()=>{
+ assert.equal(await (await globalThis.fetch(url+'/healthz')).text(),'ok');
+ for(const n of [2,3,4]){const {room,clients}=await setup(n);await until(()=>clients.every(s=>s.game?.self.choice));assert.equal(room.state.phase,'opportunity_choose');assert.equal(room.state.opportunityStage.participantIds.length,n);const id=room.state.gameId;await ack(clients[0],'disbandRoom',{});await ack(clients[0],'startGame',{});await until(()=>clients.every(s=>s.game?.gameId!==id));assert.equal(room.state.opportunityStage.ordinal,1);assert.equal(clients[0].game.self.choice.candidateIds.length,3);}
+});
+test('V66 已提交重连保留锁定、候选与剩余时间',async()=>{
+ const {room,clients,fake}=await setup(2),[a,b]=clients;await until(()=>b.game?.self.choice);await action(a,choice(a));await until(()=>a.game.self.choice.submitted);const entry=a.game.self.choice,token=a.token;fake.advance(4000);a.close();await until(()=>room.actionClock.paused);fake.advance(60000);const a2=await connect();await ack(a2,'reconnect',{roomCode:room.code,name:'玩家0',token});await until(()=>a2.game?.self.choice);assert.deepEqual(a2.game.self.choice,entry);assert.equal(a2.game.decision.secondsRemaining,26);await action(b,choice(b));assert.equal(room.state.players[0].opportunities.selectedIds.length,1);
+});
+test('V46、V66、V67 股票重连不重置累计预算，成交重放一次',async()=>{
+ const {room,clients,fake}=await setup(2),[a,b]=clients;await until(()=>b.game?.self.choice);const s=f.game(2);f.own(s,'p1','上海');s.phase='stock';s.pending={playerId:'p0',kind:'go_stock',after:'end'};stocks.openStockWindow(s,'p0');await publish(room,clients,s);
+ const payload=envelope(a,{type:'stock_trade',windowId:s.stockWindow.windowId,orders:[f.order(s,'上海','buy',1)]},'buy-once');assert.equal((await ack(a,'action',payload)).ok,true);await until(()=>a.game.revision===room.state.revision);const after=JSON.stringify(room.state);assert.equal((await ack(a,'action',payload)).ok,true);assert.equal(JSON.stringify(room.state),after);
+ fake.advance(7000);const token=a.token;a.close();await until(()=>room.actionClock.paused);const w=globalThis.structuredClone(room.state.stockWindow);fake.advance(80000);const a2=await connect();await ack(a2,'reconnect',{roomCode:room.code,name:'玩家0',token});await until(()=>a2.game?.self.stockWindow);assert.deepEqual(a2.game.self.stockWindow,w);assert.equal(a2.game.decision.secondsRemaining,53);
+ assert.equal((await action(a2,{type:'stock_trade',windowId:w.windowId,orders:[f.order(room.state,'上海','buy',2)]})).ok,false);assert.deepEqual(room.state.stockWindow,w);assert.equal(room.state.players[0].cash,146000);
+});
+test('V26、V67 远程重放、报价过期、越权及成功缓存有界',async()=>{
+ const {room,clients,fake}=await setup(2),[a,b]=clients;await until(()=>b.game?.self.choice);const s=f.game(2);f.own(s,'p0','上海');f.selected(s,'p0','H1','H2');s.players[0].position=36;await publish(room,clients,s);fake.advance(1000);
+ const q=a.game.self.quotes.remote['上海'],payload=envelope(a,{type:'remote_build',cityId:'上海',quoteVersion:q.quoteVersion},'remote-once');const before=JSON.stringify(room.state),deadline=room.actionClock.deadlineMs;
+ assert.equal((await ack(b,'action',{...payload,actorRevision:b.game.self.actorRevision})).ok,false);assert.equal(JSON.stringify(room.state),before);
+ assert.equal((await ack(a,'action',{...payload,actionId:'bad-quote',quoteVersion:'old'})).ok,false);assert.equal(JSON.stringify(room.state),before);assert.equal(room.actionClock.deadlineMs,deadline);
+ const receipt=await ack(a,'action',payload);assert.equal(receipt.ok,true);assert.equal(room.state.players[0].cash,139200);const once=JSON.stringify(room.state);assert.deepEqual(await ack(a,'action',payload),receipt);assert.equal(JSON.stringify(room.state),once);assert.equal((await ack(a,'action',{...payload,cityId:'东京'})).ok,false);
+ for(let i=0;i<130;i++){await until(()=>a.game.revision===room.state.revision);assert.equal((await action(a,{type:i%2?'redeem':'mortgage',cityId:'上海'},'bounded-'+i)).ok,true);}
+ assert.equal(room.successfulActions.get('p0').size,128);assert.equal(room.successfulActions.get('p0').has('remote-once'),false);const final=JSON.stringify(room.state);assert.equal((await ack(a,'action',payload)).ok,false);assert.equal(JSON.stringify(room.state),final);assert.equal(room.actionClock.deadlineMs,deadline);
+});
+test('V64 暂停解散与闲置结束先派息，记录和重复终止一致',async()=>{
+ for(const mode of ['disband','idle_timeout']){const {room,clients}=await setup(2),[a,b]=clients;await until(()=>b.game?.self.choice);const s=f.game(2);f.own(s,'p0','上海');s.stocks['上海'].holders.p1=2;s.stocks['上海'].dividendFund=2000;stocks.refreshPrice(s,'上海','待分红增加');stocks.syncHolders(s);await publish(room,clients,s);b.close();await until(()=>room.actionClock.paused);
+  if(mode==='disband')assert.equal((await ack(a,'disbandRoom',{})).ok,true);else{a.close();await until(()=>room.idleSince!=null);api.sweepRooms(Date.now(),{gameIdleMs:0});assert.equal(api.rooms.has(room.code),false);}
+  assert.equal(room.state.stocks['上海'].dividendFund,0);assert.equal(room.state.players[1].cash,150200);assert.equal(room.state.players[0].cash,151800);const rec=room.gameRecord;assert.equal(rec.endReason,mode);assert.strictEqual(api.finalizeGame(room,mode),rec);assert.equal(room.state.players[1].cash,150200);
+ }
+});
+test('V4 缺新增信息旧对局认证重连后仍按旧规则，新开局升级',async()=>{
+ const {room,clients}=await setup(2),[a,b]=clients;await until(()=>b.game?.self.choice);const s=f.game(2,1);delete s.ruleVersion;delete s.world;delete s.roundFlow;delete s.actorRevision;delete s.gameId;for(const p of s.players)delete p.opportunities;room.state=s;room.actionClock.clear();api.emitGame(room);await until(()=>a.game.ruleVersion===undefined);const token=b.token;b.close();await until(()=>room.actionClock.paused);const b2=await connect();await ack(b2,'reconnect',{roomCode:room.code,name:'玩家1',token});await until(()=>b2.game?.phase==='waiting_roll');assert.equal(b2.game.self,undefined);assert.equal(b2.game.world,undefined);assert.equal((await ack(a,'action',{type:'roll_dice'})).ok,true);await ack(a,'disbandRoom',{});assert.equal(room.gameRecord.schema,'global-tycoon.game-record.v1');await ack(a,'startGame',{});await until(()=>a.game?.ruleVersion===2);assert.equal(a.game.phase,'opportunity_choose');
+});
+test('V49、V67 协商转让确认重放只转一次，不提前派息',async()=>{
+ const {room,clients}=await setup(2),[a,b]=clients;await until(()=>b.game?.self.choice);const s=f.game(2);f.own(s,'p1','上海');s.stocks['上海'].holders.p0=2;s.stocks['上海'].dividendFund=2000;stocks.refreshPrice(s,'上海','待分红增加');stocks.syncHolders(s);s.phase='stock';s.pending={playerId:'p0',kind:'go_stock',after:'end'};stocks.openStockWindow(s,'p0');await publish(room,clients,s);await action(a,{type:'stock_transfer',windowId:s.stockWindow.windowId,targetId:'p1',items:[{cityId:'上海',shares:1}],cash:500});await until(()=>b.game.phase==='trade_confirm');const payload=envelope(b,{type:'stock_transfer',accept:true},'accept-once');const receipt=await ack(b,'action',payload);assert.equal(receipt.ok,true);const after=JSON.stringify(room.state);assert.deepEqual(await ack(b,'action',payload),receipt);assert.equal(JSON.stringify(room.state),after);assert.equal(room.state.players[0].cash,150500);assert.equal(room.state.players[1].cash,149500);assert.equal(room.state.stocks['上海'].dividendFund,2000);assert.equal(room.state.stockWindow.boughtTotal,0);
 });

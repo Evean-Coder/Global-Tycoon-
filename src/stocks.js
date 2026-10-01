@@ -108,9 +108,12 @@ function enforceOwnerStockCap(s,p,id,events){
 }
 function transferCity(s,{cityId,newOwnerId},events){
  const c=s.cities[cityId],st=s.stocks[cityId],p=s.players.find(p=>p.id===newOwnerId);
+ const previous=s.players.find(p=>p.id===c.ownerId);
  if(!p?.alive)throw new Error('买方已离开对局');
  if(!c.ownerId&&(!st.listingEpoch||st.clearedEpoch===st.listingEpoch))initializeListing(s,cityId);
  else settleCityDividend(s,cityId,'transfer',s.gameId+':transfer:'+s.turnId+':'+cityId,events);
+ if(previous&&previous.id!==newOwnerId)previous.cities=previous.cities.filter(id=>id!==cityId);
+ if(!p.cities.includes(cityId))p.cities.push(cityId);
  c.ownerId=newOwnerId;st.clearing=false;enforceOwnerStockCap(s,p,cityId,events);refreshWindowCityQuote(s,cityId);
 }
 function clearCityToBank(s,{cityId},events){
@@ -124,6 +127,7 @@ function clearCityToBank(s,{cityId},events){
   events.push({type:'stock',kind:'stock_liquidation',cityId,playerId:p.id,amount,shares,unitPrice:unit,text:p.name+' '+cityId+' 股票清算 '+amount});
  }
  st.holders={};st.dividendFund=0;st.rentHistory=[];st.roundRent=0;st.clearing=false;st.clearedEpoch=st.listingEpoch;
+ const previous=s.players.find(p=>p.id===c.ownerId);if(previous)previous.cities=previous.cities.filter(id=>id!==cityId);
  Object.assign(c,{ownerId:null,houseLevel:0,buildCosts:[],mortgaged:false,mortgageInterest:0});
  refreshPrice(s,cityId,'停止经营');syncHolders(s);
 }

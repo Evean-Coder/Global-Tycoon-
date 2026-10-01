@@ -1,0 +1,62 @@
+[
+  {
+    "file": "src/actionClock.js",
+    "sha256": "894d8bae59a00f7215226c3066565f1d922ab2b657bb7734939d625dd8ef6b80"
+  },
+  {
+    "file": "src/actionValidation.js",
+    "sha256": "d76501118a998421cd315ae148344df4673cb8c3d5e31a794566011f9a1e3f29"
+  },
+  {
+    "file": "src/assets.js",
+    "sha256": "1839725e2a50b05eef3fdf255a455ab062908bf53f9aa01955cc26c58ae3e1da"
+  },
+  {
+    "file": "src/board.js",
+    "sha256": "af59ab378382c037c805f2fbc9c0061aec4c7b9eb3aa1b9d0854eb1647995b8f"
+  },
+  {
+    "file": "src/economy.js",
+    "sha256": "e2e38b82d7a1692893765ed620c3bd925951c009c52d2376cdf62ad39fcd0fbd"
+  },
+  {
+    "file": "src/gameLogic.js",
+    "sha256": "48f85efa874295baf9bb1e46aef349fb550aeed8723b0acfb89a8ffa7dced33d"
+  },
+  {
+    "file": "src/gameplayCatalog.js",
+    "sha256": "2ad3668cd43a8461cea540ab7e1c40b271ded53730238e012da56bba8c3b53da"
+  },
+  {
+    "file": "src/gameView.js",
+    "sha256": "8ae48f8a74bc92dd4f00809870a68debd08839649987884027e25f2e1cd9a867"
+  },
+  {
+    "file": "src/opportunities.js",
+    "sha256": "fedf11e293ae943c5449d254e6d935274c573a4b7a72c1065310eec5a9f5b80a"
+  },
+  {
+    "file": "src/random.js",
+    "sha256": "0c05b54cfcfe2f7585f806a48f4c61fb8dbaafb52e658d2b3d5cd0fa6c8243d9"
+  },
+  {
+    "file": "src/record.js",
+    "sha256": "33297a4e0e0aef19820ce6861538ef47271654a1657ef45099d4ae7afe920475"
+  },
+  {
+    "file": "src/roundFlow.js",
+    "sha256": "a73aebd79c0371568468a9c30263527bff9af29ba4748309cfd739a90ac25090"
+  },
+  {
+    "file": "src/state.js",
+    "sha256": "ce784eb786ae8ec7c6e9b728053eb8e781ee39fc7be0cf5866642c36ade1b150"
+  },
+  {
+    "file": "src/stocks.js",
+    "sha256": "584f8cd265f851209c02d28a27c6228c2cf40405a6efa700955ad172a8696470"
+  },
+  {
+    "file": "src/worldEvents.js",
+    "sha256": "02af1f6bde6d2b93b2b270af29ec1490aac956f0f18a1ca5428bc239f121873b"
+  }
+]

@@ -82,4 +82,66 @@ test('输出预算：容量不足不发起写入，原子峰值与原始证据�
   assert.equal(fs.existsSync(path.join(f.store.dir, 'large.json')), false);
   assert.equal(limited.remaining(), 10);
 });
-module.exports = { fixture, fingerprint };
+test('批次清单：结果先完成可补齐清单，但缺结果/未知样本不能视为完赛', t => {
+  const f = fixture(t), { reconcile } = require('../scripts/balance/batch');
+  const manifest = { samples: Object.fromEntries(f.schedule.map(s => [s.sampleId, { status: 'unstarted' }])) };
+  const result = { ...f.schedule[0], outcome: 'censored', winnerId: null };
+  reconcile(manifest, f.schedule, [result]);
+  assert.equal(manifest.coverage.started, 1); assert.equal(manifest.coverage.terminated, 1); assert.equal(manifest.coverage.unstarted, 1);
+  assert.throws(() => reconcile(manifest, f.schedule, []), /缺少有效结果/);
+});
+test('计算预算：片段停止不是截断，累计预算跨版本保留且等待不计入', t => {
+  const f = fixture(t), { openBudget } = require('../scripts/balance/batch');
+  const formal = { ...f.config, source: 'formal', runId: 'formal-a' }; formal.configHash = hashConfig(formal);
+  let cpu = 0;
+  const budget = openBudget(formal, { root: f.root, cpuNow: () => cpu });
+  const start = budget.beginWork(); cpu = 7; budget.endWork(start); budget.flush();
+  assert.equal(budget.computeMs, 7);
+  // No work interval exists during this simulated wait/suspend.
+  cpu = 50; assert.equal(budget.computeMs, 7); budget.close();
+  const next = { ...formal, runId: 'formal-b', policyVersion: 'new-version' }; next.configHash = hashConfig(next);
+  const resumed = openBudget(next, { root: f.root, cpuNow: () => cpu });
+  assert.equal(resumed.computeMs, 7); assert.equal(resumed.runComputeMs, 0);
+  const resumedStart = resumed.beginWork(); cpu = 53; resumed.endWork(resumedStart); resumed.close();
+  const ledger = JSON.parse(fs.readFileSync(path.join(f.root, 'artifacts/gameplay-balance/formal-budget.json'), 'utf8'));
+  assert.equal(ledger.computeMs, 10); assert.equal(Object.keys(ledger.runs).length, 2);
+});
+test('异常中断：首个策略失败保存异常，停止其他样本，恢复不覆盖旧失败', async t => {
+  const { temporaryRun } = require('./helpers/balanceFixtures'), { runBatch } = require('../scripts/balance/batch');
+  const f = temporaryRun(t); delete f.config.policyConfigs.neutral; f.config.configHash = hashConfig(f.config);
+  const manifest = await runBatch(f.config, f);
+  assert.equal(manifest.stopReason, 'first_error'); assert.equal(manifest.coverage.terminated, 1); assert.equal(manifest.coverage.unstarted, 1);
+  const store = openRun(f.config, { ...f, resume: true }), schedule = store.read('schedule.json');
+  const results = store.results(schedule); assert.equal(results.length, 1); assert.equal(results[0].outcome, 'error'); assert.equal(results[0].observations, null);
+  const original = fs.readFileSync(path.join(store.dir, `samples/${results[0].sampleId}/result.json`), 'utf8');
+  const resumed = await runBatch(f.config, { ...f, resume: true }); assert.equal(resumed.stopReason, 'previous_error');
+  assert.equal(fs.readFileSync(path.join(store.dir, `samples/${results[0].sampleId}/result.json`), 'utf8'), original);
+});
+test('计算预算：耗尽保存待恢复，不填逻辑截断或胜负，片段轮转仍可续行', async t => {
+  const { temporaryRun } = require('./helpers/balanceFixtures'), { runBatch, openBudget } = require('../scripts/balance/batch');
+  const f = temporaryRun(t, { limits: { rounds: 3, actions: 100, computeMs: 5 } });
+  let cpu = 0;
+  const budget = openBudget(f.config, { root: f.root, cpuNow: () => cpu++ });
+  // openBudget creates only its own budget directory. Initialize a fresh run in that directory's parent.
+  const moved = { ...f.config, output: 'artifacts/gameplay-balance/execute', runId: 'execute' }; moved.configHash = hashConfig(moved);
+  const manifest = await runBatch(moved, { ...f, budget });
+  assert.equal(manifest.stopReason, 'compute_budget'); assert.equal(manifest.coverage.pending, 1); assert.equal(manifest.coverage.terminated, 0);
+  const store = openRun(moved, { ...f, resume: true });
+  assert.equal(store.results(store.read('schedule.json')).length, 0);
+  const sliced = temporaryRun(t, { limits: { rounds: 3, actions: 100, sliceMs: 0 } });
+  const rotated = await runBatch(sliced.config, sliced);
+  assert.equal(rotated.status, 'complete', JSON.stringify(rotated)); assert.equal(rotated.coverage.terminated, 2);
+});
+test('异常中断：恢复检查点篡改保存异常并首错停止，不以待恢复掩盖', async t => {
+  const { temporaryRun } = require('./helpers/balanceFixtures'), { runBatch } = require('../scripts/balance/batch');
+  const f = temporaryRun(t);
+  await runBatch(f.config, { ...f, stopAfterActions: 4 });
+  const store = openRun(f.config, { ...f, resume: true }), schedule = store.read('schedule.json'), id = schedule[0].sampleId;
+  const checkpoint = store.checkpoint(id); checkpoint.memory.p0 = { forged: true };
+  store.saveCheckpoint(id, checkpoint);
+  const resumed = await runBatch(f.config, { ...f, resume: true });
+  assert.equal(resumed.stopReason, 'first_error', JSON.stringify(resumed));
+  assert.equal(resumed.coverage.terminated, 1); assert.equal(resumed.coverage.unstarted, 1);
+  assert.equal(store.results(schedule)[0].outcome, 'error');
+  assert.match(store.results(schedule)[0].reason, /检查点/);
+});

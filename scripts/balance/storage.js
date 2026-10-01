@@ -117,11 +117,11 @@ function openRun(config, options = {}) {
   }
   function loadEvidence(id) {
     const directory = target(samplePath(id, 'actions'));
-    if (!fs.existsSync(directory)) return { records: [], tails: [], lastHash: null, segments: [] };
+    if (!fs.existsSync(directory)) return { records: [], recordHashes: [], tails: [], lastHash: null, segments: [] };
     const names = fs.readdirSync(directory);
     for (const name of names) if (fs.lstatSync(path.join(directory, name)).isSymbolicLink()) throw new Error('流水证据不能是链接');
     const numbers = [...new Set(names.flatMap(n => /^segment-(\d{6})\.jsonl(?:\.gz)?$/.exec(n)?.slice(1) || []))].sort();
-    const records = [], tails = [], segments = [];
+    const records = [], recordHashes = [], tails = [], segments = [];
     let previousHash = null;
     for (const number of numbers) {
       const stem = `segment-${number}.jsonl`, gzip = path.join(directory, stem + '.gz'), plain = path.join(directory, stem), meta = gzip + '.meta.json';
@@ -140,11 +140,11 @@ function openRun(config, options = {}) {
       for (const line of lines) {
         const row = JSON.parse(line);
         if (row.sequence !== records.length || row.previousHash !== previousHash || row.hash !== hashCanonical({ sequence: row.sequence, previousHash: row.previousHash, payload: row.payload })) throw new Error('动作流水顺序或摘要不匹配');
-        records.push(row.payload); previousHash = row.hash;
+        records.push(row.payload); recordHashes.push(row.hash); previousHash = row.hash;
       }
       segments.push({ name, number: Number(number), records: lines.length });
     }
-    return { records, tails, lastHash: previousHash, segments };
+    return { records, recordHashes, tails, lastHash: previousHash, segments };
   }
   function writer(id) {
     if (!writers.has(id)) {

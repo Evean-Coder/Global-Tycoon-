@@ -32,4 +32,14 @@ function gameSpec(players = 2, source = 'debug', limits = {}) {
   const spec = buildSchedule(config)[0];
   return { ...spec, source, limits: { ...spec.limits, ...limits } };
 }
-module.exports = { controlledFixture, ownCity, grant, gameSpec };
+function temporaryRun(t, { games = 2, players = 2, limits = { rounds: 3, actions: 100 } } = {}) {
+  const fs = require('node:fs'), os = require('node:os'), path = require('node:path');
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'balance-run-'));
+  t.after(() => fs.rmSync(root, { recursive: true, force: true }));
+  const fingerprint = { hash: 'fixture', commit: null, worktree: '', files: [] };
+  const config = globalThis.structuredClone(buildConfig({ mode: 'debug', games, players, seed: 22, output: 'artifacts/gameplay-balance/run' }, fingerprint));
+  config.limits = { ...config.limits, ...limits };
+  config.configHash = require('../../scripts/balance/config').hashConfig(config);
+  return { root, fingerprint, config };
+}
+module.exports = { controlledFixture, ownCity, grant, gameSpec, temporaryRun };

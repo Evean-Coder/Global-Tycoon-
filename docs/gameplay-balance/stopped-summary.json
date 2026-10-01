@@ -1,8 +1,6 @@
 {
-  "runId": "formal-corrected-20261001-1790865366064",
   "source": "formal",
-  "registeredBeforeFirstAction": true,
-  "registeredAt": "2026-10-01T14:36:12.486Z",
+  "runId": "formal-corrected-20261001-1790865366064",
   "configHash": "e85dac0c963a1937e08c3e00ccb9ada696808de6082333d8465731e6644edf3f",
   "codeFingerprint": {
     "hash": "20010be375ec96c6ca77fcf1689b3f6dcd4b9a99e3f048b0c68941e2bbf1bcb4",
@@ -131,26 +129,198 @@
       }
     ]
   },
-  "limits": {
-    "rounds": 500,
-    "actions": 20000,
-    "sliceMs": 60000,
-    "computeMs": 14400000,
-    "outputBytes": 2147483648
+  "stopReason": "user_requested_stop",
+  "coverage": {
+    "planned": 4200,
+    "started": 65,
+    "terminated": 63,
+    "pending": 2,
+    "unstarted": 4135,
+    "plannedGroups": 2240,
+    "completeGroups": 23
   },
-  "sampleTargets": {
-    "neutralSeeds": 600,
-    "crossSeeds": 40,
-    "games": 4200,
-    "groups": 2240
+  "counts": {
+    "natural": 42,
+    "censored": 21,
+    "error": 0
   },
-  "documents": {
-    "spec": "2da4d2f32bfa0a73228c3c3e42dd1efd761b2b6427345851ef220688d86548ea",
-    "plan": "94a059e7f3e51dad04bf55e6f63fac1a499b98658ede506d329cdc4f207b18a6",
-    "task": "7e3055fcbe55cfcd147a541276c77a72a08eed7856783444da0ad0e11d6ec339",
-    "checklist": "83386c0902d1dbf6c47416b769edace15adca600fe254a19f6ec554acef84a05"
+  "experiments": {
+    "2:neutral:neutral,neutral": {
+      "natural": 1,
+      "censored": 1,
+      "error": 0,
+      "results": 2,
+      "groups": 2
+    },
+    "3:neutral:neutral,neutral,neutral": {
+      "natural": 0,
+      "censored": 2,
+      "error": 0,
+      "results": 2,
+      "groups": 2
+    },
+    "4:neutral:neutral,neutral,neutral,neutral": {
+      "natural": 0,
+      "censored": 2,
+      "error": 0,
+      "results": 2,
+      "groups": 2
+    },
+    "2:cross:property,investment": {
+      "natural": 3,
+      "censored": 1,
+      "error": 0,
+      "results": 4,
+      "groups": 2
+    },
+    "2:cross:property,aviation": {
+      "natural": 3,
+      "censored": 1,
+      "error": 0,
+      "results": 4,
+      "groups": 2
+    },
+    "2:cross:property,cautious": {
+      "natural": 4,
+      "censored": 0,
+      "error": 0,
+      "results": 4,
+      "groups": 2
+    },
+    "2:cross:investment,aviation": {
+      "natural": 3,
+      "censored": 1,
+      "error": 0,
+      "results": 4,
+      "groups": 2
+    },
+    "2:cross:investment,cautious": {
+      "natural": 3,
+      "censored": 1,
+      "error": 0,
+      "results": 4,
+      "groups": 2
+    },
+    "2:cross:aviation,cautious": {
+      "natural": 2,
+      "censored": 2,
+      "error": 0,
+      "results": 4,
+      "groups": 2
+    },
+    "3:cross:property,investment,aviation": {
+      "natural": 9,
+      "censored": 3,
+      "error": 0,
+      "results": 12,
+      "groups": 2
+    },
+    "3:cross:property,investment,cautious": {
+      "natural": 7,
+      "censored": 2,
+      "error": 0,
+      "results": 9,
+      "groups": 2
+    },
+    "3:cross:property,aviation,cautious": {
+      "natural": 4,
+      "censored": 2,
+      "error": 0,
+      "results": 6,
+      "groups": 1
+    },
+    "3:cross:investment,aviation,cautious": {
+      "natural": 3,
+      "censored": 3,
+      "error": 0,
+      "results": 6,
+      "groups": 1
+    }
   },
-  "sameApprovedSeedAndPolicyPlan": true,
-  "previousComputeMs": 380301.45360002015,
-  "previousRunId": "formal-20261001-1790864158320"
+  "pending": [
+    {
+      "sampleId": "s-bcf0427454c7e1bfd9f33834",
+      "n": 4,
+      "experiment": "cross",
+      "validRecords": 2678,
+      "lastHash": "74c302fe04c446ecdbe81269c24a3cb116a5855ad150b5c1d6027af1e360ae2a",
+      "incompleteTails": [],
+      "checkpoint": {
+        "records": 2678,
+        "lastHash": "74c302fe04c446ecdbe81269c24a3cb116a5855ad150b5c1d6027af1e360ae2a",
+        "segment": 20,
+        "offset": 118
+      }
+    },
+    {
+      "sampleId": "s-e51de67b28c8f916c7d3fbca",
+      "n": 3,
+      "experiment": "cross",
+      "validRecords": 726,
+      "lastHash": "18e747d57f3ef428d761f5ea5b8dc4fd74e3def12d0e3aef47e4512b218c3007",
+      "incompleteTails": [],
+      "checkpoint": {
+        "records": 726,
+        "lastHash": "18e747d57f3ef428d761f5ea5b8dc4fd74e3def12d0e3aef47e4512b218c3007",
+        "segment": 5,
+        "offset": 86
+      }
+    }
+  ],
+  "totalComputeMs": 2376273.6456997367,
+  "runComputeMs": 1995972.1920997165,
+  "totalOutputBytes": 87508636,
+  "auditSelection": [
+    {
+      "playerCount": 2,
+      "outcome": "natural",
+      "sampleId": "s-049680fcf12405bb623264e1"
+    },
+    {
+      "playerCount": 2,
+      "outcome": "censored",
+      "sampleId": "s-3a1a56e7e86cb68beb77f064"
+    },
+    {
+      "playerCount": 2,
+      "outcome": "error",
+      "sampleId": null
+    },
+    {
+      "playerCount": 3,
+      "outcome": "natural",
+      "sampleId": "s-141f12c7e42ae717d05eb1c5"
+    },
+    {
+      "playerCount": 3,
+      "outcome": "censored",
+      "sampleId": "s-6754809e916a817a12fcf47c"
+    },
+    {
+      "playerCount": 3,
+      "outcome": "error",
+      "sampleId": null
+    },
+    {
+      "playerCount": 4,
+      "outcome": "natural",
+      "sampleId": null
+    },
+    {
+      "playerCount": 4,
+      "outcome": "censored",
+      "sampleId": "s-305ce78407a51504abe0086f"
+    },
+    {
+      "playerCount": 4,
+      "outcome": "error",
+      "sampleId": null
+    }
+  ],
+  "newBatchAuditsExecuted": false,
+  "bootstrapExecuted": false,
+  "bootstrapReason": "用户要求停止继续验证，未启动新增审计或重采样",
+  "balanceConclusion": "证据不足；没有证明玩法已平衡",
+  "previousFormalRun": "formal-20261001-1790864158320",
+  "previousResultsNotMerged": true
 }

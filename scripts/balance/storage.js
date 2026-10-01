@@ -41,6 +41,16 @@ function sizeTree(dir) {
 }
 function validId(id) { if (typeof id !== 'string' || !/^[a-zA-Z0-9_-]{1,100}$/.test(id)) throw new Error('证据标识无效'); return id; }
 function readJson(file) { return JSON.parse(fs.readFileSync(file, 'utf8')); }
+function renameAtomic(from, to, options = {}) {
+  const rename = options.rename || fs.renameSync;
+  const pause = options.pause || (ms => globalThis.Atomics.wait(new Int32Array(new globalThis.SharedArrayBuffer(4)), 0, 0, ms));
+  // Windows indexing/virus scanners may briefly hold the destination. Retrying
+  // rename keeps the old complete file in place; never unlink it as a workaround.
+  for (let attempt = 0; ; attempt++) {
+    try { rename(from, to); return; }
+    catch (error) { if (!['EPERM', 'EBUSY', 'EACCES'].includes(error.code) || attempt >= 7) throw error; pause(5 * 2 ** attempt); }
+  }
+}
 function verifyConfig(config, fingerprint) {
   if (hashConfig(config) !== config.configHash) throw new Error('保存配置摘要不匹配');
   if (fingerprint && fingerprint.hash !== config.codeFingerprint.hash) throw new Error('代码指纹不匹配，禁止混版本恢复');
@@ -91,7 +101,7 @@ function openRun(config, options = {}) {
       fs.writeFileSync(fd, buffer); fs.fsyncSync(fd); fs.closeSync(fd); fd = undefined;
       options.beforeRename?.(temp, file);
       const old = fs.existsSync(file) ? fs.statSync(file).size : 0;
-      fs.renameSync(temp, file); bytes -= old;
+      renameAtomic(temp, file); bytes -= old;
     } catch (error) {
       if (fd !== undefined) fs.closeSync(fd);
       bytes = sizeTree(dir); // Preserve failed temporary evidence, never advertise it as complete.
@@ -205,4 +215,4 @@ function openRun(config, options = {}) {
   }
   return { dir, config: clone(config), atomic, read, appendAction, seal, loadEvidence, saveCheckpoint, checkpoint, saveResult, results, saveAudit, audits, get bytes() { return bytes; }, remaining: () => maxBytes - bytes };
 }
-module.exports = { StorageStop, resolveRun, sizeTree, loadRun, openRun };
+module.exports = { StorageStop, resolveRun, sizeTree, renameAtomic, loadRun, openRun };

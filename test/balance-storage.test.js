@@ -7,7 +7,7 @@ const path = require('node:path');
 const { buildConfig, hashConfig } = require('../scripts/balance/config');
 const { buildSchedule } = require('../scripts/balance/schedule');
 const { hashCanonical } = require('../scripts/balance/canonical');
-const { openRun, loadRun, resolveRun, StorageStop, sizeTree } = require('../scripts/balance/storage');
+const { openRun, loadRun, resolveRun, StorageStop, sizeTree, renameAtomic } = require('../scripts/balance/storage');
 const fingerprint = { hash: 'fixture', commit: 'fixture', worktree: '', files: [] };
 function fixture(t, options = {}) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'balance-storage-'));
@@ -49,6 +49,16 @@ test('原子保存：失败临时文件保留，旧清单不变，结果唯一�
   assert.throws(() => f.store.saveResult({ ...result, source: 'controlled' }), /来源/);
   assert.throws(() => f.store.saveResult({ ...result, policyVersion: 'other' }), /版本/);
   assert.throws(() => f.store.saveResult({ ...result, outcome: 'censored', winnerId: 'p0' }), /分类/);
+});
+test('原子保存：Windows短暂占用有限重试，持续占用保留旧文件和临时证据', t => {
+  const f = fixture(t), target = path.join(f.store.dir, 'manifest.json'), temp = path.join(f.store.dir, 'retry.partial');
+  const original = fs.readFileSync(target, 'utf8'); fs.writeFileSync(temp, 'replacement\n');
+  let attempts = 0, waited = 0;
+  renameAtomic(temp, target, { rename(from, to) { if (++attempts <= 2) { const error = new Error('locked'); error.code = 'EPERM'; throw error; } fs.renameSync(from, to); }, pause(ms) { waited += ms; } });
+  assert.equal(attempts, 3); assert.equal(waited, 15); assert.equal(fs.readFileSync(target, 'utf8'), 'replacement\n');
+  fs.writeFileSync(temp, original); attempts = 0;
+  assert.throws(() => renameAtomic(temp, target, { rename() { attempts++; const error = new Error('locked'); error.code = 'EBUSY'; throw error; }, pause() {} }), /locked/);
+  assert.equal(attempts, 8); assert.equal(fs.readFileSync(target, 'utf8'), 'replacement\n'); assert.equal(fs.readFileSync(temp, 'utf8'), original);
 });
 test('分段流水：链式摘要/压缩封闭、检查点不含前缀，损坏与不完整尾分别处理', t => {
   const f = fixture(t, { segmentRecords: 2 }), id = f.schedule[0].sampleId;

@@ -1,0 +1,209 @@
+[
+  {
+    "n": 2,
+    "dir": "artifacts\\gameplay-balance\\debug-verified-1790863611922-n2",
+    "coverage": {
+      "planned": 3,
+      "started": 3,
+      "terminated": 3,
+      "pending": 0,
+      "unstarted": 0,
+      "plannedGroups": 3,
+      "completeGroups": 3
+    },
+    "status": "complete",
+    "stopReason": null,
+    "computeMs": 77364.44859996159,
+    "outputBytes": 1675691,
+    "results": [
+      {
+        "sampleId": "s-2676cfd6eb4c71c6b7da9393",
+        "outcome": "natural",
+        "reason": "last_survivor",
+        "actions": 884,
+        "winnerId": "p0"
+      },
+      {
+        "sampleId": "s-3dce64b352ca996a1eb08ccd",
+        "outcome": "natural",
+        "reason": "last_survivor",
+        "actions": 909,
+        "winnerId": "p1"
+      },
+      {
+        "sampleId": "s-83f1f636626a828e9484c8e3",
+        "outcome": "natural",
+        "reason": "last_survivor",
+        "actions": 1556,
+        "winnerId": "p0"
+      }
+    ],
+    "summaryKeys": [
+      "schemaVersion",
+      "source",
+      "configHash",
+      "codeFingerprint",
+      "policyVersion",
+      "analysisVersion",
+      "ruleVersion",
+      "coverage",
+      "provisional",
+      "computeMs",
+      "totalComputeMs",
+      "stopReason",
+      "limits",
+      "screeningRules",
+      "reportSeed",
+      "experiments",
+      "comparisons",
+      "stages",
+      "combinations",
+      "abilities",
+      "economy",
+      "limitations",
+      "stageOverview",
+      "economyByOutcome",
+      "personalProgress",
+      "abilitiesByPlayers",
+      "bootstrapRandomCalls"
+    ]
+  },
+  {
+    "n": 3,
+    "dir": "artifacts\\gameplay-balance\\debug-verified-1790863611922-n3",
+    "coverage": {
+      "planned": 3,
+      "started": 3,
+      "terminated": 3,
+      "pending": 0,
+      "unstarted": 0,
+      "plannedGroups": 3,
+      "completeGroups": 3
+    },
+    "status": "complete",
+    "stopReason": null,
+    "computeMs": 146623.15750000905,
+    "outputBytes": 3140599,
+    "results": [
+      {
+        "sampleId": "s-3336bf35fb3a418b122e7a2d",
+        "outcome": "natural",
+        "reason": "last_survivor",
+        "actions": 2147,
+        "winnerId": "p0"
+      },
+      {
+        "sampleId": "s-5f5ff2b3ef9dfc60a185bb6a",
+        "outcome": "censored",
+        "reason": "round_limit",
+        "actions": 2220,
+        "winnerId": null
+      },
+      {
+        "sampleId": "s-b32d22703239b518199be52f",
+        "outcome": "censored",
+        "reason": "round_limit",
+        "actions": 2137,
+        "winnerId": null
+      }
+    ],
+    "summaryKeys": [
+      "schemaVersion",
+      "source",
+      "configHash",
+      "codeFingerprint",
+      "policyVersion",
+      "analysisVersion",
+      "ruleVersion",
+      "coverage",
+      "provisional",
+      "computeMs",
+      "totalComputeMs",
+      "stopReason",
+      "limits",
+      "screeningRules",
+      "reportSeed",
+      "experiments",
+      "comparisons",
+      "stages",
+      "combinations",
+      "abilities",
+      "economy",
+      "limitations",
+      "stageOverview",
+      "economyByOutcome",
+      "personalProgress",
+      "abilitiesByPlayers",
+      "bootstrapRandomCalls"
+    ]
+  },
+  {
+    "n": 4,
+    "dir": "artifacts\\gameplay-balance\\debug-verified-1790863611922-n4",
+    "coverage": {
+      "planned": 3,
+      "started": 3,
+      "terminated": 3,
+      "pending": 0,
+      "unstarted": 0,
+      "plannedGroups": 3,
+      "completeGroups": 3
+    },
+    "status": "complete",
+    "stopReason": null,
+    "computeMs": 150621.64799999073,
+    "outputBytes": 3287889,
+    "results": [
+      {
+        "sampleId": "s-71a5a62ca949cbb30d42eb63",
+        "outcome": "natural",
+        "reason": "last_survivor",
+        "actions": 1665,
+        "winnerId": "p3"
+      },
+      {
+        "sampleId": "s-9523d3c35acd0f7aab0f08a3",
+        "outcome": "natural",
+        "reason": "last_survivor",
+        "actions": 1469,
+        "winnerId": "p2"
+      },
+      {
+        "sampleId": "s-ebb154cfc41bfd1647b4d7e7",
+        "outcome": "censored",
+        "reason": "round_limit",
+        "actions": 2748,
+        "winnerId": null
+      }
+    ],
+    "summaryKeys": [
+      "schemaVersion",
+      "source",
+      "configHash",
+      "codeFingerprint",
+      "policyVersion",
+      "analysisVersion",
+      "ruleVersion",
+      "coverage",
+      "provisional",
+      "computeMs",
+      "totalComputeMs",
+      "stopReason",
+      "limits",
+      "screeningRules",
+      "reportSeed",
+      "experiments",
+      "comparisons",
+      "stages",
+      "combinations",
+      "abilities",
+      "economy",
+      "limitations",
+      "stageOverview",
+      "economyByOutcome",
+      "personalProgress",
+      "abilitiesByPlayers",
+      "bootstrapRandomCalls"
+    ]
+  }
+]

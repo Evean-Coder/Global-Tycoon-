@@ -3,7 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const { buildSchedule } = require('./schedule');
-const { openRun, loadRun, resolveRun, StorageStop, sizeTree } = require('./storage');
+const { openRun, loadRun, resolveRun, StorageStop, sizeTree, renameAtomic } = require('./storage');
 const { ROOT, hashConfig, fingerprintSources } = require('./config');
 const { hashCanonical, semanticAction } = require('./canonical');
 const { initialize, advance, checkpointFor, replayGame, verifyCheckpoint, selectAuditSamples } = require('./replay');
@@ -52,7 +52,7 @@ function openBudget(config, options = {}) {
   function flush() {
     const temp = file + '.partial-' + crypto.randomUUID(), fd = fs.openSync(temp, 'wx');
     try { fs.writeFileSync(fd, JSON.stringify(ledger, null, 2) + '\n'); fs.fsyncSync(fd); } finally { fs.closeSync(fd); }
-    fs.renameSync(temp, file);
+    renameAtomic(temp, file);
   }
   function beginWork() { return { cpu: cpuNow(), wall: workNow() }; }
   function endWork(start) {

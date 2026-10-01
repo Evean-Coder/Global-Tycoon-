@@ -210,3 +210,7 @@
 实施时将每项实际命令、退出码、摘要/流水/报告位置、失败和重跑结果写入docs/gameplay-balance/acceptance.md；原始证据在artifacts/gameplay-balance/<runId>/，正式记录目录不作本轮验证输出。
 
 spec、plan、task已获批准，checklist等待整份审批。批准后宣布四份文档全部批准，创建progress.md并从T1执行。当前没有新的正式胜率结论。
+
+## 2026-10-01批准的限定修订
+
+用户已批准[自救出售修订](rescue-fix-proposal.md)：允许从真实服务端pending补全规范化sell_city的自救上下文，并验证拍卖/直接出售的恢复与拒绝原子性。仅修复已复现缺陷，价格、收益、额度和获胜条件按原规则；旧debug异常证据保留，正式批次以修复后的冻结指纹开始。补充R1–R4任务及六项检查，原86项任务与76项清单不因本修订降低要求。

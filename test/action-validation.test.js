@@ -105,3 +105,59 @@ test('待确认接收方固定，不能改写目标或代替当前玩家认输',
   assert.equal(normalizeAction(s, { type: 'stock_transfer', targetId: 'p1', accept: true }).ok, true);
   assert.equal(normalizeAction(s, { type: 'surrender' }).ok, false);
 });
+
+test('自救出售限定修订：上下文取自真实pending，忽略客户端伪造且拒绝身份错配', () => {
+  const s = createState('RESCUE', ['甲', '乙']);
+  s.phase = 'self_rescue';
+  s.pending = { playerId: 'p0', kind: 'self_rescue', due: 50000, reason: '租金', resume: true };
+  const raw = { type: 'sell_city', cityId: '上海', mode: 'auction', context: { type: 'self_rescue', playerId: 'p1', due: 0, reason: '伪造', resume: false } };
+  const normalized = normalizeAction(s, raw, { actorId: 'p0', source: 'player' });
+  assert.equal(normalized.ok, true);
+  assert.deepEqual(normalized.action.context, { type: 'self_rescue', playerId: 'p0', due: 50000, reason: '租金', resume: true });
+  s.pending.playerId = 'p1';
+  assert.equal(normalizeAction(s, raw, { actorId: 'p0', source: 'player' }).ok, false);
+  s.phase = 'waiting_roll'; s.pending = null;
+  assert.equal(normalizeAction(s, raw).action.context, undefined);
+});
+
+test('自救出售限定修订：拍卖成交/流拍、直接出售成功/失败恢复原玩家', () => {
+  const logic = require('../src/gameLogic');
+  const { createRng } = require('../src/random');
+  for (const mode of ['auction', 'direct']) for (const successful of [true, false]) for (const debt of [5000, 50000]) {
+    const s = createState('RESCUE', ['甲', '乙']);
+    s.phase = 'self_rescue'; s.firstRoundDone = true;
+    s.players[0].cash = -debt; s.players[0].cities = ['上海']; s.cities['上海'].ownerId = 'p0';
+    s.pending = { playerId: 'p0', kind: 'self_rescue', due: debt, reason: '真实债务', resume: false };
+    const rng = createRng(22);
+    const sale = normalizeAction(s, { type: 'sell_city', cityId: '上海', mode }, { actorId: 'p0', source: 'player' });
+    assert.equal(sale.ok, true);
+    logic.apply(s, sale.action, rng, { actorId: 'p0', source: 'player' });
+    const before = globalThis.structuredClone(s);
+    const invalid = normalizeAction(s, mode === 'auction' ? { type: 'auction_respond', decision: 'bid', amount: 1 } : { type: 'direct_sale_respond', decision: 'maybe' });
+    assert.equal(invalid.ok, false); assert.deepEqual(s, before);
+    const action = mode === 'auction' ? { type: 'auction_respond', decision: successful ? 'bid' : 'pass', ...(successful ? { amount: 15000 } : {}) } : { type: 'direct_sale_respond', decision: successful ? 'buy' : 'pass' };
+    const response = normalizeAction(s, action, { actorId: 'p1', source: 'player' });
+    assert.equal(response.ok, true);
+    assert.doesNotThrow(() => logic.apply(s, response.action, rng, { actorId: 'p1', source: 'player' }));
+    const proceeds = successful ? mode === 'auction' ? 15000 : 16000 : mode === 'auction' ? 10000 : 0;
+    assert.equal(s.players[0].cash, -debt + proceeds);
+    if (s.players[0].cash < 0) {
+      assert.equal(s.phase, 'self_rescue');
+      assert.deepEqual(s.pending, { playerId: 'p0', kind: 'self_rescue', due: debt, reason: '真实债务', resume: false });
+    } else { assert.equal(s.turnIndex, 1); assert.equal(s.phase, 'waiting_roll'); }
+  }
+});
+
+test('自救出售限定修订：未补足债务时保留原resume继续依据', () => {
+  const logic = require('../src/gameLogic');
+  const { createRng } = require('../src/random');
+  const s = createState('RESCUE', ['甲', '乙']);
+  s.phase = 'self_rescue'; s.firstRoundDone = true; s.players[0].cash = -50000;
+  s.players[0].cities = ['上海']; s.cities['上海'].ownerId = 'p0';
+  s.pending = { playerId: 'p0', kind: 'self_rescue', due: 50000, reason: '债务', resume: true };
+  const sale = normalizeAction(s, { type: 'sell_city', cityId: '上海', mode: 'direct' });
+  logic.apply(s, sale.action, createRng(22), { actorId: 'p0', source: 'player' });
+  const pass = normalizeAction(s, { type: 'direct_sale_respond', decision: 'pass' });
+  logic.apply(s, pass.action, createRng(22), { actorId: 'p1', source: 'player' });
+  assert.equal(s.pending.playerId, 'p0'); assert.equal(s.pending.resume, true);
+});

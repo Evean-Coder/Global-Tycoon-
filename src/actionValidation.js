@@ -246,7 +246,11 @@ function normalizeAction(state, raw, context = {}) {
   }
   const action = { type };
   for (const key of ['decision', 'amount', 'target', 'cityId', 'mode', 'shares', 'quoteVersion']) if (raw[key] !== undefined) action[key] = raw[key];
-  if (type === 'sell_city' && state.phase === 'self_rescue') action.context = { type: 'self_rescue' };
+  if (type === 'sell_city' && state.phase === 'self_rescue') {
+    const pending = state.pending;
+    if (!pending || pending.playerId !== actorId) return fail('自救行动身份已失效');
+    action.context = { type: 'self_rescue', playerId: pending.playerId, due: pending.due, reason: pending.reason, resume: pending.resume };
+  }
   return success(action, actorId);
 }
 

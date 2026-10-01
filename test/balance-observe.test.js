@@ -181,6 +181,35 @@ test('经营救援账务：购置/抵押/赎回/冻结/监狱/自救股份与拍
   const auction = summarizeObservations(dispatch(sale, { type: 'auction_respond', decision: 'bid', amount: 15000 }).entries);
   assert.equal(auction.bankFlow, 0); assert.equal(auction.economy.auction_sale.cashDelta, 15000); sale.close();
 });
+test('经营救援账务：第三次失败或放弃后连续跳过，同动作晚期出狱费只记一次', () => {
+  for (const decision of ['roll', 'pass', 'pay']) for (const die of [1, 6, 10]) for (const rounds of [79, 81]) {
+    const s = session(state => {
+      state.turnIndex = 1; state.phase = 'jail_turn'; state.pending = { playerId: 'p1', kind: 'jail' };
+      state.rounds = rounds;
+      state.players[0].jailed = true; state.players[0].position = 11; state.players[0].jailTurns = 0;
+      state.players[1].jailed = true; state.players[1].position = 21; state.players[1].jailTurns = 2;
+    }, 2, die);
+    const r = dispatch(s, { type: 'respond_jail', decision });
+    const fees = r.entries.filter(e => e.type === 'economy' && /jail_fee/.test(e.kind));
+    const late = rounds > 80 && (decision === 'pass' || decision === 'roll' && die === 6);
+    assert.equal(fees.length, decision === 'pay' || late ? 1 : 0);
+    if (fees.length) {
+      assert.equal(fees[0].playerId, 'p1');
+      assert.equal(fees[0].cashDelta, decision === 'pay' ? -15000 : -4500);
+      assert.equal(fees[0].bankFlow, fees[0].cashDelta);
+    }
+    s.close();
+  }
+  const debt = session(state => {
+    state.turnIndex = 1; state.phase = 'jail_turn'; state.pending = { playerId: 'p1', kind: 'jail' }; state.rounds = 81;
+    state.players[0].jailed = true; state.players[0].position = 32; state.players[0].jailTurns = 0;
+    state.players[1].jailed = true; state.players[1].position = 21; state.players[1].jailTurns = 2; state.players[1].cash = 1000;
+  }, 2, 6);
+  const r = dispatch(debt, { type: 'respond_jail', decision: 'roll' });
+  assert.equal(r.after.phase, 'self_rescue'); assert.equal(r.after.players[1].cash, -3500);
+  assert.equal(summarizeObservations(r.entries).economy.late_jail_fee.cashDelta, -4500);
+  debt.close();
+});
 test('回合观察：股票多动作仍同回合，单动作多名关押跳过有独立计数', () => {
   const s = session(state => { state.players[1].jailed = true; state.players[1].position = 11; state.players[2].jailed = true; state.players[2].position = 32; }, 3, 1);
   const summary = summarizeObservations(dispatch(s, { type: 'roll_dice' }).entries);

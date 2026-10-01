@@ -1,0 +1,153 @@
+{
+  "runId": "formal-20261001-1790864158320",
+  "source": "formal",
+  "registeredBeforeFirstAction": true,
+  "registeredAt": "2026-10-01T14:16:10.099Z",
+  "configHash": "22cef3b1e956c7da30ddd583afc99f30eea059bbee14f54e3345b088c6a44c1e",
+  "codeFingerprint": {
+    "hash": "228bfd20c185ecd5844250b8748a97665553bc59652f08d6cea76063da237177",
+    "commit": "e106b2726f82635f8cb221dbefaab5ffaffe58d4",
+    "worktree": "",
+    "files": [
+      {
+        "file": "package-lock.json",
+        "sha256": "127c7fa4a09cb046f84cacf98c196ae88f2fbfc3974ffb13320fb5d259475b1d"
+      },
+      {
+        "file": "package.json",
+        "sha256": "b5febf28eb0fde1ec7022e582bcd5c349dc80b734a244c96039da5646b8540cc"
+      },
+      {
+        "file": "scripts/balance/batch.js",
+        "sha256": "82e4c30072460bc76bd4dafe6f704c9fe57338a7078018085d416515697143ed"
+      },
+      {
+        "file": "scripts/balance/canonical.js",
+        "sha256": "a244e2908a9df8830c2936b7172b0f2277fd04f1fbcc2150999f727de2cd6618"
+      },
+      {
+        "file": "scripts/balance/config.js",
+        "sha256": "24d985344dc3236e6eeac1b48ce390a6728a99e84f6b7f9257efebd0a8bdbf90"
+      },
+      {
+        "file": "scripts/balance/observe.js",
+        "sha256": "dc86726fceed2e7fc2792068ceccfcf96b0f5545560cb90085f574a18b2fb797"
+      },
+      {
+        "file": "scripts/balance/policy.js",
+        "sha256": "393262f85a2c0f8d8a571fdd32b2ff3c2a85230975d230a3c22cdf58979f16cc"
+      },
+      {
+        "file": "scripts/balance/random.js",
+        "sha256": "0ab985d34774ec490001d99100175f82b760c41ee805afeb448b119219698d3e"
+      },
+      {
+        "file": "scripts/balance/replay.js",
+        "sha256": "256c3846a8abca843ac322d84d5d849788b79afff0461f32835af73b95763cbf"
+      },
+      {
+        "file": "scripts/balance/report.js",
+        "sha256": "5ea28ccc4ddfe8ad2aec0c0d14ccf4955562f1a1de04ab2d94e4bdd12afed2eb"
+      },
+      {
+        "file": "scripts/balance/schedule.js",
+        "sha256": "47b9b297149921cacbcd2316896d8e51f17e2f3e746280f4bdb57b4ab7aca143"
+      },
+      {
+        "file": "scripts/balance/session.js",
+        "sha256": "16a6f58cf0ee12dcb798e3109aae3bdc94c58309489b4516754557177e2de414"
+      },
+      {
+        "file": "scripts/balance/stats.js",
+        "sha256": "da71cc2aead1778d82432c6b45f61f3e4743f76ecc8f68f2b618f004f0af2069"
+      },
+      {
+        "file": "scripts/balance/storage.js",
+        "sha256": "ed423e456cca5dde6fb521e836762f0507275db2754514b564c4c04a77e1d75a"
+      },
+      {
+        "file": "scripts/simulate-balance.js",
+        "sha256": "d1d48cfe82901fafb128d25a9cdf4e4b89c639e635fdcd422391198b94c43503"
+      },
+      {
+        "file": "src/actionClock.js",
+        "sha256": "894d8bae59a00f7215226c3066565f1d922ab2b657bb7734939d625dd8ef6b80"
+      },
+      {
+        "file": "src/actionValidation.js",
+        "sha256": "e252297f317245cb8b6173389845d25f4c110ac7ec9c8ff4742e1b90273ef0c2"
+      },
+      {
+        "file": "src/assets.js",
+        "sha256": "1839725e2a50b05eef3fdf255a455ab062908bf53f9aa01955cc26c58ae3e1da"
+      },
+      {
+        "file": "src/board.js",
+        "sha256": "af59ab378382c037c805f2fbc9c0061aec4c7b9eb3aa1b9d0854eb1647995b8f"
+      },
+      {
+        "file": "src/economy.js",
+        "sha256": "e2e38b82d7a1692893765ed620c3bd925951c009c52d2376cdf62ad39fcd0fbd"
+      },
+      {
+        "file": "src/gameLogic.js",
+        "sha256": "48f85efa874295baf9bb1e46aef349fb550aeed8723b0acfb89a8ffa7dced33d"
+      },
+      {
+        "file": "src/gameView.js",
+        "sha256": "8ae48f8a74bc92dd4f00809870a68debd08839649987884027e25f2e1cd9a867"
+      },
+      {
+        "file": "src/gameplayCatalog.js",
+        "sha256": "2ad3668cd43a8461cea540ab7e1c40b271ded53730238e012da56bba8c3b53da"
+      },
+      {
+        "file": "src/opportunities.js",
+        "sha256": "fedf11e293ae943c5449d254e6d935274c573a4b7a72c1065310eec5a9f5b80a"
+      },
+      {
+        "file": "src/random.js",
+        "sha256": "0c05b54cfcfe2f7585f806a48f4c61fb8dbaafb52e658d2b3d5cd0fa6c8243d9"
+      },
+      {
+        "file": "src/record.js",
+        "sha256": "33297a4e0e0aef19820ce6861538ef47271654a1657ef45099d4ae7afe920475"
+      },
+      {
+        "file": "src/roundFlow.js",
+        "sha256": "a73aebd79c0371568468a9c30263527bff9af29ba4748309cfd739a90ac25090"
+      },
+      {
+        "file": "src/state.js",
+        "sha256": "ce784eb786ae8ec7c6e9b728053eb8e781ee39fc7be0cf5866642c36ade1b150"
+      },
+      {
+        "file": "src/stocks.js",
+        "sha256": "584f8cd265f851209c02d28a27c6228c2cf40405a6efa700955ad172a8696470"
+      },
+      {
+        "file": "src/worldEvents.js",
+        "sha256": "02af1f6bde6d2b93b2b270af29ec1490aac956f0f18a1ca5428bc239f121873b"
+      }
+    ]
+  },
+  "limits": {
+    "rounds": 500,
+    "actions": 20000,
+    "sliceMs": 60000,
+    "computeMs": 14400000,
+    "outputBytes": 2147483648
+  },
+  "sampleTargets": {
+    "neutralSeeds": 600,
+    "crossSeeds": 40,
+    "games": 4200,
+    "groups": 2240
+  },
+  "documents": {
+    "spec": "2da4d2f32bfa0a73228c3c3e42dd1efd761b2b6427345851ef220688d86548ea",
+    "plan": "94a059e7f3e51dad04bf55e6f63fac1a499b98658ede506d329cdc4f207b18a6",
+    "task": "7e3055fcbe55cfcd147a541276c77a72a08eed7856783444da0ad0e11d6ec339",
+    "checklist": "e2d9e140d6453177120844281dba6a720ace85eda61f1014891782879bf3b03e"
+  }
+}

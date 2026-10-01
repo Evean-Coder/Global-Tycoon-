@@ -1,0 +1,5 @@
+
+> global-tycoon@0.1.0 test
+> node --test --test-force-exit
+
+Could not find 'C:\Users\Yifan\Desktop\game\artifacts\gameplay-balance\debug-observer-1790864837680-n2\samples\s-b9a8345c579a343ed96be798\checkpoint.json.partial-eb457a49-3c3a-4463-a23a-a72924624223'

@@ -1,0 +1,11 @@
+审计一致：s-4d62d59f748215b3cb527f9c，1554条记录
+审计一致：s-36d44927e41cf124d1a943ee，1656条记录
+审计一致：s-5f70c3fcb817343829083880，851条记录
+缺失类别：{"playerCount":3,"outcome":"natural","sampleId":null}
+审计一致：s-2386ac9eee29c70338d2c499，1949条记录
+缺失类别：{"playerCount":3,"outcome":"error","sampleId":null}
+缺失类别：{"playerCount":4,"outcome":"natural","sampleId":null}
+审计一致：s-c833a2f090ae5fc2d7ac84c5，2581条记录
+缺失类别：{"playerCount":4,"outcome":"error","sampleId":null}
+报告：C:\Users\Yifan\Desktop\game\artifacts\gameplay-balance\formal-20261001-1790864158320/report.md
+原异常批次报告保存：C:\Users\Yifan\Desktop\game\artifacts\gameplay-balance\formal-20261001-1790864158320/report.md

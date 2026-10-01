@@ -1,0 +1,29 @@
+{
+  "source": "audit-diagnostic",
+  "notIncludedInFormalCounts": true,
+  "originalRun": "formal-20261001-1790864158320",
+  "sampleId": "s-5f70c3fcb817343829083880",
+  "verifiedPrefixRecords": 850,
+  "repairedStep": 850,
+  "engineStateUnchanged": true,
+  "fee": {
+    "type": "economy",
+    "source": "formal",
+    "step": 850,
+    "kind": "late_jail_fee",
+    "settlementRef": "dcac6281-57f6-48f6-acce-4311d79d98b4:action:850:legacy:late_jail_fee:p1:0",
+    "playerId": "p1",
+    "counterpartyId": null,
+    "cityId": null,
+    "airportId": null,
+    "cashDelta": -4500,
+    "bankFlow": -4500,
+    "fundDelta": 0,
+    "baseAmount": null,
+    "finalAmount": null,
+    "effects": [],
+    "basis": "action-and-state-rule-branch",
+    "id": "850:0:3b6c0c2b0f3d3c9d"
+  },
+  "oldError": "现金观察无法对账：p1，实际-4500，分解0"
+}

@@ -1,0 +1,378 @@
+{
+  "runId": "formal-20261001-1790864158320",
+  "configHash": "22cef3b1e956c7da30ddd583afc99f30eea059bbee14f54e3345b088c6a44c1e",
+  "codeHash": "228bfd20c185ecd5844250b8748a97665553bc59652f08d6cea76063da237177",
+  "coverage": {
+    "planned": 4200,
+    "started": 9,
+    "terminated": 9,
+    "pending": 0,
+    "unstarted": 4191,
+    "plannedGroups": 2240,
+    "completeGroups": 6
+  },
+  "stopReason": "first_error",
+  "computeMs": 328847.1223000139,
+  "totalComputeMs": 380277.01190002076,
+  "outcomes": [
+    {
+      "key": "2:neutral:neutral,neutral",
+      "n": 2,
+      "coverage": {
+        "planned": 600,
+        "started": 1,
+        "terminated": 1,
+        "pending": 0,
+        "unstarted": 599,
+        "natural": 0,
+        "censored": 1,
+        "error": 0,
+        "plannedGroups": 600,
+        "completeGroups": 1,
+        "completionRate": 0,
+        "censorRate": 1,
+        "errorRate": 0
+      }
+    },
+    {
+      "key": "3:neutral:neutral,neutral,neutral",
+      "n": 3,
+      "coverage": {
+        "planned": 600,
+        "started": 1,
+        "terminated": 1,
+        "pending": 0,
+        "unstarted": 599,
+        "natural": 0,
+        "censored": 1,
+        "error": 0,
+        "plannedGroups": 600,
+        "completeGroups": 1,
+        "completionRate": 0,
+        "censorRate": 1,
+        "errorRate": 0
+      }
+    },
+    {
+      "key": "4:neutral:neutral,neutral,neutral,neutral",
+      "n": 4,
+      "coverage": {
+        "planned": 600,
+        "started": 1,
+        "terminated": 1,
+        "pending": 0,
+        "unstarted": 599,
+        "natural": 0,
+        "censored": 1,
+        "error": 0,
+        "plannedGroups": 600,
+        "completeGroups": 1,
+        "completionRate": 0,
+        "censorRate": 1,
+        "errorRate": 0
+      }
+    },
+    {
+      "key": "2:cross:property,investment",
+      "n": 2,
+      "coverage": {
+        "planned": 80,
+        "started": 2,
+        "terminated": 2,
+        "pending": 0,
+        "unstarted": 78,
+        "natural": 2,
+        "censored": 0,
+        "error": 0,
+        "plannedGroups": 40,
+        "completeGroups": 1,
+        "completionRate": 1,
+        "censorRate": 0,
+        "errorRate": 0
+      }
+    },
+    {
+      "key": "2:cross:property,aviation",
+      "n": 2,
+      "coverage": {
+        "planned": 80,
+        "started": 2,
+        "terminated": 2,
+        "pending": 0,
+        "unstarted": 78,
+        "natural": 1,
+        "censored": 1,
+        "error": 0,
+        "plannedGroups": 40,
+        "completeGroups": 1,
+        "completionRate": 0.5,
+        "censorRate": 0.5,
+        "errorRate": 0
+      }
+    },
+    {
+      "key": "2:cross:property,cautious",
+      "n": 2,
+      "coverage": {
+        "planned": 80,
+        "started": 2,
+        "terminated": 2,
+        "pending": 0,
+        "unstarted": 78,
+        "natural": 1,
+        "censored": 0,
+        "error": 1,
+        "plannedGroups": 40,
+        "completeGroups": 1,
+        "completionRate": 0.5,
+        "censorRate": 0,
+        "errorRate": 0.5
+      }
+    },
+    {
+      "key": "2:cross:investment,aviation",
+      "n": 2,
+      "coverage": {
+        "planned": 80,
+        "started": 0,
+        "terminated": 0,
+        "pending": 0,
+        "unstarted": 80,
+        "natural": 0,
+        "censored": 0,
+        "error": 0,
+        "plannedGroups": 40,
+        "completeGroups": 0,
+        "completionRate": null,
+        "censorRate": null,
+        "errorRate": null
+      }
+    },
+    {
+      "key": "2:cross:investment,cautious",
+      "n": 2,
+      "coverage": {
+        "planned": 80,
+        "started": 0,
+        "terminated": 0,
+        "pending": 0,
+        "unstarted": 80,
+        "natural": 0,
+        "censored": 0,
+        "error": 0,
+        "plannedGroups": 40,
+        "completeGroups": 0,
+        "completionRate": null,
+        "censorRate": null,
+        "errorRate": null
+      }
+    },
+    {
+      "key": "2:cross:aviation,cautious",
+      "n": 2,
+      "coverage": {
+        "planned": 80,
+        "started": 0,
+        "terminated": 0,
+        "pending": 0,
+        "unstarted": 80,
+        "natural": 0,
+        "censored": 0,
+        "error": 0,
+        "plannedGroups": 40,
+        "completeGroups": 0,
+        "completionRate": null,
+        "censorRate": null,
+        "errorRate": null
+      }
+    },
+    {
+      "key": "3:cross:property,investment,aviation",
+      "n": 3,
+      "coverage": {
+        "planned": 240,
+        "started": 0,
+        "terminated": 0,
+        "pending": 0,
+        "unstarted": 240,
+        "natural": 0,
+        "censored": 0,
+        "error": 0,
+        "plannedGroups": 40,
+        "completeGroups": 0,
+        "completionRate": null,
+        "censorRate": null,
+        "errorRate": null
+      }
+    },
+    {
+      "key": "3:cross:property,investment,cautious",
+      "n": 3,
+      "coverage": {
+        "planned": 240,
+        "started": 0,
+        "terminated": 0,
+        "pending": 0,
+        "unstarted": 240,
+        "natural": 0,
+        "censored": 0,
+        "error": 0,
+        "plannedGroups": 40,
+        "completeGroups": 0,
+        "completionRate": null,
+        "censorRate": null,
+        "errorRate": null
+      }
+    },
+    {
+      "key": "3:cross:property,aviation,cautious",
+      "n": 3,
+      "coverage": {
+        "planned": 240,
+        "started": 0,
+        "terminated": 0,
+        "pending": 0,
+        "unstarted": 240,
+        "natural": 0,
+        "censored": 0,
+        "error": 0,
+        "plannedGroups": 40,
+        "completeGroups": 0,
+        "completionRate": null,
+        "censorRate": null,
+        "errorRate": null
+      }
+    },
+    {
+      "key": "3:cross:investment,aviation,cautious",
+      "n": 3,
+      "coverage": {
+        "planned": 240,
+        "started": 0,
+        "terminated": 0,
+        "pending": 0,
+        "unstarted": 240,
+        "natural": 0,
+        "censored": 0,
+        "error": 0,
+        "plannedGroups": 40,
+        "completeGroups": 0,
+        "completionRate": null,
+        "censorRate": null,
+        "errorRate": null
+      }
+    },
+    {
+      "key": "4:cross:property,investment,aviation,cautious",
+      "n": 4,
+      "coverage": {
+        "planned": 960,
+        "started": 0,
+        "terminated": 0,
+        "pending": 0,
+        "unstarted": 960,
+        "natural": 0,
+        "censored": 0,
+        "error": 0,
+        "plannedGroups": 40,
+        "completeGroups": 0,
+        "completionRate": null,
+        "censorRate": null,
+        "errorRate": null
+      }
+    }
+  ],
+  "auditSelection": [
+    {
+      "playerCount": 2,
+      "outcome": "natural",
+      "sampleId": "s-4d62d59f748215b3cb527f9c"
+    },
+    {
+      "playerCount": 2,
+      "outcome": "censored",
+      "sampleId": "s-36d44927e41cf124d1a943ee"
+    },
+    {
+      "playerCount": 2,
+      "outcome": "error",
+      "sampleId": "s-5f70c3fcb817343829083880"
+    },
+    {
+      "playerCount": 3,
+      "outcome": "natural",
+      "sampleId": null
+    },
+    {
+      "playerCount": 3,
+      "outcome": "censored",
+      "sampleId": "s-2386ac9eee29c70338d2c499"
+    },
+    {
+      "playerCount": 3,
+      "outcome": "error",
+      "sampleId": null
+    },
+    {
+      "playerCount": 4,
+      "outcome": "natural",
+      "sampleId": null
+    },
+    {
+      "playerCount": 4,
+      "outcome": "censored",
+      "sampleId": "s-c833a2f090ae5fc2d7ac84c5"
+    },
+    {
+      "playerCount": 4,
+      "outcome": "error",
+      "sampleId": null
+    }
+  ],
+  "audits": [
+    {
+      "sampleId": "s-2386ac9eee29c70338d2c499",
+      "path": "audits/s-2386ac9eee29c70338d2c499/9510759b-e40e-4c7d-ad13-64c639bdb07f.json",
+      "kind": "replay",
+      "ok": true,
+      "paused": false,
+      "originalOutcome": "censored"
+    },
+    {
+      "sampleId": "s-36d44927e41cf124d1a943ee",
+      "path": "audits/s-36d44927e41cf124d1a943ee/22347afc-8883-4fcd-a115-256d3c9db616.json",
+      "kind": "replay",
+      "ok": true,
+      "paused": false,
+      "originalOutcome": "censored"
+    },
+    {
+      "sampleId": "s-4d62d59f748215b3cb527f9c",
+      "path": "audits/s-4d62d59f748215b3cb527f9c/04119467-2b5b-4c50-8893-fcc3b029d15e.json",
+      "kind": "replay",
+      "ok": true,
+      "paused": false,
+      "originalOutcome": "natural"
+    },
+    {
+      "sampleId": "s-5f70c3fcb817343829083880",
+      "path": "audits/s-5f70c3fcb817343829083880/9ea103eb-06b9-4f9b-8506-f534a9179f95.json",
+      "kind": "replay",
+      "ok": true,
+      "paused": false,
+      "originalOutcome": "error"
+    },
+    {
+      "sampleId": "s-c833a2f090ae5fc2d7ac84c5",
+      "path": "audits/s-c833a2f090ae5fc2d7ac84c5/a4129ff1-37d9-4cec-9b71-ae2631eccb3d.json",
+      "kind": "replay",
+      "ok": true,
+      "paused": false,
+      "originalOutcome": "censored"
+    }
+  ],
+  "report": "artifacts\\gameplay-balance\\formal-20261001-1790864158320/report.md",
+  "summary": "artifacts\\gameplay-balance\\formal-20261001-1790864158320/summary.json",
+  "evidenceIndex": "artifacts\\gameplay-balance\\formal-20261001-1790864158320/evidence-index.json",
+  "notMergedWithFutureVersions": true
+}

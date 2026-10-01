@@ -222,7 +222,13 @@ function legacyActionMoney(before, after, action, actorId, entries, legacy, mone
   if (action.type === 'respond_jail' && action.decision === 'pay') legacy('jail_fee', actorId, -15000);
   for (const pp of after.players) {
     const old = player(before, pp.id);
-    if (old.jailed && old.position === 21 && old.jailTurns >= 3 && !pp.jailed && after.rounds > 80 && !(pp.id === actorId && action.type === 'respond_jail' && action.decision === 'pay')) legacy('late_jail_fee', pp.id, -4500);
+    // A failed third attempt can end the turn, skip other jailed players, and
+    // prepare this player's next turn in the same action. The pre-action count
+    // is still two, although the automatic release branch has charged its fee.
+    const failedAttempt = pp.id === actorId && action.type === 'respond_jail' &&
+      (action.decision === 'pass' || action.decision === 'roll' && ![1, 10].includes(after.dice));
+    const served = old.jailTurns + (failedAttempt ? 1 : 0);
+    if (old.jailed && old.position === 21 && served >= 3 && !pp.jailed && after.rounds > 80 && !(pp.id === actorId && action.type === 'respond_jail' && action.decision === 'pay')) legacy('late_jail_fee', pp.id, -4500);
   }
   const eliminated = after.players.filter(p => player(before, p.id).alive && !p.alive);
   for (const dead of eliminated) {

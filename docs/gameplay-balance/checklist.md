@@ -101,17 +101,17 @@
 
 - [ ] **C40**：输出只在项目内验证专用目录，新批次不覆盖已有不匹配内容；越界、生产目录及链接到保护目标被拒绝。（覆盖：AC13、AC18；验证：运行 `node --test --test-name-pattern="输出保护" test/balance-storage.test.js`，核对实际通过结果。）
 
-- [ ] **C41**：原子配置、检查点、结果与清单在崩溃边界一致；无有效终止结果不得标样本完成，重复样本不覆盖。（覆盖：AC13、AC17；验证：运行 `node --test --test-name-pattern="原子写入|批次清单" test/balance-storage.test.js`，核对实际通过结果。）
+- [ ] **C41**：原子配置、检查点、结果与清单在崩溃边界一致；无有效终止结果不得标样本完成，重复样本不覆盖。（覆盖：AC13、AC17；验证：运行 `node --test --test-name-pattern="原子保存|批次清单" test/balance-storage.test.js`，核对实际通过结果。）
 
-- [ ] **C42**：完整动作/理由/观察分段压缩后重读一致；损坏段、不完整末条保留审计，有效前缀不删除且不重复纳入。（覆盖：AC11、AC13、AC17；验证：运行 `node --test --test-name-pattern="流水分段" test/balance-storage.test.js`，核对实际通过结果；运行 `node --test --test-name-pattern="恢复审计" test/balance-replay.test.js`，核对实际通过结果。）
+- [ ] **C42**：完整动作/理由/观察分段压缩后重读一致；损坏段、不完整末条保留审计，有效前缀不删除且不重复纳入。（覆盖：AC11、AC13、AC17；验证：运行 `node --test --test-name-pattern="分段流水" test/balance-storage.test.js`，核对实际通过结果；运行 `node --test --test-name-pattern="恢复审计" test/balance-replay.test.js`，核对实际通过结果。）
 
-- [ ] **C43**：异配置/规则/策略/相关代码版本拒绝静默续跑，生成标识映射可核对但经济版本不同不能自动按新价继续。（覆盖：AC11、AC13；验证：运行 `node --test --test-name-pattern="原子写入" test/balance-storage.test.js`，核对实际通过结果；运行 `node --test --test-name-pattern="重放差异" test/balance-replay.test.js`，核对实际通过结果。）
+- [ ] **C43**：异配置/规则/策略/相关代码版本拒绝静默续跑，生成标识映射可核对但经济版本不同不能自动按新价继续。（覆盖：AC11、AC13；验证：运行 `node --test --test-name-pattern="原子保存" test/balance-storage.test.js`，核对实际通过结果；运行 `node --test --test-name-pattern="重放差异" test/balance-replay.test.js`，核对实际通过结果。）
 
-- [ ] **C44**：同配置种子逐步重放动作、金额、阶段、记忆、终止和随机计数相同；恢复重新执行策略随机调用，审计不增加正式样本。（覆盖：AC11、AC13、AC17；验证：运行 `node --test --test-name-pattern="逐步重放|恢复审计" test/balance-replay.test.js`，核对实际通过结果。）
+- [ ] **C44**：同配置种子逐步重放动作、金额、阶段、记忆、终止和随机计数相同；恢复重新执行策略随机调用，审计不增加正式样本。（覆盖：AC11、AC13、AC17；验证：运行 `node --test --test-name-pattern="策略重放|恢复审计" test/balance-replay.test.js`，核对实际通过结果。）
 
 - [ ] **C45**：60秒片段/240分钟累计预算导致保存与续跑，不变成胜者或逻辑截断；恢复重放计入总耗时但不吞掉继续执行片段。（覆盖：AC12、AC13；验证：运行 `node --test --test-name-pattern="计算预算" test/balance-storage.test.js`，核对实际通过结果；读取正式累计耗时与停止原因。）
 
-- [ ] **C46**：2GiB输出限额或写入失败停止新动作并保留记录，不删除用户或旧批次文件；实验用小注入上限验证。（覆盖：AC12、AC13、AC18；验证：运行 `node --test --test-name-pattern="存储预算" test/balance-storage.test.js`，核对实际通过结果。）
+- [ ] **C46**：2GiB输出限额或写入失败停止新动作并保留记录，不删除用户或旧批次文件；实验用小注入上限验证。（覆盖：AC12、AC13、AC18；验证：运行 `node --test --test-name-pattern="输出预算" test/balance-storage.test.js`，核对实际通过结果。）
 
 - [ ] **C47**：正式首个执行/对账/重放错误保留并停止排查，原异常不会被成功重跑覆盖；中断明确标记待恢复。（覆盖：AC4、AC12、AC13、AC17；验证：运行 `node --test --test-name-pattern="异常中断" test/balance-storage.test.js`，核对实际通过结果。）
 

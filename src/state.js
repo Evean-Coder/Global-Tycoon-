@@ -2,6 +2,9 @@
 
 const { buildBoard, buildChanceDeck } = require('./board');
 const { shuffle } = require('./random');
+const { randomUUID } = require('crypto');
+const { createWorld } = require('./worldEvents');
+const { initial } = require('./opportunities');
 
 const START_CASH = 150000;
 const PLAYER_COLORS = ['#e53935', '#1e88e5', '#43a047', '#fdd835'];
@@ -28,8 +31,9 @@ function createPlayer(name, seat, id) {
   };
 }
 
-function createGameState(roomCode, playerNames) {
+function createGameState(roomCode, playerNames, ruleVersion = 2) {
   const players = playerNames.map((name, i) => createPlayer(name, i, `p${i}`));
+  for (const p of players) p.opportunities = initial();
   const board = buildBoard();
   const cities = {};
   for (const sq of board) {
@@ -45,10 +49,15 @@ function createGameState(roomCode, playerNames) {
   }
   const stocks = {};
   for (const cityId of Object.keys(cities)) {
-    stocks[cityId] = { price: Math.round((cities[cityId].price / 10) * 2), holders: {} };
+    cities[cityId].buildCosts = [];
+    stocks[cityId] = { price: Math.round((cities[cityId].price / 10) * 2), holders: {}, operatingPrice: Math.round(cities[cityId].price * 0.2), dividendFund: 0, roundRent: 0, rentHistory: [], listingEpoch: 0, quoteVersion: 0, clearing: false, lastDividendPerShare: 0 };
   }
   return {
     roomCode,
+    gameId: randomUUID(), ruleVersion, revision: 0, turnId: 1,
+    actorRevision: Object.fromEntries(players.map(p => [p.id, 0])),
+    roundFlow: { index: 1, requiredIds: players.map(p => p.id), completedIds: [], completedTurns: [], boundaryId: 0, continuation: null },
+    world: createWorld(), opportunityStage: null, stockWindow: null, movement: null,
     status: 'playing',
     players,
     board,
@@ -70,9 +79,13 @@ function createGameState(roomCode, playerNames) {
   };
 }
 
-// 对外快照：剔除敏感字段
-function snapshot(state) {
-  return JSON.parse(JSON.stringify(state, (key, value) => (key === 'reconnectToken' ? undefined : value)));
+// 对外快照：只投影客户端需要的字段，避免泄露未来随机序列与身份凭据。
+function snapshot(state, viewerId, clockView) {
+  if (state.ruleVersion === 2) return require('./gameView').snapshot(state, viewerId, clockView);
+  const keys = ['roomCode', 'status', 'players', 'board', 'cities', 'airports', 'stocks', 'firstRoundDone', 'turnIndex', 'phase', 'pending', 'dice', 'rounds', 'rank', 'winner', 'startedAt'];
+  const out = {};
+  for (const key of keys) out[key] = state[key];
+  return JSON.parse(JSON.stringify(out, (key, value) => (key === 'reconnectToken' ? undefined : value)));
 }
 
 function resetDeck(state, rng) {

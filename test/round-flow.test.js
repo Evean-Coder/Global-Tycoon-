@@ -1,0 +1,3 @@
+'use strict';
+const test=require('node:test'),assert=require('node:assert/strict');const {game}=require('./helpers/gameplayFixtures');const r=require('../src/roundFlow');
+test('追踪本轮要求与回合完成 / 处理轮内出局与自动跳过',()=>{for(const n of [2,3,4]){const s=game(n);assert.equal(r.completeTurn(s,'p0',1),false);assert.equal(r.completeTurn(s,'p0',1),false);for(let i=1;i<n;i++)assert.equal(r.completeTurn(s,'p'+i,i+1),i===n-1);r.startRound(s);s.players[0].alive=false;r.removeEliminated(s);assert.equal(s.roundFlow.requiredIds.includes('p0'),false);for(let i=1;i<n;i++)r.completeTurn(s,'p'+i,10+i);assert.equal(r.isComplete(s),true);}});

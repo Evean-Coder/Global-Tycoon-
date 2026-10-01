@@ -2,7 +2,9 @@
 
 const test = require('node:test');
 const assert = require('node:assert');
-const { createGameState } = require('../src/state');
+const { createGameState: createState } = require('../src/state');
+// 保留旧版规则回归；新版规则由 gameplay-* 和 stocks-v2 覆盖。
+const createGameState = (code, names) => createState(code, names, 1);
 const logic = require('../src/gameLogic');
 const { rollDice } = require('../src/random');
 

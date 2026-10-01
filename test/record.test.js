@@ -5,8 +5,9 @@ const assert = require('node:assert');
 const { spawn } = require('child_process');
 const fs = require('fs');
 const path = require('path');
-const { io: Client } = require('socket.io-client');
-const { createGameState, resetDeck } = require('../src/state');
+const { Client, waitState } = require('./helpers/trackedClient');
+const { createGameState: createState, resetDeck } = require('../src/state');
+const createGameState=(code,names)=>createState(code,names,1);
 const { createRng } = require('../src/random');
 const { buildGameRecord, computeStats } = require('../src/record');
 
@@ -104,12 +105,13 @@ test('集成：中途解散房间时广播完整对局记录', async () => {
   const joined = await new Promise((resolve) => b.emit('joinRoom', { roomCode: code, name: '乙' }, resolve));
   assert.strictEqual(joined.ok, true);
   await new Promise((resolve) => a.emit('startGame', {}, resolve));
+  await waitState(a,'waiting_roll');
   const recP = once(a, 'gameRecord', 8000);
   await new Promise((resolve) => a.emit('action', { type: 'roll_dice' }, resolve));
   await new Promise((resolve) => a.emit('disbandRoom', {}, resolve));
   const rec = await recP;
   assert.ok(rec);
-  assert.strictEqual(rec.schema, 'global-tycoon.game-record.v1');
+  assert.strictEqual(rec.schema, 'global-tycoon.game-record.v2');
   assert.strictEqual(rec.endReason, 'disband');
   assert.strictEqual(rec.players.length, 2);
   assert.ok(rec.events.length >= 1);

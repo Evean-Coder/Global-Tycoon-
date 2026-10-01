@@ -1,6 +1,14 @@
 'use strict';
 
 const { rollDice, shuffle } = require('./random');
+const economy = require('./economy');
+const stocks = require('./stocks');
+const opportunities = require('./opportunities');
+const roundFlow = require('./roundFlow');
+const worldEvents = require('./worldEvents');
+const { assetSummary } = require('./assets');
+
+function modern(state) { return state.ruleVersion === 2; }
 
 const JAILS = [11, 21, 32];
 const GO = 0;
@@ -54,6 +62,7 @@ function rentFor(city) {
 }
 
 function totalAssetsOf(state, p) {
+  if (modern(state)) return assetSummary(state, p.id).total;
   let v = p.cash;
   for (const id of p.cities) v += cityTotalValue(state.cities[id]);
   v += (p.airports || []).length * AIRPORT_PRICE;
@@ -108,6 +117,7 @@ function stockPriceCap(city) {
 }
 
 function bumpStock(state, cityId, delta) {
+  if (modern(state)) return;
   const st = state.stocks[cityId];
   const city = state.cities[cityId];
   const cap = stockPriceCap(city);
@@ -123,7 +133,52 @@ function sharesOf(state, playerId, cityId) {
 
 // ---------- 回合推进 ----------
 
-function advanceTurn(state, events, _rng) {
+function finishGame(state, events) {
+  const alive = alivePlayers(state);
+  if (modern(state)) stocks.settleFinalEconomy(state, 'last_survivor', events);
+  state.winner = alive[0]?.id || null;
+  state.status = 'over'; state.phase = 'game_over'; state.pending = null;
+  state.rank = [...alive.map(p => p.id), ...state.rank.filter(id => id !== state.winner).reverse()];
+  if (alive[0]) log(events, `${alive[0].name} 成为最终赢家！`, 'win');
+}
+
+function completeRoundBoundary(state, events, rng) {
+  if (!modern(state) || !roundFlow.isComplete(state)) return false;
+  const roundId = state.roundFlow.index;
+  if (state.roundFlow.boundaryId === roundId) return false;
+  state.roundFlow.boundaryId = roundId;
+  stocks.updateOperatingQuotes(state, roundId, events);
+  const wasWaiting = state.world.status === 'waiting';
+  worldEvents.advanceWorld(state, rng, events);
+  state.world.constructionUsedIds = [];
+  let stage = 0;
+  if (wasWaiting && state.world.status === 'running') stage = 2;
+  else if (state.world.roundsCompleted >= 6 && (state.opportunityStage?.ordinal || 0) < 3) stage = 3;
+  roundFlow.startRound(state);
+  if (stage) {
+    opportunities.beginOpportunityStage(state, stage, { kind: 'prepare_turn' }, rng);
+    return true;
+  }
+  return false;
+}
+
+function resolveChoices(state, events, rng, cause) {
+  const stage = state.opportunityStage;
+  const continuation = opportunities.resolveOpportunityStage(state, stage?.stageId, cause, events);
+  if (!continuation) return;
+  for (const id of stage.participantIds) {
+    const p = playerById(state, id);
+    const chosen = p.opportunities.selectedIds.at(-1);
+    if (chosen === 'H12') economy.reward(state, p, 6000, chosen, events, '应急资金');
+  }
+  if (continuation.kind === 'prepare_turn' || continuation.kind === 'start') prepareTurn(state, events, rng);
+}
+
+function advanceTurn(state, events, rng) {
+  if (modern(state)) {
+    roundFlow.completeTurn(state, currentPlayer(state).id, state.turnId);
+    stocks.closeStockWindow(state);
+  }
   if (state.turnIndex === 0) state.rounds++;
   for (const p of state.players) {
     if (!p.alive) continue;
@@ -131,11 +186,7 @@ function advanceTurn(state, events, _rng) {
   }
   const alive = alivePlayers(state);
   if (alive.length <= 1) {
-    state.winner = alive[0].id;
-    state.status = 'over';
-    state.phase = 'game_over';
-    state.rank = [alive[0].id, ...state.rank.filter((id) => id !== alive[0].id).reverse()];
-    log(events, `${alive[0].name} 成为最终赢家！`, 'win');
+    finishGame(state, events);
     return;
   }
   do {
@@ -153,6 +204,12 @@ function advanceTurn(state, events, _rng) {
       }
     }
   }
+  if (modern(state)) state.turnId++;
+  if (completeRoundBoundary(state, events, rng)) return;
+  prepareTurn(state, events, rng);
+}
+
+function prepareTurn(state, events, rng) {
   let p = currentPlayer(state);
   // 11/32 号监狱：关押 1 回合——该玩家的下一回合直接跳过（不做任何行动）；
   // 循环处理连续多名待跳过的玩家（如多人先后入 1 回合监狱）
@@ -160,9 +217,12 @@ function advanceTurn(state, events, _rng) {
   while (p.jailed && jailLimitFor(p.position) === 1 && p.jailTurns < 1 && skipGuard++ < state.players.length) {
     p.jailTurns = 1;
     log(events, `${p.name} 被关押 1 回合，本回合跳过`, 'jail');
+    if (modern(state)) roundFlow.completeTurn(state, p.id, state.turnId);
     do {
       state.turnIndex = (state.turnIndex + 1) % state.players.length;
     } while (!state.players[state.turnIndex].alive);
+    if (modern(state)) state.turnId++;
+    if (completeRoundBoundary(state, events, rng)) return;
     p = currentPlayer(state);
   }
   log(events, `轮到 ${p.name}`);
@@ -210,6 +270,12 @@ function settleGo(state, player, events) {
   player.lapDone = true; // 本圈已过起点
   maybeCompleteLapCycle(state, events);
   log(events, `${player.name} 跨过/停在起点，获得 ${GO_BONUS}`);
+  if (modern(state)) {
+    opportunities.refresh(player);
+    for (const id of player.cities) stocks.settleCityDividend(state, id, 'go', state.gameId + ':go:' + state.turnId + ':' + id, events);
+    economy.goRewards(state, player, events);
+    return;
+  }
   // 名下城市股息
   for (const cityId of player.cities) {
     const c = state.cities[cityId];
@@ -231,6 +297,7 @@ function settleGo(state, player, events) {
 }
 
 function openStockWindow(state, player, events, after) {
+  if (modern(state)) stocks.openStockWindow(state, player.id);
   state.phase = 'stock';
   state.pending = { playerId: player.id, kind: 'go_stock', after };
   log(events, `${player.name} 可在起点进行一次股票交易`, 'stock');
@@ -288,8 +355,9 @@ function resolveCity(state, player, sq, events, rng) {
       endTurn(state, events, rng);
       return;
     }
+    city.buildReady = true;
     const cost = Math.round(city.price * 0.6);
-    const canBuild = city.houseLevel < 4 && player.cash >= cost;
+    const canBuild = modern(state) ? economy.quoteBuild(state, {playerId:player.id, cityId:sq.cityId}).ok : city.houseLevel < 4 && player.cash >= cost;
     const canDemolish = city.houseLevel > 0;
     if (!canBuild && !canDemolish) {
       log(events, `${player.name} 经过自己的城市 ${cityLabel(state, sq.cityId)}`);
@@ -305,6 +373,14 @@ function resolveCity(state, player, sq, events, rng) {
   if (city.mortgaged) {
     log(events, `${cityLabel(state, sq.cityId)} 处于抵押状态，不收租`);
     endTurn(state, events, rng);
+    return;
+  }
+  if (modern(state)) {
+    const q = economy.quoteRent(state, {playerId:player.id, cityId:sq.cityId});
+    economy.applySettlement(state, q, events);
+    stocks.refreshPrice(state, sq.cityId, '待分红增加');
+    if (player.cash < 0) startSelfRescue(state, player, -player.cash, events, '支付租金');
+    else endTurn(state, events, rng);
     return;
   }
   const rent = rentFor(city);
@@ -348,6 +424,7 @@ function resolveChance(state, player, events, rng) {
     if (player.cash < 0) startSelfRescue(state, player, -player.cash, events, `机会卡罚款`);
     else endTurn(state, events, rng);
   } else if (card.type === 'move') {
+    if (modern(state)) state.movement = {source:'chance', playerId:player.id};
     let target;
     if (card.toStart) {
       target = GO;
@@ -393,6 +470,10 @@ function finishLanding(state, player, events, rng) {
 }
 
 function resolveAirport(state, player, sq, events, rng) {
+  if (modern(state) && state.movement?.source === 'dice' && state.movement.playerId === player.id && state.movement.target === sq.id && !state.movement.rewardProcessed) {
+    economy.airportReward(state, player, sq.airportId, events);
+    state.movement.rewardProcessed = true;
+  }
   const airport = state.airports[sq.airportId];
   if (!airport.ownerId) {
     if (!state.firstRoundDone) {
@@ -472,6 +553,7 @@ function bankrupt(state, player, events, rng) {
   for (const cityId of player.cities) {
     const c = state.cities[cityId];
     if (c.mortgaged) {
+      if (modern(state)) stocks.clearCityToBank(state, {cityId}, events);
       c.ownerId = null;
       c.mortgaged = false;
       c.houseLevel = 0;
@@ -479,6 +561,7 @@ function bankrupt(state, player, events, rng) {
       log(events, `抵押城市 ${cityLabel(state, cityId)} 归银行（债务豁免）`);
     } else {
       toAuction.push(cityId);
+      if (modern(state)) state.stocks[cityId].clearing = true;
     }
   }
   for (const airportId of player.airports) state.airports[airportId].ownerId = null;
@@ -506,6 +589,7 @@ function surrenderLiquidation(state, player, events, rng) {
   log(events, `${player.name} 认输，资产直接归银行`, 'bankrupt');
   for (const cityId of player.cities) {
     const c = state.cities[cityId];
+    if (modern(state)) stocks.clearCityToBank(state, {cityId}, events);
     c.ownerId = null;
     c.mortgaged = false;
     c.houseLevel = 0;
@@ -525,11 +609,7 @@ function surrenderLiquidation(state, player, events, rng) {
 function afterBankrupt(state, events, rng) {
   const alive = alivePlayers(state);
   if (alive.length <= 1) {
-    state.winner = alive[0].id;
-    state.status = 'over';
-    state.phase = 'game_over';
-    state.rank = [alive[0].id, ...state.rank.filter((id) => id !== alive[0].id).reverse()];
-    log(events, `${alive[0].name} 成为最终赢家！`, 'win');
+    finishGame(state, events);
     return;
   }
   // 若当前回合玩家破产，推进回合
@@ -594,6 +674,7 @@ function auctionFail(state, events, rng) {
   const pend = state.pending;
   const city = state.cities[pend.cityId];
   const seller = pend.sellerId ? playerById(state, pend.sellerId) : null;
+  if (modern(state)) stocks.clearCityToBank(state, {cityId:pend.cityId}, events);
   if (pend.isBankruptcyAuction || (!seller && !pend.context)) {
     city.ownerId = null;
     city.houseLevel = 0;
@@ -621,6 +702,8 @@ function auctionWin(state, events, rng) {
   const pend = state.pending;
   const city = state.cities[pend.cityId];
   const winner = playerById(state, pend.currentBidder);
+  if (modern(state) && (!winner?.alive || winner.cash < pend.currentBid || winner.lapBuys >= LAP_CAP_NORMAL)) throw new Error('成交条件已失效');
+  if (modern(state)) stocks.transferCity(state, {cityId:pend.cityId, newOwnerId:winner.id}, events);
   winner.cash -= pend.currentBid;
   if (winner.cash < 0) {
     // 出价以当前现金为准，理论不会发生
@@ -695,10 +778,32 @@ function advanceDirectSale(state, events, rng) {
 
 // ---------- 动作分发 ----------
 
-function apply(state, action, rng) {
+function apply(state, action, rng, context = {}) {
   const events = [];
   const p = currentPlayer(state);
+  if (state.phase === 'opportunity_choose' && !['opportunity_choose','opportunity_reroll','opportunity_expire'].includes(action.type)) return {state,events,rejected:true};
   switch (action.type) {
+    case 'opportunity_choose': {
+      const actor = playerById(state, context.actorId);
+      if (!modern(state) || state.phase !== 'opportunity_choose' || !actor?.alive) return {state,events,rejected:true};
+      opportunities.submit(state, actor.id, action);
+      resolveChoices(state, events, rng, 'all');
+      break;
+    }
+    case 'opportunity_reroll': {
+      const actor = playerById(state, context.actorId);
+      if (!modern(state) || state.phase !== 'opportunity_choose' || !actor?.alive) return {state,events,rejected:true};
+      opportunities.reroll(state, actor, action, rng);
+      break;
+    }
+    case 'opportunity_expire':
+      if (!modern(state) || state.phase !== 'opportunity_choose' || context.source !== 'timeout' || action.stageId !== state.opportunityStage?.stageId) return {state,events,rejected:true};
+      resolveChoices(state, events, rng, 'timeout');
+      break;
+    case 'remote_build':
+      if (!modern(state)) return {state,events,rejected:true};
+      economy.applySettlement(state, economy.quoteBuild(state, {playerId:p.id,cityId:action.cityId,mode:'remote'}), events);
+      break;
     case 'roll_dice':
       if (state.phase !== 'waiting_roll') return { state, events, rejected: true };
       rollAction(state, p, events, rng);
@@ -790,7 +895,10 @@ function apply(state, action, rng) {
       break;
     case 'stock_trade':
       if (state.phase !== 'stock') return { state, events, rejected: true };
-      stockTrade(state, p, action.orders, events);
+      if (modern(state)) {
+        stocks.applyStockTrade(state, stocks.planStockTrade(state, p.id, action.windowId, action.orders), events);
+        state.pending.traded = true;
+      } else stockTrade(state, p, action.orders, events);
       break;
     case 'stock_transfer':
       if (state.phase !== 'stock' && state.phase !== 'trade_confirm') return { state, events, rejected: true };
@@ -818,6 +926,7 @@ function rollAction(state, p, events, rng) {
   const steps = roll;
   const oldPos = p.position;
   p.position = (p.position + steps) % 42;
+  if (modern(state)) state.movement = {source:'dice',playerId:p.id,target:p.position,rewardProcessed:false};
   const crossedGo = oldPos + steps >= 42;
   if (crossedGo) settleGo(state, p, events);
   if (crossedGo || p.position === GO) {
@@ -860,6 +969,7 @@ function jailAction(state, p, action, events, rng) {
     const steps = roll;
     const oldPos = p.position;
     p.position = (p.position + steps) % 42;
+    if (modern(state)) state.movement = {source:'dice',playerId:p.id,target:p.position,rewardProcessed:false};
     log(events, `${p.name} 掷出 ${roll}（1 或 10）出狱并移动`);
     if (oldPos + steps >= 42) {
       settleGo(state, p, events);
@@ -882,6 +992,7 @@ function jailAction(state, p, action, events, rng) {
 }
 
 function stockDone(state, events, rng) {
+  if (modern(state)) stocks.closeStockWindow(state);
   const pend = state.pending;
   state.pending = null;
   const p = playerById(state, pend.playerId);
@@ -907,6 +1018,7 @@ function buyAction(state, p, action, events, rng) {
       return;
     }
     p.cash -= city.price;
+    if (modern(state)) stocks.transferCity(state, {cityId:pend.cityId,newOwnerId:p.id}, events);
     city.ownerId = p.id;
     p.cities.push(pend.cityId);
     p.lapBuys = (p.lapBuys || 0) + 1;
@@ -953,12 +1065,17 @@ function flightAction(state, p, action, events, rng) {
   const to = state.board.find((s) => s.type === 'airport' && s.airportId === action.target);
   const dist = Math.min(Math.abs(to.id - from.id), 42 - Math.abs(to.id - from.id));
   if (!pend.free) {
+    if (modern(state)) {
+      economy.applySettlement(state, economy.quoteFlight(state, {playerId:p.id,target:action.target,fromAirportId:pend.fromAirportId,free:false}), events);
+      if (p.cash < 0) { startSelfRescue(state, p, -p.cash, events, '机票费'); return; }
+    } else {
     const ticket = dist * 500;
     p.cash -= ticket;
     log(events, `${p.name} 支付机票费 ${ticket} 飞往「${action.target}」`, 'airport');
     if (p.cash < 0) {
       startSelfRescue(state, p, -p.cash, events, `机票费`);
       return;
+    }
     }
   } else {
     log(events, `${p.name} 免费飞往「${action.target}」`, 'airport');
@@ -978,6 +1095,12 @@ function flightAction(state, p, action, events, rng) {
 function respondBuild(state, p, action, events, rng) {
   const pend = state.pending;
   const city = state.cities[pend.cityId];
+  if (modern(state)) {
+    if (action.decision === 'build') economy.applySettlement(state, economy.quoteBuild(state, {playerId:p.id,cityId:pend.cityId}), events);
+    else if (action.decision === 'demolish') economy.applySettlement(state, economy.quoteDemolition(state, {playerId:p.id,cityId:pend.cityId}), events);
+    else log(events, `${p.name} 不建不拆`);
+    endTurn(state, events, rng); return;
+  }
   if (!city || city.ownerId !== p.id) {
     endTurn(state, events, rng);
     return;
@@ -1040,6 +1163,7 @@ function buyFundraise(state, p, action, events, rng) {
         return;
       }
       p.cash -= city.price;
+      if (modern(state)) stocks.transferCity(state, {cityId:target.cityId,newOwnerId:p.id}, events);
       city.ownerId = p.id;
       p.cities.push(target.cityId);
       p.lapBuys = (p.lapBuys || 0) + 1;
@@ -1070,6 +1194,7 @@ function buyFundraise(state, p, action, events, rng) {
 
 function buildHouse(state, p, cityId, events) {
   if (state.phase !== 'waiting_roll') return;
+  if (modern(state)) { economy.applySettlement(state, economy.quoteBuild(state, {playerId:p.id,cityId}), events); return; }
   const city = state.cities[cityId];
   if (city.ownerId !== p.id || city.mortgaged || city.houseLevel >= 4 || p.position !== state.board.find((s) => s.cityId === cityId).id || city.buildReady === false) {
     log(events, `${p.name} 无法建造：需再次到达 ${cityLabel(state, cityId)} 后才能建房`, 'house');
@@ -1091,10 +1216,11 @@ function demolishHouse(state, p, cityId, events, rng) {
   } else if (state.phase !== 'waiting_roll' || p.position !== state.board.find((s) => s.cityId === cityId).id) {
     return;
   }
-  const refund = refundFor(city);
-  p.cash += refund;
-  city.houseLevel -= 1;
-  log(events, `${p.name} 拆除 ${cityLabel(state, cityId)} 一级房，返还 ${refund}`, 'house');
+  if (modern(state)) economy.applySettlement(state, economy.quoteDemolition(state, {playerId:p.id,cityId}), events);
+  else {
+    const refund = refundFor(city); p.cash += refund; city.houseLevel -= 1;
+    log(events, `${p.name} 拆除 ${cityLabel(state, cityId)} 一级房，返还 ${refund}`, 'house');
+  }
   if (state.phase === 'self_rescue' && p.cash >= 0) finishSelfRescue(state, events, rng);
 }
 
@@ -1151,10 +1277,11 @@ function rescueMortgage(state, p, cityId, events, rng) {
 function rescueDemolish(state, p, cityId, events, rng) {
   const city = state.cities[cityId];
   if (city.ownerId !== p.id || city.mortgaged || city.houseLevel <= 0) return;
-  const refund = refundFor(city);
-  p.cash += refund;
-  city.houseLevel -= 1;
-  log(events, `${p.name} 拆房自救 ${cityLabel(state, cityId)}，返还 ${refund}`, 'rescue');
+  if (modern(state)) economy.applySettlement(state, economy.quoteDemolition(state, {playerId:p.id,cityId}), events);
+  else {
+    const refund = refundFor(city); p.cash += refund; city.houseLevel -= 1;
+    log(events, `${p.name} 拆房自救 ${cityLabel(state, cityId)}，返还 ${refund}`, 'rescue');
+  }
   if (state.phase === 'self_rescue' && p.cash >= 0) finishSelfRescue(state, events, rng);
 }
 
@@ -1197,6 +1324,7 @@ function directSaleRespond(state, action, events, rng) {
       bidder.cash -= total;
       const seller = playerById(state, pend.sellerId);
       seller.cash += Math.round(total * 0.8);
+      if (modern(state)) stocks.transferCity(state, {cityId:pend.cityId,newOwnerId:bidder.id}, events);
       city.ownerId = bidder.id;
       if (!bidder.cities.includes(pend.cityId)) bidder.cities.push(pend.cityId);
       city.buildReady = false; // 获得后需再次到达才能建房
@@ -1294,6 +1422,54 @@ function auctionRespond(state, action, events, rng) {
 
 function stockTrade(state, p, orders, events) {
   if (!orders || !orders.length) return;
+  const seen = new Set();
+  const marketDeltas = new Map();
+  const sellByCity = new Map();
+  for (const o of orders) {
+    if (!o || !state.cities[o.cityId] || !state.stocks[o.cityId] || !['buy', 'sell'].includes(o.side) || !Number.isSafeInteger(o.shares) || o.shares <= 0) {
+      log(events, `${p.name} 股票交易未生效：订单格式无效`, 'stock');
+      return;
+    }
+    const key = `${o.side}:${o.cityId}`;
+    if (seen.has(key)) {
+      log(events, `${p.name} 股票交易未生效：同城同方向订单重复`, 'stock');
+      return;
+    }
+    seen.add(key);
+    const city = state.cities[o.cityId];
+    if (city.mortgaged) {
+      log(events, `${p.name} 股票交易未生效：${cityLabel(state, o.cityId)} 股票当前不可交易`, 'stock');
+      return;
+    }
+    const held = state.stocks[o.cityId].holders[p.id] || 0;
+    if (o.side === 'sell' && o.shares > held) {
+      log(events, `${p.name} 股票交易未生效：卖出数量超过持股`, 'stock');
+      return;
+    }
+    if (o.side === 'sell') sellByCity.set(o.cityId, o.shares);
+    marketDeltas.set(o.cityId, (marketDeltas.get(o.cityId) || 0) + (o.side === 'buy' ? o.shares : -o.shares));
+    if (o.side === 'buy') {
+      if (o.shares > 2) {
+        log(events, `${p.name} 股票交易未生效：买入数量超过限制`, 'stock');
+        return;
+      }
+    }
+  }
+  for (const [cityId, delta] of marketDeltas) {
+    const total = Object.values(state.stocks[cityId].holders).reduce((sum, n) => sum + (n > 0 ? n : 0), 0);
+    if (total + delta > 20) {
+      log(events, `${p.name} 股票交易未生效：市场没有足够股票`, 'stock');
+      return;
+    }
+  }
+  for (const o of orders.filter((x) => x.side === 'buy')) {
+    const city = state.cities[o.cityId];
+    const held = state.stocks[o.cityId].holders[p.id] || 0;
+    if (city.ownerId === p.id && held - (sellByCity.get(o.cityId) || 0) + o.shares > 4) {
+      log(events, `${p.name} 股票交易未生效：${cityLabel(state, o.cityId)} 城市所有者最多持有 4 股`, 'stock');
+      return;
+    }
+  }
   const validBuys = [];
   for (const o of orders.filter((x) => x.side === 'buy')) {
     const city = state.cities[o.cityId];
@@ -1305,7 +1481,7 @@ function stockTrade(state, p, orders, events) {
       log(events, `${p.name} 跳过无效买入：${cityLabel(state, o.cityId)} 单城最多 2 股`, 'stock');
       continue;
     }
-    if (city.ownerId === p.id && sharesOf(state, p.id, o.cityId) + o.shares > 4) {
+    if (city.ownerId === p.id && sharesOf(state, p.id, o.cityId) - (sellByCity.get(o.cityId) || 0) + o.shares > 4) {
       log(events, `${p.name} 跳过无效买入：${cityLabel(state, o.cityId)} 城市所有者最多持有 4 股（20%）`, 'stock');
       continue;
     }
@@ -1359,37 +1535,65 @@ function stockTrade(state, p, orders, events) {
 }
 
 function stockTransfer(state, p, action, events) {
-  const target = playerById(state, action.targetId);
-  if (!target || !target.alive) return;
+  if (!action) return;
+  if (modern(state)) {
+    if (state.phase === 'trade_confirm') {
+      const pend = state.pending;
+      if (action.accept) stocks.applyTransfer(state, stocks.planTransfer(state, pend.fromId, pend.targetId, pend.items, pend.cash), events);
+      else log(events, '股票转让被拒绝');
+      state.pending = pend.fromStock; state.phase = 'stock';
+      return;
+    }
+    if (!state.stockWindow || p.transferDone || action.windowId !== state.stockWindow.windowId) throw new Error('当前股票窗口不能发起转让');
+    stocks.planTransfer(state, p.id, action.targetId, action.items, action.cash);
+    state.pending = {type:'trade_confirm',fromId:p.id,targetId:action.targetId,items:action.items.map(i=>({...i})),cash:action.cash,fromStock:state.pending};
+    state.phase = 'trade_confirm';
+    log(events, `${p.name} 发起股票转让，等待确认`, 'stock'); return;
+  }
   if (state.pending && state.pending.type === 'trade_confirm') {
     // 对方确认
     const pend = state.pending;
+    const target = playerById(state, pend.targetId);
+    const from = playerById(state, pend.fromId);
+    if (!target || !target.alive || !from || !from.alive) return;
     if (action.accept) {
-      if (pend.cash > 0 && target.cash < pend.cash) {
-        log(events, `${target.name} 现金不足，无法接受转让`);
+      const checked = [];
+      for (const item of pend.items) {
+        const st = state.stocks[item.cityId];
+        const city = state.cities[item.cityId];
+        const take = item.shares;
+        if (!st || !city || take !== 1 || (st.holders[pend.fromId] || 0) < take) {
+          log(events, `${target.name} 无法接受转让：发起方持股不足`, 'stock');
+          state.pending = pend.fromStock || null;
+          state.phase = pend.fromStock ? 'stock' : 'waiting_roll';
+          return;
+        }
+        const targetHeld = st.holders[target.id] || 0;
+        if (city.ownerId === target.id && targetHeld + take > 4) {
+          log(events, `${target.name} 无法接受转让：城市所有者最多持有 4 股`, 'stock');
+          state.pending = pend.fromStock || null;
+          state.phase = pend.fromStock ? 'stock' : 'waiting_roll';
+          return;
+        }
+        checked.push({ st, cityId: item.cityId, take });
+      }
+      if (!Number.isSafeInteger(pend.cash) || pend.cash < 0 || target.cash < pend.cash) {
+        log(events, `${target.name} 现金不足，无法接受转让`, 'stock');
         state.pending = pend.fromStock || null;
         state.phase = pend.fromStock ? 'stock' : 'waiting_roll';
         return;
       }
-      for (const item of pend.items) {
-        const st = state.stocks[item.cityId];
-        const held = st.holders[pend.fromId] || 0;
-        const take = Math.min(item.shares, held, 1);
-        if (take > 0) {
-          st.holders[pend.fromId] = held - take;
-          playerById(state, pend.fromId).stocks[item.cityId] = Math.max(0, (playerById(state, pend.fromId).stocks[item.cityId] || 0) - take);
-          const to = target;
-          const city = state.cities[item.cityId];
-          if (city.ownerId === to.id && (st.holders[to.id] || 0) + take > 1) return;
-          st.holders[to.id] = (st.holders[to.id] || 0) + take;
-          to.stocks[item.cityId] = (to.stocks[item.cityId] || 0) + take;
-        }
+      for (const item of checked) {
+        item.st.holders[pend.fromId] = (item.st.holders[pend.fromId] || 0) - item.take;
+        from.stocks[item.cityId] = Math.max(0, (from.stocks[item.cityId] || 0) - item.take);
+        item.st.holders[target.id] = (item.st.holders[target.id] || 0) + item.take;
+        target.stocks[item.cityId] = (target.stocks[item.cityId] || 0) + item.take;
       }
       if (pend.cash > 0) {
-        if (target.cash < pend.cash) return;
         target.cash -= pend.cash;
-        playerById(state, pend.fromId).cash += pend.cash;
+        from.cash += pend.cash;
       }
+      from.transferDone = true;
       log(events, `股票转让完成`, 'stock');
     } else {
       log(events, `股票转让被拒绝`);
@@ -1399,17 +1603,23 @@ function stockTransfer(state, p, action, events) {
     return;
   }
   // 发起转让
+  const target = playerById(state, action.targetId);
+  if (!target || !target.alive || target.id === p.id || !Array.isArray(action.items)) return;
   if (p.transferDone) return; // 每回合至多一笔
-  if (action.items.length > 3) return;
-  for (const it of action.items) if (it.shares > 1 || it.shares <= 0) return;
+  if (action.items.length < 1 || action.items.length > 3 || !Number.isSafeInteger(action.cash) || action.cash < 0) return;
+  const seen = new Set();
+  for (const it of action.items) {
+    if (!state.stocks[it.cityId] || it.shares !== 1 || seen.has(it.cityId) || (state.stocks[it.cityId].holders[p.id] || 0) < 1) return;
+    seen.add(it.cityId);
+  }
   const fromStock = state.pending && state.pending.kind === 'go_stock' ? state.pending : null;
-  p.transferDone = true;
-  state.pending = { type: 'trade_confirm', fromId: p.id, targetId: action.targetId, items: action.items, cash: action.cash || 0, fromStock };
+  state.pending = { type: 'trade_confirm', fromId: p.id, targetId: target.id, items: action.items.map((item) => ({ cityId: item.cityId, shares: item.shares })), cash: action.cash, fromStock };
   state.phase = 'trade_confirm';
   log(events, `${p.name} 发起股票转让，等待 ${target.name} 确认`, 'stock');
 }
 
 function enforceOwnerStockCap(state, p, cityId, events) {
+  if (modern(state)) { stocks.enforceOwnerStockCap(state, p, cityId, events); return; }
   const st = state.stocks[cityId];
   const held = st.holders[p.id] || 0;
   if (held > 4) {
@@ -1441,4 +1651,7 @@ module.exports = {
   JAIL_FINE,
   FREEZE_FINE,
   AIRPORT_PRICE,
+  prepareTurn,
+  completeRoundBoundary,
+  resolveChoices,
 };

@@ -3,7 +3,7 @@
 const test = require('node:test');
 const assert = require('node:assert');
 const { spawn } = require('child_process');
-const { io: Client } = require('socket.io-client');
+const { Client, waitState } = require('./helpers/trackedClient');
 
 const spawnedChildren = [];
 const spawnedSockets = [];
@@ -47,7 +47,8 @@ test('端到端：创建/加入/开始/首个操作回合可运行', async () =>
   assert.strictEqual(gs.status, 'playing');
   assert.strictEqual(gs.players.length, 2);
   assert.strictEqual(gs.board.length, 42);
-  assert.strictEqual(gs.phase, 'waiting_roll');
+  assert.strictEqual(gs.phase, 'opportunity_choose');
+  await waitState(a, 'waiting_roll');
 
   const gs2P = once(a, 'gameState');
   a.emit('action', { type: 'roll_dice' });
@@ -170,7 +171,7 @@ test('对局结束后房主可重新开始新对局', async () => {
   const gsP = once(a, 'gameState');
   await new Promise((resolve) => a.emit('startGame', {}, resolve));
   let gs = await gsP;
-  assert.strictEqual(gs.phase, 'waiting_roll');
+  gs = await waitState(a, 'waiting_roll');
   // 甲（当前回合玩家）认输结束对局
   const gsEnd = once(a, 'gameState');
   a.emit('action', { type: 'surrender' });
@@ -181,7 +182,7 @@ test('对局结束后房主可重新开始新对局', async () => {
   const ack = await new Promise((resolve) => a.emit('startGame', {}, resolve));
   assert.strictEqual(ack.ok, true);
   gs = await gsR;
-  assert.strictEqual(gs.phase, 'waiting_roll');
+  assert.strictEqual(gs.phase, 'opportunity_choose');
   assert.strictEqual(gs.rounds, 0);
   assert.strictEqual(gs.players[0].cash, 150000);
   assert.strictEqual(gs.status, 'playing');

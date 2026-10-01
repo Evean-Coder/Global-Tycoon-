@@ -3,10 +3,12 @@
 // 对局数据记录：对局结束后生成一份可离线分析的 JSON 记录
 const { CITIES } = require('./board');
 const { cityTotalValue } = require('./gameLogic');
+const { assetSummary } = require('./assets');
 
 const AIRPORT_VALUE = 15000;
 
 function totalAssetsOf(state, p) {
+  if(state.ruleVersion===2)return assetSummary(state,p.id).total;
   let v = p.cash;
   for (const id of p.cities) v += cityTotalValue(state.cities[id]);
   v += (p.airports || []).length * AIRPORT_VALUE;
@@ -47,7 +49,7 @@ function computeStats(state, events) {
     else if (t === 'auction') stats.auctions++;
     else if (t === 'rent') {
       stats.rentsPaid++;
-      const ck = cityKeyOf(text);
+      const ck = e.cityId || cityKeyOf(text);
       if (ck) stats.cityRentPayments[ck] = (stats.cityRentPayments[ck] || 0) + 1;
     } else if (t === 'jail' && (text.indexOf('被关押') !== -1 || text.indexOf('直接入狱') !== -1)) {
       stats.jailEntries++;
@@ -65,13 +67,26 @@ function computeStats(state, events) {
     }
     if (text.indexOf('抵押') !== -1) stats.mortgageEvents++;
   }
+  if(state?.ruleVersion===2){
+    stats.economy={baseDividends:0,bankBonuses:0,retainedIncome:0,stockLiquidation:0,bankRentSupplement:0};
+    stats.selectedOpportunities=state.players.map(p=>({playerId:p.id,selectedIds:p.opportunities.selectedIds.slice()}));
+    stats.news=events.filter(e=>e.kind==='news').map(e=>({...e.news}));
+    for(const e of events){
+      if(e.kind==='dividend')stats.economy.baseDividends+=e.amount;
+      if(e.kind==='opportunity_reward')stats.economy.bankBonuses+=e.amount;
+      if(e.kind==='retained_income')stats.economy.retainedIncome+=e.amount;
+      if(e.kind==='stock_liquidation')stats.economy.stockLiquidation+=e.amount;
+      if(e.kind==='city_rent')stats.economy.bankRentSupplement+=e.bankSupplement||0;
+    }
+  }
   return stats;
 }
 
 function buildGameRecord(room, endReason) {
   const st = room.state;
   const record = {
-    schema: 'global-tycoon.game-record.v1',
+    schema: st.ruleVersion===2?'global-tycoon.game-record.v2':'global-tycoon.game-record.v1',
+    ...(st.ruleVersion===2?{gameId:st.gameId,ruleVersion:2,completeRounds:st.roundFlow.index-1}:{}),
     roomCode: room.code,
     startedAt: st.startedAt,
     endedAt: Date.now(),
@@ -87,6 +102,7 @@ function buildGameRecord(room, endReason) {
       alive: p.alive,
       cash: p.cash,
       totalAssets: totalAssetsOf(st, p),
+      ...(st.ruleVersion===2?{assetSummary:assetSummary(st,p.id),selectedOpportunities:p.opportunities.selectedIds.slice()}:{}),
       cities: p.cities.map((cid) => {
         const c = st.cities[cid];
         return {

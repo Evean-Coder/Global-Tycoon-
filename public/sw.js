@@ -1,10 +1,13 @@
 'use strict';
-const CACHE = 'global-tycoon-v3-ocean';
+const CACHE = 'global-tycoon-v4-economy';
 const CORE = [
   './',
   './index.html',
   './style.css',
   './client.js',
+  './style.css?v=20261001-economy',
+  './client.js?v=20261001-economy',
+  './socket.io/socket.io.js',
   './assets/world-map-ocean.png',
   './assets/ocean-surface.png',
   './manifest.webmanifest',
@@ -19,6 +22,8 @@ self.addEventListener('activate', (e) => {
 self.addEventListener('fetch', (e) => {
   if (e.request.method !== 'GET') return;
   const url = new URL(e.request.url);
+  // 联机握手和轮询不作为静态资源缓存；离线只提供页面外壳。
+  if (url.pathname.startsWith('/socket.io/') && url.pathname !== '/socket.io/socket.io.js') return;
   const isNav = e.request.mode === 'navigate' || url.pathname === '/' || url.pathname.endsWith('/index.html');
   if (isNav) {
     // HTML/导航：网络优先，失败回退缓存，保证更新即时生效
@@ -37,6 +42,6 @@ self.addEventListener('fetch', (e) => {
       const copy = res.clone();
       caches.open(CACHE).then((c) => c.put(e.request, copy)).catch(() => {});
       return res;
-    }).catch(() => caches.match('./index.html')))
+    }).catch(() => caches.match(e.request, { ignoreSearch: true }).then((hit) => hit || new Response('', { status: 503 }))))
   );
 });

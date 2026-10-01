@@ -149,7 +149,7 @@ ul.players .slot{color:var(--off);font-size:13px}
 @keyframes diceShake{0%{transform:translateY(0) rotate(0)}50%{transform:translateY(-4px) rotate(6deg)}100%{transform:translateY(0) rotate(0)}}
 #board{
   display:grid;grid-template-columns:minmax(0,1.2fr) repeat(10,minmax(0,1fr)) minmax(0,1.2fr);grid-template-rows:minmax(0,1.2fr) repeat(9,minmax(0,1fr)) minmax(0,1.2fr);gap:3px;margin:0 auto;
-  width:100%;max-width:1320px;height:clamp(560px,calc(100vh - 185px),760px);padding:8px;
+  width:100%;max-width:1320px;height:clamp(480px,var(--board-available,calc(100dvh - 245px)),760px);padding:8px;
   background:#d0b88e;
 }
 #board::before{
@@ -399,7 +399,7 @@ button.sq{width:100%;height:100%;appearance:none;font-family:var(--sans);letter-
 @media (max-width:1080px){
   #gameMain{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;align-items:start}
   #boardWrap{flex:none;width:100%;max-width:none}
-  #board{height:clamp(530px,calc(100vh - 210px),680px)}
+  #board{height:clamp(430px,var(--board-available,calc(100dvh - 290px)),680px)}
   #side{width:100%;height:auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:start}
   #side .panel{min-width:0}
   #side .side-ops{grid-column:1 / -1}
@@ -497,3 +497,14 @@ button.sq{width:100%;height:100%;appearance:none;font-family:var(--sans);letter-
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{scroll-behavior:auto !important;animation-duration:.01ms !important;transition-duration:.01ms !important}
 }
+
+/* 环球资讯与个人经营路线，沿用海蓝与暖白视觉。 */
+.news-bar{display:flex;align-items:center;flex-wrap:wrap;gap:10px 20px;max-width:1640px;margin:0 auto 14px;padding:14px 20px;background:rgba(246,249,246,.96);border:1px solid #c3d6dc;border-radius:14px;color:var(--title);font-size:14px}
+.news-bar>strong{color:#176680;letter-spacing:2px}.news-current{font-weight:600}.news-preview{color:#6d5931;font-size:13px}.news-bar details{position:relative}.news-bar summary{cursor:pointer;font-size:12px}.news-bar details p{max-width:550px;margin:8px 0 0;line-height:1.7}
+.choice-dialog{padding-bottom:12px}.choice-dialog>.mh,.choice-dialog>.mf,.choice-meta,.choice-error{flex-shrink:0}.choice-meta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:8px 24px;color:var(--muted);font-size:13px}.choice-meta #choiceTimer{color:#936a22;font-weight:700;font-variant-numeric:tabular-nums}
+.choice-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;padding:16px 24px;overflow-y:auto;min-height:0;flex:1 1 auto}.opportunity-card{display:flex;flex-direction:column;gap:12px;min-width:0;padding:20px;border:1px solid #cadde2;border-radius:12px;background:linear-gradient(145deg,#fffdfa,#eaf3f4)}.opportunity-direction{align-self:flex-start;padding:4px 8px;border-radius:6px;background:#dcebf0;color:#226379;font-size:12px}.opportunity-card h4{margin:0;font-size:20px;color:var(--title)}.opportunity-card p{margin:0;flex:1;font-size:14px;line-height:1.85;overflow-wrap:anywhere}.opportunity-card button{margin-top:8px;width:100%;min-height:44px}.choice-error{padding:0 24px;color:#a54236;min-height:1em;font-size:13px}
+.selected-opportunities{margin:16px 0;padding:14px;background:#edf4f5;border-radius:10px}.selected-opportunities h4{margin:0 0 10px}.selected-opportunities details{padding:9px 0;border-bottom:1px solid #cadce0}.selected-opportunities summary{cursor:pointer;font-weight:600;font-size:14px}.selected-opportunities p{font-size:13px;line-height:1.8}.selected-opportunities button{margin-top:12px;min-height:44px}
+.fee-basis{padding:8px 12px;background:#eef5f5;border:1px solid #d4e1e5;border-radius:8px;margin:8px 0;font-size:13px}.remote-city{padding:16px 0;border-bottom:1px solid var(--line)}.remote-city h4{margin:0 0 6px}.flight-option{min-width:0;flex:1 1 200px;padding:12px;background:#f4f7f5;border-radius:8px}.flight-option>button{width:100%;font-size:12px}.stock-basis{display:block;line-height:1.7;color:var(--muted);overflow-wrap:anywhere}.action-pending .opportunity-card button,.action-pending #btnReroll,.action-pending #btnStockConfirm{pointer-events:none;opacity:.65}
+.stock-summary{margin:12px 24px;color:var(--title);font-size:13px;line-height:1.8}.stock-item details{font-size:12px;line-height:1.8}.stock-item details summary{cursor:pointer}.public-opportunities{display:block;color:var(--muted);font-size:11px;line-height:1.8;margin:4px 0}.record-economy{margin:14px 0;padding:12px;background:#edf4f5;border-radius:8px}.record-economy summary{cursor:pointer;font-weight:600}
+@media(max-width:1080px){.choice-cards{gap:10px;padding:12px 20px}.opportunity-card{padding:16px}.news-bar{padding:12px 16px;gap:8px 14px}}
+@media(max-width:720px){.news-bar{padding:10px 12px;font-size:12px;border-radius:10px;margin-bottom:10px;gap:6px 10px}.news-preview{width:100%;font-size:11px}.choice-dialog{max-height:92dvh!important}.choice-meta{padding:8px 16px;font-size:12px}.choice-cards{grid-template-columns:minmax(0,1fr);gap:10px;padding:8px 16px}.opportunity-card{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 10px;padding:12px 14px}.opportunity-direction{grid-column:1 / -1;font-size:10px}.opportunity-card h4{font-size:17px;grid-column:1 / -1}.opportunity-card p{grid-column:1 / -1;font-size:12px;line-height:1.6}.opportunity-card button{grid-column:1 / -1;margin:4px 0 0;min-height:44px}.choice-dialog .mf button{min-height:44px;flex:1 1 120px}.choice-error{padding:0 16px}.stock-item .srow button{min-width:40px;min-height:40px}.selected-opportunities summary{line-height:1.8}}

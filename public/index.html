@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>环球大亨 · 资本博弈</title>
-  <link rel="stylesheet" href="style.css?v=20260930-ocean" />
+  <link rel="stylesheet" href="style.css?v=20261001-economy" />
   <meta name="theme-color" content="#0b354b" />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" type="image/svg+xml" href="icon.svg" />
@@ -69,6 +69,7 @@
   <!-- 游戏 -->
   <section id="view-game" class="view hidden">
     <div id="waitBanner" class="hidden"></div>
+    <section id="newsBar" class="news-bar" aria-label="环球资讯"></section>
     <div id="gameMain">
       <div id="boardWrap">
         <div id="boardScale">
@@ -104,6 +105,17 @@
   </section>
 
   <!-- 通用操作弹窗 -->
+  <div id="choiceModal" class="overlay hidden">
+    <div class="modal wide choice-dialog" role="dialog" aria-modal="true" aria-labelledby="choiceTitle">
+      <div class="mh"><h3 id="choiceTitle">经营机遇</h3><p class="hint">三选一，规划你的经营路线。提交后等待所有人完成；到时默认选择当前最左项。</p></div>
+      <div class="choice-meta"><span id="choiceStatus" role="status"></span><span id="choiceTimer"></span></div>
+      <div id="choiceCards" class="choice-cards"></div>
+      <div class="mf"><button id="btnReroll" class="secondary">换一组选项</button><button id="btnChoiceRules" class="textbtn">规则速查</button><button id="btnChoiceDisband" class="risk">解散房间</button></div>
+      <p id="choiceError" class="choice-error" role="alert"></p>
+    </div>
+  </div>
+
+  <!-- 通用操作弹窗 -->
   <div id="modal" class="overlay hidden">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <div class="mh"><h3 id="modalTitle"></h3></div>
@@ -116,7 +128,9 @@
     <div class="modal wide" role="dialog" aria-modal="true" aria-labelledby="stockTitle">
       <div class="mh"><h3 id="stockTitle">股票市场</h3><p id="stockHint" class="hint"></p></div>
       <div id="stockList"></div>
+      <p id="stockSummary" class="stock-summary" role="status"></p>
       <div class="mf">
+        <button id="btnStockTransfer" class="secondary">股票转让</button>
         <button id="btnStockSkip" class="secondary">放弃交易</button>
         <button id="btnStockConfirm" class="primary">确认交易</button>
       </div>
@@ -135,6 +149,6 @@
   <div id="toast" class="hidden"></div>
 
   <script src="/socket.io/socket.io.js"></script>
-  <script src="client.js?v=20260930-ocean"></script>
+  <script src="client.js?v=20261001-economy"></script>
 </body>
 </html>

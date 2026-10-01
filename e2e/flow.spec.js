@@ -1,4 +1,5 @@
 'use strict';
+/* global latestState */
 
 const test = require('node:test');
 const assert = require('node:assert');
@@ -50,7 +51,25 @@ test('端到端：创建→加入→开局→掷骰→解散→结算→回放',
   await p1.waitForTimeout(400);
   await p1.click('#btnStart');
   await p1.waitForSelector('#board .sq', { timeout: 8000 });
+  await p1.waitForSelector('#choiceModal:not(.hidden)');
+  await p2.waitForSelector('#choiceModal:not(.hidden)');
+  await p1.locator('#choiceCards button').first().click();
+  await p1.waitForFunction(()=>document.getElementById('choiceStatus').textContent.includes('已提交'),null,{timeout:5000});
+  const secondChoice=await p2.locator('#choiceCards button').last().getAttribute('data-opportunity-id');
+  await p2.locator('#choiceCards button').last().click();
+  await p2.waitForFunction(id=>latestState.players[1].opportunities.selectedIds.includes(id),secondChoice,{timeout:5000});
+  await p1.waitForSelector('#choiceModal', {state:'hidden'});
+  assert.ok((await p1.textContent('#log')).includes('选择经营机遇'),'选择应通过用户操作提交并公开');
   await p1.waitForTimeout(400);
+  const stateFrames = socketFrames.filter((frame) => frame.includes('gameState'));
+  assert.ok(stateFrames.length > 0, '应收到公开游戏状态');
+  for (const frame of stateFrames) {
+    assert.equal(frame.includes('diceBag'), false, '状态消息不得暴露未来骰袋');
+    assert.equal(frame.includes('chanceDeck'), false, '状态消息不得暴露机会卡顺序');
+    assert.equal(frame.includes('rngSeed'), false, '状态消息不得暴露随机种子');
+    assert.equal(frame.includes('reconnectToken'), false, '状态消息不得暴露重连凭据');
+  }
+
   // 保留原有资产、银行、规则与股票入口及可用条件。
   await p1.click('#btnAssets');
   assert.ok((await p1.textContent('#modalBody')).includes('总资产'), '资产入口应打开资产总览');
@@ -70,10 +89,11 @@ test('端到端：创建→加入→开局→掷骰→解散→结算→回放',
   // 掷骰（当前行动玩家为甲）
   await p1.emulateMedia({ reducedMotion: 'reduce' });
   const rollBtn = p1.locator('#btnRoll');
-  if (await rollBtn.isEnabled()) {
-    await rollBtn.click();
-    await p1.waitForTimeout(600);
-  }
+  assert.equal(await rollBtn.isEnabled(),true,'全体完成后恢复甲的掷骰按钮');
+  await rollBtn.click();
+  await p1.waitForTimeout(600);
+  const timerText = await p1.textContent('#timer');
+  assert.ok(timerText === '' || /(?:⏱|⏸)\s*\d+s/.test(timerText), '计时器应显示服务端期限或已结束');
   const logText = await p1.evaluate(() => (document.getElementById('log').textContent || '').trim());
   assert.ok(logText.length > 0, '事件记录应有内容');
 
@@ -83,6 +103,7 @@ test('端到端：创建→加入→开局→掷骰→解散→结算→回放',
     // 随机落点可能弹出强制操作窗；仍调用原按钮处理函数验证房主解散流程。
     await p1.evaluate(() => document.getElementById('btnDisband').click());
   } else await p1.click('#btnDisband');
+  await p1.waitForFunction(()=>latestState.phase==='game_over'&&document.getElementById('modalBody').textContent.includes('最终总资产'),null,{timeout:6000});
   await p1.waitForSelector('#modal:not(.hidden)', { timeout: 6000 });
   const modalVisible = await p1.evaluate(() => !document.getElementById('modal').classList.contains('hidden'));
   assert.strictEqual(modalVisible, true, '应弹出结算弹窗');

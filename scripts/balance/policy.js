@@ -124,7 +124,11 @@ function decide(v, config, memory = {}, rng) {
     }
     const choice = best(options, item => item.gain, rng);
     if (choice) { m.waitTargets.push(choice.key); return output({ type: choice.mode === 'remote' ? 'remote_build' : 'build_house', cityId: choice.id, quoteVersion: choice.q.quoteVersion }, 'pre_roll_build', { target: choice.id, cost: choice.q.finalAmount, value: choice.q.finalAmount + choice.gain }); }
-    return output({ type: 'roll_dice' }, 'roll_no_investment');
+    const declinedTargets = [];
+    for (const mode of ['build', 'remote']) for (const [target, q] of Object.entries(v.self.quotes[mode] || {})) {
+      if (q.ok && !m.waitTargets.includes(`build:${target}`)) declinedTargets.push({ target, mode, cost: q.finalAmount, value: buildValue(v, config, target) });
+    }
+    return output({ type: 'roll_dice' }, 'roll_no_investment', { declinedTargets });
   }
   if (phase === 'buy' || phase === 'buy_airport') {
     const city = phase === 'buy', id = city ? v.pending.cityId : v.pending.airportId;
@@ -204,7 +208,9 @@ function decide(v, config, memory = {}, rng) {
   if (phase === 'flight') {
     const stay = landingExpectation(v, config, p.position), options = [];
     for (const [id, q] of Object.entries(v.self.quotes.flight)) {
-      const fee = airportFee(v, id), square = v.board.find(s => s.airportId === id);
+      // Formal flightAction ends the turn without charging a destination
+      // airport toll. Ordinary next-dice tolls stay in landingExpectation.
+      const fee = 0, square = v.board.find(s => s.airportId === id);
       if (!q.ok || p.cash - q.finalAmount - fee < reserve) continue;
       const expectation = landingExpectation(v, config, square.id);
       options.push({ id, q, fee, score: expectation.score - q.finalAmount - fee });

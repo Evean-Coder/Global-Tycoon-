@@ -100,10 +100,10 @@ function createSession(gameSpec, options = {}) {
       state = nextState; state.revision++; state.actorRevision[actorId]++;
       step++;
       clock.sync(state, () => { throw new Error('即时策略不应触发虚拟超时'); }, ['auction_respond', 'direct_sale_respond'].includes(normalized.action.type));
-      lastOutcome = { ok: true, actorId, step, rawAction: raw, action: normalized.action, beforePhase, afterPhase: state.phase, beforeRevision, revision: state.revision, events: res.events || [], beforeHash, stateHash: stateHash(), randomCounts: randomCounts(), decisionId: clock.decisionId };
+      lastOutcome = { ok: true, source: gameSpec.source, actorId, step, rawAction: raw, action: normalized.action, beforePhase, afterPhase: state.phase, beforeRevision, revision: state.revision, events: res.events || [], beforeHash, stateHash: stateHash(), randomCounts: randomCounts(), decisionId: clock.decisionId };
     } catch (error) {
       markError(error, { actorId, action: raw });
-      lastOutcome = { ok: false, actorId, step, rawAction: raw, action: normalized?.action || null, beforePhase, afterPhase: state.phase, beforeRevision, revision: state.revision, events: [], error: failure.message, beforeHash, stateHash: stateHash(), randomCounts: randomCounts(), decisionId: clock.decisionId };
+      lastOutcome = { ok: false, source: gameSpec.source, actorId, step, rawAction: raw, action: normalized?.action || null, beforePhase, afterPhase: state.phase, beforeRevision, revision: state.revision, events: [], error: failure.message, beforeHash, stateHash: stateHash(), randomCounts: randomCounts(), decisionId: clock.decisionId };
     }
     return globalThis.structuredClone(lastOutcome);
   }

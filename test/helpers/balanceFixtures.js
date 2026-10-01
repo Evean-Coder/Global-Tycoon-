@@ -2,6 +2,8 @@
 const { createGameState, resetDeck } = require('../../src/state');
 const { createRng } = require('../../src/random');
 const { beginOpportunityStage } = require('../../src/opportunities');
+const { buildConfig, parseArgs } = require('../../scripts/balance/config');
+const { buildSchedule } = require('../../scripts/balance/schedule');
 
 // Controlled test fixtures are never imported by the batch entry or policy.
 function controlledFixture({ players = 2, seed = 22, setup = () => {} } = {}) {
@@ -25,4 +27,9 @@ function grant(state, playerId, ids) {
   o.selectedIds = ids.slice();
   o.usage = Object.fromEntries(ids.map(id => [id, 0]));
 }
-module.exports = { controlledFixture, ownCity, grant };
+function gameSpec(players = 2, source = 'debug', limits = {}) {
+  const config = buildConfig(parseArgs(['--games', '1', '--players', String(players)]), { hash: 'controlled-test', commit: 'test', worktree: '', files: [] });
+  const spec = buildSchedule(config)[0];
+  return { ...spec, source, limits: { ...spec.limits, ...limits } };
+}
+module.exports = { controlledFixture, ownCity, grant, gameSpec };

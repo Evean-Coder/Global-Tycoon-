@@ -185,7 +185,18 @@ function openRun(config, options = {}) {
     return atomic(samplePath(id, 'checkpoint.json'), checkpoint);
   }
   function checkpoint(id) { const rel = samplePath(id, 'checkpoint.json'); return fs.existsSync(target(rel)) ? read(rel) : null; }
-  function saveAudit(id, evidence) { return atomic(`audits/${validId(id)}/${crypto.randomUUID()}.json`, evidence, { exclusive: true }); }
-  return { dir, config: clone(config), atomic, read, appendAction, seal, loadEvidence, saveCheckpoint, checkpoint, saveResult, results, saveAudit, get bytes() { return bytes; }, remaining: () => maxBytes - bytes };
+  function saveAudit(id, evidence) { return atomic(`audits/${validId(id)}/${crypto.randomUUID()}.json`, { ...evidence, source: 'audit', sampleId: id }, { exclusive: true }); }
+  function audits() {
+    const directory = target('audits'); if (!fs.existsSync(directory)) return [];
+    const entries = [];
+    for (const id of fs.readdirSync(directory).sort()) for (const name of fs.readdirSync(target(`audits/${validId(id)}`)).sort()) {
+      if (!name.endsWith('.json')) continue;
+      const rel = `audits/${id}/${name}`, a = read(rel);
+      if (a.source !== 'audit' || a.sampleId !== id) throw new Error('审计来源或样本不匹配');
+      entries.push({ sampleId: id, path: rel, kind: a.kind || 'replay', ok: a.ok ?? null, paused: a.paused || false, originalOutcome: a.originalOutcome || null });
+    }
+    return entries;
+  }
+  return { dir, config: clone(config), atomic, read, appendAction, seal, loadEvidence, saveCheckpoint, checkpoint, saveResult, results, saveAudit, audits, get bytes() { return bytes; }, remaining: () => maxBytes - bytes };
 }
 module.exports = { StorageStop, resolveRun, sizeTree, loadRun, openRun };

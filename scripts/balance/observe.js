@@ -276,7 +276,7 @@ function summarizeObservations(entries) {
   const ids = new Set(), opportunities = new Map(), priorities = { unknown: 0, unmet: 1, exhausted: 2, available_unused: 3, declined: 4, used: 5 };
   for (const e of entries) {
     if (ids.has(e.id)) throw new Error('汇总存在重复观察记录'); ids.add(e.id);
-    if (e.playerId && !summary.players[e.playerId]) summary.players[e.playerId] = { selectedIds: [], turns: 0, skippedTurns: 0, laps: 0, cashDelta: 0, economy: {}, opportunityTriggers: {}, opportunityBenefits: {} };
+    if (e.playerId && !summary.players[e.playerId]) summary.players[e.playerId] = { selectedIds: [], turns: 0, skippedTurns: 0, laps: 0, cashDelta: 0, economy: {}, economicFlows: {}, liabilities: {}, opportunityTriggers: {}, opportunityBenefits: {}, opportunityStatuses: {}, eligibilityCoverage: 'complete-transition-observer' };
     const p = summary.players[e.playerId];
     if (e.type === 'assets') { p.assets = e.assets; p.alive = e.alive; p.selectedIds = e.selectedIds; if (e.initial) p.initialAssets = e.assets; }
     if (e.type === 'choice' && ['offer', 'reroll_offer'].includes(e.kind)) for (const h of e.candidateIds) summary.abilities[h].offered++;
@@ -291,11 +291,17 @@ function summarizeObservations(entries) {
     }
     if (e.type === 'economy') {
       summary.bankFlow = econ.safe(summary.bankFlow + e.bankFlow);
-      summary.economy[e.kind] ||= { cashDelta: 0, bankFlow: 0, fundDelta: 0, count: 0, bankSupplement: 0 };
+      summary.economy[e.kind] ||= { cashDelta: 0, cashIn: 0, cashOut: 0, bankFlow: 0, fundDelta: 0, count: 0, bankSupplement: 0 };
       const total = summary.economy[e.kind];
       for (const k of ['cashDelta', 'bankFlow', 'fundDelta']) total[k] = econ.safe(total[k] + e[k]); total.count++; total.bankSupplement += e.bankSupplement || 0;
-      if (p) { p.cashDelta = econ.safe(p.cashDelta + e.cashDelta); p.economy[e.kind] = econ.safe((p.economy[e.kind] || 0) + e.cashDelta); }
+      total.cashIn = econ.safe(total.cashIn + Math.max(0, e.cashDelta)); total.cashOut = econ.safe(total.cashOut + Math.max(0, -e.cashDelta));
+      if (p) {
+        p.cashDelta = econ.safe(p.cashDelta + e.cashDelta); p.economy[e.kind] = econ.safe((p.economy[e.kind] || 0) + e.cashDelta);
+        p.economicFlows[e.kind] ||= { income: 0, expense: 0, net: 0, count: 0 };
+        const flow = p.economicFlows[e.kind]; flow.income = econ.safe(flow.income + Math.max(0, e.cashDelta)); flow.expense = econ.safe(flow.expense + Math.max(0, -e.cashDelta)); flow.net = econ.safe(flow.net + e.cashDelta); flow.count++;
+      }
     }
+    if (e.type === 'liability' && p) p.liabilities[e.kind] = econ.safe((p.liabilities[e.kind] || 0) + e.delta);
     if (e.type === 'progress') {
       if (e.kind === 'round') summary.completeRounds += e.count;
       if (e.kind === 'lap') p.laps += e.count;
@@ -304,7 +310,12 @@ function summarizeObservations(entries) {
     }
     if (e.type === 'failure') summary.failures.push(e);
   }
-  for (const e of opportunities.values()) summary.abilities[e.opportunityId].statuses[e.status]++;
+  for (const e of opportunities.values()) {
+    summary.abilities[e.opportunityId].statuses[e.status]++;
+    const p = summary.players[e.playerId];
+    p.opportunityStatuses[e.opportunityId] ||= { unmet: 0, exhausted: 0, available_unused: 0, declined: 0, used: 0, unknown: 0 };
+    p.opportunityStatuses[e.opportunityId][e.status]++;
+  }
   for (const [id, p] of Object.entries(summary.players)) if (p.initialAssets && p.assets.cash - p.initialAssets.cash !== p.cashDelta) throw new Error(`逐局现金汇总无法对账：${id}`);
   const combos = { remote_build: ['H1', 'H2', 'H3'], investment_defense: ['H4', 'H5', 'H6', 'H11'], airport_neighbor: ['H9', 'H7', 'H8'] };
   for (const [name, match] of Object.entries({ remote_build: ids => ids.includes('H1') && ids.some(h => ['H2', 'H3'].includes(h)), investment_defense: ids => ids.some(h => ['H4', 'H5'].includes(h)) && ids.some(h => ['H6', 'H11'].includes(h)), airport_neighbor: ids => ids.includes('H9') && ids.some(h => ['H7', 'H8'].includes(h)) })) {

@@ -113,7 +113,7 @@ function fingerprintSources(root = ROOT, files = sourceFiles(root)) {
 }
 
 function hashConfig(config) {
-  const { configHash: _hash, createdAt: _time, output: _output, runDir: _dir, runId: _id, ...semantic } = config;
+  const semantic = Object.fromEntries(Object.entries(config).filter(([key]) => !['configHash', 'createdAt', 'output', 'runDir', 'runId'].includes(key)));
   return digest(semantic);
 }
 

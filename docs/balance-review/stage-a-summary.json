@@ -1,0 +1,330 @@
+{
+  "status": "complete",
+  "output": "artifacts/gameplay-balance/review-a-20261002",
+  "coverage": {
+    "planned": 4200,
+    "started": 467,
+    "terminated": 466,
+    "pending": 1,
+    "unstarted": 3733,
+    "natural": 290,
+    "censored": 176,
+    "error": 0,
+    "plannedGroups": 2240,
+    "completeGroups": 108,
+    "completionRate": 0.6209850107066381,
+    "censorRate": 0.3776824034334764,
+    "errorRate": 0
+  },
+  "audits": [
+    {
+      "playerCount": 2,
+      "outcome": "natural",
+      "sampleId": "s-01733219d47ba2dc0b26ac73",
+      "ok": true,
+      "checkedRecords": 799,
+      "paused": false,
+      "path": "audit-s-01733219d47ba2dc0b26ac73.json"
+    },
+    {
+      "playerCount": 2,
+      "outcome": "censored",
+      "sampleId": "s-08f6785825017f1eee89f091",
+      "ok": true,
+      "checkedRecords": 1702,
+      "paused": false,
+      "path": "audit-s-08f6785825017f1eee89f091.json"
+    },
+    {
+      "playerCount": 3,
+      "outcome": "natural",
+      "sampleId": "s-00e030894ce8a068906bcf9b",
+      "ok": true,
+      "checkedRecords": 1109,
+      "paused": false,
+      "path": "audit-s-00e030894ce8a068906bcf9b.json"
+    },
+    {
+      "playerCount": 3,
+      "outcome": "censored",
+      "sampleId": "s-02494f80edaac37a0044c038",
+      "ok": true,
+      "checkedRecords": 1911,
+      "paused": false,
+      "path": "audit-s-02494f80edaac37a0044c038.json"
+    },
+    {
+      "playerCount": 4,
+      "outcome": "natural",
+      "sampleId": "s-009ed7767260dd216d7be360",
+      "ok": true,
+      "checkedRecords": 1440,
+      "paused": false,
+      "path": "audit-s-009ed7767260dd216d7be360.json"
+    },
+    {
+      "playerCount": 4,
+      "outcome": "censored",
+      "sampleId": "s-0047541f66626aaf99c0f379",
+      "ok": true,
+      "checkedRecords": 2191,
+      "paused": false,
+      "path": "audit-s-0047541f66626aaf99c0f379.json"
+    }
+  ],
+  "phases": {
+    "audit": {
+      "computeMs": 88268.8021999998,
+      "wallMs": 88273.83720000001,
+      "capMs": 2700000
+    },
+    "analysis": {
+      "computeMs": 49820.27229999984,
+      "wallMs": 49826.057499999995,
+      "capMs": 900000
+    }
+  },
+  "draws": [
+    50000
+  ],
+  "protection": {
+    "filesChecked": 473,
+    "changed": [],
+    "sourceMatch": true
+  },
+  "budget": {
+    "version": 2,
+    "limitMs": 3600000,
+    "computeMs": 138089.07449999964,
+    "excludedInactiveGapMs": 0,
+    "runs": {
+      "review-a-20261002": {
+        "computeMs": 138089.07449999964,
+        "wallWorkMs": 130927.71099999873,
+        "cpuMs": 19172,
+        "excludedInactiveGapMs": 0,
+        "configHash": "db66a339ad9d3e70ae67c37710f6f947425beb33f0ab929ff2d4bc00d1f0f2c4"
+      }
+    },
+    "accounting": "active-operation-wall-with-cpu-suspension-check"
+  },
+  "completedAt": "2026-10-02T14:18:25.405Z",
+  "limitations": "旧计划覆盖及样本门槛未变，重采样不增加真实样本。",
+  "latestBudget": {
+    "version": 2,
+    "limitMs": 3600000,
+    "computeMs": 142792.35759999976,
+    "excludedInactiveGapMs": 0,
+    "runs": {
+      "review-a-20261002": {
+        "computeMs": 142792.35759999976,
+        "wallWorkMs": 135630.99409999885,
+        "cpuMs": 20000,
+        "excludedInactiveGapMs": 0,
+        "configHash": "db66a339ad9d3e70ae67c37710f6f947425beb33f0ab929ff2d4bc00d1f0f2c4"
+      }
+    },
+    "accounting": "active-operation-wall-with-cpu-suspension-check"
+  },
+  "economyAnnotation": {
+    "representatives": 6,
+    "allMatch": true,
+    "categories": [
+      {
+        "sampleId": "s-01733219d47ba2dc0b26ac73",
+        "count": 26,
+        "kinds": [
+          "go",
+          "freeze_fee",
+          "city_purchase",
+          "chance_fine",
+          "chance_reward",
+          "stock_buy",
+          "airport_purchase",
+          "city_rent",
+          "city_rent_fund",
+          "build",
+          "opportunity_reward",
+          "dividend",
+          "retained_income",
+          "jail_fee",
+          "mortgage",
+          "demolish",
+          "auction_purchase",
+          "airport_fee",
+          "stock_sell",
+          "stock_transfer",
+          "rescue_stock_sell",
+          "late_jail_fee",
+          "stock_forced_sell",
+          "auction_sale",
+          "stock_liquidation",
+          "debt_forgiveness"
+        ]
+      },
+      {
+        "sampleId": "s-08f6785825017f1eee89f091",
+        "count": 22,
+        "kinds": [
+          "go",
+          "freeze_fee",
+          "chance_reward",
+          "city_purchase",
+          "build",
+          "stock_buy",
+          "opportunity_reward",
+          "city_rent",
+          "city_rent_fund",
+          "airport_purchase",
+          "chance_fine",
+          "retained_income",
+          "dividend",
+          "jail_fee",
+          "airport_fee",
+          "mortgage",
+          "demolish",
+          "stock_sell",
+          "late_jail_fee",
+          "rescue_stock_sell",
+          "stock_transfer",
+          "flight"
+        ]
+      },
+      {
+        "sampleId": "s-00e030894ce8a068906bcf9b",
+        "count": 27,
+        "kinds": [
+          "chance_fine",
+          "chance_reward",
+          "go",
+          "freeze_fee",
+          "city_purchase",
+          "opportunity_reward",
+          "stock_buy",
+          "city_rent",
+          "city_rent_fund",
+          "auction_purchase",
+          "build",
+          "dividend",
+          "retained_income",
+          "jail_fee",
+          "airport_purchase",
+          "airport_fee",
+          "stock_transfer",
+          "stock_sell",
+          "mortgage",
+          "demolish",
+          "rescue_stock_sell",
+          "auction_sale",
+          "stock_forced_sell",
+          "stock_liquidation",
+          "bankrupt_relief",
+          "debt_forgiveness",
+          "late_jail_fee"
+        ]
+      },
+      {
+        "sampleId": "s-02494f80edaac37a0044c038",
+        "count": 28,
+        "kinds": [
+          "chance_fine",
+          "chance_reward",
+          "go",
+          "city_purchase",
+          "freeze_fee",
+          "opportunity_reward",
+          "airport_purchase",
+          "build",
+          "stock_buy",
+          "jail_fee",
+          "auction_purchase",
+          "city_rent",
+          "city_rent_fund",
+          "dividend",
+          "retained_income",
+          "airport_fee",
+          "mortgage",
+          "demolish",
+          "rescue_stock_sell",
+          "auction_sale",
+          "stock_forced_sell",
+          "stock_sell",
+          "stock_liquidation",
+          "bankrupt_relief",
+          "debt_forgiveness",
+          "stock_transfer",
+          "late_jail_fee",
+          "flight"
+        ]
+      },
+      {
+        "sampleId": "s-009ed7767260dd216d7be360",
+        "count": 28,
+        "kinds": [
+          "chance_reward",
+          "chance_fine",
+          "freeze_fee",
+          "jail_fee",
+          "go",
+          "city_purchase",
+          "stock_buy",
+          "build",
+          "city_rent",
+          "city_rent_fund",
+          "airport_purchase",
+          "airport_fee",
+          "retained_income",
+          "dividend",
+          "opportunity_reward",
+          "mortgage",
+          "demolish",
+          "stock_sell",
+          "auction_purchase",
+          "rescue_stock_sell",
+          "redeem",
+          "stock_transfer",
+          "stock_liquidation",
+          "bankrupt_relief",
+          "debt_forgiveness",
+          "auction_sale",
+          "stock_forced_sell",
+          "auction_bank_purchase"
+        ]
+      },
+      {
+        "sampleId": "s-0047541f66626aaf99c0f379",
+        "count": 28,
+        "kinds": [
+          "chance_fine",
+          "freeze_fee",
+          "jail_fee",
+          "go",
+          "opportunity_reward",
+          "city_purchase",
+          "stock_buy",
+          "city_rent",
+          "city_rent_fund",
+          "chance_reward",
+          "airport_purchase",
+          "auction_purchase",
+          "build",
+          "dividend",
+          "retained_income",
+          "mortgage",
+          "stock_sell",
+          "airport_fee",
+          "stock_transfer",
+          "flight",
+          "redeem",
+          "rescue_stock_sell",
+          "late_jail_fee",
+          "demolish",
+          "auction_sale",
+          "stock_liquidation",
+          "bankrupt_relief",
+          "debt_forgiveness"
+        ]
+      }
+    ]
+  }
+}

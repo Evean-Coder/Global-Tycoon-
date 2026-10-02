@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-02",
+  "authorization": "用户明确要求：继续跑之前的测试",
+  "entry": "--resume",
+  "runId": "formal-corrected-20261001-1790865366064",
+  "sourceCommitAtResume": "9f5f993620252c0ca20fa541c807b4bb5531e821",
+  "originalSourceCommit": "2405e1b1479995cc1cdce7c73c7aec0b09bb1637",
+  "sourceHash": "20010be375ec96c6ca77fcf1689b3f6dcd4b9a99e3f048b0c68941e2bbf1bcb4",
+  "configHash": "e85dac0c963a1937e08c3e00ccb9ada696808de6082333d8465731e6644edf3f",
+  "sourceFilesChecked": 30,
+  "previousCoverage": {
+    "pending": 2,
+    "started": 65,
+    "unstarted": 4135,
+    "completeGroups": 23,
+    "terminated": 63
+  },
+  "previousTotalComputeMs": 2376273.6456997367,
+  "limitMs": 14400000,
+  "budgetReset": false,
+  "newBatch": false,
+  "pid": 12792,
+  "log": "formal-resume-20261002.txt",
+  "note": "历史停止快照和旧批报告保留；使用原计划/种子/策略/检查点恢复；当前动作前的已有流水由标准恢复路径重放核对。",
+  "validation": {
+    "noExistingBudgetLock": true,
+    "sourceMatch": true,
+    "configMatch": true,
+    "scheduleMatch": true
+  },
+  "autonomousAuthorization": "用户明确要求：跑的过程中不要问我问题，自己审批",
+  "samplingStopAtTotalComputeMs": 13500000,
+  "analysisReserveMs": 900000
+}

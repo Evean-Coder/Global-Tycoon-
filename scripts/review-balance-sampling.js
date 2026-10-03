@@ -35,6 +35,13 @@ function capacity(calibration, availableMs = 90 * 60000) {
     method: '每人数4局中最大实测计算时间；两人交叉按两人中性成本估计，乘1.25，预留60秒启动。只是预算预测，实际停止由程序守卫执行。' };
 }
 
+function calibrationSummary(rows) {
+  return [2, 3, 4].map(n => ({ n, count: rows.filter(r => r.n === n).length,
+    natural: rows.filter(r => r.n === n && r.outcome === 'natural').length,
+    censored: rows.filter(r => r.n === n && r.outcome === 'censored').length,
+    compute: describe(rows.filter(r => r.n === n).map(r => Math.ceil(r.computeMs))) }));
+}
+
 async function calibrate(output = 'artifacts/gameplay-balance/review-b-20261002') {
   const fingerprint = requireVersion(), state = prepare(output, 'B', 20 * 60000);
   const phase = phaseBudget(state.budget, Math.max(0, 20 * 60000 - state.budget.computeMs)), rows = [];
@@ -57,8 +64,7 @@ async function calibrate(output = 'artifacts/gameplay-balance/review-b-20261002'
     }
     const measured = phase.finish(), complete = rows.length === 12;
     const final = { status: complete ? 'complete' : 'partial', source: 'calibration', output, rows, measured, entries: entries(),
-      byPlayers: [2, 3, 4].map(n => ({ n, count: rows.filter(r => r.n === n).length, natural: rows.filter(r => r.n === n && r.outcome === 'natural').length,
-        censored: rows.filter(r => r.n === n && r.outcome === 'censored').length, compute: describe(rows.filter(r => r.n === n).map(r => r.computeMs)) })),
+      byPlayers: calibrationSummary(rows),
       capacity: complete ? capacity(rows) : null, budget: state.budget.snapshot() };
     atomic(state.dir, complete ? 'completed.json' : 'paused.json', final);
     console.log('B阶段 ' + final.status + '；12校准局 ' + rows.length + '；计算 ' + (state.budget.computeMs / 60000).toFixed(2) + '分钟');
@@ -153,4 +159,4 @@ if (require.main === module) {
   const promise = stage === 'B' ? calibrate(process.argv[3]) : stage === 'C' ? screen(process.argv[3], process.argv[4]) : Promise.reject(new Error('指定B或C'));
   promise.then(r => { process.exitCode = r.status === 'complete' ? 0 : 3; }).catch(e => { console.error(e.stack); process.exitCode = 2; });
 }
-module.exports = { calibrate, screen, capacity, newConfig, verifyEntries };
+module.exports = { calibrate, screen, capacity, calibrationSummary, newConfig, verifyEntries };

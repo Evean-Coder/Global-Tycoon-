@@ -113,13 +113,13 @@
   "latestBudget": {
     "version": 2,
     "limitMs": 3600000,
-    "computeMs": 142792.35759999976,
+    "computeMs": 174793.2804000005,
     "excludedInactiveGapMs": 0,
     "runs": {
       "review-a-20261002": {
-        "computeMs": 142792.35759999976,
-        "wallWorkMs": 135630.99409999885,
-        "cpuMs": 20000,
+        "computeMs": 174793.2804000005,
+        "wallWorkMs": 167631.9168999996,
+        "cpuMs": 24093,
         "excludedInactiveGapMs": 0,
         "configHash": "db66a339ad9d3e70ae67c37710f6f947425beb33f0ab929ff2d4bc00d1f0f2c4"
       }
@@ -324,6 +324,44 @@
           "bankrupt_relief",
           "debt_forgiveness"
         ]
+      }
+    ]
+  },
+  "H1": {
+    "id": "H1",
+    "name": "远程施工",
+    "selectedPlayers": 426,
+    "everUsedPlayers": 426,
+    "everBenefitPlayers": 426,
+    "everUsedRate": 1,
+    "unknownPlayers": 0,
+    "evidence": [
+      {
+        "sampleId": "s-305ce78407a51504abe0086f",
+        "playerId": "p2",
+        "benefits": {
+          "reward": 0,
+          "saving": 0,
+          "permission": 30
+        }
+      },
+      {
+        "sampleId": "s-305ce78407a51504abe0086f",
+        "playerId": "p3",
+        "benefits": {
+          "reward": 0,
+          "saving": 0,
+          "permission": 26
+        }
+      },
+      {
+        "sampleId": "s-f2c5aa8571414b8372aa4db1",
+        "playerId": "p0",
+        "benefits": {
+          "reward": 0,
+          "saving": 0,
+          "permission": 31
+        }
       }
     ]
   }

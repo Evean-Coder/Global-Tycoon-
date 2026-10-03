@@ -2,7 +2,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const { temporaryRun } = require('./helpers/balanceFixtures');
-const { newConfig, capacity, verifyEntries } = require('../scripts/review-balance-sampling');
+const { newConfig, capacity, calibrationSummary, verifyEntries } = require('../scripts/review-balance-sampling');
 const { phaseBudget } = require('../scripts/review-balance');
 const { reviewSchedule, reviewAggregate, classify, validate } = require('../scripts/balance-review-stats');
 const { buildSchedule } = require('../scripts/balance/schedule');
@@ -10,6 +10,7 @@ const { hashConfig } = require('../scripts/balance/config');
 const { hashCanonical } = require('../scripts/balance/canonical');
 const { runBatch, openBudget } = require('../scripts/balance/batch');
 const { openRun } = require('../scripts/balance/storage');
+const { playerUsage } = require('../scripts/review-balance-player-usage');
 const fingerprint = { hash: 'fixture', commit: null, worktree: '', files: [] };
 const copy = v => globalThis.structuredClone(v);
 
@@ -42,6 +43,14 @@ test('校准预测只取实测最大成本，预算收缩完整组，拒绝缺�
   assert.throws(() => capacity(rows.slice(1)), /无效|不足/);
   assert.throws(() => capacity(rows.map(r => ({ ...r, computeMs: 0 }))), /无效/);
   assert.throws(() => capacity(rows, NaN), /无效/);
+});
+
+test('校准耗时允许小数毫秒，报表取整且原始记录保留', () => {
+  const rows = [2, 3, 4].flatMap(n => [1.1, 2.2, 3.3, 4.4].map(computeMs => ({ n, computeMs, outcome: 'natural' })));
+  const result = calibrationSummary(rows);
+  assert.equal(result[0].compute.mean, 3.5); assert.equal(result[0].compute.sum, 14);
+  assert.equal(result[0].natural, 4); assert.equal(result[0].censored, 0);
+  assert.equal(rows[0].computeMs, 1.1); assert.equal(capacity(rows).games, 300);
 });
 
 test('预算阶段自动暂停，独立额度可恢复，嵌套计费不重复且不关闭总预算', async t => {
@@ -79,6 +88,31 @@ test('容许带判断必须满足证据与区间门槛，跨边界不宣称等�
   assert.equal(classify(null, interval, gate, .05).label, '证据不足');
 });
 
+test('玩家机遇口径：反复资格频率不替代每人至少一次真实使用/受益', () => {
+  const players = [
+    { id: 'a', selectedIds: ['H1'], eligibilityCoverage: 'complete-transition-observer', opportunityStatuses: { H1: { used: 1, available_unused: 999, unknown: 0 } }, opportunityBenefits: { H1: { permission: 1 } } },
+    { id: 'b', selectedIds: ['H1'], eligibilityCoverage: 'complete-transition-observer', opportunityStatuses: {}, opportunityBenefits: {} },
+    { id: 'c', selectedIds: ['H2'], opportunityStatuses: {}, opportunityBenefits: {} },
+  ];
+  const rows = [{ sampleId: 'synthetic', observationComplete: true, observations: { players: Object.fromEntries(players.map(p => [p.id, p])) } }, { observationComplete: false }];
+  const value = playerUsage(rows).find(h => h.id === 'H1');
+  assert.equal(value.selectedPlayers, 2); assert.equal(value.everUsedPlayers, 1);
+  assert.equal(value.everBenefitPlayers, 1); assert.equal(value.everUsedRate, .5); assert.equal(value.unknownPlayers, 0);
+  assert.equal(value.evidence[0].playerId, 'a');
+  assert.equal(playerUsage(rows).find(h => h.id === 'H12').everUsedRate, null);
+});
+
+test('阶段墙钟守卫覆盖尚未计入操作台账的持续耗时', async t => {
+  let base;
+  t.after(() => base?.close());
+  const f = temporaryRun(t);
+  base = openBudget({ ...f.config, output: 'artifacts/gameplay-balance/meter' }, { root: f.root, cpuNow: () => 0, workNow: () => 0 });
+  const phase = phaseBudget(base, 20);
+  await new Promise(resolve => setTimeout(resolve, 40));
+  assert.equal(base.computeMs, 0); assert.equal(base.exhausted(), false);
+  assert.equal(phase.exhausted(), true); phase.finish();
+});
+
 test('适配统计拒绝重复/异版/漏结果，截断无胜者、缺少类别不补零', async t => {
   // Short debug games are transformed only in memory to exercise validation;
   // these synthetic rows are never written into any formal evidence directory.
@@ -107,4 +141,3 @@ test('适配统计拒绝重复/异版/漏结果，截断无胜者、缺少类别
   assert.equal(summary.personalProgress.natural.turns.mean, null);
   assert.ok(summary.personalProgress.censored.turns.mean > 0);
 });
-

@@ -1,0 +1,1944 @@
+{
+  "status": "complete",
+  "coverage": {
+    "planned": 120,
+    "started": 120,
+    "terminated": 120,
+    "pending": 0,
+    "unstarted": 0,
+    "natural": 85,
+    "censored": 35,
+    "error": 0,
+    "plannedGroups": 72,
+    "completeGroups": 72,
+    "completionRate": 0.7083333333333334,
+    "censorRate": 0.2916666666666667,
+    "errorRate": 0
+  },
+  "output": "artifacts/gameplay-balance/review-c-20261002",
+  "sizing": {
+    "seeds": 8,
+    "games": 120,
+    "groups": 72,
+    "cost": {
+      "2": 30332.800600004382,
+      "3": 52490.546600002795,
+      "4": 79256.90109998593
+    },
+    "perOrdinal": 526073.8555000457,
+    "safetyFactor": 1.25,
+    "startupReserveMs": 60000,
+    "availableMs": 5400000,
+    "method": "每人数4局中最大实测计算时间；两人交叉按两人中性成本估计，乘1.25，预留60秒启动。只是预算预测，实际停止由程序守卫执行。"
+  },
+  "sampled": {
+    "computeMs": 3555115.5830000006,
+    "wallMs": 3555122.3460000004,
+    "capMs": 5400000
+  },
+  "analysed": {
+    "computeMs": 119835.63939999975,
+    "wallMs": 119840.61290000007,
+    "capMs": 1800000
+  },
+  "audits": [
+    {
+      "playerCount": 2,
+      "outcome": "natural",
+      "sampleId": "s-03668402a61e9a5d9843e70a",
+      "ok": true,
+      "paused": false,
+      "checkedRecords": 874
+    },
+    {
+      "playerCount": 2,
+      "outcome": "censored",
+      "sampleId": "s-04bdefe75290727b9994978f",
+      "ok": true,
+      "paused": false,
+      "checkedRecords": 1741
+    },
+    {
+      "playerCount": 3,
+      "outcome": "natural",
+      "sampleId": "s-5399e633cb425ff7f771437e",
+      "ok": true,
+      "paused": false,
+      "checkedRecords": 1545
+    },
+    {
+      "playerCount": 3,
+      "outcome": "censored",
+      "sampleId": "s-2693badfbac824ec2cab5081",
+      "ok": true,
+      "paused": false,
+      "checkedRecords": 2086
+    },
+    {
+      "playerCount": 4,
+      "outcome": "natural",
+      "sampleId": "s-2594774266b7e4230d45d9db",
+      "ok": true,
+      "paused": false,
+      "checkedRecords": 1713
+    },
+    {
+      "playerCount": 4,
+      "outcome": "censored",
+      "sampleId": "s-160c7e92670b91e92da0294f",
+      "ok": true,
+      "paused": false,
+      "checkedRecords": 2741
+    }
+  ],
+  "draws": [
+    50000
+  ],
+  "entries": {
+    "scripts/review-balance.js": "46b6169bff6a0c59eb8ae393745fe8be31006b4ad4414ae9535647bbb816eccd",
+    "scripts/review-balance-sampling.js": "387d75194cd536fbc0050db3204f83f962e507be315ffdb0e15b8715e35efce6",
+    "scripts/balance-review-stats.js": "eb57202350a39540f8cf76bfbd31879ed88274e86ca2ce0ff43554804fe66f43"
+  },
+  "budget": {
+    "version": 2,
+    "limitMs": 7200000,
+    "computeMs": 3674951.2224000003,
+    "excludedInactiveGapMs": 0,
+    "runs": {
+      "review-c-20261002": {
+        "computeMs": 3674951.2224000003,
+        "wallWorkMs": 3659980.2476000073,
+        "cpuMs": 287423,
+        "excludedInactiveGapMs": 0,
+        "configHash": "074a1326b82c7509df571967851df74bbaf04ca3f8f282e75fe872f0c456d6e9"
+      }
+    },
+    "accounting": "active-operation-wall-with-cpu-suspension-check"
+  },
+  "classification": {
+    "证据不足": 51
+  },
+  "next": "没有登记D确认实验或真人结果；先查看实际线索和局长再设计单项玩法改进。",
+  "latestBudget": {
+    "version": 2,
+    "limitMs": 7200000,
+    "computeMs": 3685552.8272,
+    "excludedInactiveGapMs": 0,
+    "runs": {
+      "review-c-20261002": {
+        "computeMs": 3685552.8272,
+        "wallWorkMs": 3670581.852400007,
+        "cpuMs": 289812,
+        "excludedInactiveGapMs": 0,
+        "configHash": "074a1326b82c7509df571967851df74bbaf04ca3f8f282e75fe872f0c456d6e9"
+      }
+    },
+    "accounting": "active-operation-wall-with-cpu-suspension-check"
+  },
+  "verification": {
+    "ok": true,
+    "configHash": "c12c490ec59e993239b41263a8cd54cfbe68ef8fb06bffb33a7ee18e7815d94e",
+    "scheduleHash": "5b89d2c3981beae8380aa464a6add46e2f421daeebbbc4608ba8252a3542e4f9",
+    "outcome": {
+      "natural": 85,
+      "censored": 35,
+      "error": 0
+    },
+    "actualMatrix": {
+      "games": 120,
+      "groups": 72,
+      "neutral": 24,
+      "cross": 96
+    },
+    "independentFromOldSeeds": true,
+    "versionsAndPlayerSeatsMatch": true,
+    "uniqueResults": true,
+    "comparisons": 51,
+    "drawsEach": 50000,
+    "auditPaths": [
+      {
+        "sampleId": "s-03668402a61e9a5d9843e70a",
+        "file": "audit-s-03668402a61e9a5d9843e70a-5bbdc8ea-edae-4425-a8c7-8f3fae1ce05b.json",
+        "checkedRecords": 874
+      },
+      {
+        "sampleId": "s-04bdefe75290727b9994978f",
+        "file": "audit-s-04bdefe75290727b9994978f-15469061-9481-4481-9474-133f33c430fb.json",
+        "checkedRecords": 1741
+      },
+      {
+        "sampleId": "s-5399e633cb425ff7f771437e",
+        "file": "audit-s-5399e633cb425ff7f771437e-9306d430-0cfe-4934-a637-2482a1a6bab3.json",
+        "checkedRecords": 1545
+      },
+      {
+        "sampleId": "s-2693badfbac824ec2cab5081",
+        "file": "audit-s-2693badfbac824ec2cab5081-cd744d7f-54da-4164-9cba-93b480944c22.json",
+        "checkedRecords": 2086
+      },
+      {
+        "sampleId": "s-2594774266b7e4230d45d9db",
+        "file": "audit-s-2594774266b7e4230d45d9db-892c95e3-2a0d-4a40-bb8d-d34f474c97ff.json",
+        "checkedRecords": 1713
+      },
+      {
+        "sampleId": "s-160c7e92670b91e92da0294f",
+        "file": "audit-s-160c7e92670b91e92da0294f-138ab82a-7e79-473a-bb9a-96228103f740.json",
+        "checkedRecords": 2741
+      }
+    ],
+    "oldEvidence": {
+      "filesChecked": 473,
+      "changed": [],
+      "sourceMatch": true
+    },
+    "note": "实际数据对账通过，不代表统计证据门槛或真人平衡已满足。"
+  },
+  "screeningRules": {
+    "bootstrapDraws": 50000,
+    "familySizes": {
+      "seat": 9,
+      "policy": 24,
+      "opportunity": 36
+    },
+    "completionMin": 0.8,
+    "seatNaturalMin": 200,
+    "policyGroupsMin": 30,
+    "policyNaturalMin": 60,
+    "opportunityNaturalMin": 100,
+    "opportunityGroupsMin": 80,
+    "opportunitySeatMin": 10,
+    "seatEffect": 0.05,
+    "policyEffect": 0.1,
+    "opportunityEffect": 0.1,
+    "bootstrapValidMin": 0.99,
+    "comboGroupsMin": 30,
+    "censorWarning": 0.2,
+    "durationP90Warning": 250,
+    "usageSelectedMin": 100,
+    "usageEligibleMin": 30,
+    "usageWarning": 0.1,
+    "neverEligibleWarning": 0.8
+  },
+  "experiments": [
+    {
+      "key": "2:neutral:neutral,neutral",
+      "n": 2,
+      "experiment": "neutral",
+      "roster": [
+        "neutral",
+        "neutral"
+      ],
+      "coverage": {
+        "planned": 8,
+        "started": 8,
+        "terminated": 8,
+        "pending": 0,
+        "unstarted": 0,
+        "natural": 7,
+        "censored": 1,
+        "error": 0,
+        "plannedGroups": 8,
+        "completeGroups": 8,
+        "completionRate": 0.875,
+        "censorRate": 0.125,
+        "errorRate": 0
+      },
+      "seats": [
+        {
+          "seat": 0,
+          "wins": 2,
+          "started": 8,
+          "natural": 7,
+          "allStartWinRate": 0.25,
+          "conditionalWinRate": 0.2857142857142857,
+          "allStartUniformReference": 0.4375,
+          "eliminated": 5
+        },
+        {
+          "seat": 1,
+          "wins": 5,
+          "started": 8,
+          "natural": 7,
+          "allStartWinRate": 0.625,
+          "conditionalWinRate": 0.7142857142857143,
+          "allStartUniformReference": 0.4375,
+          "eliminated": 2
+        }
+      ],
+      "policies": [
+        {
+          "policy": "neutral",
+          "wins": 7,
+          "started": 8,
+          "natural": 7,
+          "allStartWinRate": 0.875,
+          "conditionalWinRate": 1
+        }
+      ],
+      "duration": {
+        "natural": {
+          "rounds": {
+            "count": 7,
+            "unknown": 0,
+            "sum": 2059,
+            "mean": 294.14285714285717,
+            "median": 270,
+            "p10": 182.8,
+            "p90": 458.40000000000003,
+            "min": 148,
+            "max": 486,
+            "minEvidence": "s-8dc7c6372fd36e35c096556b",
+            "maxEvidence": "s-512f28eec1ff398bd2391c4e"
+          },
+          "actions": {
+            "count": 7,
+            "unknown": 0,
+            "sum": 7108,
+            "mean": 1015.4285714285714,
+            "median": 938,
+            "p10": 633.6,
+            "p90": 1572.2,
+            "min": 525,
+            "max": 1670,
+            "minEvidence": "s-8dc7c6372fd36e35c096556b",
+            "maxEvidence": "s-512f28eec1ff398bd2391c4e"
+          }
+        },
+        "censored": {
+          "rounds": {
+            "count": 1,
+            "unknown": 0,
+            "sum": 500,
+            "mean": 500,
+            "median": 500,
+            "p10": 500,
+            "p90": 500,
+            "min": 500,
+            "max": 500,
+            "minEvidence": "s-e4ffe08aedbbf64471cbff5f",
+            "maxEvidence": "s-e4ffe08aedbbf64471cbff5f"
+          },
+          "actions": {
+            "count": 1,
+            "unknown": 0,
+            "sum": 1691,
+            "mean": 1691,
+            "median": 1691,
+            "p10": 1691,
+            "p90": 1691,
+            "min": 1691,
+            "max": 1691,
+            "minEvidence": "s-e4ffe08aedbbf64471cbff5f",
+            "maxEvidence": "s-e4ffe08aedbbf64471cbff5f"
+          }
+        },
+        "error": {
+          "rounds": {
+            "count": 0,
+            "unknown": 0,
+            "sum": 0,
+            "mean": null,
+            "median": null,
+            "p10": null,
+            "p90": null,
+            "min": null,
+            "max": null,
+            "minEvidence": null,
+            "maxEvidence": null
+          },
+          "actions": {
+            "count": 0,
+            "unknown": 0,
+            "sum": 0,
+            "mean": null,
+            "median": null,
+            "p10": null,
+            "p90": null,
+            "min": null,
+            "max": null,
+            "minEvidence": null,
+            "maxEvidence": null
+          }
+        }
+      },
+      "longGame": true
+    },
+    {
+      "key": "3:neutral:neutral,neutral,neutral",
+      "n": 3,
+      "experiment": "neutral",
+      "roster": [
+        "neutral",
+        "neutral",
+        "neutral"
+      ],
+      "coverage": {
+        "planned": 8,
+        "started": 8,
+        "terminated": 8,
+        "pending": 0,
+        "unstarted": 0,
+        "natural": 4,
+        "censored": 4,
+        "error": 0,
+        "plannedGroups": 8,
+        "completeGroups": 8,
+        "completionRate": 0.5,
+        "censorRate": 0.5,
+        "errorRate": 0
+      },
+      "seats": [
+        {
+          "seat": 0,
+          "wins": 2,
+          "started": 8,
+          "natural": 4,
+          "allStartWinRate": 0.25,
+          "conditionalWinRate": 0.5,
+          "allStartUniformReference": 0.16666666666666666,
+          "eliminated": 2
+        },
+        {
+          "seat": 1,
+          "wins": 1,
+          "started": 8,
+          "natural": 4,
+          "allStartWinRate": 0.125,
+          "conditionalWinRate": 0.25,
+          "allStartUniformReference": 0.16666666666666666,
+          "eliminated": 5
+        },
+        {
+          "seat": 2,
+          "wins": 1,
+          "started": 8,
+          "natural": 4,
+          "allStartWinRate": 0.125,
+          "conditionalWinRate": 0.25,
+          "allStartUniformReference": 0.16666666666666666,
+          "eliminated": 5
+        }
+      ],
+      "policies": [
+        {
+          "policy": "neutral",
+          "wins": 4,
+          "started": 8,
+          "natural": 4,
+          "allStartWinRate": 0.5,
+          "conditionalWinRate": 1
+        }
+      ],
+      "duration": {
+        "natural": {
+          "rounds": {
+            "count": 4,
+            "unknown": 0,
+            "sum": 1084,
+            "mean": 271,
+            "median": 293.5,
+            "p10": 154.8,
+            "p90": 369.2,
+            "min": 120,
+            "max": 377,
+            "minEvidence": "s-e177f36d65fdf251a5b1c6ed",
+            "maxEvidence": "s-c0385b9cc6bd211cfbe2ffcf"
+          },
+          "actions": {
+            "count": 4,
+            "unknown": 0,
+            "sum": 5117,
+            "mean": 1279.25,
+            "median": 1341,
+            "p10": 770.5,
+            "p90": 1738.6000000000001,
+            "min": 613,
+            "max": 1822,
+            "minEvidence": "s-e177f36d65fdf251a5b1c6ed",
+            "maxEvidence": "s-c0385b9cc6bd211cfbe2ffcf"
+          }
+        },
+        "censored": {
+          "rounds": {
+            "count": 4,
+            "unknown": 0,
+            "sum": 2000,
+            "mean": 500,
+            "median": 500,
+            "p10": 500,
+            "p90": 500,
+            "min": 500,
+            "max": 500,
+            "minEvidence": "s-54a6bd671898e867c618c538",
+            "maxEvidence": "s-54a6bd671898e867c618c538"
+          },
+          "actions": {
+            "count": 4,
+            "unknown": 0,
+            "sum": 8261,
+            "mean": 2065.25,
+            "median": 2079,
+            "p10": 2016.3,
+            "p90": 2103.2,
+            "min": 1992,
+            "max": 2111,
+            "minEvidence": "s-54a6bd671898e867c618c538",
+            "maxEvidence": "s-52eaf609799a9c4ef2eeb695"
+          }
+        },
+        "error": {
+          "rounds": {
+            "count": 0,
+            "unknown": 0,
+            "sum": 0,
+            "mean": null,
+            "median": null,
+            "p10": null,
+            "p90": null,
+            "min": null,
+            "max": null,
+            "minEvidence": null,
+            "maxEvidence": null
+          },
+          "actions": {
+            "count": 0,
+            "unknown": 0,
+            "sum": 0,
+            "mean": null,
+            "median": null,
+            "p10": null,
+            "p90": null,
+            "min": null,
+            "max": null,
+            "minEvidence": null,
+            "maxEvidence": null
+          }
+        }
+      },
+      "longGame": true
+    },
+    {
+      "key": "4:neutral:neutral,neutral,neutral,neutral",
+      "n": 4,
+      "experiment": "neutral",
+      "roster": [
+        "neutral",
+        "neutral",
+        "neutral",
+        "neutral"
+      ],
+      "coverage": {
+        "planned": 8,
+        "started": 8,
+        "terminated": 8,
+        "pending": 0,
+        "unstarted": 0,
+        "natural": 4,
+        "censored": 4,
+        "error": 0,
+        "plannedGroups": 8,
+        "completeGroups": 8,
+        "completionRate": 0.5,
+        "censorRate": 0.5,
+        "errorRate": 0
+      },
+      "seats": [
+        {
+          "seat": 0,
+          "wins": 2,
+          "started": 8,
+          "natural": 4,
+          "allStartWinRate": 0.25,
+          "conditionalWinRate": 0.5,
+          "allStartUniformReference": 0.125,
+          "eliminated": 4
+        },
+        {
+          "seat": 1,
+          "wins": 1,
+          "started": 8,
+          "natural": 4,
+          "allStartWinRate": 0.125,
+          "conditionalWinRate": 0.25,
+          "allStartUniformReference": 0.125,
+          "eliminated": 4
+        },
+        {
+          "seat": 2,
+          "wins": 0,
+          "started": 8,
+          "natural": 4,
+          "allStartWinRate": 0,
+          "conditionalWinRate": 0,
+          "allStartUniformReference": 0.125,
+          "eliminated": 6
+        },
+        {
+          "seat": 3,
+          "wins": 1,
+          "started": 8,
+          "natural": 4,
+          "allStartWinRate": 0.125,
+          "conditionalWinRate": 0.25,
+          "allStartUniformReference": 0.125,
+          "eliminated": 4
+        }
+      ],
+      "policies": [
+        {
+          "policy": "neutral",
+          "wins": 4,
+          "started": 8,
+          "natural": 4,
+          "allStartWinRate": 0.5,
+          "conditionalWinRate": 1
+        }
+      ],
+      "duration": {
+        "natural": {
+          "rounds": {
+            "count": 4,
+            "unknown": 0,
+            "sum": 1237,
+            "mean": 309.25,
+            "median": 305,
+            "p10": 249.8,
+            "p90": 372.1,
+            "min": 236,
+            "max": 391,
+            "minEvidence": "s-fd96e8382bb390a0e972e206",
+            "maxEvidence": "s-4ca01858edbd0ceacfdf1f9c"
+          },
+          "actions": {
+            "count": 4,
+            "unknown": 0,
+            "sum": 6586,
+            "mean": 1646.5,
+            "median": 1625.5,
+            "p10": 1324.8,
+            "p90": 1985,
+            "min": 1233,
+            "max": 2102,
+            "minEvidence": "s-fd96e8382bb390a0e972e206",
+            "maxEvidence": "s-4ca01858edbd0ceacfdf1f9c"
+          }
+        },
+        "censored": {
+          "rounds": {
+            "count": 4,
+            "unknown": 0,
+            "sum": 2000,
+            "mean": 500,
+            "median": 500,
+            "p10": 500,
+            "p90": 500,
+            "min": 500,
+            "max": 500,
+            "minEvidence": "s-c8a9a6432c9fd58b089489c7",
+            "maxEvidence": "s-c8a9a6432c9fd58b089489c7"
+          },
+          "actions": {
+            "count": 4,
+            "unknown": 0,
+            "sum": 10321,
+            "mean": 2580.25,
+            "median": 2576.5,
+            "p10": 2265.3,
+            "p90": 2898.2,
+            "min": 2202,
+            "max": 2966,
+            "minEvidence": "s-c8a9a6432c9fd58b089489c7",
+            "maxEvidence": "s-71ed878842b25c334394b539"
+          }
+        },
+        "error": {
+          "rounds": {
+            "count": 0,
+            "unknown": 0,
+            "sum": 0,
+            "mean": null,
+            "median": null,
+            "p10": null,
+            "p90": null,
+            "min": null,
+            "max": null,
+            "minEvidence": null,
+            "maxEvidence": null
+          },
+          "actions": {
+            "count": 0,
+            "unknown": 0,
+            "sum": 0,
+            "mean": null,
+            "median": null,
+            "p10": null,
+            "p90": null,
+            "min": null,
+            "max": null,
+            "minEvidence": null,
+            "maxEvidence": null
+          }
+        }
+      },
+      "longGame": true
+    },
+    {
+      "key": "2:cross:property,investment",
+      "n": 2,
+      "experiment": "cross",
+      "roster": [
+        "property",
+        "investment"
+      ],
+      "coverage": {
+        "planned": 16,
+        "started": 16,
+        "terminated": 16,
+        "pending": 0,
+        "unstarted": 0,
+        "natural": 9,
+        "censored": 7,
+        "error": 0,
+        "plannedGroups": 8,
+        "completeGroups": 8,
+        "completionRate": 0.5625,
+        "censorRate": 0.4375,
+        "errorRate": 0
+      },
+      "seats": [
+        {
+          "seat": 0,
+          "wins": 5,
+          "started": 16,
+          "natural": 9,
+          "allStartWinRate": 0.3125,
+          "conditionalWinRate": 0.5555555555555556,
+          "allStartUniformReference": 0.28125,
+          "eliminated": 4
+        },
+        {
+          "seat": 1,
+          "wins": 4,
+          "started": 16,
+          "natural": 9,
+          "allStartWinRate": 0.25,
+          "conditionalWinRate": 0.4444444444444444,
+          "allStartUniformReference": 0.28125,
+          "eliminated": 5
+        }
+      ],
+      "policies": [
+        {
+          "policy": "property",
+          "wins": 7,
+          "started": 16,
+          "natural": 9,
+          "allStartWinRate": 0.4375,
+          "conditionalWinRate": 0.7777777777777778
+        },
+        {
+          "policy": "investment",
+          "wins": 2,
+          "started": 16,
+          "natural": 9,
+          "allStartWinRate": 0.125,
+          "conditionalWinRate": 0.2222222222222222
+        }
+      ],
+      "duration": {
+        "natural": {
+          "rounds": {
+            "count": 9,
+            "unknown": 0,
+            "sum": 2431,
+            "mean": 270.1111111111111,
+            "median": 271,
+            "p10": 187.6,
+            "p90": 333.40000000000003,
+            "min": 170,
+            "max": 395,
+            "minEvidence": "s-de7a07ecddf8502efca5f941",
+            "maxEvidence": "s-46900740f9c9caa0ae5e06aa"
+          },
+          "actions": {
+            "count": 9,
+            "unknown": 0,
+            "sum": 8687,
+            "mean": 965.2222222222222,
+            "median": 969,
+            "p10": 661.2,
+            "p90": 1161,
+            "min": 638,
+            "max": 1421,
+            "minEvidence": "s-de7a07ecddf8502efca5f941",
+            "maxEvidence": "s-46900740f9c9caa0ae5e06aa"
+          }
+        },
+        "censored": {
+          "rounds": {
+            "count": 7,
+            "unknown": 0,
+            "sum": 3500,
+            "mean": 500,
+            "median": 500,
+            "p10": 500,
+            "p90": 500,
+            "min": 500,
+            "max": 500,
+            "minEvidence": "s-ad029b7351b0d8b79605b29e",
+            "maxEvidence": "s-ad029b7351b0d8b79605b29e"
+          },
+          "actions": {
+            "count": 7,
+            "unknown": 0,
+            "sum": 12043,
+            "mean": 1720.4285714285713,
+            "median": 1730,
+            "p10": 1674.2,
+            "p90": 1748.2,
+            "min": 1667,
+            "max": 1759,
+            "minEvidence": "s-e39b7fb6e47d08190035708d",
+            "maxEvidence": "s-91c23f274c81711330ac2bce"
+          }
+        },
+        "error": {
+          "rounds": {
+            "count": 0,
+            "unknown": 0,
+            "sum": 0,
+            "mean": null,
+            "median": null,
+            "p10": null,
+            "p90": null,
+            "min": null,
+            "max": null,
+            "minEvidence": null,
+            "maxEvidence": null
+          },
+          "actions": {
+            "count": 0,
+            "unknown": 0,
+            "sum": 0,
+            "mean": null,
+            "median": null,
+            "p10": null,
+            "p90": null,
+            "min": null,
+            "max": null,
+            "minEvidence": null,
+            "maxEvidence": null
+          }
+        }
+      },
+      "longGame": true
+    },
+    {
+      "key": "2:cross:property,aviation",
+      "n": 2,
+      "experiment": "cross",
+      "roster": [
+        "property",
+        "aviation"
+      ],
+      "coverage": {
+        "planned": 16,
+        "started": 16,
+        "terminated": 16,
+        "pending": 0,
+        "unstarted": 0,
+        "natural": 12,
+        "censored": 4,
+        "error": 0,
+        "plannedGroups": 8,
+        "completeGroups": 8,
+        "completionRate": 0.75,
+        "censorRate": 0.25,
+        "errorRate": 0
+      },
+      "seats": [
+        {
+          "seat": 0,
+          "wins": 3,
+          "started": 16,
+          "natural": 12,
+          "allStartWinRate": 0.1875,
+          "conditionalWinRate": 0.25,
+          "allStartUniformReference": 0.375,
+          "eliminated": 9
+        },
+        {
+          "seat": 1,
+          "wins": 9,
+          "started": 16,
+          "natural": 12,
+          "allStartWinRate": 0.5625,
+          "conditionalWinRate": 0.75,
+          "allStartUniformReference": 0.375,
+          "eliminated": 3
+        }
+      ],
+      "policies": [
+        {
+          "policy": "property",
+          "wins": 6,
+          "started": 16,
+          "natural": 12,
+          "allStartWinRate": 0.375,
+          "conditionalWinRate": 0.5
+        },
+        {
+          "policy": "aviation",
+          "wins": 6,
+          "started": 16,
+          "natural": 12,
+          "allStartWinRate": 0.375,
+          "conditionalWinRate": 0.5
+        }
+      ],
+      "duration": {
+        "natural": {
+          "rounds": {
+            "count": 12,
+            "unknown": 0,
+            "sum": 2549,
+            "mean": 212.41666666666666,
+            "median": 188,
+            "p10": 119.2,
+            "p90": 314.3,
+            "min": 106,
+            "max": 481,
+            "minEvidence": "s-88c8e817bf80eb451e516776",
+            "maxEvidence": "s-ba8658ae162d891e4a3e31e8"
+          },
+          "actions": {
+            "count": 12,
+            "unknown": 0,
+            "sum": 9143,
+            "mean": 761.9166666666666,
+            "median": 672.5,
+            "p10": 462.9,
+            "p90": 1108.1000000000001,
+            "min": 399,
+            "max": 1647,
+            "minEvidence": "s-88c8e817bf80eb451e516776",
+            "maxEvidence": "s-ba8658ae162d891e4a3e31e8"
+          }
+        },
+        "censored": {
+          "rounds": {
+            "count": 4,
+            "unknown": 0,
+            "sum": 2000,
+            "mean": 500,
+            "median": 500,
+            "p10": 500,
+            "p90": 500,
+            "min": 500,
+            "max": 500,
+            "minEvidence": "s-1fffed19350e2447fe1890e7",
+            "maxEvidence": "s-1fffed19350e2447fe1890e7"
+          },
+          "actions": {
+            "count": 4,
+            "unknown": 0,
+            "sum": 6832,
+            "mean": 1708,
+            "median": 1702,
+            "p10": 1692.8,
+            "p90": 1728,
+            "min": 1691,
+            "max": 1737,
+            "minEvidence": "s-e6f2cd228a78b95912c4c392",
+            "maxEvidence": "s-54e2e1548561ac678f59d8f8"
+          }
+        },
+        "error": {
+          "rounds": {
+            "count": 0,
+            "unknown": 0,
+            "sum": 0,
+            "mean": null,
+            "median": null,
+            "p10": null,
+            "p90": null,
+            "min": null,
+            "max": null,
+            "minEvidence": null,
+            "maxEvidence": null
+          },
+          "actions": {
+            "count": 0,
+            "unknown": 0,
+            "sum": 0,
+            "mean": null,
+            "median": null,
+            "p10": null,
+            "p90": null,
+            "min": null,
+            "max": null,
+            "minEvidence": null,
+            "maxEvidence": null
+          }
+        }
+      },
+      "longGame": true
+    },
+    {
+      "key": "2:cross:property,cautious",
+      "n": 2,
+      "experiment": "cross",
+      "roster": [
+        "property",
+        "cautious"
+      ],
+      "coverage": {
+        "planned": 16,
+        "started": 16,
+        "terminated": 16,
+        "pending": 0,
+        "unstarted": 0,
+        "natural": 13,
+        "censored": 3,
+        "error": 0,
+        "plannedGroups": 8,
+        "completeGroups": 8,
+        "completionRate": 0.8125,
+        "censorRate": 0.1875,
+        "errorRate": 0
+      },
+      "seats": [
+        {
+          "seat": 0,
+          "wins": 8,
+          "started": 16,
+          "natural": 13,
+          "allStartWinRate": 0.5,
+          "conditionalWinRate": 0.6153846153846154,
+          "allStartUniformReference": 0.40625,
+          "eliminated": 5
+        },
+        {
+          "seat": 1,
+          "wins": 5,
+          "started": 16,
+          "natural": 13,
+          "allStartWinRate": 0.3125,
+          "conditionalWinRate": 0.38461538461538464,
+          "allStartUniformReference": 0.40625,
+          "eliminated": 8
+        }
+      ],
+      "policies": [
+        {
+          "policy": "property",
+          "wins": 5,
+          "started": 16,
+          "natural": 13,
+          "allStartWinRate": 0.3125,
+          "conditionalWinRate": 0.38461538461538464
+        },
+        {
+          "policy": "cautious",
+          "wins": 8,
+          "started": 16,
+          "natural": 13,
+          "allStartWinRate": 0.5,
+          "conditionalWinRate": 0.6153846153846154
+        }
+      ],
+      "duration": {
+        "natural": {
+          "rounds": {
+            "count": 13,
+            "unknown": 0,
+            "sum": 3087,
+            "mean": 237.46153846153845,
+            "median": 214,
+            "p10": 143,
+            "p90": 383.80000000000007,
+            "min": 134,
+            "max": 439,
+            "minEvidence": "s-7e55f4a25ae16810b87ea355",
+            "maxEvidence": "s-fecc467d9f846825397a522d"
+          },
+          "actions": {
+            "count": 13,
+            "unknown": 0,
+            "sum": 11252,
+            "mean": 865.5384615384615,
+            "median": 770,
+            "p10": 533.4,
+            "p90": 1330.0000000000002,
+            "min": 503,
+            "max": 1511,
+            "minEvidence": "s-b82ead1b2a8a1304966e6c85",
+            "maxEvidence": "s-fecc467d9f846825397a522d"
+          }
+        },
+        "censored": {
+          "rounds": {
+            "count": 3,
+            "unknown": 0,
+            "sum": 1500,
+            "mean": 500,
+            "median": 500,
+            "p10": 500,
+            "p90": 500,
+            "min": 500,
+            "max": 500,
+            "minEvidence": "s-9a100a4255732772f440954b",
+            "maxEvidence": "s-9a100a4255732772f440954b"
+          },
+          "actions": {
+            "count": 3,
+            "unknown": 0,
+            "sum": 5376,
+            "mean": 1792,
+            "median": 1791,
+            "p10": 1784.6,
+            "p90": 1799.8,
+            "min": 1783,
+            "max": 1802,
+            "minEvidence": "s-9a100a4255732772f440954b",
+            "maxEvidence": "s-e81fb66c29984b09ab26ce2f"
+          }
+        },
+        "error": {
+          "rounds": {
+            "count": 0,
+            "unknown": 0,
+            "sum": 0,
+            "mean": null,
+            "median": null,
+            "p10": null,
+            "p90": null,
+            "min": null,
+            "max": null,
+            "minEvidence": null,
+            "maxEvidence": null
+          },
+          "actions": {
+            "count": 0,
+            "unknown": 0,
+            "sum": 0,
+            "mean": null,
+            "median": null,
+            "p10": null,
+            "p90": null,
+            "min": null,
+            "max": null,
+            "minEvidence": null,
+            "maxEvidence": null
+          }
+        }
+      },
+      "longGame": true
+    },
+    {
+      "key": "2:cross:investment,aviation",
+      "n": 2,
+      "experiment": "cross",
+      "roster": [
+        "investment",
+        "aviation"
+      ],
+      "coverage": {
+        "planned": 16,
+        "started": 16,
+        "terminated": 16,
+        "pending": 0,
+        "unstarted": 0,
+        "natural": 12,
+        "censored": 4,
+        "error": 0,
+        "plannedGroups": 8,
+        "completeGroups": 8,
+        "completionRate": 0.75,
+        "censorRate": 0.25,
+        "errorRate": 0
+      },
+      "seats": [
+        {
+          "seat": 0,
+          "wins": 7,
+          "started": 16,
+          "natural": 12,
+          "allStartWinRate": 0.4375,
+          "conditionalWinRate": 0.5833333333333334,
+          "allStartUniformReference": 0.375,
+          "eliminated": 5
+        },
+        {
+          "seat": 1,
+          "wins": 5,
+          "started": 16,
+          "natural": 12,
+          "allStartWinRate": 0.3125,
+          "conditionalWinRate": 0.4166666666666667,
+          "allStartUniformReference": 0.375,
+          "eliminated": 7
+        }
+      ],
+      "policies": [
+        {
+          "policy": "investment",
+          "wins": 3,
+          "started": 16,
+          "natural": 12,
+          "allStartWinRate": 0.1875,
+          "conditionalWinRate": 0.25
+        },
+        {
+          "policy": "aviation",
+          "wins": 9,
+          "started": 16,
+          "natural": 12,
+          "allStartWinRate": 0.5625,
+          "conditionalWinRate": 0.75
+        }
+      ],
+      "duration": {
+        "natural": {
+          "rounds": {
+            "count": 12,
+            "unknown": 0,
+            "sum": 3425,
+            "mean": 285.4166666666667,
+            "median": 268,
+            "p10": 249.3,
+            "p90": 386.20000000000005,
+            "min": 138,
+            "max": 447,
+            "minEvidence": "s-fddeede58a84549f4cb7b79f",
+            "maxEvidence": "s-9930c38cac5ab7e9f156ef50"
+          },
+          "actions": {
+            "count": 12,
+            "unknown": 0,
+            "sum": 12032,
+            "mean": 1002.6666666666666,
+            "median": 947,
+            "p10": 859.8,
+            "p90": 1352,
+            "min": 510,
+            "max": 1534,
+            "minEvidence": "s-fddeede58a84549f4cb7b79f",
+            "maxEvidence": "s-9930c38cac5ab7e9f156ef50"
+          }
+        },
+        "censored": {
+          "rounds": {
+            "count": 4,
+            "unknown": 0,
+            "sum": 2000,
+            "mean": 500,
+            "median": 500,
+            "p10": 500,
+            "p90": 500,
+            "min": 500,
+            "max": 500,
+            "minEvidence": "s-ff5cbe4084fc4d5da7dc2408",
+            "maxEvidence": "s-ff5cbe4084fc4d5da7dc2408"
+          },
+          "actions": {
+            "count": 4,
+            "unknown": 0,
+            "sum": 6760,
+            "mean": 1690,
+            "median": 1684,
+            "p10": 1658,
+            "p90": 1726.8,
+            "min": 1649,
+            "max": 1743,
+            "minEvidence": "s-25cb5bc8a8ab02ae97d6991c",
+            "maxEvidence": "s-54f4cc4996d467e274d65d50"
+          }
+        },
+        "error": {
+          "rounds": {
+            "count": 0,
+            "unknown": 0,
+            "sum": 0,
+            "mean": null,
+            "median": null,
+            "p10": null,
+            "p90": null,
+            "min": null,
+            "max": null,
+            "minEvidence": null,
+            "maxEvidence": null
+          },
+          "actions": {
+            "count": 0,
+            "unknown": 0,
+            "sum": 0,
+            "mean": null,
+            "median": null,
+            "p10": null,
+            "p90": null,
+            "min": null,
+            "max": null,
+            "minEvidence": null,
+            "maxEvidence": null
+          }
+        }
+      },
+      "longGame": true
+    },
+    {
+      "key": "2:cross:investment,cautious",
+      "n": 2,
+      "experiment": "cross",
+      "roster": [
+        "investment",
+        "cautious"
+      ],
+      "coverage": {
+        "planned": 16,
+        "started": 16,
+        "terminated": 16,
+        "pending": 0,
+        "unstarted": 0,
+        "natural": 14,
+        "censored": 2,
+        "error": 0,
+        "plannedGroups": 8,
+        "completeGroups": 8,
+        "completionRate": 0.875,
+        "censorRate": 0.125,
+        "errorRate": 0
+      },
+      "seats": [
+        {
+          "seat": 0,
+          "wins": 5,
+          "started": 16,
+          "natural": 14,
+          "allStartWinRate": 0.3125,
+          "conditionalWinRate": 0.35714285714285715,
+          "allStartUniformReference": 0.4375,
+          "eliminated": 9
+        },
+        {
+          "seat": 1,
+          "wins": 9,
+          "started": 16,
+          "natural": 14,
+          "allStartWinRate": 0.5625,
+          "conditionalWinRate": 0.6428571428571429,
+          "allStartUniformReference": 0.4375,
+          "eliminated": 5
+        }
+      ],
+      "policies": [
+        {
+          "policy": "investment",
+          "wins": 9,
+          "started": 16,
+          "natural": 14,
+          "allStartWinRate": 0.5625,
+          "conditionalWinRate": 0.6428571428571429
+        },
+        {
+          "policy": "cautious",
+          "wins": 5,
+          "started": 16,
+          "natural": 14,
+          "allStartWinRate": 0.3125,
+          "conditionalWinRate": 0.35714285714285715
+        }
+      ],
+      "duration": {
+        "natural": {
+          "rounds": {
+            "count": 14,
+            "unknown": 0,
+            "sum": 4867,
+            "mean": 347.64285714285717,
+            "median": 358,
+            "p10": 235.2,
+            "p90": 458.6,
+            "min": 213,
+            "max": 491,
+            "minEvidence": "s-6dee97600dcece652fec01d3",
+            "maxEvidence": "s-6bcb7f938d6985a2294e7f8c"
+          },
+          "actions": {
+            "count": 14,
+            "unknown": 0,
+            "sum": 17136,
+            "mean": 1224,
+            "median": 1215.5,
+            "p10": 866.7,
+            "p90": 1598.1000000000001,
+            "min": 786,
+            "max": 1701,
+            "minEvidence": "s-6dee97600dcece652fec01d3",
+            "maxEvidence": "s-6bcb7f938d6985a2294e7f8c"
+          }
+        },
+        "censored": {
+          "rounds": {
+            "count": 2,
+            "unknown": 0,
+            "sum": 1000,
+            "mean": 500,
+            "median": 500,
+            "p10": 500,
+            "p90": 500,
+            "min": 500,
+            "max": 500,
+            "minEvidence": "s-6c838d0e5629a055d583442f",
+            "maxEvidence": "s-6c838d0e5629a055d583442f"
+          },
+          "actions": {
+            "count": 2,
+            "unknown": 0,
+            "sum": 3421,
+            "mean": 1710.5,
+            "median": 1710.5,
+            "p10": 1702.1,
+            "p90": 1718.9,
+            "min": 1700,
+            "max": 1721,
+            "minEvidence": "s-bb0d1c2a96c6db515f448ad1",
+            "maxEvidence": "s-6c838d0e5629a055d583442f"
+          }
+        },
+        "error": {
+          "rounds": {
+            "count": 0,
+            "unknown": 0,
+            "sum": 0,
+            "mean": null,
+            "median": null,
+            "p10": null,
+            "p90": null,
+            "min": null,
+            "max": null,
+            "minEvidence": null,
+            "maxEvidence": null
+          },
+          "actions": {
+            "count": 0,
+            "unknown": 0,
+            "sum": 0,
+            "mean": null,
+            "median": null,
+            "p10": null,
+            "p90": null,
+            "min": null,
+            "max": null,
+            "minEvidence": null,
+            "maxEvidence": null
+          }
+        }
+      },
+      "longGame": true
+    },
+    {
+      "key": "2:cross:aviation,cautious",
+      "n": 2,
+      "experiment": "cross",
+      "roster": [
+        "aviation",
+        "cautious"
+      ],
+      "coverage": {
+        "planned": 16,
+        "started": 16,
+        "terminated": 16,
+        "pending": 0,
+        "unstarted": 0,
+        "natural": 10,
+        "censored": 6,
+        "error": 0,
+        "plannedGroups": 8,
+        "completeGroups": 8,
+        "completionRate": 0.625,
+        "censorRate": 0.375,
+        "errorRate": 0
+      },
+      "seats": [
+        {
+          "seat": 0,
+          "wins": 9,
+          "started": 16,
+          "natural": 10,
+          "allStartWinRate": 0.5625,
+          "conditionalWinRate": 0.9,
+          "allStartUniformReference": 0.3125,
+          "eliminated": 1
+        },
+        {
+          "seat": 1,
+          "wins": 1,
+          "started": 16,
+          "natural": 10,
+          "allStartWinRate": 0.0625,
+          "conditionalWinRate": 0.1,
+          "allStartUniformReference": 0.3125,
+          "eliminated": 9
+        }
+      ],
+      "policies": [
+        {
+          "policy": "aviation",
+          "wins": 7,
+          "started": 16,
+          "natural": 10,
+          "allStartWinRate": 0.4375,
+          "conditionalWinRate": 0.7
+        },
+        {
+          "policy": "cautious",
+          "wins": 3,
+          "started": 16,
+          "natural": 10,
+          "allStartWinRate": 0.1875,
+          "conditionalWinRate": 0.3
+        }
+      ],
+      "duration": {
+        "natural": {
+          "rounds": {
+            "count": 10,
+            "unknown": 0,
+            "sum": 2712,
+            "mean": 271.2,
+            "median": 234,
+            "p10": 181.9,
+            "p90": 399.79999999999995,
+            "min": 181,
+            "max": 488,
+            "minEvidence": "s-96752f3d77e586d097a21aa9",
+            "maxEvidence": "s-05634319e58b84d5d65781ee"
+          },
+          "actions": {
+            "count": 10,
+            "unknown": 0,
+            "sum": 9544,
+            "mean": 954.4,
+            "median": 810.5,
+            "p10": 655.7,
+            "p90": 1401.1,
+            "min": 653,
+            "max": 1771,
+            "minEvidence": "s-7396903f8ce8e61eda9c1e72",
+            "maxEvidence": "s-05634319e58b84d5d65781ee"
+          }
+        },
+        "censored": {
+          "rounds": {
+            "count": 6,
+            "unknown": 0,
+            "sum": 3000,
+            "mean": 500,
+            "median": 500,
+            "p10": 500,
+            "p90": 500,
+            "min": 500,
+            "max": 500,
+            "minEvidence": "s-a7d7feac7cdec363bc92b6b8",
+            "maxEvidence": "s-a7d7feac7cdec363bc92b6b8"
+          },
+          "actions": {
+            "count": 6,
+            "unknown": 0,
+            "sum": 10474,
+            "mean": 1745.6666666666667,
+            "median": 1726.5,
+            "p10": 1673.5,
+            "p90": 1837,
+            "min": 1652,
+            "max": 1868,
+            "minEvidence": "s-a7d7feac7cdec363bc92b6b8",
+            "maxEvidence": "s-49c36ab4d4b95c1067b03322"
+          }
+        },
+        "error": {
+          "rounds": {
+            "count": 0,
+            "unknown": 0,
+            "sum": 0,
+            "mean": null,
+            "median": null,
+            "p10": null,
+            "p90": null,
+            "min": null,
+            "max": null,
+            "minEvidence": null,
+            "maxEvidence": null
+          },
+          "actions": {
+            "count": 0,
+            "unknown": 0,
+            "sum": 0,
+            "mean": null,
+            "median": null,
+            "p10": null,
+            "p90": null,
+            "min": null,
+            "max": null,
+            "minEvidence": null,
+            "maxEvidence": null
+          }
+        }
+      },
+      "longGame": true
+    }
+  ],
+  "policyComparisons": [
+    {
+      "key": "2:cross:property,investment",
+      "n": 2,
+      "family": "policy",
+      "id": "property-investment",
+      "names": [
+        "property",
+        "investment"
+      ],
+      "seat": null,
+      "effect": 0.5555555555555556,
+      "detail": null,
+      "interval": {
+        "id": "property-investment",
+        "draws": 50000,
+        "validDraws": 49999,
+        "validRate": 0.99998,
+        "familySize": 24,
+        "adjustedTail": 0.0010416666666666667,
+        "ordinary": [
+          0,
+          1
+        ],
+        "adjusted": [
+          -0.6,
+          1
+        ],
+        "stable": true,
+        "reason": null,
+        "completedDraws": 50000
+      },
+      "evidence": {
+        "adequate": false,
+        "reasons": [
+          "自然完赛率不足",
+          "完整独立组不足",
+          "自然局数不足"
+        ]
+      },
+      "tolerance": 0.1,
+      "classification": {
+        "label": "证据不足",
+        "explanation": "自然完赛率不足；完整独立组不足；自然局数不足"
+      },
+      "screeningSignal": "点估计超过预设幅度，尚待独立确认"
+    },
+    {
+      "key": "2:cross:property,aviation",
+      "n": 2,
+      "family": "policy",
+      "id": "property-aviation",
+      "names": [
+        "property",
+        "aviation"
+      ],
+      "seat": null,
+      "effect": 0,
+      "detail": null,
+      "interval": {
+        "id": "property-aviation",
+        "draws": 50000,
+        "validDraws": 50000,
+        "validRate": 1,
+        "familySize": 24,
+        "adjustedTail": 0.0010416666666666667,
+        "ordinary": [
+          -0.42857142857142855,
+          0.4
+        ],
+        "adjusted": [
+          -0.75,
+          0.6666666666666666
+        ],
+        "stable": true,
+        "reason": null,
+        "completedDraws": 50000
+      },
+      "evidence": {
+        "adequate": false,
+        "reasons": [
+          "自然完赛率不足",
+          "完整独立组不足",
+          "自然局数不足"
+        ]
+      },
+      "tolerance": 0.1,
+      "classification": {
+        "label": "证据不足",
+        "explanation": "自然完赛率不足；完整独立组不足；自然局数不足"
+      },
+      "screeningSignal": null
+    },
+    {
+      "key": "2:cross:property,cautious",
+      "n": 2,
+      "family": "policy",
+      "id": "property-cautious",
+      "names": [
+        "property",
+        "cautious"
+      ],
+      "seat": null,
+      "effect": -0.23076923076923078,
+      "detail": null,
+      "interval": {
+        "id": "property-cautious",
+        "draws": 50000,
+        "validDraws": 50000,
+        "validRate": 1,
+        "familySize": 24,
+        "adjustedTail": 0.0010416666666666667,
+        "ordinary": [
+          -0.6363636363636364,
+          0.14285714285714285
+        ],
+        "adjusted": [
+          -0.8461538461538461,
+          0.3333333333333333
+        ],
+        "stable": true,
+        "reason": null,
+        "completedDraws": 50000
+      },
+      "evidence": {
+        "adequate": false,
+        "reasons": [
+          "完整独立组不足",
+          "自然局数不足"
+        ]
+      },
+      "tolerance": 0.1,
+      "classification": {
+        "label": "证据不足",
+        "explanation": "完整独立组不足；自然局数不足"
+      },
+      "screeningSignal": "点估计超过预设幅度，尚待独立确认"
+    },
+    {
+      "key": "2:cross:investment,aviation",
+      "n": 2,
+      "family": "policy",
+      "id": "investment-aviation",
+      "names": [
+        "investment",
+        "aviation"
+      ],
+      "seat": null,
+      "effect": -0.5,
+      "detail": null,
+      "interval": {
+        "id": "investment-aviation",
+        "draws": 50000,
+        "validDraws": 50000,
+        "validRate": 1,
+        "familySize": 24,
+        "adjustedTail": 0.0010416666666666667,
+        "ordinary": [
+          -0.8461538461538461,
+          -0.14285714285714285
+        ],
+        "adjusted": [
+          -1,
+          -0.06666666666666667
+        ],
+        "stable": true,
+        "reason": null,
+        "completedDraws": 50000
+      },
+      "evidence": {
+        "adequate": false,
+        "reasons": [
+          "自然完赛率不足",
+          "完整独立组不足",
+          "自然局数不足"
+        ]
+      },
+      "tolerance": 0.1,
+      "classification": {
+        "label": "证据不足",
+        "explanation": "自然完赛率不足；完整独立组不足；自然局数不足"
+      },
+      "screeningSignal": "点估计超过预设幅度，尚待独立确认"
+    },
+    {
+      "key": "2:cross:investment,cautious",
+      "n": 2,
+      "family": "policy",
+      "id": "investment-cautious",
+      "names": [
+        "investment",
+        "cautious"
+      ],
+      "seat": null,
+      "effect": 0.2857142857142857,
+      "detail": null,
+      "interval": {
+        "id": "investment-cautious",
+        "draws": 50000,
+        "validDraws": 50000,
+        "validRate": 1,
+        "familySize": 24,
+        "adjustedTail": 0.0010416666666666667,
+        "ordinary": [
+          -0.07692307692307693,
+          0.6923076923076923
+        ],
+        "adjusted": [
+          -0.3333333333333333,
+          0.8666666666666667
+        ],
+        "stable": true,
+        "reason": null,
+        "completedDraws": 50000
+      },
+      "evidence": {
+        "adequate": false,
+        "reasons": [
+          "完整独立组不足",
+          "自然局数不足"
+        ]
+      },
+      "tolerance": 0.1,
+      "classification": {
+        "label": "证据不足",
+        "explanation": "完整独立组不足；自然局数不足"
+      },
+      "screeningSignal": "点估计超过预设幅度，尚待独立确认"
+    },
+    {
+      "key": "2:cross:aviation,cautious",
+      "n": 2,
+      "family": "policy",
+      "id": "aviation-cautious",
+      "names": [
+        "aviation",
+        "cautious"
+      ],
+      "seat": null,
+      "effect": 0.4,
+      "detail": null,
+      "interval": {
+        "id": "aviation-cautious",
+        "draws": 50000,
+        "validDraws": 50000,
+        "validRate": 1,
+        "familySize": 24,
+        "adjustedTail": 0.0010416666666666667,
+        "ordinary": [
+          0.06666666666666667,
+          0.8333333333333334
+        ],
+        "adjusted": [
+          0,
+          1
+        ],
+        "stable": true,
+        "reason": null,
+        "completedDraws": 50000
+      },
+      "evidence": {
+        "adequate": false,
+        "reasons": [
+          "自然完赛率不足",
+          "完整独立组不足",
+          "自然局数不足"
+        ]
+      },
+      "tolerance": 0.1,
+      "classification": {
+        "label": "证据不足",
+        "explanation": "自然完赛率不足；完整独立组不足；自然局数不足"
+      },
+      "screeningSignal": "点估计超过预设幅度，尚待独立确认"
+    }
+  ],
+  "H1": {
+    "observation": {
+      "id": "H1",
+      "name": "远程施工",
+      "offered": 202,
+      "selected": 76,
+      "triggers": 1610,
+      "rewards": 0,
+      "savings": 0,
+      "permissions": 1610,
+      "unknownGames": 0,
+      "statuses": {
+        "unmet": 112814,
+        "exhausted": 59497,
+        "available_unused": 7504,
+        "declined": 18344,
+        "used": 1610,
+        "unknown": 0
+      },
+      "evidence": [
+        "s-4d0260adaf8ae48e41178fd8",
+        "s-95609fd0d6af77064165bc6d",
+        "s-512f28eec1ff398bd2391c4e"
+      ],
+      "usage": {
+        "eligible": 27458,
+        "used": 1610,
+        "useRate": 0.058635006191273945,
+        "evaluatedPlayers": 76,
+        "neverEligible": 0,
+        "unknownPlayers": 0,
+        "neverRate": 0,
+        "lowUsage": false,
+        "rarelyEligible": false
+      }
+    },
+    "playerUsage": {
+      "id": "H1",
+      "name": "远程施工",
+      "selectedPlayers": 76,
+      "everUsedPlayers": 76,
+      "everBenefitPlayers": 76,
+      "everUsedRate": 1,
+      "unknownPlayers": 0,
+      "evidence": [
+        {
+          "sampleId": "s-4d0260adaf8ae48e41178fd8",
+          "playerId": "p1",
+          "benefits": {
+            "reward": 0,
+            "saving": 0,
+            "permission": 30
+          }
+        },
+        {
+          "sampleId": "s-95609fd0d6af77064165bc6d",
+          "playerId": "p2",
+          "benefits": {
+            "reward": 0,
+            "saving": 0,
+            "permission": 14
+          }
+        },
+        {
+          "sampleId": "s-512f28eec1ff398bd2391c4e",
+          "playerId": "p1",
+          "benefits": {
+            "reward": 0,
+            "saving": 0,
+            "permission": 35
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,224 @@
+{
+  "status": "complete",
+  "source": "calibration",
+  "output": "artifacts/gameplay-balance/review-b-20261002",
+  "rows": [
+    {
+      "n": 2,
+      "sampleId": "s-af0a547be0657856e94b68ea",
+      "outcome": "natural",
+      "actions": 304,
+      "rounds": 78,
+      "computeMs": 5392.009200002532,
+      "configHash": "0842a49c5b1e08591e88797011b4b581616921e9dd7d31eb6cf878b8f62364a6",
+      "output": "artifacts/gameplay-balance/review-b-20261002-n2"
+    },
+    {
+      "n": 2,
+      "sampleId": "s-523be574c0566921e5dab250",
+      "outcome": "natural",
+      "actions": 860,
+      "rounds": 242,
+      "computeMs": 15308.17680000607,
+      "configHash": "0842a49c5b1e08591e88797011b4b581616921e9dd7d31eb6cf878b8f62364a6",
+      "output": "artifacts/gameplay-balance/review-b-20261002-n2"
+    },
+    {
+      "n": 2,
+      "sampleId": "s-d1362e7e292c0679aa895f73",
+      "outcome": "natural",
+      "actions": 816,
+      "rounds": 237,
+      "computeMs": 17654.23900000425,
+      "configHash": "0842a49c5b1e08591e88797011b4b581616921e9dd7d31eb6cf878b8f62364a6",
+      "output": "artifacts/gameplay-balance/review-b-20261002-n2"
+    },
+    {
+      "n": 2,
+      "sampleId": "s-c73c4ed5d4995e6515c0b420",
+      "outcome": "natural",
+      "actions": 1394,
+      "rounds": 387,
+      "computeMs": 30332.800600004382,
+      "configHash": "0842a49c5b1e08591e88797011b4b581616921e9dd7d31eb6cf878b8f62364a6",
+      "output": "artifacts/gameplay-balance/review-b-20261002-n2"
+    },
+    {
+      "n": 3,
+      "sampleId": "s-d76ca76d6fe34b30711f9657",
+      "outcome": "natural",
+      "actions": 1240,
+      "rounds": 277,
+      "computeMs": 27149.42299999483,
+      "configHash": "7bf4d95ae7b2e2178826c5b5883e042c8c4a7bd779824c06eef4f06dfbf72509",
+      "output": "artifacts/gameplay-balance/review-b-20261002-n3"
+    },
+    {
+      "n": 3,
+      "sampleId": "s-b1e315ce2250d40f8743e01a",
+      "outcome": "natural",
+      "actions": 1189,
+      "rounds": 272,
+      "computeMs": 27205.343400012236,
+      "configHash": "7bf4d95ae7b2e2178826c5b5883e042c8c4a7bd779824c06eef4f06dfbf72509",
+      "output": "artifacts/gameplay-balance/review-b-20261002-n3"
+    },
+    {
+      "n": 3,
+      "sampleId": "s-5b5ce636d9db9e5eaabb26d0",
+      "outcome": "censored",
+      "actions": 2281,
+      "rounds": 500,
+      "computeMs": 52490.546600002795,
+      "configHash": "7bf4d95ae7b2e2178826c5b5883e042c8c4a7bd779824c06eef4f06dfbf72509",
+      "output": "artifacts/gameplay-balance/review-b-20261002-n3"
+    },
+    {
+      "n": 3,
+      "sampleId": "s-52df35b7d8d387f91ffc7a37",
+      "outcome": "natural",
+      "actions": 1149,
+      "rounds": 244,
+      "computeMs": 25374.65820000507,
+      "configHash": "7bf4d95ae7b2e2178826c5b5883e042c8c4a7bd779824c06eef4f06dfbf72509",
+      "output": "artifacts/gameplay-balance/review-b-20261002-n3"
+    },
+    {
+      "n": 4,
+      "sampleId": "s-53d16460fdd7550183ac212b",
+      "outcome": "natural",
+      "actions": 1150,
+      "rounds": 205,
+      "computeMs": 26641.22059999779,
+      "configHash": "aa0bde30e314ab568fe2f133cec5e32ba7d6afef768b3a0556a77e0839ba676c",
+      "output": "artifacts/gameplay-balance/review-b-20261002-n4"
+    },
+    {
+      "n": 4,
+      "sampleId": "s-969b2297f8d14f1ad6aa4e15",
+      "outcome": "natural",
+      "actions": 1556,
+      "rounds": 275,
+      "computeMs": 36497.3611999969,
+      "configHash": "aa0bde30e314ab568fe2f133cec5e32ba7d6afef768b3a0556a77e0839ba676c",
+      "output": "artifacts/gameplay-balance/review-b-20261002-n4"
+    },
+    {
+      "n": 4,
+      "sampleId": "s-f5b307c4da62fdb841380e60",
+      "outcome": "censored",
+      "actions": 2564,
+      "rounds": 500,
+      "computeMs": 58850.832300005015,
+      "configHash": "aa0bde30e314ab568fe2f133cec5e32ba7d6afef768b3a0556a77e0839ba676c",
+      "output": "artifacts/gameplay-balance/review-b-20261002-n4"
+    },
+    {
+      "n": 4,
+      "sampleId": "s-3592c9b03ccbab0557509a28",
+      "outcome": "censored",
+      "actions": 2784,
+      "rounds": 500,
+      "computeMs": 79256.90109998593,
+      "configHash": "aa0bde30e314ab568fe2f133cec5e32ba7d6afef768b3a0556a77e0839ba676c",
+      "output": "artifacts/gameplay-balance/review-b-20261002-n4"
+    }
+  ],
+  "byPlayers": [
+    {
+      "n": 2,
+      "count": 4,
+      "natural": 4,
+      "censored": 0,
+      "compute": {
+        "count": 4,
+        "unknown": 0,
+        "sum": 68690,
+        "mean": 17172.5,
+        "median": 16482,
+        "p10": 8367.800000000001,
+        "p90": 26529.600000000002,
+        "min": 5393,
+        "max": 30333,
+        "minEvidence": null,
+        "maxEvidence": null
+      }
+    },
+    {
+      "n": 3,
+      "count": 4,
+      "natural": 3,
+      "censored": 1,
+      "compute": {
+        "count": 4,
+        "unknown": 0,
+        "sum": 132222,
+        "mean": 33055.5,
+        "median": 27178,
+        "p10": 25907.5,
+        "p90": 44905.5,
+        "min": 25375,
+        "max": 52491,
+        "minEvidence": null,
+        "maxEvidence": null
+      }
+    },
+    {
+      "n": 4,
+      "count": 4,
+      "natural": 2,
+      "censored": 2,
+      "compute": {
+        "count": 4,
+        "unknown": 0,
+        "sum": 201248,
+        "mean": 50312,
+        "median": 47674.5,
+        "p10": 29598.8,
+        "p90": 73135.20000000001,
+        "min": 26642,
+        "max": 79257,
+        "minEvidence": null,
+        "maxEvidence": null
+      }
+    }
+  ],
+  "capacity": {
+    "seeds": 8,
+    "games": 120,
+    "groups": 72,
+    "cost": {
+      "2": 30332.800600004382,
+      "3": 52490.546600002795,
+      "4": 79256.90109998593
+    },
+    "perOrdinal": 526073.8555000457,
+    "safetyFactor": 1.25,
+    "startupReserveMs": 60000,
+    "availableMs": 5400000,
+    "method": "每人数4局中最大实测计算时间；两人交叉按两人中性成本估计，乘1.25，预留60秒启动。只是预算预测，实际停止由程序守卫执行。"
+  },
+  "repair": {
+    "scope": "仅汇总耗时报表，原始小数耗时保留，描述统计向上取整毫秒；原十二结果不变，不重新采样，继续原B预算",
+    "originalExit": 2,
+    "originalError": "金额超出有效范围",
+    "executedControllerHash": "3ab14e0d79390f62989d001b1a373166a29aedbf62bab54a4a177aac0a924cfb",
+    "reportRepairHash": "e829e7aa0c7f937ff805bf83fd889356b76c63af1bc4a3e8175894f20130a67c"
+  },
+  "budget": {
+    "version": 2,
+    "limitMs": 1200000,
+    "computeMs": 442439.4144000001,
+    "excludedInactiveGapMs": 0,
+    "runs": {
+      "review-b-20261002": {
+        "computeMs": 442439.4144000001,
+        "wallWorkMs": 439733.2285999977,
+        "cpuMs": 39327,
+        "excludedInactiveGapMs": 0,
+        "configHash": "5ce8cd3c28df583331bd1b9d7e0e5416b36fd4470c42c771c5ab954893311863"
+      }
+    },
+    "accounting": "active-operation-wall-with-cpu-suspension-check"
+  }
+}

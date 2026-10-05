@@ -1,0 +1,13 @@
+限定补验 build-3 完成
+限定补验 flight-3 完成
+Error: 输出超过10MiB
+    at write (C:\Users\Yifan\Desktop\game\scripts\light-balance\control.js:14:68)
+    at C:\Users\Yifan\Desktop\game\scripts\light-balance\repair.js:57:7
+    at Object.measure (C:\Users\Yifan\Desktop\game\scripts\light-balance\control.js:37:60)
+    at repair (C:\Users\Yifan\Desktop\game\scripts\light-balance\repair.js:46:11)
+    at Object.<anonymous> (C:\Users\Yifan\Desktop\game\scripts\light-balance\repair.js:66:48)
+    at Module._compile (node:internal/modules/cjs/loader:1521:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
+    at Module.load (node:internal/modules/cjs/loader:1266:32)
+    at Module._load (node:internal/modules/cjs/loader:1091:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)

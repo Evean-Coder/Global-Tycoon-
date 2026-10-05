@@ -1,6 +1,6 @@
 # 环球大亨
 
-> 整改进度（2026-10-05）：投资测试策略已独立修正，并澄清股票实际分红比例。仅减少起点补给的候选经6条有限对照仍未自然结束，已筛除，未上线；远航开支规则规格已确认，[技术设计](docs/economy-remediation/production-plan.md)待批准，生产尚未启用。见[整改诊断](docs/economy-remediation/results.md)。
+> 整改进度（2026-10-05）：投资测试策略已独立修正，并澄清股票实际分红比例。仅减少起点补给的候选经6条有限对照仍未自然结束，已筛除，未上线；远航开支规格与[技术设计](docs/economy-remediation/production-plan.md)已批准，[31项任务](docs/economy-remediation/production-task.md)待批准，生产尚未启用。见[整改诊断](docs/economy-remediation/results.md)。
 
 > 当前平衡判断：[分项结论与整改决定](docs/balance-lightweight/decision.md)。有限工具检查通过不代表玩法平衡通过；现有长局问题明确，投资对航空的重复表现偏差应优先调查，暂不凭此直接改游戏数值。
 

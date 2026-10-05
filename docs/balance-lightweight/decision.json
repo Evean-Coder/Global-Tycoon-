@@ -1,0 +1,358 @@
+{
+  "date": "2026-10-05",
+  "source": "read-only-existing-evidence-interpretation",
+  "sources": [
+    "artifacts/gameplay-balance/formal-corrected-20261001-1790865366064/summary.json",
+    "docs/balance-review/stage-c-summary.json"
+  ],
+  "newFullGames": 0,
+  "newGameActions": 0,
+  "bootstrapDraws": 0,
+  "old": {
+    "terminated": 466,
+    "censored": 176,
+    "censorRate": 0.3776824034334764,
+    "pairs": [
+      {
+        "key": "2:cross:property,investment",
+        "terminated": 16,
+        "natural": 11,
+        "censored": 5,
+        "groups": 8,
+        "policies": [
+          {
+            "policy": "property",
+            "wins": 10,
+            "naturalConditionalRate": 0.9090909090909091,
+            "observedSetCompletionRange": [
+              0.625,
+              0.9375
+            ]
+          },
+          {
+            "policy": "investment",
+            "wins": 1,
+            "naturalConditionalRate": 0.09090909090909091,
+            "observedSetCompletionRange": [
+              0.0625,
+              0.375
+            ]
+          }
+        ]
+      },
+      {
+        "key": "2:cross:property,aviation",
+        "terminated": 16,
+        "natural": 11,
+        "censored": 5,
+        "groups": 8,
+        "policies": [
+          {
+            "policy": "property",
+            "wins": 5,
+            "naturalConditionalRate": 0.45454545454545453,
+            "observedSetCompletionRange": [
+              0.3125,
+              0.625
+            ]
+          },
+          {
+            "policy": "aviation",
+            "wins": 6,
+            "naturalConditionalRate": 0.5454545454545454,
+            "observedSetCompletionRange": [
+              0.375,
+              0.6875
+            ]
+          }
+        ]
+      },
+      {
+        "key": "2:cross:property,cautious",
+        "terminated": 16,
+        "natural": 16,
+        "censored": 0,
+        "groups": 8,
+        "policies": [
+          {
+            "policy": "property",
+            "wins": 13,
+            "naturalConditionalRate": 0.8125,
+            "observedSetCompletionRange": [
+              0.8125,
+              0.8125
+            ]
+          },
+          {
+            "policy": "cautious",
+            "wins": 3,
+            "naturalConditionalRate": 0.1875,
+            "observedSetCompletionRange": [
+              0.1875,
+              0.1875
+            ]
+          }
+        ]
+      },
+      {
+        "key": "2:cross:investment,aviation",
+        "terminated": 16,
+        "natural": 12,
+        "censored": 4,
+        "groups": 8,
+        "policies": [
+          {
+            "policy": "investment",
+            "wins": 2,
+            "naturalConditionalRate": 0.16666666666666666,
+            "observedSetCompletionRange": [
+              0.125,
+              0.375
+            ]
+          },
+          {
+            "policy": "aviation",
+            "wins": 10,
+            "naturalConditionalRate": 0.8333333333333334,
+            "observedSetCompletionRange": [
+              0.625,
+              0.875
+            ]
+          }
+        ]
+      },
+      {
+        "key": "2:cross:investment,cautious",
+        "terminated": 16,
+        "natural": 13,
+        "censored": 3,
+        "groups": 8,
+        "policies": [
+          {
+            "policy": "investment",
+            "wins": 6,
+            "naturalConditionalRate": 0.46153846153846156,
+            "observedSetCompletionRange": [
+              0.375,
+              0.5625
+            ]
+          },
+          {
+            "policy": "cautious",
+            "wins": 7,
+            "naturalConditionalRate": 0.5384615384615384,
+            "observedSetCompletionRange": [
+              0.4375,
+              0.625
+            ]
+          }
+        ]
+      },
+      {
+        "key": "2:cross:aviation,cautious",
+        "terminated": 16,
+        "natural": 11,
+        "censored": 5,
+        "groups": 8,
+        "policies": [
+          {
+            "policy": "aviation",
+            "wins": 8,
+            "naturalConditionalRate": 0.7272727272727273,
+            "observedSetCompletionRange": [
+              0.5,
+              0.8125
+            ]
+          },
+          {
+            "policy": "cautious",
+            "wins": 3,
+            "naturalConditionalRate": 0.2727272727272727,
+            "observedSetCompletionRange": [
+              0.1875,
+              0.5
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "independentScreening": {
+    "terminated": 120,
+    "censored": 35,
+    "censorRate": 0.2916666666666667,
+    "pairs": [
+      {
+        "key": "2:cross:property,investment",
+        "terminated": 16,
+        "natural": 9,
+        "censored": 7,
+        "groups": 8,
+        "policies": [
+          {
+            "policy": "property",
+            "wins": 7,
+            "naturalConditionalRate": 0.7777777777777778,
+            "observedSetCompletionRange": [
+              0.4375,
+              0.875
+            ]
+          },
+          {
+            "policy": "investment",
+            "wins": 2,
+            "naturalConditionalRate": 0.2222222222222222,
+            "observedSetCompletionRange": [
+              0.125,
+              0.5625
+            ]
+          }
+        ]
+      },
+      {
+        "key": "2:cross:property,aviation",
+        "terminated": 16,
+        "natural": 12,
+        "censored": 4,
+        "groups": 8,
+        "policies": [
+          {
+            "policy": "property",
+            "wins": 6,
+            "naturalConditionalRate": 0.5,
+            "observedSetCompletionRange": [
+              0.375,
+              0.625
+            ]
+          },
+          {
+            "policy": "aviation",
+            "wins": 6,
+            "naturalConditionalRate": 0.5,
+            "observedSetCompletionRange": [
+              0.375,
+              0.625
+            ]
+          }
+        ]
+      },
+      {
+        "key": "2:cross:property,cautious",
+        "terminated": 16,
+        "natural": 13,
+        "censored": 3,
+        "groups": 8,
+        "policies": [
+          {
+            "policy": "property",
+            "wins": 5,
+            "naturalConditionalRate": 0.38461538461538464,
+            "observedSetCompletionRange": [
+              0.3125,
+              0.5
+            ]
+          },
+          {
+            "policy": "cautious",
+            "wins": 8,
+            "naturalConditionalRate": 0.6153846153846154,
+            "observedSetCompletionRange": [
+              0.5,
+              0.6875
+            ]
+          }
+        ]
+      },
+      {
+        "key": "2:cross:investment,aviation",
+        "terminated": 16,
+        "natural": 12,
+        "censored": 4,
+        "groups": 8,
+        "policies": [
+          {
+            "policy": "investment",
+            "wins": 3,
+            "naturalConditionalRate": 0.25,
+            "observedSetCompletionRange": [
+              0.1875,
+              0.4375
+            ]
+          },
+          {
+            "policy": "aviation",
+            "wins": 9,
+            "naturalConditionalRate": 0.75,
+            "observedSetCompletionRange": [
+              0.5625,
+              0.8125
+            ]
+          }
+        ]
+      },
+      {
+        "key": "2:cross:investment,cautious",
+        "terminated": 16,
+        "natural": 14,
+        "censored": 2,
+        "groups": 8,
+        "policies": [
+          {
+            "policy": "investment",
+            "wins": 9,
+            "naturalConditionalRate": 0.6428571428571429,
+            "observedSetCompletionRange": [
+              0.5625,
+              0.6875
+            ]
+          },
+          {
+            "policy": "cautious",
+            "wins": 5,
+            "naturalConditionalRate": 0.35714285714285715,
+            "observedSetCompletionRange": [
+              0.3125,
+              0.4375
+            ]
+          }
+        ]
+      },
+      {
+        "key": "2:cross:aviation,cautious",
+        "terminated": 16,
+        "natural": 10,
+        "censored": 6,
+        "groups": 8,
+        "policies": [
+          {
+            "policy": "aviation",
+            "wins": 7,
+            "naturalConditionalRate": 0.7,
+            "observedSetCompletionRange": [
+              0.4375,
+              0.8125
+            ]
+          },
+          {
+            "policy": "cautious",
+            "wins": 3,
+            "naturalConditionalRate": 0.3,
+            "observedSetCompletionRange": [
+              0.1875,
+              0.5625
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "interpretation": {
+    "releaseDecision": "不要以平衡已通过验收；先整改节奏与复核投资路线",
+    "duration": "固定策略环境明确触发既有长局标准",
+    "investmentVersusAviation": "两批自然结果同向；各自截断全判给投资也不反转既有样本方向",
+    "ruleAttribution": "机器人策略与规则贡献尚未分离，不能直接修改收益",
+    "bounds": "观察集的未知终局敏感性范围，不是置信区间、预测胜率或真实胜场分配；两批不合并",
+    "unchangedFormalClassification": "证据不足"
+  },
+  "analysisActivityMs": 9.11699999999999
+}

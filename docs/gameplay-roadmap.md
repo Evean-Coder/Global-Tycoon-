@@ -1,6 +1,6 @@
 # 游戏玩法后续改进路线
 
-> 整改检验更新：投资测试策略已修正盲买、折价减持和多买资格；收益结构差距单列。起点补给递减的6条对照仍全部250轮截断，不单独上线。下一项[远航开支规格](economy-remediation/production-spec.md)待审批；见[整改结果](economy-remediation/results.md)。
+> 整改检验更新：投资测试策略已修正盲买、折价减持和多买资格；收益结构差距单列。起点补给递减的6条对照仍全部250轮截断，不单独上线。[远航开支规格](economy-remediation/production-spec.md)已确认，[技术设计](economy-remediation/production-plan.md)待审批；见[整改结果](economy-remediation/results.md)。
 
 > 明确推进决定：已有证据支持优先处理长局，并调查投资对航空的重复表现偏差；当前不按“平衡已通过”验收。分项依据见[当前判断](balance-lightweight/decision.md)，不等待上千局才启动问题调查，也不直接把机器人偏差当作游戏规则缺陷。
 

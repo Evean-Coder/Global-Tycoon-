@@ -1,10 +1,10 @@
 # 游戏玩法后续改进路线
 
-> 整改检验更新：投资测试策略已修正盲买、折价减持和多买资格；收益结构差距单列。起点补给递减的6条对照仍全部250轮截断，不单独上线。[远航开支规格](economy-remediation/production-spec.md)与[技术设计](economy-remediation/production-plan.md)已批准，[任务拆解](economy-remediation/production-task.md)待审批；见[整改结果](economy-remediation/results.md)。
+> 整改检验更新：投资测试策略已修正盲买、折价减持和多买资格；收益结构差距单列。起点补给递减的6条对照仍全部250轮截断，不单独上线。[远航开支规格](economy-remediation/production-spec.md)、[技术设计](economy-remediation/production-plan.md)与[任务拆解](economy-remediation/production-task.md)已批准，[验收清单](economy-remediation/production-checklist.md)待审批；见[整改结果](economy-remediation/results.md)。
 
 > 明确推进决定：已有证据支持优先处理长局，并调查投资对航空的重复表现偏差；当前不按“平衡已通过”验收。分项依据见[当前判断](balance-lightweight/decision.md)，不等待上千局才启动问题调查，也不直接把机器人偏差当作游戏规则缺陷。
 
-> 更新：2026-10-05。状态：第二轮A–C与有限预算检验完成，远航开支规格和设计已批准，任务与验收清单通过后实施。依据当前规则v2、[轻量结果](balance-lightweight/results.md)及[第二轮结果](balance-review/results.md)；历史[续跑结果](gameplay-balance/formal-summary-20261002.md)保留。本文不改变现有玩法和玩家交互。
+> 更新：2026-10-05。状态：第二轮A–C与有限预算检验完成，远航开支规格、设计和任务已批准，验收清单通过后实施。依据当前规则v2、[轻量结果](balance-lightweight/results.md)及[第二轮结果](balance-review/results.md)；历史[续跑结果](gameplay-balance/formal-summary-20261002.md)保留。本文不改变现有玩法和玩家交互。
 
 最新48个受控案例/12短对照未发现确定套利或额度越界，但低现金即时建房、买股和飞行压缩缓冲。H5＋H10的有条件起点奖励、H6＋H11的银行补足是合法现金来源，尚未证明长局因果。优先顺序为经营费用/余额风险说明、核对现金流后的一项长局候选、机器人现金储备与估值复核；不因少量路径输赢直接改强度。本轮新增完整局0，未确认总体胜率平衡。
 

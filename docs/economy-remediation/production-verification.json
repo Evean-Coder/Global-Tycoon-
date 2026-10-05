@@ -298,5 +298,8 @@
     "pageErrors": []
   },
   "lintExit": 0,
-  "status": "PASS; selective commit follows; no new pilot trajectories"
+  "status": "PASS; release selectively committed; completion annotations follow",
+  "releaseCommit": "31e4d2d3ab29a189d55c811f77c8f31cdf67ad24",
+  "committedPilotEvidenceFiles": 20,
+  "evidenceBytesPreserved": true
 }

@@ -1,0 +1,7 @@
+
+C:\Users\Yifan\Desktop\game\test\travel-expense.test.js
+  33:48  error  'structuredClone' is not defined  no-undef
+
+✖ 1 problem (1 error, 0 warnings)
+
+Exit code: 1

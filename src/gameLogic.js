@@ -7,6 +7,7 @@ const opportunities = require('./opportunities');
 const roundFlow = require('./roundFlow');
 const worldEvents = require('./worldEvents');
 const { assetSummary } = require('./assets');
+const travelExpense = require('./travelExpense');
 
 function modern(state) { return state.ruleVersion === 2; }
 
@@ -175,7 +176,19 @@ function resolveChoices(state, events, rng, cause) {
   if (continuation.kind === 'prepare_turn' || continuation.kind === 'start') prepareTurn(state, events, rng);
 }
 
+function chargeEndExpense(state, events, continuation) {
+  const p = currentPlayer(state);
+  const receipt = travelExpense.settle(state, p.id, events);
+  if (receipt && p.cash < 0) {
+    startSelfRescue(state, p, -p.cash, events, '远航开支');
+    state.pending.resume = { kind: 'travel_expense', continuation };
+    return true;
+  }
+  return false;
+}
+
 function advanceTurn(state, events, rng) {
+  if (chargeEndExpense(state, events, 'normal_end')) return;
   if (modern(state)) {
     roundFlow.completeTurn(state, currentPlayer(state).id, state.turnId);
     stocks.closeStockWindow(state);
@@ -210,6 +223,16 @@ function advanceTurn(state, events, rng) {
   prepareTurn(state, events, rng);
 }
 
+function completeSkippedJail(state, events, rng) {
+  if (chargeEndExpense(state, events, 'skipped_jail')) return false;
+  if (modern(state)) roundFlow.completeTurn(state, currentPlayer(state).id, state.turnId);
+  do {
+    state.turnIndex = (state.turnIndex + 1) % state.players.length;
+  } while (!state.players[state.turnIndex].alive);
+  if (modern(state)) state.turnId++;
+  return !completeRoundBoundary(state, events, rng);
+}
+
 function prepareTurn(state, events, rng) {
   let p = currentPlayer(state);
   // 11/32 号监狱：关押 1 回合——该玩家的下一回合直接跳过（不做任何行动）；
@@ -218,12 +241,7 @@ function prepareTurn(state, events, rng) {
   while (p.jailed && jailLimitFor(p.position) === 1 && p.jailTurns < 1 && skipGuard++ < state.players.length) {
     p.jailTurns = 1;
     log(events, `${p.name} 被关押 1 回合，本回合跳过`, 'jail');
-    if (modern(state)) roundFlow.completeTurn(state, p.id, state.turnId);
-    do {
-      state.turnIndex = (state.turnIndex + 1) % state.players.length;
-    } while (!state.players[state.turnIndex].alive);
-    if (modern(state)) state.turnId++;
-    if (completeRoundBoundary(state, events, rng)) return;
+    if (!completeSkippedJail(state, events, rng)) return;
     p = currentPlayer(state);
   }
   log(events, `轮到 ${p.name}`);
@@ -522,7 +540,12 @@ function finishSelfRescue(state, events, rng) {
   if (p.cash >= 0) {
     log(events, `${p.name} 完成自救，正常结算`);
     state.pending = null;
-    if (pend.resume) resolveLanding(state, p.position, events, rng);
+    if (pend.resume?.kind === 'travel_expense') {
+      if (pend.resume.continuation === 'skipped_jail') {
+        if (completeSkippedJail(state, events, rng)) prepareTurn(state, events, rng);
+      } else advanceTurn(state, events, rng);
+    }
+    else if (pend.resume) resolveLanding(state, p.position, events, rng);
     else endTurn(state, events, rng);
   } else {
     bankrupt(state, p, events, rng);

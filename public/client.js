@@ -16,7 +16,7 @@ function fitActionBarPadding() {
   const board = document.getElementById('board');
   if (board?.getClientRects().length) {
     const occupied = board.getBoundingClientRect().top + window.scrollY + ab.offsetHeight + 36;
-    document.documentElement.style.setProperty('--board-available', 'calc(100dvh - ' + occupied + 'px)');
+    document.documentElement.style.setProperty('--board-available', Math.max(0, window.innerHeight - occupied) + 'px');
   }
 }
 window.addEventListener('load', fitActionBarPadding);
@@ -486,6 +486,13 @@ function renderNews() {
   info.textContent=active?active.name+(active.region?' · '+active.region:'')+' · '+active.remaining+' 轮':'首次环球行程完成后发布';bar.append(info);
   if(active){const detail=document.createElement('details'),sum=document.createElement('summary'),p=document.createElement('p');sum.textContent='影响说明';p.textContent=active.description;detail.append(sum,p);bar.append(detail);}
   if(game.world.preview){const next=document.createElement('span');next.className='news-preview';next.textContent='下轮预告：'+game.world.preview.name+(game.world.preview.region?' · '+game.world.preview.region:'');bar.append(next);}
+  const expense=game.travelExpense;
+  if(expense){
+    const line=document.createElement('span');line.className='travel-expense';
+    line.textContent=expense.enabled?'第 '+(expense.completedRounds+1)+' 完整轮 · 回合结束远航开支 '+fmt(expense.currentAmount):'本局沿用原规则 · 无远航开支';
+    bar.append(line);
+    if(expense.preview){const next=document.createElement('span');next.className='travel-preview';next.textContent='远航预告：'+expense.preview.roundsUntil+' 个完整轮后，第 '+expense.preview.startsAtRound+' 轮起每回合 '+fmt(expense.preview.amount);bar.append(next);}
+  }
 }
 function renderOpportunities() {
   if (game?.phase !== 'opportunity_choose' || !game.self?.choice) { hideOverlay('choiceModal');choiceRenderKey='';return; }
@@ -511,7 +518,7 @@ function renderOpportunities() {
   $('btnReroll').disabled=c.submitted||game.decision.paused||c.rerollsLeft<1;
   $('btnReroll').textContent='换一组选项 · 剩余 '+c.rerollsLeft+' 次';
   $('btnReroll').onclick=()=>sendAction({type:'opportunity_reroll',stageId:c.stageId,candidateVersion:c.candidateVersion});
-  $('btnChoiceRules').onclick=()=>showOverlay('rulesModal');
+  $('btnChoiceRules').onclick=()=>{buildRules();showOverlay('rulesModal');};
   $('btnChoiceDisband').hidden=roomHostId!==socket.id;
   $('btnChoiceDisband').onclick=()=>{if(confirm('解散房间并结算当前资产？'))socket.emit('disbandRoom');};
   closeModal();hideOverlay('stockModal');showOverlay('choiceModal');
@@ -820,6 +827,7 @@ function renderPending() {
         const owned = meP.cities.filter((id) => !game.cities[id].mortgaged);
         const mgCap = meP.cities.filter((x) => game.cities[x].mortgaged).length >= 2;
         body.innerHTML = '<div class="card-tag">SELF RESCUE</div><p>资金不足（欠 ' + fmt(pend.due) + '），选择自救：</p>';
+        if(pend.reason){const reason=document.createElement('p');reason.className='hint';reason.textContent='债务来源：'+pend.reason;body.append(reason);}
         body.innerHTML += '<p class="hint">金额：抵押 = 总价值 × 50%；直接出售 = 总价值 × 80%；拍卖流拍保底 = 总价值 × 50%。</p>';
         owned.forEach((id) => {
           const c = game.cities[id];
@@ -924,7 +932,7 @@ function setupLobby() {
   $('btnStockSkip').onclick = () => { sendAction({ type: 'stock_done' },res=>{if(res.ok){hideOverlay('stockModal');stockDraft={};}}); };
   $('btnStockConfirm').onclick = submitStock;
   $('btnStockTransfer').onclick=()=>{hideOverlay('stockModal');renderTransferPanel();};
-  $('btnRules').onclick = () => { showOverlay('rulesModal'); };
+  $('btnRules').onclick = () => { buildRules();showOverlay('rulesModal'); };
   $('btnRulesClose').onclick = () => hideOverlay('rulesModal');
   $('btnRoll').onclick = () => { playDiceAnim(); sendAction({ type: 'roll_dice' }); };
   $('btnEndTurn').onclick = () => { playDiceAnim(); sendAction({ type: 'roll_dice' }); };
@@ -1085,7 +1093,7 @@ let replayTimer = null;
 function recordEconomySummary(record) {
   const values=record?.stats?.economy;
   if(!values)return '';
-  return '<details class="record-economy"><summary>实际收益与费用记录</summary>'+kv('基础股息',fmt(values.baseDividends))+kv('机遇奖励',fmt(values.bankBonuses))+kv('保留经营收益',fmt(values.retainedIncome))+kv('股票清算',fmt(values.stockLiquidation))+kv('银行租金补足',fmt(values.bankRentSupplement))+kv('建房节省',fmt(values.buildSavings||0))+kv('机票节省',fmt(values.flightSavings||0))+'</details>';
+  return '<details class="record-economy"><summary>实际收益与费用记录</summary>'+kv('基础股息',fmt(values.baseDividends))+kv('机遇奖励',fmt(values.bankBonuses))+kv('保留经营收益',fmt(values.retainedIncome))+kv('股票清算',fmt(values.stockLiquidation))+kv('银行租金补足',fmt(values.bankRentSupplement))+kv('建房节省',fmt(values.buildSavings||0))+kv('机票节省',fmt(values.flightSavings||0))+kv('远航开支（支出）',fmt(values.travelExpenses||0))+'</details>';
 }
 
 function openReplay() {
@@ -1140,6 +1148,10 @@ function replayClose() {
 
 // ---------- 规则速查 ----------
 function buildRules() {
+  const expensesEnabled=game?!!game.travelExpense?.enabled:document.body.dataset.economyRevision==='travel-expense-v1';
+  const expenseRules=expensesEnabled
+    ? '<p><b>远航开支：</b>第1–80完整轮不收费，第81–120完整轮每个存活玩家回合结束支付1500，第121完整轮起支付3000；下一档提前2完整轮预告。监狱/极地跳过也计一次，回合内操作与自救不重复收取。现金不足沿用资产自救，凑足后结束原回合。</p>'
+    : '<p><b>远航开支：</b>当前适用原经济规则，无新增回合开支。</p>';
   const groups = [
     { title: '奖励（15 张）', items: [
       '环球市长奖 +8000',
@@ -1158,7 +1170,7 @@ function buildRules() {
     { title: '位移（9 张）', items: ['前进 3 格 ×3、后退 3 格 ×3、移动到起点 ×3（照常结算落点）'] },
     { title: '入狱（1 张）', items: ['直接进入最近的上一个监狱'] },
   ];
-  $('rulesBody').innerHTML = ''
+  $('rulesBody').innerHTML = expenseRules
     + '<p><b>目标：</b>初始资金 150000；购买地产、建设城市、投资股票，坚持到最后获胜。货币为纯数字、无面额。</p>'
     + '<p><b>回合：</b>掷单个骰子（1–10，洗牌袋机制：1–10 各一张洗乱入袋，每 10 次掷骰各点数恰好出现一次、顺序随机，避免连出重复点数）。落点按格触发事件；主行动 90 秒、子流程 60 秒，超时自动执行默认动作。</p>'
     + '<p><b>起点结算：</b>跨过/停在起点按顺序：① 获得 10000 并计算名下城市股息 ② 开放一次股票交易窗口 ③ 若为跨过则继续结算落点事件。</p>'

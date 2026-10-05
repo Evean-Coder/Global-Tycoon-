@@ -1,12 +1,12 @@
 'use strict';
-const CACHE = 'global-tycoon-v4-economy';
+const CACHE = 'global-tycoon-v5-travel';
 const CORE = [
   './',
   './index.html',
   './style.css',
   './client.js',
-  './style.css?v=20261001-economy',
-  './client.js?v=20261001-economy',
+  './style.css?v=20261005-travel',
+  './client.js?v=20261005-travel',
   './socket.io/socket.io.js',
   './assets/world-map-ocean.png',
   './assets/ocean-surface.png',

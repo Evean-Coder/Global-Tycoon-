@@ -1,0 +1,50 @@
+TAP version 13
+# Subtest: 真实终局门槛拒绝低现金、缺组、丢失自然终局和不同前缀
+ok 1 - 真实终局门槛拒绝低现金、缺组、丢失自然终局和不同前缀
+  ---
+  duration_ms: 1.2495
+  ...
+# Subtest: 投资更早出局必须单列，2/3/4人配置及预算固定
+ok 2 - 投资更早出局必须单列，2/3/4人配置及预算固定
+  ---
+  duration_ms: 0.486
+  ...
+# Subtest: 已有累计预算不能重置，恢复累计到上限即停止
+ok 3 - 已有累计预算不能重置，恢复累计到上限即停止
+  ---
+  duration_ms: 5.5854
+  ...
+# Subtest: 前期只忽略声明元数据，真实收费与恢复银行流水对账
+not ok 4 - 前期只忽略声明元数据，真实收费与恢复银行流水对账
+  ---
+  duration_ms: 16.4325
+  failureType: 'testCodeFailure'
+  error: |-
+    真实现金/基金与银行流水必须对账
+    
+    0 !== 10000
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 10000
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    moneyRows (C:\Users\Yifan\Desktop\game\scripts\remediation\travel-pilot.js:32:10)
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\test\travel-pilot.test.js:34:19)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+    Test.run (node:internal/test_runner/test:796:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:526:18)
+    Test.postRun (node:internal/test_runner/test:889:19)
+    Test.run (node:internal/test_runner/test:835:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 3
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 32.849

@@ -11,6 +11,20 @@ const createGameState=(code,names)=>createState(code,names,1);
 const { createRng } = require('../src/random');
 const { buildGameRecord, computeStats } = require('../src/record');
 
+test('远航开支由真实事件汇总、记录修订，旧记录不补算', () => {
+  const expense = require('../src/travelExpense');
+  const s = createState('TRAVEL', ['甲', '乙'], 2, { economyRevision: expense.REVISION });
+  s.roundFlow.index = 81; const events = []; expense.settle(s, 'p0', events); expense.settle(s, 'p1', events);
+  const record = buildGameRecord({ code: s.roomCode, state: s, events }, 'test');
+  assert.equal(record.economyRevision, expense.REVISION); assert.equal(record.travelExpense.currentAmount, 1500);
+  assert.equal(record.stats.economy.travelExpenses, 3000);
+  assert.deepEqual(record.stats.economy.travelExpensesByPlayer, { p0: 1500, p1: 1500 });
+  assert.equal(record.stats.economy.baseDividends, 0);
+  const old = createState('OLD', ['甲', '乙'], 2); old.roundFlow.index = 251;
+  const oldRecord = buildGameRecord({ code: old.roomCode, state: old, events: [] }, 'test');
+  assert.equal(oldRecord.economyRevision, undefined); assert.equal(oldRecord.stats.economy.travelExpenses, 0);
+});
+
 const spawnedChildren = [];
 const spawnedSockets = [];
 

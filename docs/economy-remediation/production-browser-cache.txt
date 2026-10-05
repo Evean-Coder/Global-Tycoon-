@@ -1,0 +1,15 @@
+TAP version 13
+# Subtest: 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+ok 1 - 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+  ---
+  duration_ms: 2435.6556
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2909.3968

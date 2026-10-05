@@ -1,0 +1,76 @@
+TAP version 13
+# Subtest: 统一动作封装 / 同步机遇选择与重选 / 自然规则说明 / 资讯当前与预告
+not ok 1 - 统一动作封装 / 同步机遇选择与重选 / 自然规则说明 / 资讯当前与预告
+  ---
+  duration_ms: 19.9148
+  failureType: 'hookFailed'
+  error: |-
+    browserType.launch: spawn EPERM
+    Call log:
+    [2m  - <launching> C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,Translate,AutoDeElevate,OptimizationHints,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=C:\Users\Yifan\AppData\Local\Temp\playwright_chromiumdev_profile-OBs465 --remote-debugging-pipe --no-startup-window[22m
+    
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    boot (C:\Users\Yifan\Desktop\game\e2e\helpers\browserHarness.js:7:31)
+    async TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\gameplay.spec.js:7:25)
+  ...
+# Subtest: 已选机遇与主动入口 / 城市租金与资讯明细 / 建拆房最终费用 / 服务端资产摘要 / 机票与机场费用边界
+not ok 2 - 已选机遇与主动入口 / 城市租金与资讯明细 / 建拆房最终费用 / 服务端资产摘要 / 机票与机场费用边界
+  ---
+  duration_ms: 0.0728
+  failureType: 'hookFailed'
+  error: |-
+    browserType.launch: spawn EPERM
+    Call log:
+    [2m  - <launching> C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,Translate,AutoDeElevate,OptimizationHints,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=C:\Users\Yifan\AppData\Local\Temp\playwright_chromiumdev_profile-OBs465 --remote-debugging-pipe --no-startup-window[22m
+    
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    boot (C:\Users\Yifan\Desktop\game\e2e\helpers\browserHarness.js:7:31)
+    async TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\gameplay.spec.js:7:25)
+  ...
+# Subtest: 股票成交回执 / 股票转让回执 / 报价原因与实际历史股息 / 失败订单保留草稿
+not ok 3 - 股票成交回执 / 股票转让回执 / 报价原因与实际历史股息 / 失败订单保留草稿
+  ---
+  duration_ms: 0.0402
+  failureType: 'hookFailed'
+  error: |-
+    browserType.launch: spawn EPERM
+    Call log:
+    [2m  - <launching> C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,Translate,AutoDeElevate,OptimizationHints,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=C:\Users\Yifan\AppData\Local\Temp\playwright_chromiumdev_profile-OBs465 --remote-debugging-pipe --no-startup-window[22m
+    
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    boot (C:\Users\Yifan\Desktop\game\e2e\helpers\browserHarness.js:7:31)
+    async TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\gameplay.spec.js:7:25)
+  ...
+# Subtest: 结构化收益和旧记录 / 普通流程回归
+not ok 4 - 结构化收益和旧记录 / 普通流程回归
+  ---
+  duration_ms: 0.0386
+  failureType: 'hookFailed'
+  error: |-
+    browserType.launch: spawn EPERM
+    Call log:
+    [2m  - <launching> C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,Translate,AutoDeElevate,OptimizationHints,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=C:\Users\Yifan\AppData\Local\Temp\playwright_chromiumdev_profile-OBs465 --remote-debugging-pipe --no-startup-window[22m
+    
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    boot (C:\Users\Yifan\Desktop\game\e2e\helpers\browserHarness.js:7:31)
+    async TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\gameplay.spec.js:7:25)
+  ...
+# Subtest: 远航预告→收费不足→抵押自救→换人→自然终局记录与回放
+not ok 5 - 远航预告→收费不足→抵押自救→换人→自然终局记录与回放
+  ---
+  duration_ms: 0.0558
+  failureType: 'hookFailed'
+  error: |-
+    browserType.launch: spawn EPERM
+    Call log:
+    [2m  - <launching> C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,Translate,AutoDeElevate,OptimizationHints,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=C:\Users\Yifan\AppData\Local\Temp\playwright_chromiumdev_profile-OBs465 --remote-debugging-pipe --no-startup-window[22m
+    
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    boot (C:\Users\Yifan\Desktop\game\e2e\helpers\browserHarness.js:7:31)
+    async TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\gameplay.spec.js:7:25)
+  ...

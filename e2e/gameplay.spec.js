@@ -2,6 +2,7 @@
 /* global game, latestState, sendAction, lastRecord, openReplay */
 const test=require('node:test'),assert=require('node:assert/strict');
 const {boot}=require('./helpers/browserHarness'),f=require('../test/helpers/gameplayFixtures'),st=require('../src/stocks');
+const {fixture}=require('../scripts/light-balance/cases');
 let h;
 test.before(async()=>{h=await boot();for(const page of h.pages)await page.evaluate(()=>{window.__fixtureRevision=latestState.revision;const handler=()=>{window.__fixtureRevision=latestState.revision;};setInterval(handler,10);});});
 test.after(async()=>{if(h)await h.close();});
@@ -40,5 +41,24 @@ test('结构化收益和旧记录 / 普通流程回归',async()=>{
  await h.pages[0].waitForFunction(()=>game.events.some(e=>e.id===99999));
  assert.ok((await h.pages[0].textContent('#modalBody')).includes('最终总资产'),'终局优先，机会卡不会覆盖结算');
  const a=h.pages[0];assert.equal(await a.evaluate(()=>{lastRecord={schema:'global-tycoon.game-record.v1',events:[{text:'旧记录：甲购买上海'}]};openReplay();return lastRecord.schema;}),'global-tycoon.game-record.v1');assert.ok((await a.textContent('#modalBody')).includes('旧记录'));assert.equal((await a.textContent('#modalBody')).includes('机遇奖励'),false);
+ assert.deepEqual(h.errors,[]);
+});
+
+test('远航预告→收费不足→抵押自救→换人→自然终局记录与回放',async()=>{
+ h.room.gameRecord=null;h.room.events=[];h.room.eventSeq=0;
+ const [a,b]=h.pages,s=fixture();s.economyRevision='travel-expense-v1';s.travelExpenseReceipts={};s.roundFlow.index=79;f.own(s,'p0','上海');
+ await h.fixture(s);assert.ok((await a.textContent('#newsBar')).includes('2 个完整轮后'));
+ await a.click('#btnRules');assert.ok((await a.textContent('#rulesBody')).includes('第81–120完整轮'));await a.click('#btnRulesClose');
+ const ending=fixture();ending.economyRevision='travel-expense-v1';ending.travelExpenseReceipts={};ending.roundFlow.index=81;f.own(ending,'p0','上海');ending.players[0].cash=0;
+ ending.phase='stock';ending.pending={playerId:'p0',after:'end'};st.openStockWindow(ending,'p0');await h.fixture(ending);
+ await a.click('#btnStockSkip');await a.waitForFunction(()=>game.phase==='self_rescue');
+ assert.equal(h.room.state.players[0].cash,-1500);assert.ok((await a.textContent('#modalBody')).includes('1,500'));
+ await a.getByRole('button',{name:'抵押 +￥10,000',exact:true}).click();await a.waitForFunction(()=>game.turnIndex===1);
+ assert.equal(h.room.state.players[0].cash,8500);assert.equal(h.room.events.filter(e=>e.kind==='travel_expense').length,1);
+ await b.evaluate(()=>sendAction({type:'surrender'}));await a.waitForFunction(()=>game.status==='over');
+ assert.equal(h.room.gameRecord.stats.economy.travelExpenses,1500);
+ await a.evaluate(record=>{lastRecord=record;openReplay();},h.room.gameRecord);
+ await a.locator('.record-economy summary').click();assert.ok((await a.textContent('.record-economy')).includes('远航开支（支出）'));
+ assert.ok((await a.textContent('.record-economy')).includes('1,500'));assert.equal(h.room.gameRecord.winner,'p0');
  assert.deepEqual(h.errors,[]);
 });

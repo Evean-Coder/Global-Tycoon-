@@ -1,0 +1,50 @@
+TAP version 13
+# Subtest: 统一动作封装 / 同步机遇选择与重选 / 自然规则说明 / 资讯当前与预告
+ok 1 - 统一动作封装 / 同步机遇选择与重选 / 自然规则说明 / 资讯当前与预告
+  ---
+  duration_ms: 2744.3146
+  ...
+# Subtest: 已选机遇与主动入口 / 城市租金与资讯明细 / 建拆房最终费用 / 服务端资产摘要 / 机票与机场费用边界
+ok 2 - 已选机遇与主动入口 / 城市租金与资讯明细 / 建拆房最终费用 / 服务端资产摘要 / 机票与机场费用边界
+  ---
+  duration_ms: 263.2268
+  ...
+# Subtest: 股票成交回执 / 股票转让回执 / 报价原因与实际历史股息 / 失败订单保留草稿
+ok 3 - 股票成交回执 / 股票转让回执 / 报价原因与实际历史股息 / 失败订单保留草稿
+  ---
+  duration_ms: 308.4
+  ...
+# Subtest: 结构化收益和旧记录 / 普通流程回归
+ok 4 - 结构化收益和旧记录 / 普通流程回归
+  ---
+  duration_ms: 51.1914
+  ...
+# Subtest: 远航预告→收费不足→抵押自救→换人→自然终局记录与回放
+not ok 5 - 远航预告→收费不足→抵押自救→换人→自然终局记录与回放
+  ---
+  duration_ms: 137.7391
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    0 !== 1500
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1500
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\gameplay.spec.js:58:9)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 4
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 3988.8695

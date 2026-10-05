@@ -80,6 +80,12 @@ function computeStats(state, events) {
       if(e.kind==='build')stats.economy.buildSavings+=e.baseAmount-e.finalAmount;
       if(e.kind==='flight')stats.economy.flightSavings+=e.baseAmount-e.finalAmount;
     }
+    stats.economy.travelExpenses=0;
+    stats.economy.travelExpensesByPlayer={};
+    for(const e of events)if(e.kind==='travel_expense'){
+      stats.economy.travelExpenses+=e.amount;
+      stats.economy.travelExpensesByPlayer[e.playerId]=(stats.economy.travelExpensesByPlayer[e.playerId]||0)+e.amount;
+    }
   }
   return stats;
 }
@@ -89,6 +95,7 @@ function buildGameRecord(room, endReason) {
   const record = {
     schema: st.ruleVersion===2?'global-tycoon.game-record.v2':'global-tycoon.game-record.v1',
     ...(st.ruleVersion===2?{gameId:st.gameId,ruleVersion:2,completeRounds:st.roundFlow.index-1}:{}),
+    ...(st.economyRevision?{economyRevision:st.economyRevision,travelExpense:require('./travelExpense').stage(st)}:{}),
     roomCode: room.code,
     startedAt: st.startedAt,
     endedAt: Date.now(),

@@ -14,6 +14,8 @@ function snapshot(s,viewerId,clockView){
  out.stocks=Object.fromEntries(Object.entries(s.stocks).map(([id,st])=>[id,{price:st.price,holders:{...st.holders},operatingPrice:st.operatingPrice,dividendFund:st.dividendFund,rentHistory:st.rentHistory.slice(),lastDividendPerShare:st.lastDividendPerShare,priceChange:st.priceChange,listingEpoch:st.listingEpoch,quoteVersion:st.quoteVersion,clearing:st.clearing}]));
  out.world={status:s.world.status,active:s.world.active?{...s.world.active}:null,preview:s.world.preview?{...s.world.preview}:null,roundsCompleted:s.world.roundsCompleted};
  out.completeRounds=s.roundFlow.index;
+ out.travelExpense=require('./travelExpense').stage(s);
+ if(out.travelExpense.enabled)out.economyRevision=s.economyRevision;
  out.pending=null;
  if(s.pending){
   const p={};for(const k of ['type','kind','playerId','cityId','airportId','fromAirportId','free','target','due','reason','awaiting','targetId','fromId','items','cash','currentBid','currentBidder','minBid','index','buyerIndex','buyers','bankrupted','isBankruptcyAuction'])if(s.pending[k]!==undefined)p[k]=s.pending[k];

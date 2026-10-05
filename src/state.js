@@ -31,7 +31,7 @@ function createPlayer(name, seat, id) {
   };
 }
 
-function createGameState(roomCode, playerNames, ruleVersion = 2) {
+function createGameState(roomCode, playerNames, ruleVersion = 2, options = {}) {
   const players = playerNames.map((name, i) => createPlayer(name, i, `p${i}`));
   for (const p of players) p.opportunities = initial();
   const board = buildBoard();
@@ -53,6 +53,8 @@ function createGameState(roomCode, playerNames, ruleVersion = 2) {
     stocks[cityId] = { price: Math.round((cities[cityId].price / 10) * 2), holders: {}, operatingPrice: Math.round(cities[cityId].price * 0.2), dividendFund: 0, roundRent: 0, rentHistory: [], listingEpoch: 0, quoteVersion: 0, clearing: false, lastDividendPerShare: 0 };
   }
   return {
+    ...(ruleVersion === 2 && options.economyRevision === require('./travelExpense').REVISION
+      ? { economyRevision: options.economyRevision, travelExpenseReceipts: {} } : {}),
     roomCode,
     gameId: randomUUID(), ruleVersion, revision: 0, turnId: 1,
     actorRevision: Object.fromEntries(players.map(p => [p.id, 0])),

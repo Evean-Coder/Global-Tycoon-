@@ -1,0 +1,12 @@
+
+C:\Users\Yifan\Desktop\game\e2e\responsive.spec.js
+  26:347  error  'innerWidth' is not defined   no-undef
+  26:358  error  'innerHeight' is not defined  no-undef
+  26:518  error  'performance' is not defined  no-undef
+  26:544  error  'performance' is not defined  no-undef
+  26:594  error  'innerWidth' is not defined   no-undef
+
+✖ 5 problems (5 errors, 0 warnings)
+
+Exit code: 1
+Exit code: 0

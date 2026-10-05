@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-05",
+  "trajectories": 6,
+  "normalStart": true,
+  "censored": 6,
+  "natural": 0,
+  "initialAndPrefix40HashesMatch": true,
+  "goStageAmountsMatch": true,
+  "executedToolCopiesMatch": true,
+  "sourceFiles": 30,
+  "sourceHash": "20010be375ec96c6ca77fcf1689b3f6dcd4b9a99e3f048b0c68941e2bbf1bcb4",
+  "oldProtectedFiles": 6,
+  "usedMs": 25788.8659,
+  "limitMs": 180000,
+  "toolTestsPassed": 8,
+  "lintExitCode": 0,
+  "documents": 12,
+  "links": 115,
+  "missingLinks": 0,
+  "productionChanged": false,
+  "productionSpecStatus": "not-approved; clarification-requested"
+}

@@ -1,0 +1,1806 @@
+{
+  "source": "remediation-candidate",
+  "date": "2026-10-05",
+  "output": "artifacts/gameplay-balance/remediation-20261005",
+  "schedule": [
+    {
+      "id": "go-1",
+      "seed": 2026100501,
+      "policies": [
+        "investment",
+        "aviation"
+      ]
+    },
+    {
+      "id": "go-2",
+      "seed": 2026100502,
+      "policies": [
+        "aviation",
+        "investment"
+      ]
+    },
+    {
+      "id": "go-3",
+      "seed": 2026100503,
+      "policies": [
+        "investment",
+        "aviation"
+      ]
+    }
+  ],
+  "limits": {
+    "milliseconds": 180000,
+    "rounds": 250,
+    "actions": 6000
+  },
+  "trajectories": 6,
+  "natural": 0,
+  "censored": 6,
+  "missing": 0,
+  "pairs": [
+    {
+      "id": "go-1",
+      "complete": true,
+      "earlyPrefixMatches": true,
+      "earlierFinish": false,
+      "lowerPoolAtSameCensor": true,
+      "lostNaturalFinish": false,
+      "investmentEarlierLoss": false,
+      "baseline": {
+        "outcome": "censored",
+        "rounds": 250,
+        "pool": 98388,
+        "go": 630000,
+        "winner": null
+      },
+      "candidate": {
+        "outcome": "censored",
+        "rounds": 250,
+        "pool": 43486,
+        "go": 227000,
+        "winner": null
+      }
+    },
+    {
+      "id": "go-2",
+      "complete": true,
+      "earlyPrefixMatches": true,
+      "earlierFinish": false,
+      "lowerPoolAtSameCensor": true,
+      "lostNaturalFinish": false,
+      "investmentEarlierLoss": false,
+      "baseline": {
+        "outcome": "censored",
+        "rounds": 250,
+        "pool": 348982,
+        "go": 730000,
+        "winner": null
+      },
+      "candidate": {
+        "outcome": "censored",
+        "rounds": 250,
+        "pool": 57712,
+        "go": 264000,
+        "winner": null
+      }
+    },
+    {
+      "id": "go-3",
+      "complete": true,
+      "earlyPrefixMatches": true,
+      "earlierFinish": false,
+      "lowerPoolAtSameCensor": true,
+      "lostNaturalFinish": false,
+      "investmentEarlierLoss": false,
+      "baseline": {
+        "outcome": "censored",
+        "rounds": 250,
+        "pool": 98619,
+        "go": 680000,
+        "winner": null
+      },
+      "candidate": {
+        "outcome": "censored",
+        "rounds": 250,
+        "pool": 45742,
+        "go": 229000,
+        "winner": null
+      }
+    }
+  ],
+  "results": [
+    {
+      "id": "go-1",
+      "variant": "baseline",
+      "source": "controlled-normal-start-pilot",
+      "initialHash": "211ced7f6e3a8d8726a8ea2bf79c7662742f4293a6095effb5b509f159c8853e",
+      "prefix40": "214803bb47c6a16b7a699eabd157d7c5abcb6e8e9f56f4ea857677eec5843cc9",
+      "outcome": "censored",
+      "reason": "round_limit",
+      "winnerId": null,
+      "winnerPolicy": null,
+      "completeRounds": 250,
+      "actions": 873,
+      "initialCashPool": 300000,
+      "finalCashAndFundPool": 98388,
+      "go": {
+        "count": 63,
+        "amount": 630000,
+        "byStage": {
+          "0-39": {
+            "count": 9,
+            "amount": 90000
+          },
+          "40-79": {
+            "count": 13,
+            "amount": 130000
+          },
+          "80+": {
+            "count": 41,
+            "amount": 410000
+          }
+        }
+      },
+      "minCash": {
+        "p0": -3373,
+        "p1": 12850
+      },
+      "players": [
+        {
+          "id": "p0",
+          "policy": "investment",
+          "alive": true,
+          "cash": 18743,
+          "opportunities": [
+            "H5",
+            "H10",
+            "H11"
+          ]
+        },
+        {
+          "id": "p1",
+          "policy": "aviation",
+          "alive": true,
+          "cash": 71845,
+          "opportunities": [
+            "H8",
+            "H11",
+            "H3"
+          ]
+        }
+      ],
+      "randomCounts": {
+        "engine": 4040,
+        "policy": {
+          "p0": 689,
+          "p1": 910
+        }
+      },
+      "finalHash": "db996f2cf3e81a76d2dc861422c76934212f0d382a6fd75d53865c08c7da4320",
+      "recent": [
+        {
+          "step": 862,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p0",
+            "cash": 34743,
+            "reserve": 34000,
+            "declinedTargets": []
+          }
+        },
+        {
+          "step": 863,
+          "action": {
+            "type": "respond_build",
+            "decision": "pass"
+          },
+          "reason": {
+            "code": "build_declined",
+            "phase": "build_decide",
+            "playerId": "p0",
+            "cash": 34743,
+            "reserve": 34000,
+            "target": "内罗毕",
+            "cost": null,
+            "value": 2160
+          }
+        },
+        {
+          "step": 864,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p1",
+            "cash": 59925,
+            "reserve": 22500,
+            "declinedTargets": []
+          }
+        },
+        {
+          "step": 865,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p0",
+            "cash": 34743,
+            "reserve": 34000,
+            "declinedTargets": []
+          }
+        },
+        {
+          "step": 866,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p1",
+            "cash": 59925,
+            "reserve": 22500,
+            "declinedTargets": []
+          }
+        },
+        {
+          "step": 867,
+          "action": {
+            "type": "respond_build",
+            "decision": "build",
+            "quoteVersion": "61964a29-8690-414e-b9fa-480d3f725884:866:p1:build:墨西哥城"
+          },
+          "reason": {
+            "code": "landing_build",
+            "phase": "build_decide",
+            "playerId": "p1",
+            "cash": 59925,
+            "reserve": 22500,
+            "target": "墨西哥城",
+            "cost": 6480,
+            "value": 7560
+          }
+        },
+        {
+          "step": 868,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p0",
+            "cash": 34743,
+            "reserve": 34000,
+            "declinedTargets": []
+          }
+        },
+        {
+          "step": 869,
+          "action": {
+            "type": "respond_build",
+            "decision": "pass"
+          },
+          "reason": {
+            "code": "build_declined",
+            "phase": "build_decide",
+            "playerId": "p0",
+            "cash": 34743,
+            "reserve": 34000,
+            "target": "阿姆斯特丹",
+            "cost": null,
+            "value": 6000
+          }
+        },
+        {
+          "step": 870,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p1",
+            "cash": 53445,
+            "reserve": 22500,
+            "declinedTargets": []
+          }
+        },
+        {
+          "step": 871,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p0",
+            "cash": 34743,
+            "reserve": 34000,
+            "declinedTargets": []
+          }
+        },
+        {
+          "step": 872,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p0",
+            "cash": 18743,
+            "reserve": 34000,
+            "declinedTargets": []
+          }
+        },
+        {
+          "step": 873,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p1",
+            "cash": 67845,
+            "reserve": 22500,
+            "declinedTargets": []
+          }
+        }
+      ],
+      "winnerClaim": null
+    },
+    {
+      "id": "go-1",
+      "variant": "candidate",
+      "source": "controlled-normal-start-pilot",
+      "initialHash": "211ced7f6e3a8d8726a8ea2bf79c7662742f4293a6095effb5b509f159c8853e",
+      "prefix40": "214803bb47c6a16b7a699eabd157d7c5abcb6e8e9f56f4ea857677eec5843cc9",
+      "outcome": "censored",
+      "reason": "round_limit",
+      "winnerId": null,
+      "winnerPolicy": null,
+      "completeRounds": 250,
+      "actions": 849,
+      "initialCashPool": 300000,
+      "finalCashAndFundPool": 43486,
+      "go": {
+        "count": 61,
+        "amount": 227000,
+        "byStage": {
+          "0-39": {
+            "count": 9,
+            "amount": 90000
+          },
+          "40-79": {
+            "count": 11,
+            "amount": 55000
+          },
+          "80+": {
+            "count": 41,
+            "amount": 82000
+          }
+        }
+      },
+      "minCash": {
+        "p0": -7747,
+        "p1": 10719
+      },
+      "players": [
+        {
+          "id": "p0",
+          "policy": "investment",
+          "alive": true,
+          "cash": 10490,
+          "opportunities": [
+            "H5",
+            "H10",
+            "H11"
+          ]
+        },
+        {
+          "id": "p1",
+          "policy": "aviation",
+          "alive": true,
+          "cash": 32492,
+          "opportunities": [
+            "H8",
+            "H11",
+            "H3"
+          ]
+        }
+      ],
+      "randomCounts": {
+        "engine": 4049,
+        "policy": {
+          "p0": 715,
+          "p1": 829
+        }
+      },
+      "finalHash": "016d4255e6fb778f4ceff3116b55d160f80b18a0b9b0e477d6104313d3c504bb",
+      "recent": [
+        {
+          "step": 838,
+          "action": {
+            "type": "respond_build",
+            "decision": "pass"
+          },
+          "reason": {
+            "code": "build_declined",
+            "phase": "build_decide",
+            "playerId": "p1",
+            "cash": 22784,
+            "reserve": 17250,
+            "target": "上海",
+            "cost": 10800,
+            "value": 12600
+          }
+        },
+        {
+          "step": 839,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p0",
+            "cash": 15338,
+            "reserve": 33000,
+            "declinedTargets": []
+          }
+        },
+        {
+          "step": 840,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p1",
+            "cash": 22784,
+            "reserve": 16913,
+            "declinedTargets": [
+              {
+                "target": "上海",
+                "mode": "build",
+                "cost": 10800,
+                "value": 12600
+              }
+            ]
+          }
+        },
+        {
+          "step": 841,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p0",
+            "cash": 15338,
+            "reserve": 33000,
+            "declinedTargets": []
+          }
+        },
+        {
+          "step": 842,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p1",
+            "cash": 30784,
+            "reserve": 16913,
+            "declinedTargets": []
+          }
+        },
+        {
+          "step": 843,
+          "action": {
+            "type": "stock_trade",
+            "windowId": "f2486806-8cc2-4af2-a0a8-3ea0d69727aa:stock:61",
+            "orders": [
+              {
+                "cityId": "开罗",
+                "side": "buy",
+                "shares": 1,
+                "quoteVersion": 241,
+                "listingEpoch": 1
+              }
+            ]
+          },
+          "reason": {
+            "code": "buy_stock",
+            "phase": "stock",
+            "playerId": "p1",
+            "cash": 32784,
+            "reserve": 16530,
+            "cost": 1140,
+            "ratioLimit": 96868.40000000001
+          }
+        },
+        {
+          "step": 844,
+          "action": {
+            "type": "stock_done"
+          },
+          "reason": {
+            "code": "stock_complete",
+            "phase": "stock",
+            "playerId": "p1",
+            "cash": 31644,
+            "reserve": 16530
+          }
+        },
+        {
+          "step": 845,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p1",
+            "cash": 30492,
+            "reserve": 16913,
+            "declinedTargets": []
+          }
+        },
+        {
+          "step": 846,
+          "action": {
+            "type": "flight",
+            "target": null
+          },
+          "reason": {
+            "code": "flight_declined",
+            "phase": "flight",
+            "playerId": "p1",
+            "cash": 27492,
+            "reserve": 16913,
+            "stay": -528.6
+          }
+        },
+        {
+          "step": 847,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p0",
+            "cash": 19490,
+            "reserve": 33000,
+            "declinedTargets": []
+          }
+        },
+        {
+          "step": 848,
+          "action": {
+            "type": "flight",
+            "target": null
+          },
+          "reason": {
+            "code": "flight_declined",
+            "phase": "flight",
+            "playerId": "p0",
+            "cash": 10490,
+            "reserve": 33000,
+            "stay": -4830
+          }
+        },
+        {
+          "step": 849,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p1",
+            "cash": 36492,
+            "reserve": 17250,
+            "declinedTargets": []
+          }
+        }
+      ],
+      "winnerClaim": null
+    },
+    {
+      "id": "go-2",
+      "variant": "baseline",
+      "source": "controlled-normal-start-pilot",
+      "initialHash": "7372fe1a03c3119a51a0e85c411cd3fd46943487cdb41e3f3e8e16bd4f3d7a34",
+      "prefix40": "d21cd681f7f0defb9c71b2c817984025358602eeebc1499c6d9ba659aa38b2c2",
+      "outcome": "censored",
+      "reason": "round_limit",
+      "winnerId": null,
+      "winnerPolicy": null,
+      "completeRounds": 250,
+      "actions": 911,
+      "initialCashPool": 300000,
+      "finalCashAndFundPool": 348982,
+      "go": {
+        "count": 73,
+        "amount": 730000,
+        "byStage": {
+          "0-39": {
+            "count": 11,
+            "amount": 110000
+          },
+          "40-79": {
+            "count": 11,
+            "amount": 110000
+          },
+          "80+": {
+            "count": 51,
+            "amount": 510000
+          }
+        }
+      },
+      "minCash": {
+        "p0": 6830,
+        "p1": -27467
+      },
+      "players": [
+        {
+          "id": "p0",
+          "policy": "aviation",
+          "alive": true,
+          "cash": 306181,
+          "opportunities": [
+            "H11",
+            "H7",
+            "H3"
+          ]
+        },
+        {
+          "id": "p1",
+          "policy": "investment",
+          "alive": true,
+          "cash": 37605,
+          "opportunities": [
+            "H6",
+            "H5",
+            "H9"
+          ]
+        }
+      ],
+      "randomCounts": {
+        "engine": 4555,
+        "policy": {
+          "p0": 1323,
+          "p1": 618
+        }
+      },
+      "finalHash": "93a84a6dba3f812205779fb4f6935791e42005034692f947a4c666d5f57020d6",
+      "recent": [
+        {
+          "step": 900,
+          "action": {
+            "type": "stock_done"
+          },
+          "reason": {
+            "code": "stock_complete",
+            "phase": "stock",
+            "playerId": "p0",
+            "cash": 311525,
+            "reserve": 22400
+          }
+        },
+        {
+          "step": 901,
+          "action": {
+            "type": "build_house",
+            "cityId": "罗马",
+            "quoteVersion": "16eba272-53ae-42e9-aa30-73d8a35b03b1:900:p1:build:罗马"
+          },
+          "reason": {
+            "code": "pre_roll_build",
+            "phase": "waiting_roll",
+            "playerId": "p1",
+            "cash": 42861,
+            "reserve": 34000,
+            "target": "罗马",
+            "cost": 6120,
+            "value": 7200
+          }
+        },
+        {
+          "step": 902,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p1",
+            "cash": 36741,
+            "reserve": 34000,
+            "declinedTargets": []
+          }
+        },
+        {
+          "step": 903,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p0",
+            "cash": 311525,
+            "reserve": 22400,
+            "declinedTargets": []
+          }
+        },
+        {
+          "step": 904,
+          "action": {
+            "type": "respond_build",
+            "decision": "pass"
+          },
+          "reason": {
+            "code": "build_declined",
+            "phase": "build_decide",
+            "playerId": "p0",
+            "cash": 311525,
+            "reserve": 22400,
+            "target": "卡萨布兰卡",
+            "cost": null,
+            "value": 3024
+          }
+        },
+        {
+          "step": 905,
+          "action": {
+            "type": "respond_frozen",
+            "decision": "pass"
+          },
+          "reason": {
+            "code": "status_exit",
+            "phase": "frozen_turn",
+            "playerId": "p1",
+            "cash": 36741,
+            "reserve": 34000,
+            "cost": 5000
+          }
+        },
+        {
+          "step": 906,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p0",
+            "cash": 311525,
+            "reserve": 22400,
+            "declinedTargets": []
+          }
+        },
+        {
+          "step": 907,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p1",
+            "cash": 44085,
+            "reserve": 34000,
+            "declinedTargets": []
+          }
+        },
+        {
+          "step": 908,
+          "action": {
+            "type": "flight",
+            "target": "开罗国际机场",
+            "quoteVersion": "16eba272-53ae-42e9-aa30-73d8a35b03b1:907:p1:flight:开罗国际机场"
+          },
+          "reason": {
+            "code": "flight_advantage",
+            "phase": "flight",
+            "playerId": "p1",
+            "cash": 44085,
+            "reserve": 34000,
+            "target": "开罗国际机场",
+            "cost": 0,
+            "airportFee": 0,
+            "value": -600,
+            "stay": -1800
+          }
+        },
+        {
+          "step": 909,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p0",
+            "cash": 304181,
+            "reserve": 23400,
+            "declinedTargets": []
+          }
+        },
+        {
+          "step": 910,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p1",
+            "cash": 44085,
+            "reserve": 34000,
+            "declinedTargets": []
+          }
+        },
+        {
+          "step": 911,
+          "action": {
+            "type": "respond_build",
+            "decision": "build",
+            "quoteVersion": "16eba272-53ae-42e9-aa30-73d8a35b03b1:910:p1:build:悉尼"
+          },
+          "reason": {
+            "code": "landing_build",
+            "phase": "build_decide",
+            "playerId": "p1",
+            "cash": 44085,
+            "reserve": 34000,
+            "target": "悉尼",
+            "cost": 6480,
+            "value": 6480
+          }
+        }
+      ],
+      "winnerClaim": null
+    },
+    {
+      "id": "go-2",
+      "variant": "candidate",
+      "source": "controlled-normal-start-pilot",
+      "initialHash": "7372fe1a03c3119a51a0e85c411cd3fd46943487cdb41e3f3e8e16bd4f3d7a34",
+      "prefix40": "d21cd681f7f0defb9c71b2c817984025358602eeebc1499c6d9ba659aa38b2c2",
+      "outcome": "censored",
+      "reason": "round_limit",
+      "winnerId": null,
+      "winnerPolicy": null,
+      "completeRounds": 250,
+      "actions": 868,
+      "initialCashPool": 300000,
+      "finalCashAndFundPool": 57712,
+      "go": {
+        "count": 70,
+        "amount": 264000,
+        "byStage": {
+          "0-39": {
+            "count": 11,
+            "amount": 110000
+          },
+          "40-79": {
+            "count": 12,
+            "amount": 60000
+          },
+          "80+": {
+            "count": 47,
+            "amount": 94000
+          }
+        }
+      },
+      "minCash": {
+        "p0": 7432,
+        "p1": -3514
+      },
+      "players": [
+        {
+          "id": "p0",
+          "policy": "aviation",
+          "alive": true,
+          "cash": 41021,
+          "opportunities": [
+            "H11",
+            "H7",
+            "H3"
+          ]
+        },
+        {
+          "id": "p1",
+          "policy": "investment",
+          "alive": true,
+          "cash": 14549,
+          "opportunities": [
+            "H6",
+            "H5",
+            "H9"
+          ]
+        }
+      ],
+      "randomCounts": {
+        "engine": 3961,
+        "policy": {
+          "p0": 1059,
+          "p1": 745
+        }
+      },
+      "finalHash": "28c9b6d4f29922eb2d492fc08111944fb7050052bfe8795e02d418feda599101",
+      "recent": [
+        {
+          "step": 857,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p1",
+            "cash": 23827,
+            "reserve": 27800,
+            "declinedTargets": []
+          }
+        },
+        {
+          "step": 858,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p0",
+            "cash": 27533,
+            "reserve": 18888,
+            "declinedTargets": []
+          }
+        },
+        {
+          "step": 859,
+          "action": {
+            "type": "stock_transfer",
+            "targetId": "p1",
+            "items": [
+              {
+                "cityId": "里约热内卢",
+                "shares": 1
+              }
+            ],
+            "cash": 1976,
+            "windowId": "929bf533-247e-4cd4-a331-d02a5be8632f:stock:70"
+          },
+          "reason": {
+            "code": "reduce_by_transfer",
+            "phase": "stock",
+            "playerId": "p0",
+            "cash": 30181,
+            "reserve": 18888,
+            "target": "里约热内卢",
+            "cost": 1976,
+            "need": 1559
+          }
+        },
+        {
+          "step": 860,
+          "action": {
+            "type": "stock_transfer",
+            "accept": false
+          },
+          "reason": {
+            "code": "transfer_response",
+            "phase": "trade_confirm",
+            "playerId": "p1",
+            "cash": 24259,
+            "reserve": 27800,
+            "cost": 1976,
+            "value": 2080,
+            "eligible": true
+          }
+        },
+        {
+          "step": 861,
+          "action": {
+            "type": "stock_trade",
+            "windowId": "929bf533-247e-4cd4-a331-d02a5be8632f:stock:70",
+            "orders": [
+              {
+                "cityId": "奥克兰",
+                "side": "sell",
+                "shares": 1,
+                "quoteVersion": 236,
+                "listingEpoch": 1
+              }
+            ]
+          },
+          "reason": {
+            "code": "reduce_stock",
+            "phase": "stock",
+            "playerId": "p0",
+            "cash": 30181,
+            "reserve": 18888,
+            "target": "奥克兰",
+            "shares": 1,
+            "need": 1559
+          }
+        },
+        {
+          "step": 862,
+          "action": {
+            "type": "stock_trade",
+            "windowId": "929bf533-247e-4cd4-a331-d02a5be8632f:stock:70",
+            "orders": [
+              {
+                "cityId": "里约热内卢",
+                "side": "sell",
+                "shares": 1,
+                "quoteVersion": 220,
+                "listingEpoch": 1
+              }
+            ]
+          },
+          "reason": {
+            "code": "reduce_stock",
+            "phase": "stock",
+            "playerId": "p0",
+            "cash": 31525,
+            "reserve": 18888,
+            "target": "里约热内卢",
+            "shares": 1,
+            "need": 215
+          }
+        },
+        {
+          "step": 863,
+          "action": {
+            "type": "stock_trade",
+            "windowId": "929bf533-247e-4cd4-a331-d02a5be8632f:stock:70",
+            "orders": [
+              {
+                "cityId": "开普敦",
+                "side": "buy",
+                "shares": 1,
+                "quoteVersion": 231,
+                "listingEpoch": 1
+              }
+            ]
+          },
+          "reason": {
+            "code": "buy_stock",
+            "phase": "stock",
+            "playerId": "p0",
+            "cash": 33605,
+            "reserve": 18888,
+            "cost": 1152,
+            "ratioLimit": 74775
+          }
+        },
+        {
+          "step": 864,
+          "action": {
+            "type": "stock_done"
+          },
+          "reason": {
+            "code": "stock_complete",
+            "phase": "stock",
+            "playerId": "p0",
+            "cash": 32453,
+            "reserve": 18888
+          }
+        },
+        {
+          "step": 865,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p1",
+            "cash": 24259,
+            "reserve": 27800,
+            "declinedTargets": []
+          }
+        },
+        {
+          "step": 866,
+          "action": {
+            "type": "respond_build",
+            "decision": "pass"
+          },
+          "reason": {
+            "code": "build_declined",
+            "phase": "build_decide",
+            "playerId": "p1",
+            "cash": 24259,
+            "reserve": 27800,
+            "target": "罗马",
+            "cost": 7200,
+            "value": 7200
+          }
+        },
+        {
+          "step": 867,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p0",
+            "cash": 32453,
+            "reserve": 18888,
+            "declinedTargets": []
+          }
+        },
+        {
+          "step": 868,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p1",
+            "cash": 24259,
+            "reserve": 27800,
+            "declinedTargets": [
+              {
+                "target": "罗马",
+                "mode": "build",
+                "cost": 7200,
+                "value": 7200
+              }
+            ]
+          }
+        }
+      ],
+      "winnerClaim": null
+    },
+    {
+      "id": "go-3",
+      "variant": "baseline",
+      "source": "controlled-normal-start-pilot",
+      "initialHash": "776dc5372844e4120821a6601b0d0c4e7d12bc3be161fc5d9c8e8f2a2b595762",
+      "prefix40": "3b4793747f0e444132c2f81879c1ae82a3eefb600167acc1db3964aad2a35aed",
+      "outcome": "censored",
+      "reason": "round_limit",
+      "winnerId": null,
+      "winnerPolicy": null,
+      "completeRounds": 250,
+      "actions": 849,
+      "initialCashPool": 300000,
+      "finalCashAndFundPool": 98619,
+      "go": {
+        "count": 68,
+        "amount": 680000,
+        "byStage": {
+          "0-39": {
+            "count": 9,
+            "amount": 90000
+          },
+          "40-79": {
+            "count": 9,
+            "amount": 90000
+          },
+          "80+": {
+            "count": 50,
+            "amount": 500000
+          }
+        }
+      },
+      "minCash": {
+        "p0": -6708,
+        "p1": 4889
+      },
+      "players": [
+        {
+          "id": "p0",
+          "policy": "investment",
+          "alive": true,
+          "cash": 32178,
+          "opportunities": [
+            "H5",
+            "H6",
+            "H11"
+          ]
+        },
+        {
+          "id": "p1",
+          "policy": "aviation",
+          "alive": true,
+          "cash": 62841,
+          "opportunities": [
+            "H7",
+            "H12",
+            "H8"
+          ]
+        }
+      ],
+      "randomCounts": {
+        "engine": 4750,
+        "policy": {
+          "p0": 768,
+          "p1": 1070
+        }
+      },
+      "finalHash": "dccfe0515b6b9d9ceefdef8ac9476eb52518d9354c7be790de86e7a6b795bb4c",
+      "recent": [
+        {
+          "step": 838,
+          "action": {
+            "type": "build_house",
+            "cityId": "东京",
+            "quoteVersion": "04ba94dc-5609-4bb1-bb7b-7f9dff0dc633:837:p1:build:东京"
+          },
+          "reason": {
+            "code": "pre_roll_build",
+            "phase": "waiting_roll",
+            "playerId": "p1",
+            "cash": 50041,
+            "reserve": 24750,
+            "target": "东京",
+            "cost": 10200,
+            "value": 10710
+          }
+        },
+        {
+          "step": 839,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p1",
+            "cash": 39841,
+            "reserve": 24750,
+            "declinedTargets": []
+          }
+        },
+        {
+          "step": 840,
+          "action": {
+            "type": "stock_trade",
+            "windowId": "04ba94dc-5609-4bb1-bb7b-7f9dff0dc633:stock:67",
+            "orders": [
+              {
+                "cityId": "柏林",
+                "side": "buy",
+                "shares": 1,
+                "quoteVersion": 147,
+                "listingEpoch": 1
+              },
+              {
+                "cityId": "莫斯科",
+                "side": "buy",
+                "shares": 1,
+                "quoteVersion": 231,
+                "listingEpoch": 1
+              }
+            ]
+          },
+          "reason": {
+            "code": "buy_stock",
+            "phase": "stock",
+            "playerId": "p1",
+            "cash": 55361,
+            "reserve": 24750,
+            "cost": 6920,
+            "ratioLimit": 133463
+          }
+        },
+        {
+          "step": 841,
+          "action": {
+            "type": "stock_done"
+          },
+          "reason": {
+            "code": "stock_complete",
+            "phase": "stock",
+            "playerId": "p1",
+            "cash": 48441,
+            "reserve": 24750
+          }
+        },
+        {
+          "step": 842,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p0",
+            "cash": 11292,
+            "reserve": 34000,
+            "declinedTargets": []
+          }
+        },
+        {
+          "step": 843,
+          "action": {
+            "type": "rescue_sell_stock",
+            "cityId": "东京",
+            "shares": 2,
+            "quoteVersion": 233
+          },
+          "reason": {
+            "code": "rescue_minimum_shares",
+            "phase": "self_rescue",
+            "playerId": "p0",
+            "cash": -6708,
+            "reserve": 34000,
+            "target": "东京",
+            "shares": 2,
+            "goal": 0
+          }
+        },
+        {
+          "step": 844,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p1",
+            "cash": 62841,
+            "reserve": 24750,
+            "declinedTargets": []
+          }
+        },
+        {
+          "step": 845,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p0",
+            "cash": 3578,
+            "reserve": 34000,
+            "declinedTargets": []
+          }
+        },
+        {
+          "step": 846,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p0",
+            "cash": 3578,
+            "reserve": 34000,
+            "declinedTargets": []
+          }
+        },
+        {
+          "step": 847,
+          "action": {
+            "type": "stock_trade",
+            "windowId": "04ba94dc-5609-4bb1-bb7b-7f9dff0dc633:stock:68",
+            "orders": [
+              {
+                "cityId": "开罗",
+                "side": "sell",
+                "shares": 10,
+                "quoteVersion": 255,
+                "listingEpoch": 1
+              }
+            ]
+          },
+          "reason": {
+            "code": "reduce_stock",
+            "phase": "stock",
+            "playerId": "p0",
+            "cash": 15578,
+            "reserve": 34000,
+            "target": "开罗",
+            "shares": 10,
+            "need": 18422
+          }
+        },
+        {
+          "step": 848,
+          "action": {
+            "type": "stock_done"
+          },
+          "reason": {
+            "code": "stock_complete",
+            "phase": "stock",
+            "playerId": "p0",
+            "cash": 34178,
+            "reserve": 34000
+          }
+        },
+        {
+          "step": 849,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p1",
+            "cash": 62841,
+            "reserve": 24750,
+            "declinedTargets": []
+          }
+        }
+      ],
+      "winnerClaim": null
+    },
+    {
+      "id": "go-3",
+      "variant": "candidate",
+      "source": "controlled-normal-start-pilot",
+      "initialHash": "776dc5372844e4120821a6601b0d0c4e7d12bc3be161fc5d9c8e8f2a2b595762",
+      "prefix40": "3b4793747f0e444132c2f81879c1ae82a3eefb600167acc1db3964aad2a35aed",
+      "outcome": "censored",
+      "reason": "round_limit",
+      "winnerId": null,
+      "winnerPolicy": null,
+      "completeRounds": 250,
+      "actions": 872,
+      "initialCashPool": 300000,
+      "finalCashAndFundPool": 45742,
+      "go": {
+        "count": 62,
+        "amount": 229000,
+        "byStage": {
+          "0-39": {
+            "count": 9,
+            "amount": 90000
+          },
+          "40-79": {
+            "count": 11,
+            "amount": 55000
+          },
+          "80+": {
+            "count": 42,
+            "amount": 84000
+          }
+        }
+      },
+      "minCash": {
+        "p0": 12060,
+        "p1": -4458
+      },
+      "players": [
+        {
+          "id": "p0",
+          "policy": "investment",
+          "alive": true,
+          "cash": 27156,
+          "opportunities": [
+            "H5",
+            "H6",
+            "H11"
+          ]
+        },
+        {
+          "id": "p1",
+          "policy": "aviation",
+          "alive": true,
+          "cash": 16846,
+          "opportunities": [
+            "H7",
+            "H12",
+            "H8"
+          ]
+        }
+      ],
+      "randomCounts": {
+        "engine": 3706,
+        "policy": {
+          "p0": 648,
+          "p1": 837
+        }
+      },
+      "finalHash": "ae03445099a92cad7443b0968d648a4b02aef4f09e036ae1c70e6fbdab4aa1ae",
+      "recent": [
+        {
+          "step": 861,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p1",
+            "cash": 21046,
+            "reserve": 20400,
+            "declinedTargets": []
+          }
+        },
+        {
+          "step": 862,
+          "action": {
+            "type": "respond_build",
+            "decision": "pass"
+          },
+          "reason": {
+            "code": "build_declined",
+            "phase": "build_decide",
+            "playerId": "p1",
+            "cash": 21046,
+            "reserve": 20400,
+            "target": "罗马",
+            "cost": 7200,
+            "value": 7560
+          }
+        },
+        {
+          "step": 863,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p0",
+            "cash": 21796,
+            "reserve": 24333,
+            "declinedTargets": []
+          }
+        },
+        {
+          "step": 864,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p1",
+            "cash": 21046,
+            "reserve": 20400,
+            "declinedTargets": [
+              {
+                "target": "罗马",
+                "mode": "build",
+                "cost": 7200,
+                "value": 7560
+              }
+            ]
+          }
+        },
+        {
+          "step": 865,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p0",
+            "cash": 27156,
+            "reserve": 24333,
+            "declinedTargets": []
+          }
+        },
+        {
+          "step": 866,
+          "action": {
+            "type": "respond_build",
+            "decision": "pass"
+          },
+          "reason": {
+            "code": "build_declined",
+            "phase": "build_decide",
+            "playerId": "p0",
+            "cash": 27156,
+            "reserve": 24333,
+            "target": "伦敦",
+            "cost": 8400,
+            "value": 9240
+          }
+        },
+        {
+          "step": 867,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p1",
+            "cash": 16846,
+            "reserve": 20400,
+            "declinedTargets": []
+          }
+        },
+        {
+          "step": 868,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p0",
+            "cash": 27156,
+            "reserve": 24333,
+            "declinedTargets": [
+              {
+                "target": "伦敦",
+                "mode": "build",
+                "cost": 8400,
+                "value": 9240
+              }
+            ]
+          }
+        },
+        {
+          "step": 869,
+          "action": {
+            "type": "respond_jail",
+            "decision": "roll"
+          },
+          "reason": {
+            "code": "status_exit",
+            "phase": "jail_turn",
+            "playerId": "p1",
+            "cash": 16846,
+            "reserve": 20400,
+            "cost": 15000
+          }
+        },
+        {
+          "step": 870,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p0",
+            "cash": 27156,
+            "reserve": 24333,
+            "declinedTargets": []
+          }
+        },
+        {
+          "step": 871,
+          "action": {
+            "type": "flight",
+            "target": null
+          },
+          "reason": {
+            "code": "flight_declined",
+            "phase": "flight",
+            "playerId": "p0",
+            "cash": 27156,
+            "reserve": 24333,
+            "stay": 342
+          }
+        },
+        {
+          "step": 872,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p1",
+            "cash": 16846,
+            "reserve": 19590,
+            "declinedTargets": []
+          }
+        }
+      ],
+      "winnerClaim": null
+    }
+  ],
+  "diagnostics": {
+    "oldCoverage": {
+      "planned": 4200,
+      "started": 467,
+      "terminated": 466,
+      "pending": 1,
+      "unstarted": 3733,
+      "natural": 290,
+      "censored": 176,
+      "error": 0,
+      "plannedGroups": 2240,
+      "completeGroups": 108,
+      "completionRate": 0.6209850107066381,
+      "censorRate": 0.3776824034334764,
+      "errorRate": 0
+    },
+    "bankFlows": {
+      "opportunity_reward": 49383118,
+      "chance_fine": -100918000,
+      "jail_fee": -95160000,
+      "go": 544400000,
+      "city_purchase": -106778400,
+      "chance_reward": 101032000,
+      "city_rent": 41183435,
+      "city_rent_fund": 0,
+      "retained_income": -39988,
+      "stock_buy": -286981591,
+      "freeze_fee": -70455000,
+      "dividend": 0,
+      "airport_purchase": -35595000,
+      "build": -239688882,
+      "mortgage": 29219660,
+      "demolish": 24981989,
+      "stock_transfer": 0,
+      "redeem": -2295187,
+      "stock_sell": 99157431,
+      "auction_purchase": -15247350,
+      "airport_fee": 0,
+      "rescue_stock_sell": 52067845,
+      "late_jail_fee": -5085000,
+      "auction_sale": 0,
+      "stock_liquidation": 9874302,
+      "bankrupt_relief": 7845000,
+      "debt_forgiveness": 7414118,
+      "flight": -5453550,
+      "stock_forced_sell": 11507460,
+      "auction_bank_purchase": 821200
+    },
+    "totalBankFlow": 15189610,
+    "shanghai": {
+      "price": 20000,
+      "zeroLevelRent": 6000,
+      "initialSharePrice": 4000,
+      "poolPerRent": 1200,
+      "dividendPerSharePerRent": 60,
+      "immediateOwnerCash": 4800,
+      "unissuedRemainderToOwner": true,
+      "shareHitPaybackIgnoringExit": 66.66666666666667,
+      "cityHitPaybackIgnoringSaleAndShares": 3.3333333333333335,
+      "note": "每次收租触发，不是每轮；本金退出/价差/H5/H6不同，不能直接相加保证收益。"
+    }
+  },
+  "protection": {
+    "sourceHash": "20010be375ec96c6ca77fcf1689b3f6dcd4b9a99e3f048b0c68941e2bbf1bcb4",
+    "oldProtectedFiles": 6,
+    "changed": []
+  },
+  "candidateDirectionPass": true,
+  "note": "有限候选，不证明胜率平衡；策略修正未混入起点候选对照，生产未修改。",
+  "budget": {
+    "limitMs": 180000,
+    "usedMs": 25788.8659,
+    "closed": true,
+    "runs": 1
+  },
+  "deliveryDecision": {
+    "updated": "2026-10-05",
+    "toolTestsPassed": 8,
+    "lintExitCode": 0,
+    "naturalFinishImproved": false,
+    "deploymentApproved": false,
+    "goDeclineAlone": "reject",
+    "nextProductionSpec": "docs/economy-remediation/production-spec.md",
+    "nextSpecStatus": "awaiting-user-approval",
+    "newInvestmentPolicy": "independent-fixture-verified; not used in pilot",
+    "note": "candidateDirectionPass指现金池方向，不能当长局修复或发布通过；原artifact未回写。"
+  }
+}

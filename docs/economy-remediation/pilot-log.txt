@@ -1,0 +1,25 @@
+go-1 baseline 轮 65
+go-1 baseline 轮 137
+go-1 baseline 轮 214
+go-1 baseline censored 250轮 无胜者
+go-1 candidate 轮 70
+go-1 candidate 轮 142
+go-1 candidate 轮 219
+go-1 candidate censored 250轮 无胜者
+go-2 baseline 轮 68
+go-2 baseline 轮 142
+go-2 baseline 轮 209
+go-2 baseline censored 250轮 无胜者
+go-2 candidate 轮 71
+go-2 candidate 轮 141
+go-2 candidate 轮 211
+go-2 candidate censored 250轮 无胜者
+go-3 baseline 轮 71
+go-3 baseline 轮 149
+go-3 baseline 轮 220
+go-3 baseline censored 250轮 无胜者
+go-3 candidate 轮 76
+go-3 candidate 轮 143
+go-3 candidate 轮 213
+go-3 candidate censored 250轮 无胜者
+{"pairs":3,"trajectories":6,"missing":0,"directionPass":true,"usedMs":25780.5315}

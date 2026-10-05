@@ -1,12 +1,5 @@
-
-C:\Users\Yifan\Desktop\game\e2e\responsive.spec.js
-  26:347  error  'innerWidth' is not defined   no-undef
-  26:358  error  'innerHeight' is not defined  no-undef
-  26:518  error  'performance' is not defined  no-undef
-  26:544  error  'performance' is not defined  no-undef
-  26:594  error  'innerWidth' is not defined   no-undef
-
-✖ 5 problems (5 errors, 0 warnings)
-
-Exit code: 1
-Exit code: 0
+Node 20.20.2; 2026-10-05 final release source lint
+Command: node node_modules/eslint/bin/eslint.js 
+server.js src/travelExpense.js src/state.js src/gameLogic.js src/gameView.js src/record.js public/client.js public/sw.js scripts/remediation/travel-pilot.js test/travel-expense.test.js test/travel-expense-flow.test.js test/travel-expense-server.test.js test/travel-pilot.test.js test/record.test.js e2e/gameplay.spec.js e2e/responsive.spec.js e2e/cache.spec.js
+Exit: 
+0

@@ -17,8 +17,8 @@ const { assetSummary } = require('./src/assets');
 const { safe } = require('./src/economy');
 
 const PORT = process.env.PORT || 3000;
-// 仅效果验收和投资压力审查通过后启用；不迁移已开始对局。
-const NEW_GAME_ECONOMY = {};
+// 2026-10-05有限对照及投资压力审查通过，仅新局启用；旧局不迁移。
+const NEW_GAME_ECONOMY = { economyRevision: 'travel-expense-v1' };
 const HOST_TRANSFER_MS = 10 * 60 * 1000;
 const LOBBY_IDLE_MS = 10 * 60 * 1000; // 大厅（未开局）空房保留时限
 const GAME_IDLE_MS = 30 * 60 * 1000; // 对局中/已结束房间无人保留时限

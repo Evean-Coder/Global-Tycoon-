@@ -74,3 +74,16 @@ test('股票等待不收费，仅完成股票窗口时收取', () => {
   action(s, { type: 'stock_trade', windowId: s.stockWindow.windowId, orders: [{ cityId: '上海', shares: 1, side: 'buy', quoteVersion: s.stocks['上海'].quoteVersion, listingEpoch: s.stocks['上海'].listingEpoch }] }, events);
   assert.equal(events.filter(e => e.kind === 'travel_expense').length, 0); action(s, { type: 'stock_done' }, events); assert.equal(events.filter(e => e.kind === 'travel_expense').length, 1);
 });
+test('募资、股票转让确认和无主城拍卖等待均不提前收费', () => {
+  const s=setup(),events=[];own(s,'p0','上海');s.players[0].cash=14000;s.phase='buy_airport';s.pending={playerId:'p0',airportId:'开罗国际机场'};
+  action(s,{type:'buy_fundraise',decision:'start'},events);action(s,{type:'rescue_mortgage',cityId:'上海'},events);
+  assert.equal(s.phase,'buy_fundraise');assert.equal(events.filter(e=>e.kind==='travel_expense').length,0);
+  action(s,{type:'buy_fundraise',decision:'confirm'},events);assert.equal(s.players[0].cash,7500);assert.equal(events.filter(e=>e.kind==='travel_expense').length,1);
+  const transfer=setup(),te=[];own(transfer,'p1','上海');transfer.stocks['上海'].holders.p0=1;stocks.syncHolders(transfer);transfer.phase='stock';transfer.pending={playerId:'p0',after:'end'};stocks.openStockWindow(transfer,'p0');
+  action(transfer,{type:'stock_transfer',windowId:transfer.stockWindow.windowId,targetId:'p1',items:[{cityId:'上海',shares:1}],cash:500},te);
+  assert.equal(transfer.phase,'trade_confirm');action(transfer,{type:'stock_transfer',accept:false},te);assert.equal(te.filter(e=>e.kind==='travel_expense').length,0);
+  action(transfer,{type:'stock_done'},te);assert.equal(te.filter(e=>e.kind==='travel_expense').length,1);
+  const auction=setup(),ae=[];auction.phase='buy';auction.pending={playerId:'p0',cityId:'上海'};action(auction,{type:'buy',decision:'pass'},ae);
+  assert.equal(ae.filter(e=>e.kind==='travel_expense').length,0);while(auction.phase==='auction_bid')action(auction,{type:'auction_respond',decision:'pass'},ae);
+  assert.equal(ae.filter(e=>e.kind==='travel_expense').length,1);
+});

@@ -1,0 +1,664 @@
+{
+  "source": "read-only archived trace audit; no replay or new games",
+  "reviews": [
+    {
+      "id": "travel-2",
+      "investor": "p0",
+      "terminalRound": 174,
+      "fees": 222000,
+      "debtReason": "远航开支",
+      "debtCash": -1230,
+      "stockValue": 0,
+      "airportValue": 0,
+      "remainingOwnedFromTrace": [
+        {
+          "city": "奥克兰",
+          "mortgaged": true
+        },
+        {
+          "city": "墨西哥城",
+          "mortgaged": true
+        }
+      ],
+      "unmortgagedCities": 0,
+      "lastInvestorActions": [
+        {
+          "step": 595,
+          "round": 171,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p0",
+            "cash": 4770,
+            "reserve": 24168,
+            "declinedTargets": []
+          },
+          "cash": [
+            4770,
+            4808
+          ]
+        },
+        {
+          "step": 596,
+          "round": 171,
+          "action": {
+            "type": "buy",
+            "decision": "pass"
+          },
+          "reason": {
+            "code": "purchase_declined",
+            "phase": "buy",
+            "playerId": "p0",
+            "cash": 4770,
+            "reserve": 24168,
+            "target": "柏林",
+            "cost": 15000,
+            "value": 15000,
+            "eligible": true
+          },
+          "cash": [
+            4770,
+            4808
+          ]
+        },
+        {
+          "step": 600,
+          "round": 171,
+          "action": {
+            "type": "auction_respond",
+            "decision": "pass"
+          },
+          "reason": {
+            "code": "minimum_bid",
+            "phase": "auction_bid",
+            "playerId": "p0",
+            "cash": 1770,
+            "reserve": 24168,
+            "target": "阿姆斯特丹",
+            "cost": 7500,
+            "value": 11000
+          },
+          "cash": [
+            1770,
+            1808
+          ]
+        },
+        {
+          "step": 601,
+          "round": 172,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p0",
+            "cash": 1770,
+            "reserve": 24550,
+            "declinedTargets": []
+          },
+          "cash": [
+            -1230,
+            1808
+          ]
+        },
+        {
+          "step": 602,
+          "round": 172,
+          "action": {
+            "type": "sell_city",
+            "cityId": "罗马",
+            "mode": "auction",
+            "context": {
+              "type": "self_rescue",
+              "playerId": "p0",
+              "due": 1230,
+              "reason": "远航开支",
+              "resume": {
+                "kind": "travel_expense",
+                "continuation": "normal_end"
+              }
+            }
+          },
+          "reason": {
+            "code": "rescue_sale",
+            "phase": "self_rescue",
+            "playerId": "p0",
+            "cash": -1230,
+            "reserve": 24550,
+            "target": "罗马",
+            "goal": 0
+          },
+          "cash": [
+            -1230,
+            1808
+          ]
+        },
+        {
+          "step": 606,
+          "round": 173,
+          "action": {
+            "type": "respond_jail",
+            "decision": "roll"
+          },
+          "reason": {
+            "code": "status_exit",
+            "phase": "jail_turn",
+            "playerId": "p0",
+            "cash": 4770,
+            "reserve": 24550,
+            "cost": 15000
+          },
+          "cash": [
+            1770,
+            2038
+          ]
+        },
+        {
+          "step": 609,
+          "round": 174,
+          "action": {
+            "type": "respond_jail",
+            "decision": "roll"
+          },
+          "reason": {
+            "code": "status_exit",
+            "phase": "jail_turn",
+            "playerId": "p0",
+            "cash": 1770,
+            "reserve": 24550,
+            "cost": 15000
+          },
+          "cash": [
+            -1230,
+            766
+          ]
+        },
+        {
+          "step": 610,
+          "round": 174,
+          "action": {
+            "type": "rescue_done"
+          },
+          "reason": {
+            "code": "no_rescue_options",
+            "phase": "self_rescue",
+            "playerId": "p0",
+            "cash": -1230,
+            "reserve": 24550,
+            "goal": 0
+          },
+          "cash": [
+            0,
+            3118
+          ]
+        }
+      ],
+      "baselineInvestmentElimination": null
+    },
+    {
+      "id": "travel-3",
+      "investor": "p1",
+      "terminalRound": 143,
+      "fees": 129000,
+      "debtReason": "远航开支",
+      "debtCash": -854,
+      "stockValue": 0,
+      "airportValue": 15000,
+      "remainingOwnedFromTrace": [
+        {
+          "city": "卡萨布兰卡",
+          "mortgaged": true
+        },
+        {
+          "city": "巴黎",
+          "mortgaged": true
+        }
+      ],
+      "unmortgagedCities": 0,
+      "lastInvestorActions": [
+        {
+          "step": 712,
+          "round": 138,
+          "action": {
+            "type": "sell_city",
+            "cityId": "新加坡",
+            "mode": "auction",
+            "context": {
+              "type": "self_rescue",
+              "playerId": "p1",
+              "due": 1044,
+              "reason": "支付租金"
+            }
+          },
+          "reason": {
+            "code": "rescue_sale",
+            "phase": "self_rescue",
+            "playerId": "p1",
+            "cash": -1044,
+            "reserve": 34000,
+            "target": "新加坡",
+            "goal": 0
+          },
+          "cash": [
+            5782,
+            -1044,
+            0
+          ]
+        },
+        {
+          "step": 715,
+          "round": 139,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p1",
+            "cash": 2956,
+            "reserve": 34000,
+            "declinedTargets": []
+          },
+          "cash": [
+            5532,
+            13466,
+            0
+          ]
+        },
+        {
+          "step": 716,
+          "round": 139,
+          "action": {
+            "type": "stock_done"
+          },
+          "reason": {
+            "code": "review_preserve_cash",
+            "phase": "stock",
+            "playerId": "p1",
+            "cash": 13466,
+            "reserve": 34000,
+            "policyVersion": "investment-review-v2-20261005"
+          },
+          "cash": [
+            9852,
+            6146,
+            0
+          ]
+        },
+        {
+          "step": 718,
+          "round": 140,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p1",
+            "cash": 6146,
+            "reserve": 34000,
+            "declinedTargets": []
+          },
+          "cash": [
+            6852,
+            3146,
+            0
+          ]
+        },
+        {
+          "step": 720,
+          "round": 141,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p1",
+            "cash": 3146,
+            "reserve": 34000,
+            "declinedTargets": []
+          },
+          "cash": [
+            -648,
+            146,
+            0
+          ]
+        },
+        {
+          "step": 722,
+          "round": 142,
+          "action": {
+            "type": "sell_city",
+            "cityId": "阿姆斯特丹",
+            "mode": "auction",
+            "context": {
+              "type": "self_rescue",
+              "playerId": "p1",
+              "due": 2854,
+              "reason": "远航开支",
+              "resume": {
+                "kind": "travel_expense",
+                "continuation": "skipped_jail"
+              }
+            }
+          },
+          "reason": {
+            "code": "rescue_sale",
+            "phase": "self_rescue",
+            "playerId": "p1",
+            "cash": -2854,
+            "reserve": 34000,
+            "target": "阿姆斯特丹",
+            "goal": 0
+          },
+          "cash": [
+            2552,
+            -2854,
+            0
+          ]
+        },
+        {
+          "step": 726,
+          "round": 143,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p1",
+            "cash": 2146,
+            "reserve": 34000,
+            "declinedTargets": []
+          },
+          "cash": [
+            2402,
+            -854,
+            0
+          ]
+        },
+        {
+          "step": 727,
+          "round": 143,
+          "action": {
+            "type": "rescue_done"
+          },
+          "reason": {
+            "code": "no_rescue_options",
+            "phase": "self_rescue",
+            "playerId": "p1",
+            "cash": -854,
+            "reserve": 34000,
+            "goal": 0
+          },
+          "cash": [
+            6070,
+            0,
+            0
+          ]
+        }
+      ],
+      "baselineInvestmentElimination": {
+        "round": 194,
+        "step": 946,
+        "reason": "支付租金",
+        "assetsBefore": {
+          "cash": -7374,
+          "propertyValue": 31360,
+          "airportValue": 15000,
+          "stockValue": 0,
+          "retainedPending": 0,
+          "total": 38986
+        },
+        "action": {
+          "type": "rescue_done"
+        },
+        "rank": [
+          "p0",
+          "p1",
+          "p2"
+        ],
+        "feesPaid": 0
+      }
+    },
+    {
+      "id": "travel-4",
+      "investor": "p1",
+      "terminalRound": 127,
+      "fees": 78000,
+      "debtReason": "支付租金",
+      "debtCash": -4287,
+      "stockValue": 0,
+      "airportValue": 30000,
+      "remainingOwnedFromTrace": [
+        {
+          "city": "奥克兰",
+          "mortgaged": true
+        },
+        {
+          "city": "墨西哥城",
+          "mortgaged": true
+        }
+      ],
+      "unmortgagedCities": 0,
+      "lastInvestorActions": [
+        {
+          "step": 870,
+          "round": 124,
+          "action": {
+            "type": "buy",
+            "decision": "pass"
+          },
+          "reason": {
+            "code": "purchase_declined",
+            "phase": "buy",
+            "playerId": "p1",
+            "cash": 7213,
+            "reserve": 34000,
+            "target": "里约热内卢",
+            "cost": 13000,
+            "value": 13000,
+            "eligible": true
+          },
+          "cash": [
+            0,
+            7213,
+            192349,
+            0
+          ]
+        },
+        {
+          "step": 874,
+          "round": 125,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p1",
+            "cash": 4213,
+            "reserve": 34000,
+            "declinedTargets": []
+          },
+          "cash": [
+            0,
+            14213,
+            174499,
+            0
+          ]
+        },
+        {
+          "step": 875,
+          "round": 125,
+          "action": {
+            "type": "stock_done"
+          },
+          "reason": {
+            "code": "review_preserve_cash",
+            "phase": "stock",
+            "playerId": "p1",
+            "cash": 14213,
+            "reserve": 34000,
+            "policyVersion": "investment-review-v2-20261005"
+          },
+          "cash": [
+            0,
+            11213,
+            174499,
+            0
+          ]
+        },
+        {
+          "step": 878,
+          "round": 126,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p1",
+            "cash": 11213,
+            "reserve": 34000,
+            "declinedTargets": []
+          },
+          "cash": [
+            0,
+            8213,
+            163499,
+            0
+          ]
+        },
+        {
+          "step": 881,
+          "round": 127,
+          "action": {
+            "type": "roll_dice"
+          },
+          "reason": {
+            "code": "roll_no_investment",
+            "phase": "waiting_roll",
+            "playerId": "p1",
+            "cash": 8213,
+            "reserve": 34000,
+            "declinedTargets": []
+          },
+          "cash": [
+            0,
+            -12787,
+            163299,
+            0
+          ]
+        },
+        {
+          "step": 882,
+          "round": 127,
+          "action": {
+            "type": "sell_city",
+            "cityId": "莫斯科",
+            "mode": "auction",
+            "context": {
+              "type": "self_rescue",
+              "playerId": "p1",
+              "due": 12787,
+              "reason": "支付租金"
+            }
+          },
+          "reason": {
+            "code": "rescue_sale",
+            "phase": "self_rescue",
+            "playerId": "p1",
+            "cash": -12787,
+            "reserve": 34000,
+            "target": "莫斯科",
+            "goal": 0
+          },
+          "cash": [
+            0,
+            -12787,
+            163299,
+            0
+          ]
+        },
+        {
+          "step": 884,
+          "round": 127,
+          "action": {
+            "type": "sell_city",
+            "cityId": "开罗",
+            "mode": "auction",
+            "context": {
+              "type": "self_rescue",
+              "playerId": "p1",
+              "due": 12787,
+              "reason": "支付租金"
+            }
+          },
+          "reason": {
+            "code": "rescue_sale",
+            "phase": "self_rescue",
+            "playerId": "p1",
+            "cash": -7287,
+            "reserve": 34000,
+            "target": "开罗",
+            "goal": 0
+          },
+          "cash": [
+            0,
+            -7287,
+            165389,
+            0
+          ]
+        },
+        {
+          "step": 886,
+          "round": 127,
+          "action": {
+            "type": "rescue_done"
+          },
+          "reason": {
+            "code": "no_rescue_options",
+            "phase": "self_rescue",
+            "playerId": "p1",
+            "cash": -4287,
+            "reserve": 34000,
+            "goal": 0
+          },
+          "cash": [
+            0,
+            0,
+            178235,
+            0
+          ]
+        }
+      ],
+      "baselineInvestmentElimination": {
+        "round": 191,
+        "step": 1250,
+        "reason": "机场费",
+        "assetsBefore": {
+          "cash": -3101,
+          "propertyValue": 18000,
+          "airportValue": 15000,
+          "stockValue": 0,
+          "retainedPending": 0,
+          "total": 29899
+        },
+        "action": {
+          "type": "rescue_done"
+        },
+        "rank": [
+          "p3",
+          "p1"
+        ],
+        "feesPaid": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+{
+  "date": "2026-10-05",
+  "source": "controlled-normal-start-pilot",
+  "schedule": [
+    {
+      "id": "travel-2",
+      "seed": 2026100511,
+      "policies": [
+        "investment",
+        "aviation"
+      ]
+    },
+    {
+      "id": "travel-3",
+      "seed": 2026100512,
+      "policies": [
+        "property",
+        "investment",
+        "aviation"
+      ]
+    },
+    {
+      "id": "travel-4",
+      "seed": 2026100513,
+      "policies": [
+        "property",
+        "investment",
+        "aviation",
+        "cautious"
+      ]
+    }
+  ],
+  "limits": {
+    "trajectories": 6,
+    "rounds": 250,
+    "actions": 6000,
+    "activityMs": 180000
+  },
+  "sourceHash": "9f85bc4ae5e2e62f0bed304fac952134f0de4c4b69999f65deea887d2d491b53",
+  "investmentPolicy": "investment-review-v2-20261005",
+  "configs": {
+    "neutral": {
+      "id": "neutral",
+      "baseReserve": 15000,
+      "cityWeight": 1.05,
+      "buildWeight": 1.05,
+      "maxStockRatio": 0.25,
+      "flightWeight": 1,
+      "scores": {},
+      "defaultScore": 40,
+      "randomChoices": true,
+      "rerollStage": null,
+      "rerollBelow": 60
+    },
+    "property": {
+      "id": "property",
+      "baseReserve": 12000,
+      "cityWeight": 1.2,
+      "buildWeight": 1.2,
+      "maxStockRatio": 0.2,
+      "flightWeight": 0.9,
+      "scores": {
+        "H1": 90,
+        "H2": 80,
+        "H3": 75,
+        "H11": 65,
+        "H12": 55
+      },
+      "defaultScore": 40,
+      "randomChoices": false,
+      "rerollStage": 1,
+      "rerollBelow": 60
+    },
+    "investment": {
+      "id": "investment",
+      "baseReserve": 22000,
+      "cityWeight": 1,
+      "buildWeight": 1,
+      "maxStockRatio": 0.4,
+      "flightWeight": 0.9,
+      "scores": {
+        "H5": 90,
+        "H4": 80,
+        "H6": 75,
+        "H11": 65,
+        "H12": 55
+      },
+      "defaultScore": 40,
+      "randomChoices": false,
+      "rerollStage": 1,
+      "rerollBelow": 60
+    },
+    "aviation": {
+      "id": "aviation",
+      "baseReserve": 15000,
+      "cityWeight": 1.05,
+      "buildWeight": 1.05,
+      "maxStockRatio": 0.2,
+      "flightWeight": 1.4,
+      "scores": {
+        "H9": 90,
+        "H7": 80,
+        "H8": 75,
+        "H11": 65,
+        "H12": 55
+      },
+      "defaultScore": 40,
+      "randomChoices": false,
+      "rerollStage": 1,
+      "rerollBelow": 60
+    },
+    "cautious": {
+      "id": "cautious",
+      "baseReserve": 30000,
+      "cityWeight": 1,
+      "buildWeight": 1,
+      "maxStockRatio": 0.15,
+      "flightWeight": 0.8,
+      "scores": {
+        "H11": 90,
+        "H10": 85,
+        "H12": 75,
+        "H6": 65
+      },
+      "defaultScore": 40,
+      "randomChoices": false,
+      "rerollStage": 1,
+      "rerollBelow": 60
+    }
+  },
+  "economyRevision": "travel-expense-v1",
+  "candidateInitialization": "原正常开局会话；首个合法动作执行前加入显式经济修订与空凭据，不影响开局随机流。",
+  "prefixComparison": "仅排除经济修订/收费凭据；比较初态及跨入第81轮之前的完整动作状态，跨界动作可能自动收费而不计入此前前缀。",
+  "enableCondition": "至少两组更早自然结束、无原自然变候选截断、完整同前缀、必要回归通过、投资压力复核通过",
+  "resumePolicy": "本批次中止即保留证据并关闭，不允许重新启动绕过累计预算",
+  "traceFormat": "gzip压缩JSONL，逐行动原始理由与事件；不修改旧观察器或旧批次",
+  "hashes": {
+    "scripts/remediation/travel-pilot.js": "b0f455b3f7c1e65abf6f5577aa1b2b8f7ac9555740fcb6ffef702698a17d254d",
+    "scripts/remediation/investment-policy.js": "9a1243b2f8e23136622ffd1c1e078fda3323d5d62b0ab370a634cda038188993",
+    "src/travelExpense.js": "c56b00966a6acdc08ae061609f370b1ee17f8162ab57467b9bba3218a1a9f27b"
+  }
+}

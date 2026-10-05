@@ -19,7 +19,7 @@ async function setup() {
   const a = await connect(), b = await connect(); const res = await ack(a, 'createRoom', { name: '甲' });
   await ack(b, 'joinRoom', { name: '乙', roomCode: res.roomCode }); const room = api.rooms.get(res.roomCode), fake = fakeClock(); room.actionClock = createActionClock(fake);
   await ack(a, 'startGame', {}); await until(() => a.game?.self.choice && b.game?.self.choice);
-  assert.equal(room.state.economyRevision, undefined, '效果通过前服务器不启用');
+  assert.equal(room.state.economyRevision, REVISION, '效果与投资压力审查通过后新局启用');
   return { a, b, room, fake };
 }
 async function publish(room, s, a, b) {

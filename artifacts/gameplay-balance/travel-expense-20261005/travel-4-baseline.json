@@ -1,0 +1,783 @@
+{
+  "id": "travel-4",
+  "variant": "baseline",
+  "source": "controlled",
+  "sampleId": "travel-4-baseline",
+  "players": [
+    {
+      "id": "p0",
+      "policy": "property",
+      "alive": false,
+      "assets": {
+        "cash": 0,
+        "propertyValue": 0,
+        "airportValue": 0,
+        "stockValue": 0,
+        "retainedPending": 0,
+        "total": 0
+      },
+      "cities": [],
+      "airports": [],
+      "stocks": {},
+      "opportunities": [
+        "H1",
+        "H3",
+        "H6"
+      ]
+    },
+    {
+      "id": "p1",
+      "policy": "investment",
+      "alive": false,
+      "assets": {
+        "cash": 0,
+        "propertyValue": 0,
+        "airportValue": 0,
+        "stockValue": 0,
+        "retainedPending": 0,
+        "total": 0
+      },
+      "cities": [],
+      "airports": [],
+      "stocks": {},
+      "opportunities": [
+        "H6",
+        "H12",
+        "H5"
+      ]
+    },
+    {
+      "id": "p2",
+      "policy": "aviation",
+      "alive": true,
+      "assets": {
+        "cash": 540781,
+        "propertyValue": 526280,
+        "airportValue": 15000,
+        "stockValue": 190734,
+        "retainedPending": 0,
+        "total": 1272795
+      },
+      "cities": [
+        "卡萨布兰卡",
+        "罗马",
+        "伦敦",
+        "柏林",
+        "开普敦",
+        "纽约",
+        "上海",
+        "东京",
+        "悉尼",
+        "奥克兰",
+        "莫斯科",
+        "巴黎",
+        "内罗毕",
+        "开罗",
+        "新加坡",
+        "多伦多",
+        "迪拜"
+      ],
+      "airports": [
+        "上海浦东国际机场"
+      ],
+      "stocks": {
+        "内罗毕": 4,
+        "开普敦": 4,
+        "卡萨布兰卡": 4,
+        "奥克兰": 4,
+        "悉尼": 4,
+        "罗马": 4,
+        "伦敦": 3,
+        "柏林": 3,
+        "莫斯科": 4,
+        "纽约": 4,
+        "多伦多": 3,
+        "上海": 4,
+        "东京": 4,
+        "新加坡": 4,
+        "迪拜": 4
+      },
+      "opportunities": [
+        "H7",
+        "H11",
+        "H1"
+      ]
+    },
+    {
+      "id": "p3",
+      "policy": "cautious",
+      "alive": false,
+      "assets": {
+        "cash": 0,
+        "propertyValue": 0,
+        "airportValue": 0,
+        "stockValue": 0,
+        "retainedPending": 0,
+        "total": 0
+      },
+      "cities": [],
+      "airports": [],
+      "stocks": {},
+      "opportunities": [
+        "H12",
+        "H9",
+        "H10"
+      ]
+    }
+  ],
+  "engineSeed": 2026100513,
+  "policiesBySeat": [
+    "property",
+    "investment",
+    "aviation",
+    "cautious"
+  ],
+  "policySeedsByPlayer": {
+    "p0": 2026100523,
+    "p1": 2026100533,
+    "p2": 2026100543,
+    "p3": 2026100553
+  },
+  "limits": {
+    "rounds": 250,
+    "actions": 6000
+  },
+  "initialCoreHash": "e4465e0c2833204c183ca884b17acf3f753cc43d748c23cddf866502379624eb",
+  "prefixHash": "ca1e216fd1a3c070bfcf15a90bbc422dd27839d792a751213ebf6fe3a1206c22",
+  "prefixSteps": 574,
+  "outcome": "natural",
+  "reason": "last_survivor",
+  "winnerId": "p2",
+  "winnerPolicy": "aviation",
+  "completeRounds": 209,
+  "actions": 1326,
+  "feesByPlayer": {
+    "p0": 0,
+    "p1": 0,
+    "p2": 0,
+    "p3": 0
+  },
+  "fees": 0,
+  "investmentElimination": {
+    "round": 191,
+    "step": 1250,
+    "reason": "机场费",
+    "assetsBefore": {
+      "cash": -3101,
+      "propertyValue": 18000,
+      "airportValue": 15000,
+      "stockValue": 0,
+      "retainedPending": 0,
+      "total": 29899
+    },
+    "action": {
+      "type": "rescue_done"
+    },
+    "rank": [
+      "p3",
+      "p1"
+    ],
+    "feesPaid": 0
+  },
+  "economy": {
+    "opportunity_reward": {
+      "bankFlow": 83500,
+      "injected": 83500,
+      "removed": 0,
+      "count": 41
+    },
+    "jail_fee": {
+      "bankFlow": -105000,
+      "injected": 0,
+      "removed": 105000,
+      "count": 7
+    },
+    "freeze_fee": {
+      "bankFlow": -115000,
+      "injected": 0,
+      "removed": 115000,
+      "count": 23
+    },
+    "go": {
+      "bankFlow": 900000,
+      "injected": 900000,
+      "removed": 0,
+      "count": 90
+    },
+    "chance_reward": {
+      "bankFlow": 156000,
+      "injected": 156000,
+      "removed": 0,
+      "count": 49
+    },
+    "chance_fine": {
+      "bankFlow": -158000,
+      "injected": 0,
+      "removed": 158000,
+      "count": 48
+    },
+    "city_purchase": {
+      "bankFlow": -197600,
+      "injected": 0,
+      "removed": 197600,
+      "count": 18
+    },
+    "airport_purchase": {
+      "bankFlow": -90000,
+      "injected": 0,
+      "removed": 90000,
+      "count": 6
+    },
+    "stock_buy": {
+      "bankFlow": -525889,
+      "injected": 0,
+      "removed": 525889,
+      "count": 126
+    },
+    "build": {
+      "bankFlow": -519420,
+      "injected": 0,
+      "removed": 519420,
+      "count": 77
+    },
+    "airport_fee": {
+      "bankFlow": 0,
+      "injected": 0,
+      "removed": 0,
+      "count": 74
+    },
+    "city_rent": {
+      "bankFlow": 52912,
+      "injected": 52912,
+      "removed": 0,
+      "count": 358
+    },
+    "city_rent_fund": {
+      "bankFlow": 0,
+      "injected": 0,
+      "removed": 0,
+      "count": 179
+    },
+    "auction_purchase": {
+      "bankFlow": -66750,
+      "injected": 0,
+      "removed": 66750,
+      "count": 12
+    },
+    "retained_income": {
+      "bankFlow": -1440,
+      "injected": 0,
+      "removed": 1440,
+      "count": 149
+    },
+    "mortgage": {
+      "bankFlow": 65060,
+      "injected": 65060,
+      "removed": 0,
+      "count": 7
+    },
+    "dividend": {
+      "bankFlow": 0,
+      "injected": 0,
+      "removed": 0,
+      "count": 231
+    },
+    "redeem": {
+      "bankFlow": -14000,
+      "injected": 0,
+      "removed": 14000,
+      "count": 1
+    },
+    "stock_sell": {
+      "bankFlow": 173920,
+      "injected": 173920,
+      "removed": 0,
+      "count": 39
+    },
+    "stock_transfer": {
+      "bankFlow": 0,
+      "injected": 0,
+      "removed": 0,
+      "count": 8
+    },
+    "flight": {
+      "bankFlow": -12000,
+      "injected": 0,
+      "removed": 12000,
+      "count": 2
+    },
+    "late_jail_fee": {
+      "bankFlow": -22500,
+      "injected": 0,
+      "removed": 22500,
+      "count": 5
+    },
+    "rescue_stock_sell": {
+      "bankFlow": 134557,
+      "injected": 134557,
+      "removed": 0,
+      "count": 22
+    },
+    "stock_liquidation": {
+      "bankFlow": 15824,
+      "injected": 15824,
+      "removed": 0,
+      "count": 8
+    },
+    "bankrupt_relief": {
+      "bankFlow": 30000,
+      "injected": 30000,
+      "removed": 0,
+      "count": 3
+    },
+    "debt_forgiveness": {
+      "bankFlow": 37353,
+      "injected": 37353,
+      "removed": 0,
+      "count": 3
+    },
+    "demolish": {
+      "bankFlow": 95170,
+      "injected": 95170,
+      "removed": 0,
+      "count": 25
+    },
+    "stock_forced_sell": {
+      "bankFlow": 24084,
+      "injected": 24084,
+      "removed": 0,
+      "count": 4
+    },
+    "auction_sale": {
+      "bankFlow": 0,
+      "injected": 0,
+      "removed": 0,
+      "count": 7
+    }
+  },
+  "policies": {
+    "p0": {
+      "scored_choice": 3,
+      "roll_no_investment": 187,
+      "stock_complete": 25,
+      "status_exit": 22,
+      "purchase": 3,
+      "buy_stock": 18,
+      "pre_roll_build": 17,
+      "flight_declined": 11,
+      "minimum_bid": 18,
+      "end_high_bid": 4,
+      "landing_build": 2,
+      "fundraise_worthwhile": 2,
+      "rescue_mortgage": 2,
+      "funding_complete": 2,
+      "reduce_by_transfer": 8,
+      "reduce_stock": 9,
+      "build_declined": 16,
+      "transfer_response": 4,
+      "flight_advantage": 4,
+      "rescue_minimum_shares": 11,
+      "rescue_demolish": 17,
+      "rescue_sale": 4,
+      "no_rescue_options": 1
+    },
+    "p1": {
+      "scored_choice": 3,
+      "roll_no_investment": 171,
+      "status_exit": 16,
+      "review_preserve_cash": 23,
+      "purchase": 4,
+      "flight_declined": 12,
+      "minimum_bid": 13,
+      "review_H5_eligibility": 2,
+      "review_productive_stock": 13,
+      "end_high_bid": 1,
+      "flight_advantage": 2,
+      "review_transfer": 7,
+      "landing_build": 5,
+      "pre_roll_build": 3,
+      "build_declined": 16,
+      "review_bank_sale": 16,
+      "rescue_minimum_shares": 9,
+      "fundraise_worthwhile": 1,
+      "rescue_mortgage": 2,
+      "funding_complete": 1,
+      "rescue_demolish": 8,
+      "rescue_sale": 3,
+      "no_rescue_options": 1
+    },
+    "p2": {
+      "scored_choice": 3,
+      "roll_no_investment": 200,
+      "status_exit": 15,
+      "stock_complete": 28,
+      "purchase": 10,
+      "pre_roll_build": 30,
+      "buy_stock": 27,
+      "landing_build": 12,
+      "minimum_bid": 17,
+      "fundraise_worthwhile": 1,
+      "rescue_mortgage": 1,
+      "funding_complete": 1,
+      "purchase_declined": 2,
+      "build_declined": 32,
+      "redeem_position": 1,
+      "flight_declined": 15,
+      "transfer_response": 3,
+      "reduce_by_transfer": 1,
+      "reduce_stock": 2,
+      "end_high_bid": 3
+    },
+    "p3": {
+      "scored_choice": 3,
+      "roll_no_investment": 109,
+      "status_exit": 12,
+      "stock_complete": 14,
+      "purchase": 3,
+      "buy_stock": 10,
+      "flight_advantage": 4,
+      "purchase_declined": 4,
+      "landing_build": 4,
+      "minimum_bid": 3,
+      "pre_roll_build": 4,
+      "reduce_by_transfer": 7,
+      "reduce_stock": 12,
+      "flight_declined": 4,
+      "transfer_response": 2,
+      "rescue_minimum_shares": 2,
+      "rescue_mortgage": 2,
+      "no_rescue_options": 1
+    }
+  },
+  "anchors": [
+    {
+      "completedRounds": 80,
+      "players": [
+        {
+          "id": "p0",
+          "policy": "property",
+          "alive": true,
+          "assets": {
+            "cash": 26957,
+            "propertyValue": 113040,
+            "airportValue": 30000,
+            "stockValue": 40932,
+            "retainedPending": 6750,
+            "total": 217679
+          },
+          "cities": [
+            "内罗毕",
+            "里约热内卢",
+            "新加坡",
+            "迪拜",
+            "阿姆斯特丹",
+            "多伦多"
+          ],
+          "airports": [
+            "纽约肯尼迪国际机场",
+            "伦敦希思罗国际机场"
+          ],
+          "stocks": {
+            "卡萨布兰卡": 4,
+            "开罗": 2,
+            "奥克兰": 1,
+            "罗马": 1,
+            "伦敦": 2,
+            "柏林": 2,
+            "东京": 2
+          },
+          "opportunities": [
+            "H1",
+            "H3",
+            "H6"
+          ]
+        },
+        {
+          "id": "p1",
+          "policy": "investment",
+          "alive": true,
+          "assets": {
+            "cash": 47350,
+            "propertyValue": 70800,
+            "airportValue": 15000,
+            "stockValue": 39188,
+            "retainedPending": 2640,
+            "total": 174978
+          },
+          "cities": [
+            "莫斯科",
+            "奥克兰",
+            "墨西哥城",
+            "巴黎"
+          ],
+          "airports": [
+            "上海浦东国际机场"
+          ],
+          "stocks": {
+            "内罗毕": 2,
+            "开普敦": 1,
+            "卡萨布兰卡": 1,
+            "开罗": 2,
+            "纽约": 1,
+            "多伦多": 2,
+            "东京": 3,
+            "新加坡": 1
+          },
+          "opportunities": [
+            "H6",
+            "H12",
+            "H5"
+          ]
+        },
+        {
+          "id": "p2",
+          "policy": "aviation",
+          "alive": true,
+          "assets": {
+            "cash": 119756,
+            "propertyValue": 290200,
+            "airportValue": 0,
+            "stockValue": 102809,
+            "retainedPending": 0,
+            "total": 512765
+          },
+          "cities": [
+            "卡萨布兰卡",
+            "罗马",
+            "伦敦",
+            "柏林",
+            "开普敦",
+            "纽约",
+            "上海",
+            "东京"
+          ],
+          "airports": [],
+          "stocks": {
+            "内罗毕": 2,
+            "卡萨布兰卡": 4,
+            "开罗": 1,
+            "奥克兰": 2,
+            "阿姆斯特丹": 2,
+            "伦敦": 3,
+            "纽约": 1,
+            "多伦多": 1,
+            "墨西哥城": 1,
+            "里约热内卢": 1,
+            "上海": 3,
+            "东京": 4,
+            "新加坡": 4,
+            "迪拜": 2
+          },
+          "opportunities": [
+            "H7",
+            "H11",
+            "H1"
+          ]
+        },
+        {
+          "id": "p3",
+          "policy": "cautious",
+          "alive": true,
+          "assets": {
+            "cash": 48690,
+            "propertyValue": 57120,
+            "airportValue": 15000,
+            "stockValue": 30166,
+            "retainedPending": 0,
+            "total": 150976
+          },
+          "cities": [
+            "开罗",
+            "悉尼"
+          ],
+          "airports": [
+            "开罗国际机场"
+          ],
+          "stocks": {
+            "内罗毕": 2,
+            "卡萨布兰卡": 3,
+            "伦敦": 1,
+            "柏林": 1,
+            "莫斯科": 4
+          },
+          "opportunities": [
+            "H12",
+            "H9",
+            "H10"
+          ]
+        }
+      ]
+    },
+    {
+      "completedRounds": 120,
+      "players": [
+        {
+          "id": "p0",
+          "policy": "property",
+          "alive": true,
+          "assets": {
+            "cash": 20745,
+            "propertyValue": 176640,
+            "airportValue": 30000,
+            "stockValue": 55520,
+            "retainedPending": 594,
+            "total": 283499
+          },
+          "cities": [
+            "内罗毕",
+            "里约热内卢",
+            "新加坡",
+            "迪拜",
+            "阿姆斯特丹",
+            "多伦多"
+          ],
+          "airports": [
+            "纽约肯尼迪国际机场",
+            "伦敦希思罗国际机场"
+          ],
+          "stocks": {
+            "内罗毕": 3,
+            "卡萨布兰卡": 6,
+            "开罗": 1,
+            "奥克兰": 1,
+            "罗马": 1,
+            "伦敦": 1,
+            "柏林": 2,
+            "莫斯科": 3,
+            "东京": 2
+          },
+          "opportunities": [
+            "H1",
+            "H3",
+            "H6"
+          ]
+        },
+        {
+          "id": "p1",
+          "policy": "investment",
+          "alive": true,
+          "assets": {
+            "cash": 37324,
+            "propertyValue": 88680,
+            "airportValue": 15000,
+            "stockValue": 23508,
+            "retainedPending": 1560,
+            "total": 166072
+          },
+          "cities": [
+            "莫斯科",
+            "奥克兰",
+            "墨西哥城",
+            "巴黎"
+          ],
+          "airports": [
+            "上海浦东国际机场"
+          ],
+          "stocks": {
+            "内罗毕": 2,
+            "开普敦": 1,
+            "卡萨布兰卡": 1,
+            "开罗": 2,
+            "悉尼": 2,
+            "阿姆斯特丹": 1,
+            "新加坡": 1
+          },
+          "opportunities": [
+            "H6",
+            "H12",
+            "H5"
+          ]
+        },
+        {
+          "id": "p2",
+          "policy": "aviation",
+          "alive": true,
+          "assets": {
+            "cash": 174925,
+            "propertyValue": 370600,
+            "airportValue": 0,
+            "stockValue": 129136,
+            "retainedPending": 13426,
+            "total": 688087
+          },
+          "cities": [
+            "卡萨布兰卡",
+            "罗马",
+            "伦敦",
+            "柏林",
+            "开普敦",
+            "纽约",
+            "上海",
+            "东京"
+          ],
+          "airports": [],
+          "stocks": {
+            "内罗毕": 4,
+            "卡萨布兰卡": 4,
+            "开罗": 1,
+            "奥克兰": 3,
+            "阿姆斯特丹": 2,
+            "伦敦": 3,
+            "纽约": 2,
+            "多伦多": 1,
+            "墨西哥城": 1,
+            "里约热内卢": 1,
+            "上海": 3,
+            "东京": 4,
+            "新加坡": 5,
+            "迪拜": 2
+          },
+          "opportunities": [
+            "H7",
+            "H11",
+            "H1"
+          ]
+        },
+        {
+          "id": "p3",
+          "policy": "cautious",
+          "alive": true,
+          "assets": {
+            "cash": 2043,
+            "propertyValue": 57120,
+            "airportValue": 15000,
+            "stockValue": 13640,
+            "retainedPending": 0,
+            "total": 87803
+          },
+          "cities": [
+            "开罗",
+            "悉尼"
+          ],
+          "airports": [
+            "开罗国际机场"
+          ],
+          "stocks": {
+            "莫斯科": 4
+          },
+          "opportunities": [
+            "H12",
+            "H9",
+            "H10"
+          ]
+        }
+      ]
+    }
+  ],
+  "finalRank": [
+    "p2",
+    "p0",
+    "p1",
+    "p3"
+  ],
+  "finalHash": "3869f78804a84351c0a4cdddb946ba1cfdeaa129c6bcf1ce687558ebc3927227",
+  "randomCounts": {
+    "engine": 5975,
+    "policy": {
+      "p0": 601,
+      "p1": 13,
+      "p2": 797,
+      "p3": 293
+    }
+  }
+}

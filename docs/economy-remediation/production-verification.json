@@ -1,0 +1,302 @@
+{
+  "date": "2026-10-05",
+  "node": "v20.20.2",
+  "protectedHistoricalFiles": [
+    {
+      "file": "artifacts/gameplay-balance/formal-budget.json",
+      "expected": "cb5838b1214b51c931303107b36c56210a9a43722f4c252c630013381168e0c0",
+      "actual": "cb5838b1214b51c931303107b36c56210a9a43722f4c252c630013381168e0c0",
+      "match": true
+    },
+    {
+      "file": "docs/balance-review/stage-a-summary.json",
+      "expected": "bb022af22465c01854d575e4df85e41d84699288cbeeeb32697fe74edcd88ea0",
+      "actual": "bb022af22465c01854d575e4df85e41d84699288cbeeeb32697fe74edcd88ea0",
+      "match": true
+    },
+    {
+      "file": "docs/balance-review/stage-b-summary.json",
+      "expected": "04855e70f122998a7f13b1ebd77d8d96bb7af10217870437246b7a9a508d50a0",
+      "actual": "04855e70f122998a7f13b1ebd77d8d96bb7af10217870437246b7a9a508d50a0",
+      "match": true
+    },
+    {
+      "file": "docs/balance-review/stage-c-summary.json",
+      "expected": "fe0ffec37e73bc6f32afd92c1e4a2104a854ee363400fbf33bf406379621edbc",
+      "actual": "fe0ffec37e73bc6f32afd92c1e4a2104a854ee363400fbf33bf406379621edbc",
+      "match": true
+    },
+    {
+      "file": "artifacts/gameplay-balance/review-a-20261002/summary.json",
+      "expected": "64f87ceff9d0affa7bd9d025656a517ac419f3aa6f529e4fa5798c038814352f",
+      "actual": "64f87ceff9d0affa7bd9d025656a517ac419f3aa6f529e4fa5798c038814352f",
+      "match": true
+    },
+    {
+      "file": "artifacts/gameplay-balance/review-c-20261002/summary.json",
+      "expected": "699c5068aebc31babc2c99fa8629a88d6f9265628c9e6cf3cf11a6b8bae2281c",
+      "actual": "699c5068aebc31babc2c99fa8629a88d6f9265628c9e6cf3cf11a6b8bae2281c",
+      "match": true
+    }
+  ],
+  "sourceComparison": [
+    {
+      "file": "package-lock.json",
+      "baselineSha256": "127c7fa4a09cb046f84cacf98c196ae88f2fbfc3974ffb13320fb5d259475b1d",
+      "actualSha256": "127c7fa4a09cb046f84cacf98c196ae88f2fbfc3974ffb13320fb5d259475b1d",
+      "changed": false,
+      "authorizedProductionChange": false
+    },
+    {
+      "file": "package.json",
+      "baselineSha256": "b5febf28eb0fde1ec7022e582bcd5c349dc80b734a244c96039da5646b8540cc",
+      "actualSha256": "b5febf28eb0fde1ec7022e582bcd5c349dc80b734a244c96039da5646b8540cc",
+      "changed": false,
+      "authorizedProductionChange": false
+    },
+    {
+      "file": "scripts/balance/batch.js",
+      "baselineSha256": "82e4c30072460bc76bd4dafe6f704c9fe57338a7078018085d416515697143ed",
+      "actualSha256": "82e4c30072460bc76bd4dafe6f704c9fe57338a7078018085d416515697143ed",
+      "changed": false,
+      "authorizedProductionChange": false
+    },
+    {
+      "file": "scripts/balance/canonical.js",
+      "baselineSha256": "a244e2908a9df8830c2936b7172b0f2277fd04f1fbcc2150999f727de2cd6618",
+      "actualSha256": "a244e2908a9df8830c2936b7172b0f2277fd04f1fbcc2150999f727de2cd6618",
+      "changed": false,
+      "authorizedProductionChange": false
+    },
+    {
+      "file": "scripts/balance/config.js",
+      "baselineSha256": "24d985344dc3236e6eeac1b48ce390a6728a99e84f6b7f9257efebd0a8bdbf90",
+      "actualSha256": "24d985344dc3236e6eeac1b48ce390a6728a99e84f6b7f9257efebd0a8bdbf90",
+      "changed": false,
+      "authorizedProductionChange": false
+    },
+    {
+      "file": "scripts/balance/observe.js",
+      "baselineSha256": "042b4f9d2351a6c70dda259cfd9571211f07b3016f60d6454d4b414e6d7161d4",
+      "actualSha256": "042b4f9d2351a6c70dda259cfd9571211f07b3016f60d6454d4b414e6d7161d4",
+      "changed": false,
+      "authorizedProductionChange": false
+    },
+    {
+      "file": "scripts/balance/policy.js",
+      "baselineSha256": "393262f85a2c0f8d8a571fdd32b2ff3c2a85230975d230a3c22cdf58979f16cc",
+      "actualSha256": "393262f85a2c0f8d8a571fdd32b2ff3c2a85230975d230a3c22cdf58979f16cc",
+      "changed": false,
+      "authorizedProductionChange": false
+    },
+    {
+      "file": "scripts/balance/random.js",
+      "baselineSha256": "0ab985d34774ec490001d99100175f82b760c41ee805afeb448b119219698d3e",
+      "actualSha256": "0ab985d34774ec490001d99100175f82b760c41ee805afeb448b119219698d3e",
+      "changed": false,
+      "authorizedProductionChange": false
+    },
+    {
+      "file": "scripts/balance/replay.js",
+      "baselineSha256": "256c3846a8abca843ac322d84d5d849788b79afff0461f32835af73b95763cbf",
+      "actualSha256": "256c3846a8abca843ac322d84d5d849788b79afff0461f32835af73b95763cbf",
+      "changed": false,
+      "authorizedProductionChange": false
+    },
+    {
+      "file": "scripts/balance/report.js",
+      "baselineSha256": "5ea28ccc4ddfe8ad2aec0c0d14ccf4955562f1a1de04ab2d94e4bdd12afed2eb",
+      "actualSha256": "5ea28ccc4ddfe8ad2aec0c0d14ccf4955562f1a1de04ab2d94e4bdd12afed2eb",
+      "changed": false,
+      "authorizedProductionChange": false
+    },
+    {
+      "file": "scripts/balance/schedule.js",
+      "baselineSha256": "47b9b297149921cacbcd2316896d8e51f17e2f3e746280f4bdb57b4ab7aca143",
+      "actualSha256": "47b9b297149921cacbcd2316896d8e51f17e2f3e746280f4bdb57b4ab7aca143",
+      "changed": false,
+      "authorizedProductionChange": false
+    },
+    {
+      "file": "scripts/balance/session.js",
+      "baselineSha256": "16a6f58cf0ee12dcb798e3109aae3bdc94c58309489b4516754557177e2de414",
+      "actualSha256": "16a6f58cf0ee12dcb798e3109aae3bdc94c58309489b4516754557177e2de414",
+      "changed": false,
+      "authorizedProductionChange": false
+    },
+    {
+      "file": "scripts/balance/stats.js",
+      "baselineSha256": "da71cc2aead1778d82432c6b45f61f3e4743f76ecc8f68f2b618f004f0af2069",
+      "actualSha256": "da71cc2aead1778d82432c6b45f61f3e4743f76ecc8f68f2b618f004f0af2069",
+      "changed": false,
+      "authorizedProductionChange": false
+    },
+    {
+      "file": "scripts/balance/storage.js",
+      "baselineSha256": "ed423e456cca5dde6fb521e836762f0507275db2754514b564c4c04a77e1d75a",
+      "actualSha256": "ed423e456cca5dde6fb521e836762f0507275db2754514b564c4c04a77e1d75a",
+      "changed": false,
+      "authorizedProductionChange": false
+    },
+    {
+      "file": "scripts/simulate-balance.js",
+      "baselineSha256": "d1d48cfe82901fafb128d25a9cdf4e4b89c639e635fdcd422391198b94c43503",
+      "actualSha256": "d1d48cfe82901fafb128d25a9cdf4e4b89c639e635fdcd422391198b94c43503",
+      "changed": false,
+      "authorizedProductionChange": false
+    },
+    {
+      "file": "src/actionClock.js",
+      "baselineSha256": "894d8bae59a00f7215226c3066565f1d922ab2b657bb7734939d625dd8ef6b80",
+      "actualSha256": "894d8bae59a00f7215226c3066565f1d922ab2b657bb7734939d625dd8ef6b80",
+      "changed": false,
+      "authorizedProductionChange": false
+    },
+    {
+      "file": "src/actionValidation.js",
+      "baselineSha256": "e252297f317245cb8b6173389845d25f4c110ac7ec9c8ff4742e1b90273ef0c2",
+      "actualSha256": "e252297f317245cb8b6173389845d25f4c110ac7ec9c8ff4742e1b90273ef0c2",
+      "changed": false,
+      "authorizedProductionChange": false
+    },
+    {
+      "file": "src/assets.js",
+      "baselineSha256": "1839725e2a50b05eef3fdf255a455ab062908bf53f9aa01955cc26c58ae3e1da",
+      "actualSha256": "1839725e2a50b05eef3fdf255a455ab062908bf53f9aa01955cc26c58ae3e1da",
+      "changed": false,
+      "authorizedProductionChange": false
+    },
+    {
+      "file": "src/board.js",
+      "baselineSha256": "af59ab378382c037c805f2fbc9c0061aec4c7b9eb3aa1b9d0854eb1647995b8f",
+      "actualSha256": "af59ab378382c037c805f2fbc9c0061aec4c7b9eb3aa1b9d0854eb1647995b8f",
+      "changed": false,
+      "authorizedProductionChange": false
+    },
+    {
+      "file": "src/economy.js",
+      "baselineSha256": "e2e38b82d7a1692893765ed620c3bd925951c009c52d2376cdf62ad39fcd0fbd",
+      "actualSha256": "e2e38b82d7a1692893765ed620c3bd925951c009c52d2376cdf62ad39fcd0fbd",
+      "changed": false,
+      "authorizedProductionChange": false
+    },
+    {
+      "file": "src/gameLogic.js",
+      "baselineSha256": "48f85efa874295baf9bb1e46aef349fb550aeed8723b0acfb89a8ffa7dced33d",
+      "actualSha256": "1ad5a4d6e88a5a5b43c06d190a039ebab968f25df401db7243c409b4cb289b3e",
+      "changed": true,
+      "authorizedProductionChange": true
+    },
+    {
+      "file": "src/gameView.js",
+      "baselineSha256": "8ae48f8a74bc92dd4f00809870a68debd08839649987884027e25f2e1cd9a867",
+      "actualSha256": "8e693abbb644f62f2b7cce516e8ab83ede30185ba148a8400b44a09fc80db80e",
+      "changed": true,
+      "authorizedProductionChange": true
+    },
+    {
+      "file": "src/gameplayCatalog.js",
+      "baselineSha256": "2ad3668cd43a8461cea540ab7e1c40b271ded53730238e012da56bba8c3b53da",
+      "actualSha256": "2ad3668cd43a8461cea540ab7e1c40b271ded53730238e012da56bba8c3b53da",
+      "changed": false,
+      "authorizedProductionChange": false
+    },
+    {
+      "file": "src/opportunities.js",
+      "baselineSha256": "fedf11e293ae943c5449d254e6d935274c573a4b7a72c1065310eec5a9f5b80a",
+      "actualSha256": "fedf11e293ae943c5449d254e6d935274c573a4b7a72c1065310eec5a9f5b80a",
+      "changed": false,
+      "authorizedProductionChange": false
+    },
+    {
+      "file": "src/random.js",
+      "baselineSha256": "0c05b54cfcfe2f7585f806a48f4c61fb8dbaafb52e658d2b3d5cd0fa6c8243d9",
+      "actualSha256": "0c05b54cfcfe2f7585f806a48f4c61fb8dbaafb52e658d2b3d5cd0fa6c8243d9",
+      "changed": false,
+      "authorizedProductionChange": false
+    },
+    {
+      "file": "src/record.js",
+      "baselineSha256": "33297a4e0e0aef19820ce6861538ef47271654a1657ef45099d4ae7afe920475",
+      "actualSha256": "6fdef6abfc91587a96ae5d77424b30924ea93f28f75e7016eec2bc403aee4557",
+      "changed": true,
+      "authorizedProductionChange": true
+    },
+    {
+      "file": "src/roundFlow.js",
+      "baselineSha256": "a73aebd79c0371568468a9c30263527bff9af29ba4748309cfd739a90ac25090",
+      "actualSha256": "a73aebd79c0371568468a9c30263527bff9af29ba4748309cfd739a90ac25090",
+      "changed": false,
+      "authorizedProductionChange": false
+    },
+    {
+      "file": "src/state.js",
+      "baselineSha256": "ce784eb786ae8ec7c6e9b728053eb8e781ee39fc7be0cf5866642c36ade1b150",
+      "actualSha256": "70f1667e3ef42d84ad114b9498c884520dd18193b40e6e15c8582ea43bd0908e",
+      "changed": true,
+      "authorizedProductionChange": true
+    },
+    {
+      "file": "src/stocks.js",
+      "baselineSha256": "584f8cd265f851209c02d28a27c6228c2cf40405a6efa700955ad172a8696470",
+      "actualSha256": "584f8cd265f851209c02d28a27c6228c2cf40405a6efa700955ad172a8696470",
+      "changed": false,
+      "authorizedProductionChange": false
+    },
+    {
+      "file": "src/worldEvents.js",
+      "baselineSha256": "02af1f6bde6d2b93b2b270af29ec1490aac956f0f18a1ca5428bc239f121873b",
+      "actualSha256": "02af1f6bde6d2b93b2b270af29ec1490aac956f0f18a1ca5428bc239f121873b",
+      "changed": false,
+      "authorizedProductionChange": false
+    }
+  ],
+  "pilotSources": [
+    {
+      "file": "scripts/remediation/travel-pilot.js",
+      "expected": "b0f455b3f7c1e65abf6f5577aa1b2b8f7ac9555740fcb6ffef702698a17d254d",
+      "actual": "b0f455b3f7c1e65abf6f5577aa1b2b8f7ac9555740fcb6ffef702698a17d254d",
+      "match": true
+    },
+    {
+      "file": "scripts/remediation/investment-policy.js",
+      "expected": "9a1243b2f8e23136622ffd1c1e078fda3323d5d62b0ab370a634cda038188993",
+      "actual": "9a1243b2f8e23136622ffd1c1e078fda3323d5d62b0ab370a634cda038188993",
+      "match": true
+    },
+    {
+      "file": "src/travelExpense.js",
+      "expected": "c56b00966a6acdc08ae061609f370b1ee17f8162ab57467b9bba3218a1a9f27b",
+      "actual": "c56b00966a6acdc08ae061609f370b1ee17f8162ab57467b9bba3218a1a9f27b",
+      "match": true
+    }
+  ],
+  "documents": [
+    "readme.md",
+    "rules.md",
+    "docs/项目现状.md",
+    "docs/gameplay-roadmap.md",
+    "docs/环球大亨-权威开发文档.md",
+    "docs/环球大亨-前端UI完整信息.md",
+    "docs/balance-lightweight/decision.md",
+    "docs/economy-remediation/results.md",
+    "docs/economy-remediation/progress.md",
+    "docs/economy-remediation/production-spec.md",
+    "docs/economy-remediation/production-plan.md",
+    "docs/economy-remediation/production-task.md",
+    "docs/economy-remediation/production-checklist.md",
+    "docs/economy-remediation/production-acceptance.md"
+  ],
+  "localLinksChecked": 201,
+  "missingLinks": [],
+  "releaseBrowser": {
+    "date": "2026-10-05",
+    "newGameRevision": "travel-expense-v1",
+    "lobbyRulesMatch": true,
+    "legacyGameNotMigrated": true,
+    "legacyRulesNoExpense": true,
+    "pageErrors": []
+  },
+  "lintExit": 0,
+  "status": "PASS; selective commit follows; no new pilot trajectories"
+}

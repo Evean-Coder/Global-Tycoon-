@@ -54,6 +54,7 @@ let lastRoomState = null;
 let restoringSession = false;
 let lobbyFeedback = '';
 let transferReturn = null;
+let toastTimer = null;
 
 const $ = (id) => document.getElementById(id);
 let pieceResizeFrame = 0;
@@ -81,7 +82,8 @@ function toast(msg) {
   const t = $('toast');
   t.textContent = msg;
   t.classList.remove('hidden');
-  setTimeout(() => t.classList.add('hidden'), 2600);
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.add('hidden'), 2600);
 }
 
 const fmt = (n) => '￥' + Math.round(n).toLocaleString('zh-CN');
@@ -670,7 +672,10 @@ function renderFlightCosts(state) {
     +(expense?.preview?'<p>预告：第'+expense.preview.startsAtRound+'完整轮起 '+fmt(expense.preview.amount)+'</p>':'')+'</section>';
 }
 function sendAction(action, callback, options = {}) {
-  if (!game || actionPending) return;
+  if (!game) return;
+  if (!socket.connected || restoringSession) { toast('连接正在恢复，操作尚未发送；请等恢复完成后再操作。'); return; }
+  if (actionPending) { toast('上一操作仍在等待服务器确认，请稍候。'); return; }
+  if (game.decision?.paused) { toast('有玩家掉线，当前对局暂停；等待重连后可继续。'); return; }
   const context = options.context || (['stock_trade','stock_done','stock_transfer'].includes(action.type) && stockContext ? captureStockContext() : null);
   if (context && !isCurrentStockContext(context)) return;
   let payload = {...action};
@@ -687,6 +692,7 @@ function sendAction(action, callback, options = {}) {
     if (context && (game.ruleVersion !== 2 || latestState?.decision?.paused)) return;
     const attempt=++request.attempt;
     activeRequest=request;actionPending=true;document.body.classList.add('action-pending');
+    toast('操作已发送，等待服务器确认…');
     if(context){stockContext.pendingRequest=request;stockContext.status='submitting';renderStock();}
     const finish = (result) => {
       if(request.attempt!==attempt)return;
@@ -696,6 +702,7 @@ function sendAction(action, callback, options = {}) {
       const res=result||{ok:false,error:'操作未确认',unconfirmed:true};request.finished=!res.unconfirmed;
       if(context){stockContext.status=res.unconfirmed?'unconfirmed':'editing';if(!res.unconfirmed)stockContext.pendingRequest=null;}
       if(!res.ok){toast(res.error||'操作未确认，请重试');if(game.phase==='opportunity_choose')$('choiceError').textContent=res.error||'操作未确认，请重试';}
+      else toast('操作已确认');
       callback?.(res);
       if((context&&isCurrentStockContext(context))||(released&&!context&&!$('stockModal').classList.contains('hidden')))renderStock();
     };
@@ -703,7 +710,7 @@ function sendAction(action, callback, options = {}) {
       if(context&&!isCurrentStockContext(context))return;
       socket.timeout(5000).emit('action',payload,(err,res)=>{
         if(request.attempt!==attempt)return;
-        if(err&&!retry&&socket.connected&&(!context||game.ruleVersion===2)&&(!context||isCurrentStockContext(context))){transmit(true);return;}
+        if(err&&!retry&&socket.connected&&(!context||game.ruleVersion===2)&&(!context||isCurrentStockContext(context))){toast('网络响应较慢，正在查询刚才的操作结果；请勿重复提交。');transmit(true);return;}
         finish(err?{ok:false,error:'连接未确认，请重试获取原操作结果；不要重复下单。',unconfirmed:true}:res);
       });
     };
@@ -1079,8 +1086,8 @@ function setupLobby() {
   $('btnRules').onclick = () => { buildRules();showOverlay('rulesModal'); };
   $('btnModalRules').onclick = $('btnStockRules').onclick = $('btnRules').onclick;
   $('btnRulesClose').onclick = () => hideOverlay('rulesModal');
-  $('btnRoll').onclick = () => { playDiceAnim(); sendAction({ type: 'roll_dice' }); };
-  $('btnEndTurn').onclick = () => { playDiceAnim(); sendAction({ type: 'roll_dice' }); };
+  $('btnRoll').onclick = () => { if (sendAction({ type: 'roll_dice' })) playDiceAnim(); };
+  $('btnEndTurn').onclick = $('btnRoll').onclick;
   $('btnAssets').onclick = openAssetOverview;
   $('btnBank').onclick = openBank;
   // 股票买入/卖出与转让步进：事件委托（不依赖内联 onclick）

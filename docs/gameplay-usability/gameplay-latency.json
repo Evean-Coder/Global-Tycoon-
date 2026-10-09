@@ -1,0 +1,210 @@
+{
+  "at": "2026-10-09T04:43:26.626Z",
+  "scope": "本机网络路径；本地及公网短流程，不能代表用户手机或压力场景",
+  "runs": [
+    {
+      "label": "local",
+      "transport": "websocket",
+      "actions": [
+        {
+          "phase": "opportunity_choose",
+          "type": "opportunity_choose",
+          "ackMs": 4,
+          "stateMs": 4,
+          "stateBytes": 15835,
+          "paused": false
+        },
+        {
+          "phase": "opportunity_choose",
+          "type": "opportunity_choose",
+          "ackMs": 8,
+          "stateMs": 7,
+          "stateBytes": 15861,
+          "paused": false
+        },
+        {
+          "phase": "waiting_roll",
+          "type": "roll_dice",
+          "ackMs": 3,
+          "stateMs": 3,
+          "stateBytes": 15711,
+          "paused": false
+        },
+        {
+          "phase": "waiting_roll",
+          "type": "roll_dice",
+          "ackMs": 2,
+          "stateMs": 2,
+          "stateBytes": 15717,
+          "paused": false
+        },
+        {
+          "phase": "waiting_roll",
+          "type": "roll_dice",
+          "ackMs": 2,
+          "stateMs": 2,
+          "stateBytes": 15757,
+          "paused": false
+        },
+        {
+          "phase": "waiting_roll",
+          "type": "roll_dice",
+          "ackMs": 2,
+          "stateMs": 2,
+          "stateBytes": 15689,
+          "paused": false
+        }
+      ],
+      "disconnects": [
+        {
+          "player": 0,
+          "reason": "io client disconnect"
+        },
+        {
+          "player": 1,
+          "reason": "io client disconnect"
+        }
+      ],
+      "connect0Ms": 18,
+      "connect1Ms": 2,
+      "ownRoomDisbanded": true,
+      "ok": true
+    },
+    {
+      "label": "render-websocket",
+      "transport": "websocket",
+      "actions": [
+        {
+          "phase": "opportunity_choose",
+          "type": "opportunity_choose",
+          "ackMs": 416,
+          "stateMs": 366,
+          "stateBytes": 15835,
+          "paused": false
+        },
+        {
+          "phase": "opportunity_choose",
+          "type": "opportunity_choose",
+          "ackMs": 330,
+          "stateMs": 330,
+          "stateBytes": 15861,
+          "paused": false
+        },
+        {
+          "phase": "waiting_roll",
+          "type": "roll_dice",
+          "ackMs": 401,
+          "stateMs": 337,
+          "stateBytes": 15766,
+          "paused": false
+        },
+        {
+          "phase": "waiting_roll",
+          "type": "roll_dice",
+          "ackMs": 267,
+          "stateMs": 267,
+          "stateBytes": 15603,
+          "paused": false
+        },
+        {
+          "phase": "waiting_roll",
+          "type": "roll_dice",
+          "ackMs": 409,
+          "stateMs": 350,
+          "stateBytes": 15708,
+          "paused": false
+        },
+        {
+          "phase": "waiting_roll",
+          "type": "roll_dice",
+          "ackMs": 313,
+          "stateMs": 264,
+          "stateBytes": 15687,
+          "paused": false
+        }
+      ],
+      "disconnects": [
+        {
+          "player": 0,
+          "reason": "io client disconnect"
+        },
+        {
+          "player": 1,
+          "reason": "io client disconnect"
+        }
+      ],
+      "connect0Ms": 1594,
+      "connect1Ms": 1135,
+      "ownRoomDisbanded": true,
+      "ok": true
+    },
+    {
+      "label": "render-polling",
+      "transport": "polling",
+      "actions": [
+        {
+          "phase": "opportunity_choose",
+          "type": "opportunity_choose",
+          "ackMs": 1752,
+          "stateMs": 786,
+          "stateBytes": 15835,
+          "paused": false
+        },
+        {
+          "phase": "opportunity_choose",
+          "type": "opportunity_choose",
+          "ackMs": 1503,
+          "stateMs": 1503,
+          "stateBytes": 15864,
+          "paused": false
+        },
+        {
+          "phase": "waiting_roll",
+          "type": "roll_dice",
+          "ackMs": 1441,
+          "stateMs": 1441,
+          "stateBytes": 15708,
+          "paused": false
+        },
+        {
+          "phase": "waiting_roll",
+          "type": "roll_dice",
+          "ackMs": 880,
+          "stateMs": 880,
+          "stateBytes": 15711,
+          "paused": false
+        },
+        {
+          "phase": "waiting_roll",
+          "type": "roll_dice",
+          "ackMs": 1660,
+          "stateMs": 1660,
+          "stateBytes": 15809,
+          "paused": false
+        },
+        {
+          "phase": "waiting_roll",
+          "type": "roll_dice",
+          "ackMs": 1122,
+          "stateMs": 1122,
+          "stateBytes": 15687,
+          "paused": false
+        }
+      ],
+      "disconnects": [
+        {
+          "player": 0,
+          "reason": "io client disconnect"
+        },
+        {
+          "player": 1,
+          "reason": "io client disconnect"
+        }
+      ],
+      "connect0Ms": 1659,
+      "connect1Ms": 1751,
+      "ownRoomDisbanded": true,
+      "ok": true
+    }
+  ]
+}

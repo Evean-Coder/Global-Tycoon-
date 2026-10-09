@@ -1,14 +1,14 @@
 'use strict';
-const CACHE = 'global-tycoon-v8-mobile';
+const CACHE = 'global-tycoon-v9-feedback';
 const CORE = [
   './',
   './index.html',
   './style.css',
   './client.js',
   './rules-catalog.js',
-  './rules-catalog.js?v=20261009-mobile-r2',
-  './style.css?v=20261009-mobile-r2',
-  './client.js?v=20261009-mobile-r2',
+  './rules-catalog.js?v=20261009-action-feedback',
+  './style.css?v=20261009-action-feedback',
+  './client.js?v=20261009-action-feedback',
   './socket.io/socket.io.js',
   './assets/world-map-ocean.png',
   './assets/ocean-surface.png',

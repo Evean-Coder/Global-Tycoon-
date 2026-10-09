@@ -1,0 +1,19 @@
+{
+  "at": "2026-10-09T04:46:14.948Z",
+  "scope": "本地触控、受控延迟回执及主动断线；不改变正式源码",
+  "pending": {
+    "sent": 1,
+    "actionPending": true,
+    "toastChanged": false,
+    "secondButtonDisabled": false,
+    "secondMortgageApplied": false
+  },
+  "offline": {
+    "connected": false,
+    "actionPending": false,
+    "toastChanged": false,
+    "sendBuffer": 0,
+    "mortgageApplied": false
+  },
+  "pageErrors": []
+}

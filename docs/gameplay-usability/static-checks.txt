@@ -1,0 +1,21 @@
+Syntax PASS: public/client.js
+Syntax PASS: public/rules-catalog.js
+Syntax PASS: public/sw.js
+Syntax PASS: src/gameLogic.js
+Syntax PASS: src/gameView.js
+Syntax PASS: scripts/build-rules-catalog.js
+Syntax PASS: e2e/usability-stocks.spec.js
+Syntax PASS: e2e/usability-flow.spec.js
+Catalog consistency PASS
+SHA256 unchanged: src/economy.js E2E38B82D7A1692893765ED620C3BD925951C009C52D2376CDF62AD39FCD0FBD
+SHA256 unchanged: src/travelExpense.js C56B00966A6ACDC08AE061609F370B1EE17F8162AB57467B9BBA3218A1A9F27B
+SHA256 unchanged: package-lock.json 127C7FA4A09CB046F84CACF98C196AE88F2FBFC3974FFB13320FB5D259475B1D
+SHA256 unchanged: package.json B5FEBF28EB0FDE1EC7022E582BCD5C349DC80B734A244C96039DA5646B8540CC
+SHA256 unchanged: src/stocks.js 584F8CD265F851209C02D28A27C6228C2CF40405A6EFA700955AD172A8696470
+SHA256 unchanged: src/gameplayCatalog.js 2AD3668CD43A8461CEA540AB7E1C40B271DED53730238E012DA56BBA8C3B53DA
+Targeted ESLint PASS (exit 0)
+Documentation links PASS: 11 files, 143 local links
+Task/checklist mapping PASS: T1-T33 and C01-C39, each mapped exactly once
+Evidence inventory PASS: 17 referenced/representative files; temporary previous worker absent
+Git staged whitespace PASS after normalizing whitespace-only lines in two failure logs; all failure messages and results retained.
+Staged inventory PASS: exactly 30 authorized documentation/evidence files; all other workspace artifacts preserved.

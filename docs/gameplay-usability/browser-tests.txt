@@ -1,0 +1,110 @@
+TAP version 13
+# Subtest: 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+ok 1 - 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+  ---
+  duration_ms: 9124.2609
+  ...
+# Subtest: 统一动作封装 / 同步机遇选择与重选 / 自然规则说明 / 资讯当前与预告
+ok 2 - 统一动作封装 / 同步机遇选择与重选 / 自然规则说明 / 资讯当前与预告
+  ---
+  duration_ms: 4405.7007
+  ...
+# Subtest: 已选机遇与主动入口 / 城市租金与资讯明细 / 建拆房最终费用 / 服务端资产摘要 / 机票与机场费用边界
+ok 3 - 已选机遇与主动入口 / 城市租金与资讯明细 / 建拆房最终费用 / 服务端资产摘要 / 机票与机场费用边界
+  ---
+  duration_ms: 1068.6996
+  ...
+# Subtest: 股票成交回执 / 股票转让回执 / 报价原因与实际历史股息 / 失败订单保留草稿
+ok 4 - 股票成交回执 / 股票转让回执 / 报价原因与实际历史股息 / 失败订单保留草稿
+  ---
+  duration_ms: 1048.3283
+  ...
+# Subtest: 结构化收益和旧记录 / 普通流程回归
+ok 5 - 结构化收益和旧记录 / 普通流程回归
+  ---
+  duration_ms: 133.0069
+  ...
+# Subtest: 远航预告→收费不足→抵押自救→换人→自然终局记录与回放
+ok 6 - 远航预告→收费不足→抵押自救→换人→自然终局记录与回放
+  ---
+  duration_ms: 657.7289
+  ...
+# Subtest: PC宽屏布局 / 平板横竖布局 / 手机完整棋盘布局 / 长说明与按钮可达
+ok 7 - PC宽屏布局 / 平板横竖布局 / 手机完整棋盘布局 / 长说明与按钮可达
+  ---
+  duration_ms: 48495.9257
+  ...
+# Subtest: 九类视口股票确认及费用明细可达
+ok 8 - 九类视口股票确认及费用明细可达
+  ---
+  duration_ms: 4705.9083
+  ...
+# Subtest: 键盘焦点与减少动画 / 真正200%页面缩放完成选择详情及交易
+ok 9 - 键盘焦点与减少动画 / 真正200%页面缩放完成选择详情及交易
+  ---
+  duration_ms: 5912.1417
+  ...
+# Subtest: 手机开局→地图旋转→两次起点→机场明细→只读规则→继续回合
+ok 10 - 手机开局→地图旋转→两次起点→机场明细→只读规则→继续回合
+  ---
+  duration_ms: 9660.5621
+  ...
+# Subtest: 连续实际起点两次买入3城各2股
+ok 11 - 连续实际起点两次买入3城各2股
+  ---
+  duration_ms: 5379.2788
+  ...
+# Subtest: 失败、未提交、超时草稿不带入新窗口
+ok 12 - 失败、未提交、超时草稿不带入新窗口
+  ---
+  duration_ms: 609.4164
+  ...
+# Subtest: 迟到成功或失败不能污染新草稿或解除新请求锁
+ok 13 - 迟到成功或失败不能污染新草稿或解除新请求锁
+  ---
+  duration_ms: 840.6123
+  ...
+# Subtest: 限额、供给、城主4股与卖A买B
+ok 14 - 限额、供给、城主4股与卖A买B
+  ---
+  duration_ms: 1239.5443
+  ...
+# Subtest: 报价变化更新展示后再次确认，拒绝无副作用
+ok 15 - 报价变化更新展示后再次确认，拒绝无副作用
+  ---
+  duration_ms: 412.5678
+  ...
+# Subtest: 无确认重试原请求身份，实际最多成交一次
+ok 16 - 无确认重试原请求身份，实际最多成交一次
+  ---
+  duration_ms: 617.8436
+  ...
+# Subtest: 转让及同窗口认证重连保留累计额度
+not ok 17 - 转让及同窗口认证重连保留累计额度
+  ---
+  duration_ms: 31784.3482
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\usability-stocks.spec.js:66:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    locator.click: Timeout 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: '取消', exact: true })[22m
+
+  code: 'ERR_TEST_FAILURE'
+  name: 'TimeoutError'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\usability-stocks.spec.js:71:88)
+  ...
+# Subtest: 呈现延迟与旧v1未确认订单不补单
+ok 18 - 呈现延迟与旧v1未确认订单不补单
+  ---
+  duration_ms: 2011.0763
+  ...
+1..18
+# tests 18
+# suites 0
+# pass 17
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0

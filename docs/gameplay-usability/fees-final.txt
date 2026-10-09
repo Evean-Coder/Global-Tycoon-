@@ -1,0 +1,19 @@
+TAP version 13
+# Subtest: 实际机场扣款事实与本人投影 / 目的自有仍付票 / 免费航班后期费
+ok 1 - 实际机场扣款事实与本人投影 / 目的自有仍付票 / 免费航班后期费
+  ---
+  duration_ms: 11.1626
+  ...
+# Subtest: 缺旧资料不猜历史扣费 / 费用边界及原机场不足自救
+ok 2 - 缺旧资料不猜历史扣费 / 费用边界及原机场不足自救
+  ---
+  duration_ms: 1.7662
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

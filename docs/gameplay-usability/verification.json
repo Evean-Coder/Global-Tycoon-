@@ -1,0 +1,166 @@
+{
+  "date": "2026-10-09",
+  "status": "complete_with_stated_limits",
+  "head": "693682257ef179664f94a52ad41c6a51b9ae9e6c",
+  "node": "v20.20.2",
+  "browser": "Microsoft Edge 154.0.4258.53",
+  "physicalDevices": "未测，使用受控浏览器视口",
+  "baseline": {
+    "src/economy.js": "E2E38B82D7A1692893765ED620C3BD925951C009C52D2376CDF62AD39FCD0FBD",
+    "src/travelExpense.js": "C56B00966A6ACDC08AE061609F370B1EE17F8162AB57467B9BBA3218A1A9F27B",
+    "package-lock.json": "127C7FA4A09CB046F84CACF98C196AE88F2FBFC3974FFB13320FB5D259475B1D",
+    "package.json": "B5FEBF28EB0FDE1EC7022E582BCD5C349DC80B734A244C96039DA5646B8540CC",
+    "src/stocks.js": "584F8CD265F851209C02D28A27C6228C2CF40405A6EFA700955AD172A8696470",
+    "src/gameplayCatalog.js": "2AD3668CD43A8461CEA540AB7E1C40B271DED53730238E012DA56BBA8C3B53DA"
+  },
+  "checks": {
+    "engine": {
+      "distinctTests": 31,
+      "passed": 31,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "engine-tests.txt"
+    },
+    "feesSupplement": {
+      "tests": 2,
+      "passed": 2,
+      "includedInEngineDistinctCount": true,
+      "evidence": "fees-final.txt"
+    },
+    "browser": {
+      "distinctScenarios": 18,
+      "finalEffectivePassed": 18,
+      "oneAllPassingBatch": false,
+      "runs": [
+        {
+          "passed": 17,
+          "failed": 1,
+          "skipped": 0,
+          "evidence": "browser-tests.txt"
+        },
+        {
+          "passed": 3,
+          "failed": 1,
+          "skipped": 7,
+          "evidence": "browser-targeted.txt"
+        },
+        {
+          "passed": 1,
+          "failed": 0,
+          "skipped": 7,
+          "evidence": "browser-resume.txt"
+        }
+      ],
+      "finalFailureResolution": "Transfer scenario corrected to original navigation path, then passed; earlier failures retained",
+      "viewports": [
+        "1440x900",
+        "1024x768",
+        "768x1024",
+        "320x568",
+        "375x812",
+        "430x932",
+        "568x320",
+        "812x375",
+        "932x430"
+      ],
+      "evidence": [
+        "browser-evidence/measurements.json",
+        "browser-evidence/flow.json"
+      ],
+      "actualBrowserZoom": "Independent Chrome profile, 200%; innerWidth 720, devicePixelRatio 2, visualViewport.scale 1"
+    },
+    "static": {
+      "syntax": "pass",
+      "targetedEslintExit": 0,
+      "generatedCatalog": "consistent",
+      "unchangedSha256Files": 6,
+      "evidence": [
+        "static-checks.txt",
+        "lint.txt"
+      ]
+    },
+    "documentation": {
+      "markdownFilesChecked": 11,
+      "localLinksChecked": 143,
+      "completedTasks": 33,
+      "completedChecklist": 39,
+      "exactEvidenceMappings": "T1-T33 and C01-C39 once each",
+      "evidence": "acceptance.md"
+    }
+  },
+  "baselineDate": "2026-10-08",
+  "headMeaning": "head is the baseline; delivery commits are registered separately",
+  "staticVersion": "20261008-usability",
+  "cacheName": "global-tycoon-v6-usability",
+  "commits": {
+    "implementation": {
+      "hash": "4fcb7eb9b50f7b0de7c8f7e1ed98ac46e48f27ae",
+      "subject": "fix: improve mobile board and gameplay usability",
+      "files": [
+        "e2e/cache.spec.js",
+        "e2e/fixtures/previous-cache-v5.json",
+        "e2e/gameplay.spec.js",
+        "e2e/helpers/browserHarness.js",
+        "e2e/responsive.spec.js",
+        "e2e/usability-flow.spec.js",
+        "e2e/usability-stocks.spec.js",
+        "eslint.config.js",
+        "public/client.js",
+        "public/index.html",
+        "public/rules-catalog.js",
+        "public/style.css",
+        "public/sw.js",
+        "scripts/build-rules-catalog.js",
+        "src/gameLogic.js",
+        "src/gameView.js",
+        "test/gameplay-server.test.js",
+        "test/rules-catalog.test.js",
+        "test/usability-fees.test.js"
+      ]
+    },
+    "documentation": {
+      "subject": "docs: finalize gameplay usability acceptance",
+      "parent": "4fcb7eb9b50f7b0de7c8f7e1ed98ac46e48f27ae",
+      "identification": "Find the local commit by exact subject and parent; the commit cannot include its own hash",
+      "intendedFiles": [
+        "readme.md",
+        "rules.md",
+        "docs/项目现状.md",
+        "docs/gameplay-usability/spec.md",
+        "docs/gameplay-usability/plan.md",
+        "docs/gameplay-usability/proposal.md",
+        "docs/gameplay-usability/plan-proposal.md",
+        "docs/gameplay-usability/task.md",
+        "docs/gameplay-usability/checklist.md",
+        "docs/gameplay-usability/progress.md",
+        "docs/gameplay-usability/acceptance.md",
+        "docs/gameplay-usability/verification.json",
+        "docs/gameplay-usability/investigation.json",
+        "docs/gameplay-usability/mobile-before-375.png",
+        "docs/gameplay-usability/engine-tests.txt",
+        "docs/gameplay-usability/browser-tests.txt",
+        "docs/gameplay-usability/browser-targeted.txt",
+        "docs/gameplay-usability/browser-resume.txt",
+        "docs/gameplay-usability/fees-final.txt",
+        "docs/gameplay-usability/static-checks.txt",
+        "docs/gameplay-usability/lint.txt",
+        "docs/gameplay-usability/browser-evidence/measurements.json",
+        "docs/gameplay-usability/browser-evidence/flow.json",
+        "docs/gameplay-usability/browser-evidence/board-320.png",
+        "docs/gameplay-usability/browser-evidence/board-375.png",
+        "docs/gameplay-usability/browser-evidence/board-812.png",
+        "docs/gameplay-usability/browser-evidence/board-1440.png",
+        "docs/gameplay-usability/browser-evidence/board-768.png",
+        "docs/gameplay-usability/browser-evidence/board-1024.png",
+        "docs/gameplay-usability/browser-evidence/zoom-200-stock.png"
+      ]
+    }
+  },
+  "limits": [
+    "No full-game simulation or win-rate study",
+    "No physical phone, iOS/Safari, load, or field weak-network verification",
+    "Original reported next-lap stock fault was not precisely reproduced; normal flow and specified anomaly defenses passed",
+    "Periodic optional new opportunities deferred to a separately scoped project",
+    "Local commits only; not pushed or deployed"
+  ]
+}

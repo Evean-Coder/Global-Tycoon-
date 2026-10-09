@@ -1,0 +1,79 @@
+{
+  "date": "2026-10-08",
+  "kind": "controlled investigation; no normal full games; production source unchanged",
+  "airport": [
+    {
+      "originOwned": true,
+      "late": false,
+      "ticket": 0,
+      "arrivalCashChange": 0,
+      "landingCash": 150000,
+      "events": [
+        {
+          "type": "airport",
+          "text": "玩家0 免费飞往「伦敦希思罗国际机场」"
+        },
+        {
+          "type": "log",
+          "text": "轮到 玩家1"
+        }
+      ]
+    },
+    {
+      "originOwned": false,
+      "late": false,
+      "ticket": 5000,
+      "arrivalCashChange": -5000,
+      "landingCash": 147000,
+      "events": [
+        {
+          "kind": "flight",
+          "type": "flight",
+          "text": "玩家0 机票 5000"
+        },
+        {
+          "type": "log",
+          "text": "轮到 玩家1"
+        }
+      ]
+    },
+    {
+      "originOwned": true,
+      "late": true,
+      "ticket": 0,
+      "arrivalCashChange": -1500,
+      "landingCash": 150000,
+      "events": [
+        {
+          "type": "airport",
+          "text": "玩家0 免费飞往「伦敦希思罗国际机场」"
+        },
+        {
+          "kind": "travel_expense",
+          "type": "travel_expense",
+          "text": "玩家0 第81完整轮回合结束，远航开支 1500"
+        },
+        {
+          "type": "log",
+          "text": "轮到 玩家1"
+        }
+      ]
+    }
+  ],
+  "stock": {
+    "normalSixShareFirstWindow": "PASS",
+    "nextGoOpensNewWindow": true,
+    "secondQuota": {},
+    "normalSixShareSecondWindow": "PASS",
+    "held": {
+      "巴黎": 4,
+      "上海": 4,
+      "东京": 4
+    }
+  },
+  "mobile": {
+    "squares": 42,
+    "visibleNames": 0
+  },
+  "pageErrors": []
+}

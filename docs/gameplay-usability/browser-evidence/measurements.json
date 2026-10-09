@@ -1,0 +1,4877 @@
+{
+  "browser": "Chromium / Microsoft Edge and Google Chrome",
+  "node": "v20.20.2",
+  "physicalDevices": "未测；九类模拟视口，真实浏览器默认页面缩放单独验证",
+  "measures": [
+    {
+      "label": "choice-1440",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 26,
+        "y": 160.796875,
+        "width": 1072,
+        "height": 637.203125,
+        "top": 160.796875,
+        "right": 1098,
+        "bottom": 798,
+        "left": 26
+      },
+      "available": "637.203125px",
+      "actionBar": {
+        "x": 14,
+        "y": 822,
+        "width": 1412,
+        "height": 66,
+        "top": 822,
+        "right": 1426,
+        "bottom": 888,
+        "left": 14
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "choice-1024",
+      "width": 1024,
+      "height": 768,
+      "scrollWidth": 1024,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 26,
+        "y": 156.796875,
+        "width": 972,
+        "height": 750,
+        "top": 156.796875,
+        "right": 998,
+        "bottom": 906.796875,
+        "left": 26
+      },
+      "available": "484.203125px",
+      "actionBar": {
+        "x": 14,
+        "y": 665,
+        "width": 996,
+        "height": 91,
+        "top": 665,
+        "right": 1010,
+        "bottom": 756,
+        "left": 14
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "choice-768",
+      "width": 768,
+      "height": 1024,
+      "scrollWidth": 768,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 26,
+        "y": 156.796875,
+        "width": 716,
+        "height": 750,
+        "top": 156.796875,
+        "right": 742,
+        "bottom": 906.796875,
+        "left": 26
+      },
+      "available": "740.203125px",
+      "actionBar": {
+        "x": 14,
+        "y": 921,
+        "width": 740,
+        "height": 91,
+        "top": 921,
+        "right": 754,
+        "bottom": 1012,
+        "left": 14
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "choice-320",
+      "width": 320,
+      "height": 568,
+      "scrollWidth": 320,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 10,
+        "y": 218.984375,
+        "width": 300,
+        "height": 1216,
+        "top": 218.984375,
+        "right": 310,
+        "bottom": 1434.984375,
+        "left": 10
+      },
+      "available": "234.015625px",
+      "actionBar": {
+        "x": 0,
+        "y": 489,
+        "width": 320,
+        "height": 79,
+        "top": 489,
+        "right": 320,
+        "bottom": 568,
+        "left": 0
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "choice-375",
+      "width": 375,
+      "height": 812,
+      "scrollWidth": 375,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 10,
+        "y": 218.984375,
+        "width": 355,
+        "height": 953,
+        "top": 218.984375,
+        "right": 365,
+        "bottom": 1171.984375,
+        "left": 10
+      },
+      "available": "478.015625px",
+      "actionBar": {
+        "x": 0,
+        "y": 733,
+        "width": 375,
+        "height": 79,
+        "top": 733,
+        "right": 375,
+        "bottom": 812,
+        "left": 0
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "choice-430",
+      "width": 430,
+      "height": 932,
+      "scrollWidth": 430,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 12,
+        "y": 224.984375,
+        "width": 406,
+        "height": 948,
+        "top": 224.984375,
+        "right": 418,
+        "bottom": 1172.984375,
+        "left": 12
+      },
+      "available": "591.015625px",
+      "actionBar": {
+        "x": 0,
+        "y": 852,
+        "width": 430,
+        "height": 80,
+        "top": 852,
+        "right": 430,
+        "bottom": 932,
+        "left": 0
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "choice-568",
+      "width": 568,
+      "height": 320,
+      "scrollWidth": 568,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 10,
+        "y": 127.390625,
+        "width": 548,
+        "height": 737.03125,
+        "top": 127.390625,
+        "right": 558,
+        "bottom": 864.421875,
+        "left": 10
+      },
+      "available": "76.609375px",
+      "actionBar": {
+        "x": 0,
+        "y": 240,
+        "width": 568,
+        "height": 80,
+        "top": 240,
+        "right": 568,
+        "bottom": 320,
+        "left": 0
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "choice-812",
+      "width": 812,
+      "height": 375,
+      "scrollWidth": 812,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 10,
+        "y": 146.796875,
+        "width": 792,
+        "height": 736.34375,
+        "top": 146.796875,
+        "right": 802,
+        "bottom": 883.140625,
+        "left": 10
+      },
+      "available": "101.203125px",
+      "actionBar": {
+        "x": 14,
+        "y": 272,
+        "width": 784,
+        "height": 91,
+        "top": 272,
+        "right": 798,
+        "bottom": 363,
+        "left": 14
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "choice-932",
+      "width": 932,
+      "height": 430,
+      "scrollWidth": 932,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 10,
+        "y": 146.796875,
+        "width": 912,
+        "height": 730,
+        "top": 146.796875,
+        "right": 922,
+        "bottom": 876.796875,
+        "left": 10
+      },
+      "available": "156.203125px",
+      "actionBar": {
+        "x": 14,
+        "y": 327,
+        "width": 904,
+        "height": 91,
+        "top": 327,
+        "right": 918,
+        "bottom": 418,
+        "left": 14
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "board-1440",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 26,
+        "y": 160.796875,
+        "width": 1072,
+        "height": 637.203125,
+        "top": 160.796875,
+        "right": 1098,
+        "bottom": 798,
+        "left": 26
+      },
+      "available": "637.203125px",
+      "actionBar": {
+        "x": 14,
+        "y": 822,
+        "width": 1412,
+        "height": 66,
+        "top": 822,
+        "right": 1426,
+        "bottom": 888,
+        "left": 14
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "map-text-1440x900",
+      "text": [
+        {
+          "id": "0",
+          "name": "起点",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "1",
+          "name": "肯尼亚·内罗毕",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "2",
+          "name": "南非·开普敦",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "3",
+          "name": "机会卡",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "4",
+          "name": "摩洛哥·卡萨布兰卡",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "5",
+          "name": "埃及·开罗",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "6",
+          "name": "开罗国际机场",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "7",
+          "name": "机会卡",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "8",
+          "name": "新西兰·奥克兰",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "9",
+          "name": "澳大利亚·悉尼",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "10",
+          "name": "休闲",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "11",
+          "name": "监狱",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "12",
+          "name": "意大利·罗马",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "13",
+          "name": "荷兰·阿姆斯特丹",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "14",
+          "name": "南极",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "15",
+          "name": "机会卡",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "16",
+          "name": "伦敦希思罗国际机场",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "17",
+          "name": "英国·伦敦",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "18",
+          "name": "法国·巴黎",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "19",
+          "name": "机会卡",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "20",
+          "name": "德国·柏林",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "21",
+          "name": "监狱",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "22",
+          "name": "俄罗斯·莫斯科",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "23",
+          "name": "休闲",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "24",
+          "name": "纽约肯尼迪国际机场",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "25",
+          "name": "美国·纽约",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "26",
+          "name": "机会卡",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "27",
+          "name": "加拿大·多伦多",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "28",
+          "name": "墨西哥·墨西哥城",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "29",
+          "name": "巴西·里约热内卢",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "30",
+          "name": "机会卡",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "31",
+          "name": "休闲",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "32",
+          "name": "监狱",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "33",
+          "name": "机会卡",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "34",
+          "name": "北极",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "35",
+          "name": "上海浦东国际机场",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "36",
+          "name": "中国·上海",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "37",
+          "name": "日本·东京",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "38",
+          "name": "新加坡·新加坡",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "39",
+          "name": "阿联酋·迪拜",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "40",
+          "name": "机会卡",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "41",
+          "name": "休闲",
+          "font": 11.952,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        }
+      ]
+    },
+    {
+      "label": "assets-1440",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 26,
+        "y": 160.796875,
+        "width": 1072,
+        "height": 637.203125,
+        "top": 160.796875,
+        "right": 1098,
+        "bottom": 798,
+        "left": 26
+      },
+      "available": "637.203125px",
+      "actionBar": {
+        "x": 14,
+        "y": 822,
+        "width": 1412,
+        "height": 66,
+        "top": 822,
+        "right": 1426,
+        "bottom": 888,
+        "left": 14
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "board-1024",
+      "width": 1024,
+      "height": 768,
+      "scrollWidth": 1024,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 26,
+        "y": 188.59375,
+        "width": 972,
+        "height": 750,
+        "top": 188.59375,
+        "right": 998,
+        "bottom": 938.59375,
+        "left": 26
+      },
+      "available": "452.40625px",
+      "actionBar": {
+        "x": 14,
+        "y": 665,
+        "width": 996,
+        "height": 91,
+        "top": 665,
+        "right": 1010,
+        "bottom": 756,
+        "left": 14
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "map-text-1024x768",
+      "text": [
+        {
+          "id": "0",
+          "name": "起点",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "1",
+          "name": "肯尼亚·内罗毕",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "2",
+          "name": "南非·开普敦",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "3",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "4",
+          "name": "摩洛哥·卡萨布兰卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "5",
+          "name": "埃及·开罗",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "6",
+          "name": "开罗国际机场",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "7",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "8",
+          "name": "新西兰·奥克兰",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "9",
+          "name": "澳大利亚·悉尼",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "10",
+          "name": "休闲",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "11",
+          "name": "监狱",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "12",
+          "name": "意大利·罗马",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "13",
+          "name": "荷兰·阿姆斯特丹",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "14",
+          "name": "南极",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "15",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "16",
+          "name": "伦敦希思罗国际机场",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "17",
+          "name": "英国·伦敦",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "18",
+          "name": "法国·巴黎",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "19",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "20",
+          "name": "德国·柏林",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "21",
+          "name": "监狱",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "22",
+          "name": "俄罗斯·莫斯科",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "23",
+          "name": "休闲",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "24",
+          "name": "纽约肯尼迪国际机场",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "25",
+          "name": "美国·纽约",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "26",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "27",
+          "name": "加拿大·多伦多",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "28",
+          "name": "墨西哥·墨西哥城",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "29",
+          "name": "巴西·里约热内卢",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "30",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "31",
+          "name": "休闲",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "32",
+          "name": "监狱",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "33",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "34",
+          "name": "北极",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "35",
+          "name": "上海浦东国际机场",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "36",
+          "name": "中国·上海",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "37",
+          "name": "日本·东京",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "38",
+          "name": "新加坡·新加坡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "39",
+          "name": "阿联酋·迪拜",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "40",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "41",
+          "name": "休闲",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        }
+      ]
+    },
+    {
+      "label": "assets-1024",
+      "width": 1024,
+      "height": 768,
+      "scrollWidth": 1024,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 26,
+        "y": 188.59375,
+        "width": 972,
+        "height": 750,
+        "top": 188.59375,
+        "right": 998,
+        "bottom": 938.59375,
+        "left": 26
+      },
+      "available": "452.40625px",
+      "actionBar": {
+        "x": 14,
+        "y": 665,
+        "width": 996,
+        "height": 91,
+        "top": 665,
+        "right": 1010,
+        "bottom": 756,
+        "left": 14
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "board-768",
+      "width": 768,
+      "height": 1024,
+      "scrollWidth": 768,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 26,
+        "y": 188.59375,
+        "width": 716,
+        "height": 750,
+        "top": 188.59375,
+        "right": 742,
+        "bottom": 938.59375,
+        "left": 26
+      },
+      "available": "708.40625px",
+      "actionBar": {
+        "x": 14,
+        "y": 921,
+        "width": 740,
+        "height": 91,
+        "top": 921,
+        "right": 754,
+        "bottom": 1012,
+        "left": 14
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "map-text-768x1024",
+      "text": [
+        {
+          "id": "0",
+          "name": "起点",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "1",
+          "name": "肯尼亚·内罗毕",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "2",
+          "name": "南非·开普敦",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "3",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "4",
+          "name": "摩洛哥·卡萨布兰卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "5",
+          "name": "埃及·开罗",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "6",
+          "name": "开罗国际机场",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "7",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "8",
+          "name": "新西兰·奥克兰",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "9",
+          "name": "澳大利亚·悉尼",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "10",
+          "name": "休闲",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "11",
+          "name": "监狱",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "12",
+          "name": "意大利·罗马",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "13",
+          "name": "荷兰·阿姆斯特丹",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "14",
+          "name": "南极",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "15",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "16",
+          "name": "伦敦希思罗国际机场",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "17",
+          "name": "英国·伦敦",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "18",
+          "name": "法国·巴黎",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "19",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "20",
+          "name": "德国·柏林",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "21",
+          "name": "监狱",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "22",
+          "name": "俄罗斯·莫斯科",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "23",
+          "name": "休闲",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "24",
+          "name": "纽约肯尼迪国际机场",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "25",
+          "name": "美国·纽约",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "26",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "27",
+          "name": "加拿大·多伦多",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "28",
+          "name": "墨西哥·墨西哥城",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "29",
+          "name": "巴西·里约热内卢",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "30",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "31",
+          "name": "休闲",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "32",
+          "name": "监狱",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "33",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "34",
+          "name": "北极",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "35",
+          "name": "上海浦东国际机场",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "36",
+          "name": "中国·上海",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "37",
+          "name": "日本·东京",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "38",
+          "name": "新加坡·新加坡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "39",
+          "name": "阿联酋·迪拜",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "40",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "41",
+          "name": "休闲",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        }
+      ]
+    },
+    {
+      "label": "assets-768",
+      "width": 768,
+      "height": 1024,
+      "scrollWidth": 768,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 26,
+        "y": 188.59375,
+        "width": 716,
+        "height": 750,
+        "top": 188.59375,
+        "right": 742,
+        "bottom": 938.59375,
+        "left": 26
+      },
+      "available": "708.40625px",
+      "actionBar": {
+        "x": 14,
+        "y": 921,
+        "width": 740,
+        "height": 91,
+        "top": 921,
+        "right": 754,
+        "bottom": 1012,
+        "left": 14
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "board-320",
+      "width": 320,
+      "height": 568,
+      "scrollWidth": 320,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 10,
+        "y": 266.375,
+        "width": 300,
+        "height": 1338.53125,
+        "top": 266.375,
+        "right": 310,
+        "bottom": 1604.90625,
+        "left": 10
+      },
+      "available": "172.625px",
+      "actionBar": {
+        "x": 0,
+        "y": 475,
+        "width": 320,
+        "height": 93,
+        "top": 475,
+        "right": 320,
+        "bottom": 568,
+        "left": 0
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "map-text-320x568",
+      "text": [
+        {
+          "id": "0",
+          "name": "起点",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "1",
+          "name": "肯尼亚·内罗毕",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "2",
+          "name": "南非·开普敦",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "3",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "4",
+          "name": "摩洛哥·卡萨布兰卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "5",
+          "name": "埃及·开罗",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "6",
+          "name": "开罗国际机场",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "7",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "8",
+          "name": "新西兰·奥克兰",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "9",
+          "name": "澳大利亚·悉尼",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "10",
+          "name": "休闲",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "11",
+          "name": "监狱",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "12",
+          "name": "意大利·罗马",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "13",
+          "name": "荷兰·阿姆斯特丹",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "14",
+          "name": "南极",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "15",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "16",
+          "name": "伦敦希思罗国际机场",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "17",
+          "name": "英国·伦敦",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "18",
+          "name": "法国·巴黎",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "19",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "20",
+          "name": "德国·柏林",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "21",
+          "name": "监狱",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "22",
+          "name": "俄罗斯·莫斯科",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "23",
+          "name": "休闲",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "24",
+          "name": "纽约肯尼迪国际机场",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "25",
+          "name": "美国·纽约",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "26",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "27",
+          "name": "加拿大·多伦多",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "28",
+          "name": "墨西哥·墨西哥城",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "29",
+          "name": "巴西·里约热内卢",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "30",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "31",
+          "name": "休闲",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "32",
+          "name": "监狱",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "33",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "34",
+          "name": "北极",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "35",
+          "name": "上海浦东国际机场",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "36",
+          "name": "中国·上海",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "37",
+          "name": "日本·东京",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "38",
+          "name": "新加坡·新加坡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "39",
+          "name": "阿联酋·迪拜",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "40",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "41",
+          "name": "休闲",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        }
+      ]
+    },
+    {
+      "label": "assets-320",
+      "width": 320,
+      "height": 568,
+      "scrollWidth": 320,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 10,
+        "y": -1.625,
+        "width": 300,
+        "height": 1338.53125,
+        "top": -1.625,
+        "right": 310,
+        "bottom": 1336.90625,
+        "left": 10
+      },
+      "available": "172.625px",
+      "actionBar": {
+        "x": 0,
+        "y": 475,
+        "width": 320,
+        "height": 93,
+        "top": 475,
+        "right": 320,
+        "bottom": 568,
+        "left": 0
+      },
+      "scrollY": 268,
+      "oversized": []
+    },
+    {
+      "label": "board-375",
+      "width": 375,
+      "height": 812,
+      "scrollWidth": 375,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 10,
+        "y": 40.375,
+        "width": 355,
+        "height": 1078.34375,
+        "top": 40.375,
+        "right": 365,
+        "bottom": 1118.71875,
+        "left": 10
+      },
+      "available": "416.625px",
+      "actionBar": {
+        "x": 0,
+        "y": 719,
+        "width": 375,
+        "height": 93,
+        "top": 719,
+        "right": 375,
+        "bottom": 812,
+        "left": 0
+      },
+      "scrollY": 226,
+      "oversized": []
+    },
+    {
+      "label": "map-text-375x812",
+      "text": [
+        {
+          "id": "0",
+          "name": "起点",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "1",
+          "name": "肯尼亚·内罗毕",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "2",
+          "name": "南非·开普敦",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "3",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "4",
+          "name": "摩洛哥·卡萨布兰卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "5",
+          "name": "埃及·开罗",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "6",
+          "name": "开罗国际机场",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "7",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "8",
+          "name": "新西兰·奥克兰",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "9",
+          "name": "澳大利亚·悉尼",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "10",
+          "name": "休闲",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "11",
+          "name": "监狱",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "12",
+          "name": "意大利·罗马",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "13",
+          "name": "荷兰·阿姆斯特丹",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "14",
+          "name": "南极",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "15",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "16",
+          "name": "伦敦希思罗国际机场",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "17",
+          "name": "英国·伦敦",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "18",
+          "name": "法国·巴黎",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "19",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "20",
+          "name": "德国·柏林",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "21",
+          "name": "监狱",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "22",
+          "name": "俄罗斯·莫斯科",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "23",
+          "name": "休闲",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "24",
+          "name": "纽约肯尼迪国际机场",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "25",
+          "name": "美国·纽约",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "26",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "27",
+          "name": "加拿大·多伦多",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "28",
+          "name": "墨西哥·墨西哥城",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "29",
+          "name": "巴西·里约热内卢",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "30",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "31",
+          "name": "休闲",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "32",
+          "name": "监狱",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "33",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "34",
+          "name": "北极",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "35",
+          "name": "上海浦东国际机场",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "36",
+          "name": "中国·上海",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "37",
+          "name": "日本·东京",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "38",
+          "name": "新加坡·新加坡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "39",
+          "name": "阿联酋·迪拜",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "40",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "41",
+          "name": "休闲",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        }
+      ]
+    },
+    {
+      "label": "assets-375",
+      "width": 375,
+      "height": 812,
+      "scrollWidth": 375,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 10,
+        "y": 266.375,
+        "width": 355,
+        "height": 1078.34375,
+        "top": 266.375,
+        "right": 365,
+        "bottom": 1344.71875,
+        "left": 10
+      },
+      "available": "416.625px",
+      "actionBar": {
+        "x": 0,
+        "y": 719,
+        "width": 375,
+        "height": 93,
+        "top": 719,
+        "right": 375,
+        "bottom": 812,
+        "left": 0
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "board-430",
+      "width": 430,
+      "height": 932,
+      "scrollWidth": 430,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 12,
+        "y": 272.375,
+        "width": 406,
+        "height": 994.96875,
+        "top": 272.375,
+        "right": 418,
+        "bottom": 1267.34375,
+        "left": 12
+      },
+      "available": "529.625px",
+      "actionBar": {
+        "x": 0,
+        "y": 838,
+        "width": 430,
+        "height": 94,
+        "top": 838,
+        "right": 430,
+        "bottom": 932,
+        "left": 0
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "map-text-430x932",
+      "text": [
+        {
+          "id": "0",
+          "name": "起点",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "1",
+          "name": "肯尼亚·内罗毕",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "2",
+          "name": "南非·开普敦",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "3",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "4",
+          "name": "摩洛哥·卡萨布兰卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "5",
+          "name": "埃及·开罗",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "6",
+          "name": "开罗国际机场",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "7",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "8",
+          "name": "新西兰·奥克兰",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "9",
+          "name": "澳大利亚·悉尼",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "10",
+          "name": "休闲",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "11",
+          "name": "监狱",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "12",
+          "name": "意大利·罗马",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "13",
+          "name": "荷兰·阿姆斯特丹",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "14",
+          "name": "南极",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "15",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "16",
+          "name": "伦敦希思罗国际机场",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "17",
+          "name": "英国·伦敦",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "18",
+          "name": "法国·巴黎",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "19",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "20",
+          "name": "德国·柏林",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "21",
+          "name": "监狱",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "22",
+          "name": "俄罗斯·莫斯科",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "23",
+          "name": "休闲",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "24",
+          "name": "纽约肯尼迪国际机场",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "25",
+          "name": "美国·纽约",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "26",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "27",
+          "name": "加拿大·多伦多",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "28",
+          "name": "墨西哥·墨西哥城",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "29",
+          "name": "巴西·里约热内卢",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "30",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "31",
+          "name": "休闲",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "32",
+          "name": "监狱",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "33",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "34",
+          "name": "北极",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "35",
+          "name": "上海浦东国际机场",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "36",
+          "name": "中国·上海",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "37",
+          "name": "日本·东京",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "38",
+          "name": "新加坡·新加坡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "39",
+          "name": "阿联酋·迪拜",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "40",
+          "name": "机会卡",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "41",
+          "name": "休闲",
+          "font": 10,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        }
+      ]
+    },
+    {
+      "label": "assets-430",
+      "width": 430,
+      "height": 932,
+      "scrollWidth": 430,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 12,
+        "y": 272.375,
+        "width": 406,
+        "height": 994.96875,
+        "top": 272.375,
+        "right": 418,
+        "bottom": 1267.34375,
+        "left": 12
+      },
+      "available": "529.625px",
+      "actionBar": {
+        "x": 0,
+        "y": 838,
+        "width": 430,
+        "height": 94,
+        "top": 838,
+        "right": 430,
+        "bottom": 932,
+        "left": 0
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "board-568",
+      "width": 568,
+      "height": 320,
+      "scrollWidth": 568,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 10,
+        "y": 170.390625,
+        "width": 548,
+        "height": 808.203125,
+        "top": 170.390625,
+        "right": 558,
+        "bottom": 978.59375,
+        "left": 10
+      },
+      "available": "33.609375px",
+      "actionBar": {
+        "x": 0,
+        "y": 240,
+        "width": 568,
+        "height": 80,
+        "top": 240,
+        "right": 568,
+        "bottom": 320,
+        "left": 0
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "map-text-568x320",
+      "text": [
+        {
+          "id": "0",
+          "name": "起点",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "1",
+          "name": "肯尼亚·内罗毕",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "2",
+          "name": "南非·开普敦",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "3",
+          "name": "机会卡",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "4",
+          "name": "摩洛哥·卡萨布兰卡",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "5",
+          "name": "埃及·开罗",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "6",
+          "name": "开罗国际机场",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "7",
+          "name": "机会卡",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "8",
+          "name": "新西兰·奥克兰",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "9",
+          "name": "澳大利亚·悉尼",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "10",
+          "name": "休闲",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "11",
+          "name": "监狱",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "12",
+          "name": "意大利·罗马",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "13",
+          "name": "荷兰·阿姆斯特丹",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "14",
+          "name": "南极",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "15",
+          "name": "机会卡",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "16",
+          "name": "伦敦希思罗国际机场",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "17",
+          "name": "英国·伦敦",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "18",
+          "name": "法国·巴黎",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "19",
+          "name": "机会卡",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "20",
+          "name": "德国·柏林",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "21",
+          "name": "监狱",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "22",
+          "name": "俄罗斯·莫斯科",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "23",
+          "name": "休闲",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "24",
+          "name": "纽约肯尼迪国际机场",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "25",
+          "name": "美国·纽约",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "26",
+          "name": "机会卡",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "27",
+          "name": "加拿大·多伦多",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "28",
+          "name": "墨西哥·墨西哥城",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "29",
+          "name": "巴西·里约热内卢",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "30",
+          "name": "机会卡",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "31",
+          "name": "休闲",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "32",
+          "name": "监狱",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "33",
+          "name": "机会卡",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "34",
+          "name": "北极",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "35",
+          "name": "上海浦东国际机场",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "36",
+          "name": "中国·上海",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "37",
+          "name": "日本·东京",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "38",
+          "name": "新加坡·新加坡",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "39",
+          "name": "阿联酋·迪拜",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "40",
+          "name": "机会卡",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "41",
+          "name": "休闲",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        }
+      ]
+    },
+    {
+      "label": "assets-568",
+      "width": 568,
+      "height": 320,
+      "scrollWidth": 568,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 10,
+        "y": 170.390625,
+        "width": 548,
+        "height": 808.203125,
+        "top": 170.390625,
+        "right": 558,
+        "bottom": 978.59375,
+        "left": 10
+      },
+      "available": "33.609375px",
+      "actionBar": {
+        "x": 0,
+        "y": 240,
+        "width": 568,
+        "height": 80,
+        "top": 240,
+        "right": 568,
+        "bottom": 320,
+        "left": 0
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "board-812",
+      "width": 812,
+      "height": 375,
+      "scrollWidth": 812,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 10,
+        "y": 178.59375,
+        "width": 792,
+        "height": 753.921875,
+        "top": 178.59375,
+        "right": 802,
+        "bottom": 932.515625,
+        "left": 10
+      },
+      "available": "69.40625px",
+      "actionBar": {
+        "x": 14,
+        "y": 272,
+        "width": 784,
+        "height": 91,
+        "top": 272,
+        "right": 798,
+        "bottom": 363,
+        "left": 14
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "map-text-812x375",
+      "text": [
+        {
+          "id": "0",
+          "name": "起点",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "1",
+          "name": "肯尼亚·内罗毕",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "2",
+          "name": "南非·开普敦",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "3",
+          "name": "机会卡",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "4",
+          "name": "摩洛哥·卡萨布兰卡",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "5",
+          "name": "埃及·开罗",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "6",
+          "name": "开罗国际机场",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "7",
+          "name": "机会卡",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "8",
+          "name": "新西兰·奥克兰",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "9",
+          "name": "澳大利亚·悉尼",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "10",
+          "name": "休闲",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "11",
+          "name": "监狱",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "12",
+          "name": "意大利·罗马",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "13",
+          "name": "荷兰·阿姆斯特丹",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "14",
+          "name": "南极",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "15",
+          "name": "机会卡",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "16",
+          "name": "伦敦希思罗国际机场",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "17",
+          "name": "英国·伦敦",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "18",
+          "name": "法国·巴黎",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "19",
+          "name": "机会卡",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "20",
+          "name": "德国·柏林",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "21",
+          "name": "监狱",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "22",
+          "name": "俄罗斯·莫斯科",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "23",
+          "name": "休闲",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "24",
+          "name": "纽约肯尼迪国际机场",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "25",
+          "name": "美国·纽约",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "26",
+          "name": "机会卡",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "27",
+          "name": "加拿大·多伦多",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "28",
+          "name": "墨西哥·墨西哥城",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "29",
+          "name": "巴西·里约热内卢",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "30",
+          "name": "机会卡",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "31",
+          "name": "休闲",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "32",
+          "name": "监狱",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "33",
+          "name": "机会卡",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "34",
+          "name": "北极",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "35",
+          "name": "上海浦东国际机场",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "36",
+          "name": "中国·上海",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "37",
+          "name": "日本·东京",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "38",
+          "name": "新加坡·新加坡",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "39",
+          "name": "阿联酋·迪拜",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "40",
+          "name": "机会卡",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "41",
+          "name": "休闲",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        }
+      ]
+    },
+    {
+      "label": "assets-812",
+      "width": 812,
+      "height": 375,
+      "scrollWidth": 812,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 10,
+        "y": 178.59375,
+        "width": 792,
+        "height": 753.921875,
+        "top": 178.59375,
+        "right": 802,
+        "bottom": 932.515625,
+        "left": 10
+      },
+      "available": "69.40625px",
+      "actionBar": {
+        "x": 14,
+        "y": 272,
+        "width": 784,
+        "height": 91,
+        "top": 272,
+        "right": 798,
+        "bottom": 363,
+        "left": 14
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "board-932",
+      "width": 932,
+      "height": 430,
+      "scrollWidth": 932,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 10,
+        "y": 178.59375,
+        "width": 912,
+        "height": 750.375,
+        "top": 178.59375,
+        "right": 922,
+        "bottom": 928.96875,
+        "left": 10
+      },
+      "available": "124.40625px",
+      "actionBar": {
+        "x": 14,
+        "y": 327,
+        "width": 904,
+        "height": 91,
+        "top": 327,
+        "right": 918,
+        "bottom": 418,
+        "left": 14
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "map-text-932x430",
+      "text": [
+        {
+          "id": "0",
+          "name": "起点",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "1",
+          "name": "肯尼亚·内罗毕",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "2",
+          "name": "南非·开普敦",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "3",
+          "name": "机会卡",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "4",
+          "name": "摩洛哥·卡萨布兰卡",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "5",
+          "name": "埃及·开罗",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "6",
+          "name": "开罗国际机场",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "7",
+          "name": "机会卡",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "8",
+          "name": "新西兰·奥克兰",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "9",
+          "name": "澳大利亚·悉尼",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "10",
+          "name": "休闲",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "11",
+          "name": "监狱",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "12",
+          "name": "意大利·罗马",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "13",
+          "name": "荷兰·阿姆斯特丹",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "14",
+          "name": "南极",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "15",
+          "name": "机会卡",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "16",
+          "name": "伦敦希思罗国际机场",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "17",
+          "name": "英国·伦敦",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "18",
+          "name": "法国·巴黎",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "19",
+          "name": "机会卡",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "20",
+          "name": "德国·柏林",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "21",
+          "name": "监狱",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "22",
+          "name": "俄罗斯·莫斯科",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "23",
+          "name": "休闲",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "24",
+          "name": "纽约肯尼迪国际机场",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "25",
+          "name": "美国·纽约",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "26",
+          "name": "机会卡",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "27",
+          "name": "加拿大·多伦多",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "28",
+          "name": "墨西哥·墨西哥城",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "29",
+          "name": "巴西·里约热内卢",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "30",
+          "name": "机会卡",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "31",
+          "name": "休闲",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "32",
+          "name": "监狱",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "33",
+          "name": "机会卡",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "34",
+          "name": "北极",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "35",
+          "name": "上海浦东国际机场",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "36",
+          "name": "中国·上海",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "37",
+          "name": "日本·东京",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "38",
+          "name": "新加坡·新加坡",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "39",
+          "name": "阿联酋·迪拜",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "40",
+          "name": "机会卡",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        },
+        {
+          "id": "41",
+          "name": "休闲",
+          "font": 11,
+          "visible": true,
+          "inside": true,
+          "owner": true
+        }
+      ]
+    },
+    {
+      "label": "assets-932",
+      "width": 932,
+      "height": 430,
+      "scrollWidth": 932,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 10,
+        "y": 178.59375,
+        "width": 912,
+        "height": 750.375,
+        "top": 178.59375,
+        "right": 922,
+        "bottom": 928.96875,
+        "left": 10
+      },
+      "available": "124.40625px",
+      "actionBar": {
+        "x": 14,
+        "y": 327,
+        "width": 904,
+        "height": 91,
+        "top": 327,
+        "right": 918,
+        "bottom": 418,
+        "left": 14
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "stock-1440",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 26,
+        "y": 160.796875,
+        "width": 1072,
+        "height": 637.203125,
+        "top": 160.796875,
+        "right": 1098,
+        "bottom": 798,
+        "left": 26
+      },
+      "available": "637.203125px",
+      "actionBar": {
+        "x": 14,
+        "y": 822,
+        "width": 1412,
+        "height": 66,
+        "top": 822,
+        "right": 1426,
+        "bottom": 888,
+        "left": 14
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "stock-1024",
+      "width": 1024,
+      "height": 768,
+      "scrollWidth": 1024,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 26,
+        "y": 156.796875,
+        "width": 972,
+        "height": 750,
+        "top": 156.796875,
+        "right": 998,
+        "bottom": 906.796875,
+        "left": 26
+      },
+      "available": "484.203125px",
+      "actionBar": {
+        "x": 14,
+        "y": 665,
+        "width": 996,
+        "height": 91,
+        "top": 665,
+        "right": 1010,
+        "bottom": 756,
+        "left": 14
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "stock-768",
+      "width": 768,
+      "height": 1024,
+      "scrollWidth": 768,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 26,
+        "y": 156.796875,
+        "width": 716,
+        "height": 750,
+        "top": 156.796875,
+        "right": 742,
+        "bottom": 906.796875,
+        "left": 26
+      },
+      "available": "740.203125px",
+      "actionBar": {
+        "x": 14,
+        "y": 921,
+        "width": 740,
+        "height": 91,
+        "top": 921,
+        "right": 754,
+        "bottom": 1012,
+        "left": 14
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "stock-320",
+      "width": 320,
+      "height": 568,
+      "scrollWidth": 320,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 10,
+        "y": 218.984375,
+        "width": 300,
+        "height": 1232.1875,
+        "top": 218.984375,
+        "right": 310,
+        "bottom": 1451.171875,
+        "left": 10
+      },
+      "available": "234.015625px",
+      "actionBar": {
+        "x": 0,
+        "y": 489,
+        "width": 320,
+        "height": 79,
+        "top": 489,
+        "right": 320,
+        "bottom": 568,
+        "left": 0
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "stock-375",
+      "width": 375,
+      "height": 812,
+      "scrollWidth": 375,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 10,
+        "y": 218.984375,
+        "width": 355,
+        "height": 953,
+        "top": 218.984375,
+        "right": 365,
+        "bottom": 1171.984375,
+        "left": 10
+      },
+      "available": "478.015625px",
+      "actionBar": {
+        "x": 0,
+        "y": 733,
+        "width": 375,
+        "height": 79,
+        "top": 733,
+        "right": 375,
+        "bottom": 812,
+        "left": 0
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "stock-430",
+      "width": 430,
+      "height": 932,
+      "scrollWidth": 430,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 12,
+        "y": 202.984375,
+        "width": 406,
+        "height": 948,
+        "top": 202.984375,
+        "right": 418,
+        "bottom": 1150.984375,
+        "left": 12
+      },
+      "available": "613.015625px",
+      "actionBar": {
+        "x": 0,
+        "y": 852,
+        "width": 430,
+        "height": 80,
+        "top": 852,
+        "right": 430,
+        "bottom": 932,
+        "left": 0
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "stock-568",
+      "width": 568,
+      "height": 320,
+      "scrollWidth": 568,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 10,
+        "y": 127.390625,
+        "width": 548,
+        "height": 737.03125,
+        "top": 127.390625,
+        "right": 558,
+        "bottom": 864.421875,
+        "left": 10
+      },
+      "available": "76.609375px",
+      "actionBar": {
+        "x": 0,
+        "y": 240,
+        "width": 568,
+        "height": 80,
+        "top": 240,
+        "right": 568,
+        "bottom": 320,
+        "left": 0
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "stock-812",
+      "width": 812,
+      "height": 375,
+      "scrollWidth": 812,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 10,
+        "y": 146.796875,
+        "width": 792,
+        "height": 736.34375,
+        "top": 146.796875,
+        "right": 802,
+        "bottom": 883.140625,
+        "left": 10
+      },
+      "available": "101.203125px",
+      "actionBar": {
+        "x": 14,
+        "y": 272,
+        "width": 784,
+        "height": 91,
+        "top": 272,
+        "right": 798,
+        "bottom": 363,
+        "left": 14
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "stock-932",
+      "width": 932,
+      "height": 430,
+      "scrollWidth": 932,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 10,
+        "y": 146.796875,
+        "width": 912,
+        "height": 730,
+        "top": 146.796875,
+        "right": 922,
+        "bottom": 876.796875,
+        "left": 10
+      },
+      "available": "156.203125px",
+      "actionBar": {
+        "x": 14,
+        "y": 327,
+        "width": 904,
+        "height": 91,
+        "top": 327,
+        "right": 918,
+        "bottom": 418,
+        "left": 14
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "flight-1440",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 26,
+        "y": 160.796875,
+        "width": 1072,
+        "height": 637.203125,
+        "top": 160.796875,
+        "right": 1098,
+        "bottom": 798,
+        "left": 26
+      },
+      "available": "637.203125px",
+      "actionBar": {
+        "x": 14,
+        "y": 822,
+        "width": 1412,
+        "height": 66,
+        "top": 822,
+        "right": 1426,
+        "bottom": 888,
+        "left": 14
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "flight-1024",
+      "width": 1024,
+      "height": 768,
+      "scrollWidth": 1024,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 26,
+        "y": 156.796875,
+        "width": 972,
+        "height": 750,
+        "top": 156.796875,
+        "right": 998,
+        "bottom": 906.796875,
+        "left": 26
+      },
+      "available": "484.203125px",
+      "actionBar": {
+        "x": 14,
+        "y": 665,
+        "width": 996,
+        "height": 91,
+        "top": 665,
+        "right": 1010,
+        "bottom": 756,
+        "left": 14
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "flight-768",
+      "width": 768,
+      "height": 1024,
+      "scrollWidth": 768,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 26,
+        "y": 156.796875,
+        "width": 716,
+        "height": 750,
+        "top": 156.796875,
+        "right": 742,
+        "bottom": 906.796875,
+        "left": 26
+      },
+      "available": "740.203125px",
+      "actionBar": {
+        "x": 14,
+        "y": 921,
+        "width": 740,
+        "height": 91,
+        "top": 921,
+        "right": 754,
+        "bottom": 1012,
+        "left": 14
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "flight-320",
+      "width": 320,
+      "height": 568,
+      "scrollWidth": 320,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 10,
+        "y": 218.984375,
+        "width": 300,
+        "height": 1216,
+        "top": 218.984375,
+        "right": 310,
+        "bottom": 1434.984375,
+        "left": 10
+      },
+      "available": "234.015625px",
+      "actionBar": {
+        "x": 0,
+        "y": 489,
+        "width": 320,
+        "height": 79,
+        "top": 489,
+        "right": 320,
+        "bottom": 568,
+        "left": 0
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "flight-375",
+      "width": 375,
+      "height": 812,
+      "scrollWidth": 375,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 10,
+        "y": 218.984375,
+        "width": 355,
+        "height": 953,
+        "top": 218.984375,
+        "right": 365,
+        "bottom": 1171.984375,
+        "left": 10
+      },
+      "available": "478.015625px",
+      "actionBar": {
+        "x": 0,
+        "y": 733,
+        "width": 375,
+        "height": 79,
+        "top": 733,
+        "right": 375,
+        "bottom": 812,
+        "left": 0
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "flight-430",
+      "width": 430,
+      "height": 932,
+      "scrollWidth": 430,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 12,
+        "y": 202.984375,
+        "width": 406,
+        "height": 948,
+        "top": 202.984375,
+        "right": 418,
+        "bottom": 1150.984375,
+        "left": 12
+      },
+      "available": "613.015625px",
+      "actionBar": {
+        "x": 0,
+        "y": 852,
+        "width": 430,
+        "height": 80,
+        "top": 852,
+        "right": 430,
+        "bottom": 932,
+        "left": 0
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "flight-568",
+      "width": 568,
+      "height": 320,
+      "scrollWidth": 568,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 10,
+        "y": 127.390625,
+        "width": 548,
+        "height": 737.03125,
+        "top": 127.390625,
+        "right": 558,
+        "bottom": 864.421875,
+        "left": 10
+      },
+      "available": "76.609375px",
+      "actionBar": {
+        "x": 0,
+        "y": 240,
+        "width": 568,
+        "height": 80,
+        "top": 240,
+        "right": 568,
+        "bottom": 320,
+        "left": 0
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "flight-812",
+      "width": 812,
+      "height": 375,
+      "scrollWidth": 812,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 10,
+        "y": 146.796875,
+        "width": 792,
+        "height": 736.34375,
+        "top": 146.796875,
+        "right": 802,
+        "bottom": 883.140625,
+        "left": 10
+      },
+      "available": "101.203125px",
+      "actionBar": {
+        "x": 14,
+        "y": 272,
+        "width": 784,
+        "height": 91,
+        "top": 272,
+        "right": 798,
+        "bottom": 363,
+        "left": 14
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "flight-932",
+      "width": 932,
+      "height": 430,
+      "scrollWidth": 932,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 10,
+        "y": 146.796875,
+        "width": 912,
+        "height": 730,
+        "top": 146.796875,
+        "right": 922,
+        "bottom": 876.796875,
+        "left": 10
+      },
+      "available": "156.203125px",
+      "actionBar": {
+        "x": 14,
+        "y": 327,
+        "width": 904,
+        "height": 91,
+        "top": 327,
+        "right": 918,
+        "bottom": 418,
+        "left": 14
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "travel-rescue-1440",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 26,
+        "y": 160.796875,
+        "width": 1072,
+        "height": 651.203125,
+        "top": 160.796875,
+        "right": 1098,
+        "bottom": 812,
+        "left": 26
+      },
+      "available": "637.203125px",
+      "actionBar": {
+        "x": 14,
+        "y": 822,
+        "width": 1412,
+        "height": 66,
+        "top": 822,
+        "right": 1426,
+        "bottom": 888,
+        "left": 14
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "travel-rescue-1024",
+      "width": 1024,
+      "height": 768,
+      "scrollWidth": 1024,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 26,
+        "y": 160.796875,
+        "width": 972,
+        "height": 750,
+        "top": 160.796875,
+        "right": 998,
+        "bottom": 910.796875,
+        "left": 26
+      },
+      "available": "637.203125px",
+      "actionBar": {
+        "x": 14,
+        "y": 657,
+        "width": 996,
+        "height": 99,
+        "top": 657,
+        "right": 1010,
+        "bottom": 756,
+        "left": 14
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "travel-rescue-768",
+      "width": 768,
+      "height": 1024,
+      "scrollWidth": 768,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 26,
+        "y": 156.796875,
+        "width": 716,
+        "height": 750,
+        "top": 156.796875,
+        "right": 742,
+        "bottom": 906.796875,
+        "left": 26
+      },
+      "available": "740.203125px",
+      "actionBar": {
+        "x": 14,
+        "y": 921,
+        "width": 740,
+        "height": 91,
+        "top": 921,
+        "right": 754,
+        "bottom": 1012,
+        "left": 14
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "travel-rescue-320",
+      "width": 320,
+      "height": 568,
+      "scrollWidth": 320,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 10,
+        "y": 218.984375,
+        "width": 300,
+        "height": 1232.1875,
+        "top": 218.984375,
+        "right": 310,
+        "bottom": 1451.171875,
+        "left": 10
+      },
+      "available": "234.015625px",
+      "actionBar": {
+        "x": 0,
+        "y": 489,
+        "width": 320,
+        "height": 79,
+        "top": 489,
+        "right": 320,
+        "bottom": 568,
+        "left": 0
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "travel-rescue-375",
+      "width": 375,
+      "height": 812,
+      "scrollWidth": 375,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 10,
+        "y": 218.984375,
+        "width": 355,
+        "height": 953,
+        "top": 218.984375,
+        "right": 365,
+        "bottom": 1171.984375,
+        "left": 10
+      },
+      "available": "234.015625px",
+      "actionBar": {
+        "x": 0,
+        "y": 733,
+        "width": 375,
+        "height": 79,
+        "top": 733,
+        "right": 375,
+        "bottom": 812,
+        "left": 0
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "travel-rescue-430",
+      "width": 430,
+      "height": 932,
+      "scrollWidth": 430,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 12,
+        "y": 224.984375,
+        "width": 406,
+        "height": 948,
+        "top": 224.984375,
+        "right": 418,
+        "bottom": 1172.984375,
+        "left": 12
+      },
+      "available": "598.015625px",
+      "actionBar": {
+        "x": 0,
+        "y": 852,
+        "width": 430,
+        "height": 80,
+        "top": 852,
+        "right": 430,
+        "bottom": 932,
+        "left": 0
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "travel-rescue-568",
+      "width": 568,
+      "height": 320,
+      "scrollWidth": 568,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 10,
+        "y": 127.390625,
+        "width": 548,
+        "height": 737.03125,
+        "top": 127.390625,
+        "right": 558,
+        "bottom": 864.421875,
+        "left": 10
+      },
+      "available": "76.609375px",
+      "actionBar": {
+        "x": 0,
+        "y": 240,
+        "width": 568,
+        "height": 80,
+        "top": 240,
+        "right": 568,
+        "bottom": 320,
+        "left": 0
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "travel-rescue-812",
+      "width": 812,
+      "height": 375,
+      "scrollWidth": 812,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 10,
+        "y": 146.796875,
+        "width": 792,
+        "height": 736.34375,
+        "top": 146.796875,
+        "right": 802,
+        "bottom": 883.140625,
+        "left": 10
+      },
+      "available": "131.609375px",
+      "actionBar": {
+        "x": 14,
+        "y": 272,
+        "width": 784,
+        "height": 91,
+        "top": 272,
+        "right": 798,
+        "bottom": 363,
+        "left": 14
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "travel-rescue-932",
+      "width": 932,
+      "height": 430,
+      "scrollWidth": 932,
+      "pixelRatio": 1,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 10,
+        "y": 146.796875,
+        "width": 912,
+        "height": 730,
+        "top": 146.796875,
+        "right": 922,
+        "bottom": 876.796875,
+        "left": 10
+      },
+      "available": "101.203125px",
+      "actionBar": {
+        "x": 14,
+        "y": 327,
+        "width": 904,
+        "height": 91,
+        "top": 327,
+        "right": 918,
+        "bottom": 418,
+        "left": 14
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "actual-default-page-zoom-200",
+      "width": 720,
+      "height": 450,
+      "scrollWidth": 720,
+      "pixelRatio": 2,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 10,
+        "y": 127.3984375,
+        "width": 700,
+        "height": 733.5859375,
+        "top": 127.3984375,
+        "right": 710,
+        "bottom": 860.984375,
+        "left": 10
+      },
+      "available": "206.6015625px",
+      "actionBar": {
+        "x": 0,
+        "y": 370.5,
+        "width": 720,
+        "height": 79.5,
+        "top": 370.5,
+        "right": 720,
+        "bottom": 450,
+        "left": 0
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "stock-actual-zoom-200",
+      "width": 720,
+      "height": 450,
+      "scrollWidth": 720,
+      "pixelRatio": 2,
+      "scale": 1,
+      "squares": 42,
+      "board": {
+        "x": 10,
+        "y": 127.3984375,
+        "width": 700,
+        "height": 733.5859375,
+        "top": 127.3984375,
+        "right": 710,
+        "bottom": 860.984375,
+        "left": 10
+      },
+      "available": "206.6015625px",
+      "actionBar": {
+        "x": 0,
+        "y": 370.5,
+        "width": 720,
+        "height": 79.5,
+        "top": 370.5,
+        "right": 720,
+        "bottom": 450,
+        "left": 0
+      },
+      "scrollY": 0,
+      "oversized": []
+    },
+    {
+      "label": "actual-browser-zoom-confirmation",
+      "setting": 2,
+      "source": "chrome.settingsPrivate in isolated chrome://settings/appearance",
+      "width": 720,
+      "pixelRatio": 2,
+      "scale": 1,
+      "reducedMotion": true
+    }
+  ]
+}

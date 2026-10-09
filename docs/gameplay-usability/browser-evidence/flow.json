@@ -1,0 +1,34 @@
+{
+  "node": "v20.20.2",
+  "prestart": {
+    "lobbyHint": true,
+    "roomHint": true
+  },
+  "controlledPreparation": "跨圈、机场归属及旧局为夹具；开局、掷骰、下单、飞行、查询均由真实页面/Socket执行，未运行完整局。",
+  "evidence": [
+    {
+      "step": "two-go",
+      "shares": 2,
+      "cash": 162000
+    },
+    {
+      "step": "other-origin-own-destination",
+      "toll": 3000,
+      "ticket": 5000,
+      "cash": 142000
+    },
+    {
+      "step": "own-origin",
+      "cash": 150000
+    },
+    {
+      "step": "rules",
+      "topics": 8,
+      "catalogue": 12,
+      "readOnly": true,
+      "specialName": true,
+      "legacy": true,
+      "browserErrors": []
+    }
+  ]
+}

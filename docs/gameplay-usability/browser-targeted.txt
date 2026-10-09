@@ -1,0 +1,89 @@
+TAP version 13
+# Subtest: PC宽屏布局 / 平板横竖布局 / 手机完整棋盘布局 / 长说明与按钮可达
+ok 1 - PC宽屏布局 / 平板横竖布局 / 手机完整棋盘布局 / 长说明与按钮可达 # SKIP test name does not match pattern
+  ---
+  duration_ms: 3273.6734
+  ...
+# Subtest: 九类视口股票确认及费用明细可达
+ok 2 - 九类视口股票确认及费用明细可达
+  ---
+  duration_ms: 4834.4478
+  ...
+# Subtest: 键盘焦点与减少动画 / 真正200%页面缩放完成选择详情及交易
+ok 3 - 键盘焦点与减少动画 / 真正200%页面缩放完成选择详情及交易
+  ---
+  duration_ms: 5635.1985
+  ...
+# Subtest: 连续实际起点两次买入3城各2股
+ok 4 - 连续实际起点两次买入3城各2股 # SKIP test name does not match pattern
+  ---
+  duration_ms: 3866.7634
+  ...
+# Subtest: 失败、未提交、超时草稿不带入新窗口
+ok 5 - 失败、未提交、超时草稿不带入新窗口
+  ---
+  duration_ms: 713.4537
+  ...
+# Subtest: 迟到成功或失败不能污染新草稿或解除新请求锁
+ok 6 - 迟到成功或失败不能污染新草稿或解除新请求锁 # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.2399
+  ...
+# Subtest: 限额、供给、城主4股与卖A买B
+ok 7 - 限额、供给、城主4股与卖A买B # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.2912
+  ...
+# Subtest: 报价变化更新展示后再次确认，拒绝无副作用
+ok 8 - 报价变化更新展示后再次确认，拒绝无副作用 # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.1221
+  ...
+# Subtest: 无确认重试原请求身份，实际最多成交一次
+ok 9 - 无确认重试原请求身份，实际最多成交一次 # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.1
+  ...
+# Subtest: 转让及同窗口认证重连保留累计额度
+not ok 10 - 转让及同窗口认证重连保留累计额度
+  ---
+  duration_ms: 31628.0233
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\usability-stocks.spec.js:66:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    page.click: Timeout 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('#btnStockTransfer')[22m
+    [2m    - locator resolved to <button class="secondary" id="btnStockTransfer">股票转让</button>[22m
+    [2m  - attempting click action[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is not visible[22m
+    [2m    - retrying click action[22m
+    [2m    - waiting 20ms[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is not visible[22m
+    [2m    - retrying click action[22m
+    [2m      - waiting 100ms[22m
+    [2m    55 × waiting for element to be visible, enabled and stable[22m
+    [2m       - element is not visible[22m
+    [2m     - retrying click action[22m
+    [2m       - waiting 500ms[22m
+
+  code: 'ERR_TEST_FAILURE'
+  name: 'TimeoutError'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\usability-stocks.spec.js:71:223)
+  ...
+# Subtest: 呈现延迟与旧v1未确认订单不补单
+ok 11 - 呈现延迟与旧v1未确认订单不补单 # SKIP test name does not match pattern
+  ---
+  duration_ms: 1.8168
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 3
+# fail 1
+# cancelled 0
+# skipped 7
+# todo 0

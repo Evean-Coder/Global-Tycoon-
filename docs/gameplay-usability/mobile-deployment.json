@@ -1,27 +1,27 @@
 {
-  "date": "2026-10-09T04:30:41.351Z",
+  "date": "2026-10-09T04:36:34.475Z",
   "status": "public_resources_and_own_room_verified",
-  "productionCommit": "18ab816",
+  "productionCommit": "e35393a94d0baf2e07213d771b73731535282230",
   "url": "https://global-tycoon-abx0.onrender.com/",
-  "staticVersion": "20261009-mobile",
-  "cache": "global-tycoon-v7-mobile",
+  "staticVersion": "20261009-mobile-r2",
+  "cache": "global-tycoon-v8-mobile",
   "resources": [
     {
-      "file": "index.html",
+      "file": "rules-catalog.js",
       "status": 200,
-      "sha256": "43ded94432d73249c250bd70972ae3fcce798322ca6c01bad2c796d0514ff9b1",
+      "sha256": "2a180d4def25a631ac9757991cca70887d6b840cac1fd731be52179dd9c1d9d5",
       "matchesLocal": true
     },
     {
       "file": "sw.js",
       "status": 200,
-      "sha256": "87bbba73b73c48b3361f3b00beeddfa5e1a86cb5cdcd57945e2deda76c1ddb22",
+      "sha256": "a6979217f17c71b143c19bcf86834b9814b4985260ecd53b978ec19c3acbc7a3",
       "matchesLocal": true
     },
     {
-      "file": "rules-catalog.js",
+      "file": "index.html",
       "status": 200,
-      "sha256": "2a180d4def25a631ac9757991cca70887d6b840cac1fd731be52179dd9c1d9d5",
+      "sha256": "35a06f5159be99d0b103848842b0ccfff2885a41a1d084fec05e54ba90b99ec4",
       "matchesLocal": true
     },
     {
@@ -33,14 +33,17 @@
     {
       "file": "client.js",
       "status": 200,
-      "sha256": "9c2f67e6c2de7077975d03ad116ae2cc51b4c5121841b886b467215c11c70720",
+      "sha256": "ebf685777ab3df7c7ad4298002535362b826c449c3a2bc58900e0f1d90d0c952",
       "matchesLocal": true
     }
   ],
   "tests": {
-    "passed": 28,
-    "failed": 0,
-    "skipped": 0
+    "distinctPassed": 29,
+    "evidence": [
+      "mobile-final-tests.txt",
+      "mobile-rooms-final.txt",
+      "mobile-cache-final.txt"
+    ]
   },
   "limits": [
     "实体手机/微信/iOS未实测",
@@ -55,7 +58,7 @@
     "duplicateCreateSameRoom": true,
     "twoPlayersStarted": true,
     "transport": "websocket",
-    "requestSequenceMs": 1240,
+    "requestSequenceMs": 1171,
     "disbanded": true
   }
 }

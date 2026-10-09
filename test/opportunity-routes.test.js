@@ -150,6 +150,16 @@ test('R13 原初始超时结算及H12首次事实', () => {
   assert.equal(logic.apply(s, act, f.rng(), {source:'timeout'}).rejected, true); assert.equal(s.players[0].cash, 156000);
   const old = f.game(2); opp.beginOpportunityStage(old, 1, {kind:'start'}, f.rng()); logic.apply(old,{type:'opportunity_expire',stageId:old.opportunityStage.stageId},f.rng(),{source:'timeout'}); assert.equal(old.routeFlow, undefined);
 });
+test('R12b 原引擎骰子机场奖励区别于飞行和机会位移',()=>{
+ const s=ready(),p=s.players[0];
+ for(const id of ['开罗国际机场','伦敦希思罗国际机场']){s.airports[id].ownerId='p0';p.airports.push(id);}
+ function rollAt(position){p.position=position;s.diceBag=[1];return logic.apply(s,{type:'roll_dice'},f.rng());}
+ function next(){s.players[1].position=9;s.diceBag=[1];logic.apply(s,{type:'roll_dice'},f.rng());assert.equal(s.turnIndex,0);}
+ const cash=p.cash;rollAt(5);assert.equal(p.cash,cash+2000);logic.apply(s,{type:'flight',target:'伦敦希思罗国际机场'},f.rng());assert.deepEqual(p.opportunities.visitedAirportIds,['开罗国际机场']);next();
+ rollAt(5);assert.equal(p.cash,cash+2000);logic.apply(s,{type:'flight',target:null},f.rng());next();
+ s.chanceDeck=[{type:'move',delta:3,name:'前进 3 格'}];rollAt(2);assert.equal(p.position,6);assert.equal(p.cash,cash+2000);logic.apply(s,{type:'flight',target:null},f.rng());next();
+ rollAt(15);assert.equal(p.cash,cash+4000);assert.equal(p.opportunities.visitedAirportIds.length,2);
+});
 test('R14 真实起点先开股票不插入后续', () => {
   const s = ready(); s.players[0].opportunities.selectedIds = ['H1', 'H2', 'H3']; laps(s, 2); s.players[0].position = 41; s.diceBag = [1];
   logic.apply(s, {type:'roll_dice'}, f.rng()); assert.equal(s.phase, 'stock'); assert.equal(s.routeFlow.players.p0.pending.length, 1); assert.equal(s.routeFlow.activeChoice, null); assert.equal(s.players[0].cash, 160000);

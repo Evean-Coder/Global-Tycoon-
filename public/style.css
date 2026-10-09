@@ -162,8 +162,8 @@ ul.players .slot{color:var(--off);font-size:13px}
 }
 /* 地块：暖白纸牌、黄铜边和色组标记 */
 .sq{
-  min-width:0;min-height:0;border-radius:5px;padding:4px 3px;position:relative;z-index:1;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+  min-width:0;min-height:0;border-radius:5px;padding:1px 3px;position:relative;z-index:1;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;white-space:normal;
   text-align:center;font-size:11px;line-height:1.18;color:var(--title);
   border:1px solid rgba(116,89,58,.49);background:linear-gradient(143deg,#fffcf3 0%,#f5eddb 67%,#e9dbc3 100%);
   box-shadow:inset 0 1px rgba(255,255,255,.85),inset 0 -2px rgba(137,105,66,.12);
@@ -173,8 +173,8 @@ button.sq{width:100%;height:100%;appearance:none;font-family:var(--sans);letter-
 .sq .glyph{display:none}
 .sq:hover{border-color:var(--gold-deep);filter:brightness(1.04);box-shadow:0 5px 14px rgba(4,35,55,.24);z-index:2}
 .sq .num{position:absolute;top:2px;left:4px;font-size:8px;color:var(--off);font-family:var(--mono)}
-.sq .nm{font-size:clamp(10px,.83vw,13px);letter-spacing:.1px;max-width:96%;color:var(--title);font-weight:800;overflow-wrap:anywhere}
-.sq .own{font-size:9px;color:var(--gold-deep);margin-top:1px;font-weight:700}
+.sq .nm{font-size:clamp(10px,.83vw,13px);line-height:1.15;letter-spacing:.1px;max-width:96%;color:var(--title);font-weight:800;overflow-wrap:anywhere}
+.sq .own{font-size:9px;line-height:1.1;max-width:100%;overflow-wrap:anywhere;color:var(--gold-deep);margin-top:0;font-weight:700}
 .sq .subrow{display:flex;gap:4px;align-items:center;font-size:9px;color:var(--muted)}
 .sq .lvl{color:#FFF;font-weight:700}
 .sq .mg{color:#FFF;font-weight:700}
@@ -293,6 +293,7 @@ button.sq{width:100%;height:100%;appearance:none;font-family:var(--sans);letter-
 /* ---------- 弹窗 ---------- */
 .overlay{position:fixed;inset:0;background:rgba(5,30,43,.65);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:60;padding:20px}
 #modal{z-index:70}
+#rulesModal{z-index:80}
 .modal{
   width:100%;max-width:440px;
   background:var(--card);
@@ -399,7 +400,7 @@ button.sq{width:100%;height:100%;appearance:none;font-family:var(--sans);letter-
 @media (max-width:1080px){
   #gameMain{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;align-items:start}
   #boardWrap{flex:none;width:100%;max-width:none}
-  #board{height:clamp(430px,var(--board-available,calc(100dvh - 290px)),680px)}
+  #board{height:auto;grid-template-rows:repeat(11,minmax(64px,auto))}
   #side{width:100%;height:auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:start}
   #side .panel{min-width:0}
   #side .side-ops{grid-column:1 / -1}
@@ -427,12 +428,14 @@ button.sq{width:100%;height:100%;appearance:none;font-family:var(--sans);letter-
   .brand .sub{display:none}
   #gameMain{gap:10px}
   #boardWrap{height:auto;max-width:none;overflow:hidden;border-radius:12px;flex:none}
-  #board{grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:repeat(11,minmax(0,1fr));width:100%;height:auto;aspect-ratio:.91;max-width:none;padding:2px;gap:1px;margin:0}
+  #board{grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:repeat(11,minmax(84px,auto));width:100%;height:auto;aspect-ratio:auto;max-width:none;padding:2px;gap:1px;margin:0}
   #board::before{background-size:cover,100% 100%,cover;background-position:center,center 58%,center}
   #pieces .piece{width:11px;height:11px;border-width:1px}
-  .sq{padding:1px;border-radius:2px;border-top-width:3px}
-  .sq .num,.sq .nm,.sq .own,.sq .subrow{display:none}
-  .sq .glyph{display:block;font-size:clamp(9px,3vw,14px);line-height:1;color:#24627d}
+  .sq{padding:11px 1px 4px;border-radius:2px;border-top-width:3px;white-space:normal}
+  .sq .nm{display:block;font-size:10px;line-height:1.4;width:100%;overflow-wrap:anywhere}
+  .sq .own{display:block;width:100%;overflow-wrap:anywhere;line-height:1.4}
+  .sq .subrow{display:flex;flex-wrap:wrap;justify-content:center;max-width:100%;gap:2px}
+  .sq .lvl,.sq .mg{padding:1px 2px;overflow-wrap:anywhere;max-width:100%}
   #ledger{display:flex;left:13%;top:16%;width:74%;max-height:69%;border-radius:9px}
   .ledger-title{padding:6px 9px 2px;font-size:12px}
   .ledger-title em{font-size:8px}
@@ -458,7 +461,7 @@ button.sq{width:100%;height:100%;appearance:none;font-family:var(--sans);letter-
   #btnAssets{grid-column:2;grid-row:2}
   #btnBank{grid-column:3;grid-row:2}
   #btnEndTurn{grid-column:4;grid-row:2}
-  #actionBar button{min-width:0;min-height:42px;height:auto;padding:0 3px;font-size:11px}
+  #actionBar button{min-width:0;min-height:44px;height:auto;padding:0 3px;font-size:11px}
   .overlay{align-items:flex-end;padding:0}
   .modal,.modal.wide{max-width:none;max-height:min(88dvh,760px);border-radius:18px 18px 0 0;padding-bottom:env(safe-area-inset-bottom)}
   .modal .mh{padding:16px 16px 8px}
@@ -509,3 +512,49 @@ button.sq{width:100%;height:100%;appearance:none;font-family:var(--sans);letter-
 .stock-summary{margin:12px 24px;color:var(--title);font-size:13px;line-height:1.8}.stock-item details{font-size:12px;line-height:1.8}.stock-item details summary{cursor:pointer}.public-opportunities{display:block;color:var(--muted);font-size:11px;line-height:1.8;margin:4px 0}.record-economy{margin:14px 0;padding:12px;background:#edf4f5;border-radius:8px}.record-economy summary{cursor:pointer;font-weight:600}
 @media(max-width:1080px){.choice-cards{gap:10px;padding:12px 20px}.opportunity-card{padding:16px}.news-bar{padding:12px 16px;gap:8px 14px}}
 @media(max-width:720px){.news-bar{padding:10px 12px;font-size:12px;border-radius:10px;margin-bottom:10px;gap:6px 10px}.news-preview{width:100%;font-size:11px}.choice-dialog{max-height:92dvh!important}.choice-meta{padding:8px 16px;font-size:12px}.choice-cards{grid-template-columns:minmax(0,1fr);gap:10px;padding:8px 16px}.opportunity-card{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 10px;padding:12px 14px}.opportunity-direction{grid-column:1 / -1;font-size:10px}.opportunity-card h4{font-size:17px;grid-column:1 / -1}.opportunity-card p{grid-column:1 / -1;font-size:12px;line-height:1.6}.opportunity-card button{grid-column:1 / -1;margin:4px 0 0;min-height:44px}.choice-dialog .mf button{min-height:44px;flex:1 1 120px}.choice-error{padding:0 16px}.stock-item .srow button{min-width:40px;min-height:40px}.selected-opportunities summary{line-height:1.8}}
+
+/* 地图文字始终保留；方向提示只改变显示。 */
+.orientation-hint{display:none;color:#164f68;background:#edf5f6;border:1px solid #a9cbd5;border-radius:8px;padding:10px 12px;line-height:1.6;font-size:13px;max-width:100%}
+button:not(.sq){min-height:44px}
+.ledger-open{min-height:44px}
+.stock-item{min-width:0;overflow-wrap:anywhere}
+.stock-reasons{color:#884133;line-height:1.6;font-size:12px;display:block}
+.stock-quota{font-size:12px;line-height:1.7}
+.stock-item .srow{flex-wrap:wrap}
+.stock-item .srow button{min-width:44px;min-height:44px;height:44px}
+.stock-summary{overflow-wrap:anywhere}
+.rules-nav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.modal-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-shrink:0}
+.modal-heading h3{min-width:0;overflow-wrap:anywhere}
+.modal-heading button{flex-shrink:0;font-size:12px;padding:0 8px}
+.rules-nav a{display:inline-flex;align-items:center;min-height:44px;padding:4px 10px;border:1px solid #bdd3dc;border-radius:7px;color:#175870;background:#f4f9f8;text-decoration:none}
+.rules-topic{scroll-margin-top:12px;border-bottom:1px solid #c7d9df;padding:10px 0}
+.rules-topic>summary{cursor:pointer;min-height:44px;display:flex;align-items:center;color:#164f68;font-size:16px;font-weight:700}
+.rules-topic p,.rules-topic li{line-height:1.85;overflow-wrap:anywhere}
+.flight-costs{border:1px solid #c4d9df;background:#edf5f6;border-radius:8px;padding:12px;margin-bottom:12px}
+.flight-costs p{margin:5px 0;line-height:1.7}
+@media(max-width:720px){
+  .orientation-hint.pregame{display:block}
+  .orientation-hint.ingame{display:block;margin:0 0 10px}
+  #stockList{grid-template-columns:minmax(0,1fr)}
+  #ledger .ledger-open{min-height:44px}
+}
+@media(orientation:landscape) and (max-width:1080px) and (max-height:500px){
+  .orientation-hint.pregame{display:block}
+  .orientation-hint.ingame{display:none}
+  .view{padding:8px}
+  #gameMain{display:grid;grid-template-columns:minmax(0,1fr)}
+  #boardWrap{width:100%;max-width:none}
+  #board{width:100%;height:auto;aspect-ratio:auto;padding:3px;gap:2px;grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:repeat(11,minmax(64px,auto))}
+  .sq{padding:11px 2px 4px;white-space:normal}
+  .sq .nm{display:block;font-size:11px;line-height:1.4;width:100%;overflow-wrap:anywhere}
+  .sq .own{display:block;width:100%;overflow-wrap:anywhere;line-height:1.4}
+  .sq .subrow{display:flex;flex-wrap:wrap;justify-content:center;max-width:100%;gap:2px}
+  .sq .lvl,.sq .mg{padding:1px 2px;max-width:100%;overflow-wrap:anywhere}
+  #side{width:100%;grid-template-columns:repeat(2,minmax(0,1fr))}
+  #side .panel:nth-child(3),#side .side-ops{grid-column:1 / -1}
+  #stockList{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+  .modal,.modal.wide{max-height:92dvh}
+  #ledger{max-height:65%}
+}
+@media(orientation:landscape){.orientation-hint.ingame{display:none}}

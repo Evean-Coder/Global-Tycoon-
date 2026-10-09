@@ -97,3 +97,16 @@ test('V4 缺新增信息旧对局认证重连后仍按旧规则，新开局升�
 test('V49、V67 协商转让确认重放只转一次，不提前派息',async()=>{
  const {room,clients}=await setup(2),[a,b]=clients;await until(()=>b.game?.self.choice);const s=f.game(2);f.own(s,'p1','上海');s.stocks['上海'].holders.p0=2;s.stocks['上海'].dividendFund=2000;stocks.refreshPrice(s,'上海','待分红增加');stocks.syncHolders(s);s.phase='stock';s.pending={playerId:'p0',kind:'go_stock',after:'end'};stocks.openStockWindow(s,'p0');await publish(room,clients,s);await action(a,{type:'stock_transfer',windowId:s.stockWindow.windowId,targetId:'p1',items:[{cityId:'上海',shares:1}],cash:500});await until(()=>b.game.phase==='trade_confirm');const payload=envelope(b,{type:'stock_transfer',accept:true},'accept-once');const receipt=await ack(b,'action',payload);assert.equal(receipt.ok,true);const after=JSON.stringify(room.state);assert.deepEqual(await ack(b,'action',payload),receipt);assert.equal(JSON.stringify(room.state),after);assert.equal(room.state.players[0].cash,150500);assert.equal(room.state.players[1].cash,149500);assert.equal(room.state.stocks['上海'].dividendFund,2000);assert.equal(room.state.stockWindow.boughtTotal,0);
 });
+
+test('可用性：报价、持股、额度及现金失效均原子拒绝且不延时',async()=>{
+ const {room,clients,fake}=await setup(2),[a,b]=clients;await until(()=>b.game?.self.choice);
+ for(const kind of ['报价','持股','额度','现金']){
+  const s=f.game(2);f.own(s,'p1','上海','东京');s.phase='stock';s.pending={playerId:'p0',kind:'go_stock',after:'end'};stocks.openStockWindow(s,'p0');let orders=[f.order(s,'上海','buy',1),f.order(s,'东京','buy',1)];
+  if(kind==='报价')orders[1].quoteVersion--;
+  if(kind==='持股'){s.stocks['上海'].holders.p0=1;stocks.syncHolders(s);orders=[f.order(s,'东京','buy',1),f.order(s,'上海','sell',2)];}
+  if(kind==='额度'){s.stockWindow.boughtByCity={'东京':2};s.stockWindow.boughtTotal=2;}
+  if(kind==='现金')s.players[0].cash=1;
+  await publish(room,clients,s);fake.advance(7000);const before=JSON.stringify(room.state),deadline=room.actionClock.deadlineMs;
+  const res=await action(a,{type:'stock_trade',windowId:s.stockWindow.windowId,orders});assert.equal(res.ok,false,kind);assert.ok(res.error);assert.equal(JSON.stringify(room.state),before,kind);assert.equal(room.actionClock.deadlineMs,deadline,kind);
+ }
+});

@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>环球大亨 · 资本博弈</title>
-  <link rel="stylesheet" href="style.css?v=20261005-travel" />
+  <link rel="stylesheet" href="style.css?v=20261008-usability" />
   <meta name="theme-color" content="#0b354b" />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" type="image/svg+xml" href="icon.svg" />
@@ -31,6 +31,7 @@
         <input id="nickname" maxlength="12" placeholder="请输入你的昵称" />
       </div>
       <button id="btnCreate" class="primary block" disabled>创建房间</button>
+      <p class="orientation-hint pregame">请将手机横屏，以完整查看地图文字</p>
       <div class="rule"></div>
       <div class="field">
         <label>输入房间码加入对局</label>
@@ -61,6 +62,7 @@
       </div>
       <div class="rule"></div>
       <button id="btnStart" class="primary block" disabled>开始游戏</button>
+      <p class="orientation-hint pregame">请将手机横屏，以完整查看地图文字</p>
       <button id="btnLeave" class="secondary block">退出房间</button>
       <p id="roomHint" class="hint center"></p>
     </div>
@@ -69,6 +71,7 @@
   <!-- 游戏 -->
   <section id="view-game" class="view hidden">
     <div id="waitBanner" class="hidden"></div>
+    <p class="orientation-hint ingame">请将手机横屏，以完整查看地图文字；竖屏也可向下滚动查看完整棋盘。</p>
     <section id="newsBar" class="news-bar" aria-label="环球资讯"></section>
     <div id="gameMain">
       <div id="boardWrap">
@@ -118,7 +121,7 @@
   <!-- 通用操作弹窗 -->
   <div id="modal" class="overlay hidden">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <div class="mh"><h3 id="modalTitle"></h3></div>
+      <div class="mh modal-heading"><h3 id="modalTitle"></h3><button id="btnModalRules" class="textbtn" type="button">规则速查</button></div>
       <div id="modalBody"></div>
     </div>
   </div>
@@ -133,6 +136,7 @@
         <button id="btnStockTransfer" class="secondary">股票转让</button>
         <button id="btnStockSkip" class="secondary">放弃交易</button>
         <button id="btnStockConfirm" class="primary">确认交易</button>
+        <button id="btnStockRules" class="textbtn" type="button">规则速查</button>
       </div>
     </div>
   </div>
@@ -149,6 +153,7 @@
   <div id="toast" class="hidden"></div>
 
   <script src="/socket.io/socket.io.js"></script>
-  <script src="client.js?v=20261005-travel"></script>
+  <script src="rules-catalog.js?v=20261008-usability"></script>
+  <script src="client.js?v=20261008-usability"></script>
 </body>
 </html>

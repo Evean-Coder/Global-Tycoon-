@@ -39,6 +39,7 @@ function snapshot(s,viewerId,clockView){
   out.self.quotes.remote={};
   for(const id of player.cities)out.self.quotes.remote[id]=econ.quoteBuild(s,{playerId:player.id,cityId:id,mode:'remote'});
   if(s.phase==='flight'&&s.pending?.playerId===player.id)for(const id of Object.keys(s.airports))if(id!==s.pending.fromAirportId)out.self.quotes.flight[id]=econ.quoteFlight(s,{playerId:player.id,target:id,fromAirportId:s.pending.fromAirportId,free:s.pending.free});
+  if(s.phase==='flight'&&s.pending?.playerId===player.id)out.self.flightInfo={fromAirportId:s.pending.fromAirportId,fromOwnerId:s.airports[s.pending.fromAirportId]?.ownerId||null,free:!!s.pending.free,airportFeePaid:s.pending.airportFeePaid?{...s.pending.airportFeePaid}:null,travelExpense:out.travelExpense};
   if(s.stockWindow?.playerId===player.id)out.self.stockWindow=globalThis.structuredClone(s.stockWindow);
   if(s.opportunityStage&&!s.opportunityStage.resolved&&s.opportunityStage.participants[player.id]){
    const entry=s.opportunityStage.participants[player.id];

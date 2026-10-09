@@ -508,7 +508,7 @@ function resolveAirport(state, player, sq, events, rng) {
   }
   if (airport.ownerId === player.id) {
     state.phase = 'flight';
-    state.pending = { playerId: player.id, kind: 'flight', fromAirportId: sq.airportId, free: true, context: null };
+    state.pending = { playerId: player.id, kind: 'flight', fromAirportId: sq.airportId, free: true, airportFeePaid: {playerId:player.id,airportId:sq.airportId,ownerId:player.id,amount:0}, context: null };
     log(events, `${player.name} 停在自己的机场，可免费飞行`, 'airport');
     return;
   }
@@ -522,7 +522,7 @@ function resolveAirport(state, player, sq, events, rng) {
     return;
   }
   state.phase = 'flight';
-  state.pending = { playerId: player.id, kind: 'flight', fromAirportId: sq.airportId, free: false, context: null };
+  state.pending = { playerId: player.id, kind: 'flight', fromAirportId: sq.airportId, free: false, airportFeePaid: {playerId:player.id,airportId:sq.airportId,ownerId:owner.id,amount:fee}, context: null };
   log(events, `${player.name} 可选择支付机票费飞行`, 'airport');
 }
 

@@ -48,7 +48,7 @@ module.exports = [
     rules: { 'no-undef': 'error', 'no-unused-vars': ['error', { argsIgnorePattern: '^_' }] },
   },
   {
-    files: ['public/client.js'],
+    files: ['public/client.js', 'public/rules-catalog.js'],
     languageOptions: { ecmaVersion: 2022, sourceType: 'script', globals: browserGlobals },
     rules: {
       'no-undef': 'error',

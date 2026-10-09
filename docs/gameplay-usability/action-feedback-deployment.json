@@ -1,9 +1,64 @@
 {
-  "date": "2026-10-09",
-  "status": "pending_push_and_public_verification",
+  "date": "2026-10-09T04:53:48.967Z",
+  "status": "public_resources_and_own_room_verified",
+  "productionCommit": "ec119a76da2c90e78ae96811d74e902f52e0f16a",
   "url": "https://global-tycoon-abx0.onrender.com/",
   "staticVersion": "20261009-action-feedback",
   "cache": "global-tycoon-v9-feedback",
-  "tests": {"passed":13,"failed":0,"skipped":0},
-  "limits": ["实体手机和用户具体网络未实测", "未访问Render CPU/地区/异常日志", "离线暂停新规则未实施"]
+  "resources": [
+    {
+      "file": "rules-catalog.js",
+      "status": 200,
+      "sha256": "2a180d4def25a631ac9757991cca70887d6b840cac1fd731be52179dd9c1d9d5",
+      "matchesLocal": true
+    },
+    {
+      "file": "style.css",
+      "status": 200,
+      "sha256": "c43af139e6eb18c0f504127cbb1e92aaa30a19b67ff6eaf9cb2f5229c1cf4fb0",
+      "matchesLocal": true
+    },
+    {
+      "file": "index.html",
+      "status": 200,
+      "sha256": "e2f1438629f17f553f1d1505a045cb67d902dd00d75ef4560b37ba42f06ce6b6",
+      "matchesLocal": true
+    },
+    {
+      "file": "sw.js",
+      "status": 200,
+      "sha256": "ecdca33d9c0f2c336232f3e97d4bc5f3d9faf04017c3c794a3dbcbebb3ee28e4",
+      "matchesLocal": true
+    },
+    {
+      "file": "client.js",
+      "status": 200,
+      "sha256": "145912debb8b36e957964252d5b661f99b495d4464c1f52c20a314fb85f95a8b",
+      "matchesLocal": true
+    }
+  ],
+  "tests": {
+    "passed": 13,
+    "failed": 0,
+    "evidence": [
+      "action-feedback-tests.txt",
+      "action-feedback-cache.txt"
+    ]
+  },
+  "limits": [
+    "实体手机/微信/iOS未实测",
+    "未测试冷启动",
+    "离线暂停新规则未实施"
+  ],
+  "health": {
+    "status": 200,
+    "body": "ok"
+  },
+  "ownRoom": {
+    "duplicateCreateSameRoom": true,
+    "twoPlayersStarted": true,
+    "transport": "websocket",
+    "requestSequenceMs": 1007,
+    "disbanded": true
+  }
 }

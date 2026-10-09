@@ -15,6 +15,11 @@
     "reconnect": true
   },
   {
+    "scenario": "lost-room-ack",
+    "createStateConfirmed": true,
+    "joinStateConfirmed": true
+  },
+  {
     "scenario": "unedited-transfer-return",
     "stockRestored": true,
     "draftBuy": 1,

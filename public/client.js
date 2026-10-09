@@ -1026,7 +1026,7 @@ function syncLobbyControls() {
 }
 function sendLobbyRequest(event, data, onSuccess) {
   if (!socket.connected || lobbyRequest || restoringSession) { syncLobbyControls(); return; }
-  const request = { event, socketId: socket.id };
+  const request = { event, socketId: socket.id, roomCode: data.roomCode || null };
   lobbyRequest = request;
   lobbyFeedback = event === 'startGame' ? '正在开始对局…' : event === 'createRoom' ? '正在创建房间…' : '正在加入房间…';
   syncLobbyControls();
@@ -1116,7 +1116,8 @@ function setupLobby() {
 
 // ---------- Socket ----------
 socket.on('roomState', (rs) => {
-  if (lobbyRequest && ['createRoom', 'joinRoom'].includes(lobbyRequest.event) && rs.players.some(p => p.id === socket.id && p.name === me.name)) {
+  const matchingRoomRequest = lobbyRequest?.event === 'createRoom' ? rs.hostId === socket.id : lobbyRequest?.event === 'joinRoom' && rs.roomCode === lobbyRequest.roomCode;
+  if (matchingRoomRequest && rs.players.some(p => p.connected && p.name === me.name)) {
     me.roomCode = rs.roomCode;
     if (pendingToken) { saveReconnect({roomCode:me.roomCode,name:me.name,token:pendingToken}); pendingToken=null; }
     lobbyRequest=null; lobbyFeedback='';

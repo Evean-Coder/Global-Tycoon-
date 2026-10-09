@@ -55,6 +55,17 @@ test('开局失败与未确认可见，断线不缓存新请求',{timeout},async
  }finally{peer?.close();await ctx.close();}
 });
 
+test('创建和加入丢失回执时仍由本人房间状态确认',{timeout},async()=>{
+ const host=await phone({name:'房间确认甲'}),guest=await phone({name:'房间确认乙'});
+ try{
+  for(const p of [host.page,guest.page])await p.evaluate(()=>{const timeout=socket.timeout.bind(socket);socket.timeout=ms=>({emit(ev,data){return timeout(ms).emit(ev,data,()=>{});}});});
+  await host.page.locator('#btnCreate').tap();await host.page.waitForSelector('#view-room:not(.hidden)');const code=(await host.page.textContent('#roomCode')).trim();
+  await guest.page.fill('#joinCode',code);await guest.page.locator('#btnJoin').tap();await guest.page.waitForSelector('#view-room:not(.hidden)');await host.page.waitForFunction(()=>!document.getElementById('btnStart').disabled);
+  assert.equal(await guest.page.textContent('#roomCode'),code);assert.equal(await guest.page.locator('#connectionStatus').isVisible(),false);
+  measurements.push({scenario:'lost-room-ack',createStateConfirmed:true,joinStateConfirmed:true});
+ }finally{await host.ctx.close();await guest.ctx.close();}
+});
+
 test('手机股票转让未编辑返回恢复同窗草稿并可主动结束',{timeout},async()=>{
  const page=h.pages[0];await page.setViewportSize({width:812,height:375});await h.fixture(stockState());
  await page.locator('button[data-city="上海"][data-kind="buy"][data-delta="1"]').tap();const before=JSON.stringify(h.room.state),deadline=h.room.actionClock.deadlineMs;

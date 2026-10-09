@@ -17,6 +17,19 @@ async function until(fn){const end=Date.now()+3000;while(Date.now()<end){if(fn()
 test.before(async()=>{await new Promise(r=>api.server.listen(0,'127.0.0.1',r));url='http://127.0.0.1:'+api.server.address().port;});
 test.afterEach(()=>{for(const s of sockets.splice(0))s.close();for(const room of api.rooms.values()){room.actionClock.clear();if(room.hostTimer)clearTimeout(room.hostTimer);}api.rooms.clear();});
 test.after(async()=>{await new Promise(r=>api.io.close(r));});
+
+test('重复创建同一房间不会导致已两人但无法开始',async()=>{
+ const a=await connect(),b=await connect();
+ const first=await ack(a,'createRoom',{name:'玩家甲'});
+ const second=await ack(a,'createRoom',{name:'玩家甲'});
+ assert.equal(first.roomCode,second.roomCode);
+ assert.equal(api.rooms.size,1);
+ assert.equal((await ack(a,'createRoom',{name:'另一个昵称'})).ok,false);
+ assert.equal((await ack(b,'joinRoom',{roomCode:second.roomCode,name:'玩家乙'})).ok,true);
+ assert.equal((await ack(a,'startGame',{})).ok,true);
+ await until(()=>a.game?.phase==='opportunity_choose'&&b.game?.phase==='opportunity_choose');
+ assert.equal(api.rooms.get(first.roomCode).state.players.length,2);
+});
 test('逐人私有投影 / 三十秒时钟 / 迟到消息与同时提交',async()=>{
  const {room,clients,fake}=await setup(),[a,b,c]=clients,outsider=await connect();
  await until(()=>clients.every(s=>s.game?.self.choice));

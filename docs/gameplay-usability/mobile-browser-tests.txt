@@ -1,0 +1,62 @@
+TAP version 13
+# Subtest: 手机触控慢请求只创建/开始一次，受限存储不阻断
+ok 1 - 手机触控慢请求只创建/开始一次，受限存储不阻断
+  ---
+  duration_ms: 4729.6761
+  ...
+# Subtest: 开局失败与未确认可见，断线不缓存新请求
+ok 2 - 开局失败与未确认可见，断线不缓存新请求
+  ---
+  duration_ms: 1195.527
+  ...
+# Subtest: 手机股票转让未编辑返回恢复同窗草稿并可主动结束
+not ok 3 - 手机股票转让未编辑返回恢复同窗草稿并可主动结束
+  ---
+  duration_ms: 30044.4151
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\mobile-start.spec.js:58:1'
+  failureType: 'testCodeFailure'
+  error: 'page.waitForFunction: Timeout 30000ms exceeded.'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TimeoutError'
+  stack: |-
+    Object.fixture (C:\Users\Yifan\Desktop\game\e2e\helpers\browserHarness.js:19:73)
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\mobile-start.spec.js:59:83)
+  ...
+# Subtest: 过期转让返回不打开旧股票窗口或关闭新决定
+not ok 4 - 过期转让返回不打开旧股票窗口或关闭新决定
+  ---
+  duration_ms: 30020.0097
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\mobile-start.spec.js:71:1'
+  failureType: 'testCodeFailure'
+  error: 'page.waitForFunction: Timeout 30000ms exceeded.'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TimeoutError'
+  stack: |-
+    Object.fixture (C:\Users\Yifan\Desktop\game\e2e\helpers\browserHarness.js:19:73)
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\mobile-start.spec.js:72:32)
+  ...
+# Subtest: 手机横屏三段布局与三端文字/触控矩阵
+ok 5 - 手机横屏三段布局与三端文字/触控矩阵
+  ---
+  duration_ms: 1962.9055
+  ...
+# Subtest: WebSocket不可用时回退轮询并能触控创建
+not ok 6 - WebSocket不可用时回退轮询并能触控创建
+  ---
+  duration_ms: 30761.5493
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\mobile-start.spec.js:98:1'
+  failureType: 'testCodeFailure'
+  error: 'page.waitForFunction: Timeout 30000ms exceeded.'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TimeoutError'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\mobile-start.spec.js:103:99)
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 3
+# fail 3
+# cancelled 0
+# skipped 0
+# todo 0

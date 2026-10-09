@@ -343,6 +343,14 @@ function safeHandler(fn) {
 io.on('connection', (socket) => {
   socket.on('createRoom', safeHandler((data, cb) => {
     const name = String(data && data.name || '玩家').slice(0, 12);
+    const existing = [...rooms.values()].find(r => r.players.some(p => p.socketId === socket.id));
+    if (existing) {
+      const player = existing.players.find(p => p.socketId === socket.id);
+      if (existing.state || player.name !== name) return cb && cb({ ok: false, error: '你已在房间中，请先退出当前房间' });
+      cb && cb({ ok: true, roomCode: existing.code });
+      emitRoom(existing);
+      return;
+    }
     const room = makeRoom(socket, name);
     cb && cb({ ok: true, roomCode: room.code });
     emitRoom(room);

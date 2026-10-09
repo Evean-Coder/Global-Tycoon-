@@ -1,0 +1,63 @@
+TAP version 13
+# Subtest: 手机触控慢请求只创建/开始一次，受限存储不阻断
+ok 1 - 手机触控慢请求只创建/开始一次，受限存储不阻断 # SKIP test name does not match pattern
+  ---
+  duration_ms: 2119.1796
+  ...
+# Subtest: 开局失败与未确认可见，断线不缓存新请求
+ok 2 - 开局失败与未确认可见，断线不缓存新请求 # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.3573
+  ...
+# Subtest: 手机股票转让未编辑返回恢复同窗草稿并可主动结束
+not ok 3 - 手机股票转让未编辑返回恢复同窗草稿并可主动结束
+  ---
+  duration_ms: 439.0632
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\mobile-start.spec.js:58:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    locator.tap: Error: strict mode violation: getByRole('button', { name: '股票转让', exact: true }) resolved to 2 elements:
+        1) <button class="secondary" onclick="clickTransferEntry()">股票转让</button> aka getByLabel('资产总览').getByRole('button', { name: '股票转让' })
+        2) <button class="secondary" id="btnStockTransfer">股票转让</button> aka getByLabel('股票市场').getByRole('button', { name: '股票转让' })
+
+    Call log:
+    [2m  - waiting for getByRole('button', { name: '股票转让', exact: true })[22m
+
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\mobile-start.spec.js:66:128)
+  ...
+# Subtest: 过期转让返回不打开旧股票窗口或关闭新决定
+ok 4 - 过期转让返回不打开旧股票窗口或关闭新决定
+  ---
+  duration_ms: 62.4709
+  ...
+# Subtest: 手机横屏三段布局与三端文字/触控矩阵
+ok 5 - 手机横屏三段布局与三端文字/触控矩阵 # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.1299
+  ...
+# Subtest: WebSocket不可用时回退轮询并能触控创建
+not ok 6 - WebSocket不可用时回退轮询并能触控创建
+  ---
+  duration_ms: 30104.424
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\mobile-start.spec.js:98:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    page.goto: Timeout 30000ms exceeded.
+    Call log:
+    [2m  - navigating to "http://127.0.0.1:65181/", waiting until "networkidle"[22m
+
+  code: 'ERR_TEST_FAILURE'
+  name: 'TimeoutError'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\mobile-start.spec.js:103:14)
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 1
+# fail 2
+# cancelled 0
+# skipped 3
+# todo 0

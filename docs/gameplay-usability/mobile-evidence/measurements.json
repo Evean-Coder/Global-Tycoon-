@@ -1,0 +1,3610 @@
+[
+  {
+    "scenario": "touch-slow-create-start",
+    "createdRequests": 1,
+    "startRequests": 1,
+    "storageDenied": true,
+    "realPlayers": 2
+  },
+  {
+    "scenario": "request-feedback",
+    "missingRoomVisible": true,
+    "notHostVisible": true,
+    "unconfirmedNotRetried": true,
+    "offlineSendBuffer": 0,
+    "reconnect": true
+  },
+  {
+    "scenario": "unedited-transfer-return",
+    "stockRestored": true,
+    "draftBuy": 1,
+    "stateAndDeadlineUnchanged": true,
+    "canSkipImmediately": true,
+    "assetOriginReturnsToAssets": true
+  },
+  {
+    "scenario": "layout",
+    "width": 320,
+    "height": 568,
+    "overflow": false,
+    "main": {
+      "x": 8,
+      "y": 216.984375,
+      "width": 304,
+      "height": 1930.171875,
+      "bottom": 2147.15625
+    },
+    "bar": {
+      "x": 0,
+      "y": 475,
+      "width": 320,
+      "height": 93,
+      "bottom": 568
+    },
+    "header": {
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 61,
+      "bottom": 61
+    },
+    "barPosition": "fixed",
+    "names": [
+      {
+        "text": "起点",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "肯尼亚·内罗毕",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "南非·开普敦",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "摩洛哥·卡萨布兰卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "埃及·开罗",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "开罗国际机场",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "新西兰·奥克兰",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "澳大利亚·悉尼",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "监狱",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "意大利·罗马",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "荷兰·阿姆斯特丹",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "南极",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "伦敦希思罗国际机场",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "英国·伦敦",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "法国·巴黎",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "德国·柏林",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "监狱",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "俄罗斯·莫斯科",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "纽约肯尼迪国际机场",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "美国·纽约",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "加拿大·多伦多",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "墨西哥·墨西哥城",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "巴西·里约热内卢",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "监狱",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "北极",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "上海浦东国际机场",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "中国·上海",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "日本·东京",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "新加坡·新加坡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "阿联酋·迪拜",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      }
+    ],
+    "controls": [
+      {
+        "id": "btnRoll",
+        "x": 8,
+        "y": 516,
+        "width": 91.953125,
+        "height": 44,
+        "bottom": 560
+      },
+      {
+        "id": "btnAssets",
+        "x": 104.953125,
+        "y": 516,
+        "width": 65.671875,
+        "height": 44,
+        "bottom": 560
+      },
+      {
+        "id": "btnBank",
+        "x": 175.625,
+        "y": 516,
+        "width": 65.6875,
+        "height": 44,
+        "bottom": 560
+      },
+      {
+        "id": "btnEndTurn",
+        "x": 246.3125,
+        "y": 516,
+        "width": 65.671875,
+        "height": 44,
+        "bottom": 560
+      }
+    ]
+  },
+  {
+    "scenario": "layout",
+    "width": 375,
+    "height": 812,
+    "overflow": false,
+    "main": {
+      "x": 8,
+      "y": 103.984375,
+      "width": 359,
+      "height": 1653.171875,
+      "bottom": 1757.15625
+    },
+    "bar": {
+      "x": 0,
+      "y": 719,
+      "width": 375,
+      "height": 93,
+      "bottom": 812
+    },
+    "header": {
+      "x": 0,
+      "y": -113,
+      "width": 375,
+      "height": 61,
+      "bottom": -52
+    },
+    "barPosition": "fixed",
+    "names": [
+      {
+        "text": "起点",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "肯尼亚·内罗毕",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "南非·开普敦",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "摩洛哥·卡萨布兰卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "埃及·开罗",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "开罗国际机场",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "新西兰·奥克兰",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "澳大利亚·悉尼",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "监狱",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "意大利·罗马",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "荷兰·阿姆斯特丹",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "南极",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "伦敦希思罗国际机场",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "英国·伦敦",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "法国·巴黎",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "德国·柏林",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "监狱",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "俄罗斯·莫斯科",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "纽约肯尼迪国际机场",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "美国·纽约",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "加拿大·多伦多",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "墨西哥·墨西哥城",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "巴西·里约热内卢",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "监狱",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "北极",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "上海浦东国际机场",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "中国·上海",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "日本·东京",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "新加坡·新加坡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "阿联酋·迪拜",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      }
+    ],
+    "controls": [
+      {
+        "id": "btnRoll",
+        "x": 8,
+        "y": 760,
+        "width": 109.453125,
+        "height": 44,
+        "bottom": 804
+      },
+      {
+        "id": "btnAssets",
+        "x": 122.453125,
+        "y": 760,
+        "width": 78.171875,
+        "height": 44,
+        "bottom": 804
+      },
+      {
+        "id": "btnBank",
+        "x": 205.625,
+        "y": 760,
+        "width": 78.1875,
+        "height": 44,
+        "bottom": 804
+      },
+      {
+        "id": "btnEndTurn",
+        "x": 288.8125,
+        "y": 760,
+        "width": 78.171875,
+        "height": 44,
+        "bottom": 804
+      }
+    ]
+  },
+  {
+    "scenario": "layout",
+    "width": 430,
+    "height": 932,
+    "overflow": false,
+    "main": {
+      "x": 10,
+      "y": 200.984375,
+      "width": 410,
+      "height": 1634.984375,
+      "bottom": 1835.96875
+    },
+    "bar": {
+      "x": 0,
+      "y": 838,
+      "width": 430,
+      "height": 94,
+      "bottom": 932
+    },
+    "header": {
+      "x": 0,
+      "y": 0,
+      "width": 430,
+      "height": 65,
+      "bottom": 65
+    },
+    "barPosition": "fixed",
+    "names": [
+      {
+        "text": "起点",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "肯尼亚·内罗毕",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "南非·开普敦",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "摩洛哥·卡萨布兰卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "埃及·开罗",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "开罗国际机场",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "新西兰·奥克兰",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "澳大利亚·悉尼",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "监狱",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "意大利·罗马",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "荷兰·阿姆斯特丹",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "南极",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "伦敦希思罗国际机场",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "英国·伦敦",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "法国·巴黎",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "德国·柏林",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "监狱",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "俄罗斯·莫斯科",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "纽约肯尼迪国际机场",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "美国·纽约",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "加拿大·多伦多",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "墨西哥·墨西哥城",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "巴西·里约热内卢",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "监狱",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "北极",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "上海浦东国际机场",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "中国·上海",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "日本·东京",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "新加坡·新加坡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "阿联酋·迪拜",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      }
+    ],
+    "controls": [
+      {
+        "id": "btnRoll",
+        "x": 10,
+        "y": 880,
+        "width": 124.71875,
+        "height": 44,
+        "bottom": 924
+      },
+      {
+        "id": "btnAssets",
+        "x": 140.71875,
+        "y": 880,
+        "width": 89.09375,
+        "height": 44,
+        "bottom": 924
+      },
+      {
+        "id": "btnBank",
+        "x": 235.8125,
+        "y": 880,
+        "width": 89.09375,
+        "height": 44,
+        "bottom": 924
+      },
+      {
+        "id": "btnEndTurn",
+        "x": 330.90625,
+        "y": 880,
+        "width": 89.078125,
+        "height": 44,
+        "bottom": 924
+      }
+    ]
+  },
+  {
+    "scenario": "layout",
+    "width": 568,
+    "height": 320,
+    "overflow": false,
+    "main": {
+      "x": 8,
+      "y": 98.6875,
+      "width": 552,
+      "height": 161.3125,
+      "bottom": 260
+    },
+    "bar": {
+      "x": 8,
+      "y": 264,
+      "width": 552,
+      "height": 56,
+      "bottom": 320
+    },
+    "header": {
+      "x": 0,
+      "y": 0,
+      "width": 568,
+      "height": 45,
+      "bottom": 45
+    },
+    "barPosition": "relative",
+    "names": [
+      {
+        "text": "起点",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "肯尼亚·内罗毕",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "南非·开普敦",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "摩洛哥·卡萨布兰卡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "埃及·开罗",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "开罗国际机场",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "新西兰·奥克兰",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "澳大利亚·悉尼",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "监狱",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "意大利·罗马",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "荷兰·阿姆斯特丹",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "南极",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "伦敦希思罗国际机场",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "英国·伦敦",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "法国·巴黎",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "德国·柏林",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "监狱",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "俄罗斯·莫斯科",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "纽约肯尼迪国际机场",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "美国·纽约",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "加拿大·多伦多",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "墨西哥·墨西哥城",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "巴西·里约热内卢",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "监狱",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "北极",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "上海浦东国际机场",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "中国·上海",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "日本·东京",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "新加坡·新加坡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "阿联酋·迪拜",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      }
+    ],
+    "controls": [
+      {
+        "id": "btnRoll",
+        "x": 147.953125,
+        "y": 270,
+        "width": 83.296875,
+        "height": 44,
+        "bottom": 314
+      },
+      {
+        "id": "btnAssets",
+        "x": 237.25,
+        "y": 270,
+        "width": 83.3125,
+        "height": 44,
+        "bottom": 314
+      },
+      {
+        "id": "btnBank",
+        "x": 326.5625,
+        "y": 270,
+        "width": 83.3125,
+        "height": 44,
+        "bottom": 314
+      },
+      {
+        "id": "btnEndTurn",
+        "x": 415.875,
+        "y": 270,
+        "width": 83.296875,
+        "height": 44,
+        "bottom": 314
+      }
+    ]
+  },
+  {
+    "scenario": "layout",
+    "width": 812,
+    "height": 375,
+    "overflow": false,
+    "main": {
+      "x": 8,
+      "y": 98.6875,
+      "width": 796,
+      "height": 216.3125,
+      "bottom": 315
+    },
+    "bar": {
+      "x": 8,
+      "y": 319,
+      "width": 796,
+      "height": 56,
+      "bottom": 375
+    },
+    "header": {
+      "x": 0,
+      "y": 0,
+      "width": 812,
+      "height": 45,
+      "bottom": 45
+    },
+    "barPosition": "relative",
+    "names": [
+      {
+        "text": "起点",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "肯尼亚·内罗毕",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "南非·开普敦",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "摩洛哥·卡萨布兰卡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "埃及·开罗",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "开罗国际机场",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "新西兰·奥克兰",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "澳大利亚·悉尼",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "监狱",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "意大利·罗马",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "荷兰·阿姆斯特丹",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "南极",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "伦敦希思罗国际机场",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "英国·伦敦",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "法国·巴黎",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "德国·柏林",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "监狱",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "俄罗斯·莫斯科",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "纽约肯尼迪国际机场",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "美国·纽约",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "加拿大·多伦多",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "墨西哥·墨西哥城",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "巴西·里约热内卢",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "监狱",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "北极",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "上海浦东国际机场",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "中国·上海",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "日本·东京",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "新加坡·新加坡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "阿联酋·迪拜",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      }
+    ],
+    "controls": [
+      {
+        "id": "btnRoll",
+        "x": 208.453125,
+        "y": 325,
+        "width": 123.625,
+        "height": 44,
+        "bottom": 369
+      },
+      {
+        "id": "btnAssets",
+        "x": 338.078125,
+        "y": 325,
+        "width": 123.640625,
+        "height": 44,
+        "bottom": 369
+      },
+      {
+        "id": "btnBank",
+        "x": 467.71875,
+        "y": 325,
+        "width": 123.640625,
+        "height": 44,
+        "bottom": 369
+      },
+      {
+        "id": "btnEndTurn",
+        "x": 597.359375,
+        "y": 325,
+        "width": 123.625,
+        "height": 44,
+        "bottom": 369
+      }
+    ]
+  },
+  {
+    "scenario": "layout",
+    "width": 884,
+    "height": 330,
+    "overflow": false,
+    "main": {
+      "x": 8,
+      "y": 98.6875,
+      "width": 868,
+      "height": 171.3125,
+      "bottom": 270
+    },
+    "bar": {
+      "x": 8,
+      "y": 274,
+      "width": 868,
+      "height": 56,
+      "bottom": 330
+    },
+    "header": {
+      "x": 0,
+      "y": 0,
+      "width": 884,
+      "height": 45,
+      "bottom": 45
+    },
+    "barPosition": "relative",
+    "names": [
+      {
+        "text": "起点",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "肯尼亚·内罗毕",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "南非·开普敦",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "摩洛哥·卡萨布兰卡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "埃及·开罗",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "开罗国际机场",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "新西兰·奥克兰",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "澳大利亚·悉尼",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "监狱",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "意大利·罗马",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "荷兰·阿姆斯特丹",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "南极",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "伦敦希思罗国际机场",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "英国·伦敦",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "法国·巴黎",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "德国·柏林",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "监狱",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "俄罗斯·莫斯科",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "纽约肯尼迪国际机场",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "美国·纽约",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "加拿大·多伦多",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "墨西哥·墨西哥城",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "巴西·里约热内卢",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "监狱",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "北极",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "上海浦东国际机场",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "中国·上海",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "日本·东京",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "新加坡·新加坡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "阿联酋·迪拜",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      }
+    ],
+    "controls": [
+      {
+        "id": "btnRoll",
+        "x": 226.296875,
+        "y": 280,
+        "width": 135.53125,
+        "height": 44,
+        "bottom": 324
+      },
+      {
+        "id": "btnAssets",
+        "x": 367.828125,
+        "y": 280,
+        "width": 135.546875,
+        "height": 44,
+        "bottom": 324
+      },
+      {
+        "id": "btnBank",
+        "x": 509.375,
+        "y": 280,
+        "width": 135.53125,
+        "height": 44,
+        "bottom": 324
+      },
+      {
+        "id": "btnEndTurn",
+        "x": 650.90625,
+        "y": 280,
+        "width": 135.546875,
+        "height": 44,
+        "bottom": 324
+      }
+    ]
+  },
+  {
+    "scenario": "layout",
+    "width": 932,
+    "height": 430,
+    "overflow": false,
+    "main": {
+      "x": 8,
+      "y": 98.6875,
+      "width": 916,
+      "height": 271.3125,
+      "bottom": 370
+    },
+    "bar": {
+      "x": 8,
+      "y": 374,
+      "width": 916,
+      "height": 56,
+      "bottom": 430
+    },
+    "header": {
+      "x": 0,
+      "y": 0,
+      "width": 932,
+      "height": 45,
+      "bottom": 45
+    },
+    "barPosition": "relative",
+    "names": [
+      {
+        "text": "起点",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "肯尼亚·内罗毕",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "南非·开普敦",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "摩洛哥·卡萨布兰卡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "埃及·开罗",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "开罗国际机场",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "新西兰·奥克兰",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "澳大利亚·悉尼",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "监狱",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "意大利·罗马",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "荷兰·阿姆斯特丹",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "南极",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "伦敦希思罗国际机场",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "英国·伦敦",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "法国·巴黎",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "德国·柏林",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "监狱",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "俄罗斯·莫斯科",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "纽约肯尼迪国际机场",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "美国·纽约",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "加拿大·多伦多",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "墨西哥·墨西哥城",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "巴西·里约热内卢",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "监狱",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "北极",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "上海浦东国际机场",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "中国·上海",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "日本·东京",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "新加坡·新加坡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "阿联酋·迪拜",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 11,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      }
+    ],
+    "controls": [
+      {
+        "id": "btnRoll",
+        "x": 238.203125,
+        "y": 380,
+        "width": 143.46875,
+        "height": 44,
+        "bottom": 424
+      },
+      {
+        "id": "btnAssets",
+        "x": 387.671875,
+        "y": 380,
+        "width": 143.46875,
+        "height": 44,
+        "bottom": 424
+      },
+      {
+        "id": "btnBank",
+        "x": 537.140625,
+        "y": 380,
+        "width": 143.46875,
+        "height": 44,
+        "bottom": 424
+      },
+      {
+        "id": "btnEndTurn",
+        "x": 686.609375,
+        "y": 380,
+        "width": 143.46875,
+        "height": 44,
+        "bottom": 424
+      }
+    ]
+  },
+  {
+    "scenario": "layout",
+    "width": 768,
+    "height": 1024,
+    "overflow": false,
+    "main": {
+      "x": 24,
+      "y": 154.796875,
+      "width": 720,
+      "height": 1341,
+      "bottom": 1495.796875
+    },
+    "bar": {
+      "x": 14,
+      "y": 921,
+      "width": 740,
+      "height": 91,
+      "bottom": 1012
+    },
+    "header": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 73,
+      "bottom": 73
+    },
+    "barPosition": "fixed",
+    "names": [
+      {
+        "text": "起点",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "肯尼亚·内罗毕",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "南非·开普敦",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "摩洛哥·卡萨布兰卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "埃及·开罗",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "开罗国际机场",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "新西兰·奥克兰",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "澳大利亚·悉尼",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "监狱",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "意大利·罗马",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "荷兰·阿姆斯特丹",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "南极",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "伦敦希思罗国际机场",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "英国·伦敦",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "法国·巴黎",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "德国·柏林",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "监狱",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "俄罗斯·莫斯科",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "纽约肯尼迪国际机场",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "美国·纽约",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "加拿大·多伦多",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "墨西哥·墨西哥城",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "巴西·里约热内卢",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "监狱",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "北极",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "上海浦东国际机场",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "中国·上海",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "日本·东京",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "新加坡·新加坡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "阿联酋·迪拜",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      }
+    ],
+    "controls": [
+      {
+        "id": "btnRoll",
+        "x": 33,
+        "y": 957,
+        "width": 169.5,
+        "height": 44,
+        "bottom": 1001
+      },
+      {
+        "id": "btnAssets",
+        "x": 210.5,
+        "y": 957,
+        "width": 169.5,
+        "height": 44,
+        "bottom": 1001
+      },
+      {
+        "id": "btnBank",
+        "x": 388,
+        "y": 957,
+        "width": 169.5,
+        "height": 44,
+        "bottom": 1001
+      },
+      {
+        "id": "btnEndTurn",
+        "x": 565.5,
+        "y": 957,
+        "width": 169.5,
+        "height": 44,
+        "bottom": 1001
+      }
+    ]
+  },
+  {
+    "scenario": "layout",
+    "width": 1024,
+    "height": 768,
+    "overflow": false,
+    "main": {
+      "x": 24,
+      "y": 154.796875,
+      "width": 976,
+      "height": 1166,
+      "bottom": 1320.796875
+    },
+    "bar": {
+      "x": 14,
+      "y": 665,
+      "width": 996,
+      "height": 91,
+      "bottom": 756
+    },
+    "header": {
+      "x": 0,
+      "y": 0,
+      "width": 1024,
+      "height": 73,
+      "bottom": 73
+    },
+    "barPosition": "fixed",
+    "names": [
+      {
+        "text": "起点",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "肯尼亚·内罗毕",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "南非·开普敦",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "摩洛哥·卡萨布兰卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "埃及·开罗",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "开罗国际机场",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "新西兰·奥克兰",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "澳大利亚·悉尼",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "监狱",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "意大利·罗马",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "荷兰·阿姆斯特丹",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "南极",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "伦敦希思罗国际机场",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "英国·伦敦",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "法国·巴黎",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "德国·柏林",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "监狱",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "俄罗斯·莫斯科",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "纽约肯尼迪国际机场",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "美国·纽约",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "加拿大·多伦多",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "墨西哥·墨西哥城",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "巴西·里约热内卢",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "监狱",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "北极",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "上海浦东国际机场",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "中国·上海",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "日本·东京",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "新加坡·新加坡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "阿联酋·迪拜",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 10,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      }
+    ],
+    "controls": [
+      {
+        "id": "btnRoll",
+        "x": 33,
+        "y": 701,
+        "width": 233.5,
+        "height": 44,
+        "bottom": 745
+      },
+      {
+        "id": "btnAssets",
+        "x": 274.5,
+        "y": 701,
+        "width": 233.5,
+        "height": 44,
+        "bottom": 745
+      },
+      {
+        "id": "btnBank",
+        "x": 516,
+        "y": 701,
+        "width": 233.5,
+        "height": 44,
+        "bottom": 745
+      },
+      {
+        "id": "btnEndTurn",
+        "x": 757.5,
+        "y": 701,
+        "width": 233.5,
+        "height": 44,
+        "bottom": 745
+      }
+    ]
+  },
+  {
+    "scenario": "layout",
+    "width": 1440,
+    "height": 900,
+    "overflow": false,
+    "main": {
+      "x": 24,
+      "y": 158.796875,
+      "width": 1392,
+      "height": 835,
+      "bottom": 993.796875
+    },
+    "bar": {
+      "x": 14,
+      "y": 822,
+      "width": 1412,
+      "height": 66,
+      "bottom": 888
+    },
+    "header": {
+      "x": 0,
+      "y": 0,
+      "width": 1440,
+      "height": 73,
+      "bottom": 73
+    },
+    "barPosition": "fixed",
+    "names": [
+      {
+        "text": "起点",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "肯尼亚·内罗毕",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "南非·开普敦",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "摩洛哥·卡萨布兰卡",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "埃及·开罗",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "开罗国际机场",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "新西兰·奥克兰",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "澳大利亚·悉尼",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "监狱",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "意大利·罗马",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "荷兰·阿姆斯特丹",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "南极",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "伦敦希思罗国际机场",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "英国·伦敦",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "法国·巴黎",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "德国·柏林",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "监狱",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "俄罗斯·莫斯科",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "纽约肯尼迪国际机场",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "美国·纽约",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "加拿大·多伦多",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "墨西哥·墨西哥城",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "巴西·里约热内卢",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "监狱",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "北极",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "上海浦东国际机场",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "中国·上海",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "日本·东京",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "新加坡·新加坡",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "阿联酋·迪拜",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "机会卡",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      },
+      {
+        "text": "休闲",
+        "font": 11.952,
+        "display": "block",
+        "within": true,
+        "ownerOverflow": false
+      }
+    ],
+    "controls": [
+      {
+        "id": "btnRoll",
+        "x": 845.96875,
+        "y": 833,
+        "width": 118,
+        "height": 44,
+        "bottom": 877
+      },
+      {
+        "id": "btnAssets",
+        "x": 975.96875,
+        "y": 833,
+        "width": 118,
+        "height": 44,
+        "bottom": 877
+      },
+      {
+        "id": "btnBank",
+        "x": 1105.96875,
+        "y": 833,
+        "width": 118,
+        "height": 44,
+        "bottom": 877
+      },
+      {
+        "id": "btnEndTurn",
+        "x": 1235.96875,
+        "y": 833,
+        "width": 118,
+        "height": 44,
+        "bottom": 877
+      }
+    ]
+  },
+  {
+    "scenario": "websocket-fallback",
+    "transport": "polling",
+    "createSucceeded": true
+  }
+]

@@ -1,0 +1,10 @@
+{
+  "date": "2026-10-09",
+  "status": "pending_push_and_public_verification",
+  "baseline": "9ead166",
+  "url": "https://global-tycoon-abx0.onrender.com/",
+  "staticVersion": "20261009-mobile",
+  "cache": "global-tycoon-v7-mobile",
+  "tests": {"passed":28,"failed":0,"skipped":0},
+  "limits": ["实体手机/微信/iOS未实测", "未测试冷启动", "离线暂停新规则未实施"]
+}

@@ -2,9 +2,9 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>环球大亨 · 资本博弈</title>
-  <link rel="stylesheet" href="style.css?v=20261008-usability" />
+  <link rel="stylesheet" href="style.css?v=20261009-mobile" />
   <meta name="theme-color" content="#0b354b" />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" type="image/svg+xml" href="icon.svg" />
@@ -17,10 +17,12 @@
     </div>
     <button id="btnRules" class="ghost">规则速查</button>
   </header>
+  <div id="connectionStatus" class="connection-status" role="status" aria-live="polite">正在连接服务器…首次访问或服务唤醒可能较慢，请稍候。</div>
 
   <!-- 大厅 -->
   <section id="view-lobby" class="view">
     <div class="card center">
+      <p class="orientation-hint pregame"><strong>请将手机横屏，以完整查看地图文字</strong><br />竖屏也可加入；棋盘与资料可上下滚动查看。</p>
       <div class="brand-mark">
         <div class="t serif">环球大亨</div>
         <div class="s">GLOBAL TYCOON · 资本博弈</div>
@@ -31,7 +33,6 @@
         <input id="nickname" maxlength="12" placeholder="请输入你的昵称" />
       </div>
       <button id="btnCreate" class="primary block" disabled>创建房间</button>
-      <p class="orientation-hint pregame">请将手机横屏，以完整查看地图文字</p>
       <div class="rule"></div>
       <div class="field">
         <label>输入房间码加入对局</label>
@@ -48,6 +49,7 @@
   <section id="view-room" class="view hidden">
     <div class="card center">
       <h2>房间</h2>
+      <p class="orientation-hint pregame"><strong>开始前请将手机横屏，以完整查看地图文字</strong><br />转动手机不会退出房间或重置倒计时。</p>
       <div class="codebox">
         <label>房间编号</label>
         <div class="row">
@@ -62,7 +64,6 @@
       </div>
       <div class="rule"></div>
       <button id="btnStart" class="primary block" disabled>开始游戏</button>
-      <p class="orientation-hint pregame">请将手机横屏，以完整查看地图文字</p>
       <button id="btnLeave" class="secondary block">退出房间</button>
       <p id="roomHint" class="hint center"></p>
     </div>
@@ -73,6 +74,7 @@
     <div id="waitBanner" class="hidden"></div>
     <p class="orientation-hint ingame">请将手机横屏，以完整查看地图文字；竖屏也可向下滚动查看完整棋盘。</p>
     <section id="newsBar" class="news-bar" aria-label="环球资讯"></section>
+    <p id="mapScrollHint" class="board-scroll-hint">地图可上下滑动 · 点地块查看详情</p>
     <div id="gameMain">
       <div id="boardWrap">
         <div id="boardScale">
@@ -100,6 +102,7 @@
       <span id="turnInfo" class="muted"></span>
       <span class="spacer"></span>
       <button id="btnRoll" class="primary">掷骰子</button>
+      <button id="btnResumeStock" class="primary hidden">继续买卖</button>
       <button id="btnAssets" class="secondary">查看资产</button>
       <button id="btnBank" class="secondary">银行</button>
       <button id="btnEndTurn" class="secondary" disabled>结束回合</button>
@@ -134,6 +137,7 @@
       <p id="stockSummary" class="stock-summary" role="status"></p>
       <div class="mf">
         <button id="btnStockTransfer" class="secondary">股票转让</button>
+        <button id="btnStockAssets" class="secondary">查看资产</button>
         <button id="btnStockSkip" class="secondary">放弃交易</button>
         <button id="btnStockConfirm" class="primary">确认交易</button>
         <button id="btnStockRules" class="textbtn" type="button">规则速查</button>
@@ -153,7 +157,7 @@
   <div id="toast" class="hidden"></div>
 
   <script src="/socket.io/socket.io.js"></script>
-  <script src="rules-catalog.js?v=20261008-usability"></script>
-  <script src="client.js?v=20261008-usability"></script>
+  <script src="rules-catalog.js?v=20261009-mobile"></script>
+  <script src="client.js?v=20261009-mobile"></script>
 </body>
 </html>

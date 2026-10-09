@@ -1,6 +1,6 @@
 'use strict';
 
-/* exported afterReceipt, emitAct, downloadRecord, openReplay, replayPrev, replayNext, replayPlay, replayClose, clickTransferEntry, submitTransfer */
+/* exported afterReceipt, emitAct, downloadRecord, openReplay, replayPrev, replayNext, replayPlay, replayClose, clickTransferEntry, submitTransfer, returnFromTransfer, resumeStockView */
 
 // PWA：注册 service worker（缓存静态资源，离线可用）
 if ('serviceWorker' in navigator) {
@@ -22,7 +22,7 @@ function fitActionBarPadding() {
 window.addEventListener('load', fitActionBarPadding);
 window.addEventListener('resize', fitActionBarPadding);
 
-const socket = io();
+const socket = io({ transports: ['websocket', 'polling'], tryAllTransports: true });
 let me = { name: '', roomCode: null };
 let game = null;
 let awaitingPlayerId = null;
@@ -49,6 +49,11 @@ let latestState = null;
 let actionPending = false;
 let choiceRenderKey = '';
 let requestSequence = 0;
+let lobbyRequest = null;
+let lastRoomState = null;
+let restoringSession = false;
+let lobbyFeedback = '';
+let transferReturn = null;
 
 const $ = (id) => document.getElementById(id);
 let pieceResizeFrame = 0;
@@ -68,6 +73,7 @@ window.addEventListener('resize', requestPieceLayout);
 
 function show(id) {
   ['view-lobby', 'view-room', 'view-game'].forEach((v) => $(v).classList.toggle('hidden', v !== id));
+  document.body.classList.toggle('game-active', id === 'view-game');
   fitActionBarPadding();
 }
 
@@ -100,6 +106,7 @@ function syncStockContext(state) {
     activeRequest = null; actionPending = false; document.body.classList.remove('action-pending');
   }
   stockGeneration++;
+  transferReturn = null;
   stockDraft = {}; for (const id of Object.keys(transferDraft)) delete transferDraft[id];
   stockAutoShown = false;
   stockContext = key ? {key,generation:stockGeneration,legacyBase:state.ruleVersion===2?null:JSON.stringify([state.roomCode,state.startedAt,me.gameId]),status:'editing',error:'',pendingRequest:null,receipt:null} : null;
@@ -122,9 +129,12 @@ function refreshStockDraftQuotes() {
   stockContext.status='editing';stockContext.error='报价已更新，请核对金额后确认交易。';renderStock();
 }
 
-function saveReconnect(data) { localStorage.setItem('gt_reconnect', JSON.stringify(data)); }
+function saveReconnect(data) {
+  try { localStorage.setItem('gt_reconnect', JSON.stringify(data)); }
+  catch { toast('浏览器未允许保存重连身份；刷新后可能需要重新加入。'); }
+}
 function loadReconnect() { try { return JSON.parse(localStorage.getItem('gt_reconnect') || 'null'); } catch { return null; } }
-function clearReconnect() { localStorage.removeItem('gt_reconnect'); }
+function clearReconnect() { try { localStorage.removeItem('gt_reconnect'); } catch { /* 受限存储不阻断退出。 */ } }
 
 function updateWaitBanner() {
   const banner = $('waitBanner');
@@ -516,6 +526,10 @@ function renderActionBar() {
   const canRoll = game.phase === 'waiting_roll' && isMyTurn();
   $('btnRoll').disabled = !canRoll;
   $('btnEndTurn').disabled = !canRoll;
+  const resumeStock = game.phase === 'stock' && isMyTurn();
+  $('btnResumeStock').classList.toggle('hidden', !resumeStock);
+  $('btnResumeStock').disabled = !stockReady();
+  $('btnRoll').classList.toggle('hidden', resumeStock);
   $('btnEndTurn').title = canRoll ? '掷骰并推进本回合' : '当前阶段由系统自动推进';
   if (game.phase === 'opportunity_choose') $('turnInfo').textContent = '经营机遇 · 等待全员选择';
 }
@@ -965,6 +979,7 @@ function sellChoice(cityId) {
 function openAssetOverview() {
   const meP = game.players.find((p) => p.id === me.gameId);
   if (!meP) return;
+  if (stockReady()) hideOverlay('stockModal');
   const body = $('modalBody');
   body.innerHTML = '<div class="card-tag">MY ASSETS</div>'
     + kv('总资产', fmt(totalAssetsFor(meP)), 'g')
@@ -980,35 +995,72 @@ function openAssetOverview() {
     body.appendChild(wrap);
   } else body.insertAdjacentHTML('beforeend', '<p class="hint">暂无城市资产</p>');
   body.insertAdjacentHTML('beforeend', '<p class="hint">抵押时机：轮到你行动时可随时抵押（竞拍、交易确认期间除外）；每名玩家最多同时抵押 2 座城市；赎回需先落到该城市，本界面不提供赎回。</p>');
-  body.insertAdjacentHTML('beforeend', '<div class="row"><button class="secondary" onclick="clickTransferEntry()">股票转让</button><button class="primary" onclick="closeModal()">关闭</button></div>');
+  body.insertAdjacentHTML('beforeend', '<div class="row"><button class="secondary" onclick="clickTransferEntry()">股票转让</button>'
+    + (stockReady() ? '<button class="primary" onclick="resumeStockView()">继续买卖股票</button>' : '')
+    + '<button class="primary" onclick="closeModal()">关闭</button></div>');
   openModal('资产总览');
 }
 
 
 // ---------- 大厅 / 房间 ----------
+function syncLobbyControls() {
+  const ready = socket.connected && !lobbyRequest && !restoringSession;
+  $('nickname').disabled = !!lobbyRequest || restoringSession;
+  $('joinCode').disabled = !!lobbyRequest || restoringSession;
+  $('btnCreate').disabled = !ready || !$('nickname').value.trim();
+  $('btnJoin').disabled = !ready || !($('nickname').value.trim() && $('joinCode').value.trim().length === 6);
+  $('btnStart').disabled = !ready || !lastRoomState || lastRoomState.hostId !== socket.id || lastRoomState.players.length < 2 || lastRoomState.started;
+  for (const [id, event, label, waiting] of [
+    ['btnCreate', 'createRoom', '创建房间', '正在创建…'],
+    ['btnJoin', 'joinRoom', '加入房间', '正在加入…'],
+    ['btnStart', 'startGame', '开始游戏', '正在开始…'],
+  ]) {
+    $(id).textContent = lobbyRequest?.event === event ? waiting : label;
+    $(id).setAttribute('aria-busy', String(lobbyRequest?.event === event));
+  }
+  const status = $('connectionStatus');
+  status.textContent = !socket.connected
+    ? (navigator.onLine === false ? '网络已断开，请恢复网络；连接成功后再操作。' : '正在连接服务器…首次访问或服务唤醒可能较慢，请稍候。')
+    : restoringSession ? '正在恢复房间身份，请稍候…' : lobbyFeedback;
+  status.classList.toggle('hidden', !status.textContent);
+}
+function sendLobbyRequest(event, data, onSuccess) {
+  if (!socket.connected || lobbyRequest || restoringSession) { syncLobbyControls(); return; }
+  const request = { event, socketId: socket.id };
+  lobbyRequest = request;
+  lobbyFeedback = event === 'startGame' ? '正在开始对局…' : event === 'createRoom' ? '正在创建房间…' : '正在加入房间…';
+  syncLobbyControls();
+  socket.timeout(10000).emit(event, data, (err, res) => {
+    if (lobbyRequest !== request || socket.id !== request.socketId) return;
+    lobbyRequest = null;
+    if (err || !res?.ok) {
+      lobbyFeedback = err ? '请求结果尚未确认，请先核对房间状态或刷新重连；不要连续重复点击。' : res?.error || '操作失败，请重试。';
+      toast(lobbyFeedback);
+    } else {
+      lobbyFeedback = '';
+      onSuccess?.(res);
+    }
+    syncLobbyControls();
+  });
+}
 function setupLobby() {
   const nick = $('nickname'), code = $('joinCode');
-  const sync = () => {
-    $('btnCreate').disabled = !nick.value.trim();
-    $('btnJoin').disabled = !(nick.value.trim() && code.value.trim().length === 6);
-  };
-  nick.addEventListener('input', sync);
-  code.addEventListener('input', sync);
+  nick.addEventListener('input', syncLobbyControls);
+  code.addEventListener('input', syncLobbyControls);
   $('btnCreate').onclick = () => {
     me.name = nick.value.trim();
-    socket.emit('createRoom', { name: me.name }, (res) => {
+    sendLobbyRequest('createRoom', { name: me.name }, (res) => {
       if (res.ok) { me.roomCode = res.roomCode; if (pendingToken) { saveReconnect({ roomCode: me.roomCode, name: me.name, token: pendingToken }); pendingToken = null; } else saveReconnect({ roomCode: me.roomCode, name: me.name }); }
     });
   };
   $('btnJoin').onclick = () => {
     me.name = nick.value.trim();
-    socket.emit('joinRoom', { roomCode: code.value.trim(), name: me.name }, (res) => {
-      if (!res.ok) { toast(res.error || '加入失败'); return; }
+    sendLobbyRequest('joinRoom', { roomCode: code.value.trim(), name: me.name }, (res) => {
       me.roomCode = res.roomCode;
       if (pendingToken) { saveReconnect({ roomCode: me.roomCode, name: me.name, token: pendingToken }); pendingToken = null; } else saveReconnect({ roomCode: me.roomCode, name: me.name });
     });
   };
-  $('btnStart').onclick = () => socket.emit('startGame');
+  $('btnStart').onclick = () => sendLobbyRequest('startGame', {});
   $('btnCopyCode').onclick = () => {
     if (navigator.clipboard) navigator.clipboard.writeText($('roomCode').textContent).then(() => toast('房间码已复制')).catch(() => toast('复制失败'));
     else toast('房间码已复制');
@@ -1021,7 +1073,9 @@ function setupLobby() {
   $('btnStock').onclick = () => { if (game && game.phase !== 'stock') { toast('仅经过起点时可交易（跨过/停在起点会自动弹出）'); return; } renderStock(); showOverlay('stockModal'); };
   $('btnStockSkip').onclick = finishStockWindow;
   $('btnStockConfirm').onclick = submitStock;
-  $('btnStockTransfer').onclick=()=>{hideOverlay('stockModal');renderTransferPanel();};
+  $('btnStockTransfer').onclick=()=>openTransferPanel('stock');
+  $('btnStockAssets').onclick = openAssetOverview;
+  $('btnResumeStock').onclick = resumeStockView;
   $('btnRules').onclick = () => { buildRules();showOverlay('rulesModal'); };
   $('btnModalRules').onclick = $('btnStockRules').onclick = $('btnRules').onclick;
   $('btnRulesClose').onclick = () => hideOverlay('rulesModal');
@@ -1057,11 +1111,19 @@ function setupLobby() {
     const h = e.target.closest('.panel h3');
     if (h) { e.preventDefault(); toggleSidePanel(h); }
   });
+  syncLobbyControls();
 }
 
 // ---------- Socket ----------
 socket.on('roomState', (rs) => {
+  if (lobbyRequest && ['createRoom', 'joinRoom'].includes(lobbyRequest.event) && rs.players.some(p => p.id === socket.id && p.name === me.name)) {
+    me.roomCode = rs.roomCode;
+    if (pendingToken) { saveReconnect({roomCode:me.roomCode,name:me.name,token:pendingToken}); pendingToken=null; }
+    lobbyRequest=null; lobbyFeedback='';
+  }
   if (!me.roomCode || rs.roomCode !== me.roomCode) return;
+  lastRoomState = rs;
+  restoringSession = false;
   disconnectedNames = rs.players.filter((p) => !p.connected).map((p) => p.name);
   updateWaitBanner();
   roomHostId = rs.hostId;
@@ -1073,15 +1135,18 @@ socket.on('roomState', (rs) => {
     else badge += ' <span class="dot on"></span>';
     return '<li>' + escapeHTML(p.name) + badge + '</li>';
   }).join('') + '<li class="slot">等待玩家加入…</li>';
-  $('btnStart').disabled = rs.hostId !== socket.id || rs.players.length < 2;
-  $('roomHint').textContent = rs.started ? '' : '至少 2 名玩家才可开始游戏';
-  show('view-room');
+  syncLobbyControls();
+  $('roomHint').textContent = rs.started ? '' : rs.players.length < 2 ? '至少 2 名玩家才可开始游戏' : rs.hostId !== socket.id ? '等待房主开始游戏' : '玩家已加入，可以开始游戏';
+  if (!rs.started) show('view-room');
 });
 
 socket.on('gameState', (state) => {
   if (state.gameId === latestState?.gameId && state.revision < latestState.revision) return;
   if (state.gameId && state.gameId !== latestState?.gameId) { lastPos={};lastEventId=-1;clientLog=[];lastGameJson='';lastRecord=null;stockDraft={};choiceRenderKey='';receiptPending=false; }
   latestState = state;
+  if (lobbyRequest?.event === 'startGame') { lobbyRequest=null; lobbyFeedback=''; }
+  restoringSession = false;
+  syncLobbyControls();
   let meP = state.players.find((p) => p.id === state.self?.playerId || p.socketId === socket.id);
   if (!meP) meP = state.players.find((p) => p.name === me.name);
   me.gameId = meP ? meP.id : null;
@@ -1126,6 +1191,8 @@ socket.on('reconnectToken', (d) => {
 });
 
 socket.on('connect', () => {
+  lobbyFeedback = '';
+  syncLobbyControls();
   const saved = loadReconnect();
   if (saved && saved.roomCode && saved.name && saved.token) {
     if (!confirm('检测到本浏览器保存的对局身份：' + saved.name + '（房间 ' + saved.roomCode + '）。\n是否以该身份重连？')) {
@@ -1134,10 +1201,23 @@ socket.on('connect', () => {
     }
     me.name = saved.name;
     me.roomCode = saved.roomCode;
-    socket.emit('reconnect', { roomCode: saved.roomCode, name: saved.name, token: saved.token }, (res) => {
-      if (!res || !res.ok) { clearReconnect(); me.roomCode = null; toast('重连失败，请重新加入房间'); }
+    restoringSession = true;
+    syncLobbyControls();
+    const reconnectSocketId = socket.id;
+    socket.timeout(10000).emit('reconnect', { roomCode: saved.roomCode, name: saved.name, token: saved.token }, (err, res) => {
+      if (socket.id !== reconnectSocketId || (err && !restoringSession)) return;
+      restoringSession = false;
+      if (err) lobbyFeedback = '重连结果未确认，请核对房间状态或刷新后重试。';
+      else if (!res?.ok) { clearReconnect(); me.roomCode = null; lastRoomState = null; lobbyFeedback = res?.error || '重连失败，请重新加入房间'; show('view-lobby'); }
+      syncLobbyControls();
     });
   }
+});
+socket.on('connect_error', () => { syncLobbyControls(); });
+socket.on('disconnect', () => {
+  lobbyRequest = null;
+  restoringSession = false;
+  syncLobbyControls();
 });
 
 // ---------- 结算 ----------
@@ -1465,7 +1545,7 @@ function renderTransferPanel() {
     + '<div id="transferList">' + rows + '</div>'
     + '<label>附带现金</label><input id="transferCash" type="number" min="0" value="0" class="mono" />'
     + '<div class="btnrow"><button class="primary" onclick="submitTransfer()">发起转让</button>'
-    + '<button class="secondary" onclick="openAssetOverview()">返回</button></div>';
+    + '<button class="secondary" onclick="returnFromTransfer()">返回</button></div>';
   openModal('股票转让');
   const listEl = $('transferList');
   if (listEl) listEl.onclick = (e) => {
@@ -1475,7 +1555,33 @@ function renderTransferPanel() {
 }
 function clickTransferEntry() {
   if (!game || game.phase !== 'stock' || !isMyTurn()) { toast('仅经过起点（股票窗口）时可发起转让'); return; }
+  openTransferPanel('assets');
+}
+function openTransferPanel(origin) {
+  if (!stockReady() || stockContext?.pendingRequest || actionPending) return;
+  transferReturn = { origin, context: captureStockContext() };
+  hideOverlay('stockModal');
   renderTransferPanel();
+}
+function returnFromTransfer() {
+  const destination = transferReturn;
+  transferReturn = null;
+  if (!destination || !isCurrentStockContext(destination.context) || !stockReady()) {
+    if ($('modalTitle').textContent === '股票转让') closeModal();
+    toast('当前股票窗口已变更，请按最新回合操作。');
+    return;
+  }
+  if (destination.origin === 'stock') {
+    closeModal();
+    renderStock();
+    showOverlay('stockModal');
+  } else openAssetOverview();
+}
+function resumeStockView() {
+  if (!stockReady()) return;
+  closeModal();
+  renderStock();
+  showOverlay('stockModal');
 }
 function adjTransfer(cityId, delta) {
   const next = Math.max(0, (transferDraft[cityId] || 0) + delta);

@@ -6,7 +6,7 @@ async function boot(options={}){
  const url='http://127.0.0.1:'+api.server.address().port;
  const browser=await chromium.launch({channel:process.env.CI?undefined:'msedge',headless:true});
  const contexts=[],pages=[],errors=[],prestart={};
- for(let i=0;i<2;i++){const context=await browser.newContext({viewport:options.viewport||{width:1440,height:900},reducedMotion:'reduce'}),page=await context.newPage();contexts.push(context);pages.push(page);page.on('pageerror',e=>errors.push(e.message));page.on('dialog',d=>d.accept());await page.goto(url,{waitUntil:'networkidle'});await page.fill('#nickname',i?'浏览器乙':'浏览器甲');}
+ for(let i=0;i<2;i++){const context=await browser.newContext({viewport:options.viewport||{width:1440,height:900},isMobile:!!options.mobile,hasTouch:!!options.mobile,reducedMotion:'reduce'}),page=await context.newPage();contexts.push(context);pages.push(page);page.on('pageerror',e=>errors.push(e.message));page.on('dialog',d=>d.accept());await page.goto(url,{waitUntil:'networkidle'});await page.fill('#nickname',i?'浏览器乙':'浏览器甲');}
  prestart.lobbyHint=await pages[0].locator('#view-lobby .orientation-hint').isVisible();
  await pages[0].click('#btnCreate');await pages[0].waitForSelector('#view-room:not(.hidden)');
  const code=(await pages[0].textContent('#roomCode')).trim();await pages[1].fill('#joinCode',code);await pages[1].click('#btnJoin');await pages[0].waitForFunction(()=>!document.getElementById('btnStart').disabled);

@@ -5,6 +5,7 @@ const routes = require('../src/opportunityRoutes'), opp = require('../src/opport
 const econ = require('../src/economy'), { BY_ID } = require('../src/gameplayCatalog');
 const f = require('./helpers/gameplayFixtures');
 const logic = require('../src/gameLogic');
+const {snapshot}=require('../src/state'),{buildGameRecord}=require('../src/record');
 const normalTime = { mode: 'normal', elapsedMs: null, totalRemainingMs: null, closed: false };
 const quickTime = minute => ({ mode: 'quick', elapsedMs: minute * 60000, totalRemainingMs: (30 - minute) * 60000, closed: minute >= 30 });
 function game(mode = 'normal') { return createGameState('ROUTE', ['甲', '乙'], 2, { routeRevision: routes.REVISION, gameMode: mode }); }
@@ -25,6 +26,23 @@ function action(s, type = 'route_confirm', extra = {}) {
   return { type, opportunityId: c.opportunityId, candidateVersion: c.candidateVersion, newId: c.candidateIds[0], replaceId: s.players[0].opportunities.selectedIds[0], ...extra };
 }
 function resolve(s, a) { return routes.resolveRouteChoice(s, a, { actorId: 'p0', source: a.type === 'route_expire' ? 'timeout' : 'player', timeContext: s.gameMode === 'normal' ? normalTime : quickTime(15) }); }
+
+test('R22 私有候选与公共进度投影',()=>{
+ const s=ready();open(s);
+ const mine=snapshot(s,'p0'),other=snapshot(s,'p1'),publicView=snapshot(s);
+ assert.deepEqual(mine.self.routeChoice.candidateIds,s.routeFlow.activeChoice.candidateIds);
+ for(const v of [other,publicView]){assert.equal(v.self?.routeChoice,undefined);assert.equal(JSON.stringify(v).includes('candidateIds'),false);assert.equal(JSON.stringify(v).includes('selectedIdsAtOpen'),false);}
+ assert.equal(other.routeProgress.activeChoice.playerId,'p0');assert.equal(mine.self.route.lapsSinceInitial,3);
+ const old=snapshot(f.game(2),'p0');assert.equal(old.routeProgress,undefined);assert.equal(old.self.opportunities.oneTimeRewards,undefined);
+});
+test('R23 记录仅存确定结果和版本',()=>{
+ const s=ready();open(s);const result=resolve(s,action(s));
+ const record=buildGameRecord({code:'R',state:s,events:result.events},'normal');
+ assert.equal(record.routeRevision,routes.REVISION);assert.equal(record.gameMode,'normal');
+ assert.equal(record.events[0].kind,'route_replaced');
+ for(const field of ['candidateIds','selectedIdsAtOpen','routeFlow','routeChoice'])assert.equal(JSON.stringify(record).includes(field),false);
+ const old=buildGameRecord({code:'OLD',state:f.game(2),events:[]},'normal');assert.equal(old.routeRevision,undefined);
+});
 
 test('R01 新局显式版本和旧局隔离', () => {
   const s = game(); assert.equal(s.gameMode, 'normal'); assert.equal(s.routeFlow.players.p0.baselineLapEpoch, null);

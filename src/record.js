@@ -95,6 +95,7 @@ function buildGameRecord(room, endReason) {
   const record = {
     schema: st.ruleVersion===2?'global-tycoon.game-record.v2':'global-tycoon.game-record.v1',
     ...(st.ruleVersion===2?{gameId:st.gameId,ruleVersion:2,completeRounds:st.roundFlow.index-1}:{}),
+    ...(require('./opportunityRoutes').enabled(st)?{routeRevision:st.routeRevision,gameMode:st.gameMode}:{}),
     ...(st.economyRevision?{economyRevision:st.economyRevision,travelExpense:require('./travelExpense').stage(st)}:{}),
     roomCode: room.code,
     startedAt: st.startedAt,

@@ -2,6 +2,7 @@
 const econ=require('./economy');
 const {assetSummary}=require('./assets');
 const {BY_ID}=require('./gameplayCatalog');
+const routes=require('./opportunityRoutes');
 function snapshot(s,viewerId,clockView){
  const out={};
  for(const k of ['roomCode','gameId','ruleVersion','revision','status','board','cities','airports','stocks','firstRoundDone','turnIndex','phase','dice','rounds','rank','winner','startedAt'])out[k]=s[k];
@@ -26,9 +27,20 @@ function snapshot(s,viewerId,clockView){
   out.opportunityStage={stageId:stage.stageId,ordinal:stage.ordinal,participantIds:stage.participantIds,completed:Object.fromEntries(stage.participantIds.map(id=>[id,!!stage.participants[id].submitted]))};
  }
  out.decision=clockView||null;out.opportunityCatalog=BY_ID;
+ if(routes.enabled(s)){
+  out.routeRevision=s.routeRevision;out.gameMode=s.gameMode;
+  const flow=s.routeFlow,c=flow.activeChoice;
+  out.routeProgress={initialCompletedOrdinal:flow.initialCompletedOrdinal,laterClosed:flow.laterClosed,activeChoice:c?{playerId:c.playerId,opportunityId:c.opportunityId}:null,
+   players:Object.fromEntries(s.players.map(p=>{const r=flow.players[p.id];return [p.id,{pendingCount:r.pending.length,lapsSinceInitial:r.baselineLapEpoch===null?null:p.opportunities.lapEpoch-r.baselineLapEpoch,lastResult:r.lastResult?{...r.lastResult}:null}];}))};
+ }
  const player=s.players.find(p=>p.id===viewerId);
  if(player){
   out.self={playerId:player.id,actorRevision:s.actorRevision[player.id],opportunities:globalThis.structuredClone(player.opportunities),quotes:{build:{},demolish:{},rent:{},flight:{}},stockWindow:null};
+  if(routes.enabled(s)){
+   const r=s.routeFlow.players[player.id];
+   out.self.route={baselineLapEpoch:r.baselineLapEpoch,lastThreshold:r.lastThreshold,pending:r.pending.map(c=>({...c})),lastResult:r.lastResult?{...r.lastResult}:null,lapsSinceInitial:r.baselineLapEpoch===null?null:player.opportunities.lapEpoch-r.baselineLapEpoch};
+   if(s.routeFlow.activeChoice?.playerId===player.id)out.self.routeChoice=globalThis.structuredClone(s.routeFlow.activeChoice);
+  }
   for(const [id,c]of Object.entries(s.cities)){
    out.self.quotes.rent[id]=econ.quoteRent(s,{playerId:player.id,cityId:id});
    if(c.ownerId===player.id){

@@ -22,7 +22,7 @@ function fitActionBarPadding() {
 window.addEventListener('load', fitActionBarPadding);
 window.addEventListener('resize', fitActionBarPadding);
 
-const socket = io({ transports: ['websocket', 'polling'], tryAllTransports: true });
+const socket = io({ auth: {clientRouteRevision:'opportunity-routes-v1'}, transports: ['websocket', 'polling'], tryAllTransports: true });
 let me = { name: '', roomCode: null };
 let game = null;
 let awaitingPlayerId = null;

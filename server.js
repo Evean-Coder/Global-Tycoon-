@@ -12,13 +12,14 @@ const { buildGameRecord } = require('./src/record');
 const { normalizeAction, validateEnvelope } = require('./src/actionValidation');
 const { createActionClock } = require('./src/actionClock');
 const opportunities = require('./src/opportunities');
+const routes = require('./src/opportunityRoutes');
 const stocks = require('./src/stocks');
 const { assetSummary } = require('./src/assets');
 const { safe } = require('./src/economy');
 
 const PORT = process.env.PORT || 3000;
 // 2026-10-05有限对照及投资压力审查通过，仅新局启用；旧局不迁移。
-const NEW_GAME_ECONOMY = { economyRevision: 'travel-expense-v1' };
+const NEW_GAME_ECONOMY = { economyRevision: 'travel-expense-v1', routeRevision: routes.REVISION, gameMode: 'normal' };
 const HOST_TRANSFER_MS = 10 * 60 * 1000;
 const LOBBY_IDLE_MS = 10 * 60 * 1000; // 大厅（未开局）空房保留时限
 const GAME_IDLE_MS = 30 * 60 * 1000; // 对局中/已结束房间无人保留时限
@@ -147,6 +148,7 @@ function finalizeGame(room, endReason) {
   if (room.gameRecord) return room.gameRecord;
   if (room.state.ruleVersion === 2 && !room.state.finalSettlementDone) {
     const candidate = globalThis.structuredClone(room.state), events = [];
+    events.push(...routes.cancelRoutes(candidate, null, endReason === 'normal' ? 'normal_end' : 'room_closed').events);
     stocks.settleFinalEconomy(candidate, endReason, events);
     if (candidate.status !== 'over') {
       candidate.rank = candidate.players.slice().sort((a,b)=>totalAssets(candidate,b)-totalAssets(candidate,a)).map(p=>p.id);
@@ -175,6 +177,7 @@ function clearTimer(room, key) {
 function defaultAction(room, phase) {
   const cur = room.state ? room.state.players[room.state.turnIndex] : null;
   switch (phase) {
+    case 'route_choose': return {type:'route_expire',opportunityId:room.state.routeFlow.activeChoice.opportunityId};
     case 'opportunity_choose': return {type:'opportunity_expire',stageId:room.state.opportunityStage.stageId};
     case 'waiting_roll': return { type: 'roll_dice' };
     case 'frozen_turn': return { type: 'respond_frozen', decision: cur && cur.cash >= 5000 ? 'pay' : 'pass' };
@@ -245,6 +248,38 @@ function hasDisconnectedAlive(room) {
   });
 }
 
+// Q1 supplies read(room) and close(room). This adapter owns no total clock or ranking.
+function routeTime(room) {
+  if (!routes.enabled(room.state) || room.state.gameMode !== 'quick') return {mode:'normal',elapsedMs:null,totalRemainingMs:null,closed:false};
+  const provider = room.quickTimeProvider;
+  if (typeof provider?.read !== 'function' || typeof provider?.close !== 'function') throw new Error('快速模式核心尚未就绪');
+  const t = provider.read(room);
+  if (t?.mode !== 'quick' || !Number.isFinite(t.elapsedMs) || t.elapsedMs < 0 || !Number.isFinite(t.totalRemainingMs) || t.totalRemainingMs < 0 || typeof t.closed !== 'boolean') throw new Error('快速模式时间无效');
+  return {...t};
+}
+function closeRouteDeadline(room, time) {
+  if (time.mode !== 'quick' || (!time.closed && time.elapsedMs < 1800000)) return false;
+  room.quickTimeProvider.close(room);
+  if (room.state.status !== 'over' || room.state.phase !== 'game_over') throw new Error('快速封盘未完成');
+  const cleared = routes.cancelRoutes(room.state, null, 'total_deadline');
+  if (cleared.changed) {room.state.revision++;appendEvents(room,cleared.events);}
+  emitGame(room);
+  return true;
+}
+function advanceRouteTime(room) {
+  if (!room.state || !routes.enabled(room.state) || room.state.phase === 'game_over') return false;
+  const time = routeTime(room);
+  if (closeRouteDeadline(room,time)) return true;
+  if (time.mode !== 'quick') return false;
+  const candidate = globalThis.structuredClone(room.state);
+  const due = routes.markQuickDue(candidate,time);
+  const opened = hasDisconnectedAlive(room) ? {changed:false} : routes.tryOpenRouteChoice(candidate,candidate.players[candidate.turnIndex].id,room.rng || createRng(),time);
+  if (!due.changed && !opened.changed) return false;
+  routes.assertRoutes(candidate);
+  candidate.revision++;room.state=candidate;appendEvents(room,due.events);emitGame(room);
+  return true;
+}
+
 function runAction(room, socket, rawAction, source = 'player') {
   if (!room.state) return { ok: false, code:'OVER',error: '对局已结束' };
   const authenticated = source==='player' ? room.players.find(p=>p.connected&&p.socketId===socket?.id) : null;
@@ -257,6 +292,15 @@ function runAction(room, socket, rawAction, source = 'player') {
     print=fingerprint(rawAction);
     const remembered=cache?.get(rawAction?.actionId);
     if(remembered){if(remembered.print!==print)return {ok:false,code:'ACTION_ID',error:'同一操作身份不能更改内容'};return {...remembered.receipt};}
+    if(routes.enabled(room.state) && socket.handshake?.auth?.clientRouteRevision !== routes.REVISION)return {ok:false,code:'UPDATE',error:'页面版本过旧，请刷新后重新连接'};
+  }
+  let timeContext;
+  try {
+    timeContext=routeTime(room);
+    if(closeRouteDeadline(room,timeContext))return {ok:false,code:'OVER',error:'总时限已到，对局已结算'};
+    if(timeContext.mode==='quick')advanceRouteTime(room);
+  } catch(err) { return {ok:false,code:'TIME',error:err.message}; }
+  if(v2&&source==='player'){
     if(room.state.phase==='game_over')return {ok:false,code:'OVER',error:'对局已结束'};
     const envelope=validateEnvelope(room.state,rawAction,authenticated.id,room.actionClock);
     if(!envelope.ok)return {ok:false,code:'STALE',error:envelope.error};
@@ -272,7 +316,7 @@ function runAction(room, socket, rawAction, source = 'player') {
     if (socket) socket.emit('error', { message: error });
     return { ok: false,code:'PAUSED', error };
   }
-  const normalized = normalizeAction(room.state, rawAction, {actorId:authenticated?.id,source});
+  const normalized = normalizeAction(room.state, rawAction, {actorId:authenticated?.id,source,timeContext});
   if (!normalized.ok) {
     if (socket) socket.emit('error', { message: normalized.error });
     return { ok: false, error: normalized.error };
@@ -290,8 +334,9 @@ function runAction(room, socket, rawAction, source = 'player') {
   let candidate;
   try {
     candidate = globalThis.structuredClone(room.state);
-    res = logic.apply(candidate, normalized.action, rng, {actorId:normalized.actorId,source});
+    res = logic.apply(candidate, normalized.action, rng, {actorId:normalized.actorId,source,timeContext});
     assertEconomy(candidate);
+    routes.assertRoutes(candidate);
   } catch (err) {
     const error = err.message || '操作异常，请重试';
     if (socket) socket.emit('error', { message: error });
@@ -309,11 +354,18 @@ function runAction(room, socket, rawAction, source = 'player') {
     if (socket) socket.emit('error', { message: error });
     return { ok: false, error };
   }
+  try {
+    if(closeRouteDeadline(room,routeTime(room)))return {ok:false,code:'OVER',error:'总时限已到，未提交的选择已取消'};
+  } catch(err) { return {ok:false,code:'TIME',error:err.message}; }
+  if(source==='player' && routes.enabled(room.state) && room.state.phase==='route_choose' && room.actionClock.expired()){
+    runAction(room,null,defaultAction(room,'route_choose'),'timeout');
+    return {ok:false,code:'EXPIRED',error:'选择时限已到，保留原经营路线'};
+  }
   room.state = afterState;
   if(v2){room.state.revision++;if(normalized.actorId)room.state.actorRevision[normalized.actorId]++;}
   appendEvents(room, res.events || []);
   emitGame(room, normalized.action.type === 'auction_respond' || normalized.action.type === 'direct_sale_respond');
-  const receipt=v2?{ok:true,gameId:room.state.gameId,actionId:rawAction.actionId||null,revision:room.state.revision,actorRevision:room.state.actorRevision[normalized.actorId]??null,decisionId:room.actionClock.decisionId}:{ok:true};
+  const receipt=v2?{ok:true,gameId:room.state.gameId,actionId:rawAction.actionId||null,revision:room.state.revision,actorRevision:room.state.actorRevision[normalized.actorId]??null,decisionId:room.actionClock.decisionId,...(res.routeResult?{routeResult:res.routeResult}:{})}:{ok:true};
   if(cache||v2&&source==='player'){
     if(!cache){cache=new Map();room.successfulActions.set(authenticated.id,cache);}
     cache.set(rawAction.actionId,{print,receipt});while(cache.size>128)cache.delete(cache.keys().next().value);
@@ -396,6 +448,7 @@ io.on('connection', (socket) => {
       room.hostTimer = null;
     }
     syncSocketIds(room);
+    if(room.state && routes.enabled(room.state))advanceRouteTime(room);
     if (room.state && !hasDisconnectedAlive(room) && room.actionClock) {
       if (room.actionClock.resume(() => {
         if (!room.state || room.state.phase === 'game_over') return;
@@ -416,6 +469,8 @@ io.on('connection', (socket) => {
     if (room.hostId !== socket.id) return cb && cb({ ok: false, error: '只有房主能开始' });
     if (room.players.length < 2) return cb && cb({ ok: false, error: '至少需要 2 名玩家' });
     if (room.state && room.state.phase !== 'game_over') return cb && cb({ ok: false, error: '对局已开始' });
+    if(data?.gameMode && data.gameMode!=='normal')return cb && cb({ok:false,error:'快速模式核心尚未就绪，当前可开始普通模式'});
+    if(room.players.some(p=>!p.connected || io.sockets.sockets.get(p.socketId)?.handshake.auth?.clientRouteRevision !== routes.REVISION))return cb && cb({ok:false,error:'请所有玩家刷新页面并连接后再开始'});
     clearTimer(room, 'action');
     if (room.actionClock) room.actionClock.clear();
     room.state = createGameState(room.code, room.players.map((p) => p.name), 2, NEW_GAME_ECONOMY);
@@ -511,4 +566,4 @@ if (require.main === module) {
   setInterval(() => sweepRooms(), SWEEP_INTERVAL_MS);
 }
 
-module.exports = { app, server, io, rooms, totalAssets, shouldSweepRoom, sweepRooms, runAction, startTimer, emitGame, finalizeGame, assertEconomy };
+module.exports = { app, server, io, rooms, totalAssets, shouldSweepRoom, sweepRooms, runAction, startTimer, emitGame, finalizeGame, assertEconomy, advanceRouteTime };

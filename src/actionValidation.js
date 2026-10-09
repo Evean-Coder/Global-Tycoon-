@@ -5,6 +5,7 @@ const OWNER_SHARE_CAP = 4;
 const MAX_SAFE = Number.MAX_SAFE_INTEGER;
 const economy = require('./economy');
 const stocks = require('./stocks');
+const routes = require('./opportunityRoutes');
 
 function fail(error) {
   return { ok: false, error };
@@ -53,6 +54,7 @@ function airportExists(state, airportId) {
 
 function phaseAllows(state, type) {
   const phase = state.phase;
+  if (phase === 'route_choose') return routes.enabled(state) && ['route_confirm', 'route_skip', 'route_expire'].includes(type);
   const map = {
     roll_dice: ['waiting_roll'],
     respond_frozen: ['frozen_turn'],
@@ -177,6 +179,13 @@ function normalizeAction(state, raw, context = {}) {
   if (!plainObject(raw) || typeof raw.type !== 'string') return fail('动作格式无效');
   const type = raw.type;
   if (type === 'end_phase' || !phaseAllows(state, type)) return fail('当前阶段无法执行该操作');
+  if (state.phase === 'route_choose') {
+    try {
+      routes.validateChoice(state, raw, context);
+      const c = state.routeFlow.activeChoice;
+      return success({type,opportunityId:raw.opportunityId,...(type !== 'route_expire' ? {candidateVersion:raw.candidateVersion} : {}),...(type === 'route_confirm' ? {newId:raw.newId,replaceId:raw.replaceId} : {})}, c.playerId);
+    } catch (err) { return fail(err.message); }
+  }
   if (state.ruleVersion === 2 && type === 'opportunity_expire') {
     if(context.source!=='timeout'||raw.stageId!==state.opportunityStage?.stageId)return fail('阶段已失效');
     return success({type,stageId:raw.stageId},null);

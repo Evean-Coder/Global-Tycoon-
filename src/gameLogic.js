@@ -8,6 +8,17 @@ const roundFlow = require('./roundFlow');
 const worldEvents = require('./worldEvents');
 const { assetSummary } = require('./assets');
 const travelExpense = require('./travelExpense');
+const routes = require('./opportunityRoutes');
+const routeTimes = new WeakMap();
+function safeRouteChoice(state, rng) {
+  if (routes.enabled(state)) routes.tryOpenRouteChoice(state, currentPlayer(state).id, rng, routeTimes.get(state));
+}
+function emergencyReward(state, p, sourceId, events) {
+  const intent = opportunities.emergencyIntent(state, p, sourceId);
+  if (!intent) return;
+  economy.reward(state, p, intent.amount, intent.catalogId, events, '应急资金');
+  opportunities.recordEmergency(p, intent);
+}
 
 function modern(state) { return state.ruleVersion === 2; }
 
@@ -135,6 +146,7 @@ function sharesOf(state, playerId, cityId) {
 // ---------- 回合推进 ----------
 
 function finishGame(state, events) {
+  events.push(...routes.cancelRoutes(state, null, 'normal_end').events);
   const alive = alivePlayers(state);
   if (modern(state)) stocks.settleFinalEconomy(state, 'last_survivor', events);
   state.winner = alive[0]?.id || null;
@@ -153,8 +165,10 @@ function completeRoundBoundary(state, events, rng) {
   worldEvents.advanceWorld(state, rng, events);
   state.world.constructionUsedIds = [];
   let stage = 0;
-  if (wasWaiting && state.world.status === 'running') stage = 2;
-  else if (state.world.roundsCompleted >= 6 && (state.opportunityStage?.ordinal || 0) < 3) stage = 3;
+  if (!(routes.enabled(state) && state.gameMode === 'quick')) {
+    if (wasWaiting && state.world.status === 'running') stage = 2;
+    else if (state.world.roundsCompleted >= 6 && (state.opportunityStage?.ordinal || 0) < 3) stage = 3;
+  }
   roundFlow.startRound(state);
   if (stage) {
     opportunities.beginOpportunityStage(state, stage, { kind: 'prepare_turn' }, rng);
@@ -171,8 +185,12 @@ function resolveChoices(state, events, rng, cause) {
   for (const id of stage.participantIds) {
     const p = playerById(state, id);
     const chosen = p.opportunities.selectedIds.at(-1);
-    if (chosen === 'H12') economy.reward(state, p, 6000, chosen, events, '应急资金');
+    if (chosen === 'H12') {
+      if (routes.enabled(state)) emergencyReward(state, p, stage.stageId, events);
+      else economy.reward(state, p, 6000, chosen, events, '应急资金');
+    }
   }
+  routes.markInitialResolved(state, stage.ordinal);
   if (continuation.kind === 'prepare_turn' || continuation.kind === 'start') prepareTurn(state, events, rng);
 }
 
@@ -234,6 +252,10 @@ function completeSkippedJail(state, events, rng) {
 }
 
 function prepareTurn(state, events, rng) {
+  if (routes.enabled(state) && state.gameMode === 'quick' && state.routeFlow.initialDueOrdinal > state.routeFlow.initialCompletedOrdinal) {
+    opportunities.beginOpportunityStage(state, state.routeFlow.initialCompletedOrdinal + 1, {kind:'prepare_turn'}, rng);
+    return;
+  }
   let p = currentPlayer(state);
   // 11/32 号监狱：关押 1 回合——该玩家的下一回合直接跳过（不做任何行动）；
   // 循环处理连续多名待跳过的玩家（如多人先后入 1 回合监狱）
@@ -279,6 +301,7 @@ function prepareTurn(state, events, rng) {
     state.phase = 'waiting_roll';
     state.pending = null; // 新回合开始必须清空上一阶段残留
   }
+  safeRouteChoice(state, rng);
 }
 
 // ---------- 起点结算 ----------
@@ -291,6 +314,7 @@ function settleGo(state, player, events) {
   log(events, `${player.name} 跨过/停在起点，获得 ${GO_BONUS}`);
   if (modern(state)) {
     opportunities.refresh(player);
+    routes.markLapProgress(state, player.id);
     for (const id of player.cities) stocks.settleCityDividend(state, id, 'go', state.gameId + ':go:' + state.turnId + ':' + id, events);
     economy.goRewards(state, player, events);
     return;
@@ -802,11 +826,22 @@ function advanceDirectSale(state, events, rng) {
 
 // ---------- 动作分发 ----------
 
-function apply(state, action, rng, context = {}) {
+function applyCore(state, action, rng, context = {}) {
   const events = [];
   const p = currentPlayer(state);
   if (state.phase === 'opportunity_choose' && !['opportunity_choose','opportunity_reroll','opportunity_expire'].includes(action.type)) return {state,events,rejected:true};
+  if (state.phase === 'route_choose' && !['route_confirm','route_skip','route_expire'].includes(action.type)) return {state,events,rejected:true};
+  if (['route_confirm','route_skip','route_expire'].includes(action.type) && (state.phase !== 'route_choose' || !routes.enabled(state))) return {state,events,rejected:true};
+  let routeResult;
   switch (action.type) {
+    case 'route_confirm':
+    case 'route_skip':
+    case 'route_expire': {
+      const resolved = routes.resolveRouteChoice(state, action, context);
+      events.push(...resolved.events); routeResult = resolved.result;
+      if (resolved.rewardIntent) emergencyReward(state, p, resolved.rewardIntent.sourceId, events);
+      break;
+    }
     case 'opportunity_choose': {
       const actor = playerById(state, context.actorId);
       if (!modern(state) || state.phase !== 'opportunity_choose' || !actor?.alive) return {state,events,rejected:true};
@@ -839,6 +874,7 @@ function apply(state, action, rng, context = {}) {
         p.frozen = false;
         log(events, `${p.name} 支付 ${FREEZE_FINE} 解除冰冻`);
         state.phase = 'waiting_roll';
+        if (routes.enabled(state)) state.pending = null;
       } else {
         if (action.decision === 'pay') log(events, `${p.name} 资金不足，无法支付救援费`);
         p.frozen = false;
@@ -938,12 +974,26 @@ function apply(state, action, rng, context = {}) {
     default:
       return { state, events, rejected: true };
   }
-  return { state, events };
+  return { state, events, ...(routeResult ? {routeResult} : {}) };
+}
+
+function apply(state, action, rng, context = {}) {
+  routeTimes.set(state, context.timeContext);
+  try {
+    const result = applyCore(state, action, rng, context);
+    if (!result.rejected && routes.enabled(state)) {
+      for (const p of state.players.filter(p => !p.alive)) result.events.push(...routes.cancelRoutes(state, p.id, action.type === 'surrender' ? 'surrender' : 'eliminated').events);
+      safeRouteChoice(state, rng);
+      routes.assertRoutes(state);
+    }
+    return result;
+  } finally { routeTimes.delete(state); }
 }
 
 // ---------- 动作实现 ----------
 
 function rollAction(state, p, events, rng) {
+  if (routes.enabled(state)) state.routeFlow.rollStartedTurnId = state.turnId;
   const roll = rollDice(state, rng);
   state.dice = roll;
   log(events, `${p.name} 掷出 ${roll}`);
@@ -974,7 +1024,7 @@ function jailAction(state, p, action, events, rng) {
     p.jailTurns = 0;
     log(events, `${p.name} 支付 ${JAIL_FINE} 出狱`);
     if (p.cash < 0) startSelfRescue(state, p, -p.cash, events, `出狱罚金`);
-    else state.phase = 'waiting_roll';
+    else { state.phase = 'waiting_roll'; if (routes.enabled(state)) state.pending = null; }
     return;
   }
   if (action.decision === 'pass') {
@@ -985,6 +1035,7 @@ function jailAction(state, p, action, events, rng) {
     return;
   }
   // 掷骰出狱：掷出 1 或 10 出狱并移动
+  if (routes.enabled(state)) state.routeFlow.rollStartedTurnId = state.turnId;
   const roll = rollDice(state, rng);
   state.dice = roll;
   if (roll === 1 || roll === 10) {

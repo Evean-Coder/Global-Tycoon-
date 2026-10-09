@@ -4,6 +4,7 @@ const { createGameState } = require('../src/state');
 const routes = require('../src/opportunityRoutes'), opp = require('../src/opportunities');
 const econ = require('../src/economy'), { BY_ID } = require('../src/gameplayCatalog');
 const f = require('./helpers/gameplayFixtures');
+const logic = require('../src/gameLogic');
 const normalTime = { mode: 'normal', elapsedMs: null, totalRemainingMs: null, closed: false };
 const quickTime = minute => ({ mode: 'quick', elapsedMs: minute * 60000, totalRemainingMs: (30 - minute) * 60000, closed: minute >= 30 });
 function game(mode = 'normal') { return createGameState('ROUTE', ['甲', '乙'], 2, { routeRevision: routes.REVISION, gameMode: mode }); }
@@ -119,4 +120,59 @@ test('R12 换出再换回保留额度机场历史和真实成本', () => {
   const demolition = econ.quoteDemolition(s, { playerId: 'p0', cityId: '上海' });
   assert.equal(demolition.finalAmount, -6480); assert.equal(demolition.cashDeltas.p0, 6480);
   opp.refresh(p); assert.deepEqual(p.opportunities.usage, {}); assert.equal(econ.quoteBuild(s, { playerId: 'p0', cityId: '上海', mode: 'remote' }).ok, true); assert.equal(p.opportunities.visitedAirportIds.length, 2);
+});
+
+test('R13 原初始超时结算及H12首次事实', () => {
+  const s = game(); opp.beginOpportunityStage(s, 1, {kind:'start'}, f.rng()); s.opportunityStage.participants.p0.candidateIds = ['H12', 'H1', 'H4'];
+  const act = {type:'opportunity_expire',stageId:s.opportunityStage.stageId};
+  logic.apply(s, act, f.rng(), {source:'timeout'});
+  assert.equal(s.players[0].cash, 156000); assert.equal(s.routeFlow.initialCompletedOrdinal, 1); assert.equal(s.players[0].opportunities.oneTimeRewards.H12.amount, 6000);
+  assert.equal(logic.apply(s, act, f.rng(), {source:'timeout'}).rejected, true); assert.equal(s.players[0].cash, 156000);
+  const old = f.game(2); opp.beginOpportunityStage(old, 1, {kind:'start'}, f.rng()); logic.apply(old,{type:'opportunity_expire',stageId:old.opportunityStage.stageId},f.rng(),{source:'timeout'}); assert.equal(old.routeFlow, undefined);
+});
+test('R14 真实起点先开股票不插入后续', () => {
+  const s = ready(); s.players[0].opportunities.selectedIds = ['H1', 'H2', 'H3']; laps(s, 2); s.players[0].position = 41; s.diceBag = [1];
+  logic.apply(s, {type:'roll_dice'}, f.rng()); assert.equal(s.phase, 'stock'); assert.equal(s.routeFlow.players.p0.pending.length, 1); assert.equal(s.routeFlow.activeChoice, null); assert.equal(s.players[0].cash, 160000);
+  logic.apply(s, {type:'stock_done'}, f.rng()); assert.equal(s.turnIndex, 1); assert.equal(s.routeFlow.activeChoice, null);
+});
+test('R15 普通与监狱掷骰记录当轮且不误开', () => {
+  for (const jail of [false, true]) {
+    const s = ready(); const turn = s.turnId; laps(s); s.players[0].position = jail ? 21 : 0; s.diceBag = [1];
+    if (jail) { s.phase = 'jail_turn'; s.players[0].jailed = true; s.pending = {playerId:'p0',kind:'jail'}; }
+    logic.apply(s, jail ? {type:'respond_jail',decision:'roll'} : {type:'roll_dice'}, f.rng());
+    assert.equal(s.routeFlow.rollStartedTurnId, turn); assert.equal(s.routeFlow.activeChoice, null); assert.equal(s.routeFlow.players.p0.pending.length, 1);
+  }
+});
+test('R16 回合安全入口不重复完成上一回合', () => {
+  const s = ready(); laps(s); const turn = s.turnId, round = s.roundFlow.index;
+  logic.prepareTurn(s, [], f.rng()); assert.equal(s.phase, 'route_choose'); assert.equal(s.turnId, turn); assert.equal(s.roundFlow.index, round);
+  logic.apply(s, action(s,'route_skip'), f.rng(), {source:'player',actorId:'p0'}); assert.equal(s.turnId, turn); assert.equal(s.phase, 'waiting_roll');
+});
+test('R17 冻结监狱决定处理后才打开', () => {
+  for (const jail of [false, true]) {
+    const s = ready(); laps(s); const p = s.players[0], before = p.cash;
+    if (jail) { p.position=21; p.jailed=true; s.phase='jail_turn'; s.pending={playerId:p.id,kind:'jail'}; }
+    else { p.frozen=true; s.phase='frozen_turn'; s.pending={playerId:p.id,kind:'frozen'}; }
+    logic.apply(s,{type:jail?'respond_jail':'respond_frozen',decision:'pay'},f.rng()); assert.equal(s.phase,'route_choose'); assert.equal(p.cash,before-(jail?15000:5000));
+    const cash=p.cash; logic.apply(s,action(s,'route_skip'),f.rng(),{actorId:p.id,source:'player'}); assert.equal(s.phase,'waiting_roll'); assert.equal(p.cash,cash);
+  }
+  const s = ready(); laps(s); s.players[0].jailed=true; s.players[0].position=11; logic.prepareTurn(s,[],f.rng()); assert.equal(s.turnIndex,1); assert.equal(s.routeFlow.activeChoice,null);
+});
+test('R18 自救和股票完成不删必要上下文', () => {
+  const s = ready(); laps(s); s.phase='self_rescue'; s.pending={playerId:'p0',kind:'self_rescue',due:100,reason:'测试欠费'}; s.players[0].cash=-100;
+  const before=JSON.stringify(s); assert.equal(logic.apply(s,{type:'route_skip',opportunityId:'none'},f.rng(),{actorId:'p0',source:'player'}).rejected,true); assert.equal(JSON.stringify(s),before);
+  s.players[0].cash=100; logic.apply(s,{type:'rescue_done'},f.rng()); assert.equal(s.turnIndex,1); assert.equal(s.routeFlow.players.p0.pending.length,1); assert.equal(s.routeFlow.activeChoice,null);
+});
+test('R19 后续首次应急资金原子到账', () => {
+  const s = ready(); open(s); s.routeFlow.activeChoice.candidateIds=['H12','H2','H4']; const before=s.players[0].cash;
+  const a=action(s,'route_confirm',{newId:'H12'}), result=logic.apply(s,a,f.rng(),{actorId:'p0',source:'player'});
+  assert.equal(s.players[0].cash,before+6000); assert.equal(s.players[0].opportunities.oneTimeRewards.H12.amount,6000); assert.equal(result.events.filter(e=>e.kind==='opportunity_reward').length,1);
+  assert.equal(logic.apply(s,a,f.rng(),{actorId:'p0',source:'player'}).rejected,true); assert.equal(s.players[0].cash,before+6000);
+});
+test('R20 跳过与超时恢复可继续掷骰', () => {
+  for (const type of ['route_skip','route_expire']) { const s=ready(); open(s); const a=action(s,type); logic.apply(s,a,f.rng(),{actorId:'p0',source:type==='route_expire'?'timeout':'player'}); assert.equal(s.phase,'waiting_roll'); s.diceBag=[1]; const result=logic.apply(s,{type:'roll_dice'},f.rng()); assert.equal(result.rejected,undefined); assert.equal(s.routeFlow.rollStartedTurnId,1); }
+});
+test('R21 原正常结束清理不补发未选奖励', () => {
+  const s=ready(); laps(s); s.players[0].opportunities.selectedIds=[]; const cash=s.players[1].cash;
+  logic.apply(s,{type:'surrender'},f.rng()); assert.equal(s.phase,'game_over'); assert.equal(s.winner,'p1'); assert.equal(s.routeFlow.players.p0.pending.length,0); assert.equal(s.routeFlow.activeChoice,null); assert.equal(s.players[1].cash,cash);
 });

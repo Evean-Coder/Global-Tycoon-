@@ -9,6 +9,10 @@ function defaultNow() {
 }
 
 function decisionDescriptor(state) {
+  if (state.routeRevision === 'opportunity-routes-v1' && state.phase === 'route_choose' && state.routeFlow?.activeChoice) {
+    const c = state.routeFlow.activeChoice;
+    return {key:state.gameId+'|'+state.turnId+'|route|'+c.playerId+'|'+c.opportunityId,phase:state.phase,actorId:c.playerId,targetKey:c.opportunityId,seconds:state.gameMode === 'quick' ? 20 : 30};
+  }
   if (state.ruleVersion === 2 && state.phase === 'opportunity_choose') {
     return {key:state.gameId+'|choice|'+state.opportunityStage.stageId,phase:state.phase,actorId:null,targetKey:state.opportunityStage.stageId,seconds:30};
   }

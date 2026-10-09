@@ -57,6 +57,7 @@ test('S05 成交结果回执去重与非法请求不修改',async()=>{
  const after=JSON.stringify(room.state);assert.deepEqual(await ack(a,'action',payload),first);assert.equal(JSON.stringify(room.state),after);
  assert.equal((await ack(a,'action',{...payload,newId:'H2'})).code,'ACTION_ID');assert.equal(JSON.stringify(room.state),after);
  assert.equal((await ack(a,'action',{...payload,actionId:'new-stale'})).ok,false);assert.equal(JSON.stringify(room.state),after);
+ room.successfulActions.get('p0').clear();assert.equal((await ack(a,'action',payload)).ok,false);assert.equal(JSON.stringify(room.state),after);
 });
 test('S06 确认前及执行跨个人截止不提交副本',async()=>{
  const {a,room}=await setup();fixture(room);let set=controlledClock(room);const deadline=room.actionClock.deadlineMs,cash=room.state.players[0].cash;
@@ -78,6 +79,12 @@ test('S08 受控时点仅登记一次且不改行动版本',async()=>{
  assert.equal(room.state.routeFlow.players.p0.pending.length,1);assert.equal(room.state.actorRevision.p0,actor);api.advanceRouteTime(room);assert.equal(room.state.revision,revision);assert.equal(room.actionClock.deadlineMs,deadline);
  p.set(22);api.advanceRouteTime(room);assert.equal(room.state.routeFlow.players.p0.pending.length,2);p.set(28);api.advanceRouteTime(room);assert.equal(room.state.routeFlow.players.p0.pending.length,0);assert.equal(room.state.routeFlow.laterClosed,true);
 });
+test('S08b 掷骰先提交后到时只排队，不撤销原股票流程',async()=>{
+ const {a,room}=await setup();fixture(room);const p=provider(room);p.set(14);const c=room.state.routeFlow.activeChoice;
+ assert.equal((await ack(a,'action',envelope(room,{type:'route_skip',opportunityId:c.opportunityId,candidateVersion:1}))).ok,true);
+ room.state.players[0].position=41;room.state.diceBag=[1];assert.equal((await ack(a,'action',envelope(room,{type:'roll_dice'}))).ok,true);assert.equal(room.state.phase,'stock');
+ p.set(15);const actor=room.state.actorRevision.p0;api.advanceRouteTime(room);assert.equal(room.state.phase,'stock');assert.equal(room.state.routeFlow.activeChoice,null);assert.equal(room.state.routeFlow.players.p0.pending.length,1);assert.equal(room.state.actorRevision.p0,actor);
+});
 test('S09 重连恢复原候选与剩余时间',async()=>{
  const {a,room}=await setup();fixture(room);const fake=f.fakeClock();room.actionClock.clear();room.actionClock=createActionClock(fake);api.emitGame(room);fake.advance(7000);
  const candidates=[...room.state.routeFlow.activeChoice.candidateIds],token=a.token;a.close();await until(()=>room.actionClock.paused);fake.advance(60000);const next=await connect();
@@ -89,8 +96,23 @@ test('S10 旧能力重连可查看但新局动作要求更新，旧局仍可操�
  assert.equal((await ack(old,'action',envelope(room,choice(room.state)))).code,'UPDATE');
  room.state=f.game(2);room.actionClock.clear();api.emitGame(room);assert.equal((await ack(old,'action',envelope(room,{type:'roll_dice'}))).ok,true);
 });
-test('S11 房间结束清理且记录重复获取不重复结算',async()=>{
+test('S11a 房间结束清理且记录重复获取不重复结算',async()=>{
  const {a,room}=await setup();fixture(room);const cash=room.state.players[0].cash;assert.equal((await ack(a,'disbandRoom',{})).ok,true);
  assert.equal(room.state.routeFlow.activeChoice,null);assert.equal(room.state.players[0].cash,cash);assert.equal(room.gameRecord.events.filter(e=>e.kind==='route_cancelled').length,1);
  const record=room.gameRecord;assert.equal(api.finalizeGame(room,'disband'),record);
+});
+test('S11 普通两人真实初始阶段起点换路线与后续重连',async()=>{
+ const {a,b,room}=await setup();assert.equal((await ack(a,'startGame',{})).ok,true);
+ async function submit(actor,action){const p=room.players.find(p=>p.socketId===actor.id);const raw={...action,gameId:room.state.gameId,actionId:'flow-'+(++sequence),decisionId:room.actionClock.decisionId,actorRevision:room.state.actorRevision[p.id]};const result=await ack(actor,'action',raw);assert.equal(result.ok,true,JSON.stringify(result));return result;}
+ async function initial(){const stage=room.state.opportunityStage;for(const [i,client]of [a,b].entries()){const c=stage.participants['p'+i];await submit(client,{type:'opportunity_choose',stageId:stage.stageId,candidateVersion:c.candidateVersion,opportunityId:c.candidateIds[0]});}}
+ async function roll(position){assert.equal(room.state.phase,'waiting_roll');const actor=room.state.turnIndex===0?a:b;room.state.players[room.state.turnIndex].position=position;room.state.diceBag=[1];await submit(actor,{type:'roll_dice'});if(room.state.phase==='stock')await submit(actor,{type:'stock_done'});}
+ await initial();await roll(41);await roll(41);assert.equal(room.state.opportunityStage.ordinal,2);await initial();
+ for(let i=0;i<16&&room.state.phase!=='opportunity_choose';i++)await roll(9);
+ assert.equal(room.state.opportunityStage.ordinal,3);assert.equal(room.state.routeFlow.initialCompletedOrdinal,2);await initial();assert.equal(room.state.routeFlow.initialCompletedOrdinal,3);
+ for(let i=0;i<8&&room.state.phase!=='route_choose';i++)await roll(room.state.turnIndex===0?41:9);
+ assert.equal(room.state.phase,'route_choose');assert.equal(room.state.routeFlow.activeChoice.playerId,'p0');assert.equal(room.state.players[0].opportunities.lapEpoch-room.state.routeFlow.players.p0.baselineLapEpoch,3);
+ await until(()=>a.game?.self.routeChoice);assert.equal(b.game.self.routeChoice,undefined);const held=room.state.players[0].opportunities.selectedIds.slice(),c=room.state.routeFlow.activeChoice;
+ const result=await submit(a,{type:'route_confirm',opportunityId:c.opportunityId,candidateVersion:1,newId:c.candidateIds[0],replaceId:held[0]});assert.equal(result.routeResult.outcome,'replaced');const selected=room.state.players[0].opportunities.selectedIds.slice();
+ await roll(9);assert.equal(room.state.turnIndex,1);await roll(9);const token=a.token;a.close();await until(()=>room.actionClock.paused);const next=await connect();await ack(next,'reconnect',{roomCode:room.code,name:'甲',token});await until(()=>next.game?.self.opportunities);
+ assert.deepEqual(next.game.self.opportunities.selectedIds,selected);assert.equal(next.game.phase,'waiting_roll');assert.equal(room.state.routeFlow.activeChoice,null);
 });

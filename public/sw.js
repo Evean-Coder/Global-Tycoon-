@@ -1,14 +1,14 @@
 'use strict';
-const CACHE = 'global-tycoon-v9-feedback';
+const CACHE = 'global-tycoon-v10-routes';
 const CORE = [
   './',
   './index.html',
   './style.css',
   './client.js',
   './rules-catalog.js',
-  './rules-catalog.js?v=20261009-action-feedback',
-  './style.css?v=20261009-action-feedback',
-  './client.js?v=20261009-action-feedback',
+  './rules-catalog.js?v=20261009-opportunity-routes',
+  './style.css?v=20261009-opportunity-routes',
+  './client.js?v=20261009-opportunity-routes',
   './socket.io/socket.io.js',
   './assets/world-map-ocean.png',
   './assets/ocean-surface.png',
@@ -27,6 +27,7 @@ self.addEventListener('fetch', (e) => {
   // 联机握手和轮询不作为静态资源缓存；离线只提供页面外壳。
   if (url.pathname.startsWith('/socket.io/') && url.pathname !== '/socket.io/socket.io.js') return;
   const isNav = e.request.mode === 'navigate' || url.pathname === '/' || url.pathname.endsWith('/index.html');
+  const strictCore = /\/(?:client\.js|style\.css|rules-catalog\.js)$/.test(url.pathname) || url.pathname === '/socket.io/socket.io.js';
   if (isNav) {
     // HTML/导航：网络优先，失败回退缓存，保证更新即时生效
     e.respondWith(
@@ -42,8 +43,8 @@ self.addEventListener('fetch', (e) => {
   e.respondWith(
     caches.match(e.request).then((hit) => hit || fetch(e.request).then((res) => {
       const copy = res.clone();
-      caches.open(CACHE).then((c) => c.put(e.request, copy)).catch(() => {});
+      if(res.ok)caches.open(CACHE).then((c) => c.put(e.request, copy)).catch(() => {});
       return res;
-    }).catch(() => caches.match(e.request, { ignoreSearch: true }).then((hit) => hit || new Response('', { status: 503 }))))
+    }).catch(() => strictCore ? new Response('', {status:503}) : caches.match(e.request, { ignoreSearch: true }).then((hit) => hit || new Response('', { status: 503 }))))
   );
 });

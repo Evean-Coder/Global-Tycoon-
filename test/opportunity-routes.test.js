@@ -112,14 +112,16 @@ test('R09 安全入口和同回合只开一次', () => {
   assert.equal(routes.tryOpenRouteChoice(s, 'p0', failRng, normalTime).opened, false); s.turnId++; assert.equal(routes.tryOpenRouteChoice(s, 'p0', f.rng(), normalTime).opened, true);
 });
 test('R10 非法替换无部分修改合法替换指定项', () => {
-  const s = ready(); open(s); const before = JSON.stringify(s);
+  for(const mode of ['normal','quick']){
+  const s = ready(mode); open(s); const before = JSON.stringify(s);
   for (const extra of [{ newId: 'bad' }, { replaceId: 'H2' }, { opportunityId: 'old' }, { candidateVersion: 2 }]) { assert.throws(() => resolve(s, action(s, 'route_confirm', extra))); assert.equal(JSON.stringify(s), before); }
   const a = action(s), result = resolve(s, a); assert.equal(result.result.replacedId, 'H1'); assert.deepEqual(s.players[0].opportunities.selectedIds, [a.newId, 'H8', 'H10']);
   assert.equal(s.players[0].opportunities.selectedIds.length, 3);
+  }
 });
 test('R11 主动跳过和超时原路线不变', () => {
-  for (const type of ['route_skip', 'route_expire']) {
-    const s = ready(), p = s.players[0]; open(s); p.opportunities.usage = { H1: 1 }; const original = JSON.stringify(p); const a = action(s, type); resolve(s, a);
+  for (const mode of ['normal','quick']) for (const type of ['route_skip', 'route_expire']) {
+    const s = ready(mode), p = s.players[0]; open(s); p.opportunities.usage = { H1: 1 }; const original = JSON.stringify(p); const a = action(s, type); resolve(s, a);
     assert.equal(JSON.stringify(p), original); assert.equal(s.phase, 'waiting_roll'); assert.equal(s.pending, null); assert.equal(s.routeFlow.activeChoice, null);
     assert.throws(() => resolve(s, a)); assert.equal(JSON.stringify(p), original);
   }
@@ -153,6 +155,19 @@ test('R14 真实起点先开股票不插入后续', () => {
   logic.apply(s, {type:'roll_dice'}, f.rng()); assert.equal(s.phase, 'stock'); assert.equal(s.routeFlow.players.p0.pending.length, 1); assert.equal(s.routeFlow.activeChoice, null); assert.equal(s.players[0].cash, 160000);
   logic.apply(s, {type:'stock_done'}, f.rng()); assert.equal(s.turnIndex, 1); assert.equal(s.routeFlow.activeChoice, null);
 });
+test('R14b 基准已两圈时第三第四第五圈真实结算',()=>{
+ const s=ready(),p=s.players[0];p.opportunities.lapEpoch=2;s.routeFlow.players.p0.baselineLapEpoch=2;
+ for(let epoch=3;epoch<=5;epoch++){
+  p.position=41;s.diceBag=[1];logic.apply(s,{type:'roll_dice'},f.rng());assert.equal(p.opportunities.lapEpoch,epoch);assert.equal(s.phase,'stock');assert.equal(s.routeFlow.players.p0.pending.length,epoch===5?1:0);logic.apply(s,{type:'stock_done'},f.rng());
+  s.players[1].position=9;s.diceBag=[1];logic.apply(s,{type:'roll_dice'},f.rng());assert.equal(s.phase,epoch===5?'route_choose':'waiting_roll');
+ }
+ assert.equal(s.routeFlow.players.p0.baselineLapEpoch,2);
+});
+test('R21b 债务破产与结束取消排队且迟到确认无效',()=>{
+ const s=ready();laps(s);const choiceId=s.routeFlow.players.p0.pending[0].opportunityId;s.players[0].cash=-100;s.phase='self_rescue';s.pending={playerId:'p0',due:100,reason:'测试欠费'};
+ logic.apply(s,{type:'rescue_done'},f.rng());assert.equal(s.players[0].alive,false);assert.equal(s.phase,'game_over');assert.equal(s.routeFlow.players.p0.pending.length,0);
+ const before=JSON.stringify(s);assert.equal(logic.apply(s,{type:'route_confirm',opportunityId:choiceId,candidateVersion:1,newId:'H12',replaceId:'H1'},f.rng(),{actorId:'p0',source:'player'}).rejected,true);assert.equal(JSON.stringify(s),before);
+});
 test('R15 普通与监狱掷骰记录当轮且不误开', () => {
   for (const jail of [false, true]) {
     const s = ready(); const turn = s.turnId; laps(s); s.players[0].position = jail ? 21 : 0; s.diceBag = [1];
@@ -182,13 +197,16 @@ test('R18 自救和股票完成不删必要上下文', () => {
   s.players[0].cash=100; logic.apply(s,{type:'rescue_done'},f.rng()); assert.equal(s.turnIndex,1); assert.equal(s.routeFlow.players.p0.pending.length,1); assert.equal(s.routeFlow.activeChoice,null);
 });
 test('R19 后续首次应急资金原子到账', () => {
-  const s = ready(); open(s); s.routeFlow.activeChoice.candidateIds=['H12','H2','H4']; const before=s.players[0].cash;
-  const a=action(s,'route_confirm',{newId:'H12'}), result=logic.apply(s,a,f.rng(),{actorId:'p0',source:'player'});
+  for(const mode of ['normal','quick']){
+  const s = ready(mode); open(s); s.routeFlow.activeChoice.candidateIds=['H12','H2','H4']; const before=s.players[0].cash;
+  const context={actorId:'p0',source:'player',timeContext:mode==='quick'?quickTime(15):normalTime};
+  const a=action(s,'route_confirm',{newId:'H12'}), result=logic.apply(s,a,f.rng(),context);
   assert.equal(s.players[0].cash,before+6000); assert.equal(s.players[0].opportunities.oneTimeRewards.H12.amount,6000); assert.equal(result.events.filter(e=>e.kind==='opportunity_reward').length,1);
-  assert.equal(logic.apply(s,a,f.rng(),{actorId:'p0',source:'player'}).rejected,true); assert.equal(s.players[0].cash,before+6000);
+  assert.equal(logic.apply(s,a,f.rng(),context).rejected,true); assert.equal(s.players[0].cash,before+6000);
+  }
 });
 test('R20 跳过与超时恢复可继续掷骰', () => {
-  for (const type of ['route_skip','route_expire']) { const s=ready(); open(s); const a=action(s,type); logic.apply(s,a,f.rng(),{actorId:'p0',source:type==='route_expire'?'timeout':'player'}); assert.equal(s.phase,'waiting_roll'); s.diceBag=[1]; const result=logic.apply(s,{type:'roll_dice'},f.rng()); assert.equal(result.rejected,undefined); assert.equal(s.routeFlow.rollStartedTurnId,1); }
+  for (const mode of ['normal','quick']) for (const type of ['route_skip','route_expire']) { const s=ready(mode); open(s); const a=action(s,type); const timeContext=mode==='quick'?quickTime(15):normalTime;logic.apply(s,a,f.rng(),{actorId:'p0',source:type==='route_expire'?'timeout':'player',timeContext}); assert.equal(s.phase,'waiting_roll'); s.diceBag=[1]; const result=logic.apply(s,{type:'roll_dice'},f.rng(),{timeContext}); assert.equal(result.rejected,undefined); assert.equal(s.routeFlow.rollStartedTurnId,1); }
 });
 test('R21 原正常结束清理不补发未选奖励', () => {
   const s=ready(); laps(s); s.players[0].opportunities.selectedIds=[]; const cash=s.players[1].cash;

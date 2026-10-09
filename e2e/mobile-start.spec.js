@@ -18,7 +18,7 @@ async function phone(options={}){
  return {ctx,page};
 }
 async function partner(code){
- const s=io(h.url,{transports:['websocket']});await new Promise((r,j)=>{s.once('connect',r);s.once('connect_error',j);});
+ const s=io(h.url,{transports:['websocket'],auth:{clientRouteRevision:'opportunity-routes-v1'}});await new Promise((r,j)=>{s.once('connect',r);s.once('connect_error',j);});
  const res=await new Promise((r,j)=>s.timeout(3000).emit('joinRoom',{roomCode:code,name:'触控搭档'},(e,v)=>e?j(e):r(v)));assert.equal(res.ok,true);return s;
 }
 function stockState(){const s=f.game(2);f.own(s,'p1','上海');s.phase='stock';s.pending={playerId:'p0',kind:'go_stock',after:'end'};stocks.openStockWindow(s,'p0');return s;}

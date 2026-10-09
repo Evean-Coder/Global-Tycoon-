@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>环球大亨 · 资本博弈</title>
-  <link rel="stylesheet" href="style.css?v=20261009-action-feedback" />
+  <link rel="stylesheet" href="style.css?v=20261009-opportunity-routes" />
   <meta name="theme-color" content="#0b354b" />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" type="image/svg+xml" href="icon.svg" />
@@ -111,6 +111,23 @@
   </section>
 
   <!-- 通用操作弹窗 -->
+  <div id="routeModal" class="overlay hidden">
+    <div class="modal wide route-dialog" role="dialog" aria-modal="true" aria-labelledby="routeTitle">
+      <div class="mh"><h3 id="routeTitle">调整经营路线</h3></div>
+      <div class="route-meta"><span id="routeStatus" role="status"></span><strong id="routeTimer"></strong></div>
+      <div class="route-body">
+        <p class="hint">先选新机遇，再选要替换的原机遇。确认后继续本回合掷骰；跳过或超时均保留原路线，消耗本次机会。</p>
+        <h4>可选的新机遇</h4><div id="routeCandidates" class="route-cards"></div>
+        <h4>当前经营路线 · 选择替换项</h4><div id="routeHeld" class="route-cards"></div>
+        <div id="routeComparison" class="route-comparison" role="status"></div>
+        <p class="hint">替换只影响之后的经营。本圈已用额度、机场领奖记录和应急资金领取记录保留；过去的收入与实际建设成本不回算。后续选择不提供换组。</p>
+      </div>
+      <p id="routeError" class="choice-error" role="alert"></p>
+      <div class="mf"><button id="btnRouteBack" class="secondary">返回选新项</button><button id="btnRouteConfirm" class="primary" disabled>确认调整</button><button id="btnRouteSkip" class="secondary">跳过 · 保留原路线</button><button id="btnRouteRetry" class="secondary hidden">查询原操作结果</button><button id="btnRouteRules" class="textbtn">规则速查</button></div>
+    </div>
+  </div>
+
+  <!-- 通用操作弹窗 -->
   <div id="choiceModal" class="overlay hidden">
     <div class="modal wide choice-dialog" role="dialog" aria-modal="true" aria-labelledby="choiceTitle">
       <div class="mh"><h3 id="choiceTitle">经营机遇</h3><p class="hint">三选一，规划你的经营路线。提交后等待所有人完成；到时默认选择当前最左项。</p></div>
@@ -157,7 +174,7 @@
   <div id="toast" class="hidden"></div>
 
   <script src="/socket.io/socket.io.js"></script>
-  <script src="rules-catalog.js?v=20261009-action-feedback"></script>
-  <script src="client.js?v=20261009-action-feedback"></script>
+  <script src="rules-catalog.js?v=20261009-opportunity-routes"></script>
+  <script src="client.js?v=20261009-opportunity-routes"></script>
 </body>
 </html>

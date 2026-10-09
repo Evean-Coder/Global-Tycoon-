@@ -1,8 +1,8 @@
 'use strict';
 const {io}=require('socket.io-client');
 let sequence=0;
-function Client(...args){
- const socket=io(...args),original=socket.emit.bind(socket);
+function Client(url,options={}){
+ const socket=io(url,{...options,auth:{clientRouteRevision:'opportunity-routes-v1',...options.auth}}),original=socket.emit.bind(socket);
  socket.emit=(event,...payload)=>{
   if(event==='action'&&socket.game?.ruleVersion===2){const s=socket.game;payload[0]={...payload[0],gameId:s.gameId,actionId:'regression-'+(++sequence),decisionId:s.decision.decisionId,actorRevision:s.self.actorRevision};}
   return original(event,...payload);

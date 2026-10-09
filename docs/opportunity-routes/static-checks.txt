@@ -1,0 +1,1 @@
+Node20 syntax: PASS (15 route paths); ESLint: PASS; rules catalog --check: PASS

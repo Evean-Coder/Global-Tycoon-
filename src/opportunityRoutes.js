@@ -13,8 +13,9 @@ const totalClosed = (s, time) => s.status === 'over' || s.phase === 'game_over' 
 function event(s, id, choice, outcome, extra = {}) {
   const player = playerFor(s, id);
   const reason = extra.reason || (outcome === 'expired' ? '选择超时，保留原路线' : outcome === 'skipped' ? '主动跳过，保留原路线' : outcome === 'cancelled' ? '机会已取消' : '经营路线已调整');
+  const labels={eliminated:'已出局，机会取消',surrender:'已认输，机会取消',normal_end:'对局结束，机会取消',room_closed:'房间结束，机会取消',later_closed:'后续调整已关闭，未打开机会失效',total_deadline:'总时限已到，未完成选择取消'};
   return { type: 'opportunity', kind: 'route_' + outcome, playerId: id, opportunityId: choice.opportunityId,
-    source: choice.source, ...extra, text: player.name + '：' + reason };
+    source: choice.source, ...extra, text: player.name + '：' + (labels[reason]||reason) };
 }
 
 function assertRoutes(s) {

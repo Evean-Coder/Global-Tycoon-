@@ -138,6 +138,7 @@ function emitGame(room, newDecision = false) {
     const sock = io.sockets.sockets.get(rp.socketId);
     if (!sock) continue;
     const base = snapshot(room.state, rp.id, room.actionClock.view(room.state.gameId));
+    if(routes.enabled(room.state)&&room.state.gameMode==='quick')base.quickTime=routeTime(room);
     for (const gp of base.players) gp.connected = room.players.find(p=>p.id===gp.id)?.connected !== false;
     sock.emit('gameState', Object.assign({}, base, { events: evs }));
   }

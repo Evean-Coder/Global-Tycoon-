@@ -1,0 +1,149 @@
+{
+  "browser": "Microsoft Edge Chromium",
+  "physicalDevices": "未测；模拟视口和实际浏览器缩放另列",
+  "measures": [
+    {
+      "label": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "dialog": {
+        "x": 200,
+        "y": 12,
+        "width": 1040,
+        "height": 876,
+        "top": 12,
+        "right": 1240,
+        "bottom": 888,
+        "left": 200
+      },
+      "timer": {
+        "x": 1153.859375,
+        "y": 69,
+        "width": 61.140625,
+        "height": 17,
+        "top": 69,
+        "right": 1215,
+        "bottom": 86,
+        "left": 1153.859375
+      }
+    },
+    {
+      "label": "768x1024",
+      "width": 768,
+      "height": 1024,
+      "scrollWidth": 768,
+      "dialog": {
+        "x": 20,
+        "y": 12,
+        "width": 728,
+        "height": 1000,
+        "top": 12,
+        "right": 748,
+        "bottom": 1012,
+        "left": 20
+      },
+      "timer": {
+        "x": 669.859375,
+        "y": 69,
+        "width": 61.140625,
+        "height": 17,
+        "top": 69,
+        "right": 731,
+        "bottom": 86,
+        "left": 669.859375
+      }
+    },
+    {
+      "label": "1024x768",
+      "width": 1024,
+      "height": 768,
+      "scrollWidth": 1024,
+      "dialog": {
+        "x": 20,
+        "y": 12,
+        "width": 984,
+        "height": 744,
+        "top": 12,
+        "right": 1004,
+        "bottom": 756,
+        "left": 20
+      },
+      "timer": {
+        "x": 917.859375,
+        "y": 69,
+        "width": 61.140625,
+        "height": 17,
+        "top": 69,
+        "right": 979,
+        "bottom": 86,
+        "left": 917.859375
+      }
+    },
+    {
+      "label": "568x320",
+      "width": 568,
+      "height": 320,
+      "scrollWidth": 568,
+      "dialog": {
+        "x": 8,
+        "y": 12,
+        "width": 552,
+        "height": 296,
+        "top": 12,
+        "right": 560,
+        "bottom": 308,
+        "left": 8
+      },
+      "timer": {
+        "x": 488.5625,
+        "y": 53,
+        "width": 56.4375,
+        "height": 16,
+        "top": 53,
+        "right": 545,
+        "bottom": 69,
+        "left": 488.5625
+      }
+    },
+    {
+      "label": "812x375",
+      "width": 812,
+      "height": 375,
+      "scrollWidth": 812,
+      "dialog": {
+        "x": 8,
+        "y": 12,
+        "width": 796,
+        "height": 351,
+        "top": 12,
+        "right": 804,
+        "bottom": 363,
+        "left": 8
+      },
+      "timer": {
+        "x": 732.5625,
+        "y": 53,
+        "width": 56.4375,
+        "height": 16,
+        "top": 53,
+        "right": 789,
+        "bottom": 69,
+        "left": 732.5625
+      }
+    },
+    {
+      "label": "200%-content-zoom",
+      "method": "CSS zoom=2; actual browser default zoom verified separately",
+      "reducedMotion": true
+    },
+    {
+      "label": "actual-browser-default-zoom-200",
+      "setting": 2,
+      "width": 720,
+      "scrollWidth": 720,
+      "pixelRatio": 2,
+      "scale": 1
+    }
+  ]
+}

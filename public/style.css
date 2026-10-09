@@ -620,3 +620,23 @@ button:not(.sq){min-height:44px}
   .modal .mf button{min-height:44px}
   #toast{top:8px}
 }
+
+/* 后续个人路线选择：标题/时钟/操作固定，说明独立滚动。 */
+.modal.wide.route-dialog{max-width:1040px;max-height:calc(100dvh - 24px)}
+.route-dialog>.mh,.route-meta,.route-dialog>.mf,.route-dialog>.choice-error{flex-shrink:0}
+.route-dialog>.mh{padding:16px 24px 6px}
+.route-meta{display:flex;gap:12px;justify-content:space-between;padding:8px 24px;border-bottom:1px solid var(--line);font-size:13px}
+#routeTimer{white-space:nowrap;color:var(--danger)}
+.route-body{overflow-y:auto;min-height:0;padding:8px 24px 16px;overscroll-behavior:contain}
+.route-body h4{margin:12px 0 8px}.route-body>.hint{margin:8px 0;line-height:1.7}
+.route-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.route-cards .opportunity-card{padding:14px}.route-cards .opportunity-card h4{font-size:18px;margin:0}
+.route-cards .route-history{font-size:12px;color:var(--muted);flex:0}
+.route-cards button[aria-pressed=true]{outline:3px solid var(--gold);background:#fff0c9;color:var(--title)}
+.route-dialog .mf{gap:8px;flex-wrap:wrap;padding:12px 24px}.route-dialog .mf button{min-height:44px;min-width:44px;font-size:13px}
+.route-dialog>.choice-error{margin:4px 0;min-height:0}
+.route-comparison{padding:10px 14px;margin-top:12px;border-radius:10px;background:#e3eff2;line-height:1.7;font-size:14px;overflow-wrap:anywhere}
+.route-comparison p{margin:4px 0}.route-progress{font-size:13px;line-height:1.7;color:var(--title)}
+.action-pending #btnRouteConfirm,.action-pending #btnRouteSkip{pointer-events:none;opacity:.65}
+@media(max-width:850px){.route-cards{grid-template-columns:minmax(0,1fr)}.route-cards .opportunity-card{padding:12px;gap:8px}.route-cards .opportunity-card button{margin-top:0}.route-dialog .mf button{flex:1 1 130px}.route-body{padding:8px 16px}.route-meta{padding:8px 16px}}
+@media(max-height:450px) and (orientation:landscape){.route-dialog>.mh{padding:8px 14px 2px}.route-dialog>.mh h3{font-size:18px}.route-meta{padding:6px 14px;font-size:12px}.route-dialog .mf{padding:6px 14px;gap:6px}.route-dialog .mf button{flex:1 1 115px;padding:0 8px}.route-cards{grid-template-columns:minmax(0,1fr)}.route-body{padding:6px 14px}.route-dialog>.choice-error{padding:0 14px;font-size:12px}}

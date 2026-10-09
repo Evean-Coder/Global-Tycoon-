@@ -48,6 +48,7 @@ let lastRecord = null;
 let latestState = null;
 let actionPending = false;
 let choiceRenderKey = '';
+let routeDraft = null;
 let requestSequence = 0;
 let lobbyRequest = null;
 let lastRoomState = null;
@@ -167,7 +168,7 @@ function totalAssetsFor(p) {
   return t;
 }
 function playerById(id) { return game ? game.players.find((p) => p.id === id) : null; }
-function isMyTurn() { return game?.phase !== 'opportunity_choose' && !game?.decision?.paused && awaitingPlayerId === me.gameId; }
+function isMyTurn() { return !['opportunity_choose','route_choose'].includes(game?.phase) && !game?.decision?.paused && awaitingPlayerId === me.gameId; }
 function hostName() {
   const h = game && game.players.find((p) => p.socketId === roomHostId);
   return h ? h.name : '';
@@ -345,6 +346,7 @@ function finishRender(state) {
   renderActionBar();
   renderNews();
   renderOpportunities();
+  renderRouteChoice();
   if (!$('stockModal').classList.contains('hidden')) renderStock();
   updateWaitBanner();
   fitActionBarPadding();
@@ -534,6 +536,7 @@ function renderActionBar() {
   $('btnRoll').classList.toggle('hidden', resumeStock);
   $('btnEndTurn').title = canRoll ? '掷骰并推进本回合' : '当前阶段由系统自动推进';
   if (game.phase === 'opportunity_choose') $('turnInfo').textContent = '经营机遇 · 等待全员选择';
+  if (game.phase === 'route_choose') $('turnInfo').textContent = (game.players.find(p=>p.id===game.routeProgress?.activeChoice?.playerId)?.name || '当前玩家')+' 正在调整经营路线';
 }
 
 function quoteExplanation(q) {
@@ -591,10 +594,81 @@ function renderOpportunities() {
     target?.focus({preventScroll:true});
   }
 }
+function opportunityDescription(id) {
+  if(id==='H12' && game?.routeRevision==='opportunity-routes-v1')return '本局首次取得后获得6000。初始同步选择在全员完成后到账；后续调整在本人确认成功后到账。本局只领取一次，换出不补发。';
+  return game.opportunityCatalog[id].description;
+}
+function opportunityHistory(id) {
+  const o=game.self.opportunities,use=o.usage[id]||0;
+  if(['H1','H2','H3','H7','H11'].includes(id))return use?'本圈已用，换回不恢复':'本圈可用';
+  if(id==='H4'||id==='H6')return '本圈剩余额度 '+fmt(Math.max(0,(id==='H4'?1000:2000)-use));
+  if(id==='H8')return '本局已领奖机场：'+(o.visitedAirportIds.join('、')||'无')+'；记录保留';
+  if(id==='H12')return o.oneTimeRewards?.H12?'本局已领取6000，不再补发':'本局尚未领取';
+  return '持续效果，仅影响之后的经营';
+}
+function currentRouteContext(c) {
+  return {kind:'route',gameId:game.gameId,playerId:game.self.playerId,opportunityId:c.opportunityId,candidateVersion:c.candidateVersion};
+}
+function isCurrentRouteContext(c) {
+  const s=latestState||game,w=s?.self?.routeChoice;
+  return s?.gameId===c.gameId && s.phase==='route_choose' && s.self?.playerId===c.playerId && w?.opportunityId===c.opportunityId && w.candidateVersion===c.candidateVersion;
+}
+function renderRouteChoice() {
+  const c=game?.self?.routeChoice;
+  if(game?.phase!=='route_choose'||!c){
+    hideOverlay('routeModal');routeDraft=null;
+    if(activeRequest?.context?.kind==='route'){activeRequest=null;actionPending=false;document.body.classList.remove('action-pending');}
+    return;
+  }
+  const context=currentRouteContext(c),key=JSON.stringify(context),hadFocus=$('routeModal').contains(document.activeElement),focusId=document.activeElement?.id;
+  if(routeDraft?.key!==key)routeDraft={key,context,newId:null,replaceId:null,status:'editing',error:'',pendingRequest:null};
+  const d=routeDraft,held=game.self.opportunities.selectedIds;
+  const locked=actionPending||d.status==='submitting'||d.status==='unconfirmed'||game.decision?.paused||!socket.connected||restoringSession;
+  $('routeStatus').textContent=game.decision?.paused?'对局暂停，原候选和剩余时间保留。':d.status==='submitting'?'已发送，等待服务器确认…':d.status==='unconfirmed'?'结果尚未确认，请查询原操作结果。':held.length===3?'选择一项新机遇，替换一项原机遇。':'选择一项新机遇加入经营路线。';
+  function cards(root,ids,old){
+    root.replaceChildren();
+    for(const id of ids){
+      const item=game.opportunityCatalog[id],card=document.createElement('article');card.className='opportunity-card';
+      const title=document.createElement('h4');title.textContent=item.name;
+      const direction=document.createElement('span');direction.className='opportunity-direction';direction.textContent=item.direction;
+      const description=document.createElement('p');description.textContent=opportunityDescription(id);
+      const history=document.createElement('p');history.className='route-history';history.textContent=opportunityHistory(id);
+      const button=document.createElement('button');button.type='button';button.className='secondary';button.id=(old?'route-old-':'route-new-')+id;button.dataset.opportunityId=id;
+      const selected=(old?d.replaceId:d.newId)===id;button.setAttribute('aria-pressed',String(selected));button.textContent=selected?'已选中':old?'替换这项':'选择这项';button.disabled=locked||(old&&(!d.newId||held.length<3));
+      button.onclick=()=>{if(old)d.replaceId=id;else d.newId=id;d.error='';renderRouteChoice();$(button.id)?.focus({preventScroll:true});};
+      card.append(direction,title,description,history,button);root.append(card);
+    }
+  }
+  cards($('routeCandidates'),c.candidateIds,false);cards($('routeHeld'),held,true);
+  const compare=$('routeComparison');compare.replaceChildren();
+  if(d.newId){for(const [label,id] of [['获得',d.newId],['失去',d.replaceId]]){if(!id)continue;const p=document.createElement('p');p.textContent=label+'：'+game.opportunityCatalog[id].name+' — '+opportunityDescription(id);compare.append(p);}}
+  else compare.textContent='尚未选定新机遇；当前持有项和资产保持原样。';
+  if(d.newId&&held.length===3&&!d.replaceId){const p=document.createElement('p');p.textContent='请选择要替换的原机遇，之后才能确认。';compare.append(p);}
+  $('routeError').textContent=d.error;
+  $('btnRouteConfirm').disabled=locked||!d.newId||(held.length===3&&!d.replaceId);
+  $('btnRouteSkip').disabled=locked;$('btnRouteBack').disabled=locked||!d.newId;
+  $('btnRouteBack').onclick=()=>{d.newId=null;d.replaceId=null;renderRouteChoice();$('routeCandidates').querySelector('button')?.focus();};
+  function submit(type){
+    const payload={type,opportunityId:c.opportunityId,candidateVersion:c.candidateVersion,...(type==='route_confirm'?{newId:d.newId,replaceId:held.length===3?d.replaceId:null}:{})};
+    sendAction(payload,()=>renderRouteChoice(),{context});
+  }
+  $('btnRouteConfirm').onclick=()=>submit('route_confirm');$('btnRouteSkip').onclick=()=>submit('route_skip');
+  $('btnRouteRetry').classList.toggle('hidden',d.status!=='unconfirmed');$('btnRouteRetry').disabled=!socket.connected||game.decision?.paused;
+  $('btnRouteRetry').onclick=()=>d.pendingRequest?.retrieve();
+  $('btnRouteRules').onclick=()=>{buildRules();showOverlay('rulesModal');};
+  closeModal();hideOverlay('stockModal');showOverlay('routeModal');
+  if(hadFocus&&focusId&&$(focusId)&&!$(focusId).disabled)$(focusId).focus({preventScroll:true});
+}
 function appendSelectedOpportunities(container) {
   if (!game?.self?.opportunities) return;
   const personal=game.self.opportunities,wrap=document.createElement('section');wrap.className='selected-opportunities';
   const heading=document.createElement('h4');heading.textContent='已选机遇';wrap.append(heading);
+  if(game.routeRevision==='opportunity-routes-v1'&&game.self.route){
+    const r=game.self.route,line=document.createElement('p');line.className='route-progress';
+    line.textContent=game.gameMode==='normal'?(r.baselineLapEpoch===null?'初始三次机遇完成后，每完成3圈可调整一次路线。':r.pending.length?'路线调整已排队，将在本人下一次掷骰前处理。':'距下一次路线调整还需 '+(3-(r.lapsSinceInitial%3))+' 圈。'):(game.routeProgress.laterClosed?'后续调整已关闭；未打开机会已失效。':'后续调整时点：第15、22分钟 · 待处理 '+r.pending.length+' 次。');
+    if(game.gameMode==='quick'&&game.quickTime)line.textContent+=' 总剩余 '+Math.ceil(game.quickTime.totalRemainingMs/60000)+' 分钟；个人选择倒计时另计。';
+    wrap.append(line);
+  }
   if(!personal.selectedIds.length){const empty=document.createElement('p');empty.className='hint';empty.textContent='尚未完成选择';wrap.append(empty);}
   for(const id of personal.selectedIds){
     const item=game.opportunityCatalog[id],details=document.createElement('details'),summary=document.createElement('summary'),p=document.createElement('p');
@@ -605,7 +679,7 @@ function appendSelectedOpportunities(container) {
     if(id==='H6')note='本圈剩余额度 '+fmt(Math.max(0,2000-use));
     if(id==='H8')note='已探访 '+personal.visitedAirportIds.length+' / '+Object.keys(game.airports).length+' 机场';
     if(id==='H12')note='已到账';
-    summary.textContent=item.name+(note?' · '+note:'');p.textContent=item.description;details.append(summary,p);wrap.append(details);
+    summary.textContent=item.name+(note?' · '+note:'');p.textContent=opportunityDescription(id);details.append(summary,p);wrap.append(details);
     if(id==='H1'){
       const button=document.createElement('button');button.type='button';button.className='secondary';button.textContent='远程施工';button.disabled=game.phase!=='waiting_roll'||!isMyTurn()||use>0;button.onclick=openRemoteConstruction;wrap.append(button);
     }
@@ -677,7 +751,9 @@ function sendAction(action, callback, options = {}) {
   if (actionPending) { toast('上一操作仍在等待服务器确认，请稍候。'); return; }
   if (game.decision?.paused) { toast('有玩家掉线，当前对局暂停；等待重连后可继续。'); return; }
   const context = options.context || (['stock_trade','stock_done','stock_transfer'].includes(action.type) && stockContext ? captureStockContext() : null);
-  if (context && !isCurrentStockContext(context)) return;
+  const routeRequest=context?.kind==='route';
+  const current=()=>!context||(routeRequest?isCurrentRouteContext(context):isCurrentStockContext(context));
+  if (!current()) return;
   let payload = {...action};
   if (game.ruleVersion === 2) {
     const q = actionQuote(action);
@@ -688,29 +764,32 @@ function sendAction(action, callback, options = {}) {
   }
   const request = {payload,context,attempt:0,finished:false,retrieve:null};
   request.retrieve = () => {
-    if (actionPending || request.finished || (context && !isCurrentStockContext(context)) || !socket.connected) return;
+    if (actionPending || request.finished || !current() || !socket.connected) return;
     if (context && (game.ruleVersion !== 2 || latestState?.decision?.paused)) return;
     const attempt=++request.attempt;
     activeRequest=request;actionPending=true;document.body.classList.add('action-pending');
     toast('操作已发送，等待服务器确认…');
-    if(context){stockContext.pendingRequest=request;stockContext.status='submitting';renderStock();}
+    if(routeRequest){routeDraft.pendingRequest=request;routeDraft.status='submitting';routeDraft.error='';renderRouteChoice();}
+    else if(context){stockContext.pendingRequest=request;stockContext.status='submitting';renderStock();}
     const finish = (result) => {
       if(request.attempt!==attempt)return;
       const released = activeRequest === request;
       if(released){activeRequest=null;actionPending=false;document.body.classList.remove('action-pending');}
-      if(context&&!isCurrentStockContext(context))return;
+      if(!current())return;
       const res=result||{ok:false,error:'操作未确认',unconfirmed:true};request.finished=!res.unconfirmed;
-      if(context){stockContext.status=res.unconfirmed?'unconfirmed':'editing';if(!res.unconfirmed)stockContext.pendingRequest=null;}
+      if(routeRequest){routeDraft.status=res.unconfirmed?'unconfirmed':'editing';routeDraft.error=res.ok?'':res.error||'操作尚未确认';if(!res.unconfirmed)routeDraft.pendingRequest=null;}
+      else if(context){stockContext.status=res.unconfirmed?'unconfirmed':'editing';if(!res.unconfirmed)stockContext.pendingRequest=null;}
       if(!res.ok){toast(res.error||'操作未确认，请重试');if(game.phase==='opportunity_choose')$('choiceError').textContent=res.error||'操作未确认，请重试';}
       else toast('操作已确认');
       callback?.(res);
-      if((context&&isCurrentStockContext(context))||(released&&!context&&!$('stockModal').classList.contains('hidden')))renderStock();
+      if(routeRequest&&current())renderRouteChoice();
+      else if((context&&current())||(released&&!context&&!$('stockModal').classList.contains('hidden')))renderStock();
     };
     const transmit = (retry) => {
-      if(context&&!isCurrentStockContext(context))return;
+      if(!current())return;
       socket.timeout(5000).emit('action',payload,(err,res)=>{
         if(request.attempt!==attempt)return;
-        if(err&&!retry&&socket.connected&&(!context||game.ruleVersion===2)&&(!context||isCurrentStockContext(context))){toast('网络响应较慢，正在查询刚才的操作结果；请勿重复提交。');transmit(true);return;}
+        if(err&&!retry&&socket.connected&&(!context||game.ruleVersion===2)&&current()){toast('网络响应较慢，正在查询刚才的操作结果；请勿重复提交。');transmit(true);return;}
         finish(err?{ok:false,error:'连接未确认，请重试获取原操作结果；不要重复下单。',unconfirmed:true}:res);
       });
     };
@@ -731,7 +810,7 @@ function sendAction(action, callback, options = {}) {
 function emitAct(action) { sendAction(action); }
 document.addEventListener('keydown', (event) => {
   if (event.key !== 'Tab') return;
-  const overlay = ['rulesModal', 'choiceModal', 'stockModal', 'modal'].map($).find((el) => !el.classList.contains('hidden'));
+  const overlay = ['rulesModal', 'routeModal', 'choiceModal', 'stockModal', 'modal'].map($).find((el) => !el.classList.contains('hidden'));
   if (!overlay) return;
   const items = [...overlay.querySelectorAll('a[href],summary,button:not(:disabled),input:not(:disabled),select:not(:disabled),[tabindex="0"]')]
     .filter((el) => el.getClientRects().length);
@@ -1176,16 +1255,19 @@ function displayTimer(t) {
   if (t.paused) {
     $('timer').textContent = '⏸ ' + remain + 's';
     $('choiceTimer').textContent = '已暂停 · '+remain+' 秒';
+    $('routeTimer').textContent = '已暂停 · '+remain+' 秒';
     timerIv = null;
     return;
   }
   $('timer').textContent = '⏱ ' + remain + 's';
   $('choiceTimer').textContent = '剩余 '+remain+' 秒';
+  $('routeTimer').textContent = '剩余 '+remain+' 秒';
   timerIv = setInterval(() => {
     remain -= 1;
     if (remain <= 0) { clearInterval(timerIv); timerIv = null; }
     $('timer').textContent = remain > 0 ? '⏱ ' + remain + 's' : '';
     $('choiceTimer').textContent = '剩余 '+Math.max(0,remain)+' 秒';
+    $('routeTimer').textContent = '剩余 '+Math.max(0,remain)+' 秒';
   }, 1000);
 }
 
@@ -1348,7 +1430,7 @@ function organizeRules() {
   add('connection','<p>任一存活玩家掉线会暂停对局和决定时钟；使用原身份重连恢复实际状态和剩余时间，不能刷新额度。新决定给完整时限，同一决定的无效操作和只读查询不延时。经营机遇共享30秒，超时选当时最左项；交易确认超时拒绝，股票超时结束窗口，飞行超时不飞，购买/建设超时放弃。</p><p>已经扣过的债务不重复扣款。自救补足现金后继续原流程，仍不足可继续处理资产或放弃；无资产则按原破产流程。终局先结算待分红，再按实际总资产记录排名。</p>');
   if(context.modern){
     const catalog=game?.opportunityCatalog||Object.fromEntries((window.RULES_CATALOG?.opportunities||[]).map(o=>[o.id,o]));
-    add('opportunities','<h4>十二项经营机遇</h4>'+Object.values(catalog).map(o=>'<article class="rules-opportunity"><h4>'+escapeHTML(o.name)+'</h4><p>'+escapeHTML(o.description)+'</p></article>').join(''));
+    add('opportunities','<h4>十二项经营机遇</h4>'+Object.values(catalog).map(o=>'<article class="rules-opportunity"><h4>'+escapeHTML(o.name)+'</h4><p>'+escapeHTML(game?.routeRevision==='opportunity-routes-v1'?opportunityDescription(o.id):o.description)+'</p></article>').join(''));
     add('stocks','<p>股票是分红权，不是城市产权。每个新起点窗口重新获得买入额度；同一窗口转让、重连或卖出不刷新累计买入。本人城市最多持有4股；他人城市不受个人4股限制，但全城共20股。报价变化先更新显示，再重新确认；连接未确认时获取原操作结果，不能重复下单。</p>');
   }else{
     content.stocks.querySelectorAll('p').forEach(p=>p.remove());
@@ -1412,6 +1494,7 @@ function buildRules() {
     + '</ul></div>'
     + '<h4>机会卡图鉴（40 张）</h4>'
     + groups.map((g) => '<div class="rules-group"><b>' + g.title + '</b><ul>' + g.items.map((i) => '<li>' + i + '</li>').join('') + '</ul></div>').join('');
+  if(game?.routeRevision==='opportunity-routes-v1')$('rulesBody').innerHTML+='<p><b>经营机遇 · 调整路线：</b>'+(game.gameMode==='normal'?'原三次初始同步机遇完成后，以本人真实起点结算为基准，每完成3圈获得一次后续机会。等待中的机会合并，不补领旧门槛。':'初始机遇按正式开局第0、5、10分钟依序进入；后续第15、22分钟各一份，等待安全交接。第28分钟取消未打开机会，第30分钟由快速核心封盘。')+'在本人掷骰前处理，一回合最多一次。三选一，满三项须选旧项替换；可以主动跳过，后续不提供换组。'+(game.gameMode==='normal'?'个人30秒':'个人20秒')+'，到时保留原路线并消耗机会。新项只影响之后，本圈已用额度、机场领奖、应急资金领取和实际建房成本保留；初始仍共享30秒、超时选择最左项。应急资金本局仅领一次6000，初始全员结算、后续本人确认成功后到账。</p>';
   organizeRules();
 }
 

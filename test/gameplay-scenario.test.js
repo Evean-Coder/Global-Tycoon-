@@ -4,7 +4,7 @@ const {io:Client}=require('socket.io-client'),api=require('../server');
 const {createRng}=require('../src/random'),{createActionClock}=require('../src/actionClock'),{fakeClock}=require('./helpers/gameplayFixtures');
 let url;const sockets=[];
 const ack=(s,event,data)=>new Promise(resolve=>s.emit(event,data,resolve));
-async function connect(){const s=Client(url,{transports:['websocket']});sockets.push(s);s.on('gameState',g=>s.game=g);s.on('reconnectToken',t=>s.token=t.token);await new Promise(r=>s.once('connect',r));return s;}
+async function connect(){const s=Client(url,{transports:['websocket'],auth:{clientRouteRevision:'opportunity-routes-v1'}});sockets.push(s);s.on('gameState',g=>s.game=g);s.on('reconnectToken',t=>s.token=t.token);await new Promise(r=>s.once('connect',r));return s;}
 async function wait(fn){for(let i=0;i<600;i++){if(fn())return;await new Promise(r=>setTimeout(r,5));}throw new Error('场景消息未到达');}
 test.before(async()=>{await new Promise(r=>api.server.listen(0,'127.0.0.1',r));url='http://127.0.0.1:'+api.server.address().port;});
 test.after(()=>{for(const s of sockets)s.close();for(const r of api.rooms.values()){r.actionClock.clear();if(r.hostTimer)clearTimeout(r.hostTimer);}api.rooms.clear();api.io.close();});

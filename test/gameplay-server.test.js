@@ -8,7 +8,7 @@ const stocks=require('../src/stocks');
 let url,seq=0;
 const sockets=[];
 const ack=(s,event,data)=>new Promise(resolve=>s.emit(event,data,resolve));
-async function connect(){const s=Client(url,{transports:['websocket']});sockets.push(s);s.on('gameState',g=>s.game=g);s.on('reconnectToken',t=>s.token=t.token);await new Promise(r=>s.once('connect',r));return s;}
+async function connect(){const s=Client(url,{transports:['websocket'],auth:{clientRouteRevision:'opportunity-routes-v1'}});sockets.push(s);s.on('gameState',g=>s.game=g);s.on('reconnectToken',t=>s.token=t.token);await new Promise(r=>s.once('connect',r));return s;}
 async function setup(n=3){const clients=[];for(let i=0;i<n;i++)clients.push(await connect());const result=await ack(clients[0],'createRoom',{name:'玩家0'});for(let i=1;i<n;i++)await ack(clients[i],'joinRoom',{name:'玩家'+i,roomCode:result.roomCode});const room=api.rooms.get(result.roomCode),fake=f.fakeClock();room.actionClock=createActionClock(fake);room.rng=f.rng();await ack(clients[0],'startGame',{});return {room,clients,fake};}
 function envelope(s,a,id){const g=s.game;return {...a,gameId:g.gameId,actionId:id||'net-'+(++seq),decisionId:g.decision.decisionId,actorRevision:g.self.actorRevision};}
 async function action(s,a,id){return ack(s,'action',envelope(s,a,id));}

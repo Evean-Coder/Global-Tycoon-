@@ -9,7 +9,7 @@ let url, seq = 0; const clients = [];
 const ack = (s, event, data) => new Promise(resolve => s.emit(event, data, resolve));
 async function until(fn) { const end = Date.now() + 3000; while (Date.now() < end) { if (fn()) return; await new Promise(r => setTimeout(r, 5)); } throw new Error('等待联机状态超时'); }
 async function connect() {
-  const s = Client(url, { transports: ['websocket'] }); clients.push(s); s.on('gameState', g => { s.game = g; }); s.on('reconnectToken', t => { s.token = t.token; });
+  const s = Client(url, { transports: ['websocket'], auth: {clientRouteRevision:'opportunity-routes-v1'} }); clients.push(s); s.on('gameState', g => { s.game = g; }); s.on('reconnectToken', t => { s.token = t.token; });
   await new Promise(r => s.once('connect', r)); return s;
 }
 function envelope(s, raw, actionId = 'expense-' + (++seq)) {

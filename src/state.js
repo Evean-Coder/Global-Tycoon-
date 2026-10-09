@@ -34,6 +34,9 @@ function createPlayer(name, seat, id) {
 function createGameState(roomCode, playerNames, ruleVersion = 2, options = {}) {
   const players = playerNames.map((name, i) => createPlayer(name, i, `p${i}`));
   for (const p of players) p.opportunities = initial();
+  const routesEnabled = ruleVersion === 2 && options.routeRevision === 'opportunity-routes-v1';
+  if (routesEnabled && !['normal', 'quick'].includes(options.gameMode || 'normal')) throw new Error('对局模式无效');
+  if (routesEnabled) for (const p of players) p.opportunities.oneTimeRewards = { H12: null };
   const board = buildBoard();
   const cities = {};
   for (const sq of board) {
@@ -53,6 +56,16 @@ function createGameState(roomCode, playerNames, ruleVersion = 2, options = {}) {
     stocks[cityId] = { price: Math.round((cities[cityId].price / 10) * 2), holders: {}, operatingPrice: Math.round(cities[cityId].price * 0.2), dividendFund: 0, roundRent: 0, rentHistory: [], listingEpoch: 0, quoteVersion: 0, clearing: false, lastDividendPerShare: 0 };
   }
   return {
+    ...(routesEnabled ? {
+      routeRevision: options.routeRevision, gameMode: options.gameMode || 'normal',
+      routeFlow: {
+        initialCompletedOrdinal: 0, initialDueOrdinal: 0, quickDueMask: [false, false],
+        laterClosed: false, activeChoice: null, rollStartedTurnId: null,
+        players: Object.fromEntries(players.map(p => [p.id, {
+          baselineLapEpoch: null, lastThreshold: 0, pending: [], lastOpenedTurnId: null, lastResult: null,
+        }])),
+      },
+    } : {}),
     ...(ruleVersion === 2 && options.economyRevision === require('./travelExpense').REVISION
       ? { economyRevision: options.economyRevision, travelExpenseReceipts: {} } : {}),
     roomCode,

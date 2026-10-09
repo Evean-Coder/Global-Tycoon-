@@ -5,6 +5,14 @@ function has(player,id){return !!player.opportunities?.selectedIds.includes(id);
 function used(player,id){return player.opportunities?.usage[id]||0;}
 function consume(player,id,amount=1){player.opportunities.usage[id]=used(player,id)+amount;}
 function refresh(player){if(player.opportunities){player.opportunities.lapEpoch++;player.opportunities.usage={};}}
+function emergencyIntent(state,player,sourceId){
+ if(!player.alive||!has(player,'H12')||!player.opportunities.oneTimeRewards||player.opportunities.oneTimeRewards.H12)return null;
+ return {playerId:player.id,catalogId:'H12',amount:6000,sourceId,receiptId:state.gameId+':H12:'+player.id+':'+sourceId};
+}
+function recordEmergency(player,intent){
+ if(!intent||intent.playerId!==player.id||intent.amount!==6000||intent.catalogId!=='H12'||!player.opportunities.oneTimeRewards||player.opportunities.oneTimeRewards.H12)throw new Error('应急资金领取事实无效');
+ player.opportunities.oneTimeRewards.H12={receiptId:intent.receiptId,amount:6000,sourceId:intent.sourceId};
+}
 function candidates(player,rng,exclude=[]){
  const eligible=OPPORTUNITIES.filter(o=>!has(player,o.id)&&!exclude.includes(o.id));
  const combinations=[];
@@ -52,4 +60,4 @@ function resolveOpportunityStage(state,stageId,cause,events){
  }
  s.resolved=true;return s.continuation;
 }
-module.exports={initial,has,used,consume,refresh,candidates,beginOpportunityStage,submit,reroll,ready,resolveOpportunityStage};
+module.exports={initial,has,used,consume,refresh,candidates,beginOpportunityStage,submit,reroll,ready,resolveOpportunityStage,emergencyIntent,recordEmergency};

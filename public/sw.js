@@ -1,5 +1,5 @@
 'use strict';
-const CACHE = 'global-tycoon-v12-atlas';
+const CACHE = 'global-tycoon-v15-bots';
 const CORE = [
   './',
   './index.html',
@@ -7,10 +7,10 @@ const CORE = [
   './client.js',
   './rules-catalog.js',
   './contextual-rules.js',
-  './contextual-rules.js?v=20261010-atlas-v1',
-  './rules-catalog.js?v=20261010-atlas-v1',
-  './style.css?v=20261010-atlas-v1',
-  './client.js?v=20261010-atlas-v1',
+  './contextual-rules.js?v=20261011-bots-v1',
+  './rules-catalog.js?v=20261011-bots-v1',
+  './style.css?v=20261011-bots-v1',
+  './client.js?v=20261011-bots-v1',
   './socket.io/socket.io.js',
   './assets/board-world-map-v1.webp',
   './assets/atlas-background-v1.webp',

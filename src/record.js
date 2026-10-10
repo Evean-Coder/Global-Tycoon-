@@ -118,6 +118,7 @@ function buildGameRecord(room, endReason) {
     players: st.players.map((p) => ({
       id: p.id,
       name: p.name,
+      kind: p.kind||'human',
       seat: p.seat,
       color: p.color,
       alive: p.alive,

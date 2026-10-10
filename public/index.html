@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>环球大亨 · 资本博弈</title>
-  <link rel="stylesheet" href="style.css?v=20261010-atlas-v1" />
+  <link rel="stylesheet" href="style.css?v=20261011-bots-v1" />
   <meta name="theme-color" content="#e9dfc5" />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" type="image/svg+xml" href="icon.svg" />
@@ -22,7 +22,6 @@
   <!-- 大厅 -->
   <section id="view-lobby" class="view">
     <div class="card center">
-      <p class="orientation-hint pregame"><strong>请将手机横屏，以完整查看地图文字</strong><br />竖屏也可加入；棋盘与资料可上下滚动查看。</p>
       <div class="brand-mark">
         <div class="t serif">环球大亨</div>
         <div class="s">GLOBAL TYCOON · 资本博弈</div>
@@ -49,7 +48,6 @@
   <section id="view-room" class="view hidden">
     <div class="card center">
       <h2>房间</h2>
-      <p class="orientation-hint pregame"><strong>开始前请将手机横屏，以完整查看地图文字</strong><br />转动手机不会退出房间或重置倒计时。</p>
       <div class="codebox">
         <label>房间编号</label>
         <div class="row">
@@ -72,6 +70,7 @@
         </div>
         <p id="modeDescription" class="hint">普通模式：最后存活者获胜。</p>
       </div>
+      <div class="bot-controls"><button id="btnAddBot" class="secondary block" disabled>添加电脑玩家</button><p class="hint">一个人也能玩：添加电脑玩家后开始，最多4人。</p></div>
       <button id="btnStart" class="primary block" disabled>开始游戏</button>
       <button id="btnLeave" class="secondary block">退出房间</button>
       <p id="roomHint" class="hint center"></p>
@@ -81,7 +80,6 @@
   <!-- 游戏 -->
   <section id="view-game" class="view hidden">
     <div id="waitBanner" class="hidden"></div>
-    <p class="orientation-hint ingame">请将手机横屏，以完整查看地图文字；竖屏也可向下滚动查看完整棋盘。</p>
     <section id="quickClockBar" class="quick-clock-bar hidden" aria-label="整局时间">
       <span>快速模式 · 整局剩余 <strong id="quickTimer">30:00</strong></span>
       <span id="quickEndHint">到时封盘，按净资产排名</span>
@@ -187,9 +185,9 @@
   <div id="toast" class="hidden"></div>
 
   <script src="/socket.io/socket.io.js"></script>
-  <script src="rules-catalog.js?v=20261010-atlas-v1"></script>
-  <script src="contextual-rules.js?v=20261010-atlas-v1"></script>
-  <script src="client.js?v=20261010-atlas-v1"></script>
+  <script src="rules-catalog.js?v=20261011-bots-v1"></script>
+  <script src="contextual-rules.js?v=20261011-bots-v1"></script>
+  <script src="client.js?v=20261011-bots-v1"></script>
 </body>
 </html>
 

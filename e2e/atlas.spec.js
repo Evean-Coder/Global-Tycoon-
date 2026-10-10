@@ -28,7 +28,17 @@ test('模式卡权限、独立地图与唯一悬浮模块',{timeout:45000},async
   assert.equal(await p.locator('#ledger #newsBar').count(),1);
   assert.equal(await p.locator('#turnSummary').count(),1);
   const m=await p.evaluate(()=>({image:getComputedStyle(document.getElementById('boardMap')).backgroundImage,fit:getComputedStyle(document.getElementById('boardMap')).backgroundSize,overflow:document.documentElement.scrollWidth>innerWidth+1,hit:[...document.querySelectorAll('#board .sq')].some(el=>{const a=el.getBoundingClientRect(),b=document.getElementById('ledger').getBoundingClientRect();return a.left<b.right&&a.right>b.left&&a.top<b.bottom&&a.bottom>b.top;})}));
-  assert.ok(m.image.includes('board-world-map-v1.webp'));assert.equal(m.fit,'contain');assert.equal(m.overflow,false);assert.equal(m.hit,false);
+  assert.equal(await p.locator('.orientation-hint').count(),0);
+  if(width<=600){
+    const portrait=await p.evaluate(()=>{
+      const squares=[...document.querySelectorAll('#board .sq')].map(el=>[Number(getComputedStyle(el).gridRowStart),Number(getComputedStyle(el).gridColumnStart)]);
+      const map=document.getElementById('boardMap').getBoundingClientRect();
+      const ledger=document.getElementById('ledger').getBoundingClientRect();
+      return {unique:new Set(squares.map(v=>v.join(':'))).size,adjacent:squares.every((v,i)=>{const n=squares[(i+1)%squares.length];return Math.abs(v[0]-n[0])+Math.abs(v[1]-n[1])===1;}),ratio:map.width/map.height,separate:ledger.top>=map.bottom};
+    });
+    assert.equal(portrait.unique,42);assert.equal(portrait.adjacent,true);assert.ok(Math.abs(portrait.ratio-1.5)<.02);assert.equal(portrait.separate,true);
+  }
+  assert.ok(m.image.includes('board-world-map-v1.webp'));assert.equal(m.fit,width<=600?'contain':'cover');assert.equal(m.overflow,false);assert.equal(m.hit,false);
   const overlap=await p.evaluate(()=>{const clip=document.getElementById('gameMain').getBoundingClientRect(),bar=document.getElementById('actionBar').getBoundingClientRect();return [...document.querySelectorAll('#board .sq')].some(el=>{const r=el.getBoundingClientRect(),top=Math.max(r.top,clip.top),bottom=Math.min(r.bottom,clip.bottom);return bottom>top&&r.left<bar.right&&r.right>bar.left&&top<bar.bottom&&bottom>bar.top;});});
   assert.equal(overlap,false,width+'x'+height+' 可见棋盘格不能被操作栏覆盖');
   assert.equal(await p.evaluate(()=>{const tile=document.querySelector('#board [data-square-id="0"]').getBoundingClientRect();return [...document.querySelectorAll('#pieces .piece')].every(el=>{const r=el.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2;return x>=tile.left&&x<=tile.right&&y>=tile.top&&y<=tile.bottom;});}),true,'旋转或可用高度变化后棋子中心仍在真实地块');

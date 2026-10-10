@@ -19,7 +19,33 @@ test('三端强制决定沿原入口，纸色弹窗与回合摘要一致',{timeo
 test('有限双人页面流程：买地、转让返回、股票成交、只读查看与结算',{timeout:30000},async()=>{
  const s=f.game(2);s.firstRoundDone=true;s.world.status='stopped';s.phase='waiting_roll';s.pending=null;s.diceBag=[1];await h.fixture(s);const p=h.pages[0];await p.click('#btnRoll');await p.waitForSelector('#modal:not(.hidden)');assert.match(await p.locator('#modalBody').textContent(),/购买后现金/);await p.getByRole('button',{name:'确认购买',exact:true}).click();await p.waitForFunction(()=>game.cities['内罗毕'].ownerId==='p0');
  const stock=globalThis.structuredClone(h.room.state);stock.turnIndex=0;stock.phase='stock';stock.pending={playerId:'p0',kind:'go_stock',after:'end'};require('../src/stocks').openStockWindow(stock,'p0');await h.fixture(stock);await p.locator('button[data-city="内罗毕"][data-kind="buy"][data-delta="1"]').click();await p.click('#btnStockTransfer');await p.getByRole('button',{name:'返回',exact:true}).click();await p.click('#btnStockConfirm');await p.waitForFunction(()=>game.players[0].stocks['内罗毕']===1);
- const state=JSON.stringify(h.room.state),deadline=h.room.actionClock.deadlineMs;for(const id of ['btnAssets','btnBank']){await p.click('#'+id);await p.getByRole('button',{name:'关闭',exact:true}).last().click();}await p.click('#btnRules');await p.click('#btnRulesClose');assert.equal(JSON.stringify(h.room.state),state);assert.equal(h.room.actionClock.deadlineMs,deadline);
+ const state=JSON.stringify(h.room.state),deadline=h.room.actionClock.deadlineMs;for(const id of ['btnAssets','btnBank']){await p.click('#'+id);if(id==='btnAssets'){assert.equal(await p.locator('#modalBody').getByRole('button',{name:'股票转让',exact:true}).count(),0);assert.match(await p.locator('#modalBody').textContent(),/股票转让：仅经过起点/);}await p.getByRole('button',{name:'关闭',exact:true}).last().click();}await p.click('#btnRules');await p.click('#btnRulesClose');assert.equal(JSON.stringify(h.room.state),state);assert.equal(h.room.actionClock.deadlineMs,deadline);
  await p.evaluate(()=>document.getElementById('btnDisband').click());await p.waitForFunction(()=>game.phase==='game_over');assert.equal(h.room.gameRecord.endReason,'disband');assert.match(await p.locator('#modalTitle').textContent(),/对局结束/);assert.deepEqual(h.errors,[]);
 });
 
+
+test('卖股自救后当前缺口按实际现金减少，初始欠款与决定期限保持原值',async()=>{
+ const s=f.game(2);f.own(s,'p0','内罗毕');s.phase='self_rescue';s.pending={playerId:'p0',kind:'self_rescue',due:10000,reason:'指定债务'};s.players[0].cash=-10000;s.players[0].stocks['内罗毕']=2;s.stocks['内罗毕'].holders.p0=2;
+ await h.fixture(s);const p=h.pages[0],price=s.stocks['内罗毕'].price,deadline=h.room.actionClock.deadlineMs;
+ const shortage=()=>p.locator('#modalBody .kv').filter({has:p.locator('span',{hasText:'当前还差'})}).locator('b');
+ assert.equal(await shortage().textContent(),'￥10,000');await p.locator('#modalBody button').filter({hasText:'卖出 2 股 +'}).click();
+ await p.waitForFunction(()=>game.players[0].stocks['内罗毕']===0);
+ assert.equal(h.room.state.players[0].cash,-10000+2*price);assert.equal(await shortage().textContent(),'￥'+(10000-2*price).toLocaleString('zh-CN'));assert.equal(h.room.state.pending.due,10000);assert.equal(h.room.actionClock.deadlineMs,deadline);
+});
+
+test('卖股自救可选择部分股数、预览缺口并拒绝越界输入',async()=>{
+ const s=f.game(2);f.own(s,'p0','内罗毕');s.phase='self_rescue';s.pending={playerId:'p0',kind:'self_rescue',due:10000,reason:'指定债务'};s.players[0].cash=-10000;s.players[0].stocks['内罗毕']=4;s.stocks['内罗毕'].holders.p0=4;
+ await h.fixture(s);const p=h.pages[0],card=p.locator('[data-rescue-city="内罗毕"]'),input=card.locator('input'),button=card.locator('button').last(),price=s.stocks['内罗毕'].price,deadline=h.room.actionClock.deadlineMs;
+ await input.fill('0');assert.equal(await button.isDisabled(),true);await input.fill('5');assert.equal(await button.isDisabled(),true);await input.fill('1.5');assert.equal(await button.isDisabled(),true);
+ await input.fill('1');assert.equal(await button.isDisabled(),false);assert.match(await card.textContent(),/剩余持股 3 股/);await button.click();await p.waitForFunction(()=>game.players[0].stocks['内罗毕']===3);
+ assert.equal(h.room.state.players[0].cash,-10000+price);assert.equal(h.room.state.stocks['内罗毕'].holders.p0,3);assert.equal(h.room.actionClock.deadlineMs,deadline);assert.match(await p.locator('#modalBody').textContent(),new RegExp((10000-price).toLocaleString('zh-CN')));
+});
+
+test('建房资金不足可抵押其他城市后返回建房，待建房城市保留且时限不刷新',async()=>{
+ const s=f.game(2);f.own(s,'p0','内罗毕','开普敦');s.players[0].cash=0;s.players[0].position=s.board.find(x=>x.cityId==='内罗毕').id;s.cities['内罗毕'].buildReady=true;s.phase='build_decide';s.pending={playerId:'p0',cityId:'内罗毕'};
+ await h.fixture(s);const p=h.pages[0],deadline=h.room.actionClock.deadlineMs;assert.equal(await p.getByRole('button',{name:'暂无房屋可拆',exact:true}).isDisabled(),true);assert.equal((await p.locator('#modalBody').textContent()).includes('NaN'),false);assert.equal(await p.getByRole('button',{name:/建造 1 级/}).isDisabled(),true);
+ await p.getByRole('button',{name:'募集资金',exact:true}).click();assert.equal(await p.locator('#modalTitle').textContent(),'建房募集资金');assert.equal(await p.locator('#modalBody .lrow').count(),1);assert.match(await p.locator('#modalBody .lrow').textContent(),/开普敦/);
+ await p.getByRole('button',{name:'返回建房',exact:true}).click();assert.equal(await p.locator('#modalTitle').textContent(),'建房 / 拆房');await p.getByRole('button',{name:'募集资金',exact:true}).click();await p.getByRole('button',{name:'抵押',exact:true}).click();
+ await p.waitForFunction(()=>game.cities['开普敦'].mortgaged);assert.equal(await p.locator('#modalTitle').textContent(),'建房 / 拆房');assert.equal(h.room.state.cities['内罗毕'].mortgaged,false);assert.equal(h.room.actionClock.deadlineMs,deadline);assert.equal(await p.getByRole('button',{name:/建造 1 级/}).isDisabled(),false);
+ await p.getByRole('button',{name:/建造 1 级/}).click();await p.waitForFunction(()=>game.cities['内罗毕'].houseLevel===1);
+});

@@ -1,7 +1,7 @@
 'use strict';
 /* global ContextualRules */
 
-/* exported afterReceipt, emitAct, downloadRecord, openReplay, replayPrev, replayNext, replayPlay, replayClose, clickTransferEntry, submitTransfer, returnFromTransfer, resumeStockView, startSelectedGame, returnToRoom */
+/* exported afterReceipt, emitAct, downloadRecord, openReplay, replayPrev, replayNext, replayPlay, replayClose, clickTransferEntry, submitTransfer, returnFromTransfer, resumeStockView, startSelectedGame, returnToRoom, openBank */
 
 // PWA：注册 service worker（缓存静态资源，离线可用）
 if ('serviceWorker' in navigator) {
@@ -247,6 +247,12 @@ function renderBoard() {
     div.dataset.squareId = String(sq.id);
     div.style.gridRow = r;
     div.style.gridColumn = c;
+    // Same clockwise route, arranged as a portrait perimeter on narrow screens.
+    const mobilePos = sq.id <= 5 ? [1, sq.id + 1]
+      : sq.id <= 20 ? [sq.id - 4, 6]
+        : sq.id <= 26 ? [17, 27 - sq.id] : [43 - sq.id, 1];
+    div.style.setProperty('--mobile-row', mobilePos[0]);
+    div.style.setProperty('--mobile-col', mobilePos[1]);
     let owner = '', sub = '';
     if (sq.type === 'city') {
       const city = game.cities[sq.cityId];
@@ -1022,7 +1028,7 @@ function renderPending() {
         const city = game.cities[game.pending.cityId];
         const bq=game.self?.quotes.build[game.pending.cityId],dq=game.self?.quotes.demolish[game.pending.cityId];
         const cost = bq?.finalAmount ?? Math.round(city.price * 0.6);
-        const refund = dq ? -dq.finalAmount : Math.round(city.price * 0.36);
+        const refund = Number.isSafeInteger(dq?.finalAmount) ? -dq.finalAmount : Math.round(city.price * 0.36);
         const canBuild = bq ? bq.ok : city.houseLevel < 4 && meP.cash >= cost;
         const canDemolish = city.houseLevel > 0;
         body.innerHTML = '<div class="card-tag">MY CITY</div>'
@@ -1032,9 +1038,11 @@ function renderPending() {
           + (bq ? quoteExplanation(bq) : '')
           + (city.houseLevel > 0 ? kv('拆房返还', fmt(refund)) : '')
           + kv('当前现金', fmt(meP.cash), canBuild ? '' : 'r')
+          + (meP.cash<cost?kv('建房还差',fmt(cost-meP.cash),'r'):'')
           + '<div class="row">'
           + '<button class="positive" ' + (canBuild ? '' : 'disabled title="现金不足或已满级"') + ' onclick="emitAct({type:\'respond_build\',decision:\'build\'})">建造 1 级（-' + fmt(cost) + '）</button>'
-          + '<button class="secondary" ' + (canDemolish ? '' : 'disabled title="空地皮无法拆房"') + ' onclick="emitAct({type:\'respond_build\',decision:\'demolish\'})">拆除 1 级（+' + fmt(refund) + '）</button>'
+          + (meP.cash<cost&&city.houseLevel<4&&!city.mortgaged?'<button class="secondary" onclick="openBank(true)">募集资金</button>':'')
+          + '<button class="secondary" ' + (canDemolish ? '' : 'disabled title="空地皮无法拆房"') + ' onclick="emitAct({type:\'respond_build\',decision:\'demolish\'})">'+(canDemolish?'拆除 1 级（+'+fmt(refund)+'）':'暂无房屋可拆')+'</button>'
           + '<button class="secondary" onclick="emitAct({type:\'respond_build\',decision:\'pass\'})">放弃</button></div>';
         openModal('建房 / 拆房');
       } else {
@@ -1056,7 +1064,7 @@ function renderPending() {
         const opts = game.board.filter((s) => s.type === 'airport' && s.airportId !== game.pending.fromAirportId);
         body.innerHTML = renderFlightCosts(game)+'<p>选择飞往的机场（基础机票 = 最短格数 × 500' + (game.pending.free ? '，本次免费' : '') + '）：</p><div class="row">'
           + opts.map((o) => {const q=game.self?.quotes.flight[o.airportId],owner=playerById(game.airports[o.airportId].ownerId);return '<article class="flight-option"><strong>'+o.airportId+'</strong><p>目的机场归属：'+escapeHTML(owner?.name||'无主')+'</p>'+(q?quoteExplanation(q):'')+'<button class="secondary" onclick="emitAct({type:\'flight\',target:\''+o.airportId+'\'})">'+(q?fmt(q.finalAmount)+' 飞往':'飞往 ')+o.airportId+'</button></article>';}).join('')
-          + '<button class="textbtn" onclick="emitAct({type:\'flight\',target:null})">不飞</button></div>';
+          + '</div><div class="flight-cancel"><button class="textbtn" onclick="emitAct({type:\'flight\',target:null})">不飞</button></div>';
         openModal('机场飞行');
       }
       break;
@@ -1105,7 +1113,10 @@ function renderPending() {
         const pend = game.pending;
         const owned = meP.cities.filter((id) => !game.cities[id].mortgaged);
         const mgCap = meP.cities.filter((x) => game.cities[x].mortgaged).length >= 2;
-        body.innerHTML = '<div class="card-tag">SELF RESCUE</div><p>资金不足（欠 ' + fmt(pend.due) + '），选择自救：</p>';
+        body.innerHTML = '<div class="card-tag">SELF RESCUE</div>'
+          + kv('当前还差',fmt(Math.max(0,-meP.cash)),meP.cash<0?'r':'g')
+          + kv('当前现金',fmt(meP.cash))
+          + '<p class="hint">本次初始资金缺口 '+fmt(pend.due)+'；卖股、抵押或拆房后，当前还差按最新现金更新。</p>';
         if(pend.reason){const reason=document.createElement('p');reason.className='hint';reason.textContent='债务来源：'+pend.reason;body.append(reason);}
         body.innerHTML += '<p class="hint">金额：抵押 = 总价值 × 50%；直接出售 = 总价值 × 80%；拍卖流拍保底 = 总价值 × 50%。</p>';
         owned.forEach((id) => {
@@ -1122,15 +1133,26 @@ function renderPending() {
         const heldStocks = Object.entries(meP.stocks || {}).filter(([, n]) => n > 0);
         body.innerHTML += '<div class="rule"></div><p class="hint">卖出股票自救（按当前股价，卖出的现金即时到账）：</p>';
         if (heldStocks.length) {
-          heldStocks.forEach(([cid, n]) => {
+          heldStocks.forEach(([cid, n],index) => {
             const st = game.stocks[cid];
-            body.innerHTML += '<div class="lrow" style="cursor:default"><span class="nm">' + (game.cities[cid].country ? game.cities[cid].country + '·' : '') + cid + ' ×' + n + ' 股（股价 ' + st.price + '）</span>'
-              + '<button class="secondary" onclick="emitAct({type:\'rescue_sell_stock\',cityId:\'' + cid + '\'})">卖出 +' + fmt(n * st.price) + '</button></div>';
+            const card=document.createElement('article');card.className='rescue-stock';card.dataset.rescueCity=cid;
+            const title=document.createElement('h4');title.textContent=cid+' · 持有 '+n+' 股 · 每股 '+fmt(st.price);card.append(title);
+            const controls=document.createElement('div');controls.className='rescue-stock-controls';
+            const label=document.createElement('label');label.textContent='卖出股数';label.htmlFor='rescue-shares-'+index;
+            const input=document.createElement('input');input.type='number';input.inputMode='numeric';input.min='1';input.max=String(n);input.step='1';input.id=label.htmlFor;input.value=String(Math.min(n,Math.max(1,st.price>0?Math.ceil(-meP.cash/st.price):1)));
+            const minus=document.createElement('button'),plus=document.createElement('button');minus.type=plus.type='button';minus.className=plus.className='secondary';minus.textContent='−';plus.textContent='+';minus.setAttribute('aria-label',cid+' 减少卖出股数');plus.setAttribute('aria-label',cid+' 增加卖出股数');
+            const preview=document.createElement('p');preview.className='hint';
+            const sell=document.createElement('button');sell.type='button';sell.className='secondary';
+            const tradable=!!game.cities[cid].ownerId&&!st.clearing;
+            const update=()=>{const count=Number(input.value),valid=input.value.trim()!==''&&Number.isSafeInteger(count)&&count>=1&&count<=n;minus.disabled=!valid||count<=1;plus.disabled=!valid||count>=n;sell.disabled=!valid||!tradable;sell.textContent=valid?'卖出 '+count+' 股 +'+fmt(count*st.price):'请选择卖出股数';preview.textContent=!tradable?'当前股票无法卖出（城市未经营或正在清算）':valid?'卖出后还差 '+fmt(Math.max(0,-meP.cash-count*st.price))+'；剩余持股 '+(n-count)+' 股。':'请输入1至'+n+'之间的整数股数。';};
+            input.oninput=update;minus.onclick=()=>{input.value=String(Number(input.value)-1);update();};plus.onclick=()=>{input.value=String(Number(input.value)+1);update();};
+            sell.onclick=()=>{const shares=Number(input.value);if(!Number.isSafeInteger(shares)||shares<1||shares>n||!tradable)return;sendAction({type:'rescue_sell_stock',cityId:cid,shares});};
+            controls.append(label,minus,input,plus);card.append(controls,preview,sell);update();body.append(card);
           });
         } else {
           body.innerHTML += '<p class="hint">没有可卖出的股票。</p>';
         }
-        body.innerHTML += '<div class="row"><button class="risk solid" onclick="emitAct({type:\'rescue_done\'})">放弃（破产）</button></div>';
+        body.insertAdjacentHTML('beforeend','<div class="row"><button class="risk solid" onclick="emitAct({type:\'rescue_done\'})">放弃（破产）</button></div>');
         openModal('自救');
       }
       break;
@@ -1172,7 +1194,8 @@ function openAssetOverview() {
     body.appendChild(wrap);
   } else body.insertAdjacentHTML('beforeend', '<p class="hint">暂无城市资产</p>');
   body.insertAdjacentHTML('beforeend', '<p class="hint">抵押时机：轮到你行动时可随时抵押（竞拍、交易确认期间除外）；每名玩家最多同时抵押 2 座城市；赎回需先落到该城市，本界面不提供赎回。</p>');
-  body.insertAdjacentHTML('beforeend', '<div class="row"><button class="secondary" onclick="clickTransferEntry()">股票转让</button>'
+  if(!stockReady())body.insertAdjacentHTML('beforeend','<p class="hint">股票转让：仅经过起点后，在本人的股票交易窗口内可发起。</p>');
+  body.insertAdjacentHTML('beforeend', '<div class="row">'+(stockReady()?'<button class="secondary" onclick="clickTransferEntry()">股票转让</button>':'')
     + (stockReady() ? '<button class="primary" onclick="resumeStockView()">继续买卖股票</button>' : '')
     + '<button class="primary" onclick="closeModal()">关闭</button></div>');
   openModal('资产总览');
@@ -1180,12 +1203,23 @@ function openAssetOverview() {
 
 
 // ---------- 大厅 / 房间 ----------
+let botRequest=null;
+function manageBot(event,data){
+  if(botRequest||!socket.connected)return;
+  const request={};botRequest=request;syncLobbyControls();
+  socket.timeout(10000).emit(event,data,(err,result)=>{
+    if(botRequest!==request)return;
+    botRequest=null;syncLobbyControls();
+    if(err||!result?.ok)toast(result?.error||'管理电脑玩家超时，请核对房间后重试');
+  });
+}
 function renderTurnSummary() {
   const node = $('turnSummary');
   if (!node || !game) return;
   const current = game.players.find(p=>p.id===(game.routeProgress?.activeChoice?.playerId||awaitingPlayerId))||game.players[game.turnIndex];
   const label = {waiting_roll:'等待掷骰',stock:'股票交易',buy:'购地决定',buy_airport:'机场购买',buy_fundraise:'购地募资',build_decide:'建设决定',flight:'航班选择',self_rescue:'资金自救',auction_bid:'城市拍卖',direct_sale_ask:'产权受让',trade_confirm:'交易确认',frozen_turn:'极地救援',jail_turn:'监狱决定',opportunity_choose:'机遇选择',route_choose:'路线选择',game_over:'对局结束'}[game.phase] || '按操作区提示继续';
   node.textContent = (game.phase==='opportunity_choose'?'全员正在选择':isMyTurn() ? '轮到你行动' : '当前决策：' + (current?.name || '等待推进')) + ' · ' + label;
+  if(game.botThinking?.length)node.textContent+=' · '+game.botThinking.map(id=>game.players.find(p=>p.id===id)?.name||'电脑').join('、')+' 正在思考…';
 }
 function syncRoomModeCards() {
   const source = $('roomMode');
@@ -1203,13 +1237,15 @@ function selectRoomMode(mode) {
   source.onchange();
 }
 function syncLobbyControls() {
-  const ready = socket.connected && !lobbyRequest && !restoringSession;
+  const ready = socket.connected && !lobbyRequest && !restoringSession && !botRequest;
   $('nickname').disabled = !!lobbyRequest || restoringSession;
   $('joinCode').disabled = !!lobbyRequest || restoringSession;
   $('btnCreate').disabled = !ready || !$('nickname').value.trim();
   $('btnJoin').disabled = !ready || !($('nickname').value.trim() && $('joinCode').value.trim().length === 6);
   const running=lastRoomState?.started && latestState?.phase!=='game_over';
   $('btnStart').disabled = !ready || !lastRoomState || lastRoomState.hostId !== socket.id || lastRoomState.players.length < 2 || running;
+  $('btnAddBot').disabled=!ready||!lastRoomState||lastRoomState.hostId!==socket.id||lastRoomState.players.length>=4||running;
+  for(const b of document.querySelectorAll('[data-remove-bot]'))b.disabled=!ready||lastRoomState?.hostId!==socket.id||running;
   $('roomMode').disabled=!ready || !lastRoomState || lastRoomState.hostId!==socket.id || running;
   $('roomMode').value=lastRoomState?.gameMode||'normal';
   syncRoomModeCards();
@@ -1265,6 +1301,8 @@ function setupLobby() {
     });
   };
   $('btnStart').onclick = startSelectedGame;
+  $('btnAddBot').onclick=()=>manageBot('addBot',{});
+  $('playerList').addEventListener('click',e=>{const b=e.target.closest('[data-remove-bot]');if(b&&!b.disabled)manageBot('removeBot',{playerId:b.dataset.removeBot});});
   $('roomMode').onchange=()=>sendLobbyRequest('setRoomMode',{gameMode:$('roomMode').value});
   for (const radio of document.querySelectorAll('input[name="gameModeCard"]')) radio.onchange = () => selectRoomMode(radio.value);
   $('btnCopyCode').onclick = () => {
@@ -1339,12 +1377,13 @@ socket.on('roomState', (rs) => {
   $('playerList').innerHTML = rs.players.map((p) => {
     let badge = '';
     if (p.id === rs.hostId) badge += ' <span class="badge host">房主</span>';
+    else if (p.kind==='bot') badge += ' <span class="badge">电脑 · 标准</span>';
     else if (!p.connected) badge += ' <span class="badge off">已离线</span>';
     else badge += ' <span class="dot on"></span>';
-    return '<li>' + escapeHTML(p.name) + badge + '</li>';
+    return '<li>' + escapeHTML(p.name) + badge + (p.kind==='bot'&&rs.hostId===socket.id?'<button class="textbtn" data-remove-bot="'+p.id+'">移除</button>':'')+'</li>';
   }).join('') + '<li class="slot">等待玩家加入…</li>';
   syncLobbyControls();
-  $('roomHint').textContent = rs.started ? '' : rs.players.length < 2 ? '至少 2 名玩家才可开始游戏' : rs.hostId !== socket.id ? '等待房主开始游戏' : '玩家已加入，可以开始游戏';
+  $('roomHint').textContent = rs.started ? '' : rs.players.length < 2 ? '添加电脑玩家或邀请朋友后，即可开始游戏' : rs.hostId !== socket.id ? '等待房主开始游戏' : '玩家已加入，可以开始游戏';
   if (!rs.started) show('view-room');
 });
 
@@ -1585,6 +1624,7 @@ function organizeRules() {
   if(game?.propertySupportRevision==='property-support-v1')add('property','<p><b>置业扶持：</b>购地解锁后，从未拥有城市者连续6个正常掷骰回合没有可负担购地机会，下次掷骰前可从最多3座低价银行城市中原价购买1座，整局一次。拒绝可负担机会归零；监狱掷骰、跳过和飞行不计。取消或缺现金、库存、圈额度保留资格；曾通过购买、拍卖或受让得到城市后永久失去资格。仍计入每圈4城额度，与主动经营次数独立。</p>');
   if(game?.activeManagementRevision==='active-management-v1')add('property','<p><b>主动经营：</b>正常掷骰前可成功执行促销、主动买股或远程建设中的1项，取消、失败不耗次数，掷骰可直接跳过。促销费为地价4%最高800；当前及下一完整轮内，每次实际完成他人正额租金获得银行奖励地价8%最高1200，最多2次，每圈启动一次、同时一个活动。欠租偿清才奖；抵押、产权变化、出局、到期或封盘结束活动，不退款，奖金不进入分红池。主动买股一次一城1–2股，整笔手续费1%，每圈最多4股、同城2股，原起点窗口额度独立。远程建设支付标准建房费145%，所有优惠最多减10个百分点；H1每圈一次提供10个百分点优惠。原落点建设费用保持。</p>');
   add('connection','<p>任一存活玩家掉线会暂停对局和决定时钟；使用原身份重连恢复实际状态和剩余时间，不能刷新额度。新决定给完整时限，同一决定的无效操作和只读查询不延时。经营机遇共享30秒，超时选当时最左项；交易确认超时拒绝，股票超时结束窗口，飞行超时不飞，购买/建设超时放弃。</p><p>已经扣过的债务不重复扣款。自救补足现金后继续原流程，仍不足可继续处理资产或放弃；无资产则按原破产流程。终局先结算待分红，再按实际总资产记录排名。</p>');
+  add('connection','<p><b>电脑陪玩：</b>房主开局前可添加或移除电脑玩家，一个真人也能开始，房间合计最多4人。电脑使用标准经营策略，遵守相同费用和额度，只读取公开信息及本人的私人信息，约1秒后自动决策；首版不主动发起转让，收到转让时拒绝。最后一个真人离线后电脑停止行动，重连后恢复；快速模式总时限继续。</p>');
   if(quickGame())add('connection','<p><b>本局快速模式：</b>掉线只暂停个人决定，整局30分钟时钟继续。全员离线也不延长总时限；重连查看已冻结结果。上面的总资产排名说明适用于普通模式，本局按扣除抵押债务后的净资产排名。</p>');
   if(context.modern){
     const catalog=game?.opportunityCatalog||Object.fromEntries((window.RULES_CATALOG?.opportunities||[]).map(o=>[o.id,o]));
@@ -1878,11 +1918,12 @@ function handleTradeConfirm() {
     + '<button class="secondary" onclick="emitAct({type:\'stock_transfer\',targetId:\'' + me.gameId + '\',accept:false})">拒绝</button></div>';
   openModal('股票转让确认');
 }
-function openBank() {
+function openBank(buildFundraising=false) {
   const meP = game.players.find((p) => p.id === me.gameId);
   if (!meP) return;
   const body = $('modalBody');
-  const un = meP.cities.filter((id) => !game.cities[id].mortgaged);
+  const forBuild=buildFundraising===true&&game.phase==='build_decide'&&isMyTurn();
+  const un = meP.cities.filter((id) => !game.cities[id].mortgaged&&(!forBuild||id!==game.pending.cityId));
   const md = meP.cities.filter((id) => game.cities[id].mortgaged);
   const limit = un.reduce((s, id) => s + mortgageValue(game.cities[id]), 0);
   const debt = md.reduce((s, id) => s + mortgageValue(game.cities[id]) + (game.cities[id].mortgageInterest || 0), 0);
@@ -1893,6 +1934,7 @@ function openBank() {
     + kv('可抵押额度', fmt(limit))
     + kv('当前负债', fmt(debt), 'r')
     + '<div style="margin-top:8px"><label>抵押（自有未抵押城市，上限 2 座）</label>';
+  if(forBuild){const cost=game.self?.quotes.build[game.pending.cityId]?.finalAmount??Math.round(game.cities[game.pending.cityId].price*.6);body.insertAdjacentHTML('afterbegin','<p class="hint">为 '+escapeHTML(game.pending.cityId)+' 建房筹资：还差 '+fmt(Math.max(0,cost-meP.cash))+'。可抵押其他城市；原建房决定与倒计时继续，待建房城市不参与本次抵押。</p>');}
   if (un.length) {
     const wrap = document.createElement('div');
     wrap.className = 'ledger-list';
@@ -1913,8 +1955,25 @@ function openBank() {
     body.appendChild(wrap);
   } else body.insertAdjacentHTML('beforeend', '<p class="hint">没有可抵押的城市</p>');
   body.insertAdjacentHTML('beforeend', '<p class="hint">赎回需落到对应城市后才能进行（在银行/资产界面不提供，抵押可随时进行）。</p>');
-  body.insertAdjacentHTML('beforeend', '<div class="row"><button class="textbtn" onclick="closeModal()">关闭</button></div>');
-  openModal('银行交易');
+  const holdings=Object.entries(game.stocks).filter(([,st])=>(st.holders[me.gameId]||0)>0);
+  const portfolio=document.createElement('section');portfolio.className='bank-holdings';
+  const heading=document.createElement('h4');heading.textContent='我的持股明细';portfolio.append(heading);
+  if(!holdings.length){const empty=document.createElement('p');empty.className='hint';empty.textContent='当前没有持有股票。';portfolio.append(empty);}
+  else {
+    portfolio.insertAdjacentHTML('beforeend',kv('持股合计',holdings.reduce((n,[,st])=>n+st.holders[me.gameId],0)+' 股')+kv('当前持股价值',fmt(holdings.reduce((n,[,st])=>n+st.price*st.holders[me.gameId],0))));
+    for(const [id,st]of holdings){
+      const city=game.cities[id],shares=st.holders[me.gameId],card=document.createElement('article');card.className='bank-stock-card';
+      const title=document.createElement('h5');title.textContent=(city.country?city.country+'·':'')+id;card.append(title);
+      card.insertAdjacentHTML('beforeend',kv('持有股数',shares+' 股'+(city.ownerId===me.gameId?' · 城主上限4股':''))+kv('当前每股报价',fmt(st.price))+kv('持股报价价值',fmt(st.price*shares))
+        +kv('上次每股基础分红',Number.isSafeInteger(st.lastDividendPerShare)?fmt(st.lastDividendPerShare):'暂无数据')
+        +kv('当前待分红池',Number.isSafeInteger(st.dividendFund)?fmt(st.dividendFund):'暂无数据')
+        +kv('经营状态',st.clearing?'正在清算':!city.ownerId?'城市尚未经营':city.mortgaged?'已抵押 · 暂停产生租金':'正常经营'));
+      portfolio.append(card);
+    }
+  }
+  const note=document.createElement('p');note.className='hint';note.textContent='持股价值按当前报价计算，不是可用现金；待分红池属于整座城市，实际分红以结算为准。买卖及转让需在本人经过起点后的股票窗口进行，自救卖股沿原自救入口。';portfolio.append(note);body.append(portfolio);
+  const footer=document.createElement('div');footer.className='row';const close=document.createElement('button');close.type='button';close.className='textbtn';close.textContent=forBuild?'返回建房':'关闭';close.onclick=forBuild?renderPending:closeModal;footer.append(close);body.append(footer);
+  openModal(forBuild?'建房募集资金':'银行交易');
 }
 function openCityDetail(cityId) {
   const c = game.cities[cityId];

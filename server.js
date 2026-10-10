@@ -19,6 +19,9 @@ const routes = require('./src/opportunityRoutes');
 const stocks = require('./src/stocks');
 const { assetSummary } = require('./src/assets');
 const { safe } = require('./src/economy');
+const botPolicy = require('./src/botPolicy');
+const botScheduler = require('./src/botScheduler');
+const BOT_AUTH = Symbol('internal-bot');
 
 const PORT = process.env.PORT || 3000;
 // 2026-10-05有限对照及投资压力审查通过，仅新局启用；旧局不迁移。
@@ -112,6 +115,7 @@ function sweepRooms(now = Date.now(), cfg) {
     clearTimer(room, 'action');
     if (room.actionClock) room.actionClock.clear();
     stopQuickTimers(room);
+    botScheduler.stop(room);
     if (room.hostTimer) {
       clearTimeout(room.hostTimer);
       room.hostTimer = null;
@@ -124,7 +128,7 @@ function roomStatePayload(room) {
   return {
     roomCode: room.code,
     hostId: room.hostId,
-    players: room.players.map((p) => ({ id: p.id, name: p.name, seat: p.seat, connected: p.connected })),
+    players: room.players.map((p) => ({ id: p.id, name: p.name, seat: p.seat, connected: p.connected, kind:p.kind||'human' })),
     started: !!room.state,
     gameMode: room.gameMode || 'normal',
   };
@@ -141,6 +145,7 @@ function emitGame(room, newDecision = false) {
   if (quick.enabled(room.state) && room.state.quick.status !== 'closed' && room.quickClock?.read().elapsedMs >= 1800000) closeQuickGame(room, 'time_limit');
   if (room.state.phase === 'game_over' && !room.gameRecord) finalizeGame(room, 'normal');
   startTimer(room, newDecision);
+  const thinking=botScheduler.sync(room,runBotDecision)||[];
   const evs = (room.lastEvents || []).map((e, i) => Object.assign({}, e, { id: (room.lastEventBase || 0) + i }));
   // 事件全局可见：每个客户端收到完整事件记录
   for (const rp of room.players) {
@@ -149,7 +154,8 @@ function emitGame(room, newDecision = false) {
     const base = snapshot(room.state, rp.id, room.actionClock.view(room.state.gameId));
     if(routes.enabled(room.state)&&room.state.gameMode==='quick')base.quickTime=routeTime(room);
     for (const gp of base.players) gp.connected = room.players.find(p=>p.id===gp.id)?.connected !== false;
-    sock.emit('gameState', Object.assign({}, base, { events: evs }));
+    for(const gp of base.players)gp.kind=room.players.find(p=>p.id===gp.id)?.kind||'human';
+    sock.emit('gameState', Object.assign({}, base, { events: evs,botThinking:thinking }));
   }
   if (room.state.phase === 'game_over') emitRoom(room);
 }
@@ -312,6 +318,7 @@ function assertEconomy(state) {
 }
 
 function hasDisconnectedAlive(room) {
+  if(room.players.some(p=>p.kind==='bot')&&!room.players.some(p=>p.kind!=='bot'&&p.connected))return true;
   return room.state && room.state.players.some((gp) => {
     const rp = room.players.find((x) => x.id === gp.id);
     return gp.alive && rp && !rp.connected;
@@ -360,9 +367,27 @@ function advanceRouteTime(room) {
   return true;
 }
 
+function runBotDecision(room,id){
+  const view=snapshot(room.state,id,room.actionClock.view(room.state.gameId));
+  let memory=room.botMemory.get(id);
+  if(memory?.gameId!==view.gameId)memory={gameId:view.gameId,saleAttempts:[]};
+  if(memory.decisionId!==view.decision.decisionId){memory.decisionId=view.decision.decisionId;memory.steps=0;memory.failures=0;}
+  let action;
+  try {action=memory.failures?botPolicy.fallback(view):botPolicy.choose(view,memory);}
+  catch(err){console.error('[bot-policy]',id,err);action=botPolicy.fallback(view);}
+  if(!action){memory.blockedKey=room.state.gameId+'|'+room.actionClock.decisionId+'|'+id+'|'+room.state.actorRevision[id];room.botMemory.set(id,memory);return;}
+  memory.steps++;room.botMemory.set(id,memory);
+  const envelope={...action,gameId:view.gameId,actionId:'bot:'+id+':'+view.revision+':'+memory.steps,decisionId:view.decision.decisionId,actorRevision:view.self.actorRevision};
+  const internalSocket={[BOT_AUTH]:id,handshake:{auth:{clientRouteRevision:routes.REVISION,clientQuickRevision:quick.REVISION}},emit(){}};
+  const result=runAction(room,internalSocket,envelope);
+  if(result.ok){memory.failures=0;if(action.type==='sell_city')memory.saleAttempts.push(action.cityId);}
+  else {memory.failures++;if(memory.failures>=2)memory.blockedKey=room.state.gameId+'|'+room.actionClock.decisionId+'|'+id+'|'+room.state.actorRevision[id];console.error('[bot-action]',id,action.type,result.error);}
+}
+
 function runAction(room, socket, rawAction, source = 'player') {
   if (!room.state) return { ok: false, code:'OVER',error: '对局已结束' };
-  const authenticated = source==='player' ? room.players.find(p=>p.connected&&p.socketId===socket?.id) : null;
+  const trustedBot=socket?.[BOT_AUTH];
+  const authenticated = source==='player' ? room.players.find(p=>p.connected&&(trustedBot?p.kind==='bot'&&p.id===trustedBot:p.kind!=='bot'&&p.socketId===socket?.id)) : null;
   if(source==='player'&&!authenticated)return {ok:false,code:'IDENTITY',error:'连接身份已失效'};
   const v2=room.state.ruleVersion===2;
   let cache, print;
@@ -405,7 +430,7 @@ function runAction(room, socket, rawAction, source = 'player') {
   const allowedId = normalized.actorId;
   const allowedRp = playerByGameId(room, allowedId);
   const allowedSocketId = allowedRp ? allowedRp.socketId : null;
-  if (source === 'player' && (!socket || socket.id !== allowedSocketId)) {
+  if (source === 'player' && (!socket || (trustedBot?trustedBot!==allowedId:socket.id !== allowedSocketId))) {
     const error = '还没轮到你行动';
     if (socket) socket.emit('error', { message: error });
     return { ok: false, error };
@@ -443,7 +468,7 @@ function runAction(room, socket, rawAction, source = 'player') {
     return {ok:false,code:'EXPIRED',error:'选择时限已到，保留原经营路线'};
   }
   room.state = afterState;
-  room.replayMetadata={action:normalized.action,actorId:normalized.actorId||null,source,timeContext};
+  room.replayMetadata={action:normalized.action,actorId:normalized.actorId||null,source:trustedBot?'bot':source,timeContext};
   if(v2){room.state.revision++;if(normalized.actorId)room.state.actorRevision[normalized.actorId]++;}
   appendEvents(room, res.events || []);
   emitGame(room, normalized.action.type === 'auction_respond' || normalized.action.type === 'direct_sale_respond');
@@ -497,6 +522,23 @@ io.on('connection', (socket) => {
     emitRoom(room);
   }));
 
+  for(const event of ['addBot','removeBot'])socket.on(event,safeHandler((data,cb)=>{
+    const room=[...rooms.values()].find(r=>r.players.some(p=>p.kind!=='bot'&&p.socketId===socket.id));
+    if(!room||room.hostId!==socket.id)return cb?.({ok:false,error:'仅房主可管理电脑玩家'});
+    if(room.state&&room.state.phase!=='game_over')return cb?.({ok:false,error:'对局中不能增减电脑玩家'});
+    if(event==='addBot'){
+      if(room.players.length>=4)return cb?.({ok:false,error:'房间已满'});
+      let index=1;while(room.players.some(p=>p.name==='电脑玩家'+index))index++;
+      room.players.push({kind:'bot',id:'p'+room.players.length,name:'电脑玩家'+index,seat:room.players.length,connected:true,socketId:null,token:null});
+    }else{
+      const index=room.players.findIndex(p=>p.kind==='bot'&&p.id===data?.playerId);
+      if(index<0)return cb?.({ok:false,error:'电脑座位已变化'});
+      room.players.splice(index,1);
+    }
+    room.players.forEach((p,i)=>{p.id='p'+i;p.seat=i;});
+    emitRoom(room);cb?.({ok:true});
+  }));
+
   socket.on('joinRoom', safeHandler((data, cb) => {
     const code = String(data && data.roomCode || '').trim();
     const room = rooms.get(code);
@@ -518,7 +560,7 @@ io.on('connection', (socket) => {
     const code = String(data && data.roomCode || '').trim();
     const room = rooms.get(code);
     if (!room) return cb && cb({ ok: false, error: '房间不存在' });
-    const rp = room.players.find((p) => p.name === data.name && p.token === data.token);
+    const rp = room.players.find((p) => p.kind!=='bot' && p.token && p.name === data.name && p.token === data.token);
     if (!rp) return cb && cb({ ok: false, error: '重连校验失败' });
     const oldSocketId = rp.socketId;
     // 令牌有效但旧连接仍标记在线（网络抖动自动重连、快速刷新竞态等）：
@@ -562,8 +604,8 @@ io.on('connection', (socket) => {
     if (room.state && room.state.phase !== 'game_over') return cb && cb({ ok: false, error: '对局已开始' });
     const mode = room.gameMode || 'normal';
     if(data?.gameMode !== undefined && data.gameMode !== mode)return cb && cb({ok:false,error:'模式与房间配置不一致，请核对后开始'});
-    if(room.players.some(p=>!p.connected || io.sockets.sockets.get(p.socketId)?.handshake.auth?.clientRouteRevision !== routes.REVISION))return cb && cb({ok:false,error:'请所有玩家刷新页面并连接后再开始'});
-    if(mode==='quick' && room.players.some(p=>io.sockets.sockets.get(p.socketId)?.handshake.auth?.clientQuickRevision !== quick.REVISION))return cb && cb({ok:false,error:'快速模式需要所有玩家刷新页面后再开始'});
+    if(room.players.filter(p=>p.kind!=='bot').some(p=>!p.connected || io.sockets.sockets.get(p.socketId)?.handshake.auth?.clientRouteRevision !== routes.REVISION))return cb && cb({ok:false,error:'请所有玩家刷新页面并连接后再开始'});
+    if(mode==='quick' && room.players.filter(p=>p.kind!=='bot').some(p=>io.sockets.sockets.get(p.socketId)?.handshake.auth?.clientQuickRevision !== quick.REVISION))return cb && cb({ok:false,error:'快速模式需要所有玩家刷新页面后再开始'});
     const startedAt = Date.now();
     const candidate = createGameState(room.code, room.players.map(p=>p.name), 2, {...NEW_GAME_ECONOMY,gameMode:mode,...(mode==='quick'?{quickRevision:quick.REVISION,startedAt}:{})});
     let clock = null;
@@ -583,12 +625,14 @@ io.on('connection', (socket) => {
     clearTimer(room, 'action');
     if (room.actionClock) room.actionClock.clear();
     stopQuickTimers(room);
+    botScheduler.stop(room);room.botMemory=new Map();
     room.quickClock = null; room.quickTimeProvider = null;
     room.quickStockBudget = null;
     room.state = candidate;
     if (clock) installQuickClock(room,clock);
     room.players.forEach((p, i) => {
       room.state.players[i].socketId = p.socketId;
+      room.state.players[i].kind = p.kind||'human';
     });
     room.events=[];room.lastEvents=[];room.eventSeq=0;room.lastEventBase=0;room.gameRecord=null;room.successfulActions=new Map();
     cb && cb({ ok: true });
@@ -614,18 +658,18 @@ io.on('connection', (socket) => {
         }
       }
       // 全部玩家离线时开始记录闲置时间，供房间清扫器清理
-      if (room.players.every((p) => !p.connected)) room.idleSince = room.idleSince || Date.now();
+      if (room.players.filter(p=>p.kind!=='bot').every((p) => !p.connected)) room.idleSince = room.idleSince || Date.now();
       // 房主掉线：大厅或对局已结束时立即转移；对局进行中按 spec 等 10 分钟
-      if (room.hostId === socket.id && room.players.filter((p) => p.connected).length > 0) {
+      if (room.hostId === socket.id && room.players.filter((p) => p.kind!=='bot'&&p.connected).length > 0) {
         clearTimeout(room.hostTimer);
         room.hostTimer = null;
         const immediate = !room.state || room.state.phase === 'game_over';
         if (immediate) {
-          const next = room.players.find((p) => p.connected);
+          const next = room.players.find((p) => p.kind!=='bot'&&p.connected);
           if (next) room.hostId = next.socketId;
         } else {
           room.hostTimer = setTimeout(() => {
-            const next = room.players.find((p) => p.connected);
+            const next = room.players.find((p) => p.kind!=='bot'&&p.connected);
             if (next) {
               room.hostId = next.socketId;
               emitRoom(room);

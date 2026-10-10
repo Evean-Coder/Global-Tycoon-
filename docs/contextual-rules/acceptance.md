@@ -1,9 +1,8 @@
-# 规则提示本地验收记录
+# 本地验收报告
 
-日期：2026-10-10。状态：只读提示已接入；未推送或部署。
+日期：2026-10-10。状态：实现与本轮限定验收完成，未推送或部署。
 
-证据：`test/contextual-rules.test.js`1项通过；`e2e/contextual-rules.spec.js`1项通过，核对本城3/4股、原窗口草稿、查看帮助返回、完整服务端状态与期限未变。股票窗口、转让返回、费用边界和九类视口回归见[总进度](../gameplay-improvements/progress.md)。
+21 项 Checklist 门槛的证据见[逐项索引](../gameplay-improvements/acceptance-matrix.md)，最终集中80项检查见[实际日志](../gameplay-improvements/final-verification-20261010.txt)。代码检查通过。
 
-费用读取原报价及cashDeltas，资产读取原assetSummary/netAssetSummary，经营/扶持帮助按本局真实版本显示。未新增Socket事件、交易许可公式或决定时钟。缺旧资料显示未提供，不猜历史扣款或免费。
+采用有限固定状态、真实引擎/Socket流程、六视口与原相关回归组合验证；首轮失败和修正保留在总记录中。详细实施和风险范围见[开发记录](../gameplay-improvements/progress.md)。这些结果不代表统计胜率平衡，也不代表真实Render网络响应或所有手机浏览器已经验证。
 
-尚须逐项核对所有帮助主题、长文案与未知原因、旧局/旁观、各类资产和期限组合；未验证项不勾选。

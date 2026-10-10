@@ -589,7 +589,8 @@ function openPropertySupport(){
   const data=game?.self?.propertySupport;if(!data)return;
   const gameId=game.gameId,decisionId=game.decision?.decisionId;let generation;
   const body=$('modalBody');body.replaceChildren();
-  const note=document.createElement('p');note.className='hint';note.textContent='从未拥有城市，解锁后连续6个有效掷骰回合无可负担购地机会，可原价购买一座银行城市。整局一次；仍计入每圈4城额度。主动拒绝可负担机会会归零。';body.append(note);
+  const note=document.createElement('p');note.className='hint';note.textContent='从未拥有城市，解锁后连续6个有效掷骰回合无可负担购地机会，可原价购买一座银行城市。整局一次；本圈剩余购地额度 '+data.remaining+'/4 座。主动拒绝可负担机会会归零。';body.append(note);
+  if(!data.candidates.length){const empty=document.createElement('p');empty.className='hint';empty.textContent='当前没有可售的银行城市，资格仍保留。';body.append(empty);}
   for(const q of data.candidates){
     const row=document.createElement('div');row.className='remote-city';
     const text=document.createElement('p');text.textContent=q.cityId+' · '+fmt(q.finalAmount)+' · '+(q.reason||'购买后现金 '+fmt(q.cashAfter));
@@ -959,6 +960,7 @@ function renderPending() {
           + kv('当前价格', fmt(city.price), 'g')
           + kv('当前租金', fmt(rentFor(city)))
           + kv('当前现金', fmt(meP.cash), poor ? 'r' : '')
+          + (!poor && !lapCap ? kv('购买后现金', fmt(meP.cash-city.price)) : '')
           + kv('持有玩家', '无')
           + (poor
             ? '<p class="hint">现金不足，无法直接购买。你可以募集资金（抵押/拆房凑够地价）或取消购买（进入拍卖）。</p>'
@@ -976,6 +978,7 @@ function renderPending() {
           + kv('机场', game.pending.airportId)
           + kv('购买价格', '￥15,000', 'g')
           + kv('当前现金', fmt(meP.cash), poor ? 'r' : '')
+          + (!poor ? kv('购买后现金', fmt(meP.cash-15000)) : '')
           + (poor
             ? '<p class="hint">现金不足，无法直接购买。你可以募集资金（抵押/拆房凑够 15000）或取消购买。</p>'
               + '<div class="row"><button class="secondary" onclick="emitAct({type:\'buy_fundraise\',decision:\'start\'})">募集资金</button><button class="risk" onclick="emitAct({type:\'buy_airport\',decision:\'pass\'})">取消购买</button></div>'
@@ -1180,9 +1183,9 @@ function openAssetOverview() {
 function renderTurnSummary() {
   const node = $('turnSummary');
   if (!node || !game) return;
-  const current = game.players[game.turnIndex];
-  const label = {waiting_roll:'等待掷骰',stock:'股票交易',buy_city:'购地决定',build:'建设决定',flight:'航班选择',self_rescue:'资金自救',auction_bid:'城市拍卖',trade_confirm:'交易确认',opportunity_choose:'机遇选择',route_choose:'路线选择',game_over:'对局结束'}[game.phase] || '按操作区提示继续';
-  node.textContent = (isMyTurn() ? '轮到你行动' : '当前回合：' + (current?.name || '等待推进')) + ' · ' + label;
+  const current = game.players.find(p=>p.id===(game.routeProgress?.activeChoice?.playerId||awaitingPlayerId))||game.players[game.turnIndex];
+  const label = {waiting_roll:'等待掷骰',stock:'股票交易',buy:'购地决定',buy_airport:'机场购买',buy_fundraise:'购地募资',build_decide:'建设决定',flight:'航班选择',self_rescue:'资金自救',auction_bid:'城市拍卖',direct_sale_ask:'产权受让',trade_confirm:'交易确认',frozen_turn:'极地救援',jail_turn:'监狱决定',opportunity_choose:'机遇选择',route_choose:'路线选择',game_over:'对局结束'}[game.phase] || '按操作区提示继续';
+  node.textContent = (game.phase==='opportunity_choose'?'全员正在选择':isMyTurn() ? '轮到你行动' : '当前决策：' + (current?.name || '等待推进')) + ' · ' + label;
 }
 function syncRoomModeCards() {
   const source = $('roomMode');

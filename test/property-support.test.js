@@ -52,9 +52,21 @@ test('现金不足按落点时判断，自救挂起不计直到原回合完成',
 
 test('候选排序、占用排除与各类失败均保留资格和完整状态',()=>{
  const s=state(),p=s.players[0];p.propertySupport.eligible=true;const expected=s.board.filter(q=>q.type==='city').sort((a,b)=>a.price-b.price).slice(0,3).map(q=>q.cityId);assert.deepEqual(support.candidates(s),expected);
+ const tied=globalThis.structuredClone(s);tied.board.find(q=>q.cityId==='开普敦').price=3600;tied.cities['开普敦'].price=3600;assert.deepEqual(support.candidates(tied).slice(0,2),['内罗毕','开普敦']);
  s.phase='auction_bid';s.pending={cityId:expected[0]};assert.equal(support.candidates(s).includes(expected[0]),false);s.phase='waiting_roll';s.pending=null;
  for(const phase of ['self_rescue','auction_bid','trade_confirm','opportunity_choose','route_choose','jail_turn','frozen_turn']){s.phase=phase;const before=JSON.stringify(s);assert.equal(normalizeAction(s,{type:'support_buy',cityId:expected[0],quoteVersion:support.quote(s,p.id,expected[0]).quoteVersion}).ok,false);assert.equal(JSON.stringify(s),before);}
  s.phase='waiting_roll';p.lapBuys=4;let before=JSON.stringify(s);assert.equal(support.quote(s,p.id,expected[0]).ok,false);assert.equal(JSON.stringify(s),before);assert.equal(p.propertySupport.eligible,true);
  p.lapBuys=0;s.firstRoundDone=false;before=JSON.stringify(s);assert.equal(support.quote(s,p.id,expected[0]).ok,false);assert.equal(JSON.stringify(s),before);
  s.firstRoundDone=true;for(const c of Object.values(s.cities))c.ownerId='p1';assert.deepEqual(support.candidates(s),[]);assert.equal(p.propertySupport.eligible,true);
 });
+
+test('监狱掷骰和放弃不计，解锁前正常回合也不计',()=>{
+ for(const decision of ['roll','pass']){const s=state(),p=s.players[0];s.phase='jail_turn';s.pending={playerId:p.id};p.jailed=true;s.diceBag=[2];logic.apply(s,{type:'respond_jail',decision},()=>.5);assert.equal(p.propertySupport.missedPurchaseTurns,0);}
+ const s=state(),p=s.players[0];s.firstRoundDone=false;p.position=9;s.diceBag=[1];logic.apply(s,{type:'roll_dice'},()=>.5);assert.equal(p.propertySupport.missedPurchaseTurns,0);
+});
+
+test('有资格直接掷骰不阻塞，下次正常回合保留使用机会',()=>{
+ const s=state(),p=s.players[0];p.propertySupport.eligible=true;p.propertySupport.missedPurchaseTurns=6;p.position=9;s.players[1].position=9;s.opportunityStage={ordinal:3,resolved:true};require('../src/worldEvents').advanceWorld(s,()=>.5,[]);s.diceBag=[1,1];logic.apply(s,{type:'roll_dice'},()=>.5);assert.equal(s.turnIndex,1);assert.equal(p.propertySupport.eligible,true);logic.apply(s,{type:'roll_dice'},()=>.5);assert.equal(s.turnIndex,0);assert.equal(s.phase,'waiting_roll');assert.equal(support.quote(s,p.id,support.candidates(s)[0]).ok,true);
+});
+
+

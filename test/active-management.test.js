@@ -56,3 +56,23 @@ test('促销换圈替换不退款，主动股票圈总额不随出售恢复',()=
  shares.stocks['内罗毕'].holders.p0=0;stocks.syncHolders(shares);assert.equal(active.quote(shares,buyer.id,'active_stock_buy','开罗',1).ok,false);assert.equal(buyer.activeManagement.stockBoughtTotal,4);
  buyer.opportunities.lapEpoch++;assert.equal(active.quote(shares,buyer.id,'active_stock_buy','开罗',1).ok,true);
 });
+
+test('三项各成功一次互斥，掷骰可跳过，资金不足及他人身份零修改',()=>{
+ for(const kind of ['active_promote','active_stock_buy','active_build']){
+  const s=fixture();perform(s,kind,'内罗毕',kind==='active_stock_buy'?1:undefined);
+  for(const next of ['active_promote','active_stock_buy','active_build'])assert.equal(active.quote(s,'p0',next,'内罗毕',1).ok,false);
+  s.players[0].position=9;s.diceBag=[1];logic.apply(s,{type:'roll_dice'},()=>.5);assert.equal(s.turnIndex,1);
+ }
+ const skip=fixture();skip.players[0].position=9;skip.diceBag=[1];logic.apply(skip,{type:'roll_dice'},()=>.5);assert.equal(skip.turnIndex,1);
+ const s=fixture();s.players[0].cash=0;for(const kind of ['active_promote','active_stock_buy','active_build']){const before=JSON.stringify(s);assert.equal(active.quote(s,'p0',kind,'内罗毕',1).ok,false);assert.equal(active.quote(s,'p1',kind,'内罗毕',1).ok,false);assert.equal(JSON.stringify(s),before);}
+});
+
+test('全部活动失效出口与上市/余股/城主持股边界',()=>{
+ for(const reason of ['bank','transfer','death','mortgage','expiry','seal']){
+  const s=fixture();perform(s,'active_promote');const cash=s.players[0].cash;
+  if(reason==='bank')stocks.clearCityToBank(s,{cityId:'内罗毕'},[]);if(reason==='transfer')stocks.transferCity(s,{cityId:'内罗毕',newOwnerId:'p1'},[]);if(reason==='death')s.players[0].alive=false;if(reason==='mortgage')s.cities['内罗毕'].mortgaged=true;if(reason==='expiry')s.roundFlow.index+=2;if(reason==='seal')s.phase='game_over';
+  active.clean(s);active.rentCompleted(s,{cityId:'内罗毕',playerId:'p1',finalAmount:100},'later',[]);assert.equal(s.promotions.length,0);assert.equal(s.players[0].cash,cash,reason);
+ }
+ for(const held of [0,3,4]){const s=fixture();s.stocks['内罗毕'].holders.p0=held;assert.equal(active.quote(s,'p0','active_stock_buy','内罗毕',1).ok,held<4);}
+ const s=fixture();s.stocks['内罗毕'].holders.p1=20;assert.equal(active.quote(s,'p0','active_stock_buy','内罗毕',1).ok,false);s.stocks['内罗毕'].holders={};s.stocks['内罗毕'].clearing=true;assert.equal(active.quote(s,'p0','active_stock_buy','内罗毕',1).ok,false);s.stocks['内罗毕'].clearing=false;const q=active.quote(s,'p0','active_stock_buy','内罗毕',1);s.stocks['内罗毕'].listingEpoch++;const before=JSON.stringify(s);assert.equal(normalizeAction(s,{type:'active_stock_buy',cityId:'内罗毕',shares:1,quoteVersion:q.quoteVersion,listingEpoch:q.listingEpoch}).ok,false);assert.equal(JSON.stringify(s),before);
+});

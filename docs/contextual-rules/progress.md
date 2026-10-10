@@ -1,3 +1,4 @@
 # 开发进度
 
-2026-10-10：用户最终确认后实现已接入。具体模块、命令、失败修复和限制见[总开发记录](../gameplay-improvements/progress.md)，逐项门槛见[Checklist](checklist.md)，结果见[验收记录](acceptance.md)。当前7项已关联证据；其他项保持未勾选。未推送或部署。
+2026-10-10：用户最终确认后，按任务完成实现并核对 21 项验收门槛。验证由指定场景、原回归与资源检查组合覆盖，不等于每项一个独立测试。具体证据见[验收索引](../gameplay-improvements/acceptance-matrix.md)，实现见[总开发记录](../gameplay-improvements/progress.md)。未推送或部署。
+

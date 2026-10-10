@@ -1,0 +1,219 @@
+TAP version 13
+# Subtest: 等待确认时给出反馈，后续点击不补发或播放假骰子
+ok 1 - 等待确认时给出反馈，后续点击不补发或播放假骰子
+  ---
+  duration_ms: 3438.981
+  ...
+# Subtest: 断线点击明确未发送，恢复后原操作入口可用
+ok 2 - 断线点击明确未发送，恢复后原操作入口可用
+  ---
+  duration_ms: 266.2874
+  ...
+# Subtest: 慢回执查询沿用原动作身份，仍只抵押一次
+ok 3 - 慢回执查询沿用原动作身份，仍只抵押一次
+  ---
+  duration_ms: 128.2444
+  ...
+# Subtest: 手机触控慢请求只创建/开始一次，受限存储不阻断
+ok 4 - 手机触控慢请求只创建/开始一次，受限存储不阻断
+  ---
+  duration_ms: 5012.1492
+  ...
+# Subtest: 开局失败与未确认可见，断线不缓存新请求
+ok 5 - 开局失败与未确认可见，断线不缓存新请求
+  ---
+  duration_ms: 1246.8013
+  ...
+# Subtest: 创建和加入丢失回执时仍由本人房间状态确认
+ok 6 - 创建和加入丢失回执时仍由本人房间状态确认
+  ---
+  duration_ms: 1615.6599
+  ...
+# Subtest: 手机股票转让未编辑返回恢复同窗草稿并可主动结束
+not ok 7 - 手机股票转让未编辑返回恢复同窗草稿并可主动结束
+  ---
+  duration_ms: 298.4112
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\mobile-start.spec.js:69:1'
+  failureType: 'testCodeFailure'
+  error: "UNKNOWN: unknown error, open 'C:\\Users\\Yifan\\Desktop\\game\\docs\\gameplay-usability\\mobile-evidence\\stock-return-812.png'"
+  code: 'UNKNOWN'
+  stack: |-
+    async open (node:internal/fs/promises:637:25)
+    async Object.writeFile (node:internal/fs/promises:1219:14)
+    async _Page.screenshot (C:\Users\Yifan\Desktop\game\node_modules\playwright-core\lib\coreBundle.js:61393:11)
+    async TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\mobile-start.spec.js:74:2)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: 过期转让返回不打开旧股票窗口或关闭新决定
+ok 8 - 过期转让返回不打开旧股票窗口或关闭新决定
+  ---
+  duration_ms: 75.3451
+  ...
+# Subtest: 手机横屏三段布局与三端文字/触控矩阵
+ok 9 - 手机横屏三段布局与三端文字/触控矩阵
+  ---
+  duration_ms: 1792.8295
+  ...
+# Subtest: WebSocket不可用时回退轮询并能触控创建
+ok 10 - WebSocket不可用时回退轮询并能触控创建
+  ---
+  duration_ms: 260.7564
+  ...
+# Subtest: B01 本人候选完整历史与初始界面分开
+ok 11 - B01 本人候选完整历史与初始界面分开
+  ---
+  duration_ms: 3243.1156
+  ...
+# Subtest: B02 比较返回确认及主动跳过
+ok 12 - B02 比较返回确认及主动跳过
+  ---
+  duration_ms: 228.433
+  ...
+# Subtest: B03 同窗口重绘及重连保留草稿，新窗口清理
+ok 13 - B03 同窗口重绘及重连保留草稿，新窗口清理
+  ---
+  duration_ms: 130.1145
+  ...
+# Subtest: B04 失败草稿保留及迟到回执不覆盖新窗口
+ok 14 - B04 失败草稿保留及迟到回执不覆盖新窗口
+  ---
+  duration_ms: 176.9751
+  ...
+# Subtest: B05 查看规则返回和超时不复活窗口
+ok 15 - B05 查看规则返回和超时不复活窗口
+  ---
+  duration_ms: 181.6591
+  ...
+# Subtest: B04b 未确认只查询原操作身份，重复点击不新增请求
+ok 16 - B04b 未确认只查询原操作身份，重复点击不新增请求
+  ---
+  duration_ms: 118.6717
+  ...
+# Subtest: B06 PC平板及手机短横屏滚动与触控
+ok 17 - B06 PC平板及手机短横屏滚动与触控
+  ---
+  duration_ms: 1303.4841
+  ...
+# Subtest: B07 键盘与减少动画及200%内容缩放可操作
+ok 18 - B07 键盘与减少动画及200%内容缩放可操作
+  ---
+  duration_ms: 262.7775
+  ...
+# Subtest: B08 进度与版本规则不混入旧局
+ok 19 - B08 进度与版本规则不混入旧局
+  ---
+  duration_ms: 170.976
+  ...
+# Subtest: B09 页面能力过旧提示刷新且候选保持
+ok 20 - B09 页面能力过旧提示刷新且候选保持
+  ---
+  duration_ms: 72.7672
+  ...
+# Subtest: B07b 实际浏览器默认200%缩放，键盘确认
+ok 21 - B07b 实际浏览器默认200%缩放，键盘确认
+  ---
+  duration_ms: 2519.5152
+  ...
+# Subtest: QB01 mode is confirmed before real start and guest control is read-only
+ok 22 - QB01 mode is confirmed before real start and guest control is read-only
+  ---
+  duration_ms: 2997.4121
+  ...
+# Subtest: QB02 restart uses waiting/error feedback instead of raw fire-and-forget
+ok 23 - QB02 restart uses waiting/error feedback instead of raw fire-and-forget
+  ---
+  duration_ms: 214.4329
+  ...
+# Subtest: QB03 total time continues through personal pause and ignores stale correction
+ok 24 - QB03 total time continues through personal pause and ignores stale correction
+  ---
+  duration_ms: 97.4551
+  ...
+# Subtest: QB04 net assets, debts and spendable cash have distinct labels
+ok 25 - QB04 net assets, debts and spendable cash have distinct labels
+  ---
+  duration_ms: 91.0551
+  ...
+# Subtest: QB05 ties, reasons and authoritative result work before a record arrives
+ok 26 - QB05 ties, reasons and authoritative result work before a record arrives
+  ---
+  duration_ms: 61.4916
+  ...
+# Subtest: QB06 download and replay preserve the frozen quick result
+ok 27 - QB06 download and replay preserve the frozen quick result
+  ---
+  duration_ms: 325.3476
+  ...
+# Subtest: QB07 PC tablet and short landscape layouts expose accessible controls
+ok 28 - QB07 PC tablet and short landscape layouts expose accessible controls
+  ---
+  duration_ms: 715.5855
+  ...
+# Subtest: QB08 authority closes old sheets and cancels queued visual animations
+ok 29 - QB08 authority closes old sheets and cancels queued visual animations
+  ---
+  duration_ms: 836.7717
+  ...
+# Subtest: QB10 finite browser flow uses legal actions through growth routes reconnect and deadline
+ok 30 - QB10 finite browser flow uses legal actions through growth routes reconnect and deadline
+  ---
+  duration_ms: 822.2939
+  ...
+# Subtest: QB11 real total clock preserves an opened route at 28 and closes its sheet at 30
+ok 31 - QB11 real total clock preserves an opened route at 28 and closes its sheet at 30
+  ---
+  duration_ms: 366.3802
+  ...
+# Subtest: QB07c mobile touch can open assets and rules in a short landscape viewport
+ok 32 - QB07c mobile touch can open assets and rules in a short landscape viewport
+  ---
+  duration_ms: 1082.4581
+  ...
+# Subtest: QB07b actual browser 200 percent zoom keeps the clock and net details usable
+ok 33 - QB07b actual browser 200 percent zoom keeps the clock and net details usable
+  ---
+  duration_ms: 2417.9745
+  ...
+# Subtest: 手机开局→地图旋转→两次起点→机场明细→只读规则→继续回合
+not ok 34 - 手机开局→地图旋转→两次起点→机场明细→只读规则→继续回合
+  ---
+  duration_ms: 2858.4147
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\usability-flow.spec.js:13:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+      {
+    +   guestModeDisabled: true,
+    +   lobbyHint: true,
+    +   mode: 'normal',
+    -   lobbyHint: true,
+        roomHint: true
+      }
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    lobbyHint: true
+    roomHint: true
+  actual:
+    lobbyHint: true
+    roomHint: true
+    mode: 'normal'
+    guestModeDisabled: true
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\usability-flow.spec.js:14:28)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+    Test.run (node:internal/test_runner/test:796:25)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+1..34
+# tests 34
+# suites 0
+# pass 32
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0

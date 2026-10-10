@@ -93,7 +93,7 @@ test('端到端：创建→加入→开局→掷骰→解散→结算→回放',
   await rollBtn.click();
   await p1.waitForTimeout(600);
   const timerText = await p1.textContent('#timer');
-  assert.ok(timerText === '' || /(?:⏱|⏸)\s*\d+s/.test(timerText), '计时器应显示服务端期限或已结束');
+  assert.ok(timerText === '' || /(?:本次决定 ·|决定暂停 ·)\s*\d+s/.test(timerText), '计时器应显示服务端期限或已结束');
   const logText = await p1.evaluate(() => (document.getElementById('log').textContent || '').trim());
   assert.ok(logText.length > 0, '事件记录应有内容');
 

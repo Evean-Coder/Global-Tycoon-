@@ -11,7 +11,7 @@
 | 置业扶持 | [规格](../property-support/spec.md) | [设计](../property-support/plan.md) | [任务](../property-support/task.md) | [验收](../property-support/checklist.md) | 四份均已批准 |
 | 规则提示 | [规格](../contextual-rules/spec.md) | [设计](../contextual-rules/plan.md) | [任务](../contextual-rules/task.md) | [验收](../contextual-rules/checklist.md) | 前三份已批准；清单授权自审 |
 
-四项目共80项任务、112项验收检查。所有实现与验收均未因本轮文档工作执行；历史混合proposal、requirements-draft及implementation-draft仅保留预研记录，正式依据为上表独立文档。
+四项目共80项任务、112项验收检查。本轮已按任务完成实现并以有限指定场景、相关回归与资源检查核对验收门槛，证据见[验收索引](acceptance-matrix.md)。最新集中80项测试通过，经济安全复查26项通过（有重叠）；未推送或部署。历史混合草案只保留预研记录。
 
 ## 实施顺序
 

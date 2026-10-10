@@ -1,0 +1,188 @@
+TAP version 13
+# Subtest: 端到端：创建→加入→开局→掷骰→解散→结算→回放
+not ok 1 - 端到端：创建→加入→开局→掷骰→解散→结算→回放
+  ---
+  duration_ms: 24616.7608
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\flow.spec.js:19:1'
+  failureType: 'testCodeFailure'
+  error: '计时器应显示服务端期限或已结束'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    test.timeout (C:\Users\Yifan\Desktop\game\e2e\flow.spec.js:96:10)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: 统一动作封装 / 同步机遇选择与重选 / 自然规则说明 / 资讯当前与预告
+ok 2 - 统一动作封装 / 同步机遇选择与重选 / 自然规则说明 / 资讯当前与预告
+  ---
+  duration_ms: 3379.3083
+  ...
+# Subtest: 已选机遇与主动入口 / 城市租金与资讯明细 / 建拆房最终费用 / 服务端资产摘要 / 机票与机场费用边界
+ok 3 - 已选机遇与主动入口 / 城市租金与资讯明细 / 建拆房最终费用 / 服务端资产摘要 / 机票与机场费用边界
+  ---
+  duration_ms: 342.3115
+  ...
+# Subtest: 股票成交回执 / 股票转让回执 / 报价原因与实际历史股息 / 失败订单保留草稿
+ok 4 - 股票成交回执 / 股票转让回执 / 报价原因与实际历史股息 / 失败订单保留草稿
+  ---
+  duration_ms: 486.1035
+  ...
+# Subtest: 结构化收益和旧记录 / 普通流程回归
+ok 5 - 结构化收益和旧记录 / 普通流程回归
+  ---
+  duration_ms: 61.3716
+  ...
+# Subtest: 远航预告→收费不足→抵押自救→换人→自然终局记录与回放
+ok 6 - 远航预告→收费不足→抵押自救→换人→自然终局记录与回放
+  ---
+  duration_ms: 242.6131
+  ...
+# Subtest: QB01 mode is confirmed before real start and guest control is read-only
+ok 7 - QB01 mode is confirmed before real start and guest control is read-only
+  ---
+  duration_ms: 3347.2403
+  ...
+# Subtest: QB02 restart uses waiting/error feedback instead of raw fire-and-forget
+ok 8 - QB02 restart uses waiting/error feedback instead of raw fire-and-forget
+  ---
+  duration_ms: 207.7712
+  ...
+# Subtest: QB03 total time continues through personal pause and ignores stale correction
+ok 9 - QB03 total time continues through personal pause and ignores stale correction
+  ---
+  duration_ms: 124.8193
+  ...
+# Subtest: QB04 net assets, debts and spendable cash have distinct labels
+ok 10 - QB04 net assets, debts and spendable cash have distinct labels
+  ---
+  duration_ms: 98.5846
+  ...
+# Subtest: QB05 ties, reasons and authoritative result work before a record arrives
+ok 11 - QB05 ties, reasons and authoritative result work before a record arrives
+  ---
+  duration_ms: 64.7047
+  ...
+# Subtest: QB06 download and replay preserve the frozen quick result
+ok 12 - QB06 download and replay preserve the frozen quick result
+  ---
+  duration_ms: 406.4389
+  ...
+# Subtest: QB07 PC tablet and short landscape layouts expose accessible controls
+ok 13 - QB07 PC tablet and short landscape layouts expose accessible controls
+  ---
+  duration_ms: 900.7178
+  ...
+# Subtest: QB08 authority closes old sheets and cancels queued visual animations
+ok 14 - QB08 authority closes old sheets and cancels queued visual animations
+  ---
+  duration_ms: 860.925
+  ...
+# Subtest: QB10 finite browser flow uses legal actions through growth routes reconnect and deadline
+ok 15 - QB10 finite browser flow uses legal actions through growth routes reconnect and deadline
+  ---
+  duration_ms: 816.4986
+  ...
+# Subtest: QB11 real total clock preserves an opened route at 28 and closes its sheet at 30
+ok 16 - QB11 real total clock preserves an opened route at 28 and closes its sheet at 30
+  ---
+  duration_ms: 334.51
+  ...
+# Subtest: QB07c mobile touch can open assets and rules in a short landscape viewport
+ok 17 - QB07c mobile touch can open assets and rules in a short landscape viewport
+  ---
+  duration_ms: 1039.4346
+  ...
+# Subtest: QB07b actual browser 200 percent zoom keeps the clock and net details usable
+ok 18 - QB07b actual browser 200 percent zoom keeps the clock and net details usable
+  ---
+  duration_ms: 2240.2655
+  ...
+# Subtest: PC宽屏布局 / 平板横竖布局 / 手机完整棋盘布局 / 长说明与按钮可达
+ok 19 - PC宽屏布局 / 平板横竖布局 / 手机完整棋盘布局 / 长说明与按钮可达
+  ---
+  duration_ms: 13909.5546
+  ...
+# Subtest: 九类视口股票确认及费用明细可达
+ok 20 - 九类视口股票确认及费用明细可达
+  ---
+  duration_ms: 1581.978
+  ...
+# Subtest: 键盘焦点与减少动画 / 真正200%页面缩放完成选择详情及交易
+ok 21 - 键盘焦点与减少动画 / 真正200%页面缩放完成选择详情及交易
+  ---
+  duration_ms: 2290.7524
+  ...
+# Subtest: 手机开局→地图旋转→两次起点→机场明细→只读规则→继续回合
+ok 22 - 手机开局→地图旋转→两次起点→机场明细→只读规则→继续回合
+  ---
+  duration_ms: 5361.6715
+  ...
+not ok 23 - C:\\Users\\Yifan\\Desktop\\game\\e2e\\usability-flow.spec.js
+  ---
+  duration_ms: 607.1805
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\usability-flow.spec.js:8:6'
+  failureType: 'hookFailed'
+  error: "UNKNOWN: unknown error, open 'C:\\Users\\Yifan\\Desktop\\game\\docs\\gameplay-usability\\browser-evidence\\flow.json'"
+  code: 'UNKNOWN'
+  stack: |-
+    Object.writeFileSync (node:fs:2380:20)
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\usability-flow.spec.js:8:46)
+    process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    async TestHook.run (node:internal/test_runner/test:797:9)
+    async Test.runHook (node:internal/test_runner/test:723:9)
+    async after (node:internal/test_runner/test:755:9)
+    async Test.run (node:internal/test_runner/test:804:7)
+  ...
+# Subtest: 连续实际起点两次买入3城各2股
+ok 24 - 连续实际起点两次买入3城各2股
+  ---
+  duration_ms: 3406.2304
+  ...
+# Subtest: 失败、未提交、超时草稿不带入新窗口
+ok 25 - 失败、未提交、超时草稿不带入新窗口
+  ---
+  duration_ms: 361.1676
+  ...
+# Subtest: 迟到成功或失败不能污染新草稿或解除新请求锁
+ok 26 - 迟到成功或失败不能污染新草稿或解除新请求锁
+  ---
+  duration_ms: 419.2229
+  ...
+# Subtest: 限额、供给、城主4股与卖A买B
+ok 27 - 限额、供给、城主4股与卖A买B
+  ---
+  duration_ms: 595.1416
+  ...
+# Subtest: 报价变化更新展示后再次确认，拒绝无副作用
+ok 28 - 报价变化更新展示后再次确认，拒绝无副作用
+  ---
+  duration_ms: 194.3515
+  ...
+# Subtest: 无确认重试原请求身份，实际最多成交一次
+ok 29 - 无确认重试原请求身份，实际最多成交一次
+  ---
+  duration_ms: 216.7586
+  ...
+# Subtest: 转让及同窗口认证重连保留累计额度
+ok 30 - 转让及同窗口认证重连保留累计额度
+  ---
+  duration_ms: 1292.3384
+  ...
+# Subtest: 呈现延迟与旧v1未确认订单不补单
+ok 31 - 呈现延迟与旧v1未确认订单不补单
+  ---
+  duration_ms: 449.1621
+  ...
+1..31
+# tests 31
+# suites 0
+# pass 29
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 25491.6841

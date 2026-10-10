@@ -1,11 +1,8 @@
-# 主动经营本地验收记录
+# 本地验收报告
 
-日期：2026-10-10。状态：新局实现已接入，旧局保留原行为；未推送或部署。
+日期：2026-10-10。状态：实现与本轮限定验收完成，未推送或部署。
 
-证据：`test/active-management.test.js`8项通过，`test/active-management-balance.test.js`1项通过，`e2e/active-management.spec.js`3项通过；最终64项集中结果见[日志](../gameplay-improvements/final-verification-20261010.txt)。
+33 项 Checklist 门槛的证据见[逐项索引](../gameplay-improvements/acceptance-matrix.md)，最终集中80项检查见[实际日志](../gameplay-improvements/final-verification-20261010.txt)。代码检查通过。
 
-已直接检查互斥、旧remote_build入口、无效报价、非法数量、圈额度、原城主4股/全城20股、1%手续费、145%建设及H1折扣上限、促销0/1/2次奖励、欠款偿清/破产、产权变化、抵押、到期、立即封盘、本人额度隐私、确定性动作重放。真实触屏取消不耗次数，重复actionId只扣一次，成功经营不延长决定期限。
+采用有限固定状态、真实引擎/Socket流程、六视口与原相关回归组合验证；首轮失败和修正保留在总记录中。详细实施和风险范围见[开发记录](../gameplay-improvements/progress.md)。这些结果不代表统计胜率平衡，也不代表真实Render网络响应或所有手机浏览器已经验证。
 
-实际固定收益见 `evidence/fixed-returns.json`：三类各0/1/2/5/10次租金，共15条受控轨迹。无租金时无新增正净资产，促销补贴不随长期租金无限增加。未证明随机胜率平衡，不由此调参。
-
-已补六视口弹窗、触屏与键盘取消、真实断线重复请求、截止前后竞争、迟到回执不关闭新弹窗、换圈替换不退款及卖股不恢复额度。另补H4/H5组合与服务端私有差量重建，最新集中66项通过。Checklist已勾选20项；其余部分覆盖或未完成的完整串联/特殊状态组合仍不计通过。

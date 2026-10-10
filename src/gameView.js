@@ -1,6 +1,7 @@
 'use strict';
 const econ=require('./economy');
-const {assetSummary}=require('./assets');
+const {assetSummary,netAssetSummary}=require('./assets');
+const quick=require('./quickMode');
 const {BY_ID}=require('./gameplayCatalog');
 const routes=require('./opportunityRoutes');
 function snapshot(s,viewerId,clockView){
@@ -9,6 +10,7 @@ function snapshot(s,viewerId,clockView){
  out.players=s.players.map(p=>{
   const x={};for(const k of ['id','name','seat','color','cash','position','alive','jailed','jailTurns','frozen','cities','airports','stocks','lapBuys','lapDone','connected','socketId'])x[k]=p[k];
   x.opportunities={selectedIds:p.opportunities.selectedIds.slice()};
+  if(quick.enabled(s))x.netAssetSummary=netAssetSummary(s,p.id);
   x.assetSummary=assetSummary(s,p.id);return x;
  });
  out.cities=Object.fromEntries(Object.entries(s.cities).map(([id,c])=>[id,{...c,standardRent:c.mortgaged?0:econ.rentFor(c)}]));
@@ -27,6 +29,10 @@ function snapshot(s,viewerId,clockView){
   out.opportunityStage={stageId:stage.stageId,ordinal:stage.ordinal,participantIds:stage.participantIds,completed:Object.fromEntries(stage.participantIds.map(id=>[id,!!stage.participants[id].submitted]))};
  }
  out.decision=clockView||null;out.opportunityCatalog=BY_ID;
+ if(quick.enabled(s)){
+  out.quickRevision=s.quickRevision;
+  if(s.quick.status==='closed')out.quickResult=globalThis.structuredClone(s.quick.result);
+ }
  if(routes.enabled(s)){
   out.routeRevision=s.routeRevision;out.gameMode=s.gameMode;
   const flow=s.routeFlow,c=flow.activeChoice;

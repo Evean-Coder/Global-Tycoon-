@@ -4,6 +4,7 @@
 const { CITIES } = require('./board');
 const { cityTotalValue } = require('./gameLogic');
 const { assetSummary } = require('./assets');
+const quick = require('./quickMode');
 
 const AIRPORT_VALUE = 15000;
 
@@ -96,11 +97,12 @@ function buildGameRecord(room, endReason) {
     schema: st.ruleVersion===2?'global-tycoon.game-record.v2':'global-tycoon.game-record.v1',
     ...(st.ruleVersion===2?{gameId:st.gameId,ruleVersion:2,completeRounds:st.roundFlow.index-1}:{}),
     ...(require('./opportunityRoutes').enabled(st)?{routeRevision:st.routeRevision,gameMode:st.gameMode}:{}),
+    ...(quick.enabled(st)&&st.quick.status==='closed'?{quick:{quickRevision:st.quickRevision,startedAt:st.quick.startedAt,...globalThis.structuredClone(st.quick.result)}}:{}),
     ...(st.economyRevision?{economyRevision:st.economyRevision,travelExpense:require('./travelExpense').stage(st)}:{}),
     roomCode: room.code,
     startedAt: st.startedAt,
-    endedAt: Date.now(),
-    endReason,
+    endedAt: quick.enabled(st)&&st.quick.status==='closed'?st.quick.endedAt:Date.now(),
+    endReason: quick.enabled(st)&&st.quick.status==='closed'?st.quick.reason:endReason,
     rounds: st.rounds || 0,
     winner: st.winner || null,
     rank: st.rank || [],

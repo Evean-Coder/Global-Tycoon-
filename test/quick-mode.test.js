@@ -122,3 +122,21 @@ test('QM10: quick bankruptcy ends without new auction or premature final settlem
   const surrendered = game(2);logic.apply(surrendered,{type:'surrender'},f.rng(),{actorId:'p0',source:'player'});
   assert.equal(surrendered.quickEndIntent,'normal'); assert.equal(surrendered.finalSettlementDone,undefined);
 });
+test('QM11: public net values and frozen results omit private candidates and credentials', () => {
+  const {snapshot}=require('../src/state'),opp=require('../src/opportunities');
+  const s=game();s.players[0].reconnectToken='secret';opp.beginOpportunityStage(s,1,{kind:'start'},f.rng());
+  const other=snapshot(s,'p1');assert.equal(other.players[0].netAssetSummary.netAssets,150000);
+  assert.equal(other.self.choice.candidateIds.length,3);assert.equal(other.self.playerId,'p1');
+  assert.equal(other.players[0].reconnectToken,undefined);assert.equal(other.quickResult,undefined);
+  const publicView=snapshot(s);assert.equal(JSON.stringify(publicView).includes('candidateIds'),false);
+  close(s);assert.deepEqual(snapshot(s,'p0').quickResult,snapshot(s,'p1').quickResult);
+  assert.equal(JSON.stringify(snapshot(s)).includes('candidateIds'),false);
+  assert.equal(snapshot(f.game()).quickRevision,undefined);
+});
+test('QM12: records use one frozen end time and match net ranking without inventing old values', () => {
+  const {buildGameRecord}=require('../src/record');const s=game();s.players[0].cash=170000;
+  const out=close(s);const room={code:'T',state:s,events:out.events};const first=buildGameRecord(room,'wrong'),second=buildGameRecord(room,'normal');
+  assert.equal(first.endedAt,1801000);assert.equal(second.endedAt,first.endedAt);assert.equal(first.endReason,'time_limit');
+  assert.deepEqual(first.quick.ranking,s.quick.result.ranking);assert.equal(first.quick.quickRevision,quick.REVISION);
+  assert.equal(buildGameRecord({code:'T',state:f.game(),events:[]},'normal').quick,undefined);
+});

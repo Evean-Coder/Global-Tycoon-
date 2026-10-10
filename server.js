@@ -543,6 +543,7 @@ io.on('connection', (socket) => {
     cb && cb({ ok: true, roomCode: code });
     emitRoom(room);
     emitGame(room);
+    if (room.gameRecord) socket.emit('gameRecord',room.gameRecord);
   }));
 
   socket.on('startGame', safeHandler((data, cb) => {
@@ -568,6 +569,7 @@ io.on('connection', (socket) => {
     candidate.startedAt = startedAt;
     try {
       resetDeck(candidate, room.rng || createRng());
+      if (clock) routes.markQuickDue(candidate,clock.read());
       opportunities.beginOpportunityStage(candidate,1,{kind:'start'},room.rng||createRng());
     } catch (err) { clock?.stop(); return cb?.({ok:false,error:err.message}); }
     clearTimer(room, 'action');

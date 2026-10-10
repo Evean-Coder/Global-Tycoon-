@@ -68,3 +68,30 @@ test('QS11: later milestones queue once, active choice survives 28 then cancels 
   x.time.set(1320000);api.advanceRouteTime(x.room);assert.equal(x.room.state.routeFlow.players.p0.pending.length,1);x.time.set(1680000);api.advanceRouteTime(x.room);assert.equal(x.room.state.routeFlow.activeChoice.opportunityId,c.opportunityId);assert.equal(x.room.state.routeFlow.players.p0.pending.length,0);
   const held=x.room.state.players[0].opportunities.selectedIds.slice();x.time.set(1800000);api.advanceRouteTime(x.room);assert.equal(x.room.state.routeFlow.activeChoice,null);assert.deepEqual(x.room.state.players[0].opportunities.selectedIds,held);
 });
+test('QS12: natural quick finish sends one identical record with frozen reason',async()=>{
+  const x=await setup();await start(x);await initial(x);assert.equal((await submit(x,'p0',{type:'surrender'})).ok,true);
+  assert.equal(x.room.state.winner,'p1');assert.equal(x.room.state.quick.reason,'normal');await until(()=>x.clients.every(c=>c.record?.quick));
+  assert.deepEqual(x.a.record.quick,x.b.record.quick);const record=x.room.gameRecord,cash=x.room.state.players.map(p=>p.cash);
+  api.emitGame(x.room);api.finalizeGame(x.room,'disband');assert.equal(x.room.gameRecord,record);assert.deepEqual(x.room.state.players.map(p=>p.cash),cash);
+});
+test('QS13: offline personal pause never pauses total deadline and reconnect receives record',async()=>{
+  const x=await setup();await start(x);await initial(x);x.time.set(5000);const token=x.a.token;x.a.close();await until(()=>x.room.actionClock.paused);assert.equal(x.room.actionClock.remainingSeconds(),15);
+  x.time.set(100000);const next=await connect();assert.equal((await ack(next,'reconnect',{roomCode:x.room.code,name:'甲',token})).ok,true);assert.equal(x.room.actionClock.remainingSeconds(),15);
+  const nextToken=next.token;next.close();x.b.close();await until(()=>x.room.players.every(p=>!p.connected));x.time.advance(1700000);assert.equal(x.room.state.quick.status,'closed');
+  const last=await connect();await ack(last,'reconnect',{roomCode:x.room.code,name:'甲',token:nextToken});await until(()=>last.record?.quick&&last.game?.quickResult);assert.deepEqual(last.record.quick.ranking,last.game.quickResult.ranking);assert.equal(last.game.quickResult.reason,'time_limit');
+});
+test('QS14: disband and idle cleanup preserve net ranking and actual termination reason',async()=>{
+  const x=await setup();await start(x);f.own(x.room.state,'p0','上海');x.room.state.cities['上海'].mortgaged=true;x.room.state.players[0].cash=140000;
+  assert.equal((await ack(x.a,'disbandRoom',{})).ok,true);assert.equal(x.room.state.quick.reason,'disband');assert.equal(x.room.state.winner,null);assert.equal(x.room.state.quick.result.ranking[0].netAssets,150000);
+  const y=await setup();await start(y);y.room.idleSince=1;api.sweepRooms(2,{gameIdleMs:0});assert.equal(y.room.gameRecord.quick.reason,'idle_timeout');assert.equal(api.rooms.has(y.room.code),false);assert.equal(y.time.timers.size,0);
+  const z=await setup();await start(z);z.time.set(1800000);z.room.idleSince=1;api.sweepRooms(2,{gameIdleMs:0});assert.equal(z.room.gameRecord.quick.reason,'time_limit');
+});
+test('QS15: restart resets identity and old callbacks cannot touch next game',async()=>{
+  const x=await setup();await start(x);const oldId=x.room.state.gameId,oldCallbacks=[...x.time.timers.values()].map(t=>t.fn);await ack(x.a,'disbandRoom',{});assert.equal(x.time.timers.size,0);
+  x.time.set(10000);assert.equal((await ack(x.a,'startGame',{gameMode:'quick'})).ok,true);assert.notEqual(x.room.state.gameId,oldId);for(const fn of oldCallbacks)fn();assert.equal(x.room.state.quick.status,'running');assert.equal(x.room.quickClock.read().elapsedMs,0);assert.equal(x.room.gameRecord,null);
+});
+test('QS16: five-second heartbeat updates time without changing revision or decision',async()=>{
+  const x=await setup();await start(x);const updates=[];x.a.on('quickTimeUpdate',t=>updates.push(t));const revision=x.room.state.revision,id=x.room.actionClock.decisionId;
+  x.time.advance(5000);await until(()=>updates.length===1);assert.equal(updates[0].elapsedMs,5000);assert.equal(x.room.state.revision,revision);assert.equal(x.room.actionClock.decisionId,id);
+  await ack(x.a,'disbandRoom',{});x.time.advance(5000);await new Promise(r=>setTimeout(r,10));assert.equal(updates.length,1);assert.equal(x.time.timers.size,0);
+});

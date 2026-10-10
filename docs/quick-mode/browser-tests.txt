@@ -2,54 +2,69 @@ TAP version 13
 # Subtest: QB01 mode is confirmed before real start and guest control is read-only
 ok 1 - QB01 mode is confirmed before real start and guest control is read-only
   ---
-  duration_ms: 2225.5684
+  duration_ms: 2184.4227
   ...
 # Subtest: QB02 restart uses waiting/error feedback instead of raw fire-and-forget
 ok 2 - QB02 restart uses waiting/error feedback instead of raw fire-and-forget
   ---
-  duration_ms: 159.5702
+  duration_ms: 139.2368
   ...
 # Subtest: QB03 total time continues through personal pause and ignores stale correction
 ok 3 - QB03 total time continues through personal pause and ignores stale correction
   ---
-  duration_ms: 79.303
+  duration_ms: 78.5266
   ...
 # Subtest: QB04 net assets, debts and spendable cash have distinct labels
 ok 4 - QB04 net assets, debts and spendable cash have distinct labels
   ---
-  duration_ms: 82.0172
+  duration_ms: 81.9704
   ...
 # Subtest: QB05 ties, reasons and authoritative result work before a record arrives
 ok 5 - QB05 ties, reasons and authoritative result work before a record arrives
   ---
-  duration_ms: 45.4908
+  duration_ms: 50.7565
   ...
 # Subtest: QB06 download and replay preserve the frozen quick result
 ok 6 - QB06 download and replay preserve the frozen quick result
   ---
-  duration_ms: 265.869
+  duration_ms: 245.7587
   ...
 # Subtest: QB07 PC tablet and short landscape layouts expose accessible controls
 ok 7 - QB07 PC tablet and short landscape layouts expose accessible controls
   ---
-  duration_ms: 1155.2274
+  duration_ms: 1143.0227
   ...
 # Subtest: QB08 authority closes old sheets and cancels queued visual animations
 ok 8 - QB08 authority closes old sheets and cancels queued visual animations
   ---
-  duration_ms: 823.026
+  duration_ms: 838.0732
   ...
-# Subtest: QB09 actual browser 200 percent zoom keeps the clock and net details usable
-ok 9 - QB09 actual browser 200 percent zoom keeps the clock and net details usable
+# Subtest: QB10 finite browser flow uses legal actions through growth routes reconnect and deadline
+ok 9 - QB10 finite browser flow uses legal actions through growth routes reconnect and deadline
   ---
-  duration_ms: 2385.8081
+  duration_ms: 692.7577
   ...
-1..9
-# tests 9
+# Subtest: QB11 real total clock preserves an opened route at 28 and closes its sheet at 30
+ok 10 - QB11 real total clock preserves an opened route at 28 and closes its sheet at 30
+  ---
+  duration_ms: 291.3306
+  ...
+# Subtest: QB07c mobile touch can open assets and rules in a short landscape viewport
+ok 11 - QB07c mobile touch can open assets and rules in a short landscape viewport
+  ---
+  duration_ms: 1055.7046
+  ...
+# Subtest: QB07b actual browser 200 percent zoom keeps the clock and net details usable
+ok 12 - QB07b actual browser 200 percent zoom keeps the clock and net details usable
+  ---
+  duration_ms: 2244.4487
+  ...
+1..12
+# tests 12
 # suites 0
-# pass 9
+# pass 12
 # fail 0
 # cancelled 0
 # skipped 0
 # todo 0
-# duration_ms 7708.5888
+# duration_ms 9583.7304

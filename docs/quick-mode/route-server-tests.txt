@@ -2,67 +2,67 @@ TAP version 13
 # Subtest: S01 动作契约非法载荷越权与旧窗口
 ok 1 - S01 动作契约非法载荷越权与旧窗口
   ---
-  duration_ms: 2.8965
+  duration_ms: 2.6212
   ...
 # Subtest: S02 个人阶段只允许合法选择或服务端超时
 ok 2 - S02 个人阶段只允许合法选择或服务端超时
   ---
-  duration_ms: 0.6125
+  duration_ms: 0.5591
   ...
 # Subtest: S03 决定身份时间与暂停恢复
 ok 3 - S03 决定身份时间与暂停恢复
   ---
-  duration_ms: 0.9842
+  duration_ms: 0.9701
   ...
 # Subtest: S04 新页面能力门槛与普通开局
 ok 4 - S04 新页面能力门槛与普通开局
   ---
-  duration_ms: 38.0083
+  duration_ms: 49.4135
   ...
 # Subtest: S05 成交结果回执去重与非法请求不修改
 ok 5 - S05 成交结果回执去重与非法请求不修改
   ---
-  duration_ms: 17.1035
+  duration_ms: 16.6249
   ...
 # Subtest: S06 确认前及执行跨个人截止不提交副本
 ok 6 - S06 确认前及执行跨个人截止不提交副本
   ---
-  duration_ms: 17.5809
+  duration_ms: 18.0055
   ...
 # Subtest: S07 受控总时间提供者截止优先适配（非快速核心验收）
 ok 7 - S07 受控总时间提供者截止优先适配（非快速核心验收）
   ---
-  duration_ms: 17.5089
+  duration_ms: 17.522
   ...
 # Subtest: S08 受控时点仅登记一次且不改行动版本
 ok 8 - S08 受控时点仅登记一次且不改行动版本
   ---
-  duration_ms: 10.9658
+  duration_ms: 9.7158
   ...
 # Subtest: S08b 掷骰先提交后到时只排队，不撤销原股票流程
 ok 9 - S08b 掷骰先提交后到时只排队，不撤销原股票流程
   ---
-  duration_ms: 14.492
+  duration_ms: 15.3995
   ...
 # Subtest: S09 重连恢复原候选与剩余时间
 ok 10 - S09 重连恢复原候选与剩余时间
   ---
-  duration_ms: 24.5823
+  duration_ms: 27.1501
   ...
 # Subtest: S10 旧能力重连可查看但新局动作要求更新，旧局仍可操作
 ok 11 - S10 旧能力重连可查看但新局动作要求更新，旧局仍可操作
   ---
-  duration_ms: 19.3311
+  duration_ms: 37.3435
   ...
 # Subtest: S11a 房间结束清理且记录重复获取不重复结算
 ok 12 - S11a 房间结束清理且记录重复获取不重复结算
   ---
-  duration_ms: 8.4973
+  duration_ms: 9.3079
   ...
 # Subtest: S11 普通两人真实初始阶段起点换路线与后续重连
 ok 13 - S11 普通两人真实初始阶段起点换路线与后续重连
   ---
-  duration_ms: 81.5945
+  duration_ms: 92.6105
   ...
 1..13
 # tests 13
@@ -72,4 +72,4 @@ ok 13 - S11 普通两人真实初始阶段起点换路线与后续重连
 # cancelled 0
 # skipped 0
 # todo 0
-# duration_ms 275.878
+# duration_ms 314.6452

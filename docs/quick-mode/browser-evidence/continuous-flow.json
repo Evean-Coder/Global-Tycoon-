@@ -1,0 +1,196 @@
+{
+  "clockInputs": [
+    0,
+    300000,
+    600000,
+    900000,
+    1320000,
+    1680000,
+    1800000
+  ],
+  "stateFixture": false,
+  "randomInjection": "既有骰袋测试接口",
+  "actions": [
+    {
+      "id": "p0",
+      "type": "roll_dice",
+      "phase": "waiting_roll"
+    },
+    {
+      "id": "p1",
+      "type": "roll_dice",
+      "phase": "waiting_roll"
+    },
+    {
+      "id": "p0",
+      "type": "roll_dice",
+      "phase": "waiting_roll"
+    },
+    {
+      "id": "p1",
+      "type": "roll_dice",
+      "phase": "waiting_roll"
+    },
+    {
+      "id": "p0",
+      "type": "roll_dice",
+      "phase": "waiting_roll"
+    },
+    {
+      "id": "p1",
+      "type": "roll_dice",
+      "phase": "waiting_roll"
+    },
+    {
+      "id": "p0",
+      "type": "roll_dice",
+      "phase": "waiting_roll"
+    },
+    {
+      "id": "p1",
+      "type": "roll_dice",
+      "phase": "waiting_roll"
+    },
+    {
+      "id": "p0",
+      "type": "roll_dice",
+      "phase": "stock"
+    },
+    {
+      "id": "p0",
+      "type": "stock_done",
+      "phase": "waiting_roll"
+    },
+    {
+      "id": "p1",
+      "type": "roll_dice",
+      "phase": "stock"
+    },
+    {
+      "id": "p1",
+      "type": "stock_done",
+      "phase": "waiting_roll"
+    },
+    {
+      "id": "p0",
+      "type": "roll_dice",
+      "phase": "buy"
+    },
+    {
+      "id": "p0",
+      "type": "buy",
+      "phase": "waiting_roll"
+    },
+    {
+      "id": "p1",
+      "type": "roll_dice",
+      "phase": "waiting_roll"
+    },
+    {
+      "id": "p0",
+      "type": "route_skip",
+      "phase": "waiting_roll"
+    },
+    {
+      "id": "p0",
+      "type": "roll_dice",
+      "phase": "route_choose"
+    },
+    {
+      "id": "p1",
+      "type": "route_skip",
+      "phase": "waiting_roll"
+    },
+    {
+      "id": "p1",
+      "type": "roll_dice",
+      "phase": "waiting_roll"
+    },
+    {
+      "id": "p0",
+      "type": "route_skip",
+      "phase": "waiting_roll"
+    },
+    {
+      "id": "p0",
+      "type": "roll_dice",
+      "phase": "buy"
+    },
+    {
+      "id": "p0",
+      "type": "buy",
+      "phase": "route_choose"
+    },
+    {
+      "id": "p1",
+      "type": "route_skip",
+      "phase": "waiting_roll"
+    },
+    {
+      "id": "p1",
+      "type": "roll_dice",
+      "phase": "waiting_roll"
+    },
+    {
+      "id": "p0",
+      "type": "roll_dice",
+      "phase": "buy"
+    }
+  ],
+  "result": {
+    "quickRevision": "quick-mode-v1",
+    "startedAt": 1791599482768,
+    "reason": "time_limit",
+    "elapsedMs": 1800000,
+    "endedAt": 1791601282768,
+    "ranking": [
+      {
+        "playerId": "p0",
+        "alive": true,
+        "summary": {
+          "cash": 148380,
+          "propertyValue": 16600,
+          "airportValue": 0,
+          "stockValue": 0,
+          "retainedPending": 0,
+          "grossAssets": 164980,
+          "mortgagePrincipal": 0,
+          "mortgageInterest": 0,
+          "netAssets": 164980
+        },
+        "rank": 1,
+        "netAssets": 164980
+      },
+      {
+        "playerId": "p1",
+        "alive": true,
+        "summary": {
+          "cash": 161236,
+          "propertyValue": 0,
+          "airportValue": 0,
+          "stockValue": 0,
+          "retainedPending": 0,
+          "grossAssets": 161236,
+          "mortgagePrincipal": 0,
+          "mortgageInterest": 0,
+          "netAssets": 161236
+        },
+        "rank": 2,
+        "netAssets": 161236
+      }
+    ],
+    "winnerIds": [
+      "p0"
+    ],
+    "cancelled": [
+      {
+        "phase": "buy",
+        "type": "buy",
+        "reason": "time_limit",
+        "playerId": "p0",
+        "cityId": "墨西哥城"
+      }
+    ],
+    "clearedCityIds": []
+  }
+}

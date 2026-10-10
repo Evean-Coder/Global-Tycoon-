@@ -2,89 +2,109 @@ TAP version 13
 # Subtest: QS01: room modes agree for two to four players and enforce owner permissions
 ok 1 - QS01: room modes agree for two to four players and enforce owner permissions
   ---
-  duration_ms: 63.3215
+  duration_ms: 59.2835
   ...
 # Subtest: QS02: capabilities and conflicting mode fail without replacing prior state
 ok 2 - QS02: capabilities and conflicting mode fail without replacing prior state
   ---
-  duration_ms: 14.741
+  duration_ms: 14.341
   ...
 # Subtest: QS03: real total clock begins with first choice and shares injected time source
 ok 3 - QS03: real total clock begins with first choice and shares injected time source
   ---
-  duration_ms: 8.952
+  duration_ms: 8.1348
   ...
 # Subtest: QS04: atomic close can retry after failed economic checks with no partial authoritative mutation
 ok 4 - QS04: atomic close can retry after failed economic checks with no partial authoritative mutation
   ---
-  duration_ms: 12.6635
+  duration_ms: 13.4273
   ...
 # Subtest: QS05: skipped nodes, warning deduplication and late callbacks prioritize total deadline
 ok 5 - QS05: skipped nodes, warning deduplication and late callbacks prioritize total deadline
   ---
-  duration_ms: 13.3404
+  duration_ms: 13.6217
+  ...
+# Subtest: QS04b: partial candidate clearing failure never commits to the real room
+ok 6 - QS04b: partial candidate clearing failure never commits to the real room
+  ---
+  duration_ms: 19.6654
   ...
 # Subtest: QS06: committed action survives deadline; execution crossing cutoff discards candidate
-ok 6 - QS06: committed action survives deadline; execution crossing cutoff discards candidate
+ok 7 - QS06: committed action survives deadline; execution crossing cutoff discards candidate
   ---
-  duration_ms: 65.2628
+  duration_ms: 60.2673
   ...
 # Subtest: QS07: successful receipt remains queryable after closure while new requests fail
-ok 7 - QS07: successful receipt remains queryable after closure while new requests fail
+ok 8 - QS07: successful receipt remains queryable after closure while new requests fail
   ---
-  duration_ms: 14.2732
+  duration_ms: 14.9196
   ...
 # Subtest: QS08: same decision has no refill, simultaneous personal and total deadline only closes
-ok 8 - QS08: same decision has no refill, simultaneous personal and total deadline only closes
+ok 9 - QS08: same decision has no refill, simultaneous personal and total deadline only closes
   ---
-  duration_ms: 13.9541
+  duration_ms: 14.4123
   ...
 # Subtest: QS09: stock quote updates keep budget; unconfirmed transfer is cancelled at deadline
-ok 9 - QS09: stock quote updates keep budget; unconfirmed transfer is cancelled at deadline
+ok 10 - QS09: stock quote updates keep budget; unconfirmed transfer is cancelled at deadline
   ---
-  duration_ms: 23.7428
+  duration_ms: 24.2723
   ...
 # Subtest: QS10: due initial stages open safely in order without replaying turn preparation
-ok 10 - QS10: due initial stages open safely in order without replaying turn preparation
+ok 11 - QS10: due initial stages open safely in order without replaying turn preparation
   ---
-  duration_ms: 21.5129
+  duration_ms: 22.0181
   ...
 # Subtest: QS11: later milestones queue once, active choice survives 28 then cancels at 30
-ok 11 - QS11: later milestones queue once, active choice survives 28 then cancels at 30
+ok 12 - QS11: later milestones queue once, active choice survives 28 then cancels at 30
   ---
-  duration_ms: 27.0911
+  duration_ms: 24.6167
   ...
 # Subtest: QS12: natural quick finish sends one identical record with frozen reason
-ok 12 - QS12: natural quick finish sends one identical record with frozen reason
+ok 13 - QS12: natural quick finish sends one identical record with frozen reason
   ---
-  duration_ms: 30.6906
+  duration_ms: 33.8816
   ...
 # Subtest: QS13: offline personal pause never pauses total deadline and reconnect receives record
-ok 13 - QS13: offline personal pause never pauses total deadline and reconnect receives record
+ok 14 - QS13: offline personal pause never pauses total deadline and reconnect receives record
   ---
-  duration_ms: 54.9223
+  duration_ms: 50.1063
   ...
 # Subtest: QS14: disband and idle cleanup preserve net ranking and actual termination reason
-ok 14 - QS14: disband and idle cleanup preserve net ranking and actual termination reason
+ok 15 - QS14: disband and idle cleanup preserve net ranking and actual termination reason
   ---
-  duration_ms: 29.2461
+  duration_ms: 20.8445
   ...
 # Subtest: QS15: restart resets identity and old callbacks cannot touch next game
-ok 15 - QS15: restart resets identity and old callbacks cannot touch next game
+ok 16 - QS15: restart resets identity and old callbacks cannot touch next game
   ---
-  duration_ms: 14.708
+  duration_ms: 12.7489
   ...
 # Subtest: QS16: five-second heartbeat updates time without changing revision or decision
-ok 16 - QS16: five-second heartbeat updates time without changing revision or decision
+ok 17 - QS16: five-second heartbeat updates time without changing revision or decision
   ---
-  duration_ms: 54.6331
+  duration_ms: 39.716
   ...
-1..16
-# tests 16
+# Subtest: QS17: finite real quick game grows, operates, skips routes and seals an unconfirmed purchase
+ok 18 - QS17: finite real quick game grows, operates, skips routes and seals an unconfirmed purchase
+  ---
+  duration_ms: 108.3566
+  ...
+# Subtest: QS18: real clock closes unopened routes at 28 and cancels active choice at 30
+ok 19 - QS18: real clock closes unopened routes at 28 and cancels active choice at 30
+  ---
+  duration_ms: 33.2825
+  ...
+# Subtest: QS19: actual route confirmation before at and across total cutoff is atomic
+ok 20 - QS19: actual route confirmation before at and across total cutoff is atomic
+  ---
+  duration_ms: 146.4149
+  ...
+1..20
+# tests 20
 # suites 0
-# pass 16
+# pass 20
 # fail 0
 # cancelled 0
 # skipped 0
 # todo 0
-# duration_ms 486.1727
+# duration_ms 753.02

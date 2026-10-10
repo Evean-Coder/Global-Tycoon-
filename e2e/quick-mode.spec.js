@@ -27,6 +27,7 @@ test('QB03 total time continues through personal pause and ignores stale correct
   await b.evaluate(()=>socket.disconnect());await a.waitForFunction(()=>latestState.decision.paused);const personal=await a.textContent('#timer'),first=await a.textContent('#quickTimer');time.advance(5000);await a.waitForFunction(first=>document.getElementById('quickTimer').textContent!==first,first);assert.equal(await a.textContent('#timer'),personal);
   packets.push(h.room.quickClock.read());h.api.io.to('room:'+h.room.code).emit('quickTimeUpdate',{...packets[0],gameId:'old'});h.api.io.to('room:'+h.room.code).emit('quickTimeUpdate',{...packets[0],elapsedMs:0});await new Promise(r=>setTimeout(r,30));assert.notEqual(await a.textContent('#quickTimer'),'30:00');
   await b.evaluate(()=>socket.connect());await b.waitForFunction(()=>socket.connected&&!latestState.decision.paused);assert.equal(h.room.state.quick.status,'running');
+  await a.evaluate(()=>socket.listeners('quickTimeUpdate')[0]({gameId:latestState.gameId,elapsedMs:1800000,totalRemainingMs:0,closed:false,quickRevision:'quick-mode-v1',mode:'quick'}));assert.ok((await a.textContent('#quickEndHint')).includes('等待'));assert.notEqual(await a.evaluate(()=>game.phase),'game_over');assert.equal(h.room.state.quick.status,'running');
 });
 test('QB04 net assets, debts and spendable cash have distinct labels',async()=>{
   const s=ready();f.own(s,'p0','上海');s.cities['上海'].mortgaged=true;s.cities['上海'].mortgageInterest=1000;s.players[0].cash=-100;
@@ -49,10 +50,39 @@ test('QB07 PC tablet and short landscape layouts expose accessible controls',{ti
   }
 });
 test('QB08 authority closes old sheets and cancels queued visual animations',async()=>{
-  const a=h.pages[0];await a.emulateMedia({reducedMotion:'no-preference'});await a.evaluate(()=>{playDiceAnim();animBusy=true;animQueued={...latestState,phase:'waiting_roll'};});h.api.closeQuickGame(h.room,'disband');h.api.emitGame(h.room);await a.waitForFunction(()=>game.phase==='game_over');assert.deepEqual(await a.evaluate(()=>({animBusy,diceAnimating,queued:animQueued})),{animBusy:false,diceAnimating:false,queued:null});await new Promise(r=>setTimeout(r,800));assert.equal(await a.evaluate(()=>game.phase),'game_over');assert.equal(await a.locator('#choiceModal').isVisible(),false);assert.equal(await a.locator('#stockModal').isVisible(),false);await a.emulateMedia({reducedMotion:'reduce'});assert.deepEqual(h.errors,[]);
+  const a=h.pages[0];await a.emulateMedia({reducedMotion:'no-preference'});await a.evaluate(()=>{for(const id of ['choiceModal','stockModal','routeModal','modal'])document.getElementById(id).classList.remove('hidden');playDiceAnim();animBusy=true;animQueued={...latestState,phase:'waiting_roll'};});h.api.closeQuickGame(h.room,'disband');h.api.emitGame(h.room);await a.waitForFunction(()=>game.phase==='game_over');assert.deepEqual(await a.evaluate(()=>({animBusy,diceAnimating,queued:animQueued})),{animBusy:false,diceAnimating:false,queued:null});await new Promise(r=>setTimeout(r,800));assert.equal(await a.evaluate(()=>game.phase),'game_over');assert.equal(await a.locator('#choiceModal').isVisible(),false);assert.equal(await a.locator('#stockModal').isVisible(),false);assert.equal(await a.locator('#routeModal').isVisible(),false);await a.emulateMedia({reducedMotion:'reduce'});assert.deepEqual(h.errors,[]);
 });
 
-test('QB09 actual browser 200 percent zoom keeps the clock and net details usable',{timeout:60000},async()=>{
+test('QB10 finite browser flow uses legal actions through growth routes reconnect and deadline',{timeout:60000},async()=>{
+  await restart();await h.pages[0].setViewportSize({width:1440,height:900});
+  for(const ms of [300000,600000]){await moveTo(ms);await h.pages[0].waitForSelector('#choiceModal:not(.hidden)');await h.choose();}
+  const log=[];
+  async function action(id,a){const page=h.pages[+id.slice(1)];await page.waitForFunction(r=>latestState.revision>=r,h.room.state.revision);const result=await page.evaluate(a=>new Promise(r=>socket.emit('action',{...a,gameId:latestState.gameId,actionId:'browser-flow-'+globalThis.crypto.randomUUID(),decisionId:latestState.decision.decisionId,actorRevision:latestState.self.actorRevision},r)),a);assert.equal(result.ok,true,JSON.stringify({a,result}));log.push({id,type:a.type,phase:h.room.state.phase});}
+  async function roll(id,n){h.room.rng.diceBag=[n];await action(id,{type:'roll_dice'});if(h.room.state.phase==='stock')await action(id,{type:'stock_done'});}
+  for(const n of [10,8,10,9,5])for(const id of ['p0','p1'])await roll(id,n);
+  await roll('p0',1);await action('p0',{type:'buy',decision:'buy'});await roll('p1',1);
+  for(const [ms,n]of [[900000,9],[1320000,8]]){await moveTo(ms);for(const id of ['p0','p1']){const c=h.room.state.routeFlow.activeChoice,other=h.pages[id==='p0'?1:0];await other.waitForFunction(r=>latestState.revision>=r,h.room.state.revision);assert.equal(await other.evaluate(()=>latestState.self.routeChoice),undefined);await action(id,{type:'route_skip',opportunityId:c.opportunityId,candidateVersion:c.candidateVersion});await roll(id,n);if(h.room.state.phase==='buy')await action(id,{type:'buy',decision:'buy'});}}
+  await h.pages[1].evaluate(()=>socket.disconnect());await h.pages[0].waitForFunction(()=>latestState.decision.paused);await moveTo(1680000);await h.pages[1].evaluate(()=>socket.connect());await h.pages[0].waitForFunction(()=>!latestState.decision.paused);
+  await roll('p0',10);assert.equal(h.room.state.phase,'buy');const city=h.room.state.pending.cityId;await moveTo(1800000);await h.pages[0].waitForFunction(()=>game.phase==='game_over');assert.equal(h.room.state.cities[city].ownerId,null);assert.equal(h.room.gameRecord.quick.reason,'time_limit');
+  for(const page of h.pages){await page.waitForFunction(()=>!!lastRecord?.quick);assert.ok((await page.textContent('#modalBody')).includes('30分钟到时封盘'));}
+  await h.pages[1].evaluate(()=>socket.disconnect());await h.pages[1].evaluate(()=>socket.connect());await h.pages[1].waitForFunction(()=>socket.connected&&game.phase==='game_over'&&!!lastRecord?.quick);assert.deepEqual(await h.pages[1].evaluate(()=>lastRecord.quick),h.room.gameRecord.quick);
+  fs.writeFileSync(path.join(evidence,'continuous-flow.json'),JSON.stringify({clockInputs:[0,300000,600000,900000,1320000,1680000,1800000],stateFixture:false,randomInjection:'既有骰袋测试接口',actions:log,result:h.room.gameRecord.quick},null,2));assert.deepEqual(h.errors,[]);
+});
+
+test('QB11 real total clock preserves an opened route at 28 and closes its sheet at 30',async()=>{
+  await restart();for(const ms of [300000,600000]){await moveTo(ms);await h.pages[0].waitForSelector('#choiceModal:not(.hidden)');await h.choose();}
+  await moveTo(900000);await h.pages[0].waitForSelector('#routeModal:not(.hidden)');const held=h.room.state.players[0].opportunities.selectedIds.slice();
+  await h.pages[1].evaluate(()=>socket.disconnect());await h.pages[0].waitForFunction(()=>latestState.decision.paused);await moveTo(1680000);assert.equal(await h.pages[0].locator('#routeModal').isVisible(),true);assert.equal(h.room.state.routeFlow.laterClosed,true);
+  await moveTo(1800000);await h.pages[0].waitForFunction(()=>game.phase==='game_over');assert.equal(await h.pages[0].locator('#routeModal').isVisible(),false);assert.deepEqual(h.room.state.players[0].opportunities.selectedIds,held);await h.pages[1].evaluate(()=>socket.connect());await h.pages[1].waitForFunction(()=>game.phase==='game_over'&&!!lastRecord?.quick);assert.deepEqual(h.errors,[]);
+});
+
+test('QB07c mobile touch can open assets and rules in a short landscape viewport',async()=>{
+  await restart();const context=await h.browser.newContext({viewport:{width:812,height:375},isMobile:true,hasTouch:true,reducedMotion:'reduce'});const page=await context.newPage();page.on('pageerror',e=>h.errors.push(e.message));
+  try{await page.goto(h.url,{waitUntil:'networkidle'});const rp=h.room.players[1];await page.evaluate(d=>new Promise(r=>socket.emit('reconnect',d,r)),{roomCode:h.room.code,name:rp.name,token:rp.token});await page.waitForSelector('#quickClockBar:not(.hidden)');await page.locator('#btnAssets').tap();assert.equal(await page.locator('#modal').isVisible(),true);await page.locator('#modalBody button').last().tap();await page.locator('#btnRules').tap();assert.ok((await page.textContent('#rulesBody')).includes('30分钟'));await page.locator('#btnRulesClose').tap();const m=await page.evaluate(()=>({width:window.innerWidth,scrollWidth:document.documentElement.scrollWidth,touchPoints:navigator.maxTouchPoints}));assert.ok(m.touchPoints>0);assert.ok(m.scrollWidth<=m.width+1);measures.push({label:'mobile-touch-landscape',...m});await page.screenshot({path:path.join(evidence,'quick-touch-812x375.png')});}
+  finally{const rp=h.room.players[1],token=rp.token;await context.close();await h.pages[1].evaluate(d=>new Promise(r=>{socket.connect();socket.emit('reconnect',d,r);}),{roomCode:h.room.code,name:rp.name,token});await h.pages[0].waitForFunction(()=>!latestState.decision.paused);}
+});
+
+test('QB07b actual browser 200 percent zoom keeps the clock and net details usable',{timeout:60000},async()=>{
   await restart();await fixture();const profile=fs.mkdtempSync(path.join(os.tmpdir(),'game-quick-zoom-'));
   const context=await chromium.launchPersistentContext(profile,{channel:'chrome',headless:true,viewport:{width:1440,height:900},reducedMotion:'reduce'});
   try{

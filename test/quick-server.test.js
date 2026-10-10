@@ -38,6 +38,13 @@ test('QS05: skipped nodes, warning deduplication and late callbacks prioritize t
   x.time.set(1680000);api.advanceRouteTime(x.room);assert.equal(x.room.events.filter(e=>e.kind==='quick_warning').length,2);const rounds=x.room.state.rounds,cash=x.room.state.players.map(p=>p.cash);
   x.time.advance(120000);assert.equal(x.room.state.phase,'game_over');assert.equal(x.room.state.rounds,rounds);assert.deepEqual(x.room.state.players.map(p=>p.cash),cash);assert.equal(x.room.events.filter(e=>e.kind==='quick_end').length,1);
 });
+
+test('QS04b: partial candidate clearing failure never commits to the real room',async()=>{
+  const x=await setup();await start(x);f.own(x.room.state,'p0','上海');x.room.state.players[0].alive=false;x.room.state.players[0].cities=[];const before=globalThis.structuredClone(x.room.state),original=stocks.clearCityToBank;x.time.set(1800000);
+  stocks.clearCityToBank=(...args)=>{original(...args);throw new Error('测试清算中途失败');};
+  try{assert.throws(()=>api.closeQuickGame(x.room,'time_limit'),/中途失败/);assert.deepEqual(x.room.state,before);assert.equal(x.room.gameRecord,null);}finally{stocks.clearCityToBank=original;}
+  api.closeQuickGame(x.room,'time_limit');assert.equal(x.room.state.cities['上海'].ownerId,null);assert.equal(x.room.gameRecord.quick.reason,'time_limit');
+});
 test('QS06: committed action survives deadline; execution crossing cutoff discards candidate',async()=>{
   const x=await setup();await start(x);await allInitial(x);x.time.set(1799999);api.advanceRouteTime(x.room);x.room.actionClock.clear();api.startTimer(x.room);
   const res=await submit(x,'p0',{type:'roll_dice'});assert.equal(res.ok,true,JSON.stringify(res));const position=x.room.state.players[0].position;
@@ -94,4 +101,42 @@ test('QS16: five-second heartbeat updates time without changing revision or deci
   const x=await setup();await start(x);const updates=[];x.a.on('quickTimeUpdate',t=>updates.push(t));const revision=x.room.state.revision,id=x.room.actionClock.decisionId;
   x.time.advance(5000);await until(()=>updates.length===1);assert.equal(updates[0].elapsedMs,5000);assert.equal(x.room.state.revision,revision);assert.equal(x.room.actionClock.decisionId,id);
   await ack(x.a,'disbandRoom',{});x.time.advance(5000);await new Promise(r=>setTimeout(r,10));assert.equal(updates.length,1);assert.equal(x.time.timers.size,0);
+});
+
+test('QS17: finite real quick game grows, operates, skips routes and seals an unconfirmed purchase',async()=>{
+  const x=await setup();await start(x);await initial(x);
+  for(const ms of [300000,600000]){x.time.set(ms);api.advanceRouteTime(x.room);await initial(x);}
+  const log=[];
+  async function action(id,a){const result=await submit(x,id,a);assert.equal(result.ok,true,JSON.stringify({phase:x.room.state.phase,a,result}));log.push({id,type:a.type,phase:x.room.state.phase});}
+  async function roll(id,n){assert.equal(x.room.state.players[x.room.state.turnIndex].id,id);x.room.rng.diceBag=[n];await action(id,{type:'roll_dice'});if(x.room.state.phase==='stock')await action(id,{type:'stock_done'});}
+  for(const n of [10,8,10,9,5])for(const id of ['p0','p1'])await roll(id,n);
+  assert.equal(x.room.state.firstRoundDone,true);
+  await roll('p0',1);assert.equal(x.room.state.phase,'buy');await action('p0',{type:'buy',decision:'buy'});await roll('p1',1);
+  assert.equal(x.room.state.cities['内罗毕'].ownerId,'p0');
+  for(const [ms,n]of [[900000,9],[1320000,8]]){
+    x.time.set(ms);api.advanceRouteTime(x.room);
+    for(const id of ['p0','p1']){assert.equal(x.room.state.phase,'route_choose');const c=x.room.state.routeFlow.activeChoice;await action(id,{type:'route_skip',opportunityId:c.opportunityId,candidateVersion:c.candidateVersion});await roll(id,n);if(x.room.state.phase==='buy')await action(id,{type:'buy',decision:'buy'});}
+  }
+  const token=x.b.token;x.b.close();await until(()=>x.room.actionClock.paused);x.time.set(1680000);api.advanceRouteTime(x.room);const reconnected=await connect();assert.equal((await ack(reconnected,'reconnect',{roomCode:x.room.code,name:'玩家1',token})).ok,true);x.b=reconnected;x.clients[1]=reconnected;
+  await roll('p0',10);assert.equal(x.room.state.phase,'buy');const pendingCity=x.room.state.pending.cityId;assert.equal(x.room.state.cities[pendingCity].ownerId,null);
+  x.time.advance(120000);assert.equal(x.room.state.phase,'game_over');assert.equal(x.room.state.cities[pendingCity].ownerId,null);assert.equal(x.room.gameRecord.quick.reason,'time_limit');assert.ok(log.some(a=>a.type==='buy'));assert.equal(log.filter(a=>a.type==='route_skip').length,4);
+  await until(()=>x.clients.every(c=>c.record?.quick));assert.deepEqual(x.a.record.quick,x.b.record.quick);
+});
+
+test('QS18: real clock closes unopened routes at 28 and cancels active choice at 30',async()=>{
+  const x=await setup();await start(x);await allInitial(x);x.time.set(900000);api.advanceRouteTime(x.room);assert.equal(x.room.state.phase,'route_choose');const held=x.room.state.players[0].opportunities.selectedIds.slice(),choice=x.room.state.routeFlow.activeChoice.opportunityId;
+  x.b.close();await until(()=>x.room.actionClock.paused);x.time.set(1680000);api.advanceRouteTime(x.room);assert.equal(x.room.state.routeFlow.activeChoice.opportunityId,choice);assert.equal(x.room.state.routeFlow.laterClosed,true);
+  x.time.advance(120000);assert.equal(x.room.state.phase,'game_over');assert.equal(x.room.state.routeFlow.activeChoice,null);assert.deepEqual(x.room.state.players[0].opportunities.selectedIds,held);assert.equal(x.room.events.filter(e=>e.kind==='quick_end').length,1);assert.equal(x.room.gameRecord.quick.reason,'time_limit');
+});
+
+test('QS19: actual route confirmation before at and across total cutoff is atomic',async()=>{
+  for(const boundary of ['before','at','across']){
+    const x=await setup();await start(x);await allInitial(x);x.time.set(900000);api.advanceRouteTime(x.room);const held=x.room.state.players[0].opportunities.selectedIds.slice(),c=x.room.state.routeFlow.activeChoice;
+    const token=x.b.token;x.b.close();await until(()=>x.room.actionClock.paused);x.time.set(1799999);const b=await connect();assert.equal((await ack(b,'reconnect',{roomCode:x.room.code,name:'玩家1',token})).ok,true);x.b=b;x.clients[1]=b;
+    if(boundary==='at')x.time.set(1800000);const original=logic.apply;if(boundary==='across')logic.apply=(...args)=>{const result=original(...args);x.time.set(1800000);return result;};
+    let result;try{result=await submit(x,'p0',{type:'route_confirm',opportunityId:c.opportunityId,candidateVersion:c.candidateVersion,newId:c.candidateIds[0],replaceId:held[0]});}finally{logic.apply=original;}
+    if(boundary==='before'){assert.equal(result.ok,true,JSON.stringify(result));assert.ok(x.room.state.players[0].opportunities.selectedIds.includes(c.candidateIds[0]));x.time.set(1800000);api.advanceRouteTime(x.room);assert.ok(x.room.state.players[0].opportunities.selectedIds.includes(c.candidateIds[0]));}
+    else{assert.equal(result.code,'OVER');assert.deepEqual(x.room.state.players[0].opportunities.selectedIds,held);}
+    assert.equal(x.room.state.phase,'game_over');assert.equal(x.room.events.filter(e=>e.kind==='quick_end').length,1);
+  }
 });

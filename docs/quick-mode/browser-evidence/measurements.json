@@ -53,6 +53,12 @@
       }
     },
     {
+      "label": "mobile-touch-landscape",
+      "width": 812,
+      "scrollWidth": 812,
+      "touchPoints": 1
+    },
+    {
       "label": "actual-browser-default-zoom-200",
       "setting": 2,
       "width": 720,

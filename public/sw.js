@@ -1,14 +1,14 @@
 'use strict';
-const CACHE = 'global-tycoon-v10-routes';
+const CACHE = 'global-tycoon-v11-quick';
 const CORE = [
   './',
   './index.html',
   './style.css',
   './client.js',
   './rules-catalog.js',
-  './rules-catalog.js?v=20261009-opportunity-routes',
-  './style.css?v=20261009-opportunity-routes',
-  './client.js?v=20261009-opportunity-routes',
+  './rules-catalog.js?v=20261010-quick-mode',
+  './style.css?v=20261010-quick-mode',
+  './client.js?v=20261010-quick-mode',
   './socket.io/socket.io.js',
   './assets/world-map-ocean.png',
   './assets/ocean-surface.png',

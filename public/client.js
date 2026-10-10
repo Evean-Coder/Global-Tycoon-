@@ -180,7 +180,7 @@ function updateWaitBanner() {
     return !gp || gp.alive; // 已破产玩家掉线不提示暂停
   });
   if (aliveOffline.length && game && game.phase !== 'game_over') {
-    banner.textContent = '⏸ ' + aliveOffline.join('、') + ' 掉线，对局暂停，等待重连…';
+    banner.textContent = '⏸ ' + aliveOffline.join('、') + (quickGame() ? ' 掉线，个人决定暂停；整局时间继续，等待重连…' : ' 掉线，对局暂停，等待重连…');
     banner.classList.remove('hidden');
   } else banner.classList.add('hidden');
 }
@@ -1502,8 +1502,10 @@ function organizeRules() {
   }
   const add=(id,html)=>{const body=document.createElement('div');body.innerHTML=html;content[id].append(body);};
   add('turn','<p>个人回合是一次轮到本人行动；个人圈是本人实际完成起点结算到下一次起点结算；完整轮是该轮参与的存活玩家各完成个人回合，监狱和极地跳过也算。股票、拍卖和自救等待不提前推进完整轮。首圈购置限制要求所有存活玩家完成一次环球行程。</p>');
+  add('turn','<p><b>两种模式：</b>房主在开局前选择。普通模式以最后存活者获胜；快速模式从正式开局（包括初始选择）起计时30分钟，到时立即封盘。快速模式一般决定20秒，自救45秒，初始同步选择30秒，后续路线选择20秒；均不超过整局剩余时间。提前出现最后存活者则提前结束。</p><p>快速封盘取消未成交的订单、购买、建设、拍卖和转让，不再执行未完成的掷骰或选择；已成交的操作保留。按原规则结清分红，按现金、地产、机场、股票及待结算收益，减抵押本金和累计利息后的净资产排名。相同净资产并列，破产玩家按实际出局顺序排在存活者之后。资产估值不是可支付现金。</p>');
   add('bank','<p>购买缺现金时可进入募资，抵押或拆房等操作凑足后确认购买；取消城市购买会拍卖，取消机场购买结束回合。抵押利息按原座位轮转计算，和资讯完整轮次独立。</p>');
   add('connection','<p>任一存活玩家掉线会暂停对局和决定时钟；使用原身份重连恢复实际状态和剩余时间，不能刷新额度。新决定给完整时限，同一决定的无效操作和只读查询不延时。经营机遇共享30秒，超时选当时最左项；交易确认超时拒绝，股票超时结束窗口，飞行超时不飞，购买/建设超时放弃。</p><p>已经扣过的债务不重复扣款。自救补足现金后继续原流程，仍不足可继续处理资产或放弃；无资产则按原破产流程。终局先结算待分红，再按实际总资产记录排名。</p>');
+  if(quickGame())add('connection','<p><b>本局快速模式：</b>掉线只暂停个人决定，整局30分钟时钟继续。全员离线也不延长总时限；重连查看已冻结结果。上面的总资产排名说明适用于普通模式，本局按扣除抵押债务后的净资产排名。</p>');
   if(context.modern){
     const catalog=game?.opportunityCatalog||Object.fromEntries((window.RULES_CATALOG?.opportunities||[]).map(o=>[o.id,o]));
     add('opportunities','<h4>十二项经营机遇</h4>'+Object.values(catalog).map(o=>'<article class="rules-opportunity"><h4>'+escapeHTML(o.name)+'</h4><p>'+escapeHTML(game?.routeRevision==='opportunity-routes-v1'?opportunityDescription(o.id):o.description)+'</p></article>').join(''));

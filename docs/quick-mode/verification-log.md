@@ -11,3 +11,5 @@ G3：QC+R-C 20/20；QS01–QS11最终11/11，日志clock-tests.txt/server-tests.
 G4最终：settlement-view-tests.txt 12/12；server-tests.txt 16/16；ordinary-server-tests.txt 12/12；route-server-tests.txt 13/13。上述数量为各组有效结果，未与先前复跑累加。server/src/test lint和gameView/record语法通过。
 
 G5：首次浏览器启动受spawn EPERM限制；经自动审批在允许的环境运行，最终9/9通过。真实浏览器200%缩放的CSS视口720px、devicePixelRatio=2，无整页横向溢出。手机为模拟视口，未声称实机测试。
+
+G6/G7：最终有效结果见acceptance.md。QS17首次跳到28分钟时已跨普通个人决定，改为真实断线暂停后跳时重连；QB10首次请求误用decision.id，改为既有decisionId。触控独立浏览器接管玩家导致后续测试身份干扰，调整到连续流程之后；最终12/12通过。QS19额外覆盖真实路线确认在截止前、恰好截止和执行跨期。静态版本及缓存升级通过，目录/lint通过。

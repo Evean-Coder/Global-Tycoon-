@@ -33,7 +33,7 @@ function decisionDescriptor(state) {
     phase: state.phase,
     actorId,
     targetKey: JSON.stringify(target),
-    seconds: MAIN_PHASES.has(state.phase) ? 90 : 60,
+    seconds: state.quickRevision === 'quick-mode-v1' && state.gameMode === 'quick' ? (state.phase === 'self_rescue' ? 45 : 20) : MAIN_PHASES.has(state.phase) ? 90 : 60,
   };
 }
 
@@ -77,7 +77,8 @@ function createActionClock(options = {}) {
     if (clock.timeoutId && typeof clock.timeoutId.unref === 'function') clock.timeoutId.unref();
   }
 
-  clock.sync = (state, onTimeout, newDecision = false) => {
+  clock.sync = (state, onTimeout, newDecision = false, totalRemainingMs = null) => {
+    if (totalRemainingMs !== null && (!Number.isFinite(totalRemainingMs) || totalRemainingMs < 0)) throw new Error('决定总预算无效');
     if (!state || state.phase === 'game_over') {
       clock.clear();
       return { changed: false, active: false };
@@ -85,6 +86,10 @@ function createActionClock(options = {}) {
     const d = decisionDescriptor(state);
     if (!newDecision && clock.key === d.key && (clock.timeoutId !== null || clock.paused)) {
       if (!clock.paused && clock.deadlineMs != null) clock.remainingMs = Math.max(0, clock.deadlineMs - now());
+      if (totalRemainingMs !== null && totalRemainingMs < clock.remainingMs) {
+        clock.remainingMs = totalRemainingMs;
+        if (!clock.paused) { clock.deadlineMs = now() + clock.remainingMs; schedule(onTimeout); }
+      }
       return { changed: false, active: true };
     }
     cancel();
@@ -93,7 +98,7 @@ function createActionClock(options = {}) {
     clock.phase = d.phase;
     clock.actorId = d.actorId;
     clock.targetKey = d.targetKey;
-    clock.remainingMs = d.seconds * 1000;
+    clock.remainingMs = Math.min(d.seconds * 1000, totalRemainingMs === null ? Infinity : totalRemainingMs);
     clock.deadlineMs = now() + clock.remainingMs;
     clock.paused = false;
     schedule(onTimeout);

@@ -11,6 +11,8 @@ const { createRng } = require('./src/random');
 const { buildGameRecord } = require('./src/record');
 const { normalizeAction, validateEnvelope } = require('./src/actionValidation');
 const { createActionClock } = require('./src/actionClock');
+const { createQuickClock } = require('./src/quickClock');
+const quick = require('./src/quickMode');
 const opportunities = require('./src/opportunities');
 const routes = require('./src/opportunityRoutes');
 const stocks = require('./src/stocks');
@@ -62,6 +64,7 @@ function makeRoom(hostSocket, name) {
     hostId: hostSocket.id,
     players: [{ socketId: hostSocket.id, id: 'p0', name, seat: 0, connected: true, token: null }],
     state: null,
+    gameMode: 'normal',
     timers: new Map(),
     hostTimer: null,
     awaiting: null, // {playerId, phase}
@@ -107,6 +110,7 @@ function sweepRooms(now = Date.now(), cfg) {
     if (room.state && !room.gameRecord) finalizeGame(room, 'idle_timeout');
     clearTimer(room, 'action');
     if (room.actionClock) room.actionClock.clear();
+    stopQuickTimers(room);
     if (room.hostTimer) {
       clearTimeout(room.hostTimer);
       room.hostTimer = null;
@@ -121,6 +125,7 @@ function roomStatePayload(room) {
     hostId: room.hostId,
     players: room.players.map((p) => ({ id: p.id, name: p.name, seat: p.seat, connected: p.connected })),
     started: !!room.state,
+    gameMode: room.gameMode || 'normal',
   };
 }
 
@@ -130,6 +135,7 @@ function emitRoom(room) {
 
 function emitGame(room, newDecision = false) {
   if (!room.state) return;
+  if (quick.enabled(room.state) && room.state.quick.status !== 'closed' && room.quickClock?.read().elapsedMs >= 1800000) closeQuickGame(room, 'time_limit');
   if (room.state.phase === 'game_over' && !room.gameRecord) finalizeGame(room, 'normal');
   startTimer(room, newDecision);
   const evs = (room.lastEvents || []).map((e, i) => Object.assign({}, e, { id: (room.lastEventBase || 0) + i }));
@@ -147,6 +153,7 @@ function emitGame(room, newDecision = false) {
 
 function finalizeGame(room, endReason) {
   if (room.gameRecord) return room.gameRecord;
+  if (quick.enabled(room.state) && room.state.quick.status !== 'closed') return closeQuickGame(room, endReason);
   if (room.state.ruleVersion === 2 && !room.state.finalSettlementDone) {
     const candidate = globalThis.structuredClone(room.state), events = [];
     events.push(...routes.cancelRoutes(candidate, null, endReason === 'normal' ? 'normal_end' : 'room_closed').events);
@@ -159,13 +166,52 @@ function finalizeGame(room, endReason) {
     candidate.revision++; room.state = candidate;
     appendEvents(room, events);
   }
-  room.gameRecord = buildGameRecord(room, endReason);
+  room.gameRecord = buildGameRecord(room, quick.enabled(room.state) ? room.state.quick.reason : endReason);
   for (const rp of room.players) {
     const sock = io.sockets.sockets.get(rp.socketId);
     if (sock) sock.emit('gameRecord', room.gameRecord);
   }
   persistRecord(room.gameRecord, RECORDS_DIR);
   return room.gameRecord;
+}
+
+function stopQuickTimers(room) {
+  room.quickClock?.stop();
+  if (room.quickHeartbeat != null) (room.quickClockOptions?.clearTimeout || clearTimeout)(room.quickHeartbeat);
+  room.quickHeartbeat = null;
+}
+
+function closeQuickGame(room, reason) {
+  if (room.gameRecord) return room.gameRecord;
+  if (!quick.enabled(room.state)) throw new Error('本局不适用快速封盘');
+  if (room.state.quick.status !== 'closed') {
+    const time = room.quickClock.read();
+    if (time.elapsedMs >= 1800000) reason = 'time_limit';
+    const candidate = globalThis.structuredClone(room.state);
+    const result = quick.finalize(candidate, {reason,elapsedMs:time.elapsedMs,endedAt:candidate.quick.startedAt + Math.floor(time.elapsedMs)});
+    assertEconomy(candidate); routes.assertRoutes(candidate);
+    candidate.revision++; room.state = candidate; appendEvents(room, result.events);
+  }
+  stopQuickTimers(room); room.actionClock.clear();
+  return finalizeGame(room, room.state.quick.reason);
+}
+
+function installQuickClock(room, clock) {
+  room.quickClock = clock;
+  room.quickTimeProvider = { read: () => clock.read(), close: () => closeQuickGame(room, 'time_limit') };
+  const setTimer = room.quickClockOptions?.setTimeout || setTimeout;
+  const gameId = room.state.gameId;
+  function heartbeat() {
+    room.quickHeartbeat = null;
+    if (room.quickClock !== clock || room.state?.gameId !== gameId || room.state.quick.status === 'closed') return;
+    try { advanceRouteTime(room); } catch (err) { console.error('[quick-clock]', err); }
+    if (room.state.quick.status === 'closed') return;
+    io.to(`room:${room.code}`).emit('quickTimeUpdate', {...clock.read(),quickRevision:quick.REVISION});
+    room.quickHeartbeat = setTimer(heartbeat, 5000);
+    room.quickHeartbeat?.unref?.();
+  }
+  room.quickHeartbeat = setTimer(heartbeat, 5000);
+  room.quickHeartbeat?.unref?.();
 }
 
 function clearTimer(room, key) {
@@ -203,12 +249,28 @@ function startTimer(room, newDecision = false) {
     clock.clear();
     return;
   }
+  let totalBudget = null;
+  if (quick.enabled(room.state)) {
+    const time = room.quickClock.read(); totalBudget = time.totalRemainingMs;
+    if (room.quickStockBudget) {
+      if (hasDisconnectedAlive(room) && room.quickStockBudget.pausedAtElapsed === undefined) room.quickStockBudget.pausedAtElapsed = time.elapsedMs;
+      if (!hasDisconnectedAlive(room) && room.quickStockBudget.pausedAtElapsed !== undefined) {
+        room.quickStockBudget.elapsedDeadline += time.elapsedMs - room.quickStockBudget.pausedAtElapsed;
+        delete room.quickStockBudget.pausedAtElapsed;
+      }
+    }
+    const window = room.state.stockWindow;
+    if (room.state.phase === 'stock' && window) {
+      if (room.quickStockBudget?.windowId !== window.windowId || room.quickStockBudget?.gameId !== room.state.gameId) room.quickStockBudget = {gameId:room.state.gameId,windowId:window.windowId,elapsedDeadline:time.elapsedMs+Math.min(20000,totalBudget)};
+      totalBudget = Math.min(totalBudget,Math.max(0,room.quickStockBudget.elapsedDeadline-(room.quickStockBudget.pausedAtElapsed ?? time.elapsedMs)));
+    }
+  }
   const result = clock.sync(room.state, (decisionId, key) => {
     if (!room.state || room.state.phase === 'game_over') return;
     if (clock.decisionId !== decisionId || clock.key !== key || clock.paused) return;
     const act = defaultAction(room, clock.phase);
     if (act) runAction(room, null, act, 'timeout');
-  }, newDecision);
+  }, newDecision, totalBudget);
   if (hasDisconnectedAlive(room)) clock.pause();
   if (result.changed) {
     io.to(`room:${room.code}`).emit('timerStarted', timerPayload(room));
@@ -274,10 +336,20 @@ function advanceRouteTime(room) {
   if (time.mode !== 'quick') return false;
   const candidate = globalThis.structuredClone(room.state);
   const due = routes.markQuickDue(candidate,time);
-  const opened = hasDisconnectedAlive(room) ? {changed:false} : routes.tryOpenRouteChoice(candidate,candidate.players[candidate.turnIndex].id,room.rng || createRng(),time);
-  if (!due.changed && !opened.changed) return false;
+  const rng = room.rng || createRng();
+  const initialOpened = !hasDisconnectedAlive(room) && logic.safeQuickInitial(candidate, rng);
+  const opened = hasDisconnectedAlive(room) || initialOpened ? {changed:false} : routes.tryOpenRouteChoice(candidate,candidate.players[candidate.turnIndex].id,rng,time);
+  const warnings = [];
+  if (quick.enabled(candidate)) for (const [minute, remaining] of [[25,5],[28,2]]) {
+    if (time.elapsedMs >= minute*60000 && !candidate.quick.warnings.includes(minute)) {
+      candidate.quick.warnings.push(minute);
+      warnings.push({type:'log',kind:'quick_warning',remainingMinutes:remaining,text:'剩余'+remaining+'分钟，到时按净资产排名'});
+    }
+  }
+  if (!due.changed && !opened.changed && !initialOpened && !warnings.length) return false;
   routes.assertRoutes(candidate);
-  candidate.revision++;room.state=candidate;appendEvents(room,due.events);emitGame(room);
+  if (closeRouteDeadline(room,routeTime(room))) return true;
+  candidate.revision++;room.state=candidate;appendEvents(room,[...due.events,...warnings]);emitGame(room);
   return true;
 }
 
@@ -294,6 +366,7 @@ function runAction(room, socket, rawAction, source = 'player') {
     const remembered=cache?.get(rawAction?.actionId);
     if(remembered){if(remembered.print!==print)return {ok:false,code:'ACTION_ID',error:'同一操作身份不能更改内容'};return {...remembered.receipt};}
     if(routes.enabled(room.state) && socket.handshake?.auth?.clientRouteRevision !== routes.REVISION)return {ok:false,code:'UPDATE',error:'页面版本过旧，请刷新后重新连接'};
+    if(quick.enabled(room.state) && socket.handshake?.auth?.clientQuickRevision !== quick.REVISION)return {ok:false,code:'UPDATE',error:'页面版本过旧，请刷新后重新连接'};
   }
   let timeContext;
   try {
@@ -394,6 +467,13 @@ function safeHandler(fn) {
 }
 
 io.on('connection', (socket) => {
+  socket.on('setRoomMode', safeHandler((data, cb) => {
+    const room = [...rooms.values()].find(r => r.players.some(p => p.connected && p.socketId === socket.id));
+    if (!room || room.hostId !== socket.id) return cb?.({ok:false,error:'只有房主能设置模式'});
+    if (room.state && room.state.phase !== 'game_over') return cb?.({ok:false,error:'对局中不能修改模式'});
+    if (!['normal','quick'].includes(data?.gameMode)) return cb?.({ok:false,error:'模式无效'});
+    room.gameMode = data.gameMode; emitRoom(room); cb?.({ok:true,gameMode:room.gameMode});
+  }));
   socket.on('createRoom', safeHandler((data, cb) => {
     const name = String(data && data.name || '玩家').slice(0, 12);
     const existing = [...rooms.values()].find(r => r.players.some(p => p.socketId === socket.id));
@@ -451,6 +531,7 @@ io.on('connection', (socket) => {
     syncSocketIds(room);
     if(room.state && routes.enabled(room.state))advanceRouteTime(room);
     if (room.state && !hasDisconnectedAlive(room) && room.actionClock) {
+      if (quick.enabled(room.state) && room.state.phase !== 'game_over') startTimer(room);
       if (room.actionClock.resume(() => {
         if (!room.state || room.state.phase === 'game_over') return;
         const act = defaultAction(room, room.actionClock.phase);
@@ -470,17 +551,36 @@ io.on('connection', (socket) => {
     if (room.hostId !== socket.id) return cb && cb({ ok: false, error: '只有房主能开始' });
     if (room.players.length < 2) return cb && cb({ ok: false, error: '至少需要 2 名玩家' });
     if (room.state && room.state.phase !== 'game_over') return cb && cb({ ok: false, error: '对局已开始' });
-    if(data?.gameMode && data.gameMode!=='normal')return cb && cb({ok:false,error:'快速模式核心尚未就绪，当前可开始普通模式'});
+    const mode = room.gameMode || 'normal';
+    if(data?.gameMode !== undefined && data.gameMode !== mode)return cb && cb({ok:false,error:'模式与房间配置不一致，请核对后开始'});
     if(room.players.some(p=>!p.connected || io.sockets.sockets.get(p.socketId)?.handshake.auth?.clientRouteRevision !== routes.REVISION))return cb && cb({ok:false,error:'请所有玩家刷新页面并连接后再开始'});
+    if(mode==='quick' && room.players.some(p=>io.sockets.sockets.get(p.socketId)?.handshake.auth?.clientQuickRevision !== quick.REVISION))return cb && cb({ok:false,error:'快速模式需要所有玩家刷新页面后再开始'});
+    const startedAt = Date.now();
+    const candidate = createGameState(room.code, room.players.map(p=>p.name), 2, {...NEW_GAME_ECONOMY,gameMode:mode,...(mode==='quick'?{quickRevision:quick.REVISION,startedAt}:{})});
+    let clock = null;
+    if (mode==='quick') {
+      clock = createQuickClock({...room.quickClockOptions,onAdvance: time => {
+        if (room.quickClock !== clock || room.state?.gameId !== time.gameId) return;
+        try { advanceRouteTime(room); } catch(err) { console.error('[quick-clock]',err); }
+      }});
+      clock.start(candidate.gameId,startedAt);
+    }
+    candidate.startedAt = startedAt;
+    try {
+      resetDeck(candidate, room.rng || createRng());
+      opportunities.beginOpportunityStage(candidate,1,{kind:'start'},room.rng||createRng());
+    } catch (err) { clock?.stop(); return cb?.({ok:false,error:err.message}); }
     clearTimer(room, 'action');
     if (room.actionClock) room.actionClock.clear();
-    room.state = createGameState(room.code, room.players.map((p) => p.name), 2, NEW_GAME_ECONOMY);
+    stopQuickTimers(room);
+    room.quickClock = null; room.quickTimeProvider = null;
+    room.quickStockBudget = null;
+    room.state = candidate;
+    if (clock) installQuickClock(room,clock);
     room.players.forEach((p, i) => {
       room.state.players[i].socketId = p.socketId;
     });
-    resetDeck(room.state, room.rng || createRng());
     room.events=[];room.lastEvents=[];room.eventSeq=0;room.lastEventBase=0;room.gameRecord=null;room.successfulActions=new Map();
-    opportunities.beginOpportunityStage(room.state,1,{kind:'start'},room.rng||createRng());
     cb && cb({ ok: true });
     emitRoom(room);
     emitGame(room);
@@ -537,6 +637,9 @@ io.on('connection', (socket) => {
     if (!room) return cb && cb({ ok: false });
     if (room.hostId !== socket.id && room.state) return cb && cb({ ok: false, error: '仅房主可解散' });
     if (room.state && room.state.phase !== 'game_over') {
+      if (quick.enabled(room.state)) {
+        closeQuickGame(room,'disband'); emitGame(room); return cb?.({ok:true});
+      }
       if(room.state.ruleVersion===2) finalizeGame(room,'disband');
       // 按总资产排名结算
       const rank = room.state.players.slice().sort((a, b) => totalAssets(room.state, b) - totalAssets(room.state, a));
@@ -567,4 +670,4 @@ if (require.main === module) {
   setInterval(() => sweepRooms(), SWEEP_INTERVAL_MS);
 }
 
-module.exports = { app, server, io, rooms, totalAssets, shouldSweepRoom, sweepRooms, runAction, startTimer, emitGame, finalizeGame, assertEconomy, advanceRouteTime };
+module.exports = { app, server, io, rooms, totalAssets, shouldSweepRoom, sweepRooms, runAction, startTimer, emitGame, finalizeGame, assertEconomy, advanceRouteTime, closeQuickGame, stopQuickTimers };

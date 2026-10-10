@@ -1,0 +1,110 @@
+TAP version 13
+# Subtest: QC01: formal start owns one identity and excludes lobby time
+ok 1 - QC01: formal start owns one identity and excludes lobby time
+  ---
+  duration_ms: 1.1693
+  ...
+# Subtest: QC02: deadline boundaries, wall jumps, reads cannot extend
+ok 2 - QC02: deadline boundaries, wall jumps, reads cannot extend
+  ---
+  duration_ms: 0.2361
+  ...
+# Subtest: QC03: scheduled milestones catch up without repeat loops
+ok 3 - QC03: scheduled milestones catch up without repeat loops
+  ---
+  duration_ms: 0.7417
+  ...
+# Subtest: QC04: stopped time freezes and stale callbacks cannot affect restarted game
+ok 4 - QC04: stopped time freezes and stale callbacks cannot affect restarted game
+  ---
+  duration_ms: 0.1402
+  ...
+# Subtest: QC05: quick decision durations, same identity tightening and paused budget
+ok 5 - QC05: quick decision durations, same identity tightening and paused budget
+  ---
+  duration_ms: 2.204
+  ...
+# Subtest: 主行动 90 秒、子流程 60 秒，旧回调不能触发新决定
+ok 6 - 主行动 90 秒、子流程 60 秒，旧回调不能触发新决定
+  ---
+  duration_ms: 0.2464
+  ...
+# Subtest: 同一决定不延时，连续不同城市重新计时，暂停恢复保留剩余时间
+ok 7 - 同一决定不延时，连续不同城市重新计时，暂停恢复保留剩余时间
+  ---
+  duration_ms: 0.1208
+  ...
+# Subtest: 进入结束阶段会清除当前定时器
+ok 8 - 进入结束阶段会清除当前定时器
+  ---
+  duration_ms: 0.1371
+  ...
+# Subtest: 取消后的旧回调即使被执行也不会触发新决定
+ok 9 - 取消后的旧回调即使被执行也不会触发新决定
+  ---
+  duration_ms: 0.1701
+  ...
+# Subtest: 同阶段同玩家的新决定也重新取得完整期限
+ok 10 - 同阶段同玩家的新决定也重新取得完整期限
+  ---
+  duration_ms: 0.1786
+  ...
+# Subtest: 动作白名单拒绝未知类型、错误阶段和非法枚举
+ok 11 - 动作白名单拒绝未知类型、错误阶段和非法枚举
+  ---
+  duration_ms: 0.7099
+  ...
+# Subtest: 金额、机场和城市标识必须是规范值
+ok 12 - 金额、机场和城市标识必须是规范值
+  ---
+  duration_ms: 0.2959
+  ...
+# Subtest: 拍卖出价必须满足起价、现金和当前最高价规则
+ok 13 - 拍卖出价必须满足起价、现金和当前最高价规则
+  ---
+  duration_ms: 0.9266
+  ...
+# Subtest: 股票订单和转让拒绝字符串、负数、重复与越限输入
+ok 14 - 股票订单和转让拒绝字符串、负数、重复与越限输入
+  ---
+  duration_ms: 0.5473
+  ...
+# Subtest: 同城先卖后买按最终市场余量校验
+ok 15 - 同城先卖后买按最终市场余量校验
+  ---
+  duration_ms: 0.3299
+  ...
+# Subtest: 城市所有者先卖后买按最终持股上限校验
+ok 16 - 城市所有者先卖后买按最终持股上限校验
+  ---
+  duration_ms: 0.2469
+  ...
+# Subtest: 待确认接收方固定，不能改写目标或代替当前玩家认输
+ok 17 - 待确认接收方固定，不能改写目标或代替当前玩家认输
+  ---
+  duration_ms: 0.1753
+  ...
+# Subtest: 自救出售限定修订：上下文取自真实pending，忽略客户端伪造且拒绝身份错配
+ok 18 - 自救出售限定修订：上下文取自真实pending，忽略客户端伪造且拒绝身份错配
+  ---
+  duration_ms: 0.2923
+  ...
+# Subtest: 自救出售限定修订：拍卖成交/流拍、直接出售成功/失败恢复原玩家
+ok 19 - 自救出售限定修订：拍卖成交/流拍、直接出售成功/失败恢复原玩家
+  ---
+  duration_ms: 9.3293
+  ...
+# Subtest: 自救出售限定修订：未补足债务时保留原resume继续依据
+ok 20 - 自救出售限定修订：未补足债务时保留原resume继续依据
+  ---
+  duration_ms: 0.3249
+  ...
+1..20
+# tests 20
+# suites 0
+# pass 20
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 39.1585

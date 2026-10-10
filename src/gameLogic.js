@@ -197,7 +197,17 @@ function resolveChoices(state, events, rng, cause) {
     }
   }
   routes.markInitialResolved(state, stage.ordinal);
-  if (continuation.kind === 'prepare_turn' || continuation.kind === 'start') prepareTurn(state, events, rng);
+  if (continuation.kind === 'waiting_roll') {
+    state.phase = 'waiting_roll'; state.pending = null;
+    safeQuickInitial(state, rng); safeRouteChoice(state, rng);
+  } else if (continuation.kind === 'prepare_turn' || continuation.kind === 'start') prepareTurn(state, events, rng);
+}
+
+function safeQuickInitial(state, rng) {
+  if (!quickEnabled(state) || state.status === 'over' || state.phase !== 'waiting_roll' || state.pending || state.routeFlow.activeChoice || state.routeFlow.rollStartedTurnId === state.turnId || (state.opportunityStage && !state.opportunityStage.resolved)) return false;
+  if (state.routeFlow.initialDueOrdinal <= state.routeFlow.initialCompletedOrdinal) return false;
+  opportunities.beginOpportunityStage(state, state.routeFlow.initialCompletedOrdinal + 1, {kind:'waiting_roll'}, rng);
+  return true;
 }
 
 function chargeEndExpense(state, events, continuation) {
@@ -1737,6 +1747,7 @@ module.exports = {
   FREEZE_FINE,
   AIRPORT_PRICE,
   prepareTurn,
+  safeQuickInitial,
   completeRoundBoundary,
   resolveChoices,
 };

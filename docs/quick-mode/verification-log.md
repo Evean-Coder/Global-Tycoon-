@@ -5,3 +5,5 @@
 经济组首次QM01–QM09共9/9通过；定向lint发现测试中的structuredClone未限定globalThis，修复后复验再登记任务完成。
 
 G2修复：测试全局名称改为globalThis.structuredClone；QM10按现有引擎返回的events核对破产，而非不存在的changed字段。最终Node20 QM+R-M 43/43通过、0失败，见economy-tests.txt。未修改普通拍卖语义。
+
+G3：QC+R-C 20/20；QS01–QS11最终11/11，日志clock-tests.txt/server-tests.txt。首次QS06未完成后续初始阶段导致陈旧决定，修正场景先合法完成三阶段；QS09补上既有windowId契约。补验证实际转让拒绝回原窗口仍15秒，没有重置到20秒。

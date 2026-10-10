@@ -50,3 +50,20 @@ test('QC04: stopped time freezes and stale callbacks cannot affect restarted gam
   assert.equal(clock.read().totalRemainingMs, 0);
   assert.deepEqual(seen, ['b']);
 });
+test('QC05: quick decision durations, same identity tightening and paused budget', () => {
+  const {createActionClock} = require('../src/actionClock');
+  const {createGameState} = require('../src/state');
+  const s = createGameState('T',['a','b'],2,{routeRevision:'opportunity-routes-v1',gameMode:'quick',quickRevision:'quick-mode-v1'});
+  const time=fakeClock(), clock=createActionClock(time), fn=()=>{};
+  for(const phase of ['waiting_roll','frozen_turn','jail_turn','buy','buy_airport','build_decide','buy_fundraise','flight','stock','auction_bid','direct_sale_ask','trade_confirm','self_rescue','opportunity_choose','route_choose']){
+    s.phase=phase;s.pending={playerId:'p0'};
+    s.opportunityStage={stageId:'stage'};s.routeFlow.activeChoice=phase==='route_choose'?{playerId:'p0',opportunityId:'later'}:null;
+    clock.sync(s,fn,true,1800000);
+    const expected=phase==='self_rescue'?45000:phase==='opportunity_choose'?30000:20000;
+    assert.equal(clock.remainingMs,expected,phase);
+    const id=clock.decisionId;time.advance(1000);clock.sync(s,fn,false,1800000);assert.equal(clock.decisionId,id);assert.equal(clock.remainingMs,expected-1000);
+    clock.sync(s,fn,false,500);assert.equal(clock.remainingMs,500);clock.pause();time.advance(2000);clock.sync(s,fn,false,100);
+    assert.equal(clock.remainingMs,100);assert.equal(clock.paused,true);clock.resume(fn);assert.equal(clock.remainingSeconds(),1);clock.clear();
+  }
+  assert.throws(()=>clock.sync(s,fn,false,-1),/预算/);
+});

@@ -1,0 +1,225 @@
+TAP version 13
+# Subtest: QM01: net asset example, debt principal, negative values and original gross
+ok 1 - QM01: net asset example, debt principal, negative values and original gross
+  ---
+  duration_ms: 2.3201
+  ...
+# Subtest: QM02: retained fund excludes issued dividends; standard construction differs from expense
+ok 2 - QM02: retained fund excludes issued dividends; standard construction differs from expense
+  ---
+  duration_ms: 2.2912
+  ...
+# Subtest: QM03: quick version gating never migrates ordinary or legacy states
+ok 3 - QM03: quick version gating never migrates ordinary or legacy states
+  ---
+  duration_ms: 0.6319
+  ...
+# Subtest: QM04: unfinished sales, highest bids, transfers and rescue cannot create transactions
+ok 4 - QM04: unfinished sales, highest bids, transfers and rescue cannot create transactions
+  ---
+  duration_ms: 3.2835
+  ...
+# Subtest: QM05: incomplete initial and route choices do not grant rewards or reveal candidates
+ok 5 - QM05: incomplete initial and route choices do not grant rewards or reveal candidates
+  ---
+  duration_ms: 0.7945
+  ...
+# Subtest: QM06: bankrupt residual ownership clears before ranking even with empty player city list
+ok 6 - QM06: bankrupt residual ownership clears before ranking even with empty player city list
+  ---
+  duration_ms: 0.5602
+  ...
+# Subtest: QM07: final dividend respects remaining H4 allowance and leaves round economics untouched
+ok 7 - QM07: final dividend respects remaining H4 allowance and leaves round economics untouched
+  ---
+  duration_ms: 0.4137
+  ...
+# Subtest: QM08: tied winners, rank 1/1/3 and reversed elimination with negative values
+ok 8 - QM08: tied winners, rank 1/1/3 and reversed elimination with negative values
+  ---
+  duration_ms: 1.0462
+  ...
+# Subtest: QM09: candidate failures never touch authoritative state; closure is idempotent
+ok 9 - QM09: candidate failures never touch authoritative state; closure is idempotent
+  ---
+  duration_ms: 2.6451
+  ...
+# Subtest: QM10: quick bankruptcy ends without new auction or premature final settlement
+ok 10 - QM10: quick bankruptcy ends without new auction or premature final settlement
+  ---
+  duration_ms: 1.5947
+  ...
+# Subtest: 初始化股份与派生报价 / 更新三轮租金观察窗口 / 计算经营目标与每轮涨跌
+ok 11 - 初始化股份与派生报价 / 更新三轮租金观察窗口 / 计算经营目标与每轮涨跌
+  ---
+  duration_ms: 0.314
+  ...
+# Subtest: 实现基础派息与保留收益 / 计算稳健股息额外奖励 / 统一新旧资产摘要
+ok 12 - 实现基础派息与保留收益 / 计算稳健股息额外奖励 / 统一新旧资产摘要
+  ---
+  duration_ms: 0.2773
+  ...
+# Subtest: 管理固定窗口与累计买入 / 预检并提交股票整单
+ok 13 - 管理固定窗口与累计买入 / 预检并提交股票整单
+  ---
+  duration_ms: 0.5305
+  ...
+# Subtest: 实现成功产权前派息 / 处理新城主股份上限 / 实现归银行股份清算 / 重新经营与报价例外保护
+ok 14 - 实现成功产权前派息 / 处理新城主股份上限 / 实现归银行股份清算 / 重新经营与报价例外保护
+  ---
+  duration_ms: 0.3066
+  ...
+# Subtest: 抽取合法三候选组合 / 建立同时选择阶段
+ok 15 - 抽取合法三候选组合 / 建立同时选择阶段
+  ---
+  duration_ms: 6.2388
+  ...
+# Subtest: 锁定本人选择并判定全员完成 / 实现全局一次重选 / 统一应用全员或到期选择
+ok 16 - 锁定本人选择并判定全员完成 / 实现全局一次重选 / 统一应用全员或到期选择
+  ---
+  duration_ms: 0.795
+  ...
+# Subtest: 管理个人每圈与机场额度
+ok 17 - 管理个人每圈与机场额度
+  ---
+  duration_ms: 0.1729
+  ...
+# Subtest: R22 私有候选与公共进度投影
+ok 18 - R22 私有候选与公共进度投影
+  ---
+  duration_ms: 3.6951
+  ...
+# Subtest: R23 记录仅存确定结果和版本
+ok 19 - R23 记录仅存确定结果和版本
+  ---
+  duration_ms: 1.0524
+  ...
+# Subtest: R01 新局显式版本和旧局隔离
+ok 20 - R01 新局显式版本和旧局隔离
+  ---
+  duration_ms: 0.3446
+  ...
+# Subtest: R02 首次奖励意图与领取事实
+ok 21 - R02 首次奖励意图与领取事实
+  ---
+  duration_ms: 0.3058
+  ...
+# Subtest: R03 第三阶段基准不追溯不漂移
+ok 22 - R03 第三阶段基准不追溯不漂移
+  ---
+  duration_ms: 0.1978
+  ...
+# Subtest: R04 有效圈门槛与合并维持原进度
+ok 23 - R04 有效圈门槛与合并维持原进度
+  ---
+  duration_ms: 0.4044
+  ...
+# Subtest: R05 快速初始时点0 5 10只登记不打断
+ok 24 - R05 快速初始时点0 5 10只登记不打断
+  ---
+  duration_ms: 0.3493
+  ...
+# Subtest: R06 快速15 22按来源登记一次
+ok 25 - R06 快速15 22按来源登记一次
+  ---
+  duration_ms: 0.1976
+  ...
+# Subtest: R07 28分钟只清未打开与结束取消幂等
+ok 26 - R07 28分钟只清未打开与结束取消幂等
+  ---
+  duration_ms: 0.413
+  ...
+# Subtest: R08 三候选方向限制排除持有和已领奖
+ok 27 - R08 三候选方向限制排除持有和已领奖
+  ---
+  duration_ms: 0.2347
+  ...
+# Subtest: R09 安全入口和同回合只开一次
+ok 28 - R09 安全入口和同回合只开一次
+  ---
+  duration_ms: 0.2837
+  ...
+# Subtest: R10 非法替换无部分修改合法替换指定项
+ok 29 - R10 非法替换无部分修改合法替换指定项
+  ---
+  duration_ms: 1.4194
+  ...
+# Subtest: R11 主动跳过和超时原路线不变
+ok 30 - R11 主动跳过和超时原路线不变
+  ---
+  duration_ms: 0.6062
+  ...
+# Subtest: R12 换出再换回保留额度机场历史和真实成本
+ok 31 - R12 换出再换回保留额度机场历史和真实成本
+  ---
+  duration_ms: 0.5404
+  ...
+# Subtest: R13 原初始超时结算及H12首次事实
+ok 32 - R13 原初始超时结算及H12首次事实
+  ---
+  duration_ms: 0.7123
+  ...
+# Subtest: R12b 原引擎骰子机场奖励区别于飞行和机会位移
+ok 33 - R12b 原引擎骰子机场奖励区别于飞行和机会位移
+  ---
+  duration_ms: 1.2839
+  ...
+# Subtest: R14 真实起点先开股票不插入后续
+ok 34 - R14 真实起点先开股票不插入后续
+  ---
+  duration_ms: 0.4574
+  ...
+# Subtest: R14b 基准已两圈时第三第四第五圈真实结算
+ok 35 - R14b 基准已两圈时第三第四第五圈真实结算
+  ---
+  duration_ms: 0.5968
+  ...
+# Subtest: R21b 债务破产与结束取消排队且迟到确认无效
+ok 36 - R21b 债务破产与结束取消排队且迟到确认无效
+  ---
+  duration_ms: 0.4636
+  ...
+# Subtest: R15 普通与监狱掷骰记录当轮且不误开
+ok 37 - R15 普通与监狱掷骰记录当轮且不误开
+  ---
+  duration_ms: 0.4912
+  ...
+# Subtest: R16 回合安全入口不重复完成上一回合
+ok 38 - R16 回合安全入口不重复完成上一回合
+  ---
+  duration_ms: 0.3357
+  ...
+# Subtest: R17 冻结监狱决定处理后才打开
+ok 39 - R17 冻结监狱决定处理后才打开
+  ---
+  duration_ms: 0.586
+  ...
+# Subtest: R18 自救和股票完成不删必要上下文
+ok 40 - R18 自救和股票完成不删必要上下文
+  ---
+  duration_ms: 0.3367
+  ...
+# Subtest: R19 后续首次应急资金原子到账
+ok 41 - R19 后续首次应急资金原子到账
+  ---
+  duration_ms: 0.4333
+  ...
+# Subtest: R20 跳过与超时恢复可继续掷骰
+ok 42 - R20 跳过与超时恢复可继续掷骰
+  ---
+  duration_ms: 0.6751
+  ...
+# Subtest: R21 原正常结束清理不补发未选奖励
+ok 43 - R21 原正常结束清理不补发未选奖励
+  ---
+  duration_ms: 0.2003
+  ...
+1..43
+# tests 43
+# suites 0
+# pass 43
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 68.0732

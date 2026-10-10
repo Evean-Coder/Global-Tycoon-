@@ -36,6 +36,7 @@ function createGameState(roomCode, playerNames, ruleVersion = 2, options = {}) {
   for (const p of players) p.opportunities = initial();
   const routesEnabled = ruleVersion === 2 && options.routeRevision === 'opportunity-routes-v1';
   if (routesEnabled && !['normal', 'quick'].includes(options.gameMode || 'normal')) throw new Error('对局模式无效');
+  if (options.quickRevision !== undefined && (options.quickRevision !== 'quick-mode-v1' || !routesEnabled || options.gameMode !== 'quick')) throw new Error('快速模式版本无效');
   if (routesEnabled) for (const p of players) p.opportunities.oneTimeRewards = { H12: null };
   const board = buildBoard();
   const cities = {};
@@ -56,6 +57,7 @@ function createGameState(roomCode, playerNames, ruleVersion = 2, options = {}) {
     stocks[cityId] = { price: Math.round((cities[cityId].price / 10) * 2), holders: {}, operatingPrice: Math.round(cities[cityId].price * 0.2), dividendFund: 0, roundRent: 0, rentHistory: [], listingEpoch: 0, quoteVersion: 0, clearing: false, lastDividendPerShare: 0 };
   }
   return {
+    ...(options.quickRevision ? {quickRevision: options.quickRevision, quick: {durationMs:1800000,startedAt:options.startedAt ?? Date.now(),status:'running',warnings:[]}} : {}),
     ...(routesEnabled ? {
       routeRevision: options.routeRevision, gameMode: options.gameMode || 'normal',
       routeFlow: {

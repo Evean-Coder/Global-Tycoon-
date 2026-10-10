@@ -1,5 +1,5 @@
 'use strict';
-const {cityTotalValue,safe}=require('./economy');
+const {cityTotalValue,mortgageValue,safe}=require('./economy');
 function assetSummary(s,id){
  const p=s.players.find(p=>p.id===id);let propertyValue=0,stockValue=0,retainedPending=0;
  for(const c of Object.values(s.cities))if(c.ownerId===id)propertyValue=safe(propertyValue+cityTotalValue(c));
@@ -13,4 +13,12 @@ function assetSummary(s,id){
  const airportValue=Object.values(s.airports).filter(a=>a.ownerId===id).length*15000;
  return {cash:p.cash,propertyValue,airportValue,stockValue,retainedPending,total:safe(p.cash+propertyValue+airportValue+stockValue+retainedPending)};
 }
-module.exports={assetSummary};
+function netAssetSummary(s,id){
+ const a=assetSummary(s,id);let mortgagePrincipal=0,mortgageInterest=0;
+ for(const c of Object.values(s.cities))if(c.ownerId===id&&c.mortgaged){
+  mortgagePrincipal=safe(mortgagePrincipal+mortgageValue(c));
+  mortgageInterest=safe(mortgageInterest+(c.mortgageInterest||0));
+ }
+ return {cash:a.cash,propertyValue:a.propertyValue,airportValue:a.airportValue,stockValue:a.stockValue,retainedPending:a.retainedPending,grossAssets:a.total,mortgagePrincipal,mortgageInterest,netAssets:safe(safe(a.total-mortgagePrincipal)-mortgageInterest)};
+}
+module.exports={assetSummary,netAssetSummary};

@@ -21,6 +21,7 @@ function emergencyReward(state, p, sourceId, events) {
 }
 
 function modern(state) { return state.ruleVersion === 2; }
+function quickEnabled(state) { return modern(state) && state.gameMode === 'quick' && state.quickRevision === 'quick-mode-v1' && !!state.quick; }
 
 const JAILS = [11, 21, 32];
 const GO = 0;
@@ -146,6 +147,11 @@ function sharesOf(state, playerId, cityId) {
 // ---------- 回合推进 ----------
 
 function finishGame(state, events) {
+  if (quickEnabled(state)) {
+    state.quickEndIntent = 'normal';
+    state.status = 'over'; state.phase = 'game_over'; state.pending = null;
+    return;
+  }
   events.push(...routes.cancelRoutes(state, null, 'normal_end').events);
   const alive = alivePlayers(state);
   if (modern(state)) stocks.settleFinalEconomy(state, 'last_survivor', events);
@@ -623,6 +629,10 @@ function bankrupt(state, player, events, rng) {
   player.cities = [];
   player.mortgageInterest = 0;
   // 其余城市进入拍卖（按格编号从小到大）
+  if (quickEnabled(state) && survivors.length <= 1) {
+    finishGame(state, events);
+    return;
+  }
   if (toAuction.length) {
     toAuction.sort((a, b) => state.board.findIndex((s) => s.cityId === a) - state.board.findIndex((s) => s.cityId === b));
     startAuction(state, toAuction[0], null, events, rng, { queue: toAuction.slice(1), bankrupted: true });

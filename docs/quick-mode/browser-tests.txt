@@ -1,0 +1,55 @@
+TAP version 13
+# Subtest: QB01 mode is confirmed before real start and guest control is read-only
+ok 1 - QB01 mode is confirmed before real start and guest control is read-only
+  ---
+  duration_ms: 2225.5684
+  ...
+# Subtest: QB02 restart uses waiting/error feedback instead of raw fire-and-forget
+ok 2 - QB02 restart uses waiting/error feedback instead of raw fire-and-forget
+  ---
+  duration_ms: 159.5702
+  ...
+# Subtest: QB03 total time continues through personal pause and ignores stale correction
+ok 3 - QB03 total time continues through personal pause and ignores stale correction
+  ---
+  duration_ms: 79.303
+  ...
+# Subtest: QB04 net assets, debts and spendable cash have distinct labels
+ok 4 - QB04 net assets, debts and spendable cash have distinct labels
+  ---
+  duration_ms: 82.0172
+  ...
+# Subtest: QB05 ties, reasons and authoritative result work before a record arrives
+ok 5 - QB05 ties, reasons and authoritative result work before a record arrives
+  ---
+  duration_ms: 45.4908
+  ...
+# Subtest: QB06 download and replay preserve the frozen quick result
+ok 6 - QB06 download and replay preserve the frozen quick result
+  ---
+  duration_ms: 265.869
+  ...
+# Subtest: QB07 PC tablet and short landscape layouts expose accessible controls
+ok 7 - QB07 PC tablet and short landscape layouts expose accessible controls
+  ---
+  duration_ms: 1155.2274
+  ...
+# Subtest: QB08 authority closes old sheets and cancels queued visual animations
+ok 8 - QB08 authority closes old sheets and cancels queued visual animations
+  ---
+  duration_ms: 823.026
+  ...
+# Subtest: QB09 actual browser 200 percent zoom keeps the clock and net details usable
+ok 9 - QB09 actual browser 200 percent zoom keeps the clock and net details usable
+  ---
+  duration_ms: 2385.8081
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 7708.5888

@@ -63,6 +63,11 @@
         <ul id="playerList" class="players"></ul>
       </div>
       <div class="rule"></div>
+      <div class="field room-mode">
+        <label for="roomMode">本局模式 · 由房主选择</label>
+        <select id="roomMode" disabled><option value="normal">普通模式</option><option value="quick">快速模式 · 30分钟</option></select>
+        <p id="modeDescription" class="hint">普通模式：最后存活者获胜。</p>
+      </div>
       <button id="btnStart" class="primary block" disabled>开始游戏</button>
       <button id="btnLeave" class="secondary block">退出房间</button>
       <p id="roomHint" class="hint center"></p>
@@ -74,6 +79,10 @@
     <div id="waitBanner" class="hidden"></div>
     <p class="orientation-hint ingame">请将手机横屏，以完整查看地图文字；竖屏也可向下滚动查看完整棋盘。</p>
     <section id="newsBar" class="news-bar" aria-label="环球资讯"></section>
+    <section id="quickClockBar" class="quick-clock-bar hidden" aria-label="整局时间">
+      <span>快速模式 · 整局剩余 <strong id="quickTimer">30:00</strong></span>
+      <span id="quickEndHint">到时封盘，按净资产排名</span>
+    </section>
     <p id="mapScrollHint" class="board-scroll-hint">地图可上下滑动 · 点地块查看详情</p>
     <div id="gameMain">
       <div id="boardWrap">

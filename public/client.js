@@ -1,6 +1,6 @@
 'use strict';
 
-/* exported afterReceipt, emitAct, downloadRecord, openReplay, replayPrev, replayNext, replayPlay, replayClose, clickTransferEntry, submitTransfer, returnFromTransfer, resumeStockView */
+/* exported afterReceipt, emitAct, downloadRecord, openReplay, replayPrev, replayNext, replayPlay, replayClose, clickTransferEntry, submitTransfer, returnFromTransfer, resumeStockView, startSelectedGame, returnToRoom */
 
 // PWA：注册 service worker（缓存静态资源，离线可用）
 if ('serviceWorker' in navigator) {
@@ -22,7 +22,7 @@ function fitActionBarPadding() {
 window.addEventListener('load', fitActionBarPadding);
 window.addEventListener('resize', fitActionBarPadding);
 
-const socket = io({ auth: {clientRouteRevision:'opportunity-routes-v1'}, transports: ['websocket', 'polling'], tryAllTransports: true });
+const socket = io({ auth: {clientRouteRevision:'opportunity-routes-v1',clientQuickRevision:'quick-mode-v1'}, transports: ['websocket', 'polling'], tryAllTransports: true });
 let me = { name: '', roomCode: null };
 let game = null;
 let awaitingPlayerId = null;
@@ -56,6 +56,39 @@ let restoringSession = false;
 let lobbyFeedback = '';
 let transferReturn = null;
 let toastTimer = null;
+let moveTimer = null, diceTimer = null, diceFinishTimer = null;
+let animationGeneration = 0, quickTimerIv = null, quickTimeAnchor = null;
+
+function stopVisualAnimations() {
+  animationGeneration++;
+  clearInterval(moveTimer);clearInterval(diceTimer);clearTimeout(diceFinishTimer);
+  moveTimer=null;diceTimer=null;diceFinishTimer=null;
+  animBusy=false;diceAnimating=false;animQueued=null;
+  $('dice').classList.remove('rolling');
+}
+function quickGame(state=game) { return state?.quickRevision === 'quick-mode-v1'; }
+function updateQuickTime(time) {
+  if (!quickGame(latestState) || time?.gameId !== latestState.gameId) {
+    if (!quickGame(latestState)) {clearInterval(quickTimerIv);quickTimerIv=null;quickTimeAnchor=null;$('quickClockBar').classList.add('hidden');}
+    return;
+  }
+  if (!Number.isFinite(time.elapsedMs) || time.elapsedMs<0) return;
+  const same=quickTimeAnchor?.gameId===time.gameId;
+  if(same && time.elapsedMs<quickTimeAnchor.acceptedElapsed) return;
+  if(same && time.elapsedMs===quickTimeAnchor.acceptedElapsed && !time.closed) return;
+  const point=window.performance.now(),oldElapsed=same?quickTimeAnchor.elapsedMs+(quickTimeAnchor.closed?0:point-quickTimeAnchor.receivedAt):0;
+  quickTimeAnchor={gameId:time.gameId,elapsedMs:time.closed?time.elapsedMs:Math.max(oldElapsed,time.elapsedMs),acceptedElapsed:time.elapsedMs,receivedAt:point,closed:time.closed};
+  clearInterval(quickTimerIv);quickTimerIv=null;$('quickClockBar').classList.remove('hidden');
+  const render=()=>{
+    const a=quickTimeAnchor,remain=Math.max(0,Math.ceil((1800000-a.elapsedMs-(a.closed?0:window.performance.now()-a.receivedAt))/1000));
+    $('quickTimer').textContent=a.closed?'已结束':String(Math.floor(remain/60)).padStart(2,'0')+':'+String(remain%60).padStart(2,'0');
+    $('quickEndHint').textContent=a.closed?'结果已按实际净资产结算':remain===0?'等待服务器结算…':remain<=120?'即将封盘：剩余不足2分钟':remain<=300?'即将封盘：剩余不足5分钟':'到时封盘，按净资产排名';
+  };
+  render();if(!time.closed)quickTimerIv=setInterval(render,250);
+}
+function netSummaryHTML(a) {
+  return kv('现金（可支付余额）',fmt(a.cash))+kv('城市标准价值',fmt(a.propertyValue))+kv('机场价值',fmt(a.airportValue))+kv('持股报价价值',fmt(a.stockValue))+kv('待结经营收益',fmt(a.retainedPending))+kv('原资产总值',fmt(a.grossAssets))+kv('抵押本金（负债）',fmt(a.mortgagePrincipal))+kv('抵押利息（负债）',fmt(a.mortgageInterest))+kv('净资产',fmt(a.netAssets),'g');
+}
 
 const $ = (id) => document.getElementById(id);
 let pieceResizeFrame = 0;
@@ -69,7 +102,7 @@ function requestPieceLayout() {
 if ('ResizeObserver' in window) new window.ResizeObserver(requestPieceLayout).observe($('board'));
 if ('ResizeObserver' in window) {
   const chromeLayout = new window.ResizeObserver(fitActionBarPadding);
-  for (const id of ['newsBar', 'waitBanner', 'actionBar']) chromeLayout.observe($(id));
+  for (const id of ['newsBar', 'waitBanner', 'quickClockBar', 'actionBar']) chromeLayout.observe($(id));
 }
 window.addEventListener('resize', requestPieceLayout);
 
@@ -291,11 +324,13 @@ function playMoveAnim(movers, done) {
     return;
   }
   let i = 0;
-  const iv = setInterval(() => {
+  const generation=animationGeneration;
+  const iv = moveTimer = setInterval(() => {
+    if(generation!==animationGeneration){clearInterval(iv);return;}
     i++;
     for (const st of steps) lastPos[st.id] = st.path[Math.min(i, st.path.length) - 1];
     renderPieces();
-    if (i >= maxLen) { clearInterval(iv); done(); }
+    if (i >= maxLen) { clearInterval(iv);moveTimer=null; done(); }
   }, 110);
 }
 function playDiceAnim() {
@@ -308,11 +343,14 @@ function playDiceAnim() {
   }
   diceAnimating = true;
   el.classList.add('rolling');
-  const iv = setInterval(() => {
+  const generation=animationGeneration;
+  const iv = diceTimer = setInterval(() => {
     el.textContent = '骰子 ' + (1 + Math.floor(Math.random() * 10));
   }, 90);
-  setTimeout(() => {
+  diceFinishTimer=setTimeout(() => {
+    if(generation!==animationGeneration)return;
     clearInterval(iv);
+    diceTimer=null;diceFinishTimer=null;
     el.classList.remove('rolling');
     diceAnimating = false;
     if (animQueued) { const st = animQueued; animQueued = null; processState(st); }
@@ -412,7 +450,7 @@ function renderSide() {
         return '<div class="pinfo"><span class="pdot" style="background:' + p.color + '"></span><b>' + escapeHTML(p.name) + '</b>' + ost + '</div>'
           + (p.opportunities?'<div class="public-opportunities">'+p.opportunities.selectedIds.map(id=>game.opportunityCatalog[id].name).join(' · ')+'</div>':'')
           + '<div class="assets">'
-          + '<div class="asset-row"><span>总资产</span><b class="total">' + fmt(totalAssetsFor(p)) + '</b></div>'
+          + '<div class="asset-row"><span>' + (game.quickRevision === 'quick-mode-v1' ? '当前净资产' : '总资产') + '</span><b class="total">' + fmt(game.quickRevision === 'quick-mode-v1' && p.netAssetSummary ? p.netAssetSummary.netAssets : totalAssetsFor(p)) + '</b></div>'
           + '<div class="asset-row"><span>当前现金</span><b>' + fmt(p.cash) + '</b></div>'
           + '</div>';
       }).join('') : '<p class="hint">暂无其他玩家</p>');
@@ -496,7 +534,7 @@ function renderLedger() {
   const mgCount = meP.cities.filter((id) => game.cities[id].mortgaged).length;
   const allowOps = isMyTurn() && game.phase !== 'game_over';
   body.innerHTML = '<div class="ledger-title">我的资产 <em>· 航海家</em></div>'
-    + '<div class="ledger-total"><span>总资产</span><strong>' + fmt(totalAssetsFor(meP)) + '</strong></div>'
+    + '<div class="ledger-total"><span>'+(quickGame()?'当前净资产':'总资产')+'</span><strong>' + fmt(quickGame()?meP.netAssetSummary.netAssets:totalAssetsFor(meP)) + '</strong></div>'
     + '<div class="ledger-summary">'
     + '<div><span>现金</span><b>' + fmt(meP.cash) + '</b></div>'
     + '<div><span>城市</span><b>' + meP.cities.length + ' 座</b></div>'
@@ -1068,11 +1106,13 @@ function openAssetOverview() {
   if (stockReady()) hideOverlay('stockModal');
   const body = $('modalBody');
   body.innerHTML = '<div class="card-tag">MY ASSETS</div>'
+    + (quickGame()?kv('当前净资产（用于排名）',fmt(meP.netAssetSummary.netAssets),'g'):'')
     + kv('总资产', fmt(totalAssetsFor(meP)), 'g')
     + kv('当前现金', fmt(meP.cash))
     + kv('城市 / 抵押', meP.cities.length + ' / ' + meP.cities.filter((id) => game.cities[id].mortgaged).length)
     + kv('机场', (meP.airports || []).length);
   if(meP.assetSummary){const a=meP.assetSummary;body.insertAdjacentHTML('beforeend',kv('地产价值',fmt(a.propertyValue))+kv('股票价值（含待分红）',fmt(a.stockValue))+kv('待结算经营收益',fmt(a.retainedPending))+'<p class="hint">待结算收益计入总资产，派发后才能使用现金；名下持股计入股票价值。</p>');}
+  if(quickGame())body.insertAdjacentHTML('beforeend','<details class="net-details"><summary>净资产组成与抵押债务</summary>'+netSummaryHTML(meP.netAssetSummary)+'<p class="hint">净资产用于排名，不是可支付现金。封盘先派息，再按除息后的报价计值。</p></details>');
   appendSelectedOpportunities(body);
   if (meP.cities.length) {
     const wrap = document.createElement('div');
@@ -1095,7 +1135,11 @@ function syncLobbyControls() {
   $('joinCode').disabled = !!lobbyRequest || restoringSession;
   $('btnCreate').disabled = !ready || !$('nickname').value.trim();
   $('btnJoin').disabled = !ready || !($('nickname').value.trim() && $('joinCode').value.trim().length === 6);
-  $('btnStart').disabled = !ready || !lastRoomState || lastRoomState.hostId !== socket.id || lastRoomState.players.length < 2 || lastRoomState.started;
+  const running=lastRoomState?.started && latestState?.phase!=='game_over';
+  $('btnStart').disabled = !ready || !lastRoomState || lastRoomState.hostId !== socket.id || lastRoomState.players.length < 2 || running;
+  $('roomMode').disabled=!ready || !lastRoomState || lastRoomState.hostId!==socket.id || running;
+  $('roomMode').value=lastRoomState?.gameMode||'normal';
+  $('modeDescription').textContent=$('roomMode').value==='quick'?'快速模式：从正式开局起计时30分钟；到时停止新操作，结清分红，按资产减抵押本金和利息后的净资产排名。':'普通模式：保持原回合节奏，最后存活者获胜。';
   for (const [id, event, label, waiting] of [
     ['btnCreate', 'createRoom', '创建房间', '正在创建…'],
     ['btnJoin', 'joinRoom', '加入房间', '正在加入…'],
@@ -1112,9 +1156,9 @@ function syncLobbyControls() {
 }
 function sendLobbyRequest(event, data, onSuccess) {
   if (!socket.connected || lobbyRequest || restoringSession) { syncLobbyControls(); return; }
-  const request = { event, socketId: socket.id, roomCode: data.roomCode || null };
+  const request = { event, socketId: socket.id, roomCode: data.roomCode || null,gameMode:data.gameMode };
   lobbyRequest = request;
-  lobbyFeedback = event === 'startGame' ? '正在开始对局…' : event === 'createRoom' ? '正在创建房间…' : '正在加入房间…';
+  lobbyFeedback = event === 'setRoomMode' ? '正在确认模式…' : event === 'startGame' ? '正在开始对局…' : event === 'createRoom' ? '正在创建房间…' : '正在加入房间…';
   syncLobbyControls();
   socket.timeout(10000).emit(event, data, (err, res) => {
     if (lobbyRequest !== request || socket.id !== request.socketId) return;
@@ -1146,7 +1190,8 @@ function setupLobby() {
       if (pendingToken) { saveReconnect({ roomCode: me.roomCode, name: me.name, token: pendingToken }); pendingToken = null; } else saveReconnect({ roomCode: me.roomCode, name: me.name });
     });
   };
-  $('btnStart').onclick = () => sendLobbyRequest('startGame', {});
+  $('btnStart').onclick = startSelectedGame;
+  $('roomMode').onchange=()=>sendLobbyRequest('setRoomMode',{gameMode:$('roomMode').value});
   $('btnCopyCode').onclick = () => {
     if (navigator.clipboard) navigator.clipboard.writeText($('roomCode').textContent).then(() => toast('房间码已复制')).catch(() => toast('复制失败'));
     else toast('房间码已复制');
@@ -1209,6 +1254,7 @@ socket.on('roomState', (rs) => {
     lobbyRequest=null; lobbyFeedback='';
   }
   if (!me.roomCode || rs.roomCode !== me.roomCode) return;
+  if(lobbyRequest?.event==='setRoomMode' && rs.gameMode===lobbyRequest.gameMode){lobbyRequest=null;lobbyFeedback='';}
   lastRoomState = rs;
   restoringSession = false;
   disconnectedNames = rs.players.filter((p) => !p.connected).map((p) => p.name);
@@ -1229,8 +1275,10 @@ socket.on('roomState', (rs) => {
 
 socket.on('gameState', (state) => {
   if (state.gameId === latestState?.gameId && state.revision < latestState.revision) return;
-  if (state.gameId && state.gameId !== latestState?.gameId) { lastPos={};lastEventId=-1;clientLog=[];lastGameJson='';lastRecord=null;stockDraft={};choiceRenderKey='';receiptPending=false; }
+  if(state.gameId===latestState?.gameId && latestState?.phase==='game_over' && state.phase!=='game_over')return;
+  if (state.gameId && state.gameId !== latestState?.gameId) { stopVisualAnimations();for(const el of document.querySelectorAll('.overlay:not(.hidden)'))hideOverlay(el.id);lastPos={};lastEventId=-1;clientLog=[];lastGameJson='';lastRecord=null;stockDraft={};choiceRenderKey='';receiptPending=false;quickTimeAnchor=null; }
   latestState = state;
+  updateQuickTime(state.quickTime);
   if (lobbyRequest?.event === 'startGame') { lobbyRequest=null; lobbyFeedback=''; }
   restoringSession = false;
   syncLobbyControls();
@@ -1241,11 +1289,20 @@ socket.on('gameState', (state) => {
   if (!meP) { console.warn('身份校验失败：昵称=' + me.name + ' socketId=' + socket.id); toast('身份校验失败，请刷新页面重新连接'); }
   if (state.decision) displayTimer({...state.decision,seconds:state.decision.secondsRemaining});
   show('view-game');
+  if(state.phase==='game_over'){
+    stopVisualAnimations();clearInterval(timerIv);timerIv=null;receiptPending=false;routeDraft=null;
+    activeRequest=null;actionPending=false;document.body.classList.remove('action-pending');
+    for(const el of document.querySelectorAll('.overlay:not(.hidden)'))hideOverlay(el.id);
+    for(const p of state.players)lastPos[p.id]=p.position;
+    finishRender(state);return;
+  }
   if (diceAnimating || animBusy) { animQueued = state; return; }
   processState(state);
 });
+socket.on('quickTimeUpdate',updateQuickTime);
 
 socket.on('timerStarted', (t) => {
+  if(latestState?.phase==='game_over')return;
   if (t.gameId && latestState?.gameId && (t.gameId !== latestState.gameId || t.decisionId < latestState.decision?.decisionId)) return;
   displayTimer(t);
 });
@@ -1273,7 +1330,11 @@ function displayTimer(t) {
 
 socket.on('error', (e) => toast(e.message || '操作失败'));
 
-socket.on('gameRecord', (rec) => { lastRecord = rec; });
+socket.on('gameRecord', (rec) => {
+  if(latestState?.gameId && rec.gameId && latestState.gameId!==rec.gameId)return;
+  lastRecord=rec;
+  if(game?.phase==='game_over' && $('modalTitle').textContent==='对局结束' && !$('modal').classList.contains('hidden'))renderGameOver();
+});
 
 socket.on('reconnectToken', (d) => {
   pendingToken = d.token;
@@ -1311,7 +1372,10 @@ socket.on('disconnect', () => {
 });
 
 // ---------- 结算 ----------
+function startSelectedGame(){sendLobbyRequest('startGame',{gameMode:lastRoomState?.gameMode||'normal'});}
+function returnToRoom(){closeModal();show('view-room');syncLobbyControls();}
 function renderGameOver() {
+  if(quickGame()&&game.quickResult){renderQuickGameOver();return;}
   const body = $('modalBody');
   const winner = playerById(game.winner);
   const rank = game.rank && game.rank.length ? game.rank : game.players.filter((p) => p.alive).map((p) => p.id);
@@ -1329,10 +1393,20 @@ function renderGameOver() {
     + '<div class="rule"></div>'
     + '<table class="rank"><tr><th>名次</th><th>玩家</th><th>总资产</th></tr>' + rows + '</table>'
     + recordEconomySummary(lastRecord)
-    + '<div class="btnrow"><button class="secondary" onclick="closeModal()">返回房间页</button>'
+    + '<div class="btnrow"><button class="secondary" onclick="returnToRoom()">返回房间页</button>'
     + (lastRecord ? '<button class="secondary" onclick="openReplay()">回放对局</button>' : '')
     + (roomHostId === socket.id ? '<button class="secondary" onclick="downloadRecord()">下载对局数据</button>' : '')
-    + (roomHostId === socket.id ? '<button class="primary" onclick="socket.emit(\'startGame\')">重新开始新对局</button>' : '') + '</div>';
+    + (roomHostId === socket.id ? '<button class="primary" onclick="startSelectedGame()">重新开始新对局</button>' : '') + '</div>';
+  openModal('对局结束');
+}
+function renderQuickGameOver(){
+  const result=game.quickResult,reason={time_limit:'30分钟到时封盘',normal:'最后存活者获胜',disband:'房主提前解散',idle_timeout:'无人在线，房间清理'}[result.reason]||'对局结束';
+  const winners=result.winnerIds.map(id=>escapeHTML(playerById(id)?.name||id)).join('、');
+  $('modalBody').innerHTML='<div class="winner-box"><div class="cap">快速模式 · '+reason+'</div><div class="name">'+(winners||'无存活玩家')+'</div><p>'+(result.winnerIds.length>1?'并列第一 · ':'')+'用时 '+Math.floor(result.elapsedMs/60000)+'分'+Math.floor(result.elapsedMs/1000%60)+'秒</p></div>'
+    +'<table class="rank"><tr><th>名次</th><th>玩家</th><th>最终净资产</th></tr>'+result.ranking.map(p=>'<tr><td>'+p.rank+'</td><td>'+escapeHTML(playerById(p.playerId)?.name||p.playerId)+(p.alive?'':'（已出局）')+'</td><td>'+fmt(p.netAssets)+'</td></tr>').join('')+'</table>'
+    +result.ranking.map(p=>'<details class="net-details"><summary>'+escapeHTML(playerById(p.playerId)?.name||p.playerId)+' · 资产与负债明细</summary>'+netSummaryHTML(p.summary)+'</details>').join('')
+    +'<details class="net-details"><summary>未成交事项与清算</summary><p>已成立费用及成交保留；未确认事项取消。</p>'+result.cancelled.map(c=>'<p>'+escapeHTML(c.type)+(c.cityId?' · '+escapeHTML(c.cityId):'')+'：已取消</p>').join('')+'<p>已破产城市归银行：'+escapeHTML(result.clearedCityIds.join('、')||'无')+'</p></details>'
+    +recordEconomySummary(lastRecord)+'<div class="btnrow"><button class="secondary" onclick="returnToRoom()">返回房间页</button>'+(lastRecord?'<button class="secondary" onclick="openReplay()">回放对局</button><button class="secondary" onclick="downloadRecord()">下载对局数据</button>':'<span class="hint">等待对局记录…</span>')+(roomHostId===socket.id?'<button class="primary" onclick="startSelectedGame()">重新开始新对局</button>':'')+'</div>';
   openModal('对局结束');
 }
 
@@ -1354,8 +1428,10 @@ let replayIndex = 0;
 let replayTimer = null;
 function recordEconomySummary(record) {
   const values=record?.stats?.economy;
-  if(!values)return '';
-  return '<details class="record-economy"><summary>实际收益与费用记录</summary>'+kv('基础股息',fmt(values.baseDividends))+kv('机遇奖励',fmt(values.bankBonuses))+kv('保留经营收益',fmt(values.retainedIncome))+kv('股票清算',fmt(values.stockLiquidation))+kv('银行租金补足',fmt(values.bankRentSupplement))+kv('建房节省',fmt(values.buildSavings||0))+kv('机票节省',fmt(values.flightSavings||0))+kv('远航开支（支出）',fmt(values.travelExpenses||0))+'</details>';
+  const note=record&&!record.quick?'<p class="hint">此记录没有快速封盘债务快照，不据此重新计算净资产或排名。</p>':'';
+  const quickInfo=record?.quick?'<p class="hint">快速模式 · '+Math.floor(record.quick.elapsedMs/60000)+'分钟 · '+escapeHTML(record.quick.reason)+' · 排名以冻结净资产为准</p>':'';
+  if(!values)return note+quickInfo;
+  return note+quickInfo+'<details class="record-economy"><summary>实际收益与费用记录</summary>'+kv('基础股息',fmt(values.baseDividends))+kv('机遇奖励',fmt(values.bankBonuses))+kv('保留经营收益',fmt(values.retainedIncome))+kv('股票清算',fmt(values.stockLiquidation))+kv('银行租金补足',fmt(values.bankRentSupplement))+kv('建房节省',fmt(values.buildSavings||0))+kv('机票节省',fmt(values.flightSavings||0))+kv('远航开支（支出）',fmt(values.travelExpenses||0))+'</details>';
 }
 
 function openReplay() {

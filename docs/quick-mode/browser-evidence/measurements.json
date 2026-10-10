@@ -1,0 +1,63 @@
+{
+  "browser": "Microsoft Edge Chromium",
+  "physicalDevices": "未测；模拟视口",
+  "measures": [
+    {
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "timer": 57.515625,
+      "button": {
+        "w": 118,
+        "h": 44
+      }
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "scrollWidth": 1024,
+      "timer": 57.515625,
+      "button": {
+        "w": 233.5,
+        "h": 44
+      }
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "scrollWidth": 768,
+      "timer": 57.515625,
+      "button": {
+        "w": 169.5,
+        "h": 44
+      }
+    },
+    {
+      "width": 568,
+      "height": 320,
+      "scrollWidth": 568,
+      "timer": 48.890625,
+      "button": {
+        "w": 83.3125,
+        "h": 44
+      }
+    },
+    {
+      "width": 812,
+      "height": 375,
+      "scrollWidth": 812,
+      "timer": 48.890625,
+      "button": {
+        "w": 123.640625,
+        "h": 44
+      }
+    },
+    {
+      "label": "actual-browser-default-zoom-200",
+      "setting": 2,
+      "width": 720,
+      "scrollWidth": 720,
+      "pixelRatio": 2
+    }
+  ]
+}

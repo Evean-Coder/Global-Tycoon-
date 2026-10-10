@@ -9,3 +9,5 @@ G2修复：测试全局名称改为globalThis.structuredClone；QM10按现有引
 G3：QC+R-C 20/20；QS01–QS11最终11/11，日志clock-tests.txt/server-tests.txt。首次QS06未完成后续初始阶段导致陈旧决定，修正场景先合法完成三阶段；QS09补上既有windowId契约。补验证实际转让拒绝回原窗口仍15秒，没有重置到20秒。
 
 G4最终：settlement-view-tests.txt 12/12；server-tests.txt 16/16；ordinary-server-tests.txt 12/12；route-server-tests.txt 13/13。上述数量为各组有效结果，未与先前复跑累加。server/src/test lint和gameView/record语法通过。
+
+G5：首次浏览器启动受spawn EPERM限制；经自动审批在允许的环境运行，最终9/9通过。真实浏览器200%缩放的CSS视口720px、devicePixelRatio=2，无整页横向溢出。手机为模拟视口，未声称实机测试。

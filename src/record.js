@@ -78,10 +78,15 @@ function computeStats(state, events) {
       if(e.kind==='retained_income')stats.economy.retainedIncome+=e.amount;
       if(e.kind==='stock_liquidation')stats.economy.stockLiquidation+=e.amount;
       if(e.kind==='city_rent')stats.economy.bankRentSupplement+=e.bankSupplement||0;
-      if(e.kind==='build')stats.economy.buildSavings+=e.baseAmount-e.finalAmount;
+      if(e.kind==='build')stats.economy.buildSavings+=(e.effects||[]).reduce((sum,item)=>sum+Math.max(0,item.amount),0);
       if(e.kind==='flight')stats.economy.flightSavings+=e.baseAmount-e.finalAmount;
     }
     stats.economy.travelExpenses=0;
+    if(state.activeManagementRevision){
+      stats.economy.promotionCosts=events.filter(e=>e.type==='promotion'&&e.kind!=='promotion_reward').reduce((sum,e)=>sum+e.amount,0);
+      stats.economy.promotionRewards=events.filter(e=>e.kind==='promotion_reward').reduce((sum,e)=>sum+e.amount,0);
+      stats.economy.activeStockFees=events.filter(e=>e.kind==='stock_trade'&&e.active).reduce((sum,e)=>sum+e.fee,0);
+    }
     stats.economy.travelExpensesByPlayer={};
     for(const e of events)if(e.kind==='travel_expense'){
       stats.economy.travelExpenses+=e.amount;
@@ -99,6 +104,10 @@ function buildGameRecord(room, endReason) {
     ...(require('./opportunityRoutes').enabled(st)?{routeRevision:st.routeRevision,gameMode:st.gameMode}:{}),
     ...(quick.enabled(st)&&st.quick.status==='closed'?{quick:{quickRevision:st.quickRevision,startedAt:st.quick.startedAt,...globalThis.structuredClone(st.quick.result)}}:{}),
     ...(st.economyRevision?{economyRevision:st.economyRevision,travelExpense:require('./travelExpense').stage(st)}:{}),
+    // This record is broadcast to all players. Private eligibility and quota
+    // state stays in the authoritative state/checkpoint, not the public replay.
+    ...(st.propertySupportRevision?{propertySupportRevision:st.propertySupportRevision}:{}),
+    ...(st.activeManagementRevision?{activeManagementRevision:st.activeManagementRevision,promotions:st.promotions.map(a=>({playerId:a.playerId,cityId:a.cityId,reward:a.reward,remainingRewards:a.remainingRewards,expiresAfterCompleteRound:a.expiresAfterCompleteRound}))}:{}),
     roomCode: room.code,
     startedAt: st.startedAt,
     endedAt: quick.enabled(st)&&st.quick.status==='closed'?st.quick.endedAt:Date.now(),

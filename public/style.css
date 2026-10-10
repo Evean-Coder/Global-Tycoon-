@@ -1,22 +1,22 @@
-/* 环球大亨 · 日光深海桌游主题 */
+/* 环球大亨 · 历史地图桌游主题 */
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#126b9f;--bg2:#075781;
-  --card:#fffdf8;--card2:#f5efe3;--card3:#e8ddca;
+  --bg:#e9dfc5;--bg2:#d4c39b;
+  --card:#faf2de;--card2:#eee2c4;--card3:#e2d0a4;
   --gold:#c99c49;--gold2:#b27b31;--gold-soft:#e3bf79;--gold-deep:#8b6426;--gold-pale:#f3e5c4;
-  --title:#0b354b;--text:#17394a;--muted:#567380;--off:#82949b;--off-bg:#d8e0df;
+  --title:#263d4a;--text:#263d4a;--muted:#655c49;--off:#655f51;--off-bg:#e4decc;
   --danger:#b34d4a;--success:#328769;--blue:#236f9d;--violet:#8267a8;
-  --ocean:#1b78aa;--land:#f5eddb;
+  --ocean:#b3bdb6;--land:#f5eddb;
   --line:rgba(19,65,84,.26);--line-soft:rgba(19,65,84,.18);--line-faint:rgba(19,65,84,.11);
-  --serif:Georgia,"Songti SC","STSong","SimSun","Times New Roman",serif;
-  --sans:"Segoe UI","Microsoft YaHei","PingFang SC",sans-serif;
+  --serif:var(--sans);
+  --sans:"HarmonyOS Sans SC","Microsoft YaHei UI","PingFang SC","Segoe UI",sans-serif;
   --mono:"Consolas","Courier New",monospace;
 }
 html,body{height:100%}
 body{
   font-family:var(--sans);color:var(--text);
   background-color:var(--bg);
-  background-image:linear-gradient(rgba(3,54,93,.12),rgba(3,54,93,.12)),url("assets/ocean-surface.png");
+  background-image:linear-gradient(#f4ecd322,#f4ecd322),url("assets/atlas-background-v1.webp");
   background-size:cover;background-position:center;
   min-height:100vh;
   font-variant-numeric:tabular-nums;
@@ -40,15 +40,15 @@ body{
 header{
   display:flex;align-items:center;justify-content:space-between;
   padding:14px 26px;
-  background:rgba(8,45,64,.97);
+  background:linear-gradient(#faf2de,#e9ddbf);
   border-bottom:1px solid rgba(244,223,174,.32);
   box-shadow:0 9px 25px rgba(4,27,42,.18);
   position:relative;z-index:10;
 }
 .brand{display:flex;align-items:baseline;gap:14px}
-.brand h1{font-family:var(--serif);font-size:24px;letter-spacing:3px;color:#fff4d7;font-weight:800}
-.brand h1 em{font-style:normal;color:var(--gold)}
-.brand .sub{font-size:10px;letter-spacing:3px;color:#b8d1d9;text-transform:uppercase;border-left:1px solid rgba(255,255,255,.25);padding-left:12px}
+.brand h1{font-family:var(--serif);font-size:24px;letter-spacing:3px;color:var(--title);font-weight:800}
+.brand h1 em{font-style:normal;color:var(--gold-deep)}
+.brand .sub{font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;border-left:1px solid rgba(255,255,255,.25);padding-left:12px}
 
 /* ---------- 按钮 / 输入 ---------- */
 button{
@@ -65,10 +65,10 @@ button.primary{
   font-weight:800;text-shadow:0 1px 0 rgba(255,244,214,.45);
   box-shadow:inset 0 1px 0 rgba(255,244,214,.7),0 4px 12px rgba(91,62,22,.24);
 }
-button.positive{background:linear-gradient(180deg,#7A9A5E,#5C7A44);color:#FDF8EA;border-color:#4A6236;font-weight:700;text-shadow:0 1px 2px rgba(0,0,0,.25)}
-button.risk{background:linear-gradient(180deg,#BC5B50,#A6443A);color:#FDF3EC;border-color:#8A362E;font-weight:700;text-shadow:0 1px 2px rgba(0,0,0,.25)}
+button.positive{background:#476839;color:#FDF8EA;border-color:#4A6236;font-weight:700}
+button.risk{background:#9d443e;color:#FDF3EC;border-color:#8A362E;font-weight:700}
 button.secondary{background:var(--card);border-color:var(--line);color:var(--title)}
-button.ghost{background:rgba(255,255,255,.05);border-color:rgba(229,244,246,.27);color:#eaf7f8;box-shadow:none}
+button.ghost{background:rgba(255,255,255,.05);border-color:rgba(229,244,246,.27);color:var(--title);box-shadow:none}
 button.textbtn{background:none;border:none;padding:4px 2px;color:#175d7e;text-decoration:underline;font-size:13px;height:auto;cursor:pointer;box-shadow:none}
 button.block{width:100%}
 button:disabled{background:var(--off-bg);color:var(--off);border-color:var(--off-bg);cursor:not-allowed;filter:none;box-shadow:none;text-shadow:none}
@@ -99,14 +99,14 @@ label{font-size:12px;color:var(--title);letter-spacing:.4px;display:block;margin
 .hint{font-size:12px;color:var(--muted);line-height:1.6}
 .brand-mark{text-align:center;padding:4px 0 2px}
 .brand-mark .t{font-family:var(--serif);font-size:32px;letter-spacing:5px;color:var(--title);font-weight:800}
-.brand-mark .t em{font-style:normal;color:var(--gold)}
+.brand-mark .t em{font-style:normal;color:var(--gold-deep)}
 .brand-mark .s{font-size:11px;letter-spacing:3px;color:var(--muted);margin-top:8px}
 .card.center .field{text-align:left}
 .card.center .field .row{display:grid;grid-template-columns:minmax(0,1fr) auto}
 .card.center .field .row input{min-width:0}
 .card.center .field .row button{white-space:nowrap}
 .card.center .hint.center{margin-top:16px}
-.codebox{padding:14px 16px;border-radius:11px;background:#e8f2f4}
+.codebox{padding:14px 16px;border-radius:11px;background:var(--card2)}
 .codebox .big{font-size:34px;letter-spacing:7px;color:var(--title);font-weight:800}
 ul.players{list-style:none;display:flex;flex-direction:column;gap:6px}
 ul.players li{
@@ -152,14 +152,7 @@ ul.players .slot{color:var(--off);font-size:13px}
   width:100%;max-width:1320px;height:clamp(480px,var(--board-available,calc(100dvh - 245px)),760px);padding:8px;
   background:#d0b88e;
 }
-#board::before{
-  content:"";grid-column:2 / 12;grid-row:2 / 11;z-index:0;pointer-events:none;
-  border:1px solid rgba(5,65,99,.38);border-radius:4px;
-  background-color:#126b9f;
-  background-image:linear-gradient(rgba(2,52,89,.13),rgba(2,52,89,.13)),url("assets/world-map-ocean.png"),url("assets/ocean-surface.png");
-  background-size:cover,contain,cover;background-position:center;background-repeat:no-repeat;
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.18);
-}
+#board::before{content:none}
 /* 地块：暖白纸牌、黄铜边和色组标记 */
 .sq{
   min-width:0;min-height:0;border-radius:5px;padding:1px 3px;position:relative;z-index:1;
@@ -192,19 +185,11 @@ button.sq{width:100%;height:100%;appearance:none;font-family:var(--sans);letter-
 .t-rest{border-top:5px solid #9dacaa}
 /* 资源标记：房级金块、抵押红块 */
 .sq .lvl,.sq .mg{display:inline-block;padding:0 4px;border-radius:2px;color:#FDF8EA}
-.sq .lvl{background:linear-gradient(180deg,#D9B36A,#B8892F)}
+.sq .lvl{background:#e9d19e;color:var(--title)}
 .sq .mg{background:var(--danger)}
 
 /* ---------- 地图上层的个人资产卡 ---------- */
-#ledger{
-  position:absolute;left:12%;top:17%;
-  width:min(360px,43%);max-height:70%;display:flex;flex-direction:column;
-  background:rgba(255,253,248,.95);
-  border:1px solid rgba(255,255,255,.9);border-radius:14px;
-  box-shadow:0 15px 40px rgba(3,49,76,.25);
-  backdrop-filter:blur(7px);
-  overflow:hidden;z-index:5;
-}
+
 #ledger.dim{opacity:1;filter:none}
 #ledgerBody{display:flex;flex-direction:column;overflow:hidden;flex:1;min-height:0}
 .ledger-title{font-family:var(--serif);font-size:16px;letter-spacing:1px;color:var(--title);padding:15px 17px 8px}
@@ -258,17 +243,17 @@ button.sq{width:100%;height:100%;appearance:none;font-family:var(--sans);letter-
 .panel h3::after{content:"⌄";font-size:12px;color:var(--muted);margin-left:auto}
 .pinfo{display:flex;align-items:center;gap:9px;flex-wrap:wrap;font-size:14px}
 .pinfo b{color:var(--title)}
-.turn-phase{margin-top:10px;padding:8px 10px;border-radius:8px;background:#eaf3f4;color:var(--muted);font-size:12px}
+.turn-phase{margin-top:10px;padding:8px 10px;border-radius:8px;background:var(--card2);color:var(--muted);font-size:12px}
 .pdot{display:inline-block;width:11px;height:11px;border-radius:50%;flex:none;border:2px solid rgba(62,46,24,.8);box-shadow:0 1px 3px rgba(60,40,10,.45)}
 .assets{margin-top:12px;display:flex;flex-direction:column;gap:7px}
 .asset-row{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);padding:4px 6px;border-radius:3px}
-.asset-row:nth-child(even){background:#f0f5f4}
+.asset-row:nth-child(even){background:var(--card2)}
 .asset-row b{color:var(--text);font-family:var(--mono);font-weight:700}
 .asset-row .total{color:var(--gold-deep);font-size:17px}
 .asset-row .neg{color:var(--danger)}
 #log{display:flex;flex-direction:column;gap:6px;max-height:150px;overflow-y:auto;min-height:0}
 #log .ev{
-  padding:6px 9px;border-left:3px solid #86bac9;background:#f0f5f4;
+  padding:6px 9px;border-left:3px solid #86bac9;background:var(--card2);
   border-radius:0 6px 6px 0;font-size:12px;color:var(--muted);line-height:1.45;
 }
 #log .ev.cur{color:var(--text);border-left-color:var(--gold);background:#e9f2f2}
@@ -282,7 +267,7 @@ button.sq{width:100%;height:100%;appearance:none;font-family:var(--sans);letter-
   border:1px solid rgba(255,255,255,.85);
   background:rgba(255,253,248,.96);
   box-shadow:0 12px 38px rgba(5,35,52,.29);
-  backdrop-filter:blur(12px);
+  
 }
 #actionBar .spacer{flex:1}
 #actionBar #dice{font-family:var(--mono);font-size:16px;color:var(--gold-deep);letter-spacing:1px;font-weight:700}
@@ -291,7 +276,7 @@ button.sq{width:100%;height:100%;appearance:none;font-family:var(--sans);letter-
 #actionBar #timer{font-size:13px;letter-spacing:1px;color:var(--danger);font-weight:700}
 
 /* ---------- 弹窗 ---------- */
-.overlay{position:fixed;inset:0;background:rgba(5,30,43,.65);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:60;padding:20px}
+.overlay{position:fixed;inset:0;background:rgba(5,30,43,.65);display:flex;align-items:center;justify-content:center;z-index:60;padding:20px}
 #modal{z-index:70}
 #rulesModal{z-index:80}
 .modal{
@@ -314,7 +299,7 @@ button.sq{width:100%;height:100%;appearance:none;font-family:var(--sans);letter-
 .kv b{color:var(--text);font-family:var(--mono);font-weight:700}
 .kv .g{color:var(--gold-deep)}
 .kv .r{color:var(--danger)}
-.card-tag{font-size:11px;color:#397b95;letter-spacing:2px;margin-bottom:4px;text-transform:uppercase;font-weight:800}
+.card-tag{font-size:11px;color:var(--muted);letter-spacing:2px;margin-bottom:4px;text-transform:uppercase;font-weight:800}
 /* 机会卡（烫金票据） */
 .receipt{
   background:linear-gradient(180deg,#fffcf4,#f5eddb);
@@ -337,7 +322,7 @@ button.sq{width:100%;height:100%;appearance:none;font-family:var(--sans);letter-
 .rank td{padding:9px 6px;border-bottom:1px dashed var(--line-faint);color:var(--muted)}
 .rank td:last-child,.rank th:last-child{text-align:right}
 .rank .mono{color:var(--text)}
-.rank tr:nth-child(even) td{background:#f0f5f4}
+.rank tr:nth-child(even) td{background:var(--card2)}
 .rank tr.r1 td{color:var(--gold-deep);font-weight:700}
 .rank tr.r1 .mono{color:var(--gold-deep)}
 .rank tr.r2 td{color:var(--text)}
@@ -404,7 +389,7 @@ button.sq{width:100%;height:100%;appearance:none;font-family:var(--sans);letter-
   #side{width:100%;height:auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:start}
   #side .panel{min-width:0}
   #side .side-ops{grid-column:1 / -1}
-  #ledger{width:min(360px,45%)}
+  
   #actionBar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:auto auto;gap:8px}
   #actionBar .spacer{display:none}
   #actionBar #dice{grid-column:1;grid-row:1;font-size:13px}
@@ -436,7 +421,7 @@ button.sq{width:100%;height:100%;appearance:none;font-family:var(--sans);letter-
   .sq .own{display:block;width:100%;overflow-wrap:anywhere;line-height:1.4}
   .sq .subrow{display:flex;flex-wrap:wrap;justify-content:center;max-width:100%;gap:2px}
   .sq .lvl,.sq .mg{padding:1px 2px;overflow-wrap:anywhere;max-width:100%}
-  #ledger{display:flex;left:13%;top:16%;width:74%;max-height:69%;border-radius:9px}
+  
   .ledger-title{padding:6px 9px 2px;font-size:12px}
   .ledger-title em{font-size:8px}
   .ledger-total{padding:0 9px 4px}
@@ -555,7 +540,7 @@ button:not(.sq){min-height:44px}
   #side .panel:nth-child(3),#side .side-ops{grid-column:1 / -1}
   #stockList{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
   .modal,.modal.wide{max-height:92dvh}
-  #ledger{max-height:65%}
+  
 }
 @media(orientation:landscape){.orientation-hint.ingame{display:none}}
 
@@ -601,7 +586,7 @@ button:not(.sq){min-height:44px}
   body.game-active .sq .lvl,body.game-active .sq .mg{padding:1px 2px;max-width:100%;overflow-wrap:anywhere}
   body.game-active #side{margin-top:8px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;width:100%}
   body.game-active #side .panel:nth-child(3),body.game-active #side .side-ops{grid-column:1 / -1}
-  body.game-active #ledger{width:min(330px,45%);max-height:65%}
+  
   body.game-active #ledger .ledger-list,body.game-active #ledger .ledger-note,body.game-active #ledger .ledger-empty,body.game-active #ledger .ledger-wait{display:none}
   body.game-active #actionBar{position:relative;flex-shrink:0;left:auto;right:auto;bottom:auto;width:100%;margin:4px 0 0;border-radius:9px 9px 0 0;box-shadow:none;display:grid;grid-template-columns:minmax(100px,1.5fr) repeat(4,minmax(60px,1fr)) minmax(38px,.55fr);grid-template-rows:auto auto;gap:0 6px;padding:5px 8px calc(5px + env(safe-area-inset-bottom));align-items:center}
   body.game-active #actionBar .spacer{display:none}
@@ -646,3 +631,40 @@ button:not(.sq){min-height:44px}
 #quickTimer{display:inline-block;min-width:5ch;font-variant-numeric:tabular-nums;color:#8b591a;font-size:20px}
 .net-details{margin:12px 0;padding:10px 12px;border:1px solid var(--line);border-radius:10px}.net-details summary{min-height:44px;display:flex;align-items:center;cursor:pointer;font-weight:600}.net-details p{line-height:1.7;overflow-wrap:anywhere}
 @media(max-height:450px) and (orientation:landscape){.quick-clock-bar{padding:6px 12px;margin-bottom:8px;font-size:12px;gap:4px 12px}#quickTimer{font-size:17px}.room-mode .hint{margin:4px 0}.net-details{padding:6px 10px}}
+
+/* Atlas components: a complete map with one solid floating information module. */
+#boardMap{position:absolute;left:10%;right:10%;top:10%;bottom:10%;background:#b3bdb6 url("assets/board-world-map-v1.webp") center/contain no-repeat;pointer-events:none;z-index:0}
+#boardWrap{border-radius:3px;box-shadow:0 12px 32px #68552e33}
+body #ledger{position:absolute;left:auto;right:12%;top:14%;width:min(340px,40%);max-height:72%;display:flex;flex-direction:column;overflow:auto;z-index:5;background:#faf2de;border:1px solid #ad925e;border-radius:3px;box-shadow:0 8px 24px #53452340}
+#ledgerBody{flex:none;overflow:visible}.ledger-open{min-height:44px;color:#263d4a}.ledger-note{display:block!important}
+body #ledger #newsBar{display:block;max-height:none;overflow:visible;padding:12px 16px;margin:0;border:0;border-top:1px solid var(--line);border-radius:0;background:var(--card2);color:var(--text);font-size:12px}
+#ledger #newsBar>*{display:block;margin:4px 0}.ledger-turn{padding:12px 16px;border-top:1px solid var(--line);font-size:13px;font-weight:700}
+.card,.panel,.modal,.modal.wide,#actionBar{border-radius:3px;border-color:#ad925e;background:var(--card);box-shadow:0 8px 28px #68552e26}
+button,input{border-radius:3px}button.ghost{background:var(--card2);border-color:#ad925e;color:var(--title)}
+.card.center{max-width:600px;margin:4vh auto;padding:32px;text-align:left}.brand-mark{text-align:left}.brand-mark .t{font-size:36px}.brand-mark .s{line-height:1.8}
+header{border-bottom-color:#ad925e}.brand .sub{border-left-color:#ad925e}.board-scroll-hint{color:var(--text)!important}
+.mode-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.mode-card{display:flex;align-items:flex-start;gap:10px;min-width:0;padding:16px;border:1px solid #b5a078;background:var(--card);cursor:pointer}.mode-card input{appearance:auto;flex:none;width:18px;height:18px;margin-top:4px;accent-color:#8b6426}.mode-card strong,.mode-card small{display:block}.mode-card strong{font-size:16px;margin-bottom:8px}.mode-card small{font-size:12px;line-height:1.7;color:var(--muted)}.mode-card:has(input:checked){background:#ead8af;border:2px solid #8b6426;padding:15px}.mode-card:has(input:disabled){cursor:default}.mode-card:focus-within{outline:3px solid #8b6426;outline-offset:2px}
+@media(max-width:1100px){body #ledger{width:40%;right:12%;max-height:72%}}
+@media(max-width:700px){.mode-cards{grid-template-columns:1fr}.card.center{padding:22px 16px}.brand-mark .t{font-size:27px}body #ledger{width:72%;right:14%;top:14%;max-height:72%}.ledger-total strong{font-size:22px}.ledger-summary b{font-size:12px}.ledger-summary span{font-size:11px}}
+@media(max-height:550px) and (orientation:landscape){body.game-active #ledger{width:42%;right:12%;max-height:72%}body.game-active #ledger #newsBar{max-height:none;font-size:12px}.ledger-open{font-size:12px;min-height:44px}}
+.stock-identity{display:block;padding:6px 0;font-size:12px;font-weight:700;color:var(--title)}
+/* Atlas surfaces shared by existing specialist dialogs. */
+.opportunity-card,.selected-opportunities,.fee-basis,.flight-option,.record-economy,.flight-costs,.route-comparison,.orientation-hint,.orientation-hint.pregame{background:var(--card2);border-color:var(--line);border-radius:3px;color:var(--text)}
+.opportunity-direction,.rules-nav a{background:#e9ddbd;border-color:var(--line);border-radius:3px;color:var(--text)}
+.rules-topic>summary,.travel-expense{color:var(--title)}
+@media(max-width:600px) and (orientation:portrait){
+  body.game-active{display:flex;flex-direction:column;height:100vh;height:100dvh;min-height:0;overflow:hidden}
+  body.game-active header,body.game-active #connectionStatus{flex-shrink:0}
+  body.game-active #view-game{display:flex;flex:1;flex-direction:column;min-height:0;overflow:hidden;width:100%;padding-bottom:0;margin-bottom:0}
+  body.game-active #view-game>.orientation-hint,body.game-active #waitBanner,body.game-active #quickClockBar{flex-shrink:0}
+  body.game-active #gameMain{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;padding-bottom:8px!important;touch-action:pan-y pinch-zoom}
+  body.game-active #actionBar{position:relative;flex-shrink:0;left:auto;right:auto;bottom:auto;width:100%;margin:4px 0 0;border-radius:3px;box-shadow:none}
+}
+/* Reserve an actual row for controls; only the board and side panels scroll. */
+body.game-active{display:flex;flex-direction:column;height:100vh;height:100dvh;min-height:0;overflow:hidden}
+body.game-active header,body.game-active #connectionStatus{flex-shrink:0}
+body.game-active #view-game{display:flex;flex:1;flex-direction:column;min-height:0;overflow:hidden;padding-bottom:0}
+body.game-active #view-game>.orientation-hint,body.game-active #waitBanner,body.game-active #quickClockBar{flex-shrink:0}
+body.game-active #gameMain{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;padding-bottom:8px!important;touch-action:pan-y pinch-zoom}
+body.game-active #actionBar{position:relative;flex-shrink:0;left:auto;right:auto;bottom:auto;width:100%;margin:8px 0 0;box-shadow:none}
+.sq .sq-amount{display:block;font-family:var(--mono);font-size:9px;line-height:1.2;color:var(--muted);max-width:100%;overflow-wrap:anywhere}

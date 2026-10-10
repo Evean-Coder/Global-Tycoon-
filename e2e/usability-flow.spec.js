@@ -11,7 +11,7 @@ async function rules(page){const id=await page.locator('#modal').isVisible()?'bt
 async function go(page){await page.click('#btnRoll');await page.waitForSelector('#stockModal:not(.hidden)');}
 async function buy(page,id){await page.locator('button[data-city="'+id+'"][data-kind="buy"][data-delta="1"]').click();await page.click('#btnStockConfirm');await page.waitForFunction(()=>game.phase!=='stock');}
 test('手机开局→地图旋转→两次起点→机场明细→只读规则→继续回合',{timeout:60000},async()=>{
- const a=h.pages[0];assert.deepEqual(h.prestart,{lobbyHint:true,roomHint:true});await h.choose();assert.equal(await a.locator('.orientation-hint.ingame').isVisible(),true);
+ const a=h.pages[0];assert.equal(h.prestart.lobbyHint,true);assert.equal(h.prestart.roomHint,true);assert.equal(h.prestart.mode,'normal');assert.equal(h.prestart.guestModeDisabled,true);await h.choose();assert.equal(await a.locator('.orientation-hint.ingame').isVisible(),true);
  const s=f.game(2);f.own(s,'p1','上海','东京');s.players[0].name='<甲&乙>';s.firstRoundDone=true;s.players[0].position=41;s.diceBag=[1];await h.fixture(s);
  await a.evaluate(()=>{window.__actions=[];const original=socket.timeout.bind(socket);socket.timeout=ms=>({emit(event,payload,cb){if(event==='action')window.__actions.push(payload);return original(ms).emit(event,payload,cb);}});});
  await go(a);await a.locator('button[data-city="上海"][data-kind="buy"][data-delta="1"]').click();const before=JSON.stringify(h.room.state),draft=await a.evaluate(()=>stockDraft),deadline=h.room.actionClock.deadlineMs;

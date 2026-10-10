@@ -9,6 +9,7 @@ const worldEvents = require('./worldEvents');
 const { assetSummary } = require('./assets');
 const travelExpense = require('./travelExpense');
 const routes = require('./opportunityRoutes');
+const support = require('./propertySupport');
 const routeTimes = new WeakMap();
 function safeRouteChoice(state, rng) {
   if (routes.enabled(state)) routes.tryOpenRouteChoice(state, currentPlayer(state).id, rng, routeTimes.get(state));
@@ -223,6 +224,7 @@ function chargeEndExpense(state, events, continuation) {
 
 function advanceTurn(state, events, rng) {
   if (chargeEndExpense(state, events, 'normal_end')) return;
+  support.finish(state,currentPlayer(state));
   if (modern(state)) {
     roundFlow.completeTurn(state, currentPlayer(state).id, state.turnId);
     stocks.closeStockWindow(state);
@@ -404,6 +406,7 @@ function resolveCity(state, player, sq, events, rng) {
       return;
     }
     state.phase = 'buy';
+    support.offer(state,player,city);
     state.pending = { playerId: player.id, cityId: sq.cityId, context: null };
     log(events, `${player.name} 经过无主的 ${cityLabel(state, sq.cityId)}（${city.price}），可选择购买`, 'buy');
     return;
@@ -579,6 +582,8 @@ function finishSelfRescue(state, events, rng) {
   const p = playerById(state, pend.playerId);
   if (p.cash >= 0) {
     log(events, `${p.name} 完成自救，正常结算`);
+    // 付款完成先发放有效促销奖励，再推进可能使活动到期的完整轮。
+    require('./activeManagement').resolveReceipts(state,events);
     state.pending = null;
     if (pend.resume?.kind === 'travel_expense') {
       if (pend.resume.continuation === 'skipped_jail') {
@@ -854,6 +859,15 @@ function applyCore(state, action, rng, context = {}) {
   if (['route_confirm','route_skip','route_expire'].includes(action.type) && (state.phase !== 'route_choose' || !routes.enabled(state))) return {state,events,rejected:true};
   let routeResult;
   switch (action.type) {
+    case 'support_buy': {
+      const q=support.quote(state,p.id,action.cityId);
+      if(!q.ok||q.quoteVersion!==action.quoteVersion)return {state,events,rejected:true};
+      stocks.transferCity(state,{cityId:action.cityId,newOwnerId:p.id},events);
+      p.cash-=q.finalAmount;p.lapBuys++;p.propertySupport.used=true;
+      state.cities[action.cityId].buildReady=false;
+      log(events,p.name+' 使用置业扶持，原价购买 '+cityLabel(state,action.cityId),'buy');
+      break;
+    }
     case 'route_confirm':
     case 'route_skip':
     case 'route_expire': {
@@ -881,7 +895,13 @@ function applyCore(state, action, rng, context = {}) {
       break;
     case 'remote_build':
       if (!modern(state)) return {state,events,rejected:true};
+      if(require('./activeManagement').enabled(state)){require('./activeManagement').apply(state,p,action,events);break;}
       economy.applySettlement(state, economy.quoteBuild(state, {playerId:p.id,cityId:action.cityId,mode:'remote'}), events);
+      break;
+    case 'active_promote':
+    case 'active_stock_buy':
+    case 'active_build':
+      require('./activeManagement').apply(state,p,action,events);
       break;
     case 'roll_dice':
       if (state.phase !== 'waiting_roll') return { state, events, rejected: true };
@@ -1001,6 +1021,7 @@ function apply(state, action, rng, context = {}) {
   routeTimes.set(state, context.timeContext);
   try {
     const result = applyCore(state, action, rng, context);
+    if(!result.rejected){require('./activeManagement').clean(state);require('./activeManagement').resolveReceipts(state,result.events);}
     if (!result.rejected && routes.enabled(state)) {
       for (const p of state.players.filter(p => !p.alive)) result.events.push(...routes.cancelRoutes(state, p.id, action.type === 'surrender' ? 'surrender' : 'eliminated').events);
       safeRouteChoice(state, rng);
@@ -1013,6 +1034,7 @@ function apply(state, action, rng, context = {}) {
 // ---------- 动作实现 ----------
 
 function rollAction(state, p, events, rng) {
+  support.beginRoll(state,p);
   if (routes.enabled(state)) state.routeFlow.rollStartedTurnId = state.turnId;
   const roll = rollDice(state, rng);
   state.dice = roll;
@@ -1125,6 +1147,7 @@ function buyAction(state, p, action, events, rng) {
     else endTurn(state, events, rng);
   } else {
     log(events, `${p.name} 放弃购买 ${cityLabel(state, pend.cityId)}，进入拍卖`, 'auction');
+    support.refuse(state,p);
     startAuction(state, pend.cityId, null, events, rng, { context: null });
   }
 }
@@ -1157,6 +1180,7 @@ function flightAction(state, p, action, events, rng) {
     return;
   }
   const from = state.board.find((s) => s.type === 'airport' && s.airportId === pend.fromAirportId);
+  if(support.enabled(state)&&p.propertySupport.turn?.id===state.turnId)p.propertySupport.turn.normal=false;
   const to = state.board.find((s) => s.type === 'airport' && s.airportId === action.target);
   const dist = Math.min(Math.abs(to.id - from.id), 42 - Math.abs(to.id - from.id));
   if (!pend.free) {

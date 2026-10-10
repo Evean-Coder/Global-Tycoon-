@@ -25,6 +25,10 @@ test('建立多人完整流程驱动 / 覆盖开局首圈资讯启动 / 覆盖�
  for(let guard=0;guard<1200;guard++){
   const g=clients[0].game,phase=g.phase;
   if(phase==='game_over')break;
+  if(phase==='route_choose'){
+   const index=Number(g.routeProgress.activeChoice.playerId.slice(1)),choice=clients[index].game.self.routeChoice;
+   await act(index,{type:'route_skip',opportunityId:choice.opportunityId,candidateVersion:choice.candidateVersion});continue;
+  }
   if(phase==='opportunity_choose'){
    if(g.opportunityStage.ordinal===2&&!reconnected){
     const before=JSON.stringify(room.state.opportunityStage.participants.p1),token=clients[1].token;

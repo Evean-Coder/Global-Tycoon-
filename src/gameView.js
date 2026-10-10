@@ -6,11 +6,13 @@ const {BY_ID}=require('./gameplayCatalog');
 const routes=require('./opportunityRoutes');
 function snapshot(s,viewerId,clockView){
  const out={};
+ if(require('./activeManagement').enabled(s)){out.activeManagementRevision=s.activeManagementRevision;out.promotions=s.promotions.map(a=>({playerId:a.playerId,cityId:a.cityId,reward:a.reward,remainingRewards:a.remainingRewards,expiresAfterCompleteRound:a.expiresAfterCompleteRound}));}
+ if(require('./propertySupport').enabled(s))out.propertySupportRevision=s.propertySupportRevision;
  for(const k of ['roomCode','gameId','ruleVersion','revision','status','board','cities','airports','stocks','firstRoundDone','turnIndex','phase','dice','rounds','rank','winner','startedAt'])out[k]=s[k];
  out.players=s.players.map(p=>{
   const x={};for(const k of ['id','name','seat','color','cash','position','alive','jailed','jailTurns','frozen','cities','airports','stocks','lapBuys','lapDone','connected','socketId'])x[k]=p[k];
   x.opportunities={selectedIds:p.opportunities.selectedIds.slice()};
-  if(quick.enabled(s))x.netAssetSummary=netAssetSummary(s,p.id);
+  if(s.ruleVersion===2)x.netAssetSummary=netAssetSummary(s,p.id);
   x.assetSummary=assetSummary(s,p.id);return x;
  });
  out.cities=Object.fromEntries(Object.entries(s.cities).map(([id,c])=>[id,{...c,standardRent:c.mortgaged?0:econ.rentFor(c)}]));
@@ -42,6 +44,8 @@ function snapshot(s,viewerId,clockView){
  const player=s.players.find(p=>p.id===viewerId);
  if(player){
   out.self={playerId:player.id,actorRevision:s.actorRevision[player.id],opportunities:globalThis.structuredClone(player.opportunities),quotes:{build:{},demolish:{},rent:{},flight:{}},stockWindow:null};
+  if(require('./propertySupport').enabled(s))out.self.propertySupport=require('./propertySupport').view(s,player.id);
+  if(require('./activeManagement').enabled(s))out.self.activeManagement=require('./activeManagement').view(s,player.id);
   if(routes.enabled(s)){
    const r=s.routeFlow.players[player.id];
    out.self.route={baselineLapEpoch:r.baselineLapEpoch,lastThreshold:r.lastThreshold,pending:r.pending.map(c=>({...c})),lastResult:r.lastResult?{...r.lastResult}:null,lapsSinceInitial:r.baselineLapEpoch===null?null:player.opportunities.lapEpoch-r.baselineLapEpoch};
@@ -55,7 +59,7 @@ function snapshot(s,viewerId,clockView){
    }
   }
   out.self.quotes.remote={};
-  for(const id of player.cities)out.self.quotes.remote[id]=econ.quoteBuild(s,{playerId:player.id,cityId:id,mode:'remote'});
+  for(const id of player.cities)out.self.quotes.remote[id]=require('./activeManagement').enabled(s)?require('./activeManagement').quote(s,player.id,'remote_build',id):econ.quoteBuild(s,{playerId:player.id,cityId:id,mode:'remote'});
   if(s.phase==='flight'&&s.pending?.playerId===player.id)for(const id of Object.keys(s.airports))if(id!==s.pending.fromAirportId)out.self.quotes.flight[id]=econ.quoteFlight(s,{playerId:player.id,target:id,fromAirportId:s.pending.fromAirportId,free:s.pending.free});
   if(s.phase==='flight'&&s.pending?.playerId===player.id)out.self.flightInfo={fromAirportId:s.pending.fromAirportId,fromOwnerId:s.airports[s.pending.fromAirportId]?.ownerId||null,free:!!s.pending.free,airportFeePaid:s.pending.airportFeePaid?{...s.pending.airportFeePaid}:null,travelExpense:out.travelExpense};
   if(s.stockWindow?.playerId===player.id)out.self.stockWindow=globalThis.structuredClone(s.stockWindow);

@@ -9,6 +9,7 @@ const { createGameState, snapshot, resetDeck } = require('./src/state');
 const logic = require('./src/gameLogic');
 const { createRng } = require('./src/random');
 const { buildGameRecord } = require('./src/record');
+const privateReplay = require('./src/privateReplay');
 const { normalizeAction, validateEnvelope } = require('./src/actionValidation');
 const { createActionClock } = require('./src/actionClock');
 const { createQuickClock } = require('./src/quickClock');
@@ -21,7 +22,7 @@ const { safe } = require('./src/economy');
 
 const PORT = process.env.PORT || 3000;
 // 2026-10-05有限对照及投资压力审查通过，仅新局启用；旧局不迁移。
-const NEW_GAME_ECONOMY = { economyRevision: 'travel-expense-v1', routeRevision: routes.REVISION, gameMode: 'normal' };
+const NEW_GAME_ECONOMY = { economyRevision: 'travel-expense-v1', routeRevision: routes.REVISION, gameMode: 'normal', propertySupportRevision:require('./src/propertySupport').REVISION, activeManagementRevision:require('./src/activeManagement').REVISION };
 const HOST_TRANSFER_MS = 10 * 60 * 1000;
 const LOBBY_IDLE_MS = 10 * 60 * 1000; // 大厅（未开局）空房保留时限
 const GAME_IDLE_MS = 30 * 60 * 1000; // 对局中/已结束房间无人保留时限
@@ -134,6 +135,8 @@ function emitRoom(room) {
 }
 
 function emitGame(room, newDecision = false) {
+  privateReplay.capture(room, room.replayMetadata);
+  room.replayMetadata = undefined;
   if (!room.state) return;
   if (quick.enabled(room.state) && room.state.quick.status !== 'closed' && room.quickClock?.read().elapsedMs >= 1800000) closeQuickGame(room, 'time_limit');
   if (room.state.phase === 'game_over' && !room.gameRecord) finalizeGame(room, 'normal');
@@ -171,7 +174,11 @@ function finalizeGame(room, endReason) {
     const sock = io.sockets.sockets.get(rp.socketId);
     if (sock) sock.emit('gameRecord', room.gameRecord);
   }
-  persistRecord(room.gameRecord, RECORDS_DIR);
+  privateReplay.capture(room, {source:'finalize',endReason});
+  // Private state transitions are written only to server storage. The socket
+  // receives the public record above, without this journal.
+  const journal=privateReplay.exportJournal(room);
+  persistRecord(journal?{...room.gameRecord,privateReplay:journal}:room.gameRecord, RECORDS_DIR);
   return room.gameRecord;
 }
 
@@ -436,6 +443,7 @@ function runAction(room, socket, rawAction, source = 'player') {
     return {ok:false,code:'EXPIRED',error:'选择时限已到，保留原经营路线'};
   }
   room.state = afterState;
+  room.replayMetadata={action:normalized.action,actorId:normalized.actorId||null,source,timeContext};
   if(v2){room.state.revision++;if(normalized.actorId)room.state.actorRevision[normalized.actorId]++;}
   appendEvents(room, res.events || []);
   emitGame(room, normalized.action.type === 'auction_respond' || normalized.action.type === 'direct_sale_respond');

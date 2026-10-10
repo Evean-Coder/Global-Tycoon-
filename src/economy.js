@@ -26,19 +26,20 @@ function quoteBuild(s,{playerId,cityId,mode='normal'}){
  if(!p||!p.alive||!c||c.ownerId!==p.id||c.mortgaged||c.houseLevel>=4)return denied('城市须为自有、非抵押且未满四级');
  if(mode==='remote'){
   if(s.phase!=='waiting_roll'||s.players[s.turnIndex].id!==p.id||!opp.has(p,'H1')||opp.used(p,'H1'))return denied('远程施工仅本人等待掷骰且本圈仍有次数时可用');
- }else if(p.position!==s.board.find(q=>q.cityId===cityId)?.id||c.buildReady===false)return denied('需再次到达自己的城市后建房');
- const base=buildFee(c),limit=rounded(base,30),effects=[],quotaChanges=[];
+ }else if(mode!=='active'&&(p.position!==s.board.find(q=>q.cityId===cityId)?.id||c.buildReady===false))return denied('需再次到达自己的城市后建房');
+ const base=buildFee(c),limit=rounded(base,mode==='active'?10:30),effects=[],quotaChanges=[];
  let reduction=0;
  function offer(id,name,requested){
   const amount=Math.max(0,Math.min(requested,limit-reduction));effects.push(discount(id,name,amount,requested));reduction+=amount;
   if(amount>0)quotaChanges.push({id,amount:1});
  }
+ if(mode==='active'&&opp.has(p,'H1')&&!opp.used(p,'H1'))offer('H1','远程施工',rounded(base,10));
  if(s.world?.active?.type==='construction'&&!s.world.constructionUsedIds.includes(p.id))offer('construction','建设优惠',Math.min(2000,rounded(base,15)));
  if(opp.has(p,'H2')&&!opp.used(p,'H2'))offer('H2','标准化施工',Math.min(1500,rounded(base,10)));
  const chain=Object.values(s.cities).filter(x=>x.ownerId===p.id&&!x.mortgaged&&x.group===c.group).length>=2;
  if(opp.has(p,'H3')&&!opp.used(p,'H3')&&chain)offer('H3','连锁经营',Math.min(1500,rounded(base,10)));
  if(mode==='remote')quotaChanges.push({id:'H1',amount:1});
- const q=plan(s,p,'build',cityId,base,base-reduction,effects,quotaChanges);
+ const q=plan(s,p,'build',cityId,base,(mode==='active'?rounded(base,145):base)-reduction,effects,quotaChanges);
  if(p.cash<q.finalAmount)return {...q,ok:false,reason:'现金不足以支付实际建房费用'};
  q.buildCostChanges={cityId,add:q.finalAmount};return q;
 }
@@ -104,6 +105,7 @@ function applySettlement(s,q,events){
  let text=p.name+' '+label[q.kind]+' '+Math.abs(q.finalAmount)+(q.effects.length?'（'+q.effects.map(e=>e.name+' '+e.amount).join('，')+'）':'');
  if(q.kind==='city_rent'){const owner=getPlayer(s,s.cities[q.cityId].ownerId);text=p.name+' 向 '+owner.name+' 支付 '+q.cityId+' 租金：标准 '+q.baseAmount+'，资讯后 '+q.income+'，实际支付 '+q.finalAmount+'，银行补足 '+q.bankSupplement+'，城主现金 '+(q.income-q.fundDeltas[q.cityId])+'，待分红 '+q.fundDeltas[q.cityId]+(q.effects.length?'（'+q.effects.map(e=>e.name+' '+e.amount).join('，')+'）':'');}
  events.push({type:q.kind==='city_rent'?'rent':q.kind,kind:q.kind,settlementId:s.gameId+':money:'+s.settlementSeq,playerId:p.id,cityId:q.cityId,baseAmount:q.baseAmount,finalAmount:q.finalAmount,effects:q.effects,bankSupplement:q.bankSupplement||0,cashDeltas:{...q.cashDeltas},fundDeltas:{...q.fundDeltas},text});
+ if(q.kind==='city_rent')require('./activeManagement').rentCompleted(s,q,s.gameId+':money:'+s.settlementSeq,events);
 }
 function reward(s,p,amount,id,events,reason){
  if(!p.alive||!amount)return;

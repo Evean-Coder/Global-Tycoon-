@@ -56,6 +56,19 @@ function openStockWindow(s,playerId){
  for(const id of Object.keys(s.stocks))refreshWindowCityQuote(s,id);
 }
 function closeStockWindow(s){s.stockWindow=null;}
+function validateBuy(s,playerId,cityId,shares){
+ const p=s.players.find(x=>x.id===playerId),c=s.cities[cityId],st=s.stocks[cityId];
+ if(!p?.alive||!c?.ownerId||!st||st.clearing||!Number.isSafeInteger(shares)||shares<1)throw new Error('股票订单或城市资格无效');
+ const total=Object.values(st.holders).reduce((a,n)=>a+n,0);
+ if(total+shares>20||(c.ownerId===playerId&&(st.holders[playerId]||0)+shares>4))throw new Error('股票买入超过持股上限');
+ return st;
+}
+function applyBuy(s,playerId,cityId,shares,amount,events){
+ const st=validateBuy(s,playerId,cityId,shares),p=s.players.find(x=>x.id===playerId);
+ if(!Number.isSafeInteger(amount)||amount<0||p.cash<amount)throw new Error('现金不足');
+ econ.safe(p.cash-amount);p.cash-=amount;st.holders[playerId]=(st.holders[playerId]||0)+shares;syncHolders(s);
+ events.push({type:'stock',kind:'stock_trade',active:true,playerId,cityId,shares,side:'buy',unitPrice:st.price,amount,fee:amount-shares*st.price,text:p.name+' 主动买入 '+cityId+' '+shares+'股，含手续费 '+amount});
+}
 function planStockTrade(s,playerId,windowId,orders){
  const w=s.stockWindow,p=s.players.find(p=>p.id===playerId);
  if(!w||w.playerId!==playerId||w.windowId!==windowId||!p?.alive||!Array.isArray(orders)||!orders.length||orders.length>20)throw new Error('股票窗口或订单无效');
@@ -68,8 +81,8 @@ function planStockTrade(s,playerId,windowId,orders){
   const held=st.holders[playerId]||0;
   if(o.side==='buy'){
    next[o.cityId]=(next[o.cityId]||0)+o.shares;buyTotal+=o.shares;
-   const total=Object.values(st.holders).reduce((a,n)=>a+n,0);
-   if(next[o.cityId]>2||buyTotal>6||Object.keys(next).length>3||total+o.shares>20||(c.ownerId===playerId&&held+o.shares>4))throw new Error('股票买入超过窗口或持股上限');
+   validateBuy(s,playerId,o.cityId,o.shares);
+   if(next[o.cityId]>2||buyTotal>6||Object.keys(next).length>3)throw new Error('股票买入超过窗口或持股上限');
    cost=econ.safe(cost+o.shares*w.prices[o.cityId]);
   }else{if(o.shares>held)throw new Error('卖出数量超过持股');proceeds=econ.safe(proceeds+o.shares*w.prices[o.cityId]);}
  }
@@ -110,11 +123,13 @@ function transferCity(s,{cityId,newOwnerId},events){
  const c=s.cities[cityId],st=s.stocks[cityId],p=s.players.find(p=>p.id===newOwnerId);
  const previous=s.players.find(p=>p.id===c.ownerId);
  if(!p?.alive)throw new Error('买方已离开对局');
+ require('./propertySupport').markOwned(s,newOwnerId);
  if(!c.ownerId&&(!st.listingEpoch||st.clearedEpoch===st.listingEpoch))initializeListing(s,cityId);
  else settleCityDividend(s,cityId,'transfer',s.gameId+':transfer:'+s.turnId+':'+cityId,events);
  if(previous&&previous.id!==newOwnerId)previous.cities=previous.cities.filter(id=>id!==cityId);
  if(!p.cities.includes(cityId))p.cities.push(cityId);
  c.ownerId=newOwnerId;st.clearing=false;enforceOwnerStockCap(s,p,cityId,events);refreshWindowCityQuote(s,cityId);
+ require('./activeManagement').clean(s);
 }
 function clearCityToBank(s,{cityId},events){
  const c=s.cities[cityId],st=s.stocks[cityId];
@@ -129,12 +144,15 @@ function clearCityToBank(s,{cityId},events){
  st.holders={};st.dividendFund=0;st.rentHistory=[];st.roundRent=0;st.clearing=false;st.clearedEpoch=st.listingEpoch;
  const previous=s.players.find(p=>p.id===c.ownerId);if(previous)previous.cities=previous.cities.filter(id=>id!==cityId);
  Object.assign(c,{ownerId:null,houseLevel:0,buildCosts:[],mortgaged:false,mortgageInterest:0});
+ require('./activeManagement').clean(s);
  refreshPrice(s,cityId,'停止经营');syncHolders(s);
 }
 function settleFinalEconomy(s,endReason,events){
  if(s.finalSettlementDone)return;
+ if(require('./activeManagement').enabled(s)){s.promotions=[];s.promotionReceipts=[];}
  s.world.status='stopped';s.opportunityStage=null;s.stockWindow=null;
  for(const id of Object.keys(s.stocks))settleCityDividend(s,id,'final',s.gameId+':final:'+id,events);
  s.finalSettlementDone=true;s.endReason=endReason;
 }
 module.exports={syncHolders,refreshPrice,refreshWindowCityQuote,initializeListing,updateOperatingQuotes,settleCityDividend,openStockWindow,closeStockWindow,planStockTrade,applyStockTrade,planTransfer,applyTransfer,enforceOwnerStockCap,transferCity,clearCityToBank,settleFinalEconomy};
+module.exports.validateBuy=validateBuy;module.exports.applyBuy=applyBuy;

@@ -1,5 +1,7 @@
 # 环球大亨
 
+> 本轮开发（2026-10-10）：已接入浅纸色地图前端、三端独立操作区、只读规则提示、置业扶持与三类主动经营。新局使用 `property-support-v1` / `active-management-v1`，旧局不迁移。静态资源 `20261010-atlas-v1`、缓存 v12。最新51项针对性检查通过，完整逐项验收仍在核对；进度与限制见 [开发记录](docs/gameplay-improvements/progress.md)。本轮未推送或部署 Render。
+
 > 当前开发（2026-10-10）：普通/快速模式选择与30分钟快速核心已本地验收，快速按净资产排名、机遇按0/5/10与15/22分钟调度。资源`20261010-quick-mode`，缓存v11。原路线真实快速依赖已补齐。见[快速验收](docs/quick-mode/acceptance.md)与[P0/P1进度](docs/priority-delivery/progress.md)。本轮未推送或在Render上线；离线推进、经营任务与股票经营说明仍待后续开发。
 
 > 对局响应整改（2026-10-09）：关注游戏中按钮反馈，普通操作立即显示发送/确认，等待中再点会说明原因，断线说明未发送；拒绝发送时不播放假骰子动画。有限13场景回归通过，真实Render游戏动作WebSocket样本267–416ms、轮询880–1752ms；仅代表本机当时网络。[诊断与验收](docs/gameplay-usability/gameplay-response.md)。此前已上线静态版本20261009-action-feedback、缓存v9；本轮源码版本见上方换路线登记。

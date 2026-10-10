@@ -3,6 +3,7 @@ const test=require('node:test'),assert=require('node:assert/strict');
 const {io:Client}=require('socket.io-client'),api=require('../server');
 const {createActionClock}=require('../src/actionClock'),logic=require('../src/gameLogic');
 const f=require('./helpers/gameplayFixtures'),stocks=require('../src/stocks');
+const active=require('../src/activeManagement'),support=require('../src/propertySupport');
 let url,sequence=0;const clients=[];
 const ack=(s,event,data)=>new Promise((resolve,reject)=>{s.timeout(3000).emit(event,data,(err,result)=>err?reject(err):resolve(result));});
 async function until(fn){const end=Date.now()+3000;while(Date.now()<end){if(fn())return;await new Promise(r=>setTimeout(r,5));}throw new Error('等待状态超时');}
@@ -139,4 +140,21 @@ test('QS19: actual route confirmation before at and across total cutoff is atomi
     else{assert.equal(result.code,'OVER');assert.deepEqual(x.room.state.players[0].opportunities.selectedIds,held);}
     assert.equal(x.room.state.phase,'game_over');assert.equal(x.room.events.filter(e=>e.kind==='quick_end').length,1);
   }
+});
+
+test('新经营与扶持提交遇快速截止：截止先到不成交，成功先到保留结果',async()=>{
+ for(const type of ['active_promote','support_buy'])for(const successFirst of [false,true]){
+  const x=await setup();await start(x);await initial(x);const s=x.room.state,p=s.players[0];
+  s.turnIndex=0;s.phase='waiting_roll';s.pending=null;s.firstRoundDone=true;
+  let cityId,q;
+  if(type==='active_promote'){cityId='内罗毕';stocks.transferCity(s,{cityId,newOwnerId:p.id},[]);q=active.quote(s,p.id,type,cityId);}
+  else{p.propertySupport.eligible=true;p.propertySupport.missedPurchaseTurns=6;cityId=support.candidates(s)[0];q=support.quote(s,p.id,cityId);}
+  assert.equal(q.ok,true,q.reason);api.emitGame(x.room);const cash=p.cash;
+  const payload=envelope(x.room,p.id,{type,cityId,quoteVersion:q.quoteVersion});
+  if(successFirst){assert.equal((await ack(x.a,'action',payload)).ok,true);assert.equal(x.room.state.players[0].cash,cash-q.finalAmount);}
+  x.time.set(1800000);const res=await ack(x.a,'action',successFirst?envelope(x.room,p.id,{type:'roll_dice'}):payload);
+  assert.equal(res.ok,false);assert.equal(x.room.state.phase,'game_over');assert.equal(x.room.state.players[0].cash,successFirst?cash-q.finalAmount:cash);
+  assert.equal(x.room.state.promotions.length,0);
+  if(type==='support_buy')assert.equal(x.room.state.cities[cityId].ownerId,successFirst?p.id:null);
+ }
 });

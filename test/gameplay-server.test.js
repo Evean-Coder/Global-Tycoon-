@@ -123,3 +123,18 @@ test('可用性：报价、持股、额度及现金失效均原子拒绝且不�
   const res=await action(a,{type:'stock_trade',windowId:s.stockWindow.windowId,orders});assert.equal(res.ok,false,kind);assert.ok(res.error);assert.equal(JSON.stringify(room.state),before,kind);assert.equal(room.actionClock.deadlineMs,deadline,kind);
  }
 });
+
+test('扶持购城后可经营，真实重连保留额度与两次原请求结果',async()=>{
+ const {room,clients:pair,fake}=await setup(2);let [a,b]=pair;await until(()=>pair.every(s=>s.game?.self.choice));
+ await action(a,choice(a));await action(b,choice(b));await until(()=>a.game?.phase==='waiting_roll');
+ room.state.firstRoundDone=true;room.state.players[0].propertySupport.eligible=true;room.state.players[0].propertySupport.missedPurchaseTurns=6;api.emitGame(room);await until(()=>a.game.self.propertySupport.eligible);
+ const support=require('../src/propertySupport'),active=require('../src/activeManagement'),cityId=support.candidates(room.state)[0],q=support.quote(room.state,'p0',cityId);
+ const firstPayload=envelope(a,{type:'support_buy',cityId,quoteVersion:q.quoteVersion},'support-retry');const first=await ack(a,'action',firstPayload);assert.equal(first.ok,true);await until(()=>a.game.revision>=first.revision);
+ assert.equal(room.state.players[0].activeManagement.usedTurnId,null);
+ const promo=active.quote(room.state,'p0','active_promote',cityId),secondPayload=envelope(a,{type:'active_promote',cityId,quoteVersion:promo.quoteVersion},'promotion-retry');const second=await ack(a,'action',secondPayload);assert.equal(second.ok,true);
+ const token=a.token,code=room.code,cash=room.state.players[0].cash,usedTurnId=room.state.players[0].activeManagement.usedTurnId;a.close();await until(()=>room.actionClock.paused);fake.advance(100000);
+ a=await connect();assert.equal((await ack(a,'reconnect',{name:'玩家0',roomCode:code,token})).ok,true);await until(()=>a.game?.self.activeManagement);
+ assert.equal(a.game.self.propertySupport.used,true);assert.equal(a.game.self.activeManagement.quota.usedTurnId,usedTurnId);const before=JSON.stringify(room.state);
+ assert.deepEqual(await ack(a,'action',firstPayload),first);assert.deepEqual(await ack(a,'action',secondPayload),second);assert.equal(JSON.stringify(room.state),before);assert.equal(room.state.players[0].cash,cash);assert.equal(room.state.promotions.length,1);
+ const replay=require('../src/privateReplay');assert.deepEqual(replay.replay(replay.exportJournal(room)),JSON.parse(JSON.stringify(room.state)));assert.equal(room.privateReplay.frames.filter(frame=>frame.metadata.action?.type==='support_buy').length,1);assert.equal(room.privateReplay.frames.filter(frame=>frame.metadata.action?.type==='active_promote').length,1);
+});

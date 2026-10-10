@@ -1,0 +1,36 @@
+# 全部改进的开发方案总览
+
+更新日期：2026-10-10。用户授权：后续文档由助手自行判断合理性、修正并记录，最终开始开发前统一询问。此授权替代逐份文档询问；用户随后最终回复“确认”，已允许开发。当前进度见 [开发记录](progress.md)。
+
+## 独立文档与当前状态
+
+| 子项目 | Spec | Plan | Tasks | Checklist | 状态 |
+|---|---|---|---|---|---|
+| 整套前端 | [规格](../frontend-atlas/spec.md) | [设计](../frontend-atlas/plan.md) | [任务](../frontend-atlas/task.md) | [验收](../frontend-atlas/checklist.md) | 前三份已批准；清单授权自审 |
+| 主动经营 | [规格](../active-management/spec.md) | [设计](../active-management/plan.md) | [任务](../active-management/task.md) | [验收](../active-management/checklist.md) | 四份均已批准 |
+| 置业扶持 | [规格](../property-support/spec.md) | [设计](../property-support/plan.md) | [任务](../property-support/task.md) | [验收](../property-support/checklist.md) | 四份均已批准 |
+| 规则提示 | [规格](../contextual-rules/spec.md) | [设计](../contextual-rules/plan.md) | [任务](../contextual-rules/task.md) | [验收](../contextual-rules/checklist.md) | 前三份已批准；清单授权自审 |
+
+四项目共80项任务、112项验收检查。所有实现与验收均未因本轮文档工作执行；历史混合proposal、requirements-draft及implementation-draft仅保留预研记录，正式依据为上表独立文档。
+
+## 实施顺序
+
+1. 整套前端：统一浅纸地图主题、三端布局、独立完整中央地图与唯一悬浮信息模块，保留原动作。
+2. 规则提示：共用前端组件，明确持股、额度、费用、资产、计时和只读帮助。
+3. 置业扶持：服务端资格/回合计数、原价购买、本人入口与回放。
+4. 主动经营：服务端报价与互斥、促销/股票/远程建设、真实结果与回放。
+5. 有限组合检查：扶持购城后经营、起点与主动股票额度、租金自救奖励、产权失效、快速封盘及重连。
+
+各项目可独立完成和验收。提示先上线时不提前展示未实现玩法；新机制启用后补接其真实版本字段与提示。新局规则版本隔离，旧局不迁移。
+
+## 共用实施约束
+
+服务端权威、校验后原子提交、沿用原action和幂等回执；查看/取消/重排不增加期限，私人视图隔离。新局已有remote_build也必须经过主动经营互斥，不能有绕过入口。扶持和经营次数独立，原起点额度与持股限制保持。
+
+验证采用固定真实引擎状态、必要回归、指定三端及少量联机，不启动大量完整对局。每项保存实际证据，未验证不写通过，不用轻量收益比较冒充胜率。
+
+## 自审与开发门槛
+
+见[文档自审记录](document-review.md)。生产编码已获最终确认，正在实施及逐项验收；推送和部署另按授权，不包含在文档批准中。
+
+

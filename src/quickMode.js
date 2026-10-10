@@ -47,6 +47,7 @@ function finalize(s, { reason, elapsedMs, endedAt }) {
   const result = { reason, elapsedMs, endedAt, ranking, winnerIds, cancelled, clearedCityIds };
   s.quick = { ...s.quick, status: 'closed', elapsedMs, endedAt, reason, result };
   s.status = 'over'; s.phase = 'game_over'; s.rank = ranking.map(p => p.playerId);
+  if(require('./activeManagement').enabled(s)){s.promotions=[];s.promotionReceipts=[];}
   s.winner = winnerIds.length === 1 ? winnerIds[0] : null; s.endReason = reason;
   s.stockWindow = null; s.opportunityStage = null; s.movement = null;
   if (s.routeFlow) s.routeFlow.laterClosed = true;

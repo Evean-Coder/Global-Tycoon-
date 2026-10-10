@@ -1,22 +1,27 @@
 'use strict';
-const CACHE = 'global-tycoon-v11-quick';
+const CACHE = 'global-tycoon-v12-atlas';
 const CORE = [
   './',
   './index.html',
   './style.css',
   './client.js',
   './rules-catalog.js',
-  './rules-catalog.js?v=20261010-quick-mode',
-  './style.css?v=20261010-quick-mode',
-  './client.js?v=20261010-quick-mode',
+  './contextual-rules.js',
+  './contextual-rules.js?v=20261010-atlas-v1',
+  './rules-catalog.js?v=20261010-atlas-v1',
+  './style.css?v=20261010-atlas-v1',
+  './client.js?v=20261010-atlas-v1',
   './socket.io/socket.io.js',
-  './assets/world-map-ocean.png',
-  './assets/ocean-surface.png',
+  './assets/board-world-map-v1.webp',
+  './assets/atlas-background-v1.webp',
   './manifest.webmanifest',
   './icon.svg'
 ];
 self.addEventListener('install', (e) => {
-  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(CORE)).then(() => self.skipWaiting()));
+  e.waitUntil(caches.open(CACHE).then(async (c) => {
+    await c.addAll(CORE.filter(url => !url.endsWith('.webp')));
+    await Promise.allSettled(CORE.filter(url => url.endsWith('.webp')).map(url => c.add(url)));
+  }).then(() => self.skipWaiting()));
 });
 self.addEventListener('activate', (e) => {
   e.waitUntil(caches.keys().then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)))).then(() => self.clients.claim()));
@@ -27,7 +32,7 @@ self.addEventListener('fetch', (e) => {
   // 联机握手和轮询不作为静态资源缓存；离线只提供页面外壳。
   if (url.pathname.startsWith('/socket.io/') && url.pathname !== '/socket.io/socket.io.js') return;
   const isNav = e.request.mode === 'navigate' || url.pathname === '/' || url.pathname.endsWith('/index.html');
-  const strictCore = /\/(?:client\.js|style\.css|rules-catalog\.js)$/.test(url.pathname) || url.pathname === '/socket.io/socket.io.js';
+  const strictCore = /\/(?:client\.js|style\.css|rules-catalog\.js|contextual-rules\.js)$/.test(url.pathname) || url.pathname === '/socket.io/socket.io.js';
   if (isNav) {
     // HTML/导航：网络优先，失败回退缓存，保证更新即时生效
     e.respondWith(
@@ -48,3 +53,4 @@ self.addEventListener('fetch', (e) => {
     }).catch(() => strictCore ? new Response('', {status:503}) : caches.match(e.request, { ignoreSearch: true }).then((hit) => hit || new Response('', { status: 503 }))))
   );
 });
+

@@ -192,7 +192,7 @@ test('对局结束后房主可重新开始新对局', async () => {
   child.kill();
 }, { timeout: 30000 });
 
-test('房主在大厅掉线后，房主转移给在线玩家并可开始游戏', async () => {
+test('大厅掉线转移房主，仍有离线成员时按现行规则阻止开局', async () => {
   const port = 5700 + Math.floor(Math.random() * 500);
   const child = spawn(process.execPath, ['server.js'], {
     env: { ...process.env, PORT: String(port) },
@@ -217,11 +217,9 @@ test('房主在大厅掉线后，房主转移给在线玩家并可开始游戏',
   a.close(); // 房主在大厅掉线
   const rs = await rsP;
   assert.strictEqual(rs.hostId, b.id);
-  const gsP = once(b, 'gameState');
   const ack = await new Promise((resolve) => b.emit('startGame', {}, resolve));
-  assert.strictEqual(ack.ok, true);
-  const gs = await gsP;
-  assert.strictEqual(gs.status, 'playing');
+  assert.strictEqual(ack.ok, false);
+  assert.match(ack.error, /所有玩家.*连接/);
 
   b.close();
   child.kill();

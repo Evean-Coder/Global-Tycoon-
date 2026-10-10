@@ -33,7 +33,11 @@ function createPlayer(name, seat, id) {
 
 function createGameState(roomCode, playerNames, ruleVersion = 2, options = {}) {
   const players = playerNames.map((name, i) => createPlayer(name, i, `p${i}`));
+  const support = ruleVersion===2 && options.propertySupportRevision===require('./propertySupport').REVISION;
+  if(support)for(const p of players)p.propertySupport={everOwnedCity:false,missedPurchaseTurns:0,processedTurnId:null,eligible:false,used:false,turn:null};
   for (const p of players) p.opportunities = initial();
+  const active = ruleVersion===2 && options.activeManagementRevision===require('./activeManagement').REVISION;
+  if(active)for(const p of players)p.activeManagement={lapEpoch:p.opportunities.lapEpoch,usedTurnId:null,promotionStartedLap:false,stockBoughtTotal:0,stockBoughtByCity:{}};
   const routesEnabled = ruleVersion === 2 && options.routeRevision === 'opportunity-routes-v1';
   if (routesEnabled && !['normal', 'quick'].includes(options.gameMode || 'normal')) throw new Error('对局模式无效');
   if (options.quickRevision !== undefined && (options.quickRevision !== 'quick-mode-v1' || !routesEnabled || options.gameMode !== 'quick')) throw new Error('快速模式版本无效');
@@ -57,6 +61,8 @@ function createGameState(roomCode, playerNames, ruleVersion = 2, options = {}) {
     stocks[cityId] = { price: Math.round((cities[cityId].price / 10) * 2), holders: {}, operatingPrice: Math.round(cities[cityId].price * 0.2), dividendFund: 0, roundRent: 0, rentHistory: [], listingEpoch: 0, quoteVersion: 0, clearing: false, lastDividendPerShare: 0 };
   }
   return {
+    ...(active?{activeManagementRevision:options.activeManagementRevision,promotions:[],promotionReceipts:[]}:{}),
+    ...(support?{propertySupportRevision:options.propertySupportRevision}:{}),
     ...(options.quickRevision ? {quickRevision: options.quickRevision, quick: {durationMs:1800000,startedAt:options.startedAt ?? Date.now(),status:'running',warnings:[]}} : {}),
     ...(routesEnabled ? {
       routeRevision: options.routeRevision, gameMode: options.gameMode || 'normal',

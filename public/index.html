@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>环球大亨 · 资本博弈</title>
-  <link rel="stylesheet" href="style.css?v=20261010-quick-mode" />
-  <meta name="theme-color" content="#0b354b" />
+  <link rel="stylesheet" href="style.css?v=20261010-atlas-v1" />
+  <meta name="theme-color" content="#e9dfc5" />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" type="image/svg+xml" href="icon.svg" />
 </head>
@@ -65,7 +65,11 @@
       <div class="rule"></div>
       <div class="field room-mode">
         <label for="roomMode">本局模式 · 由房主选择</label>
-        <select id="roomMode" disabled><option value="normal">普通模式</option><option value="quick">快速模式 · 30分钟</option></select>
+        <select id="roomMode" class="hidden" tabindex="-1" aria-hidden="true" disabled><option value="normal">普通模式</option><option value="quick">快速模式 · 30分钟</option></select>
+        <div class="mode-cards" role="radiogroup" aria-label="对局模式">
+          <label class="mode-card"><input type="radio" name="gameModeCard" value="normal" disabled /><span><strong>普通模式</strong><small>完整经营 · 无整局时限</small><small>最后存活者获胜</small></span></label>
+          <label class="mode-card"><input type="radio" name="gameModeCard" value="quick" disabled /><span><strong>快速模式</strong><small>30分钟 · 到时封盘</small><small>结清分红，按净资产排名</small></span></label>
+        </div>
         <p id="modeDescription" class="hint">普通模式：最后存活者获胜。</p>
       </div>
       <button id="btnStart" class="primary block" disabled>开始游戏</button>
@@ -78,7 +82,6 @@
   <section id="view-game" class="view hidden">
     <div id="waitBanner" class="hidden"></div>
     <p class="orientation-hint ingame">请将手机横屏，以完整查看地图文字；竖屏也可向下滚动查看完整棋盘。</p>
-    <section id="newsBar" class="news-bar" aria-label="环球资讯"></section>
     <section id="quickClockBar" class="quick-clock-bar hidden" aria-label="整局时间">
       <span>快速模式 · 整局剩余 <strong id="quickTimer">30:00</strong></span>
       <span id="quickEndHint">到时封盘，按净资产排名</span>
@@ -88,9 +91,10 @@
       <div id="boardWrap">
         <div id="boardScale">
           <div id="board"></div>
+          <div id="boardMap" aria-hidden="true"></div>
         <div id="pieces"></div>
         </div>
-        <div id="ledger"><div id="ledgerBody"></div></div>
+        <div id="ledger"><div id="ledgerBody"></div><section id="newsBar" class="news-bar" aria-label="环球资讯"></section><div id="turnSummary" class="ledger-turn" aria-live="polite"></div></div>
       </div>
       <div id="side">
         <div class="panel" id="sidePlayer"></div>
@@ -183,7 +187,9 @@
   <div id="toast" class="hidden"></div>
 
   <script src="/socket.io/socket.io.js"></script>
-  <script src="rules-catalog.js?v=20261010-quick-mode"></script>
-  <script src="client.js?v=20261010-quick-mode"></script>
+  <script src="rules-catalog.js?v=20261010-atlas-v1"></script>
+  <script src="contextual-rules.js?v=20261010-atlas-v1"></script>
+  <script src="client.js?v=20261010-atlas-v1"></script>
 </body>
 </html>
+

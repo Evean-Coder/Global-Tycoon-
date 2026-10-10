@@ -1,0 +1,140 @@
+{
+  "scope": "固定10次以内租金轨迹；不代表随机落点概率、胜率或正式平衡结论",
+  "rows": [
+    {
+      "kind": "active_promote",
+      "visits": 0,
+      "cost": 560,
+      "cash": 149440,
+      "netAssets": 163440,
+      "relativeCash": -560,
+      "relativeNetAssets": -560
+    },
+    {
+      "kind": "active_promote",
+      "visits": 1,
+      "cost": 560,
+      "cash": 154760,
+      "netAssets": 168760,
+      "relativeCash": 560,
+      "relativeNetAssets": 560
+    },
+    {
+      "kind": "active_promote",
+      "visits": 2,
+      "cost": 560,
+      "cash": 160080,
+      "netAssets": 174080,
+      "relativeCash": 1680,
+      "relativeNetAssets": 1680
+    },
+    {
+      "kind": "active_promote",
+      "visits": 5,
+      "cost": 560,
+      "cash": 172680,
+      "netAssets": 186680,
+      "relativeCash": 1680,
+      "relativeNetAssets": 1680
+    },
+    {
+      "kind": "active_promote",
+      "visits": 10,
+      "cost": 560,
+      "cash": 193680,
+      "netAssets": 207680,
+      "relativeCash": 1680,
+      "relativeNetAssets": 1680
+    },
+    {
+      "kind": "active_stock_buy",
+      "visits": 0,
+      "cost": 8080,
+      "cash": 141920,
+      "netAssets": 163920,
+      "relativeCash": -8080,
+      "relativeNetAssets": -80
+    },
+    {
+      "kind": "active_stock_buy",
+      "visits": 1,
+      "cost": 8080,
+      "cash": 142040,
+      "netAssets": 164040,
+      "relativeCash": -7960,
+      "relativeNetAssets": 40
+    },
+    {
+      "kind": "active_stock_buy",
+      "visits": 2,
+      "cost": 8080,
+      "cash": 142160,
+      "netAssets": 164160,
+      "relativeCash": -7840,
+      "relativeNetAssets": 160
+    },
+    {
+      "kind": "active_stock_buy",
+      "visits": 5,
+      "cost": 8080,
+      "cash": 142520,
+      "netAssets": 164520,
+      "relativeCash": -7480,
+      "relativeNetAssets": 520
+    },
+    {
+      "kind": "active_stock_buy",
+      "visits": 10,
+      "cost": 8080,
+      "cash": 143120,
+      "netAssets": 165120,
+      "relativeCash": -6880,
+      "relativeNetAssets": 1120
+    },
+    {
+      "kind": "active_build",
+      "visits": 0,
+      "cost": 12180,
+      "cash": 137820,
+      "netAssets": 160220,
+      "relativeCash": -12180,
+      "relativeNetAssets": -3780
+    },
+    {
+      "kind": "active_build",
+      "visits": 1,
+      "cost": 12180,
+      "cash": 146220,
+      "netAssets": 168620,
+      "relativeCash": -7980,
+      "relativeNetAssets": 420
+    },
+    {
+      "kind": "active_build",
+      "visits": 2,
+      "cost": 12180,
+      "cash": 154620,
+      "netAssets": 177020,
+      "relativeCash": -3780,
+      "relativeNetAssets": 4620
+    },
+    {
+      "kind": "active_build",
+      "visits": 5,
+      "cost": 12180,
+      "cash": 179820,
+      "netAssets": 202220,
+      "relativeCash": 8820,
+      "relativeNetAssets": 17220
+    },
+    {
+      "kind": "active_build",
+      "visits": 10,
+      "cost": 12180,
+      "cash": 221820,
+      "netAssets": 244220,
+      "relativeCash": 29820,
+      "relativeNetAssets": 38220
+    }
+  ]
+}

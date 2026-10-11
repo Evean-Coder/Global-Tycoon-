@@ -1,0 +1,154 @@
+[
+  {
+    "width": 320,
+    "boardHeight": 1368,
+    "sideAfterBoard": true,
+    "overflow": false,
+    "rows": [
+      {
+        "id": "newsBar",
+        "text": "环球资讯首次环球行程完成后发布第 1 完整轮 · 回合结束远航开支 ￥0",
+        "visible": true,
+        "uncovered": true
+      },
+      {
+        "id": "turnSummary",
+        "text": "轮到你行动 · 等待掷骰",
+        "visible": true,
+        "uncovered": true
+      },
+      {
+        "id": "sidePlayer",
+        "text": "当前玩家手机玩家 房主轮到你行动 · 第 0 轮",
+        "visible": true,
+        "uncovered": true
+      },
+      {
+        "id": "sideOthers",
+        "text": "其他玩家电脑玩家1远程施工总资产￥150,000当前现金￥150,000",
+        "visible": true,
+        "uncovered": true
+      },
+      {
+        "id": "log",
+        "text": "轮到 手机玩家电脑玩家1 选择经营机遇：远程施工手机玩家 选择经营机遇：环球旅人",
+        "visible": true,
+        "uncovered": true
+      }
+    ]
+  },
+  {
+    "width": 390,
+    "boardHeight": 1368,
+    "sideAfterBoard": true,
+    "overflow": false,
+    "rows": [
+      {
+        "id": "newsBar",
+        "text": "环球资讯首次环球行程完成后发布第 1 完整轮 · 回合结束远航开支 ￥0",
+        "visible": true,
+        "uncovered": true
+      },
+      {
+        "id": "turnSummary",
+        "text": "轮到你行动 · 等待掷骰",
+        "visible": true,
+        "uncovered": true
+      },
+      {
+        "id": "sidePlayer",
+        "text": "当前玩家手机玩家 房主轮到你行动 · 第 0 轮",
+        "visible": true,
+        "uncovered": true
+      },
+      {
+        "id": "sideOthers",
+        "text": "其他玩家电脑玩家1远程施工总资产￥150,000当前现金￥150,000",
+        "visible": true,
+        "uncovered": true
+      },
+      {
+        "id": "log",
+        "text": "轮到 手机玩家电脑玩家1 选择经营机遇：远程施工手机玩家 选择经营机遇：环球旅人",
+        "visible": true,
+        "uncovered": true
+      }
+    ]
+  },
+  {
+    "width": 430,
+    "boardHeight": 1368,
+    "sideAfterBoard": true,
+    "overflow": false,
+    "rows": [
+      {
+        "id": "newsBar",
+        "text": "环球资讯首次环球行程完成后发布第 1 完整轮 · 回合结束远航开支 ￥0",
+        "visible": true,
+        "uncovered": true
+      },
+      {
+        "id": "turnSummary",
+        "text": "轮到你行动 · 等待掷骰",
+        "visible": true,
+        "uncovered": true
+      },
+      {
+        "id": "sidePlayer",
+        "text": "当前玩家手机玩家 房主轮到你行动 · 第 0 轮",
+        "visible": true,
+        "uncovered": true
+      },
+      {
+        "id": "sideOthers",
+        "text": "其他玩家电脑玩家1远程施工总资产￥150,000当前现金￥150,000",
+        "visible": true,
+        "uncovered": true
+      },
+      {
+        "id": "log",
+        "text": "轮到 手机玩家电脑玩家1 选择经营机遇：远程施工手机玩家 选择经营机遇：环球旅人",
+        "visible": true,
+        "uncovered": true
+      }
+    ]
+  },
+  {
+    "width": 768,
+    "boardHeight": 734,
+    "sideAfterBoard": true,
+    "overflow": false,
+    "rows": [
+      {
+        "id": "newsBar",
+        "text": "环球资讯首次环球行程完成后发布第 1 完整轮 · 回合结束远航开支 ￥0",
+        "visible": true,
+        "uncovered": true
+      },
+      {
+        "id": "turnSummary",
+        "text": "轮到你行动 · 等待掷骰",
+        "visible": true,
+        "uncovered": true
+      },
+      {
+        "id": "sidePlayer",
+        "text": "当前玩家手机玩家 房主轮到你行动 · 第 0 轮",
+        "visible": true,
+        "uncovered": true
+      },
+      {
+        "id": "sideOthers",
+        "text": "其他玩家电脑玩家1远程施工总资产￥150,000当前现金￥150,000",
+        "visible": true,
+        "uncovered": true
+      },
+      {
+        "id": "log",
+        "text": "轮到 手机玩家电脑玩家1 选择经营机遇：远程施工手机玩家 选择经营机遇：环球旅人",
+        "visible": true,
+        "uncovered": true
+      }
+    ]
+  }
+]

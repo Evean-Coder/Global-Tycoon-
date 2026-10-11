@@ -540,7 +540,7 @@ function renderLedger() {
   const stocks = Object.entries(meP.stocks || {}).filter(([, n]) => n > 0);
   const stockCount = stocks.reduce((sum, [, n]) => sum + n, 0);
   const mgCount = meP.cities.filter((id) => game.cities[id].mortgaged).length;
-  body.innerHTML = '<div class="ledger-title">我的资产 <em>· 航海家</em></div>'
+  body.innerHTML = '<div class="ledger-title">我的资产 <em>· ' + escapeHTML(meP.name) + '</em></div>'
     + '<div class="ledger-total"><span>'+(quickGame()?'当前净资产':'总资产')+'</span><strong>' + fmt(quickGame()?meP.netAssetSummary.netAssets:totalAssetsFor(meP)) + '</strong></div>'
     + '<div class="ledger-summary">'
     + '<div><span>现金</span><b>' + fmt(meP.cash) + '</b></div>'

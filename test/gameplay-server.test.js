@@ -30,10 +30,10 @@ test('重复创建同一房间不会导致已两人但无法开始',async()=>{
  await until(()=>a.game?.phase==='opportunity_choose'&&b.game?.phase==='opportunity_choose');
  assert.equal(api.rooms.get(first.roomCode).state.players.length,2);
 });
-test('逐人私有投影 / 三十秒时钟 / 迟到消息与同时提交',async()=>{
+test('逐人私有投影 / 六十秒时钟 / 迟到消息与同时提交',async()=>{
  const {room,clients,fake}=await setup(),[a,b,c]=clients,outsider=await connect();
  await until(()=>clients.every(s=>s.game?.self.choice));
- assert.equal(room.actionClock.remainingMs,30000);
+ assert.equal(room.actionClock.remainingMs,60000);
  const publicBefore=snapshot(room.state);assert.equal(publicBefore.self,undefined);
  const aChoice=choice(a),bPayload=envelope(b,choice(b));
  const aPayload=envelope(a,aChoice,'retry-choice'),first=await ack(a,'action',aPayload);assert.equal(first.ok,true);
@@ -43,7 +43,7 @@ test('逐人私有投影 / 三十秒时钟 / 迟到消息与同时提交',async(
  assert.equal(b.game.players[0].opportunities.selectedIds.length,0);assert.equal(b.game.self.choice.submitted,false);
  const other=JSON.stringify(b.game);assert.equal(other.includes('submittedId'),true);assert.equal('participants' in b.game.opportunityStage,false);assert.equal('typeBag' in b.game.world,false);
  assert.equal((await ack(b,'action',bPayload)).ok,true,'他人的提交不使本人的操作版本过期');
- const late=envelope(c,choice(c));fake.advance(29999);assert.equal(room.state.phase,'opportunity_choose');fake.advance(1);
+ const late=envelope(c,choice(c));fake.advance(59999);assert.equal(room.state.phase,'opportunity_choose');fake.advance(1);
  await until(()=>c.game.phase!=='opportunity_choose');assert.equal(room.state.opportunityStage.resolved,true);assert.equal(room.state.players[2].opportunities.selectedIds[0],c.game.players[2].opportunities.selectedIds[0]);
  assert.equal((await ack(c,'action',late)).ok,false);
  assert.equal(outsider.game,undefined,'无房间身份连接不得收到对局私有状态');
@@ -52,12 +52,12 @@ test('换组选项不延长倒计时 / 断线暂停 / 重连保留选项和剩�
  const {room,clients,fake}=await setup(2),[a,b]=clients;await until(()=>b.game?.self.choice);
  const old=b.game.self.choice.candidateIds.slice(),c=b.game.self.choice;
  fake.advance(5000);assert.equal((await action(b,{type:'opportunity_reroll',stageId:c.stageId,candidateVersion:c.candidateVersion})).ok,true);
- assert.equal(room.actionClock.remainingMs,25000);assert.equal(room.state.players[1].opportunities.rerollsLeft,0);
+ assert.equal(room.actionClock.remainingMs,55000);assert.equal(room.state.players[1].opportunities.rerollsLeft,0);
  const changed=room.state.opportunityStage.participants.p1.candidateIds.slice();assert.ok(changed.every(x=>!old.includes(x)));
  await action(a,choice(a));const token=b.token,code=room.code;b.close();await until(()=>room.actionClock.paused);
- fake.advance(100000);assert.equal(room.state.phase,'opportunity_choose');assert.equal(room.actionClock.remainingMs,25000);
+ fake.advance(100000);assert.equal(room.state.phase,'opportunity_choose');assert.equal(room.actionClock.remainingMs,55000);
  const b2=await connect();assert.equal((await ack(b2,'reconnect',{name:'玩家1',roomCode:code,token})).ok,true);await until(()=>b2.game?.self.choice);
- assert.deepEqual(b2.game.self.choice.candidateIds,changed);assert.equal(b2.game.self.choice.rerollsLeft,0);assert.equal(b2.game.decision.secondsRemaining,25);assert.equal(b2.game.decision.paused,false);
+ assert.deepEqual(b2.game.self.choice.candidateIds,changed);assert.equal(b2.game.self.choice.rerollsLeft,0);assert.equal(b2.game.decision.secondsRemaining,55);assert.equal(b2.game.decision.paused,false);
  await action(b2,choice(b2));assert.equal(room.state.phase,'waiting_roll');
 });
 test('普通动作封装 / 费用版本 / 去重缓存 / 新开局隔离 / 未确认选择终止',async()=>{
@@ -81,7 +81,7 @@ test('V1、V5 二至四人真实开局、健康检查与重新开局',async()=>{
  for(const n of [2,3,4]){const {room,clients}=await setup(n);await until(()=>clients.every(s=>s.game?.self.choice));assert.equal(room.state.phase,'opportunity_choose');assert.equal(room.state.opportunityStage.participantIds.length,n);const id=room.state.gameId;await ack(clients[0],'disbandRoom',{});await ack(clients[0],'startGame',{});await until(()=>clients.every(s=>s.game?.gameId!==id));assert.equal(room.state.opportunityStage.ordinal,1);assert.equal(clients[0].game.self.choice.candidateIds.length,3);}
 });
 test('V66 已提交重连保留锁定、候选与剩余时间',async()=>{
- const {room,clients,fake}=await setup(2),[a,b]=clients;await until(()=>b.game?.self.choice);await action(a,choice(a));await until(()=>a.game.self.choice.submitted);const entry=a.game.self.choice,token=a.token;fake.advance(4000);a.close();await until(()=>room.actionClock.paused);fake.advance(60000);const a2=await connect();await ack(a2,'reconnect',{roomCode:room.code,name:'玩家0',token});await until(()=>a2.game?.self.choice);assert.deepEqual(a2.game.self.choice,entry);assert.equal(a2.game.decision.secondsRemaining,26);await action(b,choice(b));assert.equal(room.state.players[0].opportunities.selectedIds.length,1);
+ const {room,clients,fake}=await setup(2),[a,b]=clients;await until(()=>b.game?.self.choice);await action(a,choice(a));await until(()=>a.game.self.choice.submitted);const entry=a.game.self.choice,token=a.token;fake.advance(4000);a.close();await until(()=>room.actionClock.paused);fake.advance(60000);const a2=await connect();await ack(a2,'reconnect',{roomCode:room.code,name:'玩家0',token});await until(()=>a2.game?.self.choice);assert.deepEqual(a2.game.self.choice,entry);assert.equal(a2.game.decision.secondsRemaining,56);await action(b,choice(b));assert.equal(room.state.players[0].opportunities.selectedIds.length,1);
 });
 test('V46、V66、V67 股票重连不重置累计预算，成交重放一次',async()=>{
  const {room,clients,fake}=await setup(2),[a,b]=clients;await until(()=>b.game?.self.choice);const s=f.game(2);f.own(s,'p1','上海');s.phase='stock';s.pending={playerId:'p0',kind:'go_stock',after:'end'};stocks.openStockWindow(s,'p0');await publish(room,clients,s);

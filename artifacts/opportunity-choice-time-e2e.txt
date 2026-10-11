@@ -1,0 +1,146 @@
+TAP version 13
+# Subtest: 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+ok 1 - 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+  ---
+  duration_ms: 6975.1874
+  ...
+# Subtest: two modes and three screens show 60 seconds for initial and later opportunities
+ok 2 - two modes and three screens show 60 seconds for initial and later opportunities
+  ---
+  duration_ms: 4788.0914
+  ...
+# normal 390x844: initial choice
+# normal 390x844: later choice
+# normal 768x1024: initial choice
+# normal 768x1024: later choice
+# normal 1440x900: initial choice
+# normal 1440x900: later choice
+# quick 390x844: initial choice
+# quick 390x844: later choice
+# quick 768x1024: initial choice
+# quick 768x1024: later choice
+# quick 1440x900: initial choice
+# quick 1440x900: later choice
+# Subtest: B01 本人候选完整历史与初始界面分开
+ok 3 - B01 本人候选完整历史与初始界面分开
+  ---
+  duration_ms: 2913.0975
+  ...
+# Subtest: B02 比较返回确认及主动跳过
+ok 4 - B02 比较返回确认及主动跳过
+  ---
+  duration_ms: 260.9029
+  ...
+# Subtest: B03 同窗口重绘及重连保留草稿，新窗口清理
+ok 5 - B03 同窗口重绘及重连保留草稿，新窗口清理
+  ---
+  duration_ms: 192.277
+  ...
+# Subtest: B04 失败草稿保留及迟到回执不覆盖新窗口
+ok 6 - B04 失败草稿保留及迟到回执不覆盖新窗口
+  ---
+  duration_ms: 239.8308
+  ...
+# Subtest: B05 查看规则返回和超时不复活窗口
+ok 7 - B05 查看规则返回和超时不复活窗口
+  ---
+  duration_ms: 218.3379
+  ...
+# Subtest: B04b 未确认只查询原操作身份，重复点击不新增请求
+ok 8 - B04b 未确认只查询原操作身份，重复点击不新增请求
+  ---
+  duration_ms: 168.6017
+  ...
+# Subtest: B06 PC平板及手机短横屏滚动与触控
+ok 9 - B06 PC平板及手机短横屏滚动与触控
+  ---
+  duration_ms: 1988.9418
+  ...
+# Subtest: B07 键盘与减少动画及200%内容缩放可操作
+ok 10 - B07 键盘与减少动画及200%内容缩放可操作
+  ---
+  duration_ms: 330.4343
+  ...
+# Subtest: B08 进度与版本规则不混入旧局
+ok 11 - B08 进度与版本规则不混入旧局
+  ---
+  duration_ms: 264.1307
+  ...
+# Subtest: B09 页面能力过旧提示刷新且候选保持
+ok 12 - B09 页面能力过旧提示刷新且候选保持
+  ---
+  duration_ms: 95.7048
+  ...
+# Subtest: B07b 实际浏览器默认200%缩放，键盘确认
+ok 13 - B07b 实际浏览器默认200%缩放，键盘确认
+  ---
+  duration_ms: 3143.1799
+  ...
+# Subtest: QB01 mode is confirmed before real start and guest control is read-only
+ok 14 - QB01 mode is confirmed before real start and guest control is read-only
+  ---
+  duration_ms: 2914.3601
+  ...
+# Subtest: QB02 restart uses waiting/error feedback instead of raw fire-and-forget
+ok 15 - QB02 restart uses waiting/error feedback instead of raw fire-and-forget
+  ---
+  duration_ms: 200.6101
+  ...
+# Subtest: QB03 total time continues through personal pause and ignores stale correction
+ok 16 - QB03 total time continues through personal pause and ignores stale correction
+  ---
+  duration_ms: 117.9276
+  ...
+# Subtest: QB04 net assets, debts and spendable cash have distinct labels
+ok 17 - QB04 net assets, debts and spendable cash have distinct labels
+  ---
+  duration_ms: 109.4284
+  ...
+# Subtest: QB05 ties, reasons and authoritative result work before a record arrives
+ok 18 - QB05 ties, reasons and authoritative result work before a record arrives
+  ---
+  duration_ms: 76.6166
+  ...
+# Subtest: QB06 download and replay preserve the frozen quick result
+ok 19 - QB06 download and replay preserve the frozen quick result
+  ---
+  duration_ms: 434.0543
+  ...
+# Subtest: QB07 PC tablet and short landscape layouts expose accessible controls
+ok 20 - QB07 PC tablet and short landscape layouts expose accessible controls
+  ---
+  duration_ms: 980.6477
+  ...
+# Subtest: QB08 authority closes old sheets and cancels queued visual animations
+ok 21 - QB08 authority closes old sheets and cancels queued visual animations
+  ---
+  duration_ms: 854.4502
+  ...
+# Subtest: QB10 finite browser flow uses legal actions through growth routes reconnect and deadline
+ok 22 - QB10 finite browser flow uses legal actions through growth routes reconnect and deadline
+  ---
+  duration_ms: 1193.0948
+  ...
+# Subtest: QB11 real total clock preserves an opened route at 28 and closes its sheet at 30
+ok 23 - QB11 real total clock preserves an opened route at 28 and closes its sheet at 30
+  ---
+  duration_ms: 460.8857
+  ...
+# Subtest: QB07c mobile touch can open assets and rules in a short landscape viewport
+ok 24 - QB07c mobile touch can open assets and rules in a short landscape viewport
+  ---
+  duration_ms: 1282.4495
+  ...
+# Subtest: QB07b actual browser 200 percent zoom keeps the clock and net details usable
+ok 25 - QB07b actual browser 200 percent zoom keeps the clock and net details usable
+  ---
+  duration_ms: 3717.568
+  ...
+1..25
+# tests 25
+# suites 0
+# pass 25
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

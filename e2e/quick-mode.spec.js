@@ -14,7 +14,7 @@ test.before(async()=>{fs.mkdirSync(evidence,{recursive:true});h=await boot({game
 test.after(async()=>{if(h)await h.close();fs.writeFileSync(path.join(evidence,'measurements.json'),JSON.stringify({browser:'Microsoft Edge Chromium',physicalDevices:'未测；模拟视口',measures},null,2));});
 
 test('QB01 mode is confirmed before real start and guest control is read-only',async()=>{
-  assert.equal(h.prestart.mode,'quick');assert.equal(h.prestart.guestModeDisabled,true);assert.equal(h.room.state.gameMode,'quick');assert.equal(await h.pages[0].locator('#quickClockBar').isVisible(),true);assert.ok((await h.pages[0].textContent('#quickClockBar')).includes('整局'));assert.equal(h.room.actionClock.remainingMs,30000);await h.choose();
+  assert.equal(h.prestart.mode,'quick');assert.equal(h.prestart.guestModeDisabled,true);assert.equal(h.room.state.gameMode,'quick');assert.equal(await h.pages[0].locator('#quickClockBar').isVisible(),true);assert.ok((await h.pages[0].textContent('#quickClockBar')).includes('整局'));assert.equal(h.room.actionClock.remainingMs,60000);await h.choose();
 });
 test('QB02 restart uses waiting/error feedback instead of raw fire-and-forget',async()=>{
   const a=h.pages[0];h.api.closeQuickGame(h.room,'disband');h.api.emitGame(h.room);await a.waitForFunction(()=>game.phase==='game_over');await a.evaluate(()=>returnToRoom());

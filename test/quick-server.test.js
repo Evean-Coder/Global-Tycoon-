@@ -27,7 +27,7 @@ test('QS02: capabilities and conflicting mode fail without replacing prior state
   await ack(x.a,'setRoomMode',{gameMode:'normal'});assert.equal((await ack(x.a,'startGame',{gameMode:'quick'})).ok,false);assert.equal((await ack(x.a,'startGame',{})).ok,true);const state=x.room.state;assert.equal((await ack(x.a,'startGame',{})).ok,false);assert.equal(x.room.state,state);
 });
 test('QS03: real total clock begins with first choice and shares injected time source',async()=>{
-  const x=await setup();x.time.advance(50000);await start(x);assert.equal(x.room.state.phase,'opportunity_choose');assert.equal(x.room.quickClock.read().elapsedMs,0);x.time.set(51000);assert.equal(x.room.quickTimeProvider.read().elapsedMs,1000);assert.equal(x.room.actionClock.remainingSeconds(),29);
+  const x=await setup();x.time.advance(50000);await start(x);assert.equal(x.room.state.phase,'opportunity_choose');assert.equal(x.room.quickClock.read().elapsedMs,0);x.time.set(51000);assert.equal(x.room.quickTimeProvider.read().elapsedMs,1000);assert.equal(x.room.actionClock.remainingSeconds(),59);
 });
 test('QS04: atomic close can retry after failed economic checks with no partial authoritative mutation',async()=>{
   const x=await setup();await start(x);f.own(x.room.state,'p0','上海');x.room.state.stocks['上海'].dividendFund=Infinity;const before=globalThis.structuredClone(x.room.state);x.time.set(1800000);

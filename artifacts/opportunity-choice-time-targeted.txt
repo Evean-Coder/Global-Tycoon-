@@ -1,0 +1,26 @@
+TAP version 13
+# Subtest: two modes and three screens show 60 seconds for initial and later opportunities
+ok 1 - two modes and three screens show 60 seconds for initial and later opportunities
+  ---
+  duration_ms: 4427.3435
+  ...
+# normal 390x844: initial choice
+# normal 390x844: later choice
+# normal 768x1024: initial choice
+# normal 768x1024: later choice
+# normal 1440x900: initial choice
+# normal 1440x900: later choice
+# quick 390x844: initial choice
+# quick 390x844: later choice
+# quick 768x1024: initial choice
+# quick 768x1024: later choice
+# quick 1440x900: initial choice
+# quick 1440x900: later choice
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

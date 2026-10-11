@@ -1,18 +1,18 @@
 'use strict';
-const CACHE = 'global-tycoon-v19-stock-scroll';
+const CACHE = 'global-tycoon-v20-choice-time';
 const CORE = [
   './',
   './index.html',
   './style.css',
   './client.js',
   './board-layout.js',
-  './board-layout.js?v=20261011-stock-scroll-v1',
+  './board-layout.js?v=20261011-choice-time-v1',
   './rules-catalog.js',
   './contextual-rules.js',
-  './contextual-rules.js?v=20261011-stock-scroll-v1',
-  './rules-catalog.js?v=20261011-stock-scroll-v1',
-  './style.css?v=20261011-stock-scroll-v1',
-  './client.js?v=20261011-stock-scroll-v1',
+  './contextual-rules.js?v=20261011-choice-time-v1',
+  './rules-catalog.js?v=20261011-choice-time-v1',
+  './style.css?v=20261011-choice-time-v1',
+  './client.js?v=20261011-choice-time-v1',
   './socket.io/socket.io.js',
   './assets/board-world-map-v1.webp',
   './assets/atlas-background-v1.webp',

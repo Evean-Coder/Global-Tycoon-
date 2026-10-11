@@ -37,10 +37,10 @@ test('S02 个人阶段只允许合法选择或服务端超时',()=>{
 });
 test('S03 决定身份时间与暂停恢复',()=>{
  const s=ready(),fake=f.fakeClock(),clock=createActionClock(fake);let expired=0;
- clock.sync(s,()=>expired++);assert.equal(clock.remainingMs,30000);fake.advance(8000);const deadline=clock.deadlineMs,id=clock.decisionId;
- clock.sync(s,()=>expired++);assert.equal(clock.deadlineMs,deadline);assert.equal(clock.decisionId,id);clock.pause();fake.advance(100000);assert.equal(expired,0);assert.equal(clock.remainingSeconds(),22);
- clock.resume(()=>expired++);fake.advance(22000);assert.equal(expired,1);clock.clear();
- const quick=ready();quick.gameMode='quick';clock.sync(quick,()=>expired++);assert.equal(clock.remainingMs,20000);quick.routeFlow.activeChoice.opportunityId+='new';clock.sync(quick,()=>expired++);assert.ok(clock.decisionId>id);clock.clear();
+ clock.sync(s,()=>expired++);assert.equal(clock.remainingMs,60000);fake.advance(8000);const deadline=clock.deadlineMs,id=clock.decisionId;
+ clock.sync(s,()=>expired++);assert.equal(clock.deadlineMs,deadline);assert.equal(clock.decisionId,id);clock.pause();fake.advance(100000);assert.equal(expired,0);assert.equal(clock.remainingSeconds(),52);
+ clock.resume(()=>expired++);fake.advance(52000);assert.equal(expired,1);clock.clear();
+ const quick=ready();quick.gameMode='quick';clock.sync(quick,()=>expired++);assert.equal(clock.remainingMs,60000);quick.routeFlow.activeChoice.opportunityId+='new';clock.sync(quick,()=>expired++);assert.ok(clock.decisionId>id);clock.clear();
 });
 
 test('S04 新页面能力门槛与普通开局',async()=>{
@@ -64,7 +64,7 @@ test('S06 确认前及执行跨个人截止不提交副本',async()=>{
  set(deadline-1);assert.equal((await ack(a,'action',envelope(room,choice(room.state)))).ok,true);
  fixture(room);set=controlledClock(room);set(room.actionClock.deadlineMs);
  assert.equal((await ack(a,'action',envelope(room,choice(room.state)))).code,'EXPIRED');assert.equal(room.state.routeFlow.players.p0.lastResult.outcome,'expired');assert.equal(room.state.players[0].cash,cash);
- fixture(room);set=controlledClock(room);const original=logic.apply;logic.apply=(...args)=>{const res=original(...args);if(args[1].type==='route_confirm')set(30000);return res;};
+ fixture(room);set=controlledClock(room);const executionDeadline=room.actionClock.deadlineMs,original=logic.apply;logic.apply=(...args)=>{const res=original(...args);if(args[1].type==='route_confirm')set(executionDeadline);return res;};
  try{assert.equal((await ack(a,'action',envelope(room,choice(room.state)))).code,'EXPIRED');assert.equal(room.state.routeFlow.players.p0.lastResult.outcome,'expired');assert.deepEqual(room.state.players[0].opportunities.selectedIds,['H1','H8','H10']);}finally{logic.apply=original;}
 });
 test('S07 受控总时间提供者截止优先适配（非快速核心验收）',async()=>{
@@ -89,7 +89,7 @@ test('S09 重连恢复原候选与剩余时间',async()=>{
  const {a,room}=await setup();fixture(room);const fake=f.fakeClock();room.actionClock.clear();room.actionClock=createActionClock(fake);api.emitGame(room);fake.advance(7000);
  const candidates=[...room.state.routeFlow.activeChoice.candidateIds],token=a.token;a.close();await until(()=>room.actionClock.paused);fake.advance(60000);const next=await connect();
  assert.equal((await ack(next,'reconnect',{roomCode:room.code,name:'甲',token})).ok,true);await until(()=>next.game?.self.routeChoice);
- assert.deepEqual(next.game.self.routeChoice.candidateIds,candidates);assert.equal(next.game.decision.secondsRemaining,23);assert.equal(next.game.decision.paused,false);
+ assert.deepEqual(next.game.self.routeChoice.candidateIds,candidates);assert.equal(next.game.decision.secondsRemaining,53);assert.equal(next.game.decision.paused,false);
 });
 test('S10 旧能力重连可查看但新局动作要求更新，旧局仍可操作',async()=>{
  const {a,room}=await setup();fixture(room);const token=a.token;a.close();await until(()=>!room.players[0].connected);const old=await connect(false);await ack(old,'reconnect',{roomCode:room.code,name:'甲',token});

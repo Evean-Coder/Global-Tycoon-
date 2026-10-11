@@ -1,0 +1,564 @@
+{
+  "baseline": "0f6d3cc",
+  "scope": "固定决策场景，非总体胜率",
+  "cases": [
+    {
+      "name": "安全购地可用较低储备",
+      "reason": "15000购买7200后仍留7800，安全道路预算足够",
+      "oldAction": {
+        "type": "buy",
+        "decision": "pass"
+      },
+      "newAction": {
+        "type": "buy",
+        "decision": "buy"
+      },
+      "changed": true,
+      "passed": true
+    },
+    {
+      "name": "高租金阻止相同购地",
+      "reason": "下十格有16200租金，7800现金不足安全预算",
+      "oldAction": {
+        "type": "buy",
+        "decision": "pass"
+      },
+      "newAction": {
+        "type": "buy",
+        "decision": "pass"
+      },
+      "changed": false,
+      "passed": true
+    },
+    {
+      "name": "本圈购城上限",
+      "reason": "圈额度满不能继续购买",
+      "oldAction": {
+        "type": "buy",
+        "decision": "buy"
+      },
+      "newAction": {
+        "type": "buy",
+        "decision": "pass"
+      },
+      "changed": true,
+      "passed": true
+    },
+    {
+      "name": "落点建房正常费用值得",
+      "reason": "支付2160得到同额名义房屋且有增量租金",
+      "oldAction": {
+        "type": "respond_build",
+        "decision": "build",
+        "quoteVersion": "114921c3-86e9-4f84-8489-67f5ea82d9e6:0:p1:build:内罗毕"
+      },
+      "newAction": {
+        "type": "respond_build",
+        "decision": "build",
+        "quoteVersion": "114921c3-86e9-4f84-8489-67f5ea82d9e6:0:p1:build:内罗毕"
+      },
+      "changed": false,
+      "passed": true
+    },
+    {
+      "name": "建设低现金不制造欠款",
+      "reason": "建房后现金840不足储备",
+      "oldAction": {
+        "type": "respond_build",
+        "decision": "pass"
+      },
+      "newAction": {
+        "type": "respond_build",
+        "decision": "pass"
+      },
+      "changed": false,
+      "passed": true
+    },
+    {
+      "name": "主动溢价建设无回本则掷骰",
+      "reason": "单对手无近期访问、低级远程建房溢价不值得",
+      "oldAction": {
+        "type": "active_build",
+        "cityId": "内罗毕",
+        "quoteVersion": "[\"active-management-v1\",1,\"p1\",\"active_build\",\"内罗毕\",null,\"p1\",0,false,1,1,{},null,[],null,false,0,{}]"
+      },
+      "newAction": {
+        "type": "roll_dice"
+      },
+      "changed": true,
+      "passed": true
+    },
+    {
+      "name": "高等级热点城市值得建设",
+      "reason": "三对手距纽约十格、四级高价城市租金跃升且H1减费",
+      "oldAction": {
+        "type": "roll_dice"
+      },
+      "newAction": {
+        "type": "active_build",
+        "cityId": "纽约",
+        "quoteVersion": "[\"active-management-v1\",1,\"p1\",\"active_build\",\"纽约\",null,\"p1\",3,false,1,1,{},null,[],null,false,0,{}]"
+      },
+      "changed": true,
+      "passed": true
+    },
+    {
+      "name": "短期热点选择促销",
+      "reason": "满级不能建房，三对手距十格，两轮奖励预计超过520费用",
+      "oldAction": {
+        "type": "roll_dice"
+      },
+      "newAction": {
+        "type": "active_promote",
+        "cityId": "巴黎",
+        "quoteVersion": "[\"active-management-v1\",1,\"p1\",\"active_promote\",\"巴黎\",null,\"p1\",4,false,1,1,{},null,[],null,false,0,{}]"
+      },
+      "changed": true,
+      "passed": true
+    },
+    {
+      "name": "有建设潜力的股价选择主动买股",
+      "reason": "现有两级房高于尚未更新的经营价，涨价步长仍有空间",
+      "oldAction": {
+        "type": "active_stock_buy",
+        "cityId": "东京",
+        "shares": 1,
+        "listingEpoch": 1,
+        "quoteVersion": "[\"active-management-v1\",1,\"p1\",\"active_stock_buy\",\"东京\",1,\"p0\",2,false,1,1,{},null,[],null,false,0,{}]"
+      },
+      "newAction": {
+        "type": "active_stock_buy",
+        "cityId": "东京",
+        "quoteVersion": "[\"active-management-v1\",1,\"p1\",\"active_stock_buy\",\"东京\",2,\"p0\",2,false,1,1,{},null,[],null,false,0,{}]",
+        "shares": 2,
+        "listingEpoch": 1
+      },
+      "changed": true,
+      "passed": true
+    },
+    {
+      "name": "股票比较而非列表第一个",
+      "reason": "低级内罗毕排列在前，东京现有建设更有经营价值",
+      "oldAction": {
+        "type": "stock_trade",
+        "windowId": "95a1b439-db49-4f3b-9e66-a8bedc8d51a5:stock:1",
+        "orders": [
+          {
+            "cityId": "内罗毕",
+            "side": "buy",
+            "shares": 1,
+            "quoteVersion": 1,
+            "listingEpoch": 1
+          }
+        ]
+      },
+      "newAction": {
+        "type": "stock_trade",
+        "windowId": "95a1b439-db49-4f3b-9e66-a8bedc8d51a5:stock:1",
+        "orders": [
+          {
+            "cityId": "东京",
+            "side": "buy",
+            "shares": 2,
+            "quoteVersion": 1,
+            "listingEpoch": 1
+          }
+        ]
+      },
+      "changed": true,
+      "passed": true
+    },
+    {
+      "name": "恢复储备优先减持弱股票",
+      "reason": "先卖三股低增长资产，再由新快照判断缺口",
+      "oldAction": {
+        "type": "stock_trade",
+        "windowId": "970af996-d0f2-49f2-8298-cd76da3beb5d:stock:1",
+        "orders": [
+          {
+            "cityId": "内罗毕",
+            "side": "sell",
+            "shares": 3,
+            "quoteVersion": 1,
+            "listingEpoch": 1
+          }
+        ]
+      },
+      "newAction": {
+        "type": "stock_trade",
+        "windowId": "970af996-d0f2-49f2-8298-cd76da3beb5d:stock:1",
+        "orders": [
+          {
+            "cityId": "内罗毕",
+            "side": "sell",
+            "shares": 3,
+            "quoteVersion": 1,
+            "listingEpoch": 1
+          }
+        ]
+      },
+      "changed": false,
+      "passed": true
+    },
+    {
+      "name": "自救适量卖股",
+      "reason": "720一股，欠1000只需两股，保留东京增长股份",
+      "oldAction": {
+        "type": "rescue_sell_stock",
+        "cityId": "内罗毕",
+        "shares": 2,
+        "quoteVersion": 1
+      },
+      "newAction": {
+        "type": "rescue_sell_stock",
+        "cityId": "内罗毕",
+        "shares": 2,
+        "quoteVersion": 1
+      },
+      "changed": false,
+      "passed": true
+    },
+    {
+      "name": "仅土地可抵押完成自救",
+      "reason": "无股份或房屋且有合法抵押额度",
+      "oldAction": {
+        "type": "rescue_mortgage",
+        "cityId": "内罗毕"
+      },
+      "newAction": {
+        "type": "rescue_mortgage",
+        "cityId": "内罗毕"
+      },
+      "changed": false,
+      "passed": true
+    },
+    {
+      "name": "抵押名额满则拆房自救",
+      "reason": "两座已抵押，拆一级退款1296足以补债",
+      "oldAction": {
+        "type": "rescue_demolish",
+        "cityId": "内罗毕",
+        "quoteVersion": "50be1529-4ecc-43ee-87c3-31f17f20a7c6:0:p1:demolish:内罗毕"
+      },
+      "newAction": {
+        "type": "rescue_demolish",
+        "cityId": "内罗毕",
+        "quoteVersion": "50be1529-4ecc-43ee-87c3-31f17f20a7c6:0:p1:demolish:内罗毕"
+      },
+      "changed": false,
+      "passed": true
+    },
+    {
+      "name": "自救无资产才结束",
+      "reason": "无可出售、抵押或拆除资产",
+      "oldAction": {
+        "type": "rescue_done"
+      },
+      "newAction": {
+        "type": "rescue_done"
+      },
+      "changed": false,
+      "passed": true
+    },
+    {
+      "name": "自救资金已补足立即退出",
+      "reason": "不多卖资产",
+      "oldAction": {
+        "type": "rescue_done"
+      },
+      "newAction": {
+        "type": "rescue_done"
+      },
+      "changed": false,
+      "passed": true
+    },
+    {
+      "name": "免费航班选择更好道路",
+      "reason": "位置35后续骰子可接近起点，飞行本身不计起点奖励",
+      "oldAction": {
+        "type": "flight",
+        "target": null
+      },
+      "newAction": {
+        "type": "flight",
+        "target": "上海浦东国际机场",
+        "quoteVersion": "47164a4d-e1d9-4781-8cfd-bba504820fd5:0:p1:flight:上海浦东国际机场"
+      },
+      "changed": true,
+      "passed": true
+    },
+    {
+      "name": "已在好道路不付费飞走",
+      "reason": "当前位置未来通过起点概率更好，机票只增加费用",
+      "oldAction": {
+        "type": "flight",
+        "target": null
+      },
+      "newAction": {
+        "type": "flight",
+        "target": null
+      },
+      "changed": false,
+      "passed": true
+    },
+    {
+      "name": "免费飞行也保留偿付风险约束",
+      "reason": "零现金不新增经营决定",
+      "oldAction": {
+        "type": "flight",
+        "target": null
+      },
+      "newAction": {
+        "type": "flight",
+        "target": null
+      },
+      "changed": false,
+      "passed": true
+    },
+    {
+      "name": "优惠转入股份接受",
+      "reason": "10现金获得当前价值720的有效股份",
+      "oldAction": {
+        "type": "stock_transfer",
+        "accept": false
+      },
+      "newAction": {
+        "type": "stock_transfer",
+        "accept": true
+      },
+      "changed": true,
+      "passed": true
+    },
+    {
+      "name": "过贵转入股份拒绝",
+      "reason": "付款大于有效股份价值和有限预期",
+      "oldAction": {
+        "type": "stock_transfer",
+        "accept": false
+      },
+      "newAction": {
+        "type": "stock_transfer",
+        "accept": false
+      },
+      "changed": false,
+      "passed": true
+    },
+    {
+      "name": "城主四股拒绝超限转让",
+      "reason": "不突破城主四股限制",
+      "oldAction": {
+        "type": "stock_transfer",
+        "accept": false
+      },
+      "newAction": {
+        "type": "stock_transfer",
+        "accept": false
+      },
+      "changed": false,
+      "passed": true
+    },
+    {
+      "name": "含房拍卖不再用地价封顶",
+      "reason": "上海四级总价值68000，75%开价51000优于资产价值",
+      "oldAction": {
+        "type": "auction_respond",
+        "decision": "pass"
+      },
+      "newAction": {
+        "type": "auction_respond",
+        "decision": "bid",
+        "amount": 51000
+      },
+      "changed": true,
+      "passed": true
+    },
+    {
+      "name": "拍卖不足预算即退出",
+      "reason": "51000开价超过现金且必须留储备",
+      "oldAction": {
+        "type": "auction_respond",
+        "decision": "pass"
+      },
+      "newAction": {
+        "type": "auction_respond",
+        "decision": "pass"
+      },
+      "changed": false,
+      "passed": true
+    },
+    {
+      "name": "快速临近结束停止溢价建设",
+      "reason": "十秒内不足以收回建设溢价",
+      "oldAction": {
+        "type": "roll_dice"
+      },
+      "newAction": {
+        "type": "roll_dice"
+      },
+      "changed": false,
+      "passed": true
+    },
+    {
+      "name": "缺失快局时限保守建设",
+      "reason": "不猜测还有大量时间回本",
+      "oldAction": {
+        "type": "roll_dice"
+      },
+      "newAction": {
+        "type": "roll_dice"
+      },
+      "changed": false,
+      "passed": true
+    },
+    {
+      "name": "三城持股优先分散投资机遇",
+      "reason": "已满足三城且快经过起点，其他两项没有资产条件",
+      "oldAction": {
+        "type": "opportunity_choose",
+        "stageId": "35800087-a5ae-41bb-b974-8cdb4522ee58:choice:1",
+        "candidateVersion": 1,
+        "opportunityId": "H2"
+      },
+      "newAction": {
+        "type": "opportunity_choose",
+        "stageId": "35800087-a5ae-41bb-b974-8cdb4522ee58:choice:1",
+        "candidateVersion": 1,
+        "opportunityId": "H5"
+      },
+      "changed": true,
+      "passed": true
+    },
+    {
+      "name": "已有有效路线不为固定分数换掉",
+      "reason": "新地产和航班选项缺实际条件，不能换掉起点现金收益",
+      "oldAction": {
+        "type": "route_confirm",
+        "opportunityId": "SMART:route:fixed",
+        "candidateVersion": 1,
+        "newId": "H1",
+        "replaceId": "H10"
+      },
+      "newAction": {
+        "type": "route_skip",
+        "opportunityId": "SMART:route:fixed",
+        "candidateVersion": 1
+      },
+      "changed": true,
+      "passed": true
+    },
+    {
+      "name": "新一次性资金确有价值则换路线",
+      "reason": "未领过6000，替换无地产条件的旧机遇有真实增量",
+      "oldAction": {
+        "type": "route_confirm",
+        "opportunityId": "SMART:route:fixed",
+        "candidateVersion": 1,
+        "newId": "H12",
+        "replaceId": "H8"
+      },
+      "newAction": {
+        "type": "route_confirm",
+        "opportunityId": "SMART:route:fixed",
+        "candidateVersion": 1,
+        "newId": "H12",
+        "replaceId": "H1"
+      },
+      "changed": true,
+      "passed": true
+    },
+    {
+      "name": "募资无法筹足安全预算则取消",
+      "reason": "无合法筹资手段，不能靠该阶段禁止的股票出售",
+      "oldAction": {
+        "type": "buy_fundraise",
+        "decision": "cancel"
+      },
+      "newAction": {
+        "type": "buy_fundraise",
+        "decision": "cancel"
+      },
+      "changed": false,
+      "passed": true
+    },
+    {
+      "name": "快局短期优质购地可合法募资",
+      "reason": "两轮内纽约收入机会高，旧开普敦不可到达，抵押能补预算且利息较低",
+      "oldAction": {
+        "type": "buy_fundraise",
+        "decision": "cancel"
+      },
+      "newAction": {
+        "type": "rescue_mortgage",
+        "cityId": "开普敦"
+      },
+      "changed": true,
+      "passed": true
+    },
+    {
+      "name": "募资资金足够直接确认",
+      "reason": "已有足额资金不继续抵押",
+      "oldAction": {
+        "type": "buy_fundraise",
+        "decision": "cancel"
+      },
+      "newAction": {
+        "type": "buy_fundraise",
+        "decision": "confirm"
+      },
+      "changed": true,
+      "passed": true
+    },
+    {
+      "name": "经营动作上限转入掷骰",
+      "reason": "同一决定有行动上限",
+      "oldAction": {
+        "type": "roll_dice"
+      },
+      "newAction": {
+        "type": "roll_dice"
+      },
+      "changed": false,
+      "passed": true
+    },
+    {
+      "name": "冻结恢复经营值得缴费",
+      "reason": "接近起点且可恢复热点城市建设，组合回报超过5000救援费",
+      "oldAction": {
+        "type": "respond_frozen",
+        "decision": "pay"
+      },
+      "newAction": {
+        "type": "respond_frozen",
+        "decision": "pay"
+      },
+      "changed": false,
+      "passed": true
+    },
+    {
+      "name": "冻结临近结算不缴费",
+      "reason": "十秒剩余时间不足以赚回5000费用",
+      "oldAction": {
+        "type": "respond_frozen",
+        "decision": "pay"
+      },
+      "newAction": {
+        "type": "respond_frozen",
+        "decision": "pass"
+      },
+      "changed": true,
+      "passed": true
+    },
+    {
+      "name": "股票动作上限结束窗口",
+      "reason": "单窗口最多八次步骤",
+      "oldAction": {
+        "type": "stock_done"
+      },
+      "newAction": {
+        "type": "stock_done"
+      },
+      "changed": false,
+      "passed": true
+    }
+  ]
+}

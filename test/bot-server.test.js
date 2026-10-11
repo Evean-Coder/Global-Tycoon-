@@ -49,7 +49,7 @@ test('股票成交后正常退出，欠款优先卖股后恢复，不依赖真�
 test('清理删除房间后电脑没有残留任务',async()=>{
  const {room}=await setup();room.idleSince=Date.now()-1000;api.sweepRooms(Date.now(),{gameIdleMs:1});assert.equal(api.rooms.has(room.code),false);assert.equal(room.botJobs.size,0);
 });
-test('非当前回合电脑回应拍卖与直接出售，股票转让拒绝回到原窗口',async()=>{
+test('非当前回合电脑回应拍卖与直接出售，过贵股票转让拒绝回到原窗口',async()=>{
  const {room}=await setup();stocks.transferCity(room.state,{cityId:'内罗毕',newOwnerId:'p0'},[]);
  room.botDelayMs=50;fixture(room,'auction_bid',{type:'auction',cityId:'内罗毕',sellerId:'p0',order:['p1'],index:0,currentBid:0,currentBidder:null,roundBidMade:false,awaiting:'p1'});room.state.turnIndex=0;api.emitGame(room);
  await until(()=>room.state.cities['内罗毕'].ownerId==='p1');
@@ -59,6 +59,40 @@ test('非当前回合电脑回应拍卖与直接出售，股票转让拒绝回�
  room.state.stocks['内罗毕'].holders.p0=1;stocks.openStockWindow(room.state,'p0');const window=globalThis.structuredClone(room.state.stockWindow);
  fixture(room,'trade_confirm',{type:'trade_confirm',fromId:'p0',targetId:'p1',awaiting:'p1',items:[{cityId:'内罗毕',shares:1}],cash:1000,windowId:window.windowId,fromStock:{playerId:'p0',kind:'stock'}});room.state.turnIndex=0;room.state.stockWindow=window;api.emitGame(room);
  await until(()=>room.state.phase==='stock');assert.equal(room.state.stockWindow.windowId,window.windowId);assert.equal(room.state.stocks['内罗毕'].holders.p0,1);
+});
+
+test('普通及快速有限联机轨迹：经营、股票、自救和飞行通过原动作入口',{timeout:15000},async()=>{
+ const policy=require('../src/botPolicy'),original=policy.choose,reports=[];
+ try{
+  for(const mode of ['normal','quick']){
+   const {a,room}=await setup(mode);await until(()=>room.state.opportunityStage.participants.p1.submitted);
+   const choice=a.game.self.choice;assert.equal((await act(a,{type:'opportunity_choose',stageId:choice.stageId,candidateVersion:choice.candidateVersion,opportunityId:choice.candidateIds[0]})).ok,true);
+   await until(()=>room.state.phase==='waiting_roll');
+   const decisions=[];policy.choose=(v,m)=>{const action=original(v,m);if(v.gameId===room.state.gameId){decisions.push({phase:v.phase,action,quickTime:v.quickTime||null});assert.ok(decisions.length<=24,'受控轨迹超过24决定');}return action;};
+   room.state.players[1].position=1;fixture(room,'buy',{playerId:'p1',cityId:'内罗毕'});await until(()=>room.state.cities['内罗毕'].ownerId==='p1');bots.stop(room);
+   stocks.transferCity(room.state,{cityId:'东京',newOwnerId:'p0'},[]);room.state.cities['东京'].houseLevel=2;room.state.cities['东京'].buildCosts=[10200,10200];stocks.openStockWindow(room.state,'p1');fixture(room,'stock',{playerId:'p1',kind:'go_stock',after:'end'});
+   await until(()=>room.state.phase!=='stock');assert.ok(room.state.stocks['东京'].holders.p1>=1);bots.stop(room);
+   room.state.players[1].cash=-1000;fixture(room,'self_rescue',{playerId:'p1',due:1000,reason:'受控欠款',resume:{type:'end_turn'}});await until(()=>room.state.players[1].cash>=0&&room.state.phase!=='self_rescue');assert.equal(room.state.players[1].alive,true);bots.stop(room);
+   room.state.players[1].cash=100000;room.state.players[1].position=6;const airport='上海浦东国际机场',owner=room.state.airports[airport].ownerId;
+   const before=room.state.players[1].cash;fixture(room,'flight',{playerId:'p1',kind:'flight',fromAirportId:'开罗国际机场',free:true});await until(()=>room.state.phase!=='flight');assert.equal(room.state.players[1].position,35);assert.equal(room.state.players[1].cash,before);assert.equal(room.state.airports[airport].ownerId,owner);bots.stop(room);
+   const receipts=room.successfulActions.get('p1').size;assert.ok(receipts<=24);assert.ok(decisions.some(d=>d.phase==='stock')&&decisions.some(d=>d.phase==='self_rescue'));
+   if(mode==='quick')assert.ok(decisions.every(d=>d.quickTime?.mode==='quick'&&d.quickTime.totalRemainingMs>0));
+   reports.push({mode,decisions,successfulReceipts:receipts,stopReason:'受控购买、股票、自救、飞行完成，主动结束；非完整胜率模拟'});
+   if(mode==='quick')api.closeQuickGame(room,'disband');else api.finalizeGame(room,'disband');api.emitGame(room);assert.equal(room.botJobs.size,0);policy.choose=original;
+  }
+ }finally{policy.choose=original;}
+ const fs=require('node:fs'),path=require('node:path'),dir=path.join(__dirname,'../artifacts/ai-strategy');fs.mkdirSync(dir,{recursive:true});fs.writeFileSync(path.join(dir,'server-trajectories.json'),JSON.stringify(reports,null,2));
+});
+
+test('服务器给电脑相同公开快速时限，临近封盘不溢价建设',async()=>{
+ const {room}=await setup('quick');bots.stop(room);const routes=require('../src/opportunityRoutes'),policy=require('../src/botPolicy'),original=policy.choose,captured=[];
+ for(const p of room.state.players)p.opportunities.selectedIds=['H1','H8','H10'];
+ for(let i=1;i<=3;i++){room.state.opportunityStage={resolved:true,ordinal:i};routes.markInitialResolved(room.state,i);}
+ const time={mode:'quick',gameId:room.state.gameId,elapsedMs:1790000,totalRemainingMs:10000,closed:false};room.quickTimeProvider={read:()=>({...time}),close:()=>api.closeQuickGame(room,'time_limit')};api.advanceRouteTime(room);
+ stocks.transferCity(room.state,{cityId:'纽约',newOwnerId:'p1'},[]);room.state.cities['纽约'].houseLevel=3;room.state.cities['纽约'].buildCosts=[11400,11400,11400];room.state.stocks['纽约'].holders.p1=4;stocks.syncHolders(room.state);room.state.players[0].position=15;
+ try{policy.choose=(v,m)=>{captured.push({time:v.quickTime,action:original(v,m)});return captured[captured.length-1].action;};fixture(room,'waiting_roll');await until(()=>captured.length>0&&room.state.phase!=='waiting_roll');}
+ finally{policy.choose=original;bots.stop(room);}
+ assert.deepEqual(captured[0].time,time);assert.equal(captured[0].action.type,'roll_dice');api.closeQuickGame(room,'time_limit');assert.equal(room.state.phase,'game_over');api.emitGame(room);assert.equal(room.botJobs.size,0);
 });
 test('后续路线选择使用本人成熟路线并能推进，快速封盘撤销电脑动作',async()=>{
  const {room}=await setup(),routes=require('../src/opportunityRoutes');

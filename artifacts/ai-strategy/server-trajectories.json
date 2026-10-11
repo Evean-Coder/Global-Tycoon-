@@ -1,0 +1,188 @@
+[
+  {
+    "mode": "normal",
+    "decisions": [
+      {
+        "phase": "buy",
+        "action": {
+          "type": "buy",
+          "decision": "buy"
+        },
+        "quickTime": null
+      },
+      {
+        "phase": "stock",
+        "action": {
+          "type": "stock_trade",
+          "windowId": "e0a72588-2a70-44a8-a50c-2829ceb14774:stock:1",
+          "orders": [
+            {
+              "cityId": "东京",
+              "side": "buy",
+              "shares": 2,
+              "quoteVersion": 1,
+              "listingEpoch": 1
+            }
+          ]
+        },
+        "quickTime": null
+      },
+      {
+        "phase": "stock",
+        "action": {
+          "type": "stock_trade",
+          "windowId": "e0a72588-2a70-44a8-a50c-2829ceb14774:stock:1",
+          "orders": [
+            {
+              "cityId": "内罗毕",
+              "side": "buy",
+              "shares": 2,
+              "quoteVersion": 1,
+              "listingEpoch": 1
+            }
+          ]
+        },
+        "quickTime": null
+      },
+      {
+        "phase": "stock",
+        "action": {
+          "type": "stock_done"
+        },
+        "quickTime": null
+      },
+      {
+        "phase": "self_rescue",
+        "action": {
+          "type": "rescue_sell_stock",
+          "cityId": "内罗毕",
+          "shares": 2,
+          "quoteVersion": 1
+        },
+        "quickTime": null
+      },
+      {
+        "phase": "flight",
+        "action": {
+          "type": "flight",
+          "target": "上海浦东国际机场",
+          "quoteVersion": "e0a72588-2a70-44a8-a50c-2829ceb14774:11:p1:flight:上海浦东国际机场"
+        },
+        "quickTime": null
+      }
+    ],
+    "successfulReceipts": 7,
+    "stopReason": "受控购买、股票、自救、飞行完成，主动结束；非完整胜率模拟"
+  },
+  {
+    "mode": "quick",
+    "decisions": [
+      {
+        "phase": "buy",
+        "action": {
+          "type": "buy",
+          "decision": "buy"
+        },
+        "quickTime": {
+          "mode": "quick",
+          "gameId": "f9f11381-d58e-41e7-9f2c-203d5489ccb5",
+          "elapsedMs": 84.53870000000006,
+          "totalRemainingMs": 1799915.4613,
+          "closed": false
+        }
+      },
+      {
+        "phase": "stock",
+        "action": {
+          "type": "stock_trade",
+          "windowId": "f9f11381-d58e-41e7-9f2c-203d5489ccb5:stock:1",
+          "orders": [
+            {
+              "cityId": "东京",
+              "side": "buy",
+              "shares": 2,
+              "quoteVersion": 1,
+              "listingEpoch": 1
+            }
+          ]
+        },
+        "quickTime": {
+          "mode": "quick",
+          "gameId": "f9f11381-d58e-41e7-9f2c-203d5489ccb5",
+          "elapsedMs": 130.32159999999976,
+          "totalRemainingMs": 1799869.6784,
+          "closed": false
+        }
+      },
+      {
+        "phase": "stock",
+        "action": {
+          "type": "stock_trade",
+          "windowId": "f9f11381-d58e-41e7-9f2c-203d5489ccb5:stock:1",
+          "orders": [
+            {
+              "cityId": "内罗毕",
+              "side": "buy",
+              "shares": 2,
+              "quoteVersion": 1,
+              "listingEpoch": 1
+            }
+          ]
+        },
+        "quickTime": {
+          "mode": "quick",
+          "gameId": "f9f11381-d58e-41e7-9f2c-203d5489ccb5",
+          "elapsedMs": 162.20079999999962,
+          "totalRemainingMs": 1799837.7992,
+          "closed": false
+        }
+      },
+      {
+        "phase": "stock",
+        "action": {
+          "type": "stock_done"
+        },
+        "quickTime": {
+          "mode": "quick",
+          "gameId": "f9f11381-d58e-41e7-9f2c-203d5489ccb5",
+          "elapsedMs": 193.75999999999976,
+          "totalRemainingMs": 1799806.24,
+          "closed": false
+        }
+      },
+      {
+        "phase": "self_rescue",
+        "action": {
+          "type": "rescue_sell_stock",
+          "cityId": "内罗毕",
+          "shares": 2,
+          "quoteVersion": 1
+        },
+        "quickTime": {
+          "mode": "quick",
+          "gameId": "f9f11381-d58e-41e7-9f2c-203d5489ccb5",
+          "elapsedMs": 239.85019999999986,
+          "totalRemainingMs": 1799760.1498,
+          "closed": false
+        }
+      },
+      {
+        "phase": "flight",
+        "action": {
+          "type": "flight",
+          "target": "上海浦东国际机场",
+          "quoteVersion": "f9f11381-d58e-41e7-9f2c-203d5489ccb5:11:p1:flight:上海浦东国际机场"
+        },
+        "quickTime": {
+          "mode": "quick",
+          "gameId": "f9f11381-d58e-41e7-9f2c-203d5489ccb5",
+          "elapsedMs": 286.77250000000004,
+          "totalRemainingMs": 1799713.2275,
+          "closed": false
+        }
+      }
+    ],
+    "successfulReceipts": 7,
+    "stopReason": "受控购买、股票、自救、飞行完成，主动结束；非完整胜率模拟"
+  }
+]

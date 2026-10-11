@@ -1,95 +1,149 @@
 'use strict';
 
-// Input is exclusively the same private snapshot supplied to this seat.
-const RESERVE = 18000;
-const {cityTotalValue}=require('./economy');
-function score(v,id) {
-  const p=v.players.find(x=>x.id===v.self.playerId);
-  const defaults={H1:50,H2:55,H3:40,H4:50,H5:40,H6:40,H7:35,H8:35,H9:35,H10:45,H11:55,H12:60};
-  return (defaults[id]||30)+(id==='H1'?p.cities.length*8:0)+(id==='H5'?Object.values(v.stocks).filter(s=>s.holders[p.id]).length*5:0);
+const econ=require('./economy'),ev=require('./botEvaluation');
+const actionKey=a=>[a.type,a.cityId||a.target||'',a.shares||0,a.orders?.[0]?.cityId||''].join('|');
+function best(ctx,options){return options.filter(c=>ev.affordable(ctx,c.cashCost)).map(c=>ev.evaluate(ctx,c)).filter(c=>c.score>1e-6).sort((a,b)=>b.score-a.score||actionKey(a.action||{}).localeCompare(actionKey(b.action||{})))[0];}
+function cityCandidate(id,cost,action){return {kind:'city',cityId:id,cashCost:cost,action};}
+function stockCandidate(id,shares,quote,action){return {kind:'stock',cityId:id,shares,quote,cashCost:quote.finalAmount,action};}
+
+function fundraising(ctx,target) {
+  const c=ctx.view.cities[target.cityId],cost=target.kind==='city'?c?.price:15000;
+  if(!Number.isSafeInteger(cost)||(target.kind==='city'&&(!c||c.ownerId||ctx.self.lapBuys>=4)))return null;
+  const candidate=target.kind==='city'?cityCandidate(c.id,cost,null):{kind:'airport',target:target.airportId,cashCost:cost};
+  const value=ev.evaluate(ctx,candidate).score;
+  if(value<=0||ctx.horizon<=0)return null;
+  if(ctx.self.cash-cost>=ctx.reserve)return {type:'buy_fundraise',decision:'confirm'};
+  const copy=JSON.parse(JSON.stringify(ctx.view));let loss=0,first=null;
+  // Bounded by two mortgages and existing house levels, rather than a game-tree search.
+  for(let step=0;step<82;step++){
+    const current=ev.context(copy),needed=cost+current.reserve-current.self.cash;
+    if(needed<=0)return loss<value?first:null;
+    const tool=ev.liquidation(current,needed,false)[0];
+    if(!tool)return null;
+    first ||= tool.action;loss+=tool.loss;
+    if(loss>=value)return null;
+    current.self.cash+=tool.amount;
+    const city=copy.cities[tool.action.cityId];
+    if(tool.action.type==='rescue_mortgage')city.mortgaged=true;
+    else {city.houseLevel--;city.buildCosts?.pop();}
+    for(const owned of Object.values(copy.cities).filter(x=>x.ownerId===current.self.id))copy.self.quotes.demolish[owned.id]=owned.houseLevel&&!owned.mortgaged?{ok:true,finalAmount:-econ.refundFor(owned)}:{ok:false};
+  }
+  return null;
+}
+function rescue(v,memory={},simple=false) {
+  const p=v.players.find(p=>p.id===v.self.playerId);
+  if(p.cash>=0)return {type:'rescue_done'};
+  if(simple){
+    for(const id of Object.keys(v.stocks).sort()){
+      const s=v.stocks[id],held=s.holders[p.id]||0;
+      if(v.cities[id].ownerId&&!s.clearing&&held>0&&s.price>0)return {type:'rescue_sell_stock',cityId:id,shares:Math.min(held,Math.ceil(-p.cash/s.price)),quoteVersion:s.quoteVersion};
+    }
+    const own=Object.values(v.cities).filter(c=>c.ownerId===p.id).sort((a,b)=>a.price-b.price||a.id.localeCompare(b.id));
+    if(own.filter(c=>c.mortgaged).length<2){const c=own.find(c=>!c.mortgaged);if(c)return {type:'rescue_mortgage',cityId:c.id};}
+    const c=own.find(c=>v.self.quotes.demolish[c.id]?.ok);
+    if(c)return {type:'rescue_demolish',cityId:c.id,quoteVersion:v.self.quotes.demolish[c.id].quoteVersion};
+  }else{
+    const tools=ev.liquidation(ev.context(v),-p.cash);
+    if(tools.length)return tools[0].action;
+  }
+  const cities=Object.values(v.cities).filter(c=>c.ownerId===p.id&&!c.mortgaged&&!(memory.saleAttempts||[]).includes(c.id));
+  const ctx=simple?null:ev.context(v);
+  cities.sort((a,b)=>ctx?(econ.cityTotalValue(a)*.4+ev.cityIncome(ctx,a.id))-(econ.cityTotalValue(b)*.4+ev.cityIncome(ctx,b.id))||a.id.localeCompare(b.id):a.price-b.price||a.id.localeCompare(b.id));
+  return cities.length?{type:'sell_city',cityId:cities[0].id,mode:'auction'}:{type:'rescue_done'};
 }
 function choose(v,memory={}) {
-  const p=v.players.find(x=>x.id===v.self.playerId),q=v.self.quotes;
-  const afford=n=>Number.isSafeInteger(n)&&p.cash-n>=RESERVE;
-  const best=ids=>ids.slice().sort((a,b)=>score(v,b)-score(v,a)||a.localeCompare(b))[0];
+  const ctx=ev.context(v),p=ctx.self,q=v.self.quotes;
   switch(v.phase) {
     case 'opportunity_choose': {
       const c=v.self.choice;
-      return {type:'opportunity_choose',stageId:c.stageId,candidateVersion:c.candidateVersion,opportunityId:best(c.candidateIds)};
+      const id=c.candidateIds.slice().sort((a,b)=>ev.routeValue(ctx,[...v.self.opportunities.selectedIds,b])-ev.routeValue(ctx,[...v.self.opportunities.selectedIds,a])||a.localeCompare(b))[0];
+      return {type:'opportunity_choose',stageId:c.stageId,candidateVersion:c.candidateVersion,opportunityId:id};
     }
     case 'route_choose': {
-      const c=v.self.routeChoice,held=v.self.opportunities.selectedIds;
-      const newId=best(c.candidateIds.filter(id=>!held.includes(id)));
-      const replaceId=held.length===3?held.slice().sort((a,b)=>score(v,a)-score(v,b))[0]:null;
+      const c=v.self.routeChoice,held=v.self.opportunities.selectedIds,options=[];
+      for(const newId of c.candidateIds.filter(id=>!held.includes(id)&&!(id==='H12'&&v.self.opportunities.oneTimeRewards?.H12)))for(const replaceId of held.length===3?held:[null]){
+        const score=ev.routeValue(ctx,[...held.filter(id=>id!==replaceId),newId])-ev.routeValue(ctx,held);
+        options.push({newId,replaceId,score});
+      }
+      const best=options.filter(o=>o.score>1e-6).sort((a,b)=>b.score-a.score||a.newId.localeCompare(b.newId)||String(a.replaceId).localeCompare(String(b.replaceId)))[0];
       const envelope={opportunityId:c.opportunityId,candidateVersion:c.candidateVersion};
-      return newId&&(!replaceId||score(v,newId)>score(v,replaceId))?{type:'route_confirm',...envelope,newId,replaceId}:{type:'route_skip',...envelope};
+      return best?{type:'route_confirm',...envelope,newId:best.newId,replaceId:best.replaceId}:{type:'route_skip',...envelope};
     }
     case 'waiting_roll': {
-      if((memory.steps||0)<6){
-        const support=v.self.propertySupport?.candidates.find(c=>c.ok&&afford(c.finalAmount));
-        if(support)return {type:'support_buy',cityId:support.cityId,quoteVersion:support.quoteVersion};
-        const active=v.self.activeManagement;
-        const options=(active?.available?active.quotes:[]).filter(c=>c.ok&&afford(c.finalAmount));
-        // Build for durable income, otherwise limited stocks, then promotion on an earning city.
-        const build=options.find(c=>c.type==='active_build'&&v.cities[c.cityId].houseLevel<2);
-        const stock=options.find(c=>c.type==='active_stock_buy'&&c.shares===1&&(p.assetSummary.stockValue+c.finalAmount)<p.assetSummary.total*.2);
-        const promo=options.find(c=>c.type==='active_promote'&&(v.stocks[c.cityId]?.rentHistory||[]).some(n=>n>0));
-        const c=build||stock||promo;
-        if(c)return {type:c.type,cityId:c.cityId,...(c.shares?{shares:c.shares,listingEpoch:c.listingEpoch}:{}),quoteVersion:c.quoteVersion};
+      if((memory.steps||0)>=6)return {type:'roll_dice'};
+      const support=best(ctx,(v.self.propertySupport?.candidates||[]).filter(c=>c.ok&&p.lapBuys<4).map(c=>cityCandidate(c.cityId,c.finalAmount,{type:'support_buy',cityId:c.cityId,quoteVersion:c.quoteVersion})));
+      if(support)return support.action;
+      const active=v.self.activeManagement,options=[];
+      for(const c of active?.available?active.quotes:[])if(c.ok){
+        const action={type:c.type,cityId:c.cityId,quoteVersion:c.quoteVersion,...(c.shares?{shares:c.shares,listingEpoch:c.listingEpoch}:{})};
+        if(c.type==='active_stock_buy'){if(ev.stockAllowed(ctx,c.cityId,c.shares))options.push(stockCandidate(c.cityId,c.shares,c,action));}
+        else options.push({kind:c.type==='active_build'?'build':'promote',cityId:c.cityId,cashCost:c.finalAmount,quote:c,action});
       }
-      return {type:'roll_dice'};
+      return best(ctx,options)?.action||{type:'roll_dice'};
     }
-    case 'buy':return {type:'buy',decision:afford(v.cities[v.pending.cityId].price)?'buy':'pass'};
-    case 'buy_airport':return {type:'buy_airport',decision:afford(15000)?'buy':'pass'};
+    case 'buy':case 'buy_airport': {
+      const airport=v.phase==='buy_airport',id=airport?v.pending.airportId:v.pending.cityId,cost=airport?15000:v.cities[id].price;
+      const candidate=airport?{kind:'airport',target:id,cashCost:cost}:cityCandidate(id,cost,null);
+      if((airport||p.lapBuys<4)&&best(ctx,[candidate]))return {type:v.phase,decision:'buy'};
+      if(p.cash<cost&&fundraising(ctx,airport?{kind:'airport',airportId:id}:{kind:'city',cityId:id}))return {type:'buy_fundraise',decision:'start'};
+      return {type:v.phase,decision:'pass'};
+    }
     case 'build_decide': {
-      const c=q.build[v.pending.cityId];
-      return c?.ok&&afford(c.finalAmount)?{type:'respond_build',decision:'build',quoteVersion:c.quoteVersion}:{type:'respond_build',decision:'pass'};
+      const c=q.build[v.pending.cityId],candidate={kind:'build',cityId:v.pending.cityId,cashCost:c?.finalAmount};
+      return c?.ok&&best(ctx,[candidate])?{type:'respond_build',decision:'build',quoteVersion:c.quoteVersion}:{type:'respond_build',decision:'pass'};
     }
-    case 'buy_fundraise':return {type:'buy_fundraise',decision:'cancel'};
-    case 'frozen_turn':return {type:'respond_frozen',decision:afford(5000)?'pay':'pass'};
-    case 'jail_turn':return {type:'respond_jail',decision:afford(15000)?'pay':'roll'};
-    case 'trade_confirm':return {type:'stock_transfer',accept:false};
-    case 'direct_sale_ask':return {type:'direct_sale_respond',decision:p.lapBuys<4&&afford(cityTotalValue(v.cities[v.pending.cityId]))?'buy':'pass'};
+    case 'buy_fundraise':return fundraising(ctx,v.pending.target)||{type:'buy_fundraise',decision:'cancel'};
+    case 'self_rescue':return rescue(v,memory);
+    case 'frozen_turn':case 'jail_turn': {
+      const jail=v.phase==='jail_turn',cost=jail?15000:5000;
+      const improvement=ev.pathValue(ctx,p.position,1)-ev.pathValue(ctx,p.position,1,false);
+      return {type:jail?'respond_jail':'respond_frozen',decision:ev.affordable(ctx,cost)&&improvement+ev.releasedBusiness(ctx,cost)>cost?'pay':jail?'roll':'pass'};
+    }
+    case 'flight': {
+      const stay=ev.pathValue(ctx,p.position),options=[];
+      for(const [target,c]of Object.entries(q.flight))if(c.ok&&ev.affordable(ctx,c.finalAmount)){
+        const position=v.board.find(s=>s.airportId===target)?.id;
+        if(position!==undefined)options.push({target,quoteVersion:c.quoteVersion,score:ev.pathValue(ctx,position)-stay-c.finalAmount});
+      }
+      const option=options.filter(o=>o.score>1e-6).sort((a,b)=>b.score-a.score||a.target.localeCompare(b.target))[0];
+      return option?{type:'flight',target:option.target,quoteVersion:option.quoteVersion}:{type:'flight',target:null};
+    }
+    case 'trade_confirm': {
+      const offer=v.pending;let value=0,valid=offer.targetId===p.id&&Number.isSafeInteger(offer.cash)&&offer.cash>=0&&ev.affordable(ctx,offer.cash)&&offer.items?.length>=1&&offer.items.length<=3;
+      const seen=new Set();
+      for(const item of offer.items||[]){
+        const c=v.cities[item.cityId],s=v.stocks[item.cityId];
+        if(!c?.ownerId||!s||s.clearing||item.shares!==1||seen.has(item.cityId)||(s.holders[offer.fromId]||0)<1||(c.ownerId===p.id&&(s.holders[p.id]||0)>=4))valid=false;
+        else{const benefit=ev.stockBenefit(ctx,item.cityId);value+=s.price+benefit.assetDelta+benefit.expectedIncome;}
+        seen.add(item.cityId);
+      }
+      return {type:'stock_transfer',accept:!!valid&&value-offer.cash>1e-6};
+    }
+    case 'direct_sale_ask':return {type:'direct_sale_respond',decision:p.lapBuys<4&&best(ctx,[cityCandidate(v.pending.cityId,econ.cityTotalValue(v.cities[v.pending.cityId]),null)])?'buy':'pass'};
     case 'auction_bid': {
-      const a=v.pending,c=v.cities[a.cityId],amount=a.currentBid>0?a.currentBid+1000:Math.round(cityTotalValue(c)*.75);
+      const a=v.pending,c=v.cities[a.cityId],amount=a.currentBid>0?a.currentBid+1000:Math.round(econ.cityTotalValue(c)*.75);
       if(a.currentBidder===p.id)return {type:'auction_respond',decision:'end'};
-      return p.lapBuys<4&&afford(amount)&&amount<=c.price?{type:'auction_respond',decision:'bid',amount}:{type:'auction_respond',decision:'pass'};
+      return p.lapBuys<4&&best(ctx,[cityCandidate(c.id,amount,null)])?{type:'auction_respond',decision:'bid',amount}:{type:'auction_respond',decision:'pass'};
     }
-    case 'flight':return {type:'flight',target:null};
     case 'stock': {
       const w=v.self.stockWindow;
-      if((memory.steps||0)>=8)return {type:'stock_done'};
-      for(const [id,s]of Object.entries(v.stocks)) {
-        const c=v.cities[id],held=s.holders[p.id]||0;
-        if(!c.ownerId||s.clearing)continue;
-        if(held&&p.cash<RESERVE)return {type:'stock_trade',windowId:w.windowId,orders:[{cityId:id,side:'sell',shares:Math.min(held,Math.ceil((RESERVE-p.cash)/s.price)),quoteVersion:s.quoteVersion,listingEpoch:s.listingEpoch}]};
-        if(!c.mortgaged&&afford(s.price)&&p.assetSummary.stockValue+s.price<p.assetSummary.total*.2&&w.boughtTotal<6&&(w.boughtByCity[id]||0)<2&&(Object.hasOwn(w.boughtByCity,id)||Object.keys(w.boughtByCity).length<3)&&(c.ownerId!==p.id||held<4)&&Object.values(s.holders).reduce((a,b)=>a+b,0)<20)
-          return {type:'stock_trade',windowId:w.windowId,orders:[{cityId:id,side:'buy',shares:1,quoteVersion:s.quoteVersion,listingEpoch:s.listingEpoch}]};
+      if(!w||(memory.steps||0)>=8)return {type:'stock_done'};
+      if(p.cash<ctx.reserve){const tool=ev.liquidation(ctx,ctx.reserve-p.cash).find(t=>t.action.type==='rescue_sell_stock');if(tool){const {cityId,shares,quoteVersion}=tool.action;return {type:'stock_trade',windowId:w.windowId,orders:[{cityId,side:'sell',shares,quoteVersion,listingEpoch:v.stocks[cityId].listingEpoch}]};}}
+      const options=[];
+      for(const id of Object.keys(v.stocks))for(const shares of [1,2])if(ev.stockAllowed(ctx,id,shares,w,memory)){
+        const s=v.stocks[id],quote={finalAmount:s.price*shares,fee:0};
+        options.push(stockCandidate(id,shares,quote,{type:'stock_trade',windowId:w.windowId,orders:[{cityId:id,side:'buy',shares,quoteVersion:s.quoteVersion,listingEpoch:s.listingEpoch}]}));
       }
-      return {type:'stock_done'};
-    }
-    case 'self_rescue': {
-      if(p.cash>=0)return {type:'rescue_done'};
-      for(const [id,s]of Object.entries(v.stocks))if(v.cities[id].ownerId&&!s.clearing&&s.holders[p.id]>0&&s.price>0)return {type:'rescue_sell_stock',cityId:id,shares:Math.min(s.holders[p.id],Math.ceil(-p.cash/s.price)),quoteVersion:s.quoteVersion};
-      const cities=Object.values(v.cities).filter(c=>c.ownerId===p.id);
-      const c=cities.filter(c=>!c.mortgaged).sort((a,b)=>a.price-b.price)[0];
-      if(c&&cities.filter(c=>c.mortgaged).length<2)return {type:'rescue_mortgage',cityId:c.id};
-      const d=cities.find(c=>q.demolish[c.id]?.ok);
-      if(d)return {type:'rescue_demolish',cityId:d.id,quoteVersion:q.demolish[d.id].quoteVersion};
-      if(c&&!(memory.saleAttempts||[]).includes(c.id))return {type:'sell_city',cityId:c.id,mode:'auction'};
-      return {type:'rescue_done'};
+      return best(ctx,options)?.action||{type:'stock_done'};
     }
     default:throw new Error('未支持的电脑阶段：'+v.phase);
   }
 }
-function fallback(v){
-  if(v.phase==='opportunity_choose'){const c=v.self.choice;return {type:'opportunity_choose',stageId:c.stageId,candidateVersion:c.candidateVersion,opportunityId:c.candidateIds[0]};}
+function fallback(v,memory={}) {
+  if(v.phase==='opportunity_choose'){const c=v.self.choice;return {type:'opportunity_choose',stageId:c.stageId,candidateVersion:c.candidateVersion,opportunityId:c.candidateIds.slice().sort()[0]};}
   if(v.phase==='route_choose'){const c=v.self.routeChoice;return {type:'route_skip',opportunityId:c.opportunityId,candidateVersion:c.candidateVersion};}
-  if(v.phase==='self_rescue')return {type:'rescue_done'};
-  if(v.phase==='trade_confirm')return {type:'stock_transfer',accept:false};
-  if(v.phase==='frozen_turn')return {type:'respond_frozen',decision:'pass'};
-  if(v.phase==='jail_turn')return {type:'respond_jail',decision:'roll'};
-  const choices={waiting_roll:{type:'roll_dice'},stock:{type:'stock_done'},buy:{type:'buy',decision:'pass'},buy_airport:{type:'buy_airport',decision:'pass'},build_decide:{type:'respond_build',decision:'pass'},flight:{type:'flight',target:null},auction_bid:{type:'auction_respond',decision:'pass'},direct_sale_ask:{type:'direct_sale_respond',decision:'pass'},buy_fundraise:{type:'buy_fundraise',decision:'cancel'}};
+  if(v.phase==='self_rescue')return rescue(v,memory,true);
+  const choices={trade_confirm:{type:'stock_transfer',accept:false},frozen_turn:{type:'respond_frozen',decision:'pass'},jail_turn:{type:'respond_jail',decision:'roll'},waiting_roll:{type:'roll_dice'},stock:{type:'stock_done'},buy:{type:'buy',decision:'pass'},buy_airport:{type:'buy_airport',decision:'pass'},build_decide:{type:'respond_build',decision:'pass'},flight:{type:'flight',target:null},auction_bid:{type:'auction_respond',decision:'pass'},direct_sale_ask:{type:'direct_sale_respond',decision:'pass'},buy_fundraise:{type:'buy_fundraise',decision:'cancel'}};
   return choices[v.phase]||null;
 }
-module.exports={choose,fallback,RESERVE};
+module.exports={choose,fallback};

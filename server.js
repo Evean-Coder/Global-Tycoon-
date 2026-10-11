@@ -373,14 +373,24 @@ function runBotDecision(room,id){
   if(memory?.gameId!==view.gameId)memory={gameId:view.gameId,saleAttempts:[]};
   if(memory.decisionId!==view.decision.decisionId){memory.decisionId=view.decision.decisionId;memory.steps=0;memory.failures=0;}
   let action;
-  try {action=memory.failures?botPolicy.fallback(view):botPolicy.choose(view,memory);}
-  catch(err){console.error('[bot-policy]',id,err);action=botPolicy.fallback(view);}
+  try {
+    if (routes.enabled(room.state) && room.state.gameMode==='quick') view.quickTime=routeTime(room);
+    action=memory.failures?botPolicy.fallback(view,memory):botPolicy.choose(view,memory);
+  }
+  catch(err){console.error('[bot-policy]',id,err);action=botPolicy.fallback(view,memory);}
   if(!action){memory.blockedKey=room.state.gameId+'|'+room.actionClock.decisionId+'|'+id+'|'+room.state.actorRevision[id];room.botMemory.set(id,memory);return;}
   memory.steps++;room.botMemory.set(id,memory);
   const envelope={...action,gameId:view.gameId,actionId:'bot:'+id+':'+view.revision+':'+memory.steps,decisionId:view.decision.decisionId,actorRevision:view.self.actorRevision};
   const internalSocket={[BOT_AUTH]:id,handshake:{auth:{clientRouteRevision:routes.REVISION,clientQuickRevision:quick.REVISION}},emit(){}};
   const result=runAction(room,internalSocket,envelope);
-  if(result.ok){memory.failures=0;if(action.type==='sell_city')memory.saleAttempts.push(action.cityId);}
+  if(result.ok){
+    memory.failures=0;
+    if(action.type==='sell_city')memory.saleAttempts.push(action.cityId);
+    if(action.type==='stock_trade'){
+      if(memory.windowId!==action.windowId){memory.windowId=action.windowId;memory.soldCityIds=[];}
+      for(const order of action.orders)if(order.side==='sell'&&!memory.soldCityIds.includes(order.cityId))memory.soldCityIds.push(order.cityId);
+    }
+  }
   else {memory.failures++;if(memory.failures>=2)memory.blockedKey=room.state.gameId+'|'+room.actionClock.decisionId+'|'+id+'|'+room.state.actorRevision[id];console.error('[bot-action]',id,action.type,result.error);}
 }
 

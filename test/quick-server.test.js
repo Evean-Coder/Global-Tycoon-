@@ -65,7 +65,7 @@ test('QS08: same decision has no refill, simultaneous personal and total deadlin
 test('QS09: stock quote updates keep budget; unconfirmed transfer is cancelled at deadline',async()=>{
   const x=await setup();await start(x);await initial(x);f.own(x.room.state,'p0','上海');const st=x.room.state.stocks['上海'];st.holders.p0=1;stocks.syncHolders(x.room.state);stocks.openStockWindow(x.room.state,'p0');
   x.room.state.phase='stock';x.room.state.pending={kind:'go_stock',playerId:'p0'};api.emitGame(x.room);const deadline=x.room.actionClock.deadlineMs;stocks.refreshPrice(x.room.state,'上海','test');api.emitGame(x.room);assert.equal(x.room.actionClock.deadlineMs,deadline);
-  const transfer=await submit(x,'p0',{type:'stock_transfer',windowId:x.room.state.stockWindow.windowId,targetId:'p1',items:[{cityId:'上海',shares:1}],cash:100});assert.equal(transfer.ok,true,JSON.stringify(transfer));x.time.set(5000);assert.equal((await submit(x,'p1',{type:'stock_transfer',accept:false})).ok,true);assert.equal(x.room.actionClock.remainingMs,15000);assert.equal(x.room.actionClock.deadlineMs,deadline);const second=await submit(x,'p0',{type:'stock_transfer',windowId:x.room.state.stockWindow.windowId,targetId:'p1',items:[{cityId:'上海',shares:1}],cash:100});assert.equal(second.ok,true);const before=x.room.state.players.map(p=>p.cash);x.time.set(1800000);api.advanceRouteTime(x.room);assert.deepEqual(x.room.state.players.map(p=>p.cash),before);assert.equal(x.room.state.stocks['上海'].holders.p0,1);
+  x.time.set(5000);const transfer=await submit(x,'p0',{type:'stock_transfer',windowId:x.room.state.stockWindow.windowId,targetId:'p1',items:[{cityId:'上海',shares:1}],cash:100});assert.equal(transfer.ok,true,JSON.stringify(transfer));x.time.set(10000);assert.equal((await submit(x,'p1',{type:'stock_transfer',accept:false})).ok,true);assert.equal(x.room.actionClock.remainingMs,50000);assert.equal(x.room.actionClock.deadlineMs,deadline);const second=await submit(x,'p0',{type:'stock_transfer',windowId:x.room.state.stockWindow.windowId,targetId:'p1',items:[{cityId:'上海',shares:1}],cash:100});assert.equal(second.ok,true);const before=x.room.state.players.map(p=>p.cash);x.time.set(1800000);api.advanceRouteTime(x.room);assert.deepEqual(x.room.state.players.map(p=>p.cash),before);assert.equal(x.room.state.stocks['上海'].holders.p0,1);
 });
 test('QS10: due initial stages open safely in order without replaying turn preparation',async()=>{
   const x=await setup();await start(x);await initial(x);const turn=x.room.state.turnId;x.time.set(600000);api.advanceRouteTime(x.room);assert.equal(x.room.state.opportunityStage.ordinal,2);await initial(x);assert.equal(x.room.state.opportunityStage.ordinal,3);await initial(x);assert.equal(x.room.state.routeFlow.initialCompletedOrdinal,3);assert.equal(x.room.state.turnId,turn);assert.equal(x.room.state.phase,'waiting_roll');
@@ -157,4 +157,25 @@ test('新经营与扶持提交遇快速截止：截止先到不成交，成功�
   assert.equal(x.room.state.promotions.length,0);
   if(type==='support_buy')assert.equal(x.room.state.cities[cityId].ownerId,successFirst?p.id:null);
  }
+});
+
+
+
+test('建房筹资真实Socket：重复只卖一次、决定不续期、快速封盘优先',async()=>{
+ const x=await setup();await start(x);await initial(x);const s=x.room.state;f.own(s,'p0','罗马');f.own(s,'p1','里约热内卢');s.players[0].cash=1000;s.players[0].position=s.board.find(q=>q.cityId==='罗马').id;s.phase='build_decide';s.pending={playerId:'p0',cityId:'罗马'};s.stocks['里约热内卢'].price=2000;s.stocks['里约热内卢'].holders.p0=4;stocks.syncHolders(s);api.emitGame(x.room);
+ const deadline=x.room.actionClock.deadlineMs,action=envelope(x.room,'p0',{type:'rescue_sell_stock',cityId:'里约热内卢',shares:2,quoteVersion:s.stocks['里约热内卢'].quoteVersion});
+ assert.equal((await ack(x.a,'action',action)).ok,true);assert.equal((await ack(x.a,'action',action)).ok,true);assert.equal(x.room.state.players[0].cash,5000);assert.equal(x.room.state.stocks['里约热内卢'].holders.p0,2);assert.equal(x.room.state.cities['罗马'].houseLevel,0);assert.equal(x.room.actionClock.deadlineMs,deadline);
+ const expired=envelope(x.room,'p0',{type:'rescue_sell_stock',cityId:'里约热内卢',shares:2,quoteVersion:s.stocks['里约热内卢'].quoteVersion});x.time.set(1800000);assert.equal((await ack(x.a,'action',expired)).ok,false);assert.equal(x.room.state.phase,'game_over');assert.equal(x.room.state.players[0].cash,5000);assert.equal(x.room.state.stocks['里约热内卢'].holders.p0,2);
+});
+
+test('股票新窗口60秒、到期正常推进，整局仅剩8秒时同步封盘一次',async()=>{
+ for(const limited of [false,true]){
+  const x=await setup();await start(x);await allInitial(x);if(limited){x.time.set(1792000);api.advanceRouteTime(x.room);}const s=x.room.state;f.own(s,'p1','上海');stocks.openStockWindow(s,'p0');s.phase='stock';s.pending={kind:'go_stock',playerId:'p0',after:'end'};api.emitGame(x.room);assert.equal(x.room.actionClock.remainingMs,limited?8000:60000);const window=s.stockWindow.windowId;
+  x.time.advance(limited?8000:60000);assert.notEqual(x.room.state.phase,'stock');assert.notEqual(x.room.state.stockWindow?.windowId,window);if(limited){assert.equal(x.room.state.phase,'game_over');api.advanceRouteTime(x.room);assert.equal(x.room.events.filter(e=>e.kind==='quick_end').length,1);}else{stocks.openStockWindow(x.room.state,'p0');x.room.state.phase='stock';x.room.state.pending={kind:'go_stock',playerId:'p0',after:'end'};api.emitGame(x.room);assert.equal(x.room.actionClock.remainingMs,60000);}
+ }
+});
+
+test('建房个人到期保留已变现股票收入，旧筹资请求不能继续卖',async()=>{
+ const x=await setup();await start(x);await initial(x);const s=x.room.state;f.own(s,'p0','罗马');f.own(s,'p1','里约热内卢');s.players[0].cash=1000;s.players[0].position=s.board.find(q=>q.cityId==='罗马').id;s.phase='build_decide';s.pending={playerId:'p0',cityId:'罗马'};s.stocks['里约热内卢'].price=2000;s.stocks['里约热内卢'].holders.p0=4;stocks.syncHolders(s);api.emitGame(x.room);
+ assert.equal((await submit(x,'p0',{type:'rescue_sell_stock',cityId:'里约热内卢',shares:2,quoteVersion:s.stocks['里约热内卢'].quoteVersion})).ok,true);const old=envelope(x.room,'p0',{type:'rescue_sell_stock',cityId:'里约热内卢',shares:1,quoteVersion:s.stocks['里约热内卢'].quoteVersion});x.time.advance(20000);assert.notEqual(x.room.state.phase,'build_decide');assert.equal((await ack(x.a,'action',old)).ok,false);assert.equal(x.room.state.players[0].cash,5000);assert.equal(x.room.state.cities['罗马'].houseLevel,0);
 });

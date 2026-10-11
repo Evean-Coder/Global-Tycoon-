@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>环球大亨 · 资本博弈</title>
-  <link rel="stylesheet" href="style.css?v=20261011-mobile-info-v2" />
+  <link rel="stylesheet" href="style.css?v=20261011-playability-v1" />
   <meta name="theme-color" content="#e9dfc5" />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" type="image/svg+xml" href="icon.svg" />
@@ -95,26 +95,33 @@
         <div id="ledger"><div id="ledgerBody"></div><section id="newsBar" class="news-bar" aria-label="环球资讯"></section><div id="turnSummary" class="ledger-turn" aria-live="polite"></div></div>
       </div>
       <div id="side">
+        <nav id="infoTabs" aria-label="对局信息"><button data-info="assets">资产</button><button data-info="players">玩家</button><button data-info="news">资讯</button><button data-info="events">事件</button><button data-info="more">更多</button></nav>
+        <div id="infoAssetSlot"></div><div id="infoNews"></div>
         <div class="panel" id="sidePlayer"></div>
         <div class="panel" id="sideOthers"></div>
-        <div class="panel">
+        <div class="panel" id="infoEvents">
           <h3>事件记录</h3>
           <div id="log"></div>
         </div>
-        <div class="side-ops">
+        <div class="side-ops" id="infoMore">
+          <button id="btnLocate" class="secondary">定位本人</button>
           <button id="btnStock" class="secondary">股票市场</button>
           <button id="btnSurrender" class="risk">认输</button>
           <button id="btnDisband" class="risk">解散房间</button>
         </div>
+        <div id="actionDock"></div>
       </div>
     </div>
     <div id="actionBar">
+      <span id="managementStatus" role="status"></span>
       <div id="dice">骰子 · 待掷</div>
       <span id="turnInfo" class="muted"></span>
       <span class="spacer"></span>
       <button id="btnRoll" class="primary">掷骰子</button>
       <button id="btnResumeStock" class="primary hidden">继续买卖</button>
       <button id="btnAssets" class="secondary">查看资产</button>
+      <button id="btnManagement" class="secondary">主动经营</button>
+      <button id="btnMore" class="secondary">更多</button>
       <button id="btnBank" class="secondary">银行</button>
       <button id="btnEndTurn" class="secondary" disabled>结束回合</button>
       <span id="timer" class="muted"></span>
@@ -160,7 +167,7 @@
   <!-- 股票市场 -->
   <div id="stockModal" class="overlay hidden">
     <div class="modal wide" role="dialog" aria-modal="true" aria-labelledby="stockTitle">
-      <div class="mh"><h3 id="stockTitle">股票市场</h3><p id="stockHint" class="hint"></p></div>
+      <div class="mh"><h3 id="stockTitle">股票市场</h3><strong id="stockTimer" aria-live="off"></strong><p id="stockHint" class="hint"></p></div>
       <div id="stockList"></div>
       <p id="stockSummary" class="stock-summary" role="status"></p>
       <div class="mf">
@@ -185,9 +192,9 @@
   <div id="toast" class="hidden"></div>
 
   <script src="/socket.io/socket.io.js"></script>
-  <script src="rules-catalog.js?v=20261011-mobile-info-v2"></script>
-  <script src="contextual-rules.js?v=20261011-mobile-info-v2"></script>
-  <script src="client.js?v=20261011-mobile-info-v2"></script>
+  <script src="rules-catalog.js?v=20261011-playability-v1"></script>
+  <script src="contextual-rules.js?v=20261011-playability-v1"></script>
+  <script src="board-layout.js?v=20261011-playability-v1"></script>
+  <script src="client.js?v=20261011-playability-v1"></script>
 </body>
 </html>
-

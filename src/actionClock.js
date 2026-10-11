@@ -3,6 +3,7 @@
 const { performance } = require('node:perf_hooks');
 
 const MAIN_PHASES = new Set(['waiting_roll', 'frozen_turn', 'jail_turn']);
+const QUICK_STOCK_SECONDS = 60;
 
 function defaultNow() {
   return performance.now();
@@ -33,7 +34,7 @@ function decisionDescriptor(state) {
     phase: state.phase,
     actorId,
     targetKey: JSON.stringify(target),
-    seconds: state.quickRevision === 'quick-mode-v1' && state.gameMode === 'quick' ? (state.phase === 'self_rescue' ? 45 : 20) : MAIN_PHASES.has(state.phase) ? 90 : 60,
+    seconds: state.quickRevision === 'quick-mode-v1' && state.gameMode === 'quick' ? (state.phase === 'self_rescue' ? 45 : state.phase === 'stock' ? QUICK_STOCK_SECONDS : 20) : MAIN_PHASES.has(state.phase) ? 90 : 60,
   };
 }
 
@@ -139,4 +140,4 @@ function createActionClock(options = {}) {
   return clock;
 }
 
-module.exports = { createActionClock, decisionDescriptor, MAIN_PHASES };
+module.exports = { createActionClock, decisionDescriptor, MAIN_PHASES, QUICK_STOCK_SECONDS };

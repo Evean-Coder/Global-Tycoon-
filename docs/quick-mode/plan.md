@@ -253,3 +253,7 @@
 spec：2026-10-09用户回复“继续”批准。plan：2026-10-10本轮在明确plan审批请求后回复“继续”，批准进入任务拆解。task：2026-10-10用户在task审批请求后回复“继续”批准；[checklist](checklist.md)已于同日批准。
 
 四份文档均已批准，按task完成实现；实际证据见acceptance.md。
+
+## 2026-10-11后续修订
+
+股票个人时钟与quickStockBudget统一采用60秒常量；转让返回保留原窗口预算。当前设计/实现证据见../quick-stock-time/plan.md与acceptance.md。本文件保留历史技术设计，不代表股票仍为20秒。

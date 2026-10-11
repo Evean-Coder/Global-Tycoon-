@@ -2,7 +2,7 @@
 /* global latestState, socket, stockDraft, getComputedStyle, innerWidth, innerHeight, performance */
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),os=require('node:os');
 const {chromium}=require('playwright'),{boot}=require('./helpers/browserHarness'),f=require('../test/helpers/gameplayFixtures'),st=require('../src/stocks');
-const evidence=path.join(__dirname,'../docs/gameplay-usability/browser-evidence');
+const evidence=path.join(__dirname,'../artifacts/mobile-playability/responsive');
 let h;const measures=[];
 const widths=[[1440,900],[1024,768],[768,1024],[320,568],[375,812],[430,932],[568,320],[812,375],[932,430]];
 async function measure(page,label){await page.waitForFunction(()=>document.documentElement.scrollWidth<=window.innerWidth+1,null,{timeout:3000});const m=await page.evaluate(()=>({width:window.innerWidth,height:window.innerHeight,scrollWidth:document.documentElement.scrollWidth,pixelRatio:window.devicePixelRatio,scale:window.visualViewport.scale,squares:document.querySelectorAll('#board .sq').length,board:document.getElementById('board').getBoundingClientRect().toJSON(),available:getComputedStyle(document.documentElement).getPropertyValue('--board-available'),actionBar:document.getElementById('actionBar').getBoundingClientRect().toJSON(),scrollY:window.scrollY,oversized:[...document.querySelectorAll('body *')].filter(el=>el.getClientRects().length&&el.getBoundingClientRect().width>window.innerWidth).slice(0,10).map(el=>({id:el.id,class:el.className,width:el.getBoundingClientRect().width}))}));assert.ok(m.scrollWidth<=m.width+1,label+' 页面横向溢出 '+JSON.stringify(m));assert.equal(m.squares,42);measures.push({label,...m});return m;}
@@ -14,7 +14,10 @@ async function verifyMap(page,width,height){
  for(const sq of await page.locator('#board .sq').all())await sq.scrollIntoViewIfNeeded();
  await page.locator('#board [data-square-id="36"]').scrollIntoViewIfNeeded();assert.equal(await page.locator('#board [data-square-id="36"] .lvl').isVisible(),true);
  await page.locator('#board [data-square-id="37"]').scrollIntoViewIfNeeded();assert.equal(await page.locator('#board [data-square-id="37"] .mg').isVisible(),true);
- for(const id of ['btnRoll','btnAssets','btnBank','btnEndTurn']){const r=await page.locator('#'+id).boundingBox();assert.ok(r.width>=44&&r.height>=44,id+' '+JSON.stringify(r));}
+ const compact=width<=600||(width<=1024&&height<=500);
+ if(compact)await page.locator('[data-info=more]').click();
+ for(const id of compact?['btnRoll','btnAssets','btnBank','btnManagement','btnMore']:['btnRoll','btnAssets','btnBank','btnEndTurn']){const r=await page.locator('#'+id).boundingBox();assert.ok(r.width>=44&&r.height>=44,id+' '+JSON.stringify(r));}
+ if(compact)await page.locator('[data-info=news]').click();
  await page.evaluate(()=>window.scrollTo(0,0));measures.push({label:'map-text-'+width+'x'+height,text});
 }
 test.before(async()=>{fs.mkdirSync(evidence,{recursive:true});h=await boot();for(const p of h.pages)await p.evaluate(()=>setInterval(()=>{window.__fixtureRevision=latestState.revision;},10));});

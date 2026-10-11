@@ -1,5 +1,5 @@
 'use strict';
-/* global ContextualRules */
+/* global ContextualRules, BoardLayout */
 
 /* exported afterReceipt, emitAct, downloadRecord, openReplay, replayPrev, replayNext, replayPlay, replayClose, clickTransferEntry, submitTransfer, returnFromTransfer, resumeStockView, startSelectedGame, returnToRoom, openBank */
 
@@ -13,7 +13,7 @@ function fitActionBarPadding() {
   const ab = document.getElementById('actionBar');
   const gm = document.getElementById('gameMain');
   if (!ab || !gm) return;
-  gm.style.paddingBottom = Math.max(120, ab.offsetHeight + 20) + 'px';
+  gm.style.paddingBottom = '8px';
   const board = document.getElementById('board');
   if (board?.getClientRects().length) {
     const occupied = board.getBoundingClientRect().top + window.scrollY + ab.offsetHeight + 36;
@@ -59,6 +59,20 @@ let transferReturn = null;
 let toastTimer = null;
 let moveTimer = null, diceTimer = null, diceFinishTimer = null;
 let animationGeneration = 0, quickTimerIv = null, quickTimeAnchor = null;
+let infoPanel = 'assets', infoGameId = null, bankContext = null, bankDraft = {}, bankRequest = null, stockRenderKey = null, stockScroll = null, boardLayoutMode = null;
+function compactLayout() { return BoardLayout.mode(window.innerWidth,window.innerHeight)==='compact'; }
+function syncResponsiveLayout() {
+  const compact=compactLayout(),short=compact&&window.innerWidth>600;
+  document.body.classList.toggle('compact-game',compact);
+  document.body.classList.toggle('short-game',short);
+  if(infoGameId!==game?.gameId){infoGameId=game?.gameId;infoPanel='assets';}
+  if(compact){$('infoAssetSlot').append($('ledger'));$('infoNews').append($('newsBar'));$('infoMore').append($('btnBank'),$('boardMap'));}
+  else {$('boardWrap').append($('ledger'));$('ledger').insertBefore($('newsBar'),$('turnSummary'));$('actionBar').insertBefore($('btnBank'),$('btnEndTurn'));$('boardScale').insertBefore($('boardMap'),$('pieces'));}
+  if(short)$('actionDock').append($('actionBar'));else $('view-game').append($('actionBar'));
+  const groups={infoAssetSlot:'assets',sidePlayer:'players',sideOthers:'players',infoNews:'news',infoEvents:'events',infoMore:'more'};
+  for(const [id,panel]of Object.entries(groups))$(id).classList.toggle('info-hidden',compact?panel!==infoPanel:['infoAssetSlot','infoNews'].includes(id));
+  for(const b of $('infoTabs').children)b.setAttribute('aria-pressed',String(b.dataset.info===infoPanel));
+}
 
 function stopVisualAnimations() {
   animationGeneration++;
@@ -92,11 +106,17 @@ function netSummaryHTML(a) {
 }
 
 const $ = (id) => document.getElementById(id);
+$('infoTabs').onclick=e=>{const b=e.target.closest('[data-info]');if(b){infoPanel=b.dataset.info;syncResponsiveLayout();}};
+$('btnMore').onclick=()=>{infoPanel='more';syncResponsiveLayout();};
+$('btnManagement').onclick=()=>openActiveManagement();
+$('btnLocate').onclick=()=>{const position=playerById(me.gameId)?.position;document.querySelector('#board [data-square-id="'+position+'"]')?.scrollIntoView({block:'center',inline:'nearest'});};
 let pieceResizeFrame = 0;
 function requestPieceLayout() {
   if (!game || pieceResizeFrame) return;
   pieceResizeFrame = window.requestAnimationFrame(() => {
     pieceResizeFrame = 0;
+    syncResponsiveLayout();
+    if(boardLayoutMode!==compactLayout())renderBoard();
     renderPieces();
   });
 }
@@ -237,22 +257,18 @@ function sqLabel(sq) {
   return sq.name || { chance: '机会卡', pole: sq.name, jail: '监狱', rest: '休闲', start: '起点' }[sq.type] || '';
 }
 function renderBoard() {
+  boardLayoutMode=compactLayout();
   const board = $('board');
   board.innerHTML = '';
   for (const sq of game.board) {
-    const [r, c] = gridPos(sq.id);
+    const [r, c] = compactLayout()?BoardLayout.position(sq.id,'compact'):gridPos(sq.id);
     const div = document.createElement('button');
     div.type = 'button';
     div.className = 'sq ' + typeClass(sq);
     div.dataset.squareId = String(sq.id);
     div.style.gridRow = r;
     div.style.gridColumn = c;
-    // Same clockwise route, arranged as a portrait perimeter on narrow screens.
-    const mobilePos = sq.id <= 5 ? [1, sq.id + 1]
-      : sq.id <= 20 ? [sq.id - 4, 6]
-        : sq.id <= 26 ? [17, 27 - sq.id] : [43 - sq.id, 1];
-    div.style.setProperty('--mobile-row', mobilePos[0]);
-    div.style.setProperty('--mobile-col', mobilePos[1]);
+    div.dataset.current=String(playerById(me.gameId)?.position===sq.id);
     let owner = '', sub = '';
     if (sq.type === 'city') {
       const city = game.cities[sq.cityId];
@@ -272,6 +288,7 @@ function renderBoard() {
       + (sq.type==='city'?'<span class="sq-amount" aria-label="地价 '+game.cities[sq.cityId].price+'">¥'+(game.cities[sq.cityId].price/1000).toFixed(1)+'k</span>':'')
       + (sub ? '<span class="subrow">' + sub + '</span>' : '')
       + (owner ? '<span class="own">' + escapeHTML(owner) + '</span>' : '');
+    if(compactLayout())div.querySelector('.num').textContent=sq.id+' '+(sq.id===41?'↺':sq.id%6===5?'↓':Math.floor(sq.id/6)%2?'←':'→');
     board.appendChild(div);
   }
 }
@@ -288,11 +305,6 @@ function pieceXY(posId) {
 function renderPieces() {
   const layer = $('pieces');
   if (!layer || !game) return;
-  if (window.matchMedia('(max-width:600px)').matches) {
-    const scale = $('boardScale').getBoundingClientRect();
-    const first = $('board').querySelector('[data-square-id="0"]');
-    if (first) $('boardWrap').style.setProperty('--mobile-center-top', (first.getBoundingClientRect().bottom - scale.top + 4) + 'px');
-  }
   layer.innerHTML = '';
   const alive = game.players.filter((p) => p.alive);
   const offsets = {};
@@ -396,6 +408,7 @@ function finishRender(state) {
   renderLedger();
   renderActionBar();
   renderNews();
+  syncResponsiveLayout();
   renderOpportunities();
   renderRouteChoice();
   if (!$('stockModal').classList.contains('hidden')) renderStock();
@@ -563,8 +576,9 @@ function renderLedger() {
   const support=game.self?.propertySupport;
   const active=game.self?.activeManagement;
   if(active){
-    const entry=document.createElement('button');entry.type='button';entry.className='ledger-open';entry.textContent='主动经营 · 促销 / 买股 / 建设';entry.disabled=!active.available;entry.onclick=openActiveManagement;body.append(entry);
-    const note=document.createElement('p');note.className='hint';note.textContent=active.available?'本回合可经营1项，也可直接掷骰':active.reason;body.append(note);
+    const summary=ContextualRules.managementSummary(game);
+    const entry=document.createElement('button');entry.type='button';entry.className='ledger-open';entry.textContent='主动经营 · 促销 / 买股 / 建设';entry.disabled=!summary.canOpen;entry.onclick=openActiveManagement;body.append(entry);
+    const status=document.createElement('p');status.className='hint';status.textContent=summary.label+'；'+summary.quotaTexts.join('；');body.append(status);
     for(const a of (game.promotions||[]).filter(a=>a.playerId===meP.id)){const info=document.createElement('p');info.className='hint';info.textContent=a.cityId+' 促销 · 剩余奖励'+a.remainingRewards+'次 · 第'+a.expiresAfterCompleteRound+'完整轮后结束';body.append(info);}
   }
   if(support&&!support.everOwnedCity&&!support.used){
@@ -578,6 +592,8 @@ function openActiveManagement(){
   const data=game?.self?.activeManagement;if(!data)return;
   const gameId=game.gameId,decisionId=game.decision?.decisionId;let generation;
   const body=$('modalBody');body.replaceChildren();
+  const summary=ContextualRules.managementSummary(game),headline=document.createElement('h4');headline.textContent=summary.label;body.append(headline);
+  const limits=document.createElement('p');limits.className='hint';limits.textContent='每回合成功一项，与以下每圈额度分别计算：'+summary.quotaTexts.join('；');body.append(limits);
   const note=document.createElement('p');note.className='hint';note.textContent='掷骰前最多成功一项，取消不消耗次数。促销获得短期银行奖励；买股支付1%手续费；远程建设支付标准建房费的145%，优惠最多降低10个百分点。';body.append(note);
   const quota=document.createElement('p');quota.className='hint';quota.textContent='本圈主动买入 '+data.quota.stockBoughtTotal+'/4股；同城最多2股。促销'+(data.quota.promotionStartedLap?'本圈已启动':'本圈可启动一次')+'，当前及下一完整轮有效，最多2次完成他人付租奖励；替换不退款。投资与建设无保底收益。';body.append(quota);
   const labels={active_promote:'限时促销',active_stock_buy:'主动买股',active_build:'远程建设'};
@@ -617,6 +633,11 @@ function openPropertySupport(){
 // ---------- 底部操作栏 ----------
 function renderActionBar() {
   if (!game) return;
+  const management=ContextualRules.managementSummary(game);
+  $('managementStatus').textContent=management.label;
+  $('managementStatus').dataset.state=management.status;
+  $('btnManagement').disabled=!management.canOpen||actionPending;
+  $('btnManagement').dataset.state=management.status;
   renderTurnSummary();
   const cur = game.players[game.turnIndex];
   $('dice').textContent = game.dice ? '骰子 ' + game.dice : '骰子 · 待掷';
@@ -804,12 +825,14 @@ function showOverlay(id) {
     overlayReturnFocus.set(id, { element: active, squareId: active?.dataset?.squareId });
   }
   overlay.classList.remove('hidden');
+  if(id==='stockModal'&&stockScroll?.key===stockKey(game))$('stockList').scrollTop=stockScroll.top;
   const title = overlay.querySelector('.mh h3');
   if (title && opening) { title.tabIndex = -1; title.focus({ preventScroll: true }); }
 }
 function hideOverlay(id) {
   const overlay = $(id);
   if (overlay.classList.contains('hidden')) return;
+  if(id==='stockModal')stockScroll={key:stockKey(game),top:$('stockList').scrollTop};
   overlay.classList.add('hidden');
   const previous = overlayReturnFocus.get(id);
   overlayReturnFocus.delete(id);
@@ -821,7 +844,7 @@ function hideOverlay(id) {
 }
 let modalGeneration=0;
 function openModal(title) { modalGeneration++;$('modalTitle').textContent = title; showOverlay('modal'); }
-function closeModal() { modalGeneration++;hideOverlay('modal'); }
+function closeModal() { bankContext=null;if(game?.phase!=='build_decide')bankRequest=null;modalGeneration++;hideOverlay('modal'); }
 function actionQuote(action) {
   const quotes = game?.self?.quotes;
   if (!quotes) return null;
@@ -861,6 +884,7 @@ function sendAction(action, callback, options = {}) {
     payload = {...payload,gameId:game.gameId,actionId:window.crypto?.randomUUID?.() || socket.id+':'+Date.now()+':'+(++requestSequence),decisionId:game.decision.decisionId,actorRevision:game.self.actorRevision};
   }
   const request = {payload,context,attempt:0,finished:false,retrieve:null};
+  if(action.type==='rescue_sell_stock'&&game.phase==='build_decide')bankRequest=request;
   request.retrieve = () => {
     if (actionPending || request.finished || !current() || !socket.connected) return;
     if (context && (game.ruleVersion !== 2 || latestState?.decision?.paused)) return;
@@ -875,6 +899,7 @@ function sendAction(action, callback, options = {}) {
       if(released){activeRequest=null;actionPending=false;document.body.classList.remove('action-pending');}
       if(!current())return;
       const res=result||{ok:false,error:'操作未确认',unconfirmed:true};request.finished=!res.unconfirmed;
+      if(bankRequest===request&&!res.unconfirmed)bankRequest=null;
       if(routeRequest){routeDraft.status=res.unconfirmed?'unconfirmed':'editing';routeDraft.error=res.ok?'':res.error||'操作尚未确认';if(!res.unconfirmed)routeDraft.pendingRequest=null;}
       else if(context){stockContext.status=res.unconfirmed?'unconfirmed':'editing';if(!res.unconfirmed)stockContext.pendingRequest=null;}
       if(!res.ok){toast(res.error||'操作未确认，请重试');if(game.phase==='opportunity_choose')$('choiceError').textContent=res.error||'操作未确认，请重试';}
@@ -882,6 +907,7 @@ function sendAction(action, callback, options = {}) {
       callback?.(res);
       if(routeRequest&&current())renderRouteChoice();
       else if((context&&current())||(released&&!context&&!$('stockModal').classList.contains('hidden')))renderStock();
+      if(released){renderActionBar();if(bankContext&&game.gameId===bankContext.gameId&&game.decision?.decisionId===bankContext.decisionId)renderPending();}
     };
     const transmit = (retry) => {
       if(!current())return;
@@ -923,6 +949,9 @@ document.addEventListener('keydown', (event) => {
 function kv(label, val, cls) { return '<div class="kv"><span>' + label + '</span><b class="' + (cls || '') + '">' + val + '</b></div>'; }
 
 function renderPending() {
+  if(bankRequest&&(game.phase!=='build_decide'||game.gameId!==bankRequest.payload.gameId||game.decision?.decisionId!==bankRequest.payload.decisionId))bankRequest=null;
+  if(bankContext&&game.gameId===bankContext.gameId&&game.decision?.decisionId===bankContext.decisionId&&game.phase==='build_decide'&&isMyTurn()&&!$('modal').classList.contains('hidden')){openBank(true);return;}
+  bankContext=null;
   const meP = game.players.find((p) => p.id === me.gameId);
   if (!meP || game.phase === 'game_over') return;
   const isMe = isMyTurn();
@@ -1430,18 +1459,21 @@ function displayTimer(t) {
   let remain = t.seconds;
   if (t.paused) {
     $('timer').textContent = '决定暂停 · ' + remain + 's';
+    $('stockTimer').textContent=$('timer').textContent;
     $('choiceTimer').textContent = '已暂停 · '+remain+' 秒';
     $('routeTimer').textContent = '已暂停 · '+remain+' 秒';
     timerIv = null;
     return;
   }
   $('timer').textContent = '本次决定 · ' + remain + 's';
+  $('stockTimer').textContent=$('timer').textContent;
   $('choiceTimer').textContent = '剩余 '+remain+' 秒';
   $('routeTimer').textContent = '剩余 '+remain+' 秒';
   timerIv = setInterval(() => {
     remain -= 1;
     if (remain <= 0) { clearInterval(timerIv); timerIv = null; }
     $('timer').textContent = remain > 0 ? '本次决定 · ' + remain + 's' : '';
+    $('stockTimer').textContent=$('timer').textContent;
     $('choiceTimer').textContent = '剩余 '+Math.max(0,remain)+' 秒';
     $('routeTimer').textContent = '剩余 '+Math.max(0,remain)+' 秒';
   }, 1000);
@@ -1624,10 +1656,12 @@ function organizeRules() {
   }
   const add=(id,html)=>{const body=document.createElement('div');body.innerHTML=html;content[id].append(body);};
   add('turn','<p>个人回合是一次轮到本人行动；个人圈是本人实际完成起点结算到下一次起点结算；完整轮是该轮参与的存活玩家各完成个人回合，监狱和极地跳过也算。股票、拍卖和自救等待不提前推进完整轮。首圈购置限制要求所有存活玩家完成一次环球行程。</p>');
-  add('turn','<p><b>两种模式：</b>房主在开局前选择。普通模式以最后存活者获胜；快速模式从正式开局（包括初始选择）起计时30分钟，到时立即封盘。快速模式一般决定20秒，自救45秒，初始同步选择30秒，后续路线选择20秒；均不超过整局剩余时间。提前出现最后存活者则提前结束。</p><p>快速封盘取消未成交的订单、购买、建设、拍卖和转让，不再执行未完成的掷骰或选择；已成交的操作保留。按原规则结清分红，按现金、地产、机场、股票及待结算收益，减抵押本金和累计利息后的净资产排名。相同净资产并列，破产玩家按实际出局顺序排在存活者之后。资产估值不是可支付现金。</p>');
+  add('turn','<p><b>两种模式：</b>房主在开局前选择。普通模式以最后存活者获胜；快速模式从正式开局（包括初始选择）起计时30分钟，到时立即封盘。快速模式股票窗口60秒，转让确认及其他一般决定20秒，自救45秒，初始同步选择30秒，后续路线选择20秒；均不超过整局剩余时间。提前出现最后存活者则提前结束。</p><p>快速封盘取消未成交的订单、购买、建设、拍卖和转让，不再执行未完成的掷骰或选择；已成交的操作保留。按原规则结清分红，按现金、地产、机场、股票及待结算收益，减抵押本金和累计利息后的净资产排名。相同净资产并列，破产玩家按实际出局顺序排在存活者之后。资产估值不是可支付现金。</p>');
   add('bank','<p>购买缺现金时可进入募资，抵押或拆房等操作凑足后确认购买；取消城市购买会拍卖，取消机场购买结束回合。抵押利息按原座位轮转计算，和资讯完整轮次独立。</p>');
   if(game?.propertySupportRevision==='property-support-v1')add('property','<p><b>置业扶持：</b>购地解锁后，从未拥有城市者连续6个正常掷骰回合没有可负担购地机会，下次掷骰前可从最多3座低价银行城市中原价购买1座，整局一次。拒绝可负担机会归零；监狱掷骰、跳过和飞行不计。取消或缺现金、库存、圈额度保留资格；曾通过购买、拍卖或受让得到城市后永久失去资格。仍计入每圈4城额度，与主动经营次数独立。</p>');
   if(game?.activeManagementRevision==='active-management-v1')add('property','<p><b>主动经营：</b>正常掷骰前可成功执行促销、主动买股或远程建设中的1项，取消、失败不耗次数，掷骰可直接跳过。促销费为地价4%最高800；当前及下一完整轮内，每次实际完成他人正额租金获得银行奖励地价8%最高1200，最多2次，每圈启动一次、同时一个活动。欠租偿清才奖；抵押、产权变化、出局、到期或封盘结束活动，不退款，奖金不进入分红池。主动买股一次一城1–2股，整笔手续费1%，每圈最多4股、同城2股，原起点窗口额度独立。远程建设支付标准建房费145%，所有优惠最多减10个百分点；H1每圈一次提供10个百分点优惠。原落点建设费用保持。</p>');
+  add('property','<p><b>建房募集资金：</b>本人落到自有城市、仍可建房但现金不足时，可抵押其他城市或选择股数出售持股。现金与剩余缺口按实际状态更新，资金足够后返回手动确认建房。普通银行只展示持股，不提供任意卖股；募资不刷新原决定时限。</p>');
+  add('stocks','<p><b>股票窗口时限：</b>普通与快速模式均为60秒；查看、调整草稿和转让编辑返回不补时。快速模式转让接收决定最多20秒，返回股票继续沿原窗口剩余预算；个人决定不超过整局剩余时间。</p>');
   add('connection','<p>任一存活玩家掉线会暂停对局和决定时钟；使用原身份重连恢复实际状态和剩余时间，不能刷新额度。新决定给完整时限，同一决定的无效操作和只读查询不延时。经营机遇共享30秒，超时选当时最左项；交易确认超时拒绝，股票超时结束窗口，飞行超时不飞，购买/建设超时放弃。</p><p>已经扣过的债务不重复扣款。自救补足现金后继续原流程，仍不足可继续处理资产或放弃；无资产则按原破产流程。终局先结算待分红，再按实际总资产记录排名。</p>');
   add('connection','<p><b>电脑陪玩：</b>房主开局前可添加或移除电脑玩家，一个真人也能开始，房间合计最多4人。电脑使用标准经营策略，遵守相同费用和额度，只读取公开信息及本人的私人信息，约1秒后自动决策；首版不主动发起转让，收到转让时拒绝。最后一个真人离线后电脑停止行动，重连后恢复；快速模式总时限继续。</p>');
   if(quickGame())add('connection','<p><b>本局快速模式：</b>掉线只暂停个人决定，整局30分钟时钟继续。全员离线也不延长总时限；重连查看已冻结结果。上面的总资产排名说明适用于普通模式，本局按扣除抵押债务后的净资产排名。</p>');
@@ -1746,10 +1780,32 @@ function stockPreview(state, playerId, draft) {
   if(cost>(p?.cash||0)+proceeds)errors.push('现金不足');
   return {rows,cost,proceeds,netCash:(p?.cash||0)+proceeds-cost,errors,quoteChanged,usedTotal,usedCities:Object.keys(used).filter(id=>used[id]>0).length,selectedTotal,remaining:Math.max(0,6-usedTotal-selectedTotal),cityRemaining:Math.max(0,3-cities.size)};
 }
+// Reconcile display nodes in place: controls, expanded details and focus retain identity.
+function patchDisplayNode(old,next) {
+  if(old.nodeType!==next.nodeType||old.nodeName!==next.nodeName){old.replaceWith(next);return;}
+  if(old.nodeType===3){if(old.nodeValue!==next.nodeValue)old.nodeValue=next.nodeValue;return;}
+  if(old.nodeType!==1)return;
+  for(const a of [...old.attributes])if(a.name!=='open'&&!next.hasAttribute(a.name))old.removeAttribute(a.name);
+  for(const a of next.attributes)if(a.name!=='open'&&old.getAttribute(a.name)!==a.value)old.setAttribute(a.name,a.value);
+  old.onclick=next.onclick;old.oninput=next.oninput;old.onchange=next.onchange;
+  if(old.tagName==='INPUT'&&document.activeElement!==old)old.value=next.value;
+  const key=n=>n.nodeType===1?n.tagName+'|'+n.className+'|'+(n.dataset.bankCity||'')+'|'+(n.dataset.kind||'')+'|'+(n.dataset.delta||'')+'|'+(n.dataset.quantity||''):n.nodeName;
+  const available=[...old.childNodes];
+  let index=0;
+  for(const child of [...next.childNodes]){
+    const i=available.findIndex(n=>key(n)===key(child)),match=i<0?null:available.splice(i,1)[0];
+    if(match){patchDisplayNode(match,child);if(old.childNodes[index]!==match)old.insertBefore(match,old.childNodes[index]||null);}else old.insertBefore(child,old.childNodes[index]||null);
+    index++;
+  }
+  for(const child of available)child.remove();
+}
 function renderStock() {
   if(!game)return;
   const p=game.players.find(x=>x.id===me.gameId),preview=stockPreview(game,me.gameId,stockDraft);
-  const list=$('stockList');list.replaceChildren();
+  const target=$('stockList'),list=document.createElement('div'),key=stockContext?.key??stockKey(game);
+  const same=stockRenderKey===key,scroll=target.scrollTop,visible=target.getClientRects().length>0,focused=document.activeElement;
+  const anchor=visible?[...target.children].find(n=>n.getBoundingClientRect().bottom>target.getBoundingClientRect().top):null;
+  const offset=anchor?anchor.getBoundingClientRect().top-target.getBoundingClientRect().top:0;
   for(const [id,st] of Object.entries(game.stocks)){
     const row=preview.rows[id],c=game.cities[id],d=stockDraft[id]||{buy:0,sell:0};
     const article=document.createElement('div');article.className='stock-item';article.dataset.stockCity=id;
@@ -1771,6 +1827,15 @@ function renderStock() {
     }
     if(row.changed){const change=document.createElement('p');change.className='stock-reasons';change.textContent='报价已变化：原 '+fmt(d.basis.price)+' → 当前 '+fmt(st.price)+(game.ruleVersion===2?'；报价版本 '+d.basis.quoteVersion+' → '+st.quoteVersion+'，经营批次 '+d.basis.listingEpoch+' → '+st.listingEpoch:'')+'。请更新报价后重新确认。';article.append(change);}
     list.append(article);
+  }
+  if(!same){target.replaceChildren(...list.children);target.scrollTop=0;stockRenderKey=key;}
+  else {
+    const old=new Map([...target.children].map(n=>[n.dataset.stockCity,n]));
+    for(const n of [...list.children]){const prior=old.get(n.dataset.stockCity);if(prior){patchDisplayNode(prior,n);old.delete(n.dataset.stockCity);}else target.append(n);}
+    for(const n of old.values())n.remove();
+    target.scrollTop=scroll;
+    if(anchor?.isConnected&&visible)target.scrollTop+=anchor.getBoundingClientRect().top-target.getBoundingClientRect().top-offset;
+    if(target.contains(focused)&&focused.disabled)focused.closest('.stock-item')?.querySelector('button:not(:disabled)')?.focus({preventScroll:true});
   }
   $('stockHint').textContent='当前现金 '+fmt(p?.cash||0)+'；'+(game.self?.stockWindow?'本窗口已买 '+preview.usedTotal+'/6 股、'+preview.usedCities+'/3 城；草稿 '+preview.selectedTotal+' 股；剩余可选 '+preview.remaining+' 股、'+preview.cityRemaining+' 城。':'本次订单最多6股、3城、单城2股；仅经过起点时交易。');
   $('stockSummary').textContent='本次买入 '+fmt(preview.cost)+' · 卖出收入 '+fmt(preview.proceeds)+' · 净现金变化 '+fmt(preview.proceeds-preview.cost)+' · 交易后现金 '+fmt(preview.netCash)+(stockContext?.error?'。'+stockContext.error:'')+(preview.errors.length?'。'+preview.errors.join('；'):'');
@@ -1926,8 +1991,12 @@ function handleTradeConfirm() {
 function openBank(buildFundraising=false) {
   const meP = game.players.find((p) => p.id === me.gameId);
   if (!meP) return;
-  const body = $('modalBody');
+  const body = document.createElement('div'),target=$('modalBody'),scroll=target.scrollTop,focused=document.activeElement,hadFocus=target.contains(focused);body.id='modalBody';
   const forBuild=buildFundraising===true&&game.phase==='build_decide'&&isMyTurn();
+  const same=forBuild&&bankContext?.gameId===game.gameId&&bankContext?.decisionId===game.decision?.decisionId;
+  if(!same){bankDraft={};if(!forBuild||game.gameId!==bankRequest?.payload.gameId||game.decision?.decisionId!==bankRequest?.payload.decisionId)bankRequest=null;}
+  bankContext=forBuild?{gameId:game.gameId,decisionId:game.decision?.decisionId}:null;
+  const buildCost=forBuild?(game.self?.quotes.build[game.pending.cityId]?.finalAmount??Math.round(game.cities[game.pending.cityId].price*.6)):0;
   const un = meP.cities.filter((id) => !game.cities[id].mortgaged&&(!forBuild||id!==game.pending.cityId));
   const md = meP.cities.filter((id) => game.cities[id].mortgaged);
   const limit = un.reduce((s, id) => s + mortgageValue(game.cities[id]), 0);
@@ -1939,7 +2008,7 @@ function openBank(buildFundraising=false) {
     + kv('可抵押额度', fmt(limit))
     + kv('当前负债', fmt(debt), 'r')
     + '<div style="margin-top:8px"><label>抵押（自有未抵押城市，上限 2 座）</label>';
-  if(forBuild){const cost=game.self?.quotes.build[game.pending.cityId]?.finalAmount??Math.round(game.cities[game.pending.cityId].price*.6);body.insertAdjacentHTML('afterbegin','<p class="hint">为 '+escapeHTML(game.pending.cityId)+' 建房筹资：还差 '+fmt(Math.max(0,cost-meP.cash))+'。可抵押其他城市；原建房决定与倒计时继续，待建房城市不参与本次抵押。</p>');}
+  if(forBuild)body.insertAdjacentHTML('afterbegin','<p class="hint" id="buildGap">为 '+escapeHTML(game.pending.cityId)+' 建房筹资：还差 '+fmt(Math.max(0,buildCost-meP.cash))+'。可抵押其他城市或卖出持股；原建房决定与倒计时继续，待建房城市不参与本次抵押。</p>');
   if (un.length) {
     const wrap = document.createElement('div');
     wrap.className = 'ledger-list';
@@ -1967,17 +2036,37 @@ function openBank(buildFundraising=false) {
   else {
     portfolio.insertAdjacentHTML('beforeend',kv('持股合计',holdings.reduce((n,[,st])=>n+st.holders[me.gameId],0)+' 股')+kv('当前持股价值',fmt(holdings.reduce((n,[,st])=>n+st.price*st.holders[me.gameId],0))));
     for(const [id,st]of holdings){
-      const city=game.cities[id],shares=st.holders[me.gameId],card=document.createElement('article');card.className='bank-stock-card';
+      const city=game.cities[id],shares=st.holders[me.gameId],card=document.createElement('article');card.className='bank-stock-card';card.dataset.bankCity=id;
       const title=document.createElement('h5');title.textContent=(city.country?city.country+'·':'')+id;card.append(title);
       card.insertAdjacentHTML('beforeend',kv('持有股数',shares+' 股'+(city.ownerId===me.gameId?' · 城主上限4股':''))+kv('当前每股报价',fmt(st.price))+kv('持股报价价值',fmt(st.price*shares))
         +kv('上次每股基础分红',Number.isSafeInteger(st.lastDividendPerShare)?fmt(st.lastDividendPerShare):'暂无数据')
         +kv('当前待分红池',Number.isSafeInteger(st.dividendFund)?fmt(st.dividendFund):'暂无数据')
         +kv('经营状态',st.clearing?'正在清算':!city.ownerId?'城市尚未经营':city.mortgaged?'已抵押 · 暂停产生租金':'正常经营'));
+      if(forBuild){
+        bankDraft[id]=Math.min(shares,Math.max(1,bankDraft[id]||1));
+        const controls=document.createElement('div');controls.className='rescue-stock-controls';
+        const label=document.createElement('label');label.textContent='卖出股数（1–'+shares+'）';
+        const input=document.createElement('input');input.type='number';input.min=1;input.max=shares;input.step=1;input.value=bankDraft[id];input.setAttribute('aria-label',id+'卖出股数');
+        label.append(input);controls.append(label);
+        for(const delta of [-1,1]){const step=document.createElement('button');step.type='button';step.dataset.delta=delta;step.textContent=delta<0?'−':'+';step.setAttribute('aria-label',id+(delta<0?'减少':'增加')+'卖出股数');step.disabled=actionPending||!!bankRequest||meP.cash>=buildCost||(delta<0?bankDraft[id]<=1:bankDraft[id]>=shares);step.onclick=e=>{const field=e.currentTarget.parentElement.querySelector('input');field.value=Math.min(shares,Math.max(1,(Number(field.value)||1)+delta));field.dispatchEvent(new window.Event('input',{bubbles:true}));};controls.append(step);}
+        const sell=document.createElement('button');sell.type='button';sell.className='secondary';sell.textContent='卖出所选股份';sell.dataset.fundCity=id;
+        const blocked=actionPending||!!bankRequest||meP.cash>=buildCost||!city.ownerId||st.clearing||st.price<=0;
+        sell.disabled=blocked;
+        const preview=document.createElement('p');preview.className='fund-preview';
+        const previewText=n=>Number.isSafeInteger(n)&&n>=1&&n<=shares?'预计变现 '+fmt(n*st.price)+' · 出售后现金 '+fmt(meP.cash+n*st.price)+' · 预计还差 '+fmt(Math.max(0,buildCost-meP.cash-n*st.price)):'请选择1至'+shares+'的整数股数';
+        preview.textContent=previewText(bankDraft[id]);
+        input.disabled=actionPending||!!bankRequest||meP.cash>=buildCost;
+        input.oninput=e=>{const n=Number(e.target.value);bankDraft[id]=n;const parent=e.target.closest('.bank-stock-card');parent.querySelector('.fund-preview').textContent=previewText(n);parent.querySelector('[data-fund-city]').disabled=blocked||!Number.isSafeInteger(n)||n<1||n>shares;for(const step of parent.querySelectorAll('[data-delta]'))step.disabled=blocked||(Number(step.dataset.delta)<0?n<=1:n>=shares);};
+        sell.onclick=()=>{const n=bankDraft[id];if(!Number.isSafeInteger(n)||n<1||n>shares){toast('请选择1至'+shares+'股');return;}sendAction({type:'rescue_sell_stock',cityId:id,shares:n});};controls.append(sell);card.append(controls,preview);
+      }
       portfolio.append(card);
     }
   }
-  const note=document.createElement('p');note.className='hint';note.textContent='持股价值按当前报价计算，不是可用现金；待分红池属于整座城市，实际分红以结算为准。买卖及转让需在本人经过起点后的股票窗口进行，自救卖股沿原自救入口。';portfolio.append(note);body.append(portfolio);
-  const footer=document.createElement('div');footer.className='row';const close=document.createElement('button');close.type='button';close.className='textbtn';close.textContent=forBuild?'返回建房':'关闭';close.onclick=forBuild?renderPending:closeModal;footer.append(close);body.append(footer);
+  const note=document.createElement('p');note.className='hint';note.textContent=forBuild?(meP.cash>=buildCost?'资金已足够。':'卖股收入按当前报价结算。')+'返回建房后自行确认建设；卖股不会自动建房。':'持股价值按当前报价计算，不是可用现金；待分红池属于整座城市，实际分红以结算为准。买卖及转让需在本人经过起点后的股票窗口进行，自救卖股沿原自救入口。';portfolio.append(note);body.append(portfolio);
+  const footer=document.createElement('div');footer.className='row';const close=document.createElement('button');close.type='button';close.className='textbtn';close.textContent=forBuild?'返回建房':'关闭';close.onclick=forBuild?()=>{bankContext=null;renderPending();}:closeModal;footer.append(close);body.append(footer);
+  if(bankRequest&&!actionPending){const retry=document.createElement('button');retry.textContent='查询原卖股结果';retry.onclick=bankRequest.retrieve;footer.prepend(retry);}
+  if(same){patchDisplayNode(target,body);target.scrollTop=scroll;}else target.replaceChildren(...body.childNodes);
+  if(same&&hadFocus&&(!focused.isConnected||focused.disabled))target.querySelector('input:not(:disabled),button:not(:disabled)')?.focus({preventScroll:true});
   openModal(forBuild?'建房募集资金':'银行交易');
 }
 function openCityDetail(cityId) {

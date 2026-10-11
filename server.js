@@ -11,7 +11,7 @@ const { createRng } = require('./src/random');
 const { buildGameRecord } = require('./src/record');
 const privateReplay = require('./src/privateReplay');
 const { normalizeAction, validateEnvelope } = require('./src/actionValidation');
-const { createActionClock } = require('./src/actionClock');
+const { createActionClock, QUICK_STOCK_SECONDS } = require('./src/actionClock');
 const { createQuickClock } = require('./src/quickClock');
 const quick = require('./src/quickMode');
 const opportunities = require('./src/opportunities');
@@ -274,7 +274,7 @@ function startTimer(room, newDecision = false) {
     }
     const window = room.state.stockWindow;
     if (room.state.phase === 'stock' && window) {
-      if (room.quickStockBudget?.windowId !== window.windowId || room.quickStockBudget?.gameId !== room.state.gameId) room.quickStockBudget = {gameId:room.state.gameId,windowId:window.windowId,elapsedDeadline:time.elapsedMs+Math.min(20000,totalBudget)};
+      if (room.quickStockBudget?.windowId !== window.windowId || room.quickStockBudget?.gameId !== room.state.gameId) room.quickStockBudget = {gameId:room.state.gameId,windowId:window.windowId,elapsedDeadline:time.elapsedMs+Math.min(QUICK_STOCK_SECONDS*1000,totalBudget)};
       totalBudget = Math.min(totalBudget,Math.max(0,room.quickStockBudget.elapsedDeadline-(room.quickStockBudget.pausedAtElapsed ?? time.elapsedMs)));
     }
   }

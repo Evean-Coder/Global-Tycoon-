@@ -1,0 +1,29 @@
+TAP version 13
+# Subtest: build funding sells selected shares, keeps panel and deadline, then manually builds
+ok 1 - build funding sells selected shares, keeps panel and deadline, then manually builds
+  ---
+  duration_ms: 3803.3186
+  ...
+# Subtest: low-height funding preserves selected quantity, card and scroll through a quote update
+ok 2 - low-height funding preserves selected quantity, card and scroll through a quote update
+  ---
+  duration_ms: 350.5878
+  ...
+# Subtest: normal and quick touch stock lists retain nodes, details, scroll and draft
+ok 3 - normal and quick touch stock lists retain nodes, details, scroll and draft
+  ---
+  duration_ms: 5694.7169
+  ...
+# Subtest: stock countdown uses the existing clock on phone, tablet and PC
+ok 4 - stock countdown uses the existing clock on phone, tablet and PC
+  ---
+  duration_ms: 196.8358
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 4
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

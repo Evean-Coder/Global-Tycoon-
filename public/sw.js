@@ -1,16 +1,18 @@
 'use strict';
-const CACHE = 'global-tycoon-v17-mobile-info';
+const CACHE = 'global-tycoon-v18-playability';
 const CORE = [
   './',
   './index.html',
   './style.css',
   './client.js',
+  './board-layout.js',
+  './board-layout.js?v=20261011-playability-v1',
   './rules-catalog.js',
   './contextual-rules.js',
-  './contextual-rules.js?v=20261011-mobile-info-v2',
-  './rules-catalog.js?v=20261011-mobile-info-v2',
-  './style.css?v=20261011-mobile-info-v2',
-  './client.js?v=20261011-mobile-info-v2',
+  './contextual-rules.js?v=20261011-playability-v1',
+  './rules-catalog.js?v=20261011-playability-v1',
+  './style.css?v=20261011-playability-v1',
+  './client.js?v=20261011-playability-v1',
   './socket.io/socket.io.js',
   './assets/board-world-map-v1.webp',
   './assets/atlas-background-v1.webp',
@@ -32,7 +34,7 @@ self.addEventListener('fetch', (e) => {
   // 联机握手和轮询不作为静态资源缓存；离线只提供页面外壳。
   if (url.pathname.startsWith('/socket.io/') && url.pathname !== '/socket.io/socket.io.js') return;
   const isNav = e.request.mode === 'navigate' || url.pathname === '/' || url.pathname.endsWith('/index.html');
-  const strictCore = /\/(?:client\.js|style\.css|rules-catalog\.js|contextual-rules\.js)$/.test(url.pathname) || url.pathname === '/socket.io/socket.io.js';
+  const strictCore = /\/(?:client\.js|style\.css|rules-catalog\.js|contextual-rules\.js|board-layout\.js)$/.test(url.pathname) || url.pathname === '/socket.io/socket.io.js';
   if (isNav) {
     // HTML/导航：网络优先，失败回退缓存，保证更新即时生效
     e.respondWith(
@@ -53,4 +55,3 @@ self.addEventListener('fetch', (e) => {
     }).catch(() => strictCore ? new Response('', {status:503}) : caches.match(e.request, { ignoreSearch: true }).then((hit) => hit || new Response('', { status: 503 }))))
   );
 });
-

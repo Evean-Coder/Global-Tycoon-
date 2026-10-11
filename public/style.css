@@ -609,34 +609,79 @@ body.game-active #actionBar{position:relative;flex-shrink:0;left:auto;right:auto
 #playerList [data-remove-bot]{margin-left:auto;min-height:44px;padding:6px 12px;flex-shrink:0}
 .opportunity-card,.selected-opportunities,.fee-basis,.flight-option,.record-economy,.flight-costs,.route-comparison{background:var(--card2);border-color:var(--line);border-radius:3px;color:var(--text)}
 body.game-active #waitBanner,body.game-active #quickClockBar{flex-shrink:0}
-@media(max-width:600px){
-  body.game-active #view-game{padding:6px}
-  #board{grid-template-columns:repeat(6,minmax(0,1fr));grid-template-rows:repeat(17,minmax(78px,max-content));height:auto;aspect-ratio:auto;padding:3px;gap:2px}
-  #board .sq{grid-row:var(--mobile-row)!important;grid-column:var(--mobile-col)!important;padding:12px 2px 3px;min-width:0;height:auto;min-height:78px}
-  #board .sq .nm{font-size:11px;line-height:1.2;display:block}
-  #board .sq .own{font-size:9px;line-height:1.1;display:block}
-  #board .sq .sq-amount{font-size:10px}
-  #boardMap{left:calc(16.6667% + 2px);right:calc(16.6667% + 2px);top:var(--mobile-center-top,86px);bottom:auto;aspect-ratio:3/2;background-size:contain;border:1px solid #a49370}
-  #boardScale{background:#b3bdb6}
-  #board{background:transparent}
-  body #ledger{top:calc(var(--mobile-center-top,86px) + 10px + (100vw - 24px)*.44445);left:calc(16.6667% + 3px);right:auto;width:calc(66.6667% - 6px);max-height:900px;border-radius:6px}
-  #ledgerBody{gap:8px;padding-bottom:10px}
-  .ledger-title{font-size:14px;padding:12px 10px 0;font-weight:700;letter-spacing:0}
-  .ledger-title em{display:block;font-size:11px;margin-top:4px}
-  .ledger-total{padding:0 10px 10px}
-  .ledger-total strong{font-size:24px}
-  .ledger-total span{font-size:11px}
-  .ledger-summary{padding:0 10px;gap:8px;grid-template-columns:repeat(2,minmax(0,1fr))}
-  .ledger-summary>div{padding:8px 6px;background:#f0e7d2;border:1px solid #d6c7a6;border-radius:4px;min-width:0}
-  .ledger-summary span{font-size:11px}.ledger-summary b{font-size:13px}
-  body #ledger .ledger-open{min-height:44px;width:calc(100% - 20px);margin:0 10px;padding:8px;text-align:left;font-size:12px;line-height:1.5;text-decoration:none;background:#fff9ec;border:1px solid #c4ad7c;border-radius:4px;box-shadow:none}
-  #ledgerBody>.hint{padding:0 10px;line-height:1.7;font-size:12px;overflow-wrap:anywhere}
-  #ledger .ledger-note{padding:8px 10px;font-size:11px;line-height:1.6}
-  body #ledger #newsBar,.ledger-turn{padding:10px;font-size:12px}
-  body.game-active #actionBar{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:auto;gap:5px;padding:7px 6px calc(7px + env(safe-area-inset-bottom))}
-  body.game-active #actionBar #dice,body.game-active #actionBar #turnInfo,body.game-active #actionBar #timer{grid-column:auto;grid-row:auto;font-size:11px;min-width:0}
-  body.game-active #actionBar #turnInfo{grid-column:1/-1;text-align:left}
-  body.game-active #actionBar button{grid-column:auto;grid-row:auto;min-height:44px;font-size:13px;padding:6px}
-  body.game-active #actionBar .spacer{display:none}
-  .board-scroll-hint{display:block;text-align:center;font-size:12px;padding:4px;color:var(--title)}
-}
+
+/* Compact mobile play surface: the same route, arranged in seven readable rows. */
+#infoTabs,#btnMore,#actionDock{display:none}.info-hidden{display:none!important}
+#managementStatus{font-size:12px;color:#715d38}#managementStatus[data-state=ready]{color:#204c3b;font-weight:700}
+#stockTimer{font-size:14px;color:#854d24;font-variant-numeric:tabular-nums}
+body.compact-game.game-active header{height:42px;min-height:42px;padding:4px 8px;gap:4px}
+body.compact-game.game-active header .brand{font-size:16px;line-height:1.2}
+body.compact-game.game-active header .sub{display:none}
+body.compact-game.game-active header button{min-height:32px;padding:4px 8px;font-size:12px}
+body.compact-game.game-active #view-game{padding:4px;gap:4px}
+body.compact-game #quickClockBar{margin:0;padding:3px 8px;min-height:26px;border-radius:4px;gap:3px;font-size:11px}
+body.compact-game #quickTimer{font-size:16px}body.compact-game #quickEndHint{font-size:11px}
+body.compact-game #mapScrollHint{display:none}
+body.compact-game.game-active #gameMain{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(160px,1fr) 140px;gap:4px;overflow:hidden;padding:0!important}
+body.compact-game #boardWrap{min-width:0;min-height:0;overflow:auto;margin:0;padding:0;border:0;box-shadow:none;touch-action:pan-y pinch-zoom}
+body.compact-game #boardScale{height:auto;min-height:0;width:100%;background:#b3bdb6;position:relative}
+body.compact-game #board{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-template-rows:repeat(7,minmax(88px,max-content));height:auto;aspect-ratio:auto;width:100%;padding:3px;gap:2px;position:relative}
+body.compact-game #board .sq{padding:14px 2px 4px;min-width:0;min-height:88px;height:auto;overflow:visible;border-radius:4px}
+body.compact-game #board .sq .nm,body.compact-game #board .sq .own,body.compact-game #board .sq .sq-amount{display:block;font-size:11px;line-height:1.2;white-space:normal;overflow-wrap:anywhere}
+body.compact-game #board .sq .glyph{display:none}body.compact-game #board .sq .num{font-size:10px}
+body.compact-game #board .sq .subrow{display:block;font-size:11px}
+body.compact-game #boardMap{display:none}
+body.compact-game #side{display:flex;flex-direction:column;min-height:0;min-width:0;overflow:hidden;margin:0;padding:0;gap:0;background:#faf2de;border:1px solid #ad925e;border-radius:4px}
+body.compact-game #infoTabs{display:flex;flex:none;gap:0;border-bottom:1px solid #ad925e}
+body.compact-game #infoTabs button{flex:1;min-width:0;min-height:44px;padding:4px;font-size:12px;background:transparent;border:0;box-shadow:none}
+body.compact-game #infoTabs button[aria-pressed=true]{background:#ead8af;color:#253d4a;font-weight:700}
+body.compact-game #side>.panel,body.compact-game #infoAssetSlot,body.compact-game #infoNews,body.compact-game #infoMore{min-height:0;overflow:auto;flex:1;margin:0;padding:8px;box-shadow:none;border:0}
+body.compact-game #side .panel{font-size:12px}body.compact-game #sidePlayer{flex:none;max-height:45%}body.compact-game #sideOthers{flex:1}
+body.compact-game #ledger{position:relative;inset:auto;width:100%;max-height:none;overflow:visible;border:0;box-shadow:none;background:transparent}
+body.compact-game #ledgerBody{padding:0;gap:4px}
+body.compact-game .ledger-title{padding:0;font-size:12px;letter-spacing:0}
+body.compact-game .ledger-total{padding:0;display:flex;align-items:center;gap:8px}
+body.compact-game .ledger-total strong{font-size:20px}
+body.compact-game .ledger-total span{font-size:11px}
+body.compact-game .ledger-summary{padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}
+body.compact-game .ledger-summary span,body.compact-game .ledger-summary b{font-size:11px}
+body.compact-game .ledger-open{min-height:44px;margin:0;padding:4px;font-size:12px}
+body.compact-game .ledger-turn{display:none}
+body.compact-game #infoNews #newsBar{display:block;max-height:none;margin:0;padding:0;background:transparent;border:0;font-size:12px}
+body.compact-game #infoMore{display:flex;flex-wrap:wrap;gap:4px;align-content:flex-start}
+body.compact-game #infoMore button{min-height:44px;font-size:12px;padding:4px 8px}
+body.compact-game.game-active #actionBar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:auto auto 44px;gap:2px;padding:4px 4px calc(4px + env(safe-area-inset-bottom));margin:0;border-radius:4px;min-width:0}
+body.compact-game #actionBar #managementStatus{grid-column:1/-1;grid-row:1;font-size:11px;line-height:14px;overflow-wrap:anywhere}
+body.compact-game #actionBar #turnInfo{grid-column:1/4;grid-row:2;font-size:11px;text-align:left;line-height:14px}
+body.compact-game #actionBar #timer{grid-column:4;grid-row:2;font-size:11px;line-height:14px}
+body.compact-game #actionBar button{grid-row:3;grid-column:auto;min-width:0;min-height:44px;padding:3px;font-size:12px}
+body.compact-game #actionBar #dice,body.compact-game #actionBar .spacer,body.compact-game #btnEndTurn{display:none}
+body.compact-game #btnMore{display:block}
+body.compact-game .overlay{padding:6px}
+body.compact-game .modal,body.compact-game .modal.wide{max-height:calc(100dvh - 12px)}
+body.compact-game .mh{padding:8px 12px}body.compact-game .mh h3{font-size:18px}
+body.compact-game #stockHint{font-size:11px;margin:3px 0}
+body.compact-game .mf{padding:6px;gap:4px}body.compact-game .mf button{min-height:44px;padding:4px 8px;font-size:12px}
+body.compact-game #stockList,body.compact-game #modalBody{padding:8px}
+body.short-game.game-active header{height:34px;min-height:34px}
+body.short-game #quickClockBar{min-height:22px;padding:1px 8px}
+body.short-game.game-active #gameMain{grid-template-columns:minmax(0,1fr) minmax(230px,32%);grid-template-rows:minmax(0,1fr)}
+body.short-game #actionDock{display:block;flex:none}
+body.short-game #actionBar{grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-template-rows:auto auto 44px 44px!important}
+body.short-game #actionBar #turnInfo{grid-column:1!important}body.short-game #actionBar #timer{grid-column:2!important}
+body.short-game #actionBar button{grid-row:auto!important}
+body.short-game #actionBar #managementStatus{font-size:10px}
+body.short-game #board .sq{min-height:88px}
+@media(min-width:601px) and (min-height:501px){#managementStatus{max-width:220px}#btnManagement{font-size:12px}}
+body.compact-game #infoMore #boardMap{display:block;position:relative;inset:auto;flex:0 0 100%;width:100%;aspect-ratio:3/2;background-size:contain;border:1px solid #ad925e}
+body.compact-game.game-active #gameMain{align-items:stretch;align-content:stretch}
+body.compact-game #boardWrap,body.compact-game #side{height:100%;width:100%}
+#boardMap{background-size:contain}
+@media(min-width:601px) and (min-height:501px) and (max-width:1080px){#managementStatus{grid-row:1;grid-column:1/-1}#actionBar #dice{display:none}#actionBar #turnInfo{grid-row:2;grid-column:1/4}#actionBar #timer{grid-row:2}#actionBar button{grid-row:3!important;grid-column:auto!important}#actionBar{grid-template-columns:repeat(5,minmax(0,1fr))}}
+body.short-game.game-active header{height:24px;min-height:24px;padding:0 8px}
+body.short-game.game-active header .brand h1{font-size:16px;line-height:20px;letter-spacing:1px}
+body.short-game.game-active header button{min-height:24px;height:24px;padding:0 8px}
+body.short-game #quickClockBar{height:22px;min-height:22px;font-size:11px}
+body.compact-game #board .sq[data-current=true]{box-shadow:inset 0 0 0 2px #52776d;background:#f7f4e8}
+#btnManagement[data-state=ready]{border:2px solid #52776d;background:#e6eee5;color:#204c3b;font-weight:700}
+.fund-preview{font-size:12px;line-height:1.6;margin:8px 0;overflow-wrap:anywhere}

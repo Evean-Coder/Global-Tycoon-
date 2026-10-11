@@ -59,7 +59,7 @@ test('QC05: quick decision durations, same identity tightening and paused budget
     s.phase=phase;s.pending={playerId:'p0'};
     s.opportunityStage={stageId:'stage'};s.routeFlow.activeChoice=phase==='route_choose'?{playerId:'p0',opportunityId:'later'}:null;
     clock.sync(s,fn,true,1800000);
-    const expected=phase==='self_rescue'?45000:phase==='opportunity_choose'?30000:20000;
+    const expected=phase==='self_rescue'?45000:phase==='opportunity_choose'?30000:phase==='stock'?60000:20000;
     assert.equal(clock.remainingMs,expected,phase);
     const id=clock.decisionId;time.advance(1000);clock.sync(s,fn,false,1800000);assert.equal(clock.decisionId,id);assert.equal(clock.remainingMs,expected-1000);
     clock.sync(s,fn,false,500);assert.equal(clock.remainingMs,500);clock.pause();time.advance(2000);clock.sync(s,fn,false,100);

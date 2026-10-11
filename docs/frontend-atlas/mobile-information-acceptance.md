@@ -28,3 +28,7 @@ node --test --test-force-exit e2e/mobile-information.spec.js e2e/atlas.spec.js e
 证据：`evidence/mobile-information-human.json`、`evidence/mobile-information-bot.json`；`evidence/phone-center-human.png`、`evidence/phone-center-bot.png`与`evidence/phone-information-human.png`、`evidence/phone-information-bot.png`。
 
 验证范围是本地Edge/Chromium手机视口与触屏模拟；未声称已在用户实际手机浏览器或Render新版本验证。此次未改引擎、玩法、AI决策、Socket事件或计时规则。
+
+## 2026-10-11布局替代
+
+此前6×17手机周边棋盘与中央长台账由已批准的6×7紧凑路线、独立信息切换区替代。旧截图保留当时状态；当前命中、尺寸与真人/电脑验证见../mobile-playability/acceptance.md及artifacts/mobile-playability。

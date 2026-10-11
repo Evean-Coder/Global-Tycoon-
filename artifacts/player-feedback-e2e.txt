@@ -1,0 +1,174 @@
+TAP version 13
+# Subtest: per-turn hint is visible, cancel retains opportunity, successful promotion consumes it
+ok 1 - per-turn hint is visible, cancel retains opportunity, successful promotion consumes it
+  ---
+  duration_ms: 3455.991
+  ...
+# Subtest: 三端强制决定沿原入口，纸色弹窗与回合摘要一致
+ok 2 - 三端强制决定沿原入口，纸色弹窗与回合摘要一致
+  ---
+  duration_ms: 3541.2257
+  ...
+# Subtest: 有限双人页面流程：买地、转让返回、股票成交、只读查看与结算
+ok 3 - 有限双人页面流程：买地、转让返回、股票成交、只读查看与结算
+  ---
+  duration_ms: 488.8992
+  ...
+# Subtest: 卖股自救后当前缺口按实际现金减少，初始欠款与决定期限保持原值
+ok 4 - 卖股自救后当前缺口按实际现金减少，初始欠款与决定期限保持原值
+  ---
+  duration_ms: 64.3565
+  ...
+# Subtest: 卖股自救可选择部分股数、预览缺口并拒绝越界输入
+ok 5 - 卖股自救可选择部分股数、预览缺口并拒绝越界输入
+  ---
+  duration_ms: 75.2411
+  ...
+# Subtest: 建房资金不足可抵押其他城市后返回建房，待建房城市保留且时限不刷新
+ok 6 - 建房资金不足可抵押其他城市后返回建房，待建房城市保留且时限不刷新
+  ---
+  duration_ms: 203.0368
+  ...
+# Subtest: 三端一个真人添加/移除电脑、真实开局和思考提示
+ok 7 - 三端一个真人添加/移除电脑、真实开局和思考提示
+  ---
+  duration_ms: 4356.0841
+  ...
+# Subtest: build funding sells selected shares, keeps panel and deadline, then manually builds
+ok 8 - build funding sells selected shares, keeps panel and deadline, then manually builds
+  ---
+  duration_ms: 3575.2897
+  ...
+# Subtest: low-height funding preserves selected quantity, card and scroll through a quote update
+ok 9 - low-height funding preserves selected quantity, card and scroll through a quote update
+  ---
+  duration_ms: 354.4896
+  ...
+# Subtest: 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+ok 10 - 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+  ---
+  duration_ms: 5930.2797
+  ...
+# Subtest: 端到端：创建→加入→开局→掷骰→解散→结算→回放
+ok 11 - 端到端：创建→加入→开局→掷骰→解散→结算→回放
+  ---
+  duration_ms: 27506.8267
+  ...
+# Subtest: 统一动作封装 / 同步机遇选择与重选 / 自然规则说明 / 资讯当前与预告
+ok 12 - 统一动作封装 / 同步机遇选择与重选 / 自然规则说明 / 资讯当前与预告
+  ---
+  duration_ms: 2206.3278
+  ...
+# Subtest: 已选机遇与主动入口 / 城市租金与资讯明细 / 建拆房最终费用 / 服务端资产摘要 / 机票与机场费用边界
+ok 13 - 已选机遇与主动入口 / 城市租金与资讯明细 / 建拆房最终费用 / 服务端资产摘要 / 机票与机场费用边界
+  ---
+  duration_ms: 252.3195
+  ...
+# Subtest: 股票成交回执 / 股票转让回执 / 报价原因与实际历史股息 / 失败订单保留草稿
+ok 14 - 股票成交回执 / 股票转让回执 / 报价原因与实际历史股息 / 失败订单保留草稿
+  ---
+  duration_ms: 327.5652
+  ...
+# Subtest: 结构化收益和旧记录 / 普通流程回归
+ok 15 - 结构化收益和旧记录 / 普通流程回归
+  ---
+  duration_ms: 42.8183
+  ...
+# Subtest: 远航预告→收费不足→抵押自救→换人→自然终局记录与回放
+ok 16 - 远航预告→收费不足→抵押自救→换人→自然终局记录与回放
+  ---
+  duration_ms: 186.5859
+  ...
+# Subtest: 手机下方信息真实可见且未被棋盘覆盖：human
+ok 17 - 手机下方信息真实可见且未被棋盘覆盖：human
+  ---
+  duration_ms: 2549.8834
+  ...
+# Subtest: 手机下方信息真实可见且未被棋盘覆盖：bot
+ok 18 - 手机下方信息真实可见且未被棋盘覆盖：bot
+  ---
+  duration_ms: 1487.3885
+  ...
+# Subtest: portrait and low landscape allocate usable board, information and action areas
+ok 19 - portrait and low landscape allocate usable board, information and action areas
+  ---
+  duration_ms: 6377.5541
+  ...
+# Subtest: resize while a route animation is running ends on the real square
+ok 20 - resize while a route animation is running ends on the real square
+  ---
+  duration_ms: 814.803
+  ...
+# Subtest: normal and quick touch stock lists retain nodes, details, scroll and draft
+ok 21 - normal and quick touch stock lists retain nodes, details, scroll and draft
+  ---
+  duration_ms: 5324.802
+  ...
+# Subtest: stock countdown uses the existing clock on phone, tablet and PC
+ok 22 - stock countdown uses the existing clock on phone, tablet and PC
+  ---
+  duration_ms: 223.3269
+  ...
+# Subtest: PC宽屏布局 / 平板横竖布局 / 手机完整棋盘布局 / 长说明与按钮可达
+ok 23 - PC宽屏布局 / 平板横竖布局 / 手机完整棋盘布局 / 长说明与按钮可达
+  ---
+  duration_ms: 12277.9471
+  ...
+# Subtest: 九类视口股票确认及费用明细可达
+ok 24 - 九类视口股票确认及费用明细可达
+  ---
+  duration_ms: 1695.1434
+  ...
+# Subtest: 键盘焦点与减少动画 / 真正200%页面缩放完成选择详情及交易
+ok 25 - 键盘焦点与减少动画 / 真正200%页面缩放完成选择详情及交易
+  ---
+  duration_ms: 2356.7775
+  ...
+# Subtest: 连续实际起点两次买入3城各2股
+ok 26 - 连续实际起点两次买入3城各2股
+  ---
+  duration_ms: 2712.8681
+  ...
+# Subtest: 失败、未提交、超时草稿不带入新窗口
+ok 27 - 失败、未提交、超时草稿不带入新窗口
+  ---
+  duration_ms: 213.1221
+  ...
+# Subtest: 迟到成功或失败不能污染新草稿或解除新请求锁
+ok 28 - 迟到成功或失败不能污染新草稿或解除新请求锁
+  ---
+  duration_ms: 290.3039
+  ...
+# Subtest: 限额、供给、城主4股与卖A买B
+ok 29 - 限额、供给、城主4股与卖A买B
+  ---
+  duration_ms: 409.9849
+  ...
+# Subtest: 报价变化更新展示后再次确认，拒绝无副作用
+ok 30 - 报价变化更新展示后再次确认，拒绝无副作用
+  ---
+  duration_ms: 136.9845
+  ...
+# Subtest: 无确认重试原请求身份，实际最多成交一次
+ok 31 - 无确认重试原请求身份，实际最多成交一次
+  ---
+  duration_ms: 115.3901
+  ...
+# Subtest: 转让及同窗口认证重连保留累计额度
+ok 32 - 转让及同窗口认证重连保留累计额度
+  ---
+  duration_ms: 1153.4954
+  ...
+# Subtest: 呈现延迟与旧v1未确认订单不补单
+ok 33 - 呈现延迟与旧v1未确认订单不补单
+  ---
+  duration_ms: 383.1892
+  ...
+1..33
+# tests 33
+# suites 0
+# pass 33
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

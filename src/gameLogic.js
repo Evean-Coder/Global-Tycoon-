@@ -986,7 +986,11 @@ function applyCore(state, action, rng, context = {}) {
       rescueDemolish(state, p, action.cityId, events, rng);
       break;
     case 'rescue_sell_stock':
-      if (state.phase !== 'self_rescue') return { state, events, rejected: true };
+      if (state.phase !== 'self_rescue' && !require('./buildFundraising').eligible(state,p)) return { state, events, rejected: true };
+      if(state.phase==='build_decide'){
+        const st=state.stocks[action.cityId];
+        if(!st||!Number.isSafeInteger(action.shares)||action.shares<1||action.shares>(st.holders[p.id]||0)||!Number.isSafeInteger(st.price)||st.price<=0||!state.cities[action.cityId]?.ownerId||st.clearing||(modern(state)&&action.quoteVersion!==st.quoteVersion))return {state,events,rejected:true};
+      }
       rescueSellStock(state, p, action, events, rng);
       break;
     case 'rescue_done':
@@ -1413,7 +1417,7 @@ function rescueSellStock(state, p, action, events, rng) {
   p.cash += shares * st.price;
   st.holders[p.id] = held - shares;
   p.stocks[action.cityId] = Math.max(0, (p.stocks[action.cityId] || 0) - shares);
-  log(events, `${p.name} 卖出 ${cityLabel(state, action.cityId)} 股份 ×${shares} 自救（+${shares * st.price}）`, 'rescue');
+  log(events, `${p.name} 卖出 ${cityLabel(state, action.cityId)} 股份 ×${shares} ${state.phase==='build_decide'?'建房筹资':'自救'}（+${shares * st.price}）`, 'rescue');
   if (state.phase === 'self_rescue' && p.cash >= 0) finishSelfRescue(state, events, rng);
 }
 

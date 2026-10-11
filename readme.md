@@ -1,5 +1,7 @@
 # 环球大亨
 
+> 最新修复（2026-10-11）：股票新窗口打开后明确置顶，同窗口浏览及资料返回保留位置。普通/快速五类视口和原股票回执/缓存回归12/12、lint通过。[验收](docs/quick-stock-time/acceptance.md)。当前资源`20261011-stock-scroll-v1`、缓存`global-tycoon-v19-stock-scroll`，尚未推送或部署；下方v18为上一提交记录。
+
 > 当前开发（2026-10-11）：四项已批准反馈整改完成实现：手机6×7紧凑棋盘及独立信息区、股票60秒与稳定列表、建房筹资按数量卖股、每回合主动经营提示。静态资源`20261011-playability-v1`、缓存`global-tycoon-v18-playability`；完整结果见[反馈整改索引](docs/player-feedback-20261011.md)。本轮未推送或部署Render，现有服务器须重启后载入新的服务端规则。以下为历史交付记录。
 
 > 本轮开发（2026-10-10）：已接入浅纸色地图前端、三端独立操作区、只读规则提示、置业扶持与三类主动经营。新局使用 `property-support-v1` / `active-management-v1`，旧局不迁移。静态资源 `20261010-atlas-v1`、缓存 v12。最新51项针对性检查通过，完整逐项验收仍在核对；进度与限制见 [开发记录](docs/gameplay-improvements/progress.md)。本轮未推送或部署 Render。

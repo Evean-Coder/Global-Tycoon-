@@ -42,3 +42,20 @@ node --test --test-force-exit e2e/usability-stocks.spec.js
 ```
 
 [项目测试输出](../../artifacts/player-feedback-unit.txt)；[最终专项补验](../../artifacts/player-feedback-final-targeted.txt)。
+
+## 2026-10-11初始列表到底部回归修复
+
+用户反馈股票购买界面初始城市列表位于底部，原新窗口测试只从中部开始调整数量，漏验了初始位置。新增断言在修复前实测失败：普通模式390px新窗口scrollTop为6616，见[复现输出](../../artifacts/stock-initial-scroll-reproduction.txt)。
+
+原因：新窗口在隐藏的滚动容器上置顶，没有可靠清除浏览器保留的位置；打开时未执行新窗口的明确位置初始化。现在弹窗显示、焦点设置后，仅在打开时恢复同窗口记录或把新窗口置顶；已经显示的窗口不重新套用旧隐藏位置。
+
+补验普通/快速×320×568、390×844、430×932、768×1024、1440×900：初开首城可见、scrollTop≤2px；上一窗口滚到底部后新起点窗口仍置顶；同窗口广播偏移≤2px。手机加减、上方内容增高及规则/资产/转让返回保持草稿和位置，原资金/回执语义不变。
+
+Node20运行三个浏览器文件，12/12通过：
+
+```text
+node --test --test-force-exit --test-concurrency=2 e2e/quick-stock-time.spec.js e2e/usability-stocks.spec.js e2e/cache.spec.js
+node node_modules/eslint/bin/eslint.js public/client.js e2e/quick-stock-time.spec.js e2e/cache.spec.js
+```
+
+[验证输出](../../artifacts/stock-initial-scroll-verification.txt)、[lint输出](../../artifacts/stock-initial-scroll-lint.txt)。未重跑大量对局或完整项目门槛；上面的468/33项是前一提交的验收记录。本次只修前端位置生命周期，资源升级至`20261011-stock-scroll-v1`、缓存`global-tycoon-v19-stock-scroll`。T11/C21通过；仍未推送或部署Render，实体微信浏览器未实测。

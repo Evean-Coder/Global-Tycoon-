@@ -825,9 +825,11 @@ function showOverlay(id) {
     overlayReturnFocus.set(id, { element: active, squareId: active?.dataset?.squareId });
   }
   overlay.classList.remove('hidden');
-  if(id==='stockModal'&&stockScroll?.key===stockKey(game))$('stockList').scrollTop=stockScroll.top;
   const title = overlay.querySelector('.mh h3');
   if (title && opening) { title.tabIndex = -1; title.focus({ preventScroll: true }); }
+  // Hidden scroll containers cannot reliably reset their retained position.
+  // Restore only when opening; a new window always starts at the first city.
+  if(id==='stockModal'&&opening)$('stockList').scrollTop=stockScroll?.key===stockKey(game)?stockScroll.top:0;
 }
 function hideOverlay(id) {
   const overlay = $(id);

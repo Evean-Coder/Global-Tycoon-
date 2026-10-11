@@ -1,0 +1,31 @@
+TAP version 13
+# Subtest: normal and quick touch stock lists retain nodes, details, scroll and draft
+not ok 1 - normal and quick touch stock lists retain nodes, details, scroll and draft
+  ---
+  duration_ms: 2765.8876
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\quick-stock-time.spec.js:5:1'
+  failureType: 'testCodeFailure'
+  error: '每个新窗口从顶部开始 {"mode":"normal","width":390,"initialScroll":6616}'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\quick-stock-time.spec.js:13:87)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: stock countdown uses the existing clock on phone, tablet and PC
+ok 2 - stock countdown uses the existing clock on phone, tablet and PC
+  ---
+  duration_ms: 175.2605
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 1
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0

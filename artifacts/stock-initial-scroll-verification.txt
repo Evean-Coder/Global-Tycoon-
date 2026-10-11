@@ -1,0 +1,69 @@
+TAP version 13
+# Subtest: 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+ok 1 - 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+  ---
+  duration_ms: 6219.9536
+  ...
+# Subtest: normal and quick touch stock lists retain nodes, details, scroll and draft
+ok 2 - normal and quick touch stock lists retain nodes, details, scroll and draft
+  ---
+  duration_ms: 5691.8642
+  ...
+# Subtest: new stock windows start at the first city and same-window updates retain browsing
+ok 3 - new stock windows start at the first city and same-window updates retain browsing
+  ---
+  duration_ms: 1203.5954
+  ...
+# Subtest: stock countdown uses the existing clock on phone, tablet and PC
+ok 4 - stock countdown uses the existing clock on phone, tablet and PC
+  ---
+  duration_ms: 214.0512
+  ...
+# Subtest: 连续实际起点两次买入3城各2股
+ok 5 - 连续实际起点两次买入3城各2股
+  ---
+  duration_ms: 2609.855
+  ...
+# Subtest: 失败、未提交、超时草稿不带入新窗口
+ok 6 - 失败、未提交、超时草稿不带入新窗口
+  ---
+  duration_ms: 212.9103
+  ...
+# Subtest: 迟到成功或失败不能污染新草稿或解除新请求锁
+ok 7 - 迟到成功或失败不能污染新草稿或解除新请求锁
+  ---
+  duration_ms: 243.1416
+  ...
+# Subtest: 限额、供给、城主4股与卖A买B
+ok 8 - 限额、供给、城主4股与卖A买B
+  ---
+  duration_ms: 397.7857
+  ...
+# Subtest: 报价变化更新展示后再次确认，拒绝无副作用
+ok 9 - 报价变化更新展示后再次确认，拒绝无副作用
+  ---
+  duration_ms: 123.9098
+  ...
+# Subtest: 无确认重试原请求身份，实际最多成交一次
+ok 10 - 无确认重试原请求身份，实际最多成交一次
+  ---
+  duration_ms: 133.8651
+  ...
+# Subtest: 转让及同窗口认证重连保留累计额度
+ok 11 - 转让及同窗口认证重连保留累计额度
+  ---
+  duration_ms: 1174.1085
+  ...
+# Subtest: 呈现延迟与旧v1未确认订单不补单
+ok 12 - 呈现延迟与旧v1未确认订单不补单
+  ---
+  duration_ms: 364.5137
+  ...
+1..12
+# tests 12
+# suites 0
+# pass 12
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

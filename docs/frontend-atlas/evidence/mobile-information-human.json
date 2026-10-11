@@ -1,7 +1,7 @@
 [
   {
     "width": 320,
-    "boardHeight": 1368,
+    "boardHeight": 1432.96875,
     "sideAfterBoard": true,
     "overflow": false,
     "rows": [
@@ -19,19 +19,19 @@
       },
       {
         "id": "sidePlayer",
-        "text": "当前玩家手机玩家 房主轮到你行动 · 第 0 轮",
+        "text": "当前玩家十二字符昵称甲乙丙丁戊己 房主轮到你行动 · 第 0 轮",
         "visible": true,
         "uncovered": true
       },
       {
         "id": "sideOthers",
-        "text": "其他玩家真人对手远程施工总资产￥150,000当前现金￥150,000",
+        "text": "其他玩家真人对手连锁经营总资产￥150,000当前现金￥150,000",
         "visible": true,
         "uncovered": true
       },
       {
         "id": "log",
-        "text": "轮到 手机玩家真人对手 选择经营机遇：远程施工手机玩家 选择经营机遇：连锁经营",
+        "text": "轮到 手机玩家真人对手 选择经营机遇：连锁经营手机玩家 选择经营机遇：稳健股息",
         "visible": true,
         "uncovered": true
       }
@@ -39,7 +39,7 @@
   },
   {
     "width": 390,
-    "boardHeight": 1368,
+    "boardHeight": 1406.59375,
     "sideAfterBoard": true,
     "overflow": false,
     "rows": [
@@ -57,19 +57,19 @@
       },
       {
         "id": "sidePlayer",
-        "text": "当前玩家手机玩家 房主轮到你行动 · 第 0 轮",
+        "text": "当前玩家十二字符昵称甲乙丙丁戊己 房主轮到你行动 · 第 0 轮",
         "visible": true,
         "uncovered": true
       },
       {
         "id": "sideOthers",
-        "text": "其他玩家真人对手远程施工总资产￥150,000当前现金￥150,000",
+        "text": "其他玩家真人对手连锁经营总资产￥150,000当前现金￥150,000",
         "visible": true,
         "uncovered": true
       },
       {
         "id": "log",
-        "text": "轮到 手机玩家真人对手 选择经营机遇：远程施工手机玩家 选择经营机遇：连锁经营",
+        "text": "轮到 手机玩家真人对手 选择经营机遇：连锁经营手机玩家 选择经营机遇：稳健股息",
         "visible": true,
         "uncovered": true
       }
@@ -77,7 +77,7 @@
   },
   {
     "width": 430,
-    "boardHeight": 1368,
+    "boardHeight": 1379.765625,
     "sideAfterBoard": true,
     "overflow": false,
     "rows": [
@@ -95,19 +95,19 @@
       },
       {
         "id": "sidePlayer",
-        "text": "当前玩家手机玩家 房主轮到你行动 · 第 0 轮",
+        "text": "当前玩家十二字符昵称甲乙丙丁戊己 房主轮到你行动 · 第 0 轮",
         "visible": true,
         "uncovered": true
       },
       {
         "id": "sideOthers",
-        "text": "其他玩家真人对手远程施工总资产￥150,000当前现金￥150,000",
+        "text": "其他玩家真人对手连锁经营总资产￥150,000当前现金￥150,000",
         "visible": true,
         "uncovered": true
       },
       {
         "id": "log",
-        "text": "轮到 手机玩家真人对手 选择经营机遇：远程施工手机玩家 选择经营机遇：连锁经营",
+        "text": "轮到 手机玩家真人对手 选择经营机遇：连锁经营手机玩家 选择经营机遇：稳健股息",
         "visible": true,
         "uncovered": true
       }
@@ -115,7 +115,7 @@
   },
   {
     "width": 768,
-    "boardHeight": 734,
+    "boardHeight": 761.8125,
     "sideAfterBoard": true,
     "overflow": false,
     "rows": [
@@ -133,19 +133,19 @@
       },
       {
         "id": "sidePlayer",
-        "text": "当前玩家手机玩家 房主轮到你行动 · 第 0 轮",
+        "text": "当前玩家十二字符昵称甲乙丙丁戊己 房主轮到你行动 · 第 0 轮",
         "visible": true,
         "uncovered": true
       },
       {
         "id": "sideOthers",
-        "text": "其他玩家真人对手远程施工总资产￥150,000当前现金￥150,000",
+        "text": "其他玩家真人对手连锁经营总资产￥150,000当前现金￥150,000",
         "visible": true,
         "uncovered": true
       },
       {
         "id": "log",
-        "text": "轮到 手机玩家真人对手 选择经营机遇：远程施工手机玩家 选择经营机遇：连锁经营",
+        "text": "轮到 手机玩家真人对手 选择经营机遇：连锁经营手机玩家 选择经营机遇：稳健股息",
         "visible": true,
         "uncovered": true
       }

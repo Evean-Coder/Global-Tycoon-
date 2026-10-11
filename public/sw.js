@@ -1,5 +1,5 @@
 'use strict';
-const CACHE = 'global-tycoon-v16-mobile-info';
+const CACHE = 'global-tycoon-v17-mobile-info';
 const CORE = [
   './',
   './index.html',
@@ -7,10 +7,10 @@ const CORE = [
   './client.js',
   './rules-catalog.js',
   './contextual-rules.js',
-  './contextual-rules.js?v=20261011-mobile-info-v1',
-  './rules-catalog.js?v=20261011-mobile-info-v1',
-  './style.css?v=20261011-mobile-info-v1',
-  './client.js?v=20261011-mobile-info-v1',
+  './contextual-rules.js?v=20261011-mobile-info-v2',
+  './rules-catalog.js?v=20261011-mobile-info-v2',
+  './style.css?v=20261011-mobile-info-v2',
+  './client.js?v=20261011-mobile-info-v2',
   './socket.io/socket.io.js',
   './assets/board-world-map-v1.webp',
   './assets/atlas-background-v1.webp',

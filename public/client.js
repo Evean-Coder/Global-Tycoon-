@@ -288,6 +288,11 @@ function pieceXY(posId) {
 function renderPieces() {
   const layer = $('pieces');
   if (!layer || !game) return;
+  if (window.matchMedia('(max-width:600px)').matches) {
+    const scale = $('boardScale').getBoundingClientRect();
+    const first = $('board').querySelector('[data-square-id="0"]');
+    if (first) $('boardWrap').style.setProperty('--mobile-center-top', (first.getBoundingClientRect().bottom - scale.top + 4) + 'px');
+  }
   layer.innerHTML = '';
   const alive = game.players.filter((p) => p.alive);
   const offsets = {};

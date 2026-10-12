@@ -2,6 +2,8 @@
 
 日期：2026-10-12。实现与本地验收完成；功能提交f7a234a已推送并在Render核对资源与独立联机检查，证据见deployment.json。完整CI发现两处历史断言未同步，正在修正并补推验收记录。
 
+最终状态：功能与测试提交2586aa3已推送。GitHub运行38236451713最终success，lint、npm test与test:e2e全部成功；API证据见ci-final.json，deployment.json保留首次失败及最终成功。Render资源版本仍20261012-mortgage-unlimited-v1，独立房间联机验证通过。下文保留排错过程，不代表当前检查仍失败。最终纯文档提交使用[skip ci]及[skip render]，避免重复执行或仅因验收记录重启已上线服务。
+
 ## 已完成
 
 - C1：正常/快速及旧规则普通局允许第三、第四座抵押；重复同城、非本人和禁止阶段无资金或产权变更。实际Socket同请求重放仅一次放款，非本人/旧身份拒绝，原deadline不延长。

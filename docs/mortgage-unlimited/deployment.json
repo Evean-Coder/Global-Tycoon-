@@ -38,12 +38,20 @@
     "roll": true
   },
   "ci": {
+    "id": 38236451713,
+    "status": "completed",
+    "conclusion": "success",
+    "head": "2586aa3cc4bf39788b51c76ba3783f9891ebe0c2",
+    "url": "https://github.com/Evean-Coder/Global-Tycoon-/actions/runs/38236451713"
+  },
+  "staticVersion": "20261012-mortgage-unlimited-v1",
+  "cache": "global-tycoon-v25-mortgage-unlimited",
+  "disposableRoomClosed": true,
+  "initialCi": {
     "id": 38234473753,
     "status": "completed",
     "conclusion": "failure",
     "url": "https://github.com/Evean-Coder/Global-Tycoon-/actions/runs/38234473753"
   },
-  "staticVersion": "20261012-mortgage-unlimited-v1",
-  "cache": "global-tycoon-v25-mortgage-unlimited",
-  "disposableRoomClosed": true
+  "ciCheckedAt": "2026-10-12T10:37:25.6627351Z"
 }

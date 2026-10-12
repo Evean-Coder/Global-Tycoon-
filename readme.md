@@ -1,5 +1,7 @@
 # 环球大亨
 
+> 最终上线（2026-10-12）：取消抵押数量上限及此前四项修复已在Render生效；资源`20261012-mortgage-unlimited-v1`、缓存v25。代码/测试提交`2586aa3`的[完整GitHub CI](https://github.com/Evean-Coder/Global-Tycoon-/actions/runs/38236451713)全部通过，线上资源及独立双人开局操作已核对。[验收](docs/mortgage-unlimited/acceptance.md)。下方保留各阶段当时记录。
+
 > 上线核对（2026-10-12）：取消抵押数量上限及前四次修复已推送；Render公开页面/客户端/样式/缓存与功能提交`f7a234a`一致，自建两人房间创建、加入、开局、机遇提交和一次掷骰通过并解散。[上线证据](docs/mortgage-unlimited/deployment.json)。缓存v25；若手机保留旧界面，在对局结束后关闭页面重新打开。完整CI的旧规则断言和银行选择器已修正，CI最终状态另核对；下方为历史记录。
 
 > 最新规则（2026-10-12）：取消抵押城市数量上限，银行/资产/详情、自救和购买/建房筹资、AI统一适用；保留本金50%、原利息、阶段许可及不可重复抵押同城。服务端113项与浏览器13组分批复验通过，lint通过。[文档及验收](docs/mortgage-unlimited/acceptance.md)。资源`20261012-mortgage-unlimited-v1`、缓存`global-tycoon-v25-mortgage-unlimited`。正在准备推送与Render自动部署，上线以独立deployment.json为准；下方为历史记录。

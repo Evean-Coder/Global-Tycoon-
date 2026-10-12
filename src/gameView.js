@@ -43,7 +43,7 @@ function snapshot(s,viewerId,clockView){
  }
  const player=s.players.find(p=>p.id===viewerId);
  if(player){
-  out.self={playerId:player.id,actorRevision:s.actorRevision[player.id],opportunities:globalThis.structuredClone(player.opportunities),quotes:{build:{},demolish:{},rent:{},flight:{}},stockWindow:null};
+  out.self={playerId:player.id,actorRevision:s.actorRevision[player.id],opportunities:globalThis.structuredClone(player.opportunities),quotes:{build:{},demolish:{},rent:{},flight:{},redeem:{}},stockWindow:null};
   if(require('./propertySupport').enabled(s))out.self.propertySupport=require('./propertySupport').view(s,player.id);
   if(require('./activeManagement').enabled(s))out.self.activeManagement=require('./activeManagement').view(s,player.id);
   if(routes.enabled(s)){
@@ -52,6 +52,7 @@ function snapshot(s,viewerId,clockView){
    if(s.routeFlow.activeChoice?.playerId===player.id)out.self.routeChoice=globalThis.structuredClone(s.routeFlow.activeChoice);
   }
   for(const [id,c]of Object.entries(s.cities)){
+   if(c.ownerId===player.id&&c.mortgaged)out.self.quotes.redeem[id]=require('./mortgageRedemption').quote(s,player.id,id);
    out.self.quotes.rent[id]=econ.quoteRent(s,{playerId:player.id,cityId:id});
    if(c.ownerId===player.id){
     out.self.quotes.build[id]=econ.quoteBuild(s,{playerId:player.id,cityId:id});

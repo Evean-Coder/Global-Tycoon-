@@ -963,7 +963,7 @@ function applyCore(state, action, rng, context = {}) {
       break;
     case 'redeem':
       if (state.phase !== 'waiting_roll') return { state, events, rejected: true };
-      redeem(state, p, action.cityId, events);
+      if(!redeem(state, p, action.cityId, events, action.quoteVersion))return {state,events,rejected:true};
       break;
     case 'sell_city':
       if (!['waiting_roll', 'stock', 'self_rescue'].includes(state.phase)) return { state, events, rejected: true };
@@ -1363,20 +1363,16 @@ function mortgage(state, p, cityId, events, rng) {
   log(events, `${p.name} 抵押 ${cityLabel(state, cityId)}，获得 ${val}`, 'mortgage');
 }
 
-function redeem(state, p, cityId, events) {
-  if (state.phase !== 'waiting_roll') return;
+function redeem(state, p, cityId, events, quoteVersion) {
+  const q=require('./mortgageRedemption').quote(state,p.id,cityId);
+  if(!q.ok||(quoteVersion!==undefined&&quoteVersion!==q.quoteVersion))return false;
   const city = state.cities[cityId];
-  // 赎回需站在该城市格上（落到城市后才能赎回）
-  if (city.ownerId !== p.id || !city.mortgaged || p.position !== state.board.find((s) => s.cityId === cityId).id) {
-    if (city.ownerId === p.id && city.mortgaged) log(events, `${p.name} 无法赎回 ${cityLabel(state, cityId)}：需落到该城市后才能赎回`, 'mortgage');
-    return;
-  }
-  const cost = mortgageValue(city) + (city.mortgageInterest || 0);
-  if (p.cash < cost) return;
+  const cost = q.total;
   p.cash -= cost;
   city.mortgageInterest = 0;
   city.mortgaged = false;
   log(events, `${p.name} 赎回 ${cityLabel(state, cityId)}（${cost}）`, 'mortgage');
+  return true;
 }
 
 function rescueMortgage(state, p, cityId, events, rng) {

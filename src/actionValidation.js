@@ -252,6 +252,11 @@ function normalizeAction(state, raw, context = {}) {
     if (!cityExists(state, raw.cityId)) return fail('城市无效');
   }
   if (type === 'rescue_sell_stock' && raw.shares !== undefined && !safeInt(raw.shares, 1)) return fail('卖出股数无效');
+  if(type==='redeem'){
+    const q=require('./mortgageRedemption').quote(state,actorId,raw.cityId);
+    if(!q.ok)return fail(q.reason);
+    if(raw.quoteVersion!==undefined&&raw.quoteVersion!==q.quoteVersion)return fail('赎回费用已更新，请重新确认');
+  }
   if (type === 'sell_city') {
     if (!cityExists(state, raw.cityId) || !['direct', 'auction'].includes(raw.mode)) return fail('出售动作无效');
   }

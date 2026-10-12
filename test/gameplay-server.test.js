@@ -5,6 +5,13 @@ const api=require('../server'),f=require('./helpers/gameplayFixtures');
 const {createActionClock}=require('../src/actionClock');
 const {snapshot}=require('../src/state');
 const stocks=require('../src/stocks');
+const redemption=require('../src/mortgageRedemption');
+
+test('银行远程赎回正常Socket：重复、非本人、断线重连保留真实清偿与预算',async()=>{
+ const {room,clients:[a,b],fake}=await setup(2);await until(()=>a.game?.self?.choice&&b.game?.self?.choice);await action(a,choice(a));await action(b,choice(b));await until(()=>room.state.phase==='waiting_roll');const s=room.state;f.own(s,'p0','上海');s.cities['上海'].houseLevel=2;s.cities['上海'].mortgaged=true;s.cities['上海'].mortgageInterest=500;s.players[0].position=0;s.players[0].cash=50000;api.emitGame(room);await until(()=>a.game?.self?.quotes?.redeem?.['上海']?.total===22500);
+ const q=redemption.quote(s,'p0','上海'),deadline=room.actionClock.deadlineMs,payload=envelope(a,{type:'redeem',cityId:'上海',quoteVersion:q.quoteVersion},'redeem-once');assert.equal((await ack(b,'action',{...payload,actionId:'foreign-redeem'})).ok,false);const result=await ack(a,'action',payload);assert.equal(result.ok,true,JSON.stringify(result));assert.deepEqual(await ack(a,'action',payload),result);assert.equal(room.state.players[0].cash,27500);assert.equal(room.state.cities['上海'].mortgaged,false);assert.equal(room.actionClock.deadlineMs,deadline);
+ const token=a.token;fake.advance(10000);a.close();await until(()=>room.actionClock.paused);const remaining=room.actionClock.remainingSeconds();fake.advance(5000);const resumed=await connect();assert.equal((await ack(resumed,'reconnect',{roomCode:room.code,name:'玩家0',token})).ok,true);await until(()=>resumed.game?.players[0].cash===27500);assert.equal(room.actionClock.remainingSeconds(),remaining);assert.deepEqual(await ack(resumed,'action',payload),result);assert.equal(room.state.players[0].cash,27500);
+});
 let url,seq=0;
 const sockets=[];
 const ack=(s,event,data)=>new Promise(resolve=>s.emit(event,data,resolve));

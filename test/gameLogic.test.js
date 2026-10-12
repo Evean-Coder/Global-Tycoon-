@@ -229,7 +229,7 @@ test('抵押可随时进行（非掷骰阶段也可）', () => {
 });
 
 
-test('抵押与赎回：每轮计息 5%；赎回需站在该城市', () => {
+test('抵押与赎回：每轮计息 5%；正常待掷骰可赎回任意自有城市', () => {
   const state = twoPlayerState();
   state.cities['开罗'].ownerId = 'p0';
   state.players[0].cities.push('开罗');
@@ -241,15 +241,15 @@ test('抵押与赎回：每轮计息 5%；赎回需站在该城市', () => {
   state.turnIndex = 1;
   logic.advanceTurn(state, [], fakeRng([0.5]));
   assert.strictEqual(state.cities['开罗'].mortgageInterest, 150);
-  // 不在城市上时赎回被拒
+  // 不在城市上，仍可在本人正常待掷骰时赎回。
   state.turnIndex = 0;
   state.phase = 'waiting_roll';
   state.players[0].cash += 3150;
   const cashBefore = state.players[0].cash;
   logic.apply(state, { type: 'redeem', cityId: '开罗' }, fakeRng([0.5]));
-  assert.strictEqual(state.cities['开罗'].mortgaged, true);
-  assert.strictEqual(state.players[0].cash, cashBefore);
-  // 站在开罗（5 号）上可赎回
+  assert.strictEqual(state.cities['开罗'].mortgaged, false);
+  assert.strictEqual(state.players[0].cash, cashBefore-3150);
+  // 重复调用已赎回城市不能再次扣款。
   state.players[0].position = 5;
   logic.apply(state, { type: 'redeem', cityId: '开罗' }, fakeRng([0.5]));
   assert.strictEqual(state.cities['开罗'].mortgaged, false);

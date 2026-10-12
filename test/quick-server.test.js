@@ -4,6 +4,7 @@ const {io:Client}=require('socket.io-client'),api=require('../server');
 const {createActionClock}=require('../src/actionClock'),logic=require('../src/gameLogic');
 const f=require('./helpers/gameplayFixtures'),stocks=require('../src/stocks');
 const active=require('../src/activeManagement'),support=require('../src/propertySupport');
+const redemption=require('../src/mortgageRedemption');
 let url,sequence=0;const clients=[];
 const ack=(s,event,data)=>new Promise((resolve,reject)=>{s.timeout(3000).emit(event,data,(err,result)=>err?reject(err):resolve(result));});
 async function until(fn){const end=Date.now()+3000;while(Date.now()<end){if(fn())return;await new Promise(r=>setTimeout(r,5));}throw new Error('等待状态超时');}
@@ -187,5 +188,16 @@ test('购买募资卖股真实Socket：两目标同请求只变现一次，个�
   const result=await ack(x.a,'action',payload);
   if(cutoff==='none'){assert.equal(result.ok,true,JSON.stringify(result));assert.deepEqual(await ack(x.a,'action',payload),result);assert.equal(x.room.state.players[0].cash,5000);assert.equal(x.room.actionClock.deadlineMs,deadline);assert.equal(x.room.state.phase,'buy_fundraise');assert.equal(x.room.state.stocks['里约热内卢'].holders.p0,2);}
   else{assert.equal(result.ok,false);assert.equal(x.room.state.players[0].cash,1000);assert.equal(x.room.state.stocks['里约热内卢'].holders.p0,4);if(cutoff==='total'){assert.equal(x.room.state.phase,'game_over');assert.equal(x.room.events.filter(e=>e.kind==='quick_end').length,1);}}
+ }
+});
+
+test('抵押远程赎回真实Socket：重复只扣一次、非本人拒绝、快速封盘优先且净资产一致',async()=>{
+ for(const cutoff of [false,true]){
+  const x=await setup();await start(x);await allInitial(x);const s=x.room.state;f.own(s,'p0','上海');s.cities['上海'].houseLevel=2;s.cities['上海'].mortgaged=true;s.cities['上海'].mortgageInterest=500;s.players[0].cash=50000;s.players[0].position=0;api.emitGame(x.room);const q=redemption.quote(s,'p0','上海'),deadline=x.room.actionClock.deadlineMs,payload=envelope(x.room,'p0',{type:'redeem',cityId:'上海',quoteVersion:q.quoteVersion});
+  assert.equal((await ack(x.b,'action',{...payload,actionId:payload.actionId+'-other'})).ok,false);
+  if(cutoff)x.time.set(1800000);const result=await ack(x.a,'action',payload);
+  if(cutoff){assert.equal(result.ok,false);assert.equal(x.room.state.players[0].cash,50000);assert.equal(x.room.state.cities['上海'].mortgaged,true);}
+  else{assert.equal(result.ok,true,JSON.stringify(result));assert.deepEqual(await ack(x.a,'action',payload),result);assert.equal(x.room.state.players[0].cash,27500);assert.equal(x.room.state.cities['上海'].mortgaged,false);assert.equal(x.room.actionClock.deadlineMs,deadline);x.time.set(1800000);api.advanceRouteTime(x.room);}
+  assert.equal(x.room.state.phase,'game_over');assert.equal(x.room.state.quick.result.ranking.find(p=>p.playerId==='p0').netAssets,71500);assert.equal(x.room.events.filter(e=>e.kind==='quick_end').length,1);
  }
 });

@@ -685,3 +685,64 @@ body.short-game #quickClockBar{height:22px;min-height:22px;font-size:11px}
 body.compact-game #board .sq[data-current=true]{box-shadow:inset 0 0 0 2px #52776d;background:#f7f4e8}
 #btnManagement[data-state=ready]{border:2px solid #52776d;background:#e6eee5;color:#204c3b;font-weight:700}
 .fund-preview{font-size:12px;line-height:1.6;margin:8px 0;overflow-wrap:anywhere}
+
+/* Landscape Atlas: ring and floating portfolio at left, players at right, actions below. */
+body.landscape-game.game-active header{height:34px;min-height:34px;padding:2px 8px}
+body.landscape-game header .brand h1{font-size:18px;line-height:24px;letter-spacing:1px}
+body.landscape-game header .brand .sub{display:none}
+body.landscape-game header button{min-height:30px;height:30px;padding:2px 10px;font-size:12px}
+body.landscape-game.game-active #view-game{padding:4px 6px;gap:4px}
+body.landscape-game #quickClockBar{flex:none;min-height:22px;margin:0;padding:1px 8px;font-size:11px;gap:8px}
+body.landscape-game #quickTimer{font-size:15px}
+body.landscape-game #quickEndHint{font-size:10px}
+body.landscape-game #mapScrollHint{display:block;margin:0;font-size:10px;line-height:12px;text-align:left}
+body.landscape-game.game-active #gameMain{display:grid;grid-template-columns:minmax(0,1fr) clamp(168px,26vw,280px);grid-template-rows:minmax(0,1fr);gap:8px;padding:0!important;overflow:hidden;touch-action:pan-x pan-y pinch-zoom}
+body.landscape-game #boardWrap{position:relative;height:100%;width:100%;min-height:0;min-width:0;overflow:auto;padding:0;margin:0;border:1px solid #9c8257;touch-action:pan-x pan-y pinch-zoom}
+body.landscape-game #boardScale{position:relative;width:100%;min-width:560px;height:auto;min-height:100%}
+body.landscape-game #board{height:auto;min-height:100%;width:100%;max-width:none;aspect-ratio:auto;grid-template-columns:repeat(12,minmax(44px,1fr));grid-template-rows:repeat(11,minmax(44px,max-content));gap:2px;padding:4px}
+body.landscape-game #board .sq{min-height:44px;height:100%;padding:11px 2px 3px;border-top-width:3px;border-radius:3px;overflow:visible}
+body.landscape-game #board .sq .nm{display:block;font-size:11px;line-height:1.12;max-width:100%;overflow-wrap:anywhere;white-space:normal}
+body.landscape-game #board .sq .own,body.landscape-game #board .sq .subrow{display:block;font-size:10px;line-height:1.12;overflow-wrap:anywhere}
+body.landscape-game #board .sq .num{font-size:9px;top:1px;left:3px}
+body.landscape-game #board .sq .sq-amount{display:block;font-size:10px;line-height:1.12}
+body.landscape-game #boardMap{display:block;position:absolute;z-index:0;background-size:contain;background-position:center top;pointer-events:none}
+body.landscape-game #boardScale>#ledger{position:absolute;display:flex;overflow:auto;background:#faf2de;border:1px solid #ad925e;box-shadow:0 4px 12px #53452330;z-index:5;min-height:0;max-width:48%}
+body.landscape-game .ledger-title{padding:8px 10px 4px;font-size:13px;letter-spacing:0}
+body.landscape-game .ledger-title em{font-size:10px}
+body.landscape-game .ledger-total{padding:0 10px 7px}
+body.landscape-game .ledger-total strong{font-size:23px;margin-top:1px}
+body.landscape-game .ledger-summary{padding:7px 10px;gap:6px;grid-template-columns:repeat(2,minmax(0,1fr))}
+body.landscape-game .ledger-summary span{font-size:10px}
+body.landscape-game .ledger-summary b{font-size:12px;white-space:normal}
+body.landscape-game .ledger-open{min-height:44px;margin:0 10px 4px;font-size:11px}
+body.landscape-game .ledger-note{padding:5px 10px;font-size:10px}
+body.landscape-game #ledger .hint{font-size:11px;padding:0 10px}
+body.landscape-game #ledger #newsBar,body.landscape-game .ledger-turn{padding:8px 10px;font-size:11px}
+body.landscape-game #side{height:100%;width:100%;min-height:0;min-width:0;overflow-y:auto;gap:6px;margin:0;padding:0;display:flex;flex-direction:column;align-items:stretch}
+body.landscape-game #side>.panel{flex:none;width:100%;min-height:0;max-height:none;margin:0;padding:8px 10px;font-size:11px}
+body.landscape-game #side .panel h3{font-size:13px;min-height:28px;margin:0 0 6px;padding-bottom:4px}
+body.landscape-game #side .pinfo{font-size:12px;gap:5px;overflow-wrap:anywhere}
+body.landscape-game #side .badge{font-size:9px;padding:1px 4px}
+body.landscape-game #side .turn-phase{font-size:11px;padding:4px 6px;margin-top:6px}
+body.landscape-game #side .asset-row{font-size:11px;padding:4px 0;gap:4px}
+body.landscape-game #side .asset-row b.total{font-size:13px;letter-spacing:0}
+body.landscape-game #side .public-opportunities{font-size:10px}
+body.landscape-game #log{max-height:120px;font-size:11px;line-height:1.5}
+body.landscape-game #side .side-ops{flex:none;display:flex;flex-wrap:wrap;gap:4px;padding:0}
+body.landscape-game #side .side-ops button{min-height:44px;min-width:44px;padding:4px 6px;font-size:11px;flex:1}
+body.landscape-game.game-active #actionBar{display:grid;grid-template-columns:minmax(115px,1.3fr) repeat(4,minmax(70px,1fr)) minmax(54px,.65fr);grid-template-rows:auto auto;gap:2px 6px;margin:0;padding:4px 6px calc(4px + env(safe-area-inset-bottom));width:100%;border-radius:3px;min-width:0}
+body.landscape-game #actionBar #managementStatus{grid-column:1;grid-row:1;font-size:10px;line-height:12px;overflow-wrap:anywhere}
+body.landscape-game #actionBar #turnInfo{grid-column:1;grid-row:2;font-size:10px;line-height:12px;text-align:left;overflow-wrap:anywhere}
+body.landscape-game #actionBar #timer{grid-column:6;grid-row:1/3;font-size:11px;align-self:center;white-space:normal}
+body.landscape-game #actionBar button{grid-row:1/3;min-height:44px;height:auto;min-width:0;padding:4px;font-size:12px}
+body.landscape-game #actionBar #btnRoll,body.landscape-game #actionBar #btnResumeStock{grid-column:2}
+body.landscape-game #actionBar #btnAssets{grid-column:3}
+body.landscape-game #actionBar #btnBank{grid-column:4;display:block}
+body.landscape-game #actionBar #btnEndTurn{grid-column:5;display:block}
+body.landscape-game #actionBar #dice,body.landscape-game #actionBar .spacer,body.landscape-game #btnManagement,body.landscape-game #btnMore,body.landscape-game #infoTabs{display:none}
+body.landscape-game .overlay{padding:6px}
+body.landscape-game .modal,body.landscape-game .modal.wide{max-height:calc(100dvh - 12px)}
+body.landscape-game .mh{padding:6px 12px}
+body.landscape-game .mh h3{font-size:18px}
+body.landscape-game .mf{padding:6px;gap:4px;flex-wrap:wrap}
+body.landscape-game .mf button{min-height:44px;min-width:44px;font-size:12px;padding:4px 8px}

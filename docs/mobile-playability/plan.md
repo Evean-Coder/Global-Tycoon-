@@ -1,5 +1,7 @@
 # 移动端可玩性与布局重整 Plan
 
+> 2026-10-12横屏技术覆盖见[横屏Plan](../mobile-landscape-atlas/plan.md)，竖屏及游戏动作继续沿本轮原实现。
+
 依据：spec.md。状态：2026-10-11用户统一批准开发；实现与实际验证见 acceptance.md。
 
 ## 1. 架构

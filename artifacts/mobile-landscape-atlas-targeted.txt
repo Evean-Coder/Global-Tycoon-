@@ -1,0 +1,34 @@
+TAP version 13
+# Subtest: reference landscape composition stays operable on four screens in both modes
+ok 1 - reference landscape composition stays operable on four screens in both modes
+  ---
+  duration_ms: 7565.6385
+  ...
+# Subtest: portrait landscape portrait preserves stock draft, deadline and real piece positions
+ok 2 - portrait landscape portrait preserves stock draft, deadline and real piece positions
+  ---
+  duration_ms: 282.8622
+  ...
+# Subtest: save a clean two-player reference preview
+ok 3 - save a clean two-player reference preview
+  ---
+  duration_ms: 125.6474
+  ...
+# Subtest: portrait and low landscape allocate usable board, information and action areas
+ok 4 - portrait and low landscape allocate usable board, information and action areas
+  ---
+  duration_ms: 6508.7673
+  ...
+# Subtest: resize while a route animation is running ends on the real square
+ok 5 - resize while a route animation is running ends on the real square
+  ---
+  duration_ms: 823.4729
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

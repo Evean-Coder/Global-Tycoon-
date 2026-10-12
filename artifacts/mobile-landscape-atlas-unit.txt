@@ -1,0 +1,19 @@
+TAP version 13
+# Subtest: compact route has 42 unique adjacent positions; resizing preserves identifiers
+ok 1 - compact route has 42 unique adjacent positions; resizing preserves identifiers
+  ---
+  duration_ms: 1.4026
+  ...
+# Subtest: landscape restores the unique clockwise 42-square ring
+ok 2 - landscape restores the unique clockwise 42-square ring
+  ---
+  duration_ms: 0.1992
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

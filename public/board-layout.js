@@ -1,6 +1,6 @@
 'use strict';
 (function(root){
- function mode(width,height){return width<=600||(width<=1024&&height<=500)?'compact':'perimeter';}
+ function mode(width,height){if(width>=560&&width<=1200&&height<=600&&width>height)return 'landscape';return width<=600?'compact':'perimeter';}
  function position(id,layout){
   if(!Number.isInteger(id)||id<0||id>41)throw new Error('地块编号无效');
   if(layout==='compact'){const row=Math.floor(id/6);return [row+1,row%2?6-id%6:id%6+1];}

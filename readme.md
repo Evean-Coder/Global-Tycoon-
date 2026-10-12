@@ -1,5 +1,7 @@
 # 环球大亨
 
+> 最新布局（2026-10-12）：手机横屏按用户参考图恢复左侧42格环形棋盘/中央资产浮层、右侧玩家与事件、全宽底栏；保留文字与内部滚动，竖屏仍6×7。资源`20261012-landscape-atlas-v1`、缓存`global-tycoon-v23-landscape-atlas`；见[验收与截图](docs/mobile-landscape-atlas/acceptance.md)。本轮未推送或部署，下方为历史记录。
+
 > 最新修复（2026-10-12）：正常待掷骰可从银行、资产或城市详情赎回任意自有抵押城市，显示本金/利息/合计/支付后现金；银行实时更新并保留位置。资源`20261012-redemption-v1`、缓存`global-tycoon-v22-redemption`，见[验收](docs/mortgage-redemption/acceptance.md)。本轮未推送或部署；下方为历史状态。
 
 > 最新整改（2026-10-12）：购地与机场募资新增按股数卖股，现金/缺口实时更新，足额仍手动购买；自救出售显示卖方等待与买方信息。资源`20261012-purchase-funding-v1`、缓存`global-tycoon-v21-purchase-funding`，见[验收](docs/purchase-fundraising/acceptance.md)。本轮尚未推送或部署；以下为历史状态。

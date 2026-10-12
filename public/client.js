@@ -60,18 +60,32 @@ let toastTimer = null;
 let moveTimer = null, diceTimer = null, diceFinishTimer = null;
 let animationGeneration = 0, quickTimerIv = null, quickTimeAnchor = null;
 let infoPanel = 'assets', infoGameId = null, bankContext = null, bankDraft = {}, bankRequest = null, stockRenderKey = null, stockScroll = null, boardLayoutMode = null;
-function compactLayout() { return BoardLayout.mode(window.innerWidth,window.innerHeight)==='compact'; }
+function layoutMode() { return BoardLayout.mode(window.innerWidth,window.innerHeight); }
+function compactLayout() { return layoutMode()==='compact'; }
+function placeLandscapeSurfaces(){
+  if(layoutMode()!=='landscape'||!game)return;
+  const scale=$('boardScale').getBoundingClientRect(),first=$('board').children[0]?.getBoundingClientRect(),lastTop=$('board').children[11]?.getBoundingClientRect(),lastBottom=$('board').children[21]?.getBoundingClientRect();
+  if(!first||!lastTop||!lastBottom)return;
+  const left=first.right-scale.left+2,top=first.bottom-scale.top+2,width=lastTop.left-scale.left-left-2,height=lastBottom.top-scale.top-top-2;
+  Object.assign($('boardMap').style,{left:left+'px',top:top+'px',right:'auto',bottom:'auto',width:width+'px',height:height+'px'});
+  Object.assign($('ledger').style,{left:'auto',right:(scale.width-left-width+8)+'px',top:(top+8)+'px',width:Math.min(280,width*.48)+'px',maxHeight:Math.max(80,Math.min(height-16,$('boardWrap').clientHeight-top-18))+'px'});
+}
 function syncResponsiveLayout() {
-  const compact=compactLayout(),short=compact&&window.innerWidth>600;
+  const compact=compactLayout(),landscape=layoutMode()==='landscape',short=false;
   document.body.classList.toggle('compact-game',compact);
   document.body.classList.toggle('short-game',short);
+  document.body.classList.toggle('landscape-game',landscape);
   if(infoGameId!==game?.gameId){infoGameId=game?.gameId;infoPanel='assets';}
   if(compact){$('infoAssetSlot').append($('ledger'));$('infoNews').append($('newsBar'));$('infoMore').append($('btnBank'),$('boardMap'));}
   else {$('boardWrap').append($('ledger'));$('ledger').insertBefore($('newsBar'),$('turnSummary'));$('actionBar').insertBefore($('btnBank'),$('btnEndTurn'));$('boardScale').insertBefore($('boardMap'),$('pieces'));}
+  if(landscape){$('boardScale').append($('ledger'));$('side').prepend($('mapScrollHint'));}
+  else {$('view-game').insertBefore($('mapScrollHint'),$('gameMain'));for(const id of ['boardMap','ledger'])for(const property of ['left','right','top','bottom','width','height','max-height'])$(id).style.removeProperty(property);}
   if(short)$('actionDock').append($('actionBar'));else $('view-game').append($('actionBar'));
   const groups={infoAssetSlot:'assets',sidePlayer:'players',sideOthers:'players',infoNews:'news',infoEvents:'events',infoMore:'more'};
   for(const [id,panel]of Object.entries(groups))$(id).classList.toggle('info-hidden',compact?panel!==infoPanel:['infoAssetSlot','infoNews'].includes(id));
   for(const b of $('infoTabs').children)b.setAttribute('aria-pressed',String(b.dataset.info===infoPanel));
+  $('mapScrollHint').textContent=landscape?'棋盘可独立滑动 · 点地块看详情':'上下滑动地图 · 玩家与事件在棋盘下方';
+  placeLandscapeSurfaces();
 }
 
 function stopVisualAnimations() {
@@ -116,7 +130,8 @@ function requestPieceLayout() {
   pieceResizeFrame = window.requestAnimationFrame(() => {
     pieceResizeFrame = 0;
     syncResponsiveLayout();
-    if(boardLayoutMode!==compactLayout())renderBoard();
+    if(boardLayoutMode!==layoutMode())renderBoard();
+    placeLandscapeSurfaces();
     renderPieces();
   });
 }
@@ -257,7 +272,7 @@ function sqLabel(sq) {
   return sq.name || { chance: '机会卡', pole: sq.name, jail: '监狱', rest: '休闲', start: '起点' }[sq.type] || '';
 }
 function renderBoard() {
-  boardLayoutMode=compactLayout();
+  boardLayoutMode=layoutMode();
   const board = $('board');
   board.innerHTML = '';
   for (const sq of game.board) {
@@ -403,12 +418,12 @@ function finishRender(state) {
     hideOverlay('stockModal'); // 股票阶段结束（含超时自动跳过）后收起股票弹窗，防止遮罩拦截后续弹窗
   }
   renderBoard();
-  renderPieces();
   renderSide();
   renderLedger();
   renderActionBar();
   renderNews();
   syncResponsiveLayout();
+  renderPieces();
   renderOpportunities();
   renderRouteChoice();
   if (!$('stockModal').classList.contains('hidden')) renderStock();

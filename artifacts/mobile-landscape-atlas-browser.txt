@@ -1,0 +1,106 @@
+TAP version 13
+# Subtest: build funding sells selected shares, keeps panel and deadline, then manually builds
+ok 1 - build funding sells selected shares, keeps panel and deadline, then manually builds
+  ---
+  duration_ms: 3961.334
+  ...
+# Subtest: low-height funding preserves selected quantity, card and scroll through a quote update
+ok 2 - low-height funding preserves selected quantity, card and scroll through a quote update
+  ---
+  duration_ms: 377.4858
+  ...
+# Subtest: 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+ok 3 - 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+  ---
+  duration_ms: 6287.8391
+  ...
+# Subtest: reference landscape composition stays operable on four screens in both modes
+ok 4 - reference landscape composition stays operable on four screens in both modes
+  ---
+  duration_ms: 7042.1503
+  ...
+# Subtest: portrait landscape portrait preserves stock draft, deadline and real piece positions
+ok 5 - portrait landscape portrait preserves stock draft, deadline and real piece positions
+  ---
+  duration_ms: 235.7336
+  ...
+# Subtest: save a clean two-player reference preview
+ok 6 - save a clean two-player reference preview
+  ---
+  duration_ms: 112.5822
+  ...
+# Subtest: portrait and low landscape allocate usable board, information and action areas
+not ok 7 - portrait and low landscape allocate usable board, information and action areas
+  ---
+  duration_ms: 4883.9607
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\mobile-playability.spec.js:5:1'
+  failureType: 'testCodeFailure'
+  error: '{"board":{"x":6,"y":81,"width":604.5625,"height":137,"top":81,"right":610.5625,"bottom":218,"left":6},"side":{"x":618.5625,"y":81,"width":219.4375,"height":137,"top":81,"right":838,"bottom":218,"left":618.5625},"bar":{"x":6,"y":222,"width":832,"height":54,"top":222,"right":838,"bottom":276,"left":6},"header":34,"clock":{"x":6,"y":38,"width":832,"height":23,"top":38,"right":838,"bottom":61,"left":6},"overflow":false,"grid":11}'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\mobile-playability.spec.js:13:161)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: resize while a route animation is running ends on the real square
+ok 8 - resize while a route animation is running ends on the real square
+  ---
+  duration_ms: 826.354
+  ...
+# Subtest: normal and quick on three screens redeem from bank away from the property, keep bank and real deadline
+ok 9 - normal and quick on three screens redeem from bank away from the property, keep bank and real deadline
+  ---
+  duration_ms: 3920.5825
+  ...
+# Subtest: asset row and city details redeem remotely; lack of cash or an unfinished decision visibly explains why
+ok 10 - asset row and city details redeem remotely; lack of cash or an unfinished decision visibly explains why
+  ---
+  duration_ms: 317.2893
+  ...
+# Subtest: same bank view updates interest and retains scroll, then a phase change replaces it with the required decision
+ok 11 - same bank view updates interest and retains scroll, then a phase change replaces it with the required decision
+  ---
+  duration_ms: 250.0516
+  ...
+# Subtest: two targets and modes on three screens sell chosen shares then manually buy, repeat cannot sell twice
+ok 12 - two targets and modes on three screens sell chosen shares then manually buy, repeat cannot sell twice
+  ---
+  duration_ms: 6267.2957
+  ...
+# Subtest: no shares gives a clear empty state and cancelling keeps liquidated cash
+ok 13 - no shares gives a clear empty state and cancelling keeps liquidated cash
+  ---
+  duration_ms: 277.2802
+  ...
+# Subtest: self rescue demolition works and selling shows seller waiting until buyer buys or refuses
+ok 14 - self rescue demolition works and selling shows seller waiting until buyer buys or refuses
+  ---
+  duration_ms: 298.5082
+  ...
+# Subtest: PC宽屏布局 / 平板横竖布局 / 手机完整棋盘布局 / 长说明与按钮可达
+ok 15 - PC宽屏布局 / 平板横竖布局 / 手机完整棋盘布局 / 长说明与按钮可达
+  ---
+  duration_ms: 12335.6796
+  ...
+# Subtest: 九类视口股票确认及费用明细可达
+ok 16 - 九类视口股票确认及费用明细可达
+  ---
+  duration_ms: 2127.7172
+  ...
+# Subtest: 键盘焦点与减少动画 / 真正200%页面缩放完成选择详情及交易
+ok 17 - 键盘焦点与减少动画 / 真正200%页面缩放完成选择详情及交易
+  ---
+  duration_ms: 2390.3566
+  ...
+1..17
+# tests 17
+# suites 0
+# pass 16
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0

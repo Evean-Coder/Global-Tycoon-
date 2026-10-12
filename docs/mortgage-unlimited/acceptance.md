@@ -26,3 +26,5 @@
 完整浏览器门槛40组初验38通过/2失败（artifacts/mortgage-unlimited-ci-browser.txt）：atlas-details仍查旧lrow，修正后5/5通过；横屏夹具没有等待两个人机真实完成初始选择，导致旧阶段与受控状态交错，补齐等待后3/3通过（artifacts/mortgage-unlimited-ci-browser-final.txt）。40个门槛组分批复验通过；未将失败日志写为一次40/40。
 
 另同步旧action-feedback银行选择器并使用已打开的银行，不点击遮罩后的底栏；3/3通过（artifacts/mortgage-unlimited-feedback-final.txt）。所有这些均为测试适配；原慢回执、断线、重复操作与真实资金断言保留。完整线上CI以deployment.json记录，不用本地分批结果冒充远端成功。
+
+9427455远端CI：单位487/487及lint通过，浏览器39/40，唯一失败仍为横屏滑动后的银行打开；初始化等待未完全消除该触控时序问题。测试新增等待原生滚动稳定、失败时保存尺寸/点击计数/阶段/弹窗与截图，以区分滑动消费点击和页面状态问题；未扩大超时或跳过检查。该横屏文件本地单独复验3/3通过。组合响应性复验6个功能组通过，但Windows写已有measurements.json的收尾遇到UNKNOWN文件错误，保留artifacts/mortgage-unlimited-landscape-touch-final.txt，未计作整条命令成功。

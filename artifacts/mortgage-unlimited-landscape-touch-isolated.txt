@@ -1,0 +1,24 @@
+TAP version 13
+# Subtest: reference landscape composition stays operable on four screens in both modes
+ok 1 - reference landscape composition stays operable on four screens in both modes
+  ---
+  duration_ms: 9076.0733
+  ...
+# Subtest: portrait landscape portrait preserves stock draft, deadline and real piece positions
+ok 2 - portrait landscape portrait preserves stock draft, deadline and real piece positions
+  ---
+  duration_ms: 249.1869
+  ...
+# Subtest: save a clean two-player reference preview
+ok 3 - save a clean two-player reference preview
+  ---
+  duration_ms: 138.9387
+  ...
+1..3
+# tests 3
+# suites 0
+# pass 3
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

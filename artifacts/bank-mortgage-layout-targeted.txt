@@ -1,0 +1,19 @@
+TAP version 13
+# Subtest: many bank assets stay readable with one outer scroll on portrait, short landscape, tablet and PC
+ok 1 - many bank assets stay readable with one outer scroll on portrait, short landscape, tablet and PC
+  ---
+  duration_ms: 3756.1011
+  ...
+# Subtest: mortgaging a city keeps ownership and deadline, updates the bank and explains the cap
+ok 2 - mortgaging a city keeps ownership and deadline, updates the bank and explains the cap
+  ---
+  duration_ms: 204.8525
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

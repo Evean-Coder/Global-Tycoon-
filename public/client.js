@@ -1822,7 +1822,7 @@ function patchDisplayNode(old,next) {
   for(const a of next.attributes)if(a.name!=='open'&&old.getAttribute(a.name)!==a.value)old.setAttribute(a.name,a.value);
   old.onclick=next.onclick;old.oninput=next.oninput;old.onchange=next.onchange;
   if(old.tagName==='INPUT'&&document.activeElement!==old)old.value=next.value;
-  const key=n=>n.nodeType===1?n.tagName+'|'+n.className+'|'+(n.dataset.bankCity||n.dataset.redemptionCity||'')+'|'+(n.dataset.kind||'')+'|'+(n.dataset.delta||'')+'|'+(n.dataset.quantity||''):n.nodeName;
+  const key=n=>n.nodeType===1?n.tagName+'|'+n.className+'|'+(n.dataset.bankCity||n.dataset.redemptionCity||n.dataset.mortgageCity||'')+'|'+(n.dataset.kind||'')+'|'+(n.dataset.delta||'')+'|'+(n.dataset.quantity||''):n.nodeName;
   const available=[...old.childNodes];
   let index=0;
   for(const child of [...next.childNodes]){
@@ -2041,16 +2041,19 @@ function openBank(buildFundraising=false) {
     + kv('当前现金', fmt(meP.cash), 'g')
     + kv('可抵押额度', fmt(limit))
     + kv('当前负债', fmt(debt), 'r')
-    + '<div style="margin-top:8px"><label>抵押（自有未抵押城市，上限 2 座）</label>';
+    + '<h4 class="bank-mortgage-heading">抵押城市</h4><p class="hint">自有未抵押城市 · 已抵押 '+md.length+' / 2 座</p>';
   if(forBuild)body.insertAdjacentHTML('afterbegin','<p class="hint" id="buildGap">为 '+escapeHTML(game.pending.cityId)+' 建房筹资：还差 '+fmt(Math.max(0,buildCost-meP.cash))+'。可抵押其他城市或卖出持股；原建房决定与倒计时继续，待建房城市不参与本次抵押。</p>');
   if (un.length) {
     const wrap = document.createElement('div');
-    wrap.className = 'ledger-list';
+    wrap.className = 'bank-mortgage-list';
     for (const id of un) {
       const r = document.createElement('div');
-      r.className = 'lrow';
-      r.innerHTML = '<span class="nm">' + (game.cities[id].country ? game.cities[id].country + '·' : '') + id + '</span><span class="info">可抵押 <b>' + fmt(mortgageValue(game.cities[id])) + '</b></span>';
+      r.className = 'bank-mortgage-row';
+      r.dataset.mortgageCity=id;
+      const name=document.createElement('strong');name.className='bank-mortgage-name';name.textContent=(game.cities[id].country?game.cities[id].country+'·':'')+id;
+      const amount=document.createElement('span');amount.className='bank-mortgage-amount';amount.textContent='可抵押 '+fmt(mortgageValue(game.cities[id]));r.append(name,amount);
       const b = document.createElement('button');
+      b.type = 'button';
       b.className = 'secondary';
       b.textContent = '抵押';
       const atLimit = meP.cities.filter((x) => game.cities[x].mortgaged).length >= 2;
@@ -2058,6 +2061,7 @@ function openBank(buildFundraising=false) {
       b.title = !canOps ? '当前阶段无法操作（需轮到你在掷骰阶段）' : (atLimit ? '已达抵押上限（最多抵押 2 座城市）' : '');
       b.onclick = () => { sendAction({ type: 'mortgage', cityId: id }); };
       r.appendChild(b);
+      if(b.disabled){const why=document.createElement('p');why.className='hint bank-mortgage-reason';why.textContent=b.title;r.append(why);}
       wrap.appendChild(r);
     }
     body.appendChild(wrap);
@@ -2105,6 +2109,7 @@ function openBank(buildFundraising=false) {
   const note=document.createElement('p');note.className='hint';note.textContent=forBuild?(meP.cash>=buildCost?'资金已足够。':'卖股收入按当前报价结算。')+'返回建房后自行确认建设；卖股不会自动建房。':'持股价值按当前报价计算，不是可用现金；待分红池属于整座城市，实际分红以结算为准。买卖及转让需在本人经过起点后的股票窗口进行，自救卖股沿原自救入口。';portfolio.append(note);body.append(portfolio);
   const footer=document.createElement('div');footer.className='row';const close=document.createElement('button');close.type='button';close.className='textbtn';close.textContent=forBuild?'返回建房':'关闭';close.onclick=forBuild?()=>{bankContext=null;renderPending();}:closeModal;footer.append(close);body.append(footer);
   if(bankRequest&&!actionPending){const retry=document.createElement('button');retry.textContent='查询原卖股结果';retry.onclick=bankRequest.retrieve;footer.prepend(retry);}
+  const content=document.createElement('div');content.className='bank-content';content.append(...body.childNodes);body.append(content);
   if(same){patchDisplayNode(target,body);target.scrollTop=scroll;}else target.replaceChildren(...body.childNodes);
   if(same&&hadFocus&&(!focused.isConnected||focused.disabled))target.querySelector('input:not(:disabled),button:not(:disabled)')?.focus({preventScroll:true});
   openModal(forBuild?'建房募集资金':'银行交易');

@@ -1,0 +1,7 @@
+
+C:\Users\Yifan\Desktop\game\e2e\bank-mortgage-layout.spec.js
+  12:751  error  'innerWidth' is not defined  no-undef
+
+✖ 1 problem (1 error, 0 warnings)
+
+lint passed

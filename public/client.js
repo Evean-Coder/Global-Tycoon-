@@ -934,6 +934,28 @@ function sendAction(action, callback, options = {}) {
   return request;
 }
 function emitAct(action) { sendAction(action); }
+
+function appendLiquidationStocks(body,player,targetCash=0) {
+  const heldStocks=Object.entries(player.stocks||{}).filter(([,n])=>n>0);
+  const heading=document.createElement('p');heading.className='hint';heading.textContent='出售股票筹资（按当前股价，现金即时到账）：';body.append(heading);
+  if(!heldStocks.length){const empty=document.createElement('p');empty.className='hint';empty.textContent='没有可卖出的股票。';body.append(empty);return;}
+  heldStocks.forEach(([cid,n],index)=>{
+    const st=game.stocks[cid],price=st?.price;
+    const tradable=!!game.cities[cid]?.ownerId&&!st?.clearing&&Number.isSafeInteger(price)&&price>0&&player.cash<targetCash;
+    const card=document.createElement('article');card.className='rescue-stock';card.dataset.rescueCity=cid;
+    const title=document.createElement('h4');title.textContent=cid+' · 持有 '+n+' 股 · 每股 '+(Number.isSafeInteger(price)?fmt(price):'资料未提供');card.append(title);
+    const controls=document.createElement('div');controls.className='rescue-stock-controls';
+    const label=document.createElement('label');label.textContent='卖出股数';label.htmlFor='rescue-shares-'+index;
+    const input=document.createElement('input');input.type='number';input.inputMode='numeric';input.min='1';input.max=String(n);input.step='1';input.id=label.htmlFor;input.setAttribute('aria-label',cid+'卖出股数');input.value=String(Math.min(n,Math.max(1,price>0?Math.ceil((targetCash-player.cash)/price):1)));
+    const minus=document.createElement('button'),plus=document.createElement('button');minus.type=plus.type='button';minus.className=plus.className='secondary';minus.textContent='−';plus.textContent='+';minus.setAttribute('aria-label',cid+' 减少卖出股数');plus.setAttribute('aria-label',cid+' 增加卖出股数');
+    const preview=document.createElement('p');preview.className='hint';
+    const sell=document.createElement('button');sell.type='button';sell.className='secondary';sell.dataset.liquidationCity=cid;
+    const update=()=>{const count=Number(input.value),valid=input.value.trim()!==''&&Number.isSafeInteger(count)&&count>=1&&count<=n;minus.disabled=!valid||count<=1;plus.disabled=!valid||count>=n;sell.disabled=!valid||!tradable;sell.textContent=valid?'卖出 '+count+' 股 +'+(Number.isSafeInteger(price)?fmt(count*price):'—'):'请选择卖出股数';preview.textContent=player.cash>=targetCash?'资金已足够，请确认原操作。':!tradable?'当前股票无法卖出（城市未经营、正在清算或报价缺失）':valid?'预计到账 '+fmt(count*price)+'；卖出后还差 '+fmt(Math.max(0,targetCash-player.cash-count*price))+'；剩余持股 '+(n-count)+' 股。':'请输入1至'+n+'之间的整数股数。';};
+    input.oninput=update;minus.onclick=()=>{input.value=String(Number(input.value)-1);update();};plus.onclick=()=>{input.value=String(Number(input.value)+1);update();};
+    sell.onclick=()=>{const shares=Number(input.value);if(!Number.isSafeInteger(shares)||shares<1||shares>n||!tradable)return;sendAction({type:'rescue_sell_stock',cityId:cid,shares});};
+    controls.append(label,minus,input,plus);card.append(controls,preview,sell);update();body.append(card);
+  });
+}
 document.addEventListener('keydown', (event) => {
   if (event.key !== 'Tab') return;
   const overlay = ['rulesModal', 'routeModal', 'choiceModal', 'stockModal', 'modal'].map($).find((el) => !el.classList.contains('hidden'));
@@ -1042,7 +1064,7 @@ function renderPending() {
           + kv('所需资金', fmt(price), 'g')
           + kv('当前现金', fmt(meP.cash), enough ? 'g' : 'r')
           + kv('尚缺', fmt(Math.max(0, price - meP.cash)), enough ? '' : 'r')
-          + '<p class="hint">通过抵押城市或拆除房屋募集资金，凑够后点击「完成购买」。</p>';
+          + '<p class="hint">通过卖出股票、抵押城市或拆除房屋募集资金，凑够后点击「完成购买」。</p>';
         if (owned.length) {
           owned.forEach((id) => {
             const c = game.cities[id];
@@ -1054,8 +1076,9 @@ function renderPending() {
         } else {
           html += '<p class="hint">你没有可抵押/拆房的城市资产。</p>';
         }
-        html += '<div class="row"><button class="risk" onclick="emitAct({type:\'buy_fundraise\',decision:\'cancel\'})">取消购买</button><button class="positive" ' + (enough ? '' : 'disabled') + ' onclick="emitAct({type:\'buy_fundraise\',decision:\'confirm\'})">完成购买</button></div>';
         body.innerHTML = html;
+        appendLiquidationStocks(body,meP,price);
+        body.insertAdjacentHTML('beforeend','<div class="row"><button class="risk" onclick="emitAct({type:\'buy_fundraise\',decision:\'cancel\'})">取消购买</button><button class="positive" ' + (enough ? '' : 'disabled') + ' onclick="emitAct({type:\'buy_fundraise\',decision:\'confirm\'})">完成购买</button></div>');
         openModal('募集资金');
       }
       break;
@@ -1139,8 +1162,11 @@ function renderPending() {
         openModal('直接出售');
       } else {
         const buyer = playerById(game.pending.awaiting);
-        closeModal();
         const dcity = game.cities[game.pending.cityId];
+        if(game.pending.sellerId===me.gameId){
+          body.innerHTML=kv('出售城市',escapeHTML(dcity&&dcity.country?dcity.country+'·'+game.pending.cityId:game.pending.cityId))+kv('等待玩家',escapeHTML(buyer?.name||'对方'))+kv('买方成交价',fmt(cityTotalValue(dcity)))+kv('成交后你获得',fmt(Math.round(cityTotalValue(dcity)*.8)))+'<p class="hint">等待买方购买或放弃，未成交前不改变现金与产权。处理完毕后自动返回自救或原回合。</p>';
+          openModal('等待城市出售');
+        }else closeModal();
         toast('等待 ' + (buyer ? buyer.name : '对方') + ' 决定是否购买 ' + (dcity && dcity.country ? dcity.country + '·' : '') + game.pending.cityId + '…');
       }
       break;
@@ -1166,28 +1192,7 @@ function renderPending() {
             + '<button class="risk" onclick="emitAct({type:\'sell_city\',cityId:\'' + id + '\',mode:\'direct\',context:{type:\'self_rescue\',playerId:\'' + me.gameId + '\',due:' + pend.due + '}})">出售 +' + fmt(sellAmt) + '</button>'
             + '<button class="risk" onclick="emitAct({type:\'sell_city\',cityId:\'' + id + '\',mode:\'auction\',context:{type:\'self_rescue\',playerId:\'' + me.gameId + '\',due:' + pend.due + '}})">拍卖保底 +' + fmt(floorAmt) + '</button></div>';
         });
-        const heldStocks = Object.entries(meP.stocks || {}).filter(([, n]) => n > 0);
-        body.innerHTML += '<div class="rule"></div><p class="hint">卖出股票自救（按当前股价，卖出的现金即时到账）：</p>';
-        if (heldStocks.length) {
-          heldStocks.forEach(([cid, n],index) => {
-            const st = game.stocks[cid];
-            const card=document.createElement('article');card.className='rescue-stock';card.dataset.rescueCity=cid;
-            const title=document.createElement('h4');title.textContent=cid+' · 持有 '+n+' 股 · 每股 '+fmt(st.price);card.append(title);
-            const controls=document.createElement('div');controls.className='rescue-stock-controls';
-            const label=document.createElement('label');label.textContent='卖出股数';label.htmlFor='rescue-shares-'+index;
-            const input=document.createElement('input');input.type='number';input.inputMode='numeric';input.min='1';input.max=String(n);input.step='1';input.id=label.htmlFor;input.value=String(Math.min(n,Math.max(1,st.price>0?Math.ceil(-meP.cash/st.price):1)));
-            const minus=document.createElement('button'),plus=document.createElement('button');minus.type=plus.type='button';minus.className=plus.className='secondary';minus.textContent='−';plus.textContent='+';minus.setAttribute('aria-label',cid+' 减少卖出股数');plus.setAttribute('aria-label',cid+' 增加卖出股数');
-            const preview=document.createElement('p');preview.className='hint';
-            const sell=document.createElement('button');sell.type='button';sell.className='secondary';
-            const tradable=!!game.cities[cid].ownerId&&!st.clearing;
-            const update=()=>{const count=Number(input.value),valid=input.value.trim()!==''&&Number.isSafeInteger(count)&&count>=1&&count<=n;minus.disabled=!valid||count<=1;plus.disabled=!valid||count>=n;sell.disabled=!valid||!tradable;sell.textContent=valid?'卖出 '+count+' 股 +'+fmt(count*st.price):'请选择卖出股数';preview.textContent=!tradable?'当前股票无法卖出（城市未经营或正在清算）':valid?'卖出后还差 '+fmt(Math.max(0,-meP.cash-count*st.price))+'；剩余持股 '+(n-count)+' 股。':'请输入1至'+n+'之间的整数股数。';};
-            input.oninput=update;minus.onclick=()=>{input.value=String(Number(input.value)-1);update();};plus.onclick=()=>{input.value=String(Number(input.value)+1);update();};
-            sell.onclick=()=>{const shares=Number(input.value);if(!Number.isSafeInteger(shares)||shares<1||shares>n||!tradable)return;sendAction({type:'rescue_sell_stock',cityId:cid,shares});};
-            controls.append(label,minus,input,plus);card.append(controls,preview,sell);update();body.append(card);
-          });
-        } else {
-          body.innerHTML += '<p class="hint">没有可卖出的股票。</p>';
-        }
+        appendLiquidationStocks(body,meP);
         body.insertAdjacentHTML('beforeend','<div class="row"><button class="risk solid" onclick="emitAct({type:\'rescue_done\'})">放弃（破产）</button></div>');
         openModal('自救');
       }
@@ -1659,7 +1664,7 @@ function organizeRules() {
   const add=(id,html)=>{const body=document.createElement('div');body.innerHTML=html;content[id].append(body);};
   add('turn','<p>个人回合是一次轮到本人行动；个人圈是本人实际完成起点结算到下一次起点结算；完整轮是该轮参与的存活玩家各完成个人回合，监狱和极地跳过也算。股票、拍卖和自救等待不提前推进完整轮。首圈购置限制要求所有存活玩家完成一次环球行程。</p>');
   add('turn','<p><b>两种模式：</b>房主在开局前选择。普通模式以最后存活者获胜；快速模式从正式开局（包括初始选择）起计时30分钟，到时立即封盘。快速模式股票窗口60秒，转让确认及其他一般决定20秒，自救45秒，初始同步选择及后续路线选择60秒；均不超过整局剩余时间。提前出现最后存活者则提前结束。</p><p>快速封盘取消未成交的订单、购买、建设、拍卖和转让，不再执行未完成的掷骰或选择；已成交的操作保留。按原规则结清分红，按现金、地产、机场、股票及待结算收益，减抵押本金和累计利息后的净资产排名。相同净资产并列，破产玩家按实际出局顺序排在存活者之后。资产估值不是可支付现金。</p>');
-  add('bank','<p>购买缺现金时可进入募资，抵押或拆房等操作凑足后确认购买；取消城市购买会拍卖，取消机场购买结束回合。抵押利息按原座位轮转计算，和资讯完整轮次独立。</p>');
+  add('bank','<p>购买城市或机场缺现金时可进入募资，按股数卖股、抵押或拆房凑足后手动确认购买；取消城市购买会拍卖，取消机场购买结束回合，已成交卖股的现金保留。筹资不重置倒计时。抵押利息按原座位轮转计算，和资讯完整轮次独立。</p>');
   if(game?.propertySupportRevision==='property-support-v1')add('property','<p><b>置业扶持：</b>购地解锁后，从未拥有城市者连续6个正常掷骰回合没有可负担购地机会，下次掷骰前可从最多3座低价银行城市中原价购买1座，整局一次。拒绝可负担机会归零；监狱掷骰、跳过和飞行不计。取消或缺现金、库存、圈额度保留资格；曾通过购买、拍卖或受让得到城市后永久失去资格。仍计入每圈4城额度，与主动经营次数独立。</p>');
   if(game?.activeManagementRevision==='active-management-v1')add('property','<p><b>主动经营：</b>正常掷骰前可成功执行促销、主动买股或远程建设中的1项，取消、失败不耗次数，掷骰可直接跳过。促销费为地价4%最高800；当前及下一完整轮内，每次实际完成他人正额租金获得银行奖励地价8%最高1200，最多2次，每圈启动一次、同时一个活动。欠租偿清才奖；抵押、产权变化、出局、到期或封盘结束活动，不退款，奖金不进入分红池。主动买股一次一城1–2股，整笔手续费1%，每圈最多4股、同城2股，原起点窗口额度独立。远程建设支付标准建房费145%，所有优惠最多减10个百分点；H1每圈一次提供10个百分点优惠。原落点建设费用保持。</p>');
   add('property','<p><b>建房募集资金：</b>本人落到自有城市、仍可建房但现金不足时，可抵押其他城市或选择股数出售持股。现金与剩余缺口按实际状态更新，资金足够后返回手动确认建房。普通银行只展示持股，不提供任意卖股；募资不刷新原决定时限。</p>');

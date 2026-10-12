@@ -179,3 +179,13 @@ test('建房个人到期保留已变现股票收入，旧筹资请求不能继�
  const x=await setup();await start(x);await initial(x);const s=x.room.state;f.own(s,'p0','罗马');f.own(s,'p1','里约热内卢');s.players[0].cash=1000;s.players[0].position=s.board.find(q=>q.cityId==='罗马').id;s.phase='build_decide';s.pending={playerId:'p0',cityId:'罗马'};s.stocks['里约热内卢'].price=2000;s.stocks['里约热内卢'].holders.p0=4;stocks.syncHolders(s);api.emitGame(x.room);
  assert.equal((await submit(x,'p0',{type:'rescue_sell_stock',cityId:'里约热内卢',shares:2,quoteVersion:s.stocks['里约热内卢'].quoteVersion})).ok,true);const old=envelope(x.room,'p0',{type:'rescue_sell_stock',cityId:'里约热内卢',shares:1,quoteVersion:s.stocks['里约热内卢'].quoteVersion});x.time.advance(20000);assert.notEqual(x.room.state.phase,'build_decide');assert.equal((await ack(x.a,'action',old)).ok,false);assert.equal(x.room.state.players[0].cash,5000);assert.equal(x.room.state.cities['罗马'].houseLevel,0);
 });
+
+test('购买募资卖股真实Socket：两目标同请求只变现一次，个人超时及快速封盘阻止卖出',async()=>{
+ for(const kind of ['city','airport'])for(const cutoff of ['none','personal','total']){
+  const x=await setup();await start(x);await allInitial(x);const s=x.room.state;f.own(s,'p1','里约热内卢');s.players[0].cash=1000;s.stocks['里约热内卢'].price=2000;s.stocks['里约热内卢'].holders.p0=4;s.players[0].stocks['里约热内卢']=4;s.phase='buy_fundraise';s.pending={playerId:'p0',kind:'buy_fundraise',target:kind==='city'?{kind,cityId:'罗马'}:{kind,airportId:'开罗国际机场'}};api.emitGame(x.room);const deadline=x.room.actionClock.deadlineMs,payload=envelope(x.room,'p0',{type:'rescue_sell_stock',cityId:'里约热内卢',shares:2,quoteVersion:s.stocks['里约热内卢'].quoteVersion});
+  if(cutoff==='total')x.time.set(1800000);if(cutoff==='personal')x.time.set(deadline);
+  const result=await ack(x.a,'action',payload);
+  if(cutoff==='none'){assert.equal(result.ok,true,JSON.stringify(result));assert.deepEqual(await ack(x.a,'action',payload),result);assert.equal(x.room.state.players[0].cash,5000);assert.equal(x.room.actionClock.deadlineMs,deadline);assert.equal(x.room.state.phase,'buy_fundraise');assert.equal(x.room.state.stocks['里约热内卢'].holders.p0,2);}
+  else{assert.equal(result.ok,false);assert.equal(x.room.state.players[0].cash,1000);assert.equal(x.room.state.stocks['里约热内卢'].holders.p0,4);if(cutoff==='total'){assert.equal(x.room.state.phase,'game_over');assert.equal(x.room.events.filter(e=>e.kind==='quick_end').length,1);}}
+ }
+});

@@ -1,0 +1,30 @@
+'use strict';
+/* global latestState, socket */
+const test=require('node:test'),assert=require('node:assert/strict'),{boot}=require('./helpers/browserHarness'),f=require('../test/helpers/gameplayFixtures'),{createGameState}=require('../src/state');
+let h;const time=f.fakeClock();
+test.before(async()=>{h=await boot({mobile:true,gameMode:'quick',quickClockOptions:time});await h.choose();await h.pages[0].bringToFront();for(const p of h.pages)p.setDefaultTimeout(5000);await h.pages[0].evaluate(()=>{const original=socket.emit;socket.emit=function(event,...args){if(event==='action')window.__lastFundingAction=globalThis.structuredClone(args[0]);return original.call(this,event,...args);};});});
+test.after(async()=>{if(h)await h.close();});
+function fixture(kind,mode){const s=createGameState('BUY',['甲','乙'],2,{routeRevision:'opportunity-routes-v1',gameMode:mode,...(mode==='quick'?{quickRevision:'quick-mode-v1'}:{})});f.own(s,'p1','里约热内卢');s.firstRoundDone=true;s.players[0].lapDone=true;s.players[0].cash=1000;s.stocks['里约热内卢'].price=2000;s.stocks['里约热内卢'].holders.p0=10;s.players[0].stocks['里约热内卢']=10;s.phase=kind==='city'?'buy':'buy_airport';s.pending={playerId:'p0',...(kind==='city'?{cityId:'罗马'}:{airportId:'开罗国际机场'})};return s;}
+test('two targets and modes on three screens sell chosen shares then manually buy, repeat cannot sell twice',{timeout:60000},async()=>{
+ const p=h.pages[0];for(const mode of ['normal','quick'])for(const kind of ['city','airport'])for(const [width,height]of [[390,844],[768,1024],[1440,900]]){
+  await p.bringToFront();await p.setViewportSize({width,height});await h.fixture(fixture(kind,mode));await p.getByRole('button',{name:'募集资金',exact:true}).tap();await p.waitForFunction(()=>latestState.phase==='buy_fundraise');const deadline=h.room.actionClock.deadlineMs;
+  const input=p.getByRole('spinbutton',{name:'里约热内卢卖出股数'}),sell=p.locator('[data-liquidation-city="里约热内卢"]');await input.fill('11');assert.equal(await sell.isDisabled(),true);await input.fill('2');await sell.tap();await p.waitForFunction(()=>latestState.players[0].cash===5000);assert.equal(h.room.state.stocks['里约热内卢'].holders.p0,8);assert.match(await p.locator('#modalBody').textContent(),kind==='city'?/尚缺\s*￥7,000/:/尚缺\s*￥10,000/);
+  const repeat=await p.evaluate(()=>new Promise(resolve=>socket.emit('action',window.__lastFundingAction,resolve)));assert.equal(repeat.ok,true);assert.equal(h.room.state.players[0].cash,5000);
+  const payload=await p.evaluate(()=>window.__lastFundingAction);const foreign=await h.pages[1].evaluate(a=>new Promise(resolve=>socket.emit('action',{...a,actionId:a.actionId+'-foreign'},resolve)),payload);assert.equal(foreign.ok,false);assert.equal(h.room.state.players[0].cash,5000);
+  await input.fill('5');await sell.tap();await p.waitForFunction(()=>latestState.players[0].cash===15000);assert.equal(h.room.state.phase,'buy_fundraise');assert.equal(h.room.actionClock.deadlineMs,deadline);assert.equal((kind==='city'?h.room.state.cities['罗马']:h.room.state.airports['开罗国际机场']).ownerId,null);await p.getByRole('button',{name:'完成购买',exact:true}).tap();await p.waitForFunction(kind=>(kind==='city'?latestState.cities['罗马']:latestState.airports['开罗国际机场']).ownerId==='p0',kind);
+ }
+ assert.deepEqual(h.errors,[]);
+});
+test('no shares gives a clear empty state and cancelling keeps liquidated cash',async()=>{
+ const frozen=fixture('city','normal');frozen.stocks['里约热内卢'].clearing=true;await h.fixture(frozen);await h.pages[0].getByRole('button',{name:'募集资金',exact:true}).tap();await h.pages[0].waitForFunction(()=>latestState.phase==='buy_fundraise');assert.equal(await h.pages[0].locator('[data-liquidation-city]').isDisabled(),true);assert.match(await h.pages[0].locator('#modalBody').textContent(),/当前股票无法卖出/);
+ const p=h.pages[0];for(const kind of ['city','airport']){const s=fixture(kind,'normal');s.players[0].stocks={};s.stocks['里约热内卢'].holders.p0=0;await h.fixture(s);await p.getByRole('button',{name:'募集资金',exact:true}).tap();await p.waitForFunction(()=>latestState.phase==='buy_fundraise');assert.match(await p.locator('#modalBody').textContent(),/没有可卖出的股票/);}
+ const s=fixture('airport','normal');await h.fixture(s);await p.getByRole('button',{name:'募集资金',exact:true}).tap();await p.waitForFunction(()=>latestState.phase==='buy_fundraise');await p.getByRole('spinbutton',{name:'里约热内卢卖出股数'}).fill('1');await p.locator('[data-liquidation-city]').tap();await p.waitForFunction(()=>latestState.players[0].cash===3000);await p.getByRole('button',{name:'取消购买',exact:true}).tap();await p.waitForFunction(()=>latestState.phase!=='buy_fundraise');assert.equal(h.room.state.players[0].cash,3000);assert.equal(h.room.state.airports['开罗国际机场'].ownerId,null);
+});
+test('self rescue demolition works and selling shows seller waiting until buyer buys or refuses',{timeout:30000},async()=>{
+ const [p,b]=h.pages;await p.setViewportSize({width:390,height:844});
+ for(const decision of ['demolish','pass','buy']){const s=f.game(2);s.firstRoundDone=true;f.own(s,'p0','上海');s.cities['上海'].houseLevel=1;s.players[0].cash=-50000;s.phase='self_rescue';s.pending={playerId:'p0',kind:'self_rescue',due:50000,reason:'测试债务',resume:false};await p.bringToFront();await h.fixture(s);
+  if(decision==='demolish'){await p.getByRole('button',{name:/^拆房/}).tap();await p.waitForFunction(()=>latestState.cities['上海'].houseLevel===0);assert.equal(h.room.state.players[0].cash,-42800);}
+  else{await p.getByRole('button',{name:/^出售 \+/}).tap();await p.waitForFunction(()=>latestState.phase==='direct_sale_ask');await p.waitForSelector('#modalTitle:text-is("等待城市出售")');assert.match(await p.locator('#modalBody').textContent(),/等待买方购买或放弃/);await b.bringToFront();await b.waitForSelector('#modalTitle:text-is("直接出售")');await b.getByRole('button',{name:decision==='buy'?'购买':'放弃',exact:true}).tap();await p.bringToFront();await p.waitForFunction(()=>latestState.phase==='self_rescue');assert.equal(h.room.state.cities['上海'].ownerId,decision==='buy'?'p1':'p0');assert.equal(h.room.state.players[0].cash,decision==='buy'?-24400:-50000);assert.equal(h.room.state.pending.reason,'测试债务');}
+ }
+ assert.deepEqual(h.errors,[]);
+});

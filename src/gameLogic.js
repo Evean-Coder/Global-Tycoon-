@@ -986,8 +986,8 @@ function applyCore(state, action, rng, context = {}) {
       rescueDemolish(state, p, action.cityId, events, rng);
       break;
     case 'rescue_sell_stock':
-      if (state.phase !== 'self_rescue' && !require('./buildFundraising').eligible(state,p)) return { state, events, rejected: true };
-      if(state.phase==='build_decide'){
+      if (state.phase !== 'self_rescue' && !require('./buildFundraising').eligible(state,p) && !require('./purchaseFundraising').eligible(state,p)) return { state, events, rejected: true };
+      if(state.phase==='build_decide'||state.phase==='buy_fundraise'){
         const st=state.stocks[action.cityId];
         if(!st||!Number.isSafeInteger(action.shares)||action.shares<1||action.shares>(st.holders[p.id]||0)||!Number.isSafeInteger(st.price)||st.price<=0||!state.cities[action.cityId]?.ownerId||st.clearing||(modern(state)&&action.quoteVersion!==st.quoteVersion))return {state,events,rejected:true};
       }
@@ -1266,7 +1266,7 @@ function buyFundraise(state, p, action, events, rng) {
     if (!target) return;
     state.phase = 'buy_fundraise';
     state.pending = { playerId: p.id, kind: 'buy_fundraise', target };
-    log(events, `${p.name} 资金不足，开始募集资金（可抵押/拆房）`, 'rescue');
+    log(events, `${p.name} 资金不足，开始募集资金（可卖股/抵押/拆房）`, 'rescue');
     return;
   }
   if (state.phase !== 'buy_fundraise') return;
@@ -1417,7 +1417,7 @@ function rescueSellStock(state, p, action, events, rng) {
   p.cash += shares * st.price;
   st.holders[p.id] = held - shares;
   p.stocks[action.cityId] = Math.max(0, (p.stocks[action.cityId] || 0) - shares);
-  log(events, `${p.name} 卖出 ${cityLabel(state, action.cityId)} 股份 ×${shares} ${state.phase==='build_decide'?'建房筹资':'自救'}（+${shares * st.price}）`, 'rescue');
+  log(events, `${p.name} 卖出 ${cityLabel(state, action.cityId)} 股份 ×${shares} ${state.phase==='build_decide'?'建房筹资':state.phase==='buy_fundraise'?'购买筹资':'自救'}（+${shares * st.price}）`, 'rescue');
   if (state.phase === 'self_rescue' && p.cash >= 0) finishSelfRescue(state, events, rng);
 }
 

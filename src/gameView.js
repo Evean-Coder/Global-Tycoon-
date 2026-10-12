@@ -23,7 +23,7 @@ function snapshot(s,viewerId,clockView){
  if(out.travelExpense.enabled)out.economyRevision=s.economyRevision;
  out.pending=null;
  if(s.pending){
-  const p={};for(const k of ['type','kind','playerId','cityId','airportId','fromAirportId','free','target','due','reason','awaiting','targetId','fromId','items','cash','currentBid','currentBidder','minBid','index','buyerIndex','buyers','bankrupted','isBankruptcyAuction'])if(s.pending[k]!==undefined)p[k]=s.pending[k];
+  const p={};for(const k of ['type','kind','playerId','cityId','airportId','fromAirportId','free','target','due','reason','awaiting','sellerId','targetId','fromId','items','cash','currentBid','currentBidder','minBid','index','buyerIndex','buyers','bankrupted','isBankruptcyAuction'])if(s.pending[k]!==undefined)p[k]=s.pending[k];
   out.pending=p;
  }
  if(s.opportunityStage&&!s.opportunityStage.resolved){

@@ -1,5 +1,7 @@
 # 环球大亨
 
+> 最新整改（2026-10-12）：购地与机场募资新增按股数卖股，现金/缺口实时更新，足额仍手动购买；自救出售显示卖方等待与买方信息。资源`20261012-purchase-funding-v1`、缓存`global-tycoon-v21-purchase-funding`，见[验收](docs/purchase-fundraising/acceptance.md)。本轮尚未推送或部署；以下为历史状态。
+
 > 最新调整（2026-10-11）：普通与快速模式的同步机遇三选一、后续路线调整统一为60秒。提前完成立即推进，同一决定查看、换组、返回及重连不补时；快速整局截止仍优先。当前资源`20261011-choice-time-v1`、缓存`global-tycoon-v20-choice-time`；见[验收](docs/opportunity-choice-time/acceptance.md)。本轮未推送或部署，下方版本为历史记录。
 
 > 最新修复（2026-10-11）：股票新窗口打开后明确置顶，同窗口浏览及资料返回保留位置。普通/快速五类视口和原股票回执/缓存回归12/12、lint通过。[验收](docs/quick-stock-time/acceptance.md)。当前资源`20261011-stock-scroll-v1`、缓存`global-tycoon-v19-stock-scroll`，尚未推送或部署；下方v18为上一提交记录。

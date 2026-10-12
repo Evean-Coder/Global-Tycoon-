@@ -70,7 +70,7 @@ function phaseAllows(state, type) {
     rescue_done: ['self_rescue'],
     rescue_mortgage: ['self_rescue', 'buy_fundraise'],
     rescue_demolish: ['self_rescue', 'buy_fundraise'],
-    rescue_sell_stock: ['self_rescue', 'build_decide'],
+    rescue_sell_stock: ['self_rescue', 'build_decide', 'buy_fundraise'],
     stock_trade: ['stock'],
     stock_transfer: ['stock', 'trade_confirm'],
     surrender: ['waiting_roll', 'frozen_turn', 'jail_turn', 'buy', 'buy_airport', 'build_decide', 'buy_fundraise', 'flight', 'stock', 'auction_bid', 'direct_sale_ask', 'self_rescue'],
@@ -182,6 +182,10 @@ function validateTransfer(state, player, raw) {
 function normalizeAction(state, raw, context = {}) {
   if (!plainObject(raw) || typeof raw.type !== 'string') return fail('动作格式无效');
   const type = raw.type;
+  if(type==='rescue_sell_stock'&&state.phase==='buy_fundraise'){
+    const p=currentPlayer(state),st=state.stocks[raw.cityId];
+    if(!require('./purchaseFundraising').eligible(state,p)||!safeInt(raw.shares,1)||!st||raw.shares>(st.holders[p.id]||0)||!Number.isSafeInteger(st.price)||st.price<=0||!state.cities[raw.cityId]?.ownerId||st.clearing)return fail('当前不能卖股为购买筹资');
+  }
   if(type==='rescue_sell_stock'&&state.phase==='build_decide'){
     const p=currentPlayer(state),st=state.stocks[raw.cityId];
     if(!require('./buildFundraising').eligible(state,p)||!safeInt(raw.shares,1)||!st||raw.shares>(st.holders[p.id]||0)||!Number.isSafeInteger(st.price)||st.price<=0||!state.cities[raw.cityId]?.ownerId||st.clearing)return fail('当前不能卖股为建房筹资');

@@ -1,0 +1,39 @@
+TAP version 13
+# Subtest: build funding sells selected shares, keeps panel and deadline, then manually builds
+ok 1 - build funding sells selected shares, keeps panel and deadline, then manually builds
+  ---
+  duration_ms: 4124.6947
+  ...
+# Subtest: low-height funding preserves selected quantity, card and scroll through a quote update
+ok 2 - low-height funding preserves selected quantity, card and scroll through a quote update
+  ---
+  duration_ms: 339.0149
+  ...
+# Subtest: 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+ok 3 - 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+  ---
+  duration_ms: 6576.5474
+  ...
+# Subtest: two targets and modes on three screens sell chosen shares then manually buy, repeat cannot sell twice
+ok 4 - two targets and modes on three screens sell chosen shares then manually buy, repeat cannot sell twice
+  ---
+  duration_ms: 5074.7037
+  ...
+# Subtest: no shares gives a clear empty state and cancelling keeps liquidated cash
+ok 5 - no shares gives a clear empty state and cancelling keeps liquidated cash
+  ---
+  duration_ms: 271.4531
+  ...
+# Subtest: self rescue demolition works and selling shows seller waiting until buyer buys or refuses
+ok 6 - self rescue demolition works and selling shows seller waiting until buyer buys or refuses
+  ---
+  duration_ms: 261.5801
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

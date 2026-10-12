@@ -46,7 +46,7 @@ test('正式开局：2/3/4人完成首次全员选择后才进入首骰', () => 
 });
 test('决策时钟：提交/换组保持选择时限，进入首骰获得新决策', () => {
   const s = createSession(gameSpec()); const first = s.clockView();
-  assert.equal(first.secondsRemaining, 30);
+  assert.equal(first.secondsRemaining, 60);
   const c = s.view('p0').self.choice;
   assert.equal(s.dispatch('p0', { type: 'opportunity_reroll', stageId: c.stageId, candidateVersion: c.candidateVersion }).ok, true);
   assert.deepEqual(s.clockView(), first);

@@ -150,14 +150,15 @@ test('债务救援：最少股份优先，忽略主动投资储备，随后合�
   const mortgage = scenario(state => { ownCity(state, 'p0', '上海'); state.players[0].cash = -5000; state.phase = 'self_rescue'; state.pending = { playerId: 'p0', due: 5000, reason: 'test', resume: 'end' }; });
   assert.equal(choose(mortgage, 'cautious').action.type, 'rescue_mortgage'); legal(mortgage, choose(mortgage, 'cautious')); mortgage.close();
 });
-test('救援退出：有额度后拆房/出售，无可用资产才结束且不用认输', () => {
+test('救援退出：已有两城抵押仍可抵押第三城，无可用资产才结束且不用认输', () => {
   const setup = state => {
     ownCity(state, 'p0', '上海', 1); ownCity(state, 'p0', '东京'); ownCity(state, 'p0', '新加坡');
     state.cities['东京'].mortgaged = true; state.cities['新加坡'].mortgaged = true;
     state.players[0].cash = -100000; state.phase = 'self_rescue'; state.pending = { playerId: 'p0', due: 100000, reason: 'test', resume: 'end' };
   };
-  const s = scenario(setup); const d = choose(s); assert.equal(d.action.type, 'rescue_demolish'); legal(s, d);
-  const sale = choose(s, 'neutral', d.nextMemory); assert.equal(sale.action.type, 'sell_city'); legal(s, sale); s.close();
+  const s = scenario(setup); const d = choose(s); assert.equal(d.action.type, 'rescue_mortgage'); assert.equal(d.action.cityId, '上海'); legal(s, d);
+  assert.equal(s.view('p0').players[0].cash, -84000); assert.equal(s.view('p0').cities['上海'].houseLevel, 1);
+  const done = choose(s, 'neutral', d.nextMemory); assert.equal(done.action.type, 'rescue_done'); legal(s, done); s.close();
   const empty = scenario(state => { state.players[0].cash = -1000; state.phase = 'self_rescue'; state.pending = { playerId: 'p0', due: 1000, reason: 'test', resume: 'end' }; });
   assert.equal(choose(empty).action.type, 'rescue_done'); legal(empty, choose(empty)); empty.close();
 });

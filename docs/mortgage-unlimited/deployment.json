@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-12T10:11:19.617Z",
+  "commit": "f7a234a8edaeced09b9fbf17771cf7513a7c26e0",
+  "url": "https://global-tycoon-abx0.onrender.com",
+  "resources": [
+    {
+      "file": "index.html",
+      "status": 200,
+      "sha256": "980e60d77562a7ebb67bd492bee43371efb4f1c02e7a774c6ef12bf698ef84c1",
+      "matchesLocal": true
+    },
+    {
+      "file": "client.js",
+      "status": 200,
+      "sha256": "6bba13b3be312fd9fb0bd09fdd1ee6d9660353162eeaabefc8fee0058b6f275e",
+      "matchesLocal": true
+    },
+    {
+      "file": "style.css",
+      "status": 200,
+      "sha256": "65b80247c35b67b39ff78279d854e80d531f35b368bf7eef64fa9fd9a078161d",
+      "matchesLocal": true
+    },
+    {
+      "file": "sw.js",
+      "status": 200,
+      "sha256": "67c942c63d47511c35623c8f00ecab51e33c1e1ffb7213554170736cd16f9c9c",
+      "matchesLocal": true
+    }
+  ],
+  "socket": {
+    "status": "passed",
+    "transport": "websocket",
+    "create": true,
+    "join": true,
+    "start": true,
+    "initialChoices": true,
+    "roll": true
+  },
+  "ci": {
+    "id": 38234473753,
+    "status": "completed",
+    "conclusion": "failure",
+    "url": "https://github.com/Evean-Coder/Global-Tycoon-/actions/runs/38234473753"
+  },
+  "staticVersion": "20261012-mortgage-unlimited-v1",
+  "cache": "global-tycoon-v25-mortgage-unlimited",
+  "disposableRoomClosed": true
+}

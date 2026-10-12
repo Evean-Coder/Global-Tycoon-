@@ -1,0 +1,61 @@
+TAP version 13
+# Subtest: 等待确认时给出反馈，后续点击不补发或播放假骰子
+not ok 1 - 等待确认时给出反馈，后续点击不补发或播放假骰子
+  ---
+  duration_ms: 32501.0876
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\action-feedback.spec.js:9:1'
+  failureType: 'testTimeoutFailure'
+  error: 'test timed out after 30000ms'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# Subtest: 断线点击明确未发送，恢复后原操作入口可用
+not ok 2 - 断线点击明确未发送，恢复后原操作入口可用
+  ---
+  duration_ms: 30000.6077
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\action-feedback.spec.js:18:1'
+  failureType: 'testTimeoutFailure'
+  error: 'test timed out after 30000ms'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# Subtest: 慢回执查询沿用原动作身份，仍只抵押一次
+not ok 3 - 慢回执查询沿用原动作身份，仍只抵押一次
+  ---
+  duration_ms: 30003.9286
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\action-feedback.spec.js:23:1'
+  failureType: 'testTimeoutFailure'
+  error: 'test timed out after 30000ms'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# Subtest: 三端强制决定沿原入口，纸色弹窗与回合摘要一致
+ok 4 - 三端强制决定沿原入口，纸色弹窗与回合摘要一致
+  ---
+  duration_ms: 3663.9575
+  ...
+# Subtest: 有限双人页面流程：买地、转让返回、股票成交、只读查看与结算
+ok 5 - 有限双人页面流程：买地、转让返回、股票成交、只读查看与结算
+  ---
+  duration_ms: 501.2612
+  ...
+# Subtest: 卖股自救后当前缺口按实际现金减少，初始欠款与决定期限保持原值
+ok 6 - 卖股自救后当前缺口按实际现金减少，初始欠款与决定期限保持原值
+  ---
+  duration_ms: 61.1081
+  ...
+# Subtest: 卖股自救可选择部分股数、预览缺口并拒绝越界输入
+ok 7 - 卖股自救可选择部分股数、预览缺口并拒绝越界输入
+  ---
+  duration_ms: 80.6949
+  ...
+# Subtest: 建房资金不足可抵押其他城市后返回建房，待建房城市保留且时限不刷新
+ok 8 - 建房资金不足可抵押其他城市后返回建房，待建房城市保留且时限不刷新
+  ---
+  duration_ms: 181.9821
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 5
+# fail 0
+# cancelled 3
+# skipped 0
+# todo 0

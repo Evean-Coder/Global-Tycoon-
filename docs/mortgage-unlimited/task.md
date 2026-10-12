@@ -7,4 +7,6 @@
 - [x] T3 public/client.js、rules.md：全入口禁用/显示与速查同步；依赖T1；浏览器实际三端抵押/筹资。
 - [x] T4 e2e/bank-mortgage-layout.spec.js：取消旧上限断言，银行第三城与资产/详情/自救/筹资覆盖；public/index.html、sw.js、e2e/cache.spec.js版本同步；依赖T3。
 - [x] T5 有限单元/Socket/浏览器回归及lint，完整CI门槛按具体风险执行；依赖T1–T4。
-- [ ] T6 readme.md、docs/项目现状.md及acceptance.md更新；限定提交并push main，核实远端与Render静态版本；依赖T5。
+- [x] T6 readme.md、docs/项目现状.md及acceptance.md更新；限定提交并push main，核实远端与Render静态版本；依赖T5。
+
+T5/T6补充：scripts/verify-mortgage-release.js及deployment.json用于线上有限检查；test/balance-policy.test.js、balance-session.test.js同步旧规则断言，e2e/atlas-details.spec.js、action-feedback.spec.js同步独立银行行选择器；仅重验失败文件并核对完整CI。

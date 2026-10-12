@@ -1,5 +1,7 @@
 # 环球大亨
 
+> 最新规则（2026-10-12）：取消抵押城市数量上限，银行/资产/详情、自救和购买/建房筹资、AI统一适用；保留本金50%、原利息、阶段许可及不可重复抵押同城。服务端113项与浏览器13组分批复验通过，lint通过。[文档及验收](docs/mortgage-unlimited/acceptance.md)。资源`20261012-mortgage-unlimited-v1`、缓存`global-tycoon-v25-mortgage-unlimited`。正在准备推送与Render自动部署，上线以独立deployment.json为准；下方为历史记录。
+
 > 最新修复（2026-10-12）：银行抵押城市改为独立卡片，名称/金额分行、操作按钮至少44px；内容自然高度并统一弹窗滚动，修复被持股/赎回内容挤成细缝的问题。8项浏览器验证与lint通过，见[验收](docs/bank-mortgage-layout/acceptance.md)。资源`20261012-bank-layout-v1`、缓存`global-tycoon-v24-bank-layout`；未推送或部署，下方为历史记录。
 
 > 最新布局（2026-10-12）：手机横屏按用户参考图恢复左侧42格环形棋盘/中央资产浮层、右侧玩家与事件、全宽底栏；保留文字与内部滚动，竖屏仍6×7。资源`20261012-landscape-atlas-v1`、缓存`global-tycoon-v23-landscape-atlas`；见[验收与截图](docs/mobile-landscape-atlas/acceptance.md)。本轮未推送或部署，下方为历史记录。

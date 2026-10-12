@@ -31,7 +31,6 @@ const START_CASH = 150000;
 const JAIL_FINE = 15000;
 const FREEZE_FINE = 5000;
 const AIRPORT_PRICE = 15000;
-const MORTGAGE_MAX = 2;
 const MORTGAGE_INTEREST = 0.05;
 const BANKRUPT_RELIEF = 15000; // 破产时发放的救济金总额（分给资产未达最高的存活玩家）
 const LAP_CAP_NORMAL = 4; // 每圈限购城市数（普通玩家）
@@ -1355,8 +1354,6 @@ function mortgage(state, p, cityId, events, rng) {
   // 抵押可随时进行（排除项由 apply 处理）
   const city = state.cities[cityId];
   if (city.ownerId !== p.id || city.mortgaged) return;
-  const mortgagedCount = p.cities.filter((id) => state.cities[id].mortgaged).length;
-  if (mortgagedCount >= MORTGAGE_MAX) return;
   const val = mortgageValue(city);
   p.cash += val;
   city.mortgaged = true;
@@ -1379,11 +1376,6 @@ function rescueMortgage(state, p, cityId, events, rng) {
   const city = state.cities[cityId];
   if (city.ownerId !== p.id || city.mortgaged) {
     log(events, `${p.name} 无法抵押 ${cityLabel(state, cityId)}：非本人或已抵押`, 'rescue');
-    return;
-  }
-  const mortgagedCount = p.cities.filter((id) => state.cities[id].mortgaged).length;
-  if (mortgagedCount >= MORTGAGE_MAX) {
-    log(events, `${p.name} 无法抵押：已达抵押上限（最多 2 座）`, 'rescue');
     return;
   }
   const val = mortgageValue(city);

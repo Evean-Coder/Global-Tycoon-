@@ -14,8 +14,9 @@ function fundraising(ctx,target) {
   if(value<=0||ctx.horizon<=0)return null;
   if(ctx.self.cash-cost>=ctx.reserve)return {type:'buy_fundraise',decision:'confirm'};
   const copy=JSON.parse(JSON.stringify(ctx.view));let loss=0,first=null;
-  // Bounded by two mortgages and existing house levels, rather than a game-tree search.
-  for(let step=0;step<82;step++){
+  // Bounded by the finite city inventory and existing house levels.
+  const stepLimit=1+Object.values(copy.cities).filter(c=>c.ownerId===ctx.self.id&&!c.mortgaged).reduce((n,c)=>n+1+(c.houseLevel||0),0);
+  for(let step=0;step<stepLimit;step++){
     const current=ev.context(copy),needed=cost+current.reserve-current.self.cash;
     if(needed<=0)return loss<value?first:null;
     const tool=ev.liquidation(current,needed,false)[0];
@@ -39,7 +40,7 @@ function rescue(v,memory={},simple=false) {
       if(v.cities[id].ownerId&&!s.clearing&&held>0&&s.price>0)return {type:'rescue_sell_stock',cityId:id,shares:Math.min(held,Math.ceil(-p.cash/s.price)),quoteVersion:s.quoteVersion};
     }
     const own=Object.values(v.cities).filter(c=>c.ownerId===p.id).sort((a,b)=>a.price-b.price||a.id.localeCompare(b.id));
-    if(own.filter(c=>c.mortgaged).length<2){const c=own.find(c=>!c.mortgaged);if(c)return {type:'rescue_mortgage',cityId:c.id};}
+    {const c=own.find(c=>!c.mortgaged);if(c)return {type:'rescue_mortgage',cityId:c.id};}
     const c=own.find(c=>v.self.quotes.demolish[c.id]?.ok);
     if(c)return {type:'rescue_demolish',cityId:c.id,quoteVersion:v.self.quotes.demolish[c.id].quoteVersion};
   }else{

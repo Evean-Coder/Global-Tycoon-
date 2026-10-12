@@ -516,7 +516,6 @@ function renderSide() {
 // ---------- 中心资产台账 ----------
 function ledgerCityRow(p, cityId, allowOps) {
   const c = game.cities[cityId];
-  const mgCount = p.cities.filter((id) => game.cities[id].mortgaged).length;
   const canOpsNow = isMyTurn() && !['auction_bid', 'direct_sale_ask', 'trade_confirm'].includes(game.phase);
   const row = document.createElement('div');
   row.className = 'lrow';
@@ -533,8 +532,8 @@ function ledgerCityRow(p, cityId, allowOps) {
     if (!c.mortgaged) {
       const m = document.createElement('button');
       m.textContent = '抵押';
-      m.disabled = !canOpsNow || mgCount >= 2;
-      m.title = !canOpsNow ? '轮到你行动时可抵押（竞拍/交易确认期间除外）' : (mgCount >= 2 ? '已达抵押上限（最多抵押 2 座城市）' : '抵押金 = 总价值 × 50%');
+      m.disabled = !canOpsNow;
+      m.title = !canOpsNow ? '轮到你行动时可抵押（竞拍/交易确认期间除外）' : '抵押金 = 总价值 × 50%，无数量限制';
       m.onclick = (e) => { e.stopPropagation(); sendAction({ type: 'mortgage', cityId }); };
       row.appendChild(m);
       if (p.position === 0) {
@@ -588,7 +587,7 @@ function renderLedger() {
   open.onclick = openAssetOverview;
   body.appendChild(open);
   if(game.self?.opportunities){const selected=document.createElement('button');selected.className='ledger-open';selected.type='button';selected.textContent='已选机遇 · '+game.self.opportunities.selectedIds.length+' 项';selected.onclick=()=>{openAssetOverview();$('modalBody').querySelector('.selected-opportunities')?.scrollIntoView({block:'nearest'});};body.append(selected);}
-  body.insertAdjacentHTML('beforeend', '<div class="ledger-note">抵押 ' + mgCount + ' / 2 座 · 完整资产中查看城市与操作</div>');
+  body.insertAdjacentHTML('beforeend', '<div class="ledger-note">已抵押 ' + mgCount + ' 座 · 无数量限制 · 完整资产中查看城市与操作</div>');
   const support=game.self?.propertySupport;
   const active=game.self?.activeManagement;
   if(active){
@@ -1078,7 +1077,6 @@ function renderPending() {
         const tname = isCity ? (game.cities[t.cityId].country ? game.cities[t.cityId].country + '·' : '') + t.cityId : t.airportId;
         const enough = meP.cash >= price;
         const owned = meP.cities.filter((id) => !game.cities[id].mortgaged);
-        const mgCapF = meP.cities.filter((x) => game.cities[x].mortgaged).length >= 2;
         let html = '<div class="card-tag">FUNDRAISE</div>'
           + kv('购买目标', tname)
           + kv('所需资金', fmt(price), 'g')
@@ -1089,7 +1087,7 @@ function renderPending() {
           owned.forEach((id) => {
             const c = game.cities[id];
             html += '<div class="lrow" style="cursor:default"><span class="nm">' + (c.country ? c.country + '·' : '') + id + '（房 ' + (c.houseLevel || 0) + '）</span>'
-              + '<button class="secondary" ' + (mgCapF ? 'disabled title="已达抵押上限（最多抵押 2 座城市）"' : '') + ' onclick="emitAct({type:\'rescue_mortgage\',cityId:\'' + id + '\'})">抵押 +' + fmt(mortgageValue(c)) + '</button>'
+              + '<button class="secondary" onclick="emitAct({type:\'rescue_mortgage\',cityId:\'' + id + '\'})">抵押 +' + fmt(mortgageValue(c)) + '</button>'
               + (c.houseLevel > 0 ? '<button onclick="emitAct({type:\'rescue_demolish\',cityId:\'' + id + '\'})">拆房 +' + fmt(demolitionRefund(id)) + '</button>' : '')
               + '</div>';
           });
@@ -1194,7 +1192,6 @@ function renderPending() {
       if (isMe) {
         const pend = game.pending;
         const owned = meP.cities.filter((id) => !game.cities[id].mortgaged);
-        const mgCap = meP.cities.filter((x) => game.cities[x].mortgaged).length >= 2;
         body.innerHTML = '<div class="card-tag">SELF RESCUE</div>'
           + kv('当前还差',fmt(Math.max(0,-meP.cash)),meP.cash<0?'r':'g')
           + kv('当前现金',fmt(meP.cash))
@@ -1207,7 +1204,7 @@ function renderPending() {
           const sellAmt = Math.round(tv * 0.8);
           const floorAmt = Math.round(tv * 0.5);
           body.innerHTML += '<div class="lrow" style="cursor:default;flex-wrap:wrap"><span class="nm">' + (c.country ? c.country + '·' : '') + id + '（价值 ' + fmt(tv) + '，房 ' + (c.houseLevel || 0) + '）</span>'
-            + '<button class="secondary" ' + (mgCap ? 'disabled title="已达抵押上限（最多抵押 2 座城市）"' : '') + ' onclick="emitAct({type:\'rescue_mortgage\',cityId:\'' + id + '\'})">抵押 +' + fmt(mortgageValue(c)) + '</button>'
+            + '<button class="secondary" onclick="emitAct({type:\'rescue_mortgage\',cityId:\'' + id + '\'})">抵押 +' + fmt(mortgageValue(c)) + '</button>'
             + (c.houseLevel > 0 ? '<button onclick="emitAct({type:\'rescue_demolish\',cityId:\'' + id + '\'})">拆房 +' + fmt(demolitionRefund(id)) + '</button>' : '')
             + '<button class="risk" onclick="emitAct({type:\'sell_city\',cityId:\'' + id + '\',mode:\'direct\',context:{type:\'self_rescue\',playerId:\'' + me.gameId + '\',due:' + pend.due + '}})">出售 +' + fmt(sellAmt) + '</button>'
             + '<button class="risk" onclick="emitAct({type:\'sell_city\',cityId:\'' + id + '\',mode:\'auction\',context:{type:\'self_rescue\',playerId:\'' + me.gameId + '\',due:' + pend.due + '}})">拍卖保底 +' + fmt(floorAmt) + '</button></div>';
@@ -1254,7 +1251,7 @@ function openAssetOverview() {
     for (const id of meP.cities) wrap.appendChild(ledgerCityRow(meP, id, true));
     body.appendChild(wrap);
   } else body.insertAdjacentHTML('beforeend', '<p class="hint">暂无城市资产</p>');
-  body.insertAdjacentHTML('beforeend', '<p class="hint">抵押时机：轮到你行动时可随时抵押（竞拍、交易确认期间除外）；每名玩家最多同时抵押 2 座城市。本人正常回合掷骰前，可在银行或资产详情偿还本金和利息，赎回任意自有抵押城市，无需落到该城市。</p>');
+  body.insertAdjacentHTML('beforeend', '<p class="hint">抵押时机：轮到你行动时可随时抵押（竞拍、交易确认期间除外）；抵押城市数量不限，同一城市不可重复抵押。本人正常回合掷骰前，可在银行或资产详情偿还本金和利息，赎回任意自有抵押城市，无需落到该城市。</p>');
   if(!stockReady())body.insertAdjacentHTML('beforeend','<p class="hint">股票转让：仅经过起点后，在本人的股票交易窗口内可发起。</p>');
   body.insertAdjacentHTML('beforeend', '<div class="row">'+(stockReady()?'<button class="secondary" onclick="clickTransferEntry()">股票转让</button>':'')
     + (stockReady() ? '<button class="primary" onclick="resumeStockView()">继续买卖股票</button>' : '')
@@ -1736,7 +1733,7 @@ function buildRules() {
     + '<p><b>起点结算：</b>跨过/停在起点按顺序：① 获得 10000 并计算名下城市股息 ② 开放一次股票交易窗口 ③ 若为跨过则继续结算落点事件。</p>'
     + '<p><b>地产与收租：</b>20 城分五大洲（非洲/大洋洲/欧洲/美洲/亚洲）。租金 = 地价 ×（30% + 30%×房屋等级）：0 级 30%、每级 +30%、4 级 150%；地价 ≥15000 的城市满级租金再 +10%（165%）。经过无主城可购买（支付地价）或放弃（进入拍卖）。第一轮（每个玩家从起点出发后回到起点一次）结束前不能购买房产与机场；每圈（起点到起点）限购 4 座城市（机场不限；购买、拍卖与直接出售所得均计入）。购买/获得城市后需再次到达该城市才能建房；经过自有城可建/拆 1 级；抵押中的城市不收租。</p>'
     + '<p><b>建房与拆房：</b>标准建房费用为地价 × 60%，最高 4 级。建设优惠、标准化施工与连锁经营按原费用计算、依次截取，总减免最多 30%。拆房返还最后一级实际建房费用的 60%，转手后仍沿用原实付成本。地产估值与抵押额度按标准价值计算。</p>'
-    + '<p><b>抵押与赎回：</b>抵押金 = 城市总价值 × 50%，最多同时抵押 2 座；每轮 5% 利息；抵押可随时进行（竞拍中除外）。本人正常回合掷骰前，可在银行、资产总览或城市详情偿还本金与累计利息，赎回任意自有抵押城市，无需落到该城市；恢复收租、保留产权及房屋，建设仍遵守原规则。现金不足或处理其他决定时不能赎回，查看及赎回不重置倒计时。破产时未赎回的抵押城市归银行。</p>'
+    + '<p><b>抵押与赎回：</b>抵押金 = 城市总价值 × 50%，抵押城市数量不限，同一城市不可重复抵押；每轮 5% 利息；抵押可随时进行（竞拍中除外）。本人正常回合掷骰前，可在银行、资产总览或城市详情偿还本金与累计利息，赎回任意自有抵押城市，无需落到该城市；恢复收租、保留产权及房屋，建设仍遵守原规则。现金不足或处理其他决定时不能赎回，查看及赎回不重置倒计时。破产时未赎回的抵押城市归银行。</p>'
     + '<p><b>城市交易：</b>直接出售——成交价 = 城市总价值，整城售予一名玩家，卖家得 80%、银行提成 20%。拍卖——起拍价 = 总价值 × 75%，每次加价至少 1000，参与玩家掷骰定顺序、轮流加价，最高出价者可随时结束拍卖按当前价成交；其余全放弃时最高出价者获得城市及全部房产；拍卖与直接出售所得均计入每圈 4 座上限，已达上限的玩家不能出价/购买；破产拍卖所得归银行、流拍归银行；自愿出售仅在起点执行（资金不足自救除外）；多城同时拍卖按棋盘格号从小到大。</p>'
     + '<p><b>机场：</b>15000购买，不计入城市圈限购，首圈结束前不可购买。从自己的机场出发，通行费与机票均为0；落到他人机场先付3000×该城主拥有机场数，再选择按最短距离×500及实际优惠付机票。免费条件取决于出发机场，飞往自己的目的机场也不免票。飞抵不再收目的机场通行费、不购买无主机场、不触发起点；飞行或不飞后按原规则结束回合，后期远航开支另计。</p>'
     + '<p><b>极地与监狱：</b>极地（南极 14 / 北极 34）冰冻 1 回合，付 5000 解除或跳过。监狱：21 号最多 3 回合——第 1–3 回合可付 15000 或掷出 1/10 提前出狱，一直放弃则关满 3 回合、第 4 回合自动释放（80 轮前免费，80 轮后缴 30% 出狱费 4500）；11/32 号关押 1 回合——下一回合直接跳过、再下一回合自动释放；关押期间仍可收租、参与拍卖。</p>'
@@ -2041,7 +2038,7 @@ function openBank(buildFundraising=false) {
     + kv('当前现金', fmt(meP.cash), 'g')
     + kv('可抵押额度', fmt(limit))
     + kv('当前负债', fmt(debt), 'r')
-    + '<h4 class="bank-mortgage-heading">抵押城市</h4><p class="hint">自有未抵押城市 · 已抵押 '+md.length+' / 2 座</p>';
+    + '<h4 class="bank-mortgage-heading">抵押城市</h4><p class="hint">自有未抵押城市 · 已抵押 '+md.length+' 座 · 无数量限制</p>';
   if(forBuild)body.insertAdjacentHTML('afterbegin','<p class="hint" id="buildGap">为 '+escapeHTML(game.pending.cityId)+' 建房筹资：还差 '+fmt(Math.max(0,buildCost-meP.cash))+'。可抵押其他城市或卖出持股；原建房决定与倒计时继续，待建房城市不参与本次抵押。</p>');
   if (un.length) {
     const wrap = document.createElement('div');
@@ -2056,9 +2053,8 @@ function openBank(buildFundraising=false) {
       b.type = 'button';
       b.className = 'secondary';
       b.textContent = '抵押';
-      const atLimit = meP.cities.filter((x) => game.cities[x].mortgaged).length >= 2;
-      b.disabled = !canOps || atLimit;
-      b.title = !canOps ? '当前阶段无法操作（需轮到你在掷骰阶段）' : (atLimit ? '已达抵押上限（最多抵押 2 座城市）' : '');
+      b.disabled = !canOps;
+      b.title = !canOps ? '当前阶段无法抵押（需本人行动且非竞拍/交易确认）' : '抵押金 = 总价值 × 50%，无数量限制';
       b.onclick = () => { sendAction({ type: 'mortgage', cityId: id }); };
       r.appendChild(b);
       if(b.disabled){const why=document.createElement('p');why.className='hint bank-mortgage-reason';why.textContent=b.title;r.append(why);}
@@ -2123,7 +2119,6 @@ function openCityDetail(cityId) {
   const meP = playerById(me.gameId);
   const sq = game.board.find((s) => s.cityId === cityId);
   const onCity = !!(meP && sq && meP.position === sq.id && game.phase === 'waiting_roll');
-  const mgCount = meP ? meP.cities.filter((id) => game.cities[id].mortgaged).length : 0;
   const rq=game.self?.quotes.rent[cityId],bq=game.self?.quotes.build[cityId];
   const redeemQ=c.mortgaged?redemptionQuote(cityId):null;
   body.innerHTML = '<div class="card-tag">PROPERTY DETAIL</div>'
@@ -2142,7 +2137,7 @@ function openCityDetail(cityId) {
     + '<div class="row">'
     + (mine && !c.mortgaged && (c.houseLevel || 0) < 4 && onCity && c.buildReady !== false ? '<button class="secondary" '+(bq&&!bq.ok?'disabled':'')+' onclick="emitAct({type:\'build_house\',cityId:\'' + cityId + '\'})">升级</button>' : '')
     + (mine && !c.mortgaged && (c.houseLevel || 0) > 0 && onCity ? '<button class="secondary" onclick="emitAct({type:\'demolish_house\',cityId:\'' + cityId + '\'})">拆房</button>' : '')
-    + (mine && !c.mortgaged ? '<button class="secondary" ' + (mgCount >= 2 ? 'disabled title="已达抵押上限（最多抵押 2 座城市）"' : '') + ' onclick="emitAct({type:\'mortgage\',cityId:\'' + cityId + '\'})">抵押</button>' : '')
+    + (mine && !c.mortgaged ? '<button class="secondary" onclick="emitAct({type:\'mortgage\',cityId:\'' + cityId + '\'})">抵押</button>' : '')
     + (c.ownerId===me.gameId&&redeemQ?'<button class="secondary" data-redeem-city="'+cityId+'" '+(redeemQ.ok?'':'disabled')+' onclick="emitAct({type:\'redeem\',cityId:\'' + cityId + '\'})">赎回</button>':'')
     + (mine && !c.mortgaged && meP && meP.position === 0 ? '<button class="risk" onclick="sellChoice(\'' + cityId + '\')">出售</button>' : '')
     + '<button class="textbtn" onclick="closeModal()">关闭</button></div>';

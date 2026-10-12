@@ -24,7 +24,7 @@ const cases=[
  ['恢复储备优先减持弱股票',()=>{const s=f.game();f.own(s,'内罗毕','p0');f.own(s,'东京','p0',3);f.held(s,'内罗毕','p1',3);f.held(s,'东京','p1',2);s.players[1].cash=2000;f.window(s);return {s};},a=>a.orders?.[0].side==='sell'&&a.orders[0].cityId==='内罗毕'&&a.orders[0].shares===3,'先卖三股低增长资产，再由新快照判断缺口'],
  ['自救适量卖股',()=>{const s=f.game();f.own(s,'内罗毕','p0');f.own(s,'东京','p0',3);f.held(s,'内罗毕','p1',3);f.held(s,'东京','p1',2);rescue(s);return {s};},a=>a.type==='rescue_sell_stock'&&a.cityId==='内罗毕'&&a.shares===2,'720一股，欠1000只需两股，保留东京增长股份'],
  ['仅土地可抵押完成自救',()=>{const s=f.game();f.own(s,'内罗毕');rescue(s);return {s};},a=>a.type==='rescue_mortgage','无股份或房屋且有合法抵押额度'],
- ['抵押名额满则拆房自救',()=>{const s=f.game();f.own(s,'内罗毕','p1',1);f.own(s,'开普敦').mortgaged=true;f.own(s,'开罗').mortgaged=true;rescue(s);return {s};},a=>a.type==='rescue_demolish','两座已抵押，拆一级退款1296足以补债'],
+ ['已有两座抵押仍比较拆房和继续抵押的损失',()=>{const s=f.game();f.own(s,'内罗毕','p1',1);f.own(s,'开普敦').mortgaged=true;f.own(s,'开罗').mortgaged=true;rescue(s);return {s};},a=>a.type==='rescue_mortgage','无对手近期命中，继续抵押保留房级，预估利息及停租损失低于拆房折损'],
  ['自救无资产才结束',()=>{const s=f.game();rescue(s);return {s};},a=>a.type==='rescue_done','无可出售、抵押或拆除资产'],
  ['自救资金已补足立即退出',()=>{const s=f.game();f.own(s,'内罗毕');rescue(s,1);return {s};},a=>a.type==='rescue_done','不多卖资产'],
  ['免费航班选择更好道路',()=>{const s=f.game();flight(s);return {s};},a=>a.type==='flight'&&a.target==='上海浦东国际机场','位置35后续骰子可接近起点，飞行本身不计起点奖励'],
@@ -91,9 +91,9 @@ test('H5补齐路线有预算才估价值，施工优惠共享上限',()=>{
  const ctx=ev.context(f.view(s));assert.ok(ev.opportunityValue(ctx,'H5')>0);s.players[1].cash=0;assert.equal(ev.opportunityValue(ev.context(f.view(s)),'H5'),0);
  assert.equal(ev.routeValue(ctx,['H1','H2']),Math.max(ev.opportunityValue(ctx,'H1'),ev.opportunityValue(ctx,'H2')));
 });
-test('异常回退仍合法自救，空房不拆、抵押上限和已尝试出售不重复',()=>{
+test('异常回退仍合法自救，空房不拆、已抵押与已尝试出售不重复',()=>{
  const s=f.game();f.own(s,'内罗毕','p0');f.held(s,'内罗毕','p1',3);rescue(s);const a=policy.fallback(f.view(s));assert.equal(a.type,'rescue_sell_stock');assert.equal(a.shares,2);assert.notEqual(f.apply(s,a).rejected,true);assert.ok(s.players[1].cash>=0);
- const t=f.game();f.own(t,'内罗毕');f.own(t,'开罗').mortgaged=true;f.own(t,'开普敦').mortgaged=true;rescue(t);assert.equal(policy.choose(f.view(t)).type,'sell_city');assert.equal(policy.fallback(f.view(t),{saleAttempts:['内罗毕']}).type,'rescue_done');
+ const t=f.game();f.own(t,'内罗毕');f.own(t,'开罗').mortgaged=true;f.own(t,'开普敦').mortgaged=true;rescue(t);assert.equal(policy.choose(f.view(t)).type,'rescue_mortgage');assert.equal(policy.fallback(f.view(t)).type,'rescue_mortgage');t.cities['内罗毕'].mortgaged=true;assert.equal(policy.fallback(f.view(t),{saleAttempts:['内罗毕']}).type,'rescue_done');
 });
 test('H1–H12可计算且一次性奖励/机场访问事实约束收益',()=>{
  const s=activeBuild();f.own(s,'伦敦');f.own(s,'巴黎');for(const id of ['开罗','开普敦','内罗毕']){f.own(s,id,'p0',2);f.held(s,id,'p1',1);}s.airports['伦敦希思罗国际机场'].ownerId='p1';s.players[1].airports.push('伦敦希思罗国际机场');

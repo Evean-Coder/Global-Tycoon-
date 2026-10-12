@@ -55,7 +55,7 @@ function opportunityScore(v, config, id) {
   return score;
 }
 function fundingPotential(v) {
-  const owned = ownCities(v), slots = Math.max(0, 2 - owned.filter(c => c.mortgaged).length);
+  const owned = ownCities(v);
   let base = 0; const extras = [];
   for (const c of owned.filter(c => !c.mortgaged)) {
     const costs = (c.buildCosts || []).slice();
@@ -63,7 +63,7 @@ function fundingPotential(v) {
     const demolition = costs.reduce((a, cost) => a + Math.round(cost * 0.6), 0);
     base += demolition; extras.push(Math.max(0, mortgageValue(c) - demolition));
   }
-  return base + extras.sort((a, b) => b - a).slice(0, slots).reduce((a, b) => a + b, 0);
+  return base + extras.reduce((a, b) => a + b, 0);
 }
 function airportFee(v, id) {
   const owner = v.players.find(p => p.id === v.airports[id].ownerId);
@@ -237,8 +237,8 @@ function decide(v, config, memory = {}, rng) {
         return output({ type: 'rescue_sell_stock', cityId: id, shares, quoteVersion: st.quoteVersion }, 'rescue_minimum_shares', { target: id, shares, goal });
       }
     }
-    const owned = ownCities(v), mortgageSlots = 2 - owned.filter(c => c.mortgaged).length;
-    const mortgage = mortgageSlots > 0 ? best(owned.filter(c => !c.mortgaged), c => -cityValue(v, config, c.id) / mortgageValue(c), rng) : null;
+    const owned = ownCities(v);
+    const mortgage = best(owned.filter(c => !c.mortgaged), c => -cityValue(v, config, c.id) / mortgageValue(c), rng);
     if (mortgage) return output({ type: 'rescue_mortgage', cityId: mortgage.id }, 'rescue_mortgage', { target: mortgage.id, amount: mortgageValue(mortgage), goal });
     const demolition = best(owned.filter(c => v.self.quotes.demolish[c.id]?.ok), c => -recentRent(v, c.id) / refundFor(c), rng);
     if (demolition) {

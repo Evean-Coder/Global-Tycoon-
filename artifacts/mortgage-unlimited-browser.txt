@@ -1,0 +1,101 @@
+TAP version 13
+# Subtest: many bank assets stay readable with one outer scroll on portrait, short landscape, tablet and PC
+ok 1 - many bank assets stay readable with one outer scroll on portrait, short landscape, tablet and PC
+  ---
+  duration_ms: 4811.4671
+  ...
+# Subtest: mortgaging cities keeps ownership and deadline, updates the bank and permits more than two
+ok 2 - mortgaging cities keeps ownership and deadline, updates the bank and permits more than two
+  ---
+  duration_ms: 251.943
+  ...
+# Subtest: build funding sells selected shares, keeps panel and deadline, then manually builds
+ok 3 - build funding sells selected shares, keeps panel and deadline, then manually builds
+  ---
+  duration_ms: 4359.2502
+  ...
+# Subtest: low-height funding preserves selected quantity, card and scroll through a quote update
+ok 4 - low-height funding preserves selected quantity, card and scroll through a quote update
+  ---
+  duration_ms: 400.1264
+  ...
+# Subtest: 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+ok 5 - 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+  ---
+  duration_ms: 6004.4373
+  ...
+# Subtest: normal and quick on three screens redeem from bank away from the property, keep bank and real deadline
+ok 6 - normal and quick on three screens redeem from bank away from the property, keep bank and real deadline
+  ---
+  duration_ms: 3298.8013
+  ...
+# Subtest: asset row and city details redeem remotely; lack of cash or an unfinished decision visibly explains why
+ok 7 - asset row and city details redeem remotely; lack of cash or an unfinished decision visibly explains why
+  ---
+  duration_ms: 336.1667
+  ...
+# Subtest: same bank view updates interest and retains scroll, then a phase change replaces it with the required decision
+ok 8 - same bank view updates interest and retains scroll, then a phase change replaces it with the required decision
+  ---
+  duration_ms: 223.1476
+  ...
+# Subtest: normal and quick allow a third mortgage from bank, assets and details on all screens
+not ok 9 - normal and quick allow a third mortgage from bank, assets and details on all screens
+  ---
+  duration_ms: 32628.6058
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\mortgage-unlimited.spec.js:7:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    locator.tap: Timeout 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: '关闭', exact: true }).last()[22m
+    
+  code: 'ERR_TEST_FAILURE'
+  name: 'TimeoutError'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\mortgage-unlimited.spec.js:10:455)
+  ...
+# Subtest: third mortgages work in rescue and city, airport and build fundraising on a phone
+not ok 10 - third mortgages work in rescue and city, airport and build fundraising on a phone
+  ---
+  duration_ms: 191.4664
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\mortgage-unlimited.spec.js:14:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    -8200 !== -10000
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: -10000
+  actual: -8200
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\mortgage-unlimited.spec.js:18:433)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: two targets and modes on three screens sell chosen shares then manually buy, repeat cannot sell twice
+ok 11 - two targets and modes on three screens sell chosen shares then manually buy, repeat cannot sell twice
+  ---
+  duration_ms: 4921.0433
+  ...
+# Subtest: no shares gives a clear empty state and cancelling keeps liquidated cash
+ok 12 - no shares gives a clear empty state and cancelling keeps liquidated cash
+  ---
+  duration_ms: 265.3842
+  ...
+# Subtest: self rescue demolition works and selling shows seller waiting until buyer buys or refuses
+ok 13 - self rescue demolition works and selling shows seller waiting until buyer buys or refuses
+  ---
+  duration_ms: 251.6376
+  ...
+1..13
+# tests 13
+# suites 0
+# pass 11
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0

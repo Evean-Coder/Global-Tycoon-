@@ -270,7 +270,7 @@ function liquidation(ctx,deficit,includeStocks=true) {
   }
   const own=sorted(Object.values(view.cities).filter(c=>c.ownerId===self.id));
   for(const c of own.filter(c=>!c.mortgaged)){
-    if(own.filter(x=>x.mortgaged).length<2){
+    {
       const amount=econ.mortgageValue(c),after={...view,cities:{...view.cities,[c.id]:{...c,mortgaged:true}}};
       const next={...ctx,view:after,rentCache:new Map()},held=view.stocks[c.id].holders[self.id]||0;
       const stockLoss=held?stockBenefit(ctx,c.id,held).assetDelta-stockBenefit(next,c.id,held).assetDelta:0;

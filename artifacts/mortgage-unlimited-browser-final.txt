@@ -1,0 +1,19 @@
+TAP version 13
+# Subtest: normal and quick allow a third mortgage from bank, assets and details on all screens
+ok 1 - normal and quick allow a third mortgage from bank, assets and details on all screens
+  ---
+  duration_ms: 5119.4294
+  ...
+# Subtest: third mortgages work in rescue and city, airport and build fundraising on a phone
+ok 2 - third mortgages work in rescue and city, airport and build fundraising on a phone
+  ---
+  duration_ms: 489.1964
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

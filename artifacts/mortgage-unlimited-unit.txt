@@ -1,0 +1,564 @@
+TAP version 13
+# Subtest: 安全购地可用较低储备
+ok 1 - 安全购地可用较低储备
+  ---
+  duration_ms: 9.0234
+  ...
+# Subtest: 高租金阻止相同购地
+ok 2 - 高租金阻止相同购地
+  ---
+  duration_ms: 2.5718
+  ...
+# Subtest: 本圈购城上限
+ok 3 - 本圈购城上限
+  ---
+  duration_ms: 1.4467
+  ...
+# Subtest: 落点建房正常费用值得
+ok 4 - 落点建房正常费用值得
+  ---
+  duration_ms: 2.6628
+  ...
+# Subtest: 建设低现金不制造欠款
+ok 5 - 建设低现金不制造欠款
+  ---
+  duration_ms: 1.4216
+  ...
+# Subtest: 主动溢价建设无回本则掷骰
+ok 6 - 主动溢价建设无回本则掷骰
+  ---
+  duration_ms: 2.646
+  ...
+# Subtest: 高等级热点城市值得建设
+ok 7 - 高等级热点城市值得建设
+  ---
+  duration_ms: 1.616
+  ...
+# Subtest: 短期热点选择促销
+ok 8 - 短期热点选择促销
+  ---
+  duration_ms: 1.6304
+  ...
+# Subtest: 有建设潜力的股价选择主动买股
+ok 9 - 有建设潜力的股价选择主动买股
+  ---
+  duration_ms: 1.3824
+  ...
+# Subtest: 股票比较而非列表第一个
+ok 10 - 股票比较而非列表第一个
+  ---
+  duration_ms: 2.2831
+  ...
+# Subtest: 恢复储备优先减持弱股票
+ok 11 - 恢复储备优先减持弱股票
+  ---
+  duration_ms: 1.6618
+  ...
+# Subtest: 自救适量卖股
+ok 12 - 自救适量卖股
+  ---
+  duration_ms: 1.7884
+  ...
+# Subtest: 仅土地可抵押完成自救
+ok 13 - 仅土地可抵押完成自救
+  ---
+  duration_ms: 1.3876
+  ...
+# Subtest: 已有两座抵押仍比较拆房和继续抵押的损失
+not ok 14 - 已有两座抵押仍比较拆房和继续抵押的损失
+  ---
+  duration_ms: 10.3768
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\test\\bot-strategy.test.js:51:48'
+  failureType: 'testCodeFailure'
+  error: '已有两座抵押仍比较拆房和继续抵押的损失: {"type":"rescue_mortgage","cityId":"内罗毕"}'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\test\bot-strategy.test.js:54:9)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+    Test.run (node:internal/test_runner/test:796:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:526:18)
+    Test.postRun (node:internal/test_runner/test:889:19)
+    Test.run (node:internal/test_runner/test:835:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: 自救无资产才结束
+ok 15 - 自救无资产才结束
+  ---
+  duration_ms: 1.6853
+  ...
+# Subtest: 自救资金已补足立即退出
+ok 16 - 自救资金已补足立即退出
+  ---
+  duration_ms: 1.0255
+  ...
+# Subtest: 免费航班选择更好道路
+ok 17 - 免费航班选择更好道路
+  ---
+  duration_ms: 1.8063
+  ...
+# Subtest: 已在好道路不付费飞走
+ok 18 - 已在好道路不付费飞走
+  ---
+  duration_ms: 1.1199
+  ...
+# Subtest: 免费飞行也保留偿付风险约束
+ok 19 - 免费飞行也保留偿付风险约束
+  ---
+  duration_ms: 1.205
+  ...
+# Subtest: 优惠转入股份接受
+ok 20 - 优惠转入股份接受
+  ---
+  duration_ms: 1.7365
+  ...
+# Subtest: 过贵转入股份拒绝
+ok 21 - 过贵转入股份拒绝
+  ---
+  duration_ms: 1.1963
+  ...
+# Subtest: 城主四股拒绝超限转让
+ok 22 - 城主四股拒绝超限转让
+  ---
+  duration_ms: 1.4344
+  ...
+# Subtest: 含房拍卖不再用地价封顶
+ok 23 - 含房拍卖不再用地价封顶
+  ---
+  duration_ms: 1.3935
+  ...
+# Subtest: 拍卖不足预算即退出
+ok 24 - 拍卖不足预算即退出
+  ---
+  duration_ms: 0.8119
+  ...
+# Subtest: 快速临近结束停止溢价建设
+ok 25 - 快速临近结束停止溢价建设
+  ---
+  duration_ms: 1.2436
+  ...
+# Subtest: 缺失快局时限保守建设
+ok 26 - 缺失快局时限保守建设
+  ---
+  duration_ms: 1.1298
+  ...
+# Subtest: 三城持股优先分散投资机遇
+ok 27 - 三城持股优先分散投资机遇
+  ---
+  duration_ms: 2.3971
+  ...
+# Subtest: 已有有效路线不为固定分数换掉
+ok 28 - 已有有效路线不为固定分数换掉
+  ---
+  duration_ms: 2.9752
+  ...
+# Subtest: 新一次性资金确有价值则换路线
+ok 29 - 新一次性资金确有价值则换路线
+  ---
+  duration_ms: 2.4816
+  ...
+# Subtest: 募资无法筹足安全预算则取消
+ok 30 - 募资无法筹足安全预算则取消
+  ---
+  duration_ms: 1.8602
+  ...
+# Subtest: 快局短期优质购地可合法募资
+ok 31 - 快局短期优质购地可合法募资
+  ---
+  duration_ms: 1.2867
+  ...
+# Subtest: 募资资金足够直接确认
+ok 32 - 募资资金足够直接确认
+  ---
+  duration_ms: 0.9715
+  ...
+# Subtest: 经营动作上限转入掷骰
+ok 33 - 经营动作上限转入掷骰
+  ---
+  duration_ms: 1.2181
+  ...
+# Subtest: 冻结恢复经营值得缴费
+ok 34 - 冻结恢复经营值得缴费
+  ---
+  duration_ms: 2.9784
+  ...
+# Subtest: 冻结临近结算不缴费
+ok 35 - 冻结临近结算不缴费
+  ---
+  duration_ms: 1.2577
+  ...
+# Subtest: 股票动作上限结束窗口
+ok 36 - 股票动作上限结束窗口
+  ---
+  duration_ms: 1.2148
+  ...
+# Subtest: 相同快照确定、排列变化和私有牌袋不会改变动作
+ok 37 - 相同快照确定、排列变化和私有牌袋不会改变动作
+  ---
+  duration_ms: 4.1856
+  ...
+# Subtest: 同窗口已卖股票不回购，换窗口允许重新评估
+ok 38 - 同窗口已卖股票不回购，换窗口允许重新评估
+  ---
+  duration_ms: 2.2407
+  ...
+# Subtest: 窗口额度、供应、城主上限和集中持股逐个到边界
+ok 39 - 窗口额度、供应、城主上限和集中持股逐个到边界
+  ---
+  duration_ms: 2.6792
+  ...
+# Subtest: 保住热点高房级城市，优先抵押低收入闲置土地
+ok 40 - 保住热点高房级城市，优先抵押低收入闲置土地
+  ---
+  duration_ms: 0.8414
+  ...
+# Subtest: 新策略使用的真实报价过期时拒绝且不部分扣款
+ok 41 - 新策略使用的真实报价过期时拒绝且不部分扣款
+  ---
+  duration_ms: 1.0736
+  ...
+# Subtest: 买入股票总资产25%边界，与单城10%限制分别生效
+ok 42 - 买入股票总资产25%边界，与单城10%限制分别生效
+  ---
+  duration_ms: 0.6041
+  ...
+# Subtest: H5补齐路线有预算才估价值，施工优惠共享上限
+ok 43 - H5补齐路线有预算才估价值，施工优惠共享上限
+  ---
+  duration_ms: 1.8971
+  ...
+# Subtest: 异常回退仍合法自救，空房不拆、已抵押与已尝试出售不重复
+ok 44 - 异常回退仍合法自救，空房不拆、已抵押与已尝试出售不重复
+  ---
+  duration_ms: 1.763
+  ...
+# Subtest: H1–H12可计算且一次性奖励/机场访问事实约束收益
+ok 45 - H1–H12可计算且一次性奖励/机场访问事实约束收益
+  ---
+  duration_ms: 11.5081
+  ...
+# Subtest: 骰子洗牌袋：每 10 次掷骰 1–10 各出现一次，抽完自动补袋
+ok 46 - 骰子洗牌袋：每 10 次掷骰 1–10 各出现一次，抽完自动补袋
+  ---
+  duration_ms: 2.1042
+  ...
+# Subtest: 购买：落在无主城市进入购买阶段，购买后归属与资金正确
+ok 47 - 购买：落在无主城市进入购买阶段，购买后归属与资金正确
+  ---
+  duration_ms: 1.9967
+  ...
+# Subtest: 第一轮（所有玩家回到起点一次）结束前不能购买房产和机场
+ok 48 - 第一轮（所有玩家回到起点一次）结束前不能购买房产和机场
+  ---
+  duration_ms: 0.4952
+  ...
+# Subtest: 第一轮结束：所有玩家回到起点一次后开放购买
+ok 49 - 第一轮结束：所有玩家回到起点一次后开放购买
+  ---
+  duration_ms: 0.3439
+  ...
+# Subtest: 每圈限购 4 座城市：第 5 座被拒绝，跨过起点重置
+ok 50 - 每圈限购 4 座城市：第 5 座被拒绝，跨过起点重置
+  ---
+  duration_ms: 0.2947
+  ...
+# Subtest: 每圈限购 4 座城市：第 5 座被拒绝，跨过起点重置
+ok 51 - 每圈限购 4 座城市：第 5 座被拒绝，跨过起点重置
+  ---
+  duration_ms: 0.277
+  ...
+# Subtest: 高价城满级租金额外加成：地价≥15000 满级 +10%
+ok 52 - 高价城满级租金额外加成：地价≥15000 满级 +10%
+  ---
+  duration_ms: 0.6978
+  ...
+# Subtest: 收租：路过他人城市支付租金（整数）
+ok 53 - 收租：路过他人城市支付租金（整数）
+  ---
+  duration_ms: 0.3822
+  ...
+# Subtest: 股票抵扣：持股阶梯减免租金，银行补足拥有者
+ok 54 - 股票抵扣：持股阶梯减免租金，银行补足拥有者
+  ---
+  duration_ms: 0.5231
+  ...
+# Subtest: 建房与拆房：经过自有城可建 1 级、拆 1 级返还 60%
+ok 55 - 建房与拆房：经过自有城可建 1 级、拆 1 级返还 60%
+  ---
+  duration_ms: 0.3778
+  ...
+# Subtest: 抵押可随时进行（非掷骰阶段也可）
+ok 56 - 抵押可随时进行（非掷骰阶段也可）
+  ---
+  duration_ms: 0.7414
+  ...
+# Subtest: 抵押与赎回：每轮计息 5%；正常待掷骰可赎回任意自有城市
+ok 57 - 抵押与赎回：每轮计息 5%；正常待掷骰可赎回任意自有城市
+  ---
+  duration_ms: 2.9946
+  ...
+# Subtest: 机会卡：抽到奖励卡获得金额
+ok 58 - 机会卡：抽到奖励卡获得金额
+  ---
+  duration_ms: 0.2945
+  ...
+# Subtest: 拍卖：最高出价者可以结束拍卖（按当前最高价成交）
+ok 59 - 拍卖：最高出价者可以结束拍卖（按当前最高价成交）
+  ---
+  duration_ms: 1.8147
+  ...
+# Subtest: 每圈 4 座上限制：拍卖所得计入 lapBuys
+ok 60 - 每圈 4 座上限制：拍卖所得计入 lapBuys
+  ---
+  duration_ms: 0.1897
+  ...
+# Subtest: 每圈 4 座上限制：已达上限的玩家不能参与拍卖出价
+ok 61 - 每圈 4 座上限制：已达上限的玩家不能参与拍卖出价
+  ---
+  duration_ms: 0.3017
+  ...
+# Subtest: 每圈 4 座上限制：直接出售所得计入 lapBuys
+ok 62 - 每圈 4 座上限制：直接出售所得计入 lapBuys
+  ---
+  duration_ms: 0.4242
+  ...
+# Subtest: 建房：购买后需再次到达才能建房
+ok 63 - 建房：购买后需再次到达才能建房
+  ---
+  duration_ms: 0.3338
+  ...
+# Subtest: 破产：唯一幸存者获胜
+ok 64 - 破产：唯一幸存者获胜
+  ---
+  duration_ms: 0.375
+  ...
+# Subtest: 拍卖：放弃购买进入拍卖，出价最高者获得
+ok 65 - 拍卖：放弃购买进入拍卖，出价最高者获得
+  ---
+  duration_ms: 0.2333
+  ...
+# Subtest: 破产：多城连续拍卖逐座完成，唯一侧存者获胜
+ok 66 - 破产：多城连续拍卖逐座完成，唯一侧存者获胜
+  ---
+  duration_ms: 0.4324
+  ...
+# Subtest: 破产：拍卖中另一玩家出价获得后结算胜负
+ok 67 - 破产：拍卖中另一玩家出价获得后结算胜负
+  ---
+  duration_ms: 0.1951
+  ...
+# Subtest: 破产：押质城市归银行不进拍卖
+ok 68 - 破产：押质城市归银行不进拍卖
+  ---
+  duration_ms: 0.15
+  ...
+# Subtest: 超阶段自救动作被拒绝
+ok 69 - 超阶段自救动作被拒绝
+  ---
+  duration_ms: 0.1405
+  ...
+# Subtest: 自救：抵押凑够金额自动结束自救，未凑够留在自救界面
+ok 70 - 自救：抵押凑够金额自动结束自救，未凑够留在自救界面
+  ---
+  duration_ms: 0.262
+  ...
+# Subtest: 破产救济金：仅破产时发放，总额 15000 分给资产最高者之外的存活玩家
+ok 71 - 破产救济金：仅破产时发放，总额 15000 分给资产最高者之外的存活玩家
+  ---
+  duration_ms: 0.226
+  ...
+# Subtest: 监狱：80 轮后 21 号监狱满 3 回合缴纳 30% 出狱费
+ok 72 - 监狱：80 轮后 21 号监狱满 3 回合缴纳 30% 出狱费
+  ---
+  duration_ms: 0.229
+  ...
+# Subtest: 认输：资产直接归银行，不进入拍卖
+ok 73 - 认输：资产直接归银行，不进入拍卖
+  ---
+  duration_ms: 0.5056
+  ...
+# Subtest: 抵押：利息按城市累计，赎回一城只付该城本金+利息
+ok 74 - 抵押：利息按城市累计，赎回一城只付该城本金+利息
+  ---
+  duration_ms: 0.2247
+  ...
+# Subtest: 交易：非起点自愿出售被拒绝，起点允许
+ok 75 - 交易：非起点自愿出售被拒绝，起点允许
+  ---
+  duration_ms: 0.1689
+  ...
+# Subtest: 交易：竞拍中不可临时押押/出售凑钱
+ok 76 - 交易：竞拍中不可临时押押/出售凑钱
+  ---
+  duration_ms: 0.1274
+  ...
+# Subtest: 股票：同笔卖出所得可用于买入
+ok 77 - 股票：同笔卖出所得可用于买入
+  ---
+  duration_ms: 0.717
+  ...
+# Subtest: 股票：买卖与未交易均有事件记录
+ok 78 - 股票：买卖与未交易均有事件记录
+  ---
+  duration_ms: 0.368
+  ...
+# Subtest: 股票：现金不足时交易未生效并记录原因
+ok 79 - 股票：现金不足时交易未生效并记录原因
+  ---
+  duration_ms: 0.1601
+  ...
+# Subtest: 股票转让：发起后对方确认回到股票窗口，每回合限一笔
+ok 80 - 股票转让：发起后对方确认回到股票窗口，每回合限一笔
+  ---
+  duration_ms: 0.368
+  ...
+# Subtest: 排名：按出局顺序记录，胜利者第一
+ok 81 - 排名：按出局顺序记录，胜利者第一
+  ---
+  duration_ms: 0.1717
+  ...
+# Subtest: 购买机场后下一位玩家可正常掷骰（回合切换清空 pending）
+ok 82 - 购买机场后下一位玩家可正常掷骰（回合切换清空 pending）
+  ---
+  duration_ms: 0.2111
+  ...
+# Subtest: 监狱：放弃出狱判定跳过回合，第 3 回合自动释放（免费）
+ok 83 - 监狱：放弃出狱判定跳过回合，第 3 回合自动释放（免费）
+  ---
+  duration_ms: 0.4256
+  ...
+# Subtest: 监狱：掷出 1 或 10 出狱事件包含具体点数
+ok 84 - 监狱：掷出 1 或 10 出狱事件包含具体点数
+  ---
+  duration_ms: 0.1693
+  ...
+# Subtest: 监狱：双方先后入狱后，狱中玩家掷骰出狱可继续推进
+ok 85 - 监狱：双方先后入狱后，狱中玩家掷骰出狱可继续推进
+  ---
+  duration_ms: 0.2806
+  ...
+# Subtest: 监狱：11/32 号监狱关押 1 回合，下回合自动释放
+ok 86 - 监狱：11/32 号监狱关押 1 回合，下回合自动释放
+  ---
+  duration_ms: 0.3415
+  ...
+# Subtest: 监狱：连续两名 1 回合监狱玩家逐个跳过，第三人正常行动
+ok 87 - 监狱：连续两名 1 回合监狱玩家逐个跳过，第三人正常行动
+  ---
+  duration_ms: 0.1774
+  ...
+# Subtest: 监狱与极地互锁：双方先后受困，放弃/掷骰循环后正常轮转
+ok 88 - 监狱与极地互锁：双方先后受困，放弃/掷骰循环后正常轮转
+  ---
+  duration_ms: 0.259
+  ...
+# Subtest: 飞行到无主机场不触发购买，直接结束回合
+ok 89 - 飞行到无主机场不触发购买，直接结束回合
+  ---
+  duration_ms: 0.3219
+  ...
+# Subtest: 监狱：落到 21 号监狱当回合直接结束回合，不弹掷骰出狱窗口
+ok 90 - 监狱：落到 21 号监狱当回合直接结束回合，不弹掷骰出狱窗口
+  ---
+  duration_ms: 0.1427
+  ...
+# Subtest: remote redemption pays only that city principal and interest, restores rent, and preserves ownership, levels, quotas and turn
+ok 91 - remote redemption pays only that city principal and interest, restores rent, and preserves ownership, levels, quotas and turn
+  ---
+  duration_ms: 12.446
+  ...
+# Subtest: insufficient funds, wrong owner/stage, bad interest and stale quote fail without partial mutation
+ok 92 - insufficient funds, wrong owner/stage, bad interest and stale quote fail without partial mutation
+  ---
+  duration_ms: 3.0972
+  ...
+# Subtest: private quotes show correct amounts and stage reasons only for the owners mortgages
+ok 93 - private quotes show correct amounts and stage reasons only for the owners mortgages
+  ---
+  duration_ms: 1.2626
+  ...
+# Subtest: unrelated public revisions do not invalidate unchanged repayment terms
+ok 94 - unrelated public revisions do not invalidate unchanged repayment terms
+  ---
+  duration_ms: 0.4328
+  ...
+# Subtest: normal and quick, legacy and current rules permit third and fourth city mortgages with exact cash
+not ok 95 - normal and quick, legacy and current rules permit third and fourth city mortgages with exact cash
+  ---
+  duration_ms: 4.0448
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\test\\mortgage-unlimited.test.js:6:1'
+  failureType: 'testCodeFailure'
+  error: '快速模式版本无效'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    createGameState (C:\Users\Yifan\Desktop\game\src\state.js:43:147)
+    fixture (C:\Users\Yifan\Desktop\game\test\mortgage-unlimited.test.js:4:51)
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\test\mortgage-unlimited.test.js:7:75)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+    Test.run (node:internal/test_runner/test:796:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:526:18)
+    node:internal/test_runner/harness:255:12
+    node:internal/process/task_queues:140:7
+    AsyncResource.runInAsyncScope (node:async_hooks:206:9)
+    AsyncResource.runMicrotask (node:internal/process/task_queues:137:8)
+  ...
+# Subtest: repeat mortgages, unowned/other cities and forbidden decisions never mint cash
+not ok 96 - repeat mortgages, unowned/other cities and forbidden decisions never mint cash
+  ---
+  duration_ms: 1.2721
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\test\\mortgage-unlimited.test.js:9:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + undefined
+    - true
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\test\mortgage-unlimited.test.js:10:259)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+    Test.run (node:internal/test_runner/test:796:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:526:18)
+    Test.postRun (node:internal/test_runner/test:889:19)
+    Test.run (node:internal/test_runner/test:835:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: self rescue and city, airport or build fundraising permit third mortgages without prematurely confirming
+not ok 97 - self rescue and city, airport or build fundraising permit third mortgages without prematurely confirming
+  ---
+  duration_ms: 1.2795
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\test\\mortgage-unlimited.test.js:13:1'
+  failureType: 'testCodeFailure'
+  error: '快速模式版本无效'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    createGameState (C:\Users\Yifan\Desktop\game\src\state.js:43:147)
+    fixture (C:\Users\Yifan\Desktop\game\test\mortgage-unlimited.test.js:4:51)
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\test\mortgage-unlimited.test.js:14:100)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+    Test.run (node:internal/test_runner/test:796:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:526:18)
+    Test.postRun (node:internal/test_runner/test:889:19)
+    Test.run (node:internal/test_runner/test:835:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: AI can evaluate and fall back to a third mortgage while current simulation funding includes every city
+ok 98 - AI can evaluate and fall back to a third mortgage while current simulation funding includes every city
+  ---
+  duration_ms: 18.362
+  ...
+1..98
+# tests 98
+# suites 0
+# pass 94
+# fail 4
+# cancelled 0
+# skipped 0
+# todo 0

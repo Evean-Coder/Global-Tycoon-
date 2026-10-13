@@ -1,0 +1,1 @@
+{"rows":108,"costCases":640,"oldWindfalls":80,"winners":{"order":38,"investment":25,"build":45},"immediate":{"order":-1000,"investment":0,"build":-6000},"checksPassed":9,"fullGames":0}

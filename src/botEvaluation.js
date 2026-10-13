@@ -2,6 +2,7 @@
 
 // These estimates use public rules and the seat's snapshot, never the hidden dice bag.
 const econ = require('./economy');
+const {modern}=require('./managementRules');
 const {AIRPORTS} = require('./board');
 const CONFIG = Object.freeze({steps:8, discount:.92, baseReserve:6000, rentBuffer:.6, stockRatio:.25, cityStockRatio:.1});
 const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
@@ -114,7 +115,7 @@ function stockBenefit(ctx,id,shares=1,fee=0) {
   let price=s.operatingPrice,history=s.rentHistory.slice(-3),dividends=0;
   if(!Number.isFinite(price))price=s.price-Math.floor(s.dividendFund/20);
   const selected=view.self.opportunities.selectedIds;
-  let bonusLeft=Math.max(0,1000-(view.self.opportunities.usage.H4||0))+goCount(ctx)*1000;
+  let bonusLeft=Math.max(0,(modern(view)?3000:1000)-(view.self.opportunities.usage.H4||0))+goCount(ctx)*(modern(view)?3000:1000);
   for(let t=0;t<Math.ceil(ctx.horizon);t++) {
     const projected=rents(ctx,id,c.houseLevel)[t]||0;
     const historic=c.mortgaged?0:clamp(history.length?sum(history)/history.length:projected,0,worldRent(c,view,t)*Math.max(1,view.players.filter(p=>p.alive).length-1)*2);
@@ -125,17 +126,17 @@ function stockBenefit(ctx,id,shares=1,fee=0) {
     price+=clamp(target-price,-Math.round(price*.1),Math.round(price*.1))*clamp(ctx.horizon-t,0,1);
     const cash=rent*.01*shares*weight(ctx,t);
     if(c.ownerId!==self.id)dividends+=cash;
-    if(selected.includes('H4')){const bonus=Math.min(bonusLeft,cash*.2);dividends+=bonus;bonusLeft-=bonus;}
+    if(selected.includes('H4')){const bonus=Math.min(bonusLeft,cash*(modern(view)?.5:.2));dividends+=bonus;bonusLeft-=bonus;}
   }
   let synergy=0;
   if(selected.includes('H5')&&!(s.holders[self.id]>0)){
     const owned=Object.keys(view.stocks).filter(cid=>view.stocks[cid].holders[self.id]>0&&view.cities[cid].ownerId&&!view.cities[cid].mortgaged);
-    if(owned.length===2)synergy+=2000*goCount(ctx);
+    if(modern(view)){if(owned.length>=1&&owned.length<4)synergy+=(owned.length===1?2000:1000)*goCount(ctx);}else if(owned.length===2)synergy+=2000*goCount(ctx);
   }
   if(selected.includes('H6')&&c.ownerId!==self.id&&!(s.holders[self.id]>0)) {
     const sq=view.board.find(sq=>sq.cityId===id);
-    const cut=sum(ctx.forecast[self.id].map((row,t)=>row.landing[sq.id]*Math.min(1000,worldRent(c,view,t)*.1)*weight(ctx,t)));
-    synergy+=Math.min(cut,Math.max(0,2000-(view.self.opportunities.usage.H6||0))+goCount(ctx)*2000);
+    const cut=sum(ctx.forecast[self.id].map((row,t)=>row.landing[sq.id]*Math.min(modern(view)?2000:1000,worldRent(c,view,t)*(modern(view)?.25:.1))*weight(ctx,t)));
+    synergy+=Math.min(cut,Math.max(0,(modern(view)?4000:2000)-(view.self.opportunities.usage.H6||0))+goCount(ctx)*(modern(view)?4000:2000));
   }
   const initial=s.operatingPrice??s.price-Math.floor(s.dividendFund/20);
   return {assetDelta:(price-initial)*shares-fee,expectedIncome:dividends+synergy,riskPenalty:0};
@@ -143,14 +144,16 @@ function stockBenefit(ctx,id,shares=1,fee=0) {
 function promotionValue(ctx,id,reward,remainingRewards=2,limit=2) {
   return Math.min(remainingRewards,sum(Array.from({length:Math.ceil(Math.min(limit,ctx.horizon))},(_,t)=>expectedHits(ctx,id,t)*weight(ctx,t,Math.min(limit,ctx.horizon)))))*reward;
 }
+function aviationBonus(view,id){return Math.min(5000,Object.entries(AIRPORTS).filter(([aid])=>view.airports[aid].ownerId===id).reduce((n,[,a])=>n+1000+(view.cities[a.adjacentCity].ownerId===id&&!view.cities[a.adjacentCity].mortgaged?1500:0),0));}
 function evaluate(ctx,candidate) {
   const {view,self}=ctx,c=view.cities[candidate.cityId],cost=candidate.cashCost||0;
   let assetDelta=0,expectedIncome=0,riskPenalty=0;
   switch(candidate.kind) {
     case 'city': {
       assetDelta=econ.cityTotalValue(c)-cost;expectedIncome=cityIncome(ctx,c.id,c.houseLevel,true);
-      if(view.self.opportunities.selectedIds.includes('H10')&&self.cities.length===2)expectedIncome-=2000*goCount(ctx);
-      if(view.self.opportunities.selectedIds.includes('H9'))for(const [aid,a]of Object.entries(AIRPORTS))if(a.adjacentCity===c.id&&view.airports[aid].ownerId===self.id){
+      if(view.self.opportunities.selectedIds.includes('H10')&&self.cities.length===2)expectedIncome-=(modern(view)?3000:2000)*goCount(ctx);
+      if(view.self.opportunities.selectedIds.includes('H9')&&modern(view))expectedIncome+=(aviationBonus({...view,cities:{...view.cities,[c.id]:{...c,ownerId:self.id}}},self.id)-aviationBonus(view,self.id))*goCount(ctx);
+      if(view.self.opportunities.selectedIds.includes('H9')&&!modern(view))for(const [aid,a]of Object.entries(AIRPORTS))if(a.adjacentCity===c.id&&view.airports[aid].ownerId===self.id){
         const pairs=Object.entries(AIRPORTS).filter(([k,v])=>view.airports[k].ownerId===self.id&&view.cities[v.adjacentCity].ownerId===self.id&&!view.cities[v.adjacentCity].mortgaged).length;
         if(pairs<2)expectedIncome+=1500*goCount(ctx);
       }
@@ -158,7 +161,7 @@ function evaluate(ctx,candidate) {
     }
     case 'build':assetDelta=econ.buildFee(c)-cost;expectedIncome=cityIncome(ctx,c.id,c.houseLevel+1)-cityIncome(ctx,c.id);break;
     case 'promote': {
-      assetDelta=-cost;expectedIncome=promotionValue(ctx,c.id,candidate.quote.reward);
+      assetDelta=-cost;expectedIncome=promotionValue(ctx,c.id,candidate.quote.reward,candidate.quote.remainingRewards||2,modern(view)?4:2);
       const old=(view.promotions||[]).find(p=>p.playerId===self.id);
       if(old)expectedIncome-=promotionValue(ctx,old.cityId,old.reward,old.remainingRewards,Math.max(0,old.expiresAfterCompleteRound-view.completeRounds+1));
       break;
@@ -170,7 +173,8 @@ function evaluate(ctx,candidate) {
       expectedIncome=sum(view.players.filter(p=>p.alive&&p.id!==self.id).flatMap(p=>ctx.forecast[p.id].map((row,t)=>row.landing[sq.id]*airportFee(view,candidate.target,self.id,count)*weight(ctx,t))));
       // Owning one more airport also increases receipts at airports already owned.
       for(const aid of self.airports){const oldSq=view.board.find(s=>s.airportId===aid);expectedIncome+=sum(view.players.filter(p=>p.alive&&p.id!==self.id).flatMap(p=>ctx.forecast[p.id].map((row,t)=>row.landing[oldSq.id]*3000*weight(ctx,t))));}
-      if(view.self.opportunities.selectedIds.includes('H9')){
+      if(view.self.opportunities.selectedIds.includes('H9')&&modern(view))expectedIncome+=(aviationBonus({...view,airports:{...view.airports,[candidate.target]:{...view.airports[candidate.target],ownerId:self.id}}},self.id)-aviationBonus(view,self.id))*goCount(ctx);
+      if(view.self.opportunities.selectedIds.includes('H9')&&!modern(view)){
         const adj=AIRPORTS[candidate.target].adjacentCity;
         const pairs=Object.entries(AIRPORTS).filter(([aid,a])=>view.airports[aid].ownerId===self.id&&view.cities[a.adjacentCity].ownerId===self.id&&!view.cities[a.adjacentCity].mortgaged).length;
         if(pairs<2&&view.cities[adj].ownerId===self.id&&!view.cities[adj].mortgaged)expectedIncome+=1500*goCount(ctx);
@@ -191,6 +195,7 @@ function pathValue(ctx,position,steps=2, released=true) {
 function releasedBusiness(ctx,cost) {
   const active=ctx.view.self.activeManagement;
   if(!active||active.usedThisTurn!==false)return 0;
+  if(modern(ctx.view))return 0; // Release also creates a mandatory cash commitment; never promise speculative profit here.
   const view={...ctx.view,players:ctx.view.players.map(p=>p.id===ctx.self.id?{...p,cash:p.cash-cost,jailed:false,frozen:false}:p)};
   const next=context(view),o=view.self.opportunities,options=[];
   for(const c of Object.values(view.cities)){
@@ -215,7 +220,8 @@ function opportunityValue(ctx,id) {
   const {view,self}=ctx,own=sorted(Object.values(view.cities).filter(c=>c.ownerId===self.id&&!c.mortgaged)),o=view.self.opportunities,g=goCount(ctx);
   const count=Object.keys(view.stocks).filter(cid=>view.stocks[cid].holders[self.id]>0&&view.cities[cid].ownerId&&!view.cities[cid].mortgaged).length;
   const remaining=(cap,key)=>Math.max(0,cap-(o.usage[key]||0))+g*cap;
-  const buildable=own.filter(c=>c.houseLevel<4&&self.cash-econ.buildFee(c)*1.45>=ctx.reserve);
+  const buildable=own.filter(c=>c.houseLevel<4&&self.cash-econ.buildFee(c)*(modern(view)?1.15:1.45)>=ctx.reserve);
+  if(modern(view))return opportunityValueV2(ctx,id,own,buildable,remaining,g,count);
   switch(id) {
     case 'H1':case 'H2':case 'H3': {
       const eligible=buildable.filter(c=>id!=='H3'||own.filter(x=>x.group===c.group).length>=2);
@@ -247,10 +253,31 @@ function opportunityValue(ctx,id) {
     default:return 0;
   }
 }
+function opportunityValueV2(ctx,id,own,buildable,remaining,g,count){
+  const {view,self}=ctx,o=view.self.opportunities;
+  const expectedRent=id=>sum(rents(ctx,id,view.cities[id].houseLevel).map((r,t)=>r*weight(ctx,t)));
+  switch(id){
+    case 'H1':case 'H2':case 'H3': {
+      const eligible=buildable.filter(c=>id!=='H3'||own.filter(x=>x.group===c.group).length>=2);
+      const cuts=eligible.map(c=>id==='H1'?econ.buildFee(c)*.15:Math.min(2000,econ.buildFee(c)*.1)).sort((a,b)=>b-a);
+      return sum(cuts.slice(0,Math.ceil(Math.min(ctx.horizon,id==='H3'?cuts.length:remaining(id==='H2'?2:1,id)))));
+    }
+    case 'H4':return Math.min(remaining(3000,id),sum(Object.keys(view.stocks).map(cid=>expectedRent(cid)*.005*(view.stocks[cid].holders[self.id]||0))));
+    case 'H5':return count>=2?Math.min(4000,count*1000)*g:0;
+    case 'H6':return Math.min(remaining(4000,id),sum(view.board.filter(sq=>sq.cityId&&view.stocks[sq.cityId].holders[self.id]>0&&view.cities[sq.cityId].ownerId!==self.id).map(sq=>sum(ctx.forecast[self.id].map((r,t)=>r.landing[sq.id]*Math.min(2000,worldRent(view.cities[sq.cityId],view,t)*.25)*weight(ctx,t))))));
+    case 'H7':return Math.max(0,...Object.values(view.self.quotes.flight).filter(q=>q.ok&&q.baseAmount>0).map(q=>Math.min(3000,q.baseAmount*.4)))*Math.min(2,remaining(2,id));
+    case 'H8':return sum(view.board.filter(sq=>sq.airportId).map(sq=>sum(ctx.forecast[self.id].map((r,t)=>r.landing[sq.id]*weight(ctx,t)))*(o.visitedAirportIds.includes(sq.airportId)?1500:3000)));
+    case 'H9':return Math.min(5000,Object.entries(AIRPORTS).filter(([aid])=>view.airports[aid].ownerId===self.id).reduce((n,[,a])=>n+1000+(view.cities[a.adjacentCity].ownerId===self.id&&!view.cities[a.adjacentCity].mortgaged?1500:0),0))*g;
+    case 'H10':return self.cities.length<=2?3000*g:0;
+    case 'H11':return Math.min(remaining(2,id)*3000,sum(ctx.forecast[self.id].map((r,t)=>sum(view.board.filter(sq=>sq.cityId&&view.cities[sq.cityId].ownerId&&view.cities[sq.cityId].ownerId!==self.id).map(sq=>r.landing[sq.id]*Math.min(3000,worldRent(view.cities[sq.cityId],view,t)*.3)))*weight(ctx,t))));
+    case 'H12':return o.oneTimeRewards?.H12?0:10000;
+    default:return 0;
+  }
+}
 function routeValue(ctx,ids) {
   let value=sum(ids.map(id=>opportunityValue(ctx,id)));
   // The active construction discount cap is shared: H1/H2/H3 are not additive.
-  if(ctx.view.activeManagementRevision){const build=ids.filter(id=>['H1','H2','H3'].includes(id)).map(id=>opportunityValue(ctx,id));value-=sum(build)-Math.max(0,...build);}
+  if(ctx.view.activeManagementRevision&&!modern(ctx.view)){const build=ids.filter(id=>['H1','H2','H3'].includes(id)).map(id=>opportunityValue(ctx,id));value-=sum(build)-Math.max(0,...build);}
   return value;
 }
 function changedBonusLoss(ctx,view,ids) {

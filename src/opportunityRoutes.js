@@ -29,7 +29,7 @@ function assertRoutes(s) {
     const active = flow.activeChoice?.playerId === p.id ? 1 : 0;
     if (r.pending.length + active > (s.gameMode === 'normal' ? 1 : 2) || new Set(r.pending.map(c => c.opportunityId)).size !== r.pending.length) throw new Error('待处理机会无效');
     for (const value of Object.values(o.usage)) if (!Number.isSafeInteger(value) || value < 0) throw new Error('机遇额度无效');
-    if (o.oneTimeRewards.H12 && o.oneTimeRewards.H12.amount !== 6000) throw new Error('应急资金历史无效');
+    if (o.oneTimeRewards.H12 && o.oneTimeRewards.H12.amount !== require('./managementRules').emergencyAmount(p)) throw new Error('应急资金历史无效');
   }
   const c = flow.activeChoice;
   if (c) {

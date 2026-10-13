@@ -57,6 +57,7 @@ function phaseAllows(state, type) {
   if (phase === 'route_choose') return routes.enabled(state) && ['route_confirm', 'route_skip', 'route_expire'].includes(type);
   const map = {
     roll_dice: ['waiting_roll'],
+    management_timeout: ['waiting_roll'],
     respond_frozen: ['frozen_turn'],
     respond_jail: ['jail_turn'],
     respond_build: ['build_decide'],
@@ -191,6 +192,8 @@ function normalizeAction(state, raw, context = {}) {
     if(!require('./buildFundraising').eligible(state,p)||!safeInt(raw.shares,1)||!st||raw.shares>(st.holders[p.id]||0)||!Number.isSafeInteger(st.price)||st.price<=0||!state.cities[raw.cityId]?.ownerId||st.clearing)return fail('当前不能卖股为建房筹资');
   }
   if (type === 'end_phase' || !phaseAllows(state, type)) return fail('当前阶段无法执行该操作');
+  if(type==='management_timeout'&&(context.source!=='timeout'||!require('./managementRules').modern(state)))return fail('仅服务端可处理经营超时');
+  if(type==='roll_dice'&&require('./activeManagement').required(state,currentPlayer(state)?.id))return fail('请先完成一项主动经营再掷骰');
   if (state.phase === 'route_choose') {
     try {
       routes.validateChoice(state, raw, context);

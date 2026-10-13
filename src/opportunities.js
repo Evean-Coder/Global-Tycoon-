@@ -1,4 +1,5 @@
 'use strict';
+const {emergencyAmount}=require('./managementRules');
 const {OPPORTUNITIES}=require('./gameplayCatalog');
 function initial(){return {selectedIds:[],rerollsLeft:1,lapEpoch:0,usage:{},visitedAirportIds:[]};}
 function has(player,id){return !!player.opportunities?.selectedIds.includes(id);}
@@ -7,11 +8,11 @@ function consume(player,id,amount=1){player.opportunities.usage[id]=used(player,
 function refresh(player){if(player.opportunities){player.opportunities.lapEpoch++;player.opportunities.usage={};}}
 function emergencyIntent(state,player,sourceId){
  if(!player.alive||!has(player,'H12')||!player.opportunities.oneTimeRewards||player.opportunities.oneTimeRewards.H12)return null;
- return {playerId:player.id,catalogId:'H12',amount:6000,sourceId,receiptId:state.gameId+':H12:'+player.id+':'+sourceId};
+ return {playerId:player.id,catalogId:'H12',amount:emergencyAmount(player),sourceId,receiptId:state.gameId+':H12:'+player.id+':'+sourceId};
 }
 function recordEmergency(player,intent){
- if(!intent||intent.playerId!==player.id||intent.amount!==6000||intent.catalogId!=='H12'||!player.opportunities.oneTimeRewards||player.opportunities.oneTimeRewards.H12)throw new Error('应急资金领取事实无效');
- player.opportunities.oneTimeRewards.H12={receiptId:intent.receiptId,amount:6000,sourceId:intent.sourceId};
+ if(!intent||intent.playerId!==player.id||intent.amount!==emergencyAmount(player)||intent.catalogId!=='H12'||!player.opportunities.oneTimeRewards||player.opportunities.oneTimeRewards.H12)throw new Error('应急资金领取事实无效');
+ player.opportunities.oneTimeRewards.H12={receiptId:intent.receiptId,amount:emergencyAmount(player),sourceId:intent.sourceId};
 }
 function candidates(player,rng,exclude=[]){
  const eligible=OPPORTUNITIES.filter(o=>!has(player,o.id)&&!exclude.includes(o.id));

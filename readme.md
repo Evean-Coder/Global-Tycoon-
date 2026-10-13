@@ -1,3 +1,5 @@
+> 最新开发（2026-10-13）：每回合强制经营 v2、经营类型→城市的两级窗口、单一底栏入口及12种强化调整。普通90秒/快速45秒内完成经营与掷骰；无项目放行，超时选择最低支出。旧v1对局保持原规则。资源版本 `20261013-management-v2`，PWA缓存v26。本轮部署状态及实测结果见 [验收记录](docs/management-redesign/acceptance.md)，完整设计见 [Spec](docs/management-redesign/spec.md)、[Plan](docs/management-redesign/plan.md)、[Tasks](docs/management-redesign/task.md)、[Checklist](docs/management-redesign/checklist.md)。
+
 # 环球大亨
 
 > 最终上线（2026-10-12）：取消抵押数量上限及此前四项修复已在Render生效；资源`20261012-mortgage-unlimited-v1`、缓存v25。代码/测试提交`2586aa3`的[完整GitHub CI](https://github.com/Evean-Coder/Global-Tycoon-/actions/runs/38236451713)全部通过，线上资源及独立双人开局操作已核对。[验收](docs/mortgage-unlimited/acceptance.md)。下方保留各阶段当时记录。
@@ -20,7 +22,7 @@
 
 > 当前开发（2026-10-11）：四项已批准反馈整改完成实现：手机6×7紧凑棋盘及独立信息区、股票60秒与稳定列表、建房筹资按数量卖股、每回合主动经营提示。静态资源`20261011-playability-v1`、缓存`global-tycoon-v18-playability`；完整结果见[反馈整改索引](docs/player-feedback-20261011.md)。本轮未推送或部署Render，现有服务器须重启后载入新的服务端规则。以下为历史交付记录。
 
-> 本轮开发（2026-10-10）：已接入浅纸色地图前端、三端独立操作区、只读规则提示、置业扶持与三类主动经营。新局使用 `property-support-v1` / `active-management-v1`，旧局不迁移。静态资源 `20261010-atlas-v1`、缓存 v12。最新51项针对性检查通过，完整逐项验收仍在核对；进度与限制见 [开发记录](docs/gameplay-improvements/progress.md)。本轮未推送或部署 Render。
+> 历史开发记录（2026-10-10）：已接入浅纸色地图前端、三端独立操作区、只读规则提示、置业扶持与三类主动经营。新局使用 `property-support-v1` / `active-management-v1`，旧局不迁移。静态资源 `20261010-atlas-v1`、缓存 v12。最新51项针对性检查通过，完整逐项验收仍在核对；进度与限制见 [开发记录](docs/gameplay-improvements/progress.md)。本轮未推送或部署 Render。
 
 ## 历史交付记录
 

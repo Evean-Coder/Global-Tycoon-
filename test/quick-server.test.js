@@ -84,8 +84,8 @@ test('QS12: natural quick finish sends one identical record with frozen reason',
   api.emitGame(x.room);api.finalizeGame(x.room,'disband');assert.equal(x.room.gameRecord,record);assert.deepEqual(x.room.state.players.map(p=>p.cash),cash);
 });
 test('QS13: offline personal pause never pauses total deadline and reconnect receives record',async()=>{
-  const x=await setup();await start(x);await initial(x);x.time.set(5000);const token=x.a.token;x.a.close();await until(()=>x.room.actionClock.paused);assert.equal(x.room.actionClock.remainingSeconds(),15);
-  x.time.set(100000);const next=await connect();assert.equal((await ack(next,'reconnect',{roomCode:x.room.code,name:'甲',token})).ok,true);assert.equal(x.room.actionClock.remainingSeconds(),15);
+  const x=await setup();await start(x);await initial(x);x.time.set(5000);const token=x.a.token;x.a.close();await until(()=>x.room.actionClock.paused);assert.equal(x.room.actionClock.remainingSeconds(),40);
+  x.time.set(100000);const next=await connect();assert.equal((await ack(next,'reconnect',{roomCode:x.room.code,name:'甲',token})).ok,true);assert.equal(x.room.actionClock.remainingSeconds(),40);
   const nextToken=next.token;next.close();x.b.close();await until(()=>x.room.players.every(p=>!p.connected));x.time.advance(1700000);assert.equal(x.room.state.quick.status,'closed');
   const last=await connect();await ack(last,'reconnect',{roomCode:x.room.code,name:'甲',token:nextToken});await until(()=>last.record?.quick&&last.game?.quickResult);assert.deepEqual(last.record.quick.ranking,last.game.quickResult.ranking);assert.equal(last.game.quickResult.reason,'time_limit');
 });
@@ -110,7 +110,7 @@ test('QS17: finite real quick game grows, operates, skips routes and seals an un
   for(const ms of [300000,600000]){x.time.set(ms);api.advanceRouteTime(x.room);await initial(x);}
   const log=[];
   async function action(id,a){const result=await submit(x,id,a);assert.equal(result.ok,true,JSON.stringify({phase:x.room.state.phase,a,result}));log.push({id,type:a.type,phase:x.room.state.phase});}
-  async function roll(id,n){assert.equal(x.room.state.players[x.room.state.turnIndex].id,id);x.room.rng.diceBag=[n];await action(id,{type:'roll_dice'});if(x.room.state.phase==='stock')await action(id,{type:'stock_done'});}
+  async function roll(id,n){assert.equal(x.room.state.players[x.room.state.turnIndex].id,id);if(require('../src/activeManagement').required(x.room.state,id))await action(id,require('../src/activeManagement').timeoutAction(x.room.state,id));x.room.rng.diceBag=[n];await action(id,{type:'roll_dice'});if(x.room.state.phase==='stock')await action(id,{type:'stock_done'});}
   for(const n of [10,8,10,9,5])for(const id of ['p0','p1'])await roll(id,n);
   assert.equal(x.room.state.firstRoundDone,true);
   await roll('p0',1);assert.equal(x.room.state.phase,'buy');await action('p0',{type:'buy',decision:'buy'});await roll('p1',1);

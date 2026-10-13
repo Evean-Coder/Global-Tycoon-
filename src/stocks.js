@@ -1,6 +1,7 @@
 'use strict';
 const econ=require('./economy');
 const opp=require('./opportunities');
+const {modern}=require('./managementRules');
 function syncHolders(s){for(const p of s.players)p.stocks=Object.fromEntries(Object.entries(s.stocks).filter(([,st])=>(st.holders[p.id]||0)>0).map(([id,st])=>[id,st.holders[p.id]]));}
 function refreshPrice(s,id,reason){
  const st=s.stocks[id],before=st.price;
@@ -41,7 +42,7 @@ function settleCityDividend(s,id,reason,settlementId,events){
   if(!amount)continue;p.cash=econ.safe(p.cash+amount);distributed+=amount;
   events.push({type:'dividend',kind:'dividend',settlementId:settlementId+':'+p.id,playerId:p.id,cityId:id,amount,perShare:per,shares,text:p.name+' 获得 '+id+' 基础股息 '+amount});
   if(opp.has(p,'H4')){
-   const bonus=Math.min(Math.max(0,1000-opp.used(p,'H4')),econ.rounded(amount,20));
+   const bonus=Math.min(Math.max(0,(modern(s)?3000:1000)-opp.used(p,'H4')),econ.rounded(amount,modern(s)?50:20));
    if(bonus){opp.consume(p,'H4',bonus);econ.reward(s,p,bonus,'H4',events,'稳健股息');}
   }
  }

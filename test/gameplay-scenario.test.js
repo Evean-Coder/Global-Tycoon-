@@ -49,7 +49,7 @@ test('建立多人完整流程驱动 / 覆盖开局首圈资讯启动 / 覆盖�
   let a;
   if(phase==='waiting_roll'){
    const remote=Object.entries(self.self.quotes.remote).find(([,q])=>q.ok&&q.effects.some(e=>e.amount>0));
-   if(remote){a={type:'remote_build',cityId:remote[0],quoteVersion:remote[1].quoteVersion};remoteDiscount=true;}else a={type:'roll_dice'};
+   if(remote){a={type:'remote_build',cityId:remote[0],quoteVersion:remote[1].quoteVersion};remoteDiscount=true;}else a=require('../src/activeManagement').required(room.state,actor)?require('../src/activeManagement').timeoutAction(room.state,actor):{type:'roll_dice'};
   }else if(phase==='stock'){
    const w=self.self.stockWindow,done=windowSteps.get(w.windowId)||{},owned=Object.keys(self.stocks).filter(id=>self.cities[id].ownerId&&!self.stocks[id].clearing);
    const id=owned.find(id=>(self.stocks[id].holders[actor]||0)<(self.cities[id].ownerId===actor?4:10));

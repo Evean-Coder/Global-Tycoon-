@@ -1,5 +1,6 @@
 'use strict';
 const opp=require('./opportunities');
+const {modern}=require('./managementRules');
 const {AIRPORTS}=require('./board');
 function safe(value){if(!Number.isSafeInteger(value))throw new Error('金额超出有效范围');return value;}
 function rounded(value,numerator,denominator=100){
@@ -27,19 +28,19 @@ function quoteBuild(s,{playerId,cityId,mode='normal'}){
  if(mode==='remote'){
   if(s.phase!=='waiting_roll'||s.players[s.turnIndex].id!==p.id||!opp.has(p,'H1')||opp.used(p,'H1'))return denied('远程施工仅本人等待掷骰且本圈仍有次数时可用');
  }else if(mode!=='active'&&(p.position!==s.board.find(q=>q.cityId===cityId)?.id||c.buildReady===false))return denied('需再次到达自己的城市后建房');
- const base=buildFee(c),limit=rounded(base,mode==='active'?10:30),effects=[],quotaChanges=[];
+ const base=buildFee(c),limit=rounded(base,mode==='active'&&!modern(s)?10:30),effects=[],quotaChanges=[];
  let reduction=0;
  function offer(id,name,requested){
   const amount=Math.max(0,Math.min(requested,limit-reduction));effects.push(discount(id,name,amount,requested));reduction+=amount;
   if(amount>0)quotaChanges.push({id,amount:1});
  }
- if(mode==='active'&&opp.has(p,'H1')&&!opp.used(p,'H1'))offer('H1','远程施工',rounded(base,10));
+ if(mode==='active'&&opp.has(p,'H1')&&!opp.used(p,'H1'))offer('H1','远程施工',rounded(base,modern(s)?15:10));
  if(s.world?.active?.type==='construction'&&!s.world.constructionUsedIds.includes(p.id))offer('construction','建设优惠',Math.min(2000,rounded(base,15)));
- if(opp.has(p,'H2')&&!opp.used(p,'H2'))offer('H2','标准化施工',Math.min(1500,rounded(base,10)));
+ if(opp.has(p,'H2')&&opp.used(p,'H2')<(modern(s)?2:1))offer('H2','标准化施工',Math.min(modern(s)?2000:1500,rounded(base,10)));
  const chain=Object.values(s.cities).filter(x=>x.ownerId===p.id&&!x.mortgaged&&x.group===c.group).length>=2;
- if(opp.has(p,'H3')&&!opp.used(p,'H3')&&chain)offer('H3','连锁经营',Math.min(1500,rounded(base,10)));
+ if(opp.has(p,'H3')&&(modern(s)||!opp.used(p,'H3'))&&chain)offer('H3','连锁经营',Math.min(modern(s)?2000:1500,rounded(base,10)));
  if(mode==='remote')quotaChanges.push({id:'H1',amount:1});
- const q=plan(s,p,'build',cityId,base,(mode==='active'?rounded(base,145):base)-reduction,effects,quotaChanges);
+ const q=plan(s,p,'build',cityId,base,(mode==='active'?rounded(base,modern(s)?115:145):base)-reduction,effects,quotaChanges);
  if(p.cash<q.finalAmount)return {...q,ok:false,reason:'现金不足以支付实际建房费用'};
  q.buildCostChanges={cityId,add:q.finalAmount};return q;
 }
@@ -59,11 +60,11 @@ function rentAmounts(s,{playerId,cityId,baseAmount}){
  }
  let amount=income;
  if(amount>0&&c.ownerId!==p.id&&opp.has(p,'H6')&&(s.stocks[cityId].holders[p.id]||0)>0){
-  const cut=Math.min(1000,Math.max(0,2000-opp.used(p,'H6')),rounded(amount,10));
+  const cut=Math.min(modern(s)?2000:1000,Math.max(0,(modern(s)?4000:2000)-opp.used(p,'H6')),rounded(amount,modern(s)?25:10));
   if(cut){amount-=cut;effects.push(discount('H6','股东礼遇',cut,cut));quotaChanges.push({id:'H6',amount:cut});}
  }
- if(amount>0&&c.ownerId!==p.id&&opp.has(p,'H11')&&!opp.used(p,'H11')){
-  const cut=Math.min(2000,rounded(amount,20));
+ if(amount>0&&c.ownerId!==p.id&&opp.has(p,'H11')&&opp.used(p,'H11')<(modern(s)?2:1)){
+  const cut=Math.min(modern(s)?3000:2000,rounded(amount,modern(s)?30:20));
   if(cut){amount-=cut;effects.push(discount('H11','风险准备金',cut,cut));quotaChanges.push({id:'H11',amount:1});}
  }
  const q=plan(s,p,'city_rent',cityId,base,amount,effects,quotaChanges);
@@ -81,8 +82,8 @@ function quoteFlight(s,{playerId,target,fromAirportId,free=false}){
  const distance=Math.min(Math.abs(to.id-from.id),42-Math.abs(to.id-from.id)),base=free?0:distance*500;
  const effects=[],quotaChanges=[];let reduction=0;
  if(base&&s.world?.active?.type==='aviation'){const cut=rounded(base,30);reduction+=cut;effects.push(discount('aviation','航空促销',cut,cut));}
- if(base&&opp.has(p,'H7')&&!opp.used(p,'H7')){
-  const cut=Math.min(1500,rounded(base,20),rounded(base,50)-reduction);
+ if(base&&opp.has(p,'H7')&&opp.used(p,'H7')<(modern(s)?2:1)){
+  const cut=Math.min(modern(s)?3000:1500,rounded(base,modern(s)?40:20),rounded(base,modern(s)?60:50)-reduction);
   if(cut){reduction+=cut;effects.push(discount('H7','飞行常客',cut,cut));quotaChanges.push({id:'H7',amount:1});}
  }
  const q=plan(s,p,'flight',target,base,base-reduction,effects,quotaChanges);q.target=target;return q;
@@ -113,11 +114,13 @@ function reward(s,p,amount,id,events,reason){
  events.push({type:'reward',kind:'opportunity_reward',settlementId:s.gameId+':reward:'+s.settlementSeq,playerId:p.id,opportunityId:id,amount,text:p.name+' '+reason+'，奖励 '+amount});
 }
 function goRewards(s,p,events){
- if(opp.has(p,'H5')&&Object.entries(s.stocks).filter(([id,st])=>(st.holders[p.id]||0)>0&&s.cities[id].ownerId&&!s.cities[id].mortgaged).length>=3)reward(s,p,2000,'H5',events,'分散投资');
- if(opp.has(p,'H9')){const pairs=Object.entries(AIRPORTS).filter(([id,a])=>s.airports[id].ownerId===p.id&&s.cities[a.adjacentCity].ownerId===p.id&&!s.cities[a.adjacentCity].mortgaged).length;reward(s,p,Math.min(3000,pairs*1500),'H9',events,'航空联营');}
- if(opp.has(p,'H10')&&Object.values(s.cities).filter(c=>c.ownerId===p.id).length<=2)reward(s,p,2000,'H10',events,'轻资产经营');
+ const held=Object.entries(s.stocks).filter(([id,st])=>(st.holders[p.id]||0)>0&&s.cities[id].ownerId&&!s.cities[id].mortgaged).length;
+ if(opp.has(p,'H5')&&held>=(modern(s)?2:3))reward(s,p,modern(s)?Math.min(4000,held*1000):2000,'H5',events,'分散投资');
+ if(opp.has(p,'H9')){const pairs=Object.entries(AIRPORTS).filter(([id,a])=>s.airports[id].ownerId===p.id&&s.cities[a.adjacentCity].ownerId===p.id&&!s.cities[a.adjacentCity].mortgaged).length;reward(s,p,modern(s)?Math.min(5000,pairs*1500+Object.values(s.airports).filter(a=>a.ownerId===p.id).length*1000):Math.min(3000,pairs*1500),'H9',events,'航空联营');}
+ if(opp.has(p,'H10')&&Object.values(s.cities).filter(c=>c.ownerId===p.id).length<=2)reward(s,p,modern(s)?3000:2000,'H10',events,'轻资产经营');
 }
 function airportReward(s,p,id,events){
+ if(modern(s)){if(!opp.has(p,'H8')||opp.used(p,'H8:'+id))return;opp.consume(p,'H8:'+id);const first=!p.opportunities.visitedAirportIds.includes(id);if(first)p.opportunities.visitedAirportIds.push(id);reward(s,p,first?3000:1500,'H8',events,'环球旅人 · '+id);return;}
  if(opp.has(p,'H8')&&!p.opportunities.visitedAirportIds.includes(id)){p.opportunities.visitedAirportIds.push(id);reward(s,p,2000,'H8',events,'环球旅人 · '+id);}
 }
 module.exports={safe,rounded,floorRatio,cityTotalValue,rentFor,mortgageValue,buildFee,refundFor,version,quoteBuild,quoteRent,rentAmounts,quoteFlight,quoteDemolition,applySettlement,reward,goRewards,airportReward};

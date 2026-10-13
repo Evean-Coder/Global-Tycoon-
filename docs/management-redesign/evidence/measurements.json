@@ -1,0 +1,50 @@
+[
+  {
+    "width": 1440,
+    "height": 900,
+    "overflow": false,
+    "button": {
+      "left": 909.078125,
+      "top": 845,
+      "right": 1027.078125,
+      "bottom": 889,
+      "height": 44
+    }
+  },
+  {
+    "width": 768,
+    "height": 1024,
+    "overflow": false,
+    "button": {
+      "left": 319,
+      "top": 969,
+      "right": 449,
+      "bottom": 1013,
+      "height": 44
+    }
+  },
+  {
+    "width": 320,
+    "height": 700,
+    "overflow": false,
+    "button": {
+      "left": 161,
+      "top": 647,
+      "right": 235,
+      "bottom": 691,
+      "height": 44
+    }
+  },
+  {
+    "width": 844,
+    "height": 280,
+    "overflow": false,
+    "button": {
+      "left": 191.15625,
+      "top": 227,
+      "right": 323.59375,
+      "bottom": 271,
+      "height": 44
+    }
+  }
+]

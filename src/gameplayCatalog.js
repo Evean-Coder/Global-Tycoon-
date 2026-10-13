@@ -22,4 +22,21 @@ const OPPORTUNITIES = [
  ['H12','现金与防御','应急资金','本阶段全体选择结束后一次性奖励6000。'],
 ].map(([id,direction,name,description])=>Object.freeze({id,direction,name,description}));
 const BY_ID = Object.fromEntries(OPPORTUNITIES.map(o=>[o.id,o]));
-module.exports = { REGIONS, NEWS, OPPORTUNITIES, BY_ID };
+const DESCRIPTIONS_V2 = [
+ '每圈首次主动建设优惠标准建房费15个百分点，与其他建设优惠共用30个百分点上限。',
+ '每圈前2次受惠建设优惠标准费用10%，每次最高2000；与其他建设优惠共用总上限。',
+ '拥有至少两座同色非抵押城市，建设该组城市每次优惠10%，最高2000；共用建设优惠总上限。',
+ '实收基础股息额外奖励50%，每圈最多3000；不含城主保留收益。',
+ '起点持股至少2座已归属非抵押城市，每座奖励1000，最高4000。',
+ '向本人持股的他人城市付租金减25%，每笔最高2000，每圈最高4000。',
+ '每圈前2次受惠付费机票减40%，每次最高3000；与航空资讯合计最多减60%，免费航班不耗次数。',
+ '骰子直接到达或主动飞抵机场，每机场每圈奖励1500；选中后本局首次到访另奖1500，换路线不重置。',
+ '起点每座自有机场奖励1000，有对应非抵押邻城再加1500，总额最高5000。',
+ '起点拥有不超过两座城市奖励3000，抵押城市也计数。',
+ '每圈前2次正额城市租金，在股东礼遇后再减30%，每次最高3000；不含机场费或罚金。',
+ '一次性奖励10000；初始全员选完后发放，后续换入确认后发放，本局只领一次。',
+];
+const OPPORTUNITIES_V2=OPPORTUNITIES.map((o,i)=>Object.freeze({...o,description:DESCRIPTIONS_V2[i]}));
+const BY_ID_V2=Object.fromEntries(OPPORTUNITIES_V2.map(o=>[o.id,o]));
+const catalogFor=s=>require('./managementRules').modern(s)?BY_ID_V2:BY_ID;
+module.exports = { REGIONS, NEWS, OPPORTUNITIES, BY_ID, OPPORTUNITIES_V2, BY_ID_V2, catalogFor };

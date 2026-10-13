@@ -1,0 +1,204 @@
+TAP version 13
+# Subtest: 经营两级选择与唯一入口：四端真实请求、无项目和报价变更
+ok 1 - 经营两级选择与唯一入口：四端真实请求、无项目和报价变更
+  ---
+  duration_ms: 3954.2558
+  ...
+# Subtest: 一个真人添加电脑正常/快速开局，电脑自动提交同步机遇，保留隐私
+ok 2 - 一个真人添加电脑正常/快速开局，电脑自动提交同步机遇，保留隐私
+  ---
+  duration_ms: 128.5718
+  ...
+# Subtest: 房主管理容量、非房主拒绝、电脑无法冒名重连、对局中增删拒绝
+ok 3 - 房主管理容量、非房主拒绝、电脑无法冒名重连、对局中增删拒绝
+  ---
+  duration_ms: 15.1174
+  ...
+# Subtest: 电脑落点购买与掷骰推进，重复发布只调度一次，结束取消任务
+ok 4 - 电脑落点购买与掷骰推进，重复发布只调度一次，结束取消任务
+  ---
+  duration_ms: 54.9355
+  ...
+# Subtest: 最后真人掉线停止电脑并记录闲置，重连恢复，房主不会转给电脑
+ok 5 - 最后真人掉线停止电脑并记录闲置，重连恢复，房主不会转给电脑
+  ---
+  duration_ms: 726.5917
+  ...
+# Subtest: 股票成交后正常退出，欠款优先卖股后恢复，不依赖真人按钮
+ok 6 - 股票成交后正常退出，欠款优先卖股后恢复，不依赖真人按钮
+  ---
+  duration_ms: 124.2121
+  ...
+# Subtest: 清理删除房间后电脑没有残留任务
+ok 7 - 清理删除房间后电脑没有残留任务
+  ---
+  duration_ms: 8.7128
+  ...
+# Subtest: 非当前回合电脑回应拍卖与直接出售，过贵股票转让拒绝回到原窗口
+ok 8 - 非当前回合电脑回应拍卖与直接出售，过贵股票转让拒绝回到原窗口
+  ---
+  duration_ms: 192.3279
+  ...
+# Subtest: 普通及快速有限联机轨迹：经营、股票、自救和飞行通过原动作入口
+ok 9 - 普通及快速有限联机轨迹：经营、股票、自救和飞行通过原动作入口
+  ---
+  duration_ms: 555.6419
+  ...
+# Subtest: 服务器给电脑相同公开快速时限，临近封盘也完成必需经营
+ok 10 - 服务器给电脑相同公开快速时限，临近封盘也完成必需经营
+  ---
+  duration_ms: 93.4674
+  ...
+# Subtest: 后续路线选择使用本人成熟路线并能推进，快速封盘撤销电脑动作
+ok 11 - 后续路线选择使用本人成熟路线并能推进，快速封盘撤销电脑动作
+  ---
+  duration_ms: 53.4938
+  ...
+# Subtest: 真实单人局主动结束、记录电脑身份、重开与旧回调隔离
+ok 12 - 真实单人局主动结束、记录电脑身份、重开与旧回调隔离
+  ---
+  duration_ms: 96.4709
+  ...
+# Subtest: 建立多人完整流程驱动 / 覆盖开局首圈资讯启动 / 覆盖完整经营与第三选择 / 覆盖完整场景重连和结算
+ok 13 - 建立多人完整流程驱动 / 覆盖开局首圈资讯启动 / 覆盖完整经营与第三选择 / 覆盖完整场景重连和结算
+  ---
+  duration_ms: 2900.7562
+  ...
+# Subtest: QS01: room modes agree for two to four players and enforce owner permissions
+ok 14 - QS01: room modes agree for two to four players and enforce owner permissions
+  ---
+  duration_ms: 66.0378
+  ...
+# Subtest: QS02: capabilities and conflicting mode fail without replacing prior state
+ok 15 - QS02: capabilities and conflicting mode fail without replacing prior state
+  ---
+  duration_ms: 15.4521
+  ...
+# Subtest: QS03: real total clock begins with first choice and shares injected time source
+ok 16 - QS03: real total clock begins with first choice and shares injected time source
+  ---
+  duration_ms: 7.9367
+  ...
+# Subtest: QS04: atomic close can retry after failed economic checks with no partial authoritative mutation
+ok 17 - QS04: atomic close can retry after failed economic checks with no partial authoritative mutation
+  ---
+  duration_ms: 16.0118
+  ...
+# Subtest: QS05: skipped nodes, warning deduplication and late callbacks prioritize total deadline
+ok 18 - QS05: skipped nodes, warning deduplication and late callbacks prioritize total deadline
+  ---
+  duration_ms: 17.6238
+  ...
+# Subtest: QS04b: partial candidate clearing failure never commits to the real room
+ok 19 - QS04b: partial candidate clearing failure never commits to the real room
+  ---
+  duration_ms: 14.9141
+  ...
+# Subtest: QS06: committed action survives deadline; execution crossing cutoff discards candidate
+ok 20 - QS06: committed action survives deadline; execution crossing cutoff discards candidate
+  ---
+  duration_ms: 79.2716
+  ...
+# Subtest: QS07: successful receipt remains queryable after closure while new requests fail
+ok 21 - QS07: successful receipt remains queryable after closure while new requests fail
+  ---
+  duration_ms: 18.1454
+  ...
+# Subtest: QS08: same decision has no refill, simultaneous personal and total deadline only closes
+ok 22 - QS08: same decision has no refill, simultaneous personal and total deadline only closes
+  ---
+  duration_ms: 18.4707
+  ...
+# Subtest: QS09: stock quote updates keep budget; unconfirmed transfer is cancelled at deadline
+ok 23 - QS09: stock quote updates keep budget; unconfirmed transfer is cancelled at deadline
+  ---
+  duration_ms: 32.8706
+  ...
+# Subtest: QS10: due initial stages open safely in order without replaying turn preparation
+ok 24 - QS10: due initial stages open safely in order without replaying turn preparation
+  ---
+  duration_ms: 26.6025
+  ...
+# Subtest: QS11: later milestones queue once, active choice survives 28 then cancels at 30
+ok 25 - QS11: later milestones queue once, active choice survives 28 then cancels at 30
+  ---
+  duration_ms: 37.6205
+  ...
+# Subtest: QS12: natural quick finish sends one identical record with frozen reason
+ok 26 - QS12: natural quick finish sends one identical record with frozen reason
+  ---
+  duration_ms: 39.6173
+  ...
+# Subtest: QS13: offline personal pause never pauses total deadline and reconnect receives record
+ok 27 - QS13: offline personal pause never pauses total deadline and reconnect receives record
+  ---
+  duration_ms: 54.4659
+  ...
+# Subtest: QS14: disband and idle cleanup preserve net ranking and actual termination reason
+ok 28 - QS14: disband and idle cleanup preserve net ranking and actual termination reason
+  ---
+  duration_ms: 27.682
+  ...
+# Subtest: QS15: restart resets identity and old callbacks cannot touch next game
+ok 29 - QS15: restart resets identity and old callbacks cannot touch next game
+  ---
+  duration_ms: 14.1033
+  ...
+# Subtest: QS16: five-second heartbeat updates time without changing revision or decision
+ok 30 - QS16: five-second heartbeat updates time without changing revision or decision
+  ---
+  duration_ms: 43.2148
+  ...
+# Subtest: QS17: finite real quick game grows, operates, skips routes and seals an unconfirmed purchase
+ok 31 - QS17: finite real quick game grows, operates, skips routes and seals an unconfirmed purchase
+  ---
+  duration_ms: 188.3048
+  ...
+# Subtest: QS18: real clock closes unopened routes at 28 and cancels active choice at 30
+ok 32 - QS18: real clock closes unopened routes at 28 and cancels active choice at 30
+  ---
+  duration_ms: 52.731
+  ...
+# Subtest: QS19: actual route confirmation before at and across total cutoff is atomic
+ok 33 - QS19: actual route confirmation before at and across total cutoff is atomic
+  ---
+  duration_ms: 147.423
+  ...
+# Subtest: 新经营与扶持提交遇快速截止：截止先到不成交，成功先到保留结果
+ok 34 - 新经营与扶持提交遇快速截止：截止先到不成交，成功先到保留结果
+  ---
+  duration_ms: 80.9375
+  ...
+# Subtest: 建房筹资真实Socket：重复只卖一次、决定不续期、快速封盘优先
+ok 35 - 建房筹资真实Socket：重复只卖一次、决定不续期、快速封盘优先
+  ---
+  duration_ms: 23.6566
+  ...
+# Subtest: 股票新窗口60秒、到期正常推进，整局仅剩8秒时同步封盘一次
+ok 36 - 股票新窗口60秒、到期正常推进，整局仅剩8秒时同步封盘一次
+  ---
+  duration_ms: 66.2053
+  ...
+# Subtest: 建房个人到期保留已变现股票收入，旧筹资请求不能继续卖
+ok 37 - 建房个人到期保留已变现股票收入，旧筹资请求不能继续卖
+  ---
+  duration_ms: 22.4131
+  ...
+# Subtest: 购买募资卖股真实Socket：两目标同请求只变现一次，个人超时及快速封盘阻止卖出
+ok 38 - 购买募资卖股真实Socket：两目标同请求只变现一次，个人超时及快速封盘阻止卖出
+  ---
+  duration_ms: 180.3453
+  ...
+# Subtest: 抵押远程赎回真实Socket：重复只扣一次、非本人拒绝、快速封盘优先且净资产一致
+ok 39 - 抵押远程赎回真实Socket：重复只扣一次、非本人拒绝、快速封盘优先且净资产一致
+  ---
+  duration_ms: 72.1438
+  ...
+1..39
+# tests 39
+# suites 0
+# pass 39
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

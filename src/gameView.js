@@ -2,7 +2,7 @@
 const econ=require('./economy');
 const {assetSummary,netAssetSummary}=require('./assets');
 const quick=require('./quickMode');
-const {BY_ID}=require('./gameplayCatalog');
+const {catalogFor}=require('./gameplayCatalog');
 const routes=require('./opportunityRoutes');
 function snapshot(s,viewerId,clockView){
  const out={};
@@ -30,7 +30,7 @@ function snapshot(s,viewerId,clockView){
   const stage=s.opportunityStage;
   out.opportunityStage={stageId:stage.stageId,ordinal:stage.ordinal,participantIds:stage.participantIds,completed:Object.fromEntries(stage.participantIds.map(id=>[id,!!stage.participants[id].submitted]))};
  }
- out.decision=clockView||null;out.opportunityCatalog=BY_ID;
+ out.decision=clockView||null;out.opportunityCatalog=catalogFor(s);
  if(quick.enabled(s)){
   out.quickRevision=s.quickRevision;
   if(s.quick.status==='closed')out.quickResult=globalThis.structuredClone(s.quick.result);

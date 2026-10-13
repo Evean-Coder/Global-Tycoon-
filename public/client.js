@@ -592,7 +592,6 @@ function renderLedger() {
   const active=game.self?.activeManagement;
   if(active){
     const summary=ContextualRules.managementSummary(game);
-    const entry=document.createElement('button');entry.type='button';entry.className='ledger-open';entry.textContent='主动经营 · 促销 / 买股 / 建设';entry.disabled=!summary.canOpen;entry.onclick=openActiveManagement;body.append(entry);
     const status=document.createElement('p');status.className='hint';status.textContent=summary.label+'；'+summary.quotaTexts.join('；');body.append(status);
     for(const a of (game.promotions||[]).filter(a=>a.playerId===meP.id)){const info=document.createElement('p');info.className='hint';info.textContent=a.cityId+' 促销 · 剩余奖励'+a.remainingRewards+'次 · 第'+a.expiresAfterCompleteRound+'完整轮后结束';body.append(info);}
   }
@@ -603,28 +602,72 @@ function renderLedger() {
   }
 }
 
+let managementDraft=null,managementOpen=false;
+function managementKey(){return [game?.gameId,game?.self?.playerId,game?.decision?.decisionId].join('|');}
 function openActiveManagement(){
-  const data=game?.self?.activeManagement;if(!data)return;
-  const gameId=game.gameId,decisionId=game.decision?.decisionId;let generation;
-  const body=$('modalBody');body.replaceChildren();
-  const summary=ContextualRules.managementSummary(game),headline=document.createElement('h4');headline.textContent=summary.label;body.append(headline);
-  const limits=document.createElement('p');limits.className='hint';limits.textContent='每回合成功一项，与以下每圈额度分别计算：'+summary.quotaTexts.join('；');body.append(limits);
-  const note=document.createElement('p');note.className='hint';note.textContent='掷骰前最多成功一项，取消不消耗次数。促销获得短期银行奖励；买股支付1%手续费；远程建设支付标准建房费的145%，优惠最多降低10个百分点。';body.append(note);
-  const quota=document.createElement('p');quota.className='hint';quota.textContent='本圈主动买入 '+data.quota.stockBoughtTotal+'/4股；同城最多2股。促销'+(data.quota.promotionStartedLap?'本圈已启动':'本圈可启动一次')+'，当前及下一完整轮有效，最多2次完成他人付租奖励；替换不退款。投资与建设无保底收益。';body.append(quota);
+  if(!game?.self?.activeManagement)return;
+  if(managementDraft?.request?.finished)managementDraft.request=null;
+  if(managementDraft?.key!==managementKey())managementDraft={key:managementKey(),type:null,shares:{},error:'',request:null};
+  openModal('主动经营');managementOpen=true;renderManagement();
+}
+function renderManagement(){
+  if(!managementOpen)return;
+  if(managementDraft?.key!==managementKey()||game.phase!=='waiting_roll'||!isMyTurn()){closeModal();return;}
+  const data=game.self.activeManagement,d=managementDraft,body=$('modalBody'),top=body.scrollTop;
+  if(data.usedThisTurn){d.request=null;closeModal();return;}
+  body.replaceChildren();body.classList.add('management-body');
+  const add=(tag,text,cls)=>{const el=document.createElement(tag);el.textContent=text;if(cls)el.className=cls;body.append(el);return el;};
+  const summary=ContextualRules.managementSummary(game);
+  add('p',summary.label,'management-summary');
+  add('p',data.mandatory?'本回合先完成一项经营，再掷骰。有可执行项目时，超时按最低支出完成一项并自动掷骰。':'本回合最多经营一项，可直接掷骰。','hint');
+  if(!data.mandatory)add('p','每回合成功一项；每圈额度：'+summary.quotaTexts.join('；'),'hint');
+  if(d.error)add('p',d.error,'management-error');
+  const locked=actionPending||!!d.request||!!game.decision?.paused||!socket.connected;
+  if(d.request&&!actionPending){const retry=add('button','查询刚才的操作结果','secondary');retry.onclick=()=>{d.request.retrieve();renderManagement();};retry.disabled=!socket.connected;}
   const labels={active_promote:'限时促销',active_stock_buy:'主动买股',active_build:'远程建设'};
-  for(const type of Object.keys(labels)){
-    const title=document.createElement('h4');title.textContent=labels[type];body.append(title);
-    const quotes=data.quotes.filter(q=>q.type===type);
-    for(const q of quotes){
-      const row=document.createElement('article');row.className='remote-city';
-      const text=document.createElement('p');text.textContent=q.cityId+(q.shares?' · '+q.shares+'股':'')+' · '+(q.ok?fmt(q.finalAmount)+'，剩余现金 '+fmt(q.cashAfter):q.reason)+(q.reward?' · 每次奖励 '+fmt(q.reward)+'，最多2次':'');
-      const button=document.createElement('button');button.type='button';button.className='primary';button.textContent='确认'+labels[type];button.disabled=!q.ok;
-      button.onclick=()=>sendAction({type,cityId:q.cityId,shares:q.shares,quoteVersion:q.quoteVersion,listingEpoch:q.listingEpoch},res=>{if(modalGeneration!==generation||latestState?.gameId!==gameId||latestState?.decision?.decisionId!==decisionId)return;if(res.ok)closeModal();else if(!res.unconfirmed)openActiveManagement();});
-      row.append(text,button);body.append(row);
+  const purposes={active_promote:'短期客流 · 他人付租时获得活动奖励',active_stock_buy:'中期投资 · 买入股权，参与真实经营分红',active_build:'长期经营 · 升一级房，提高后续租金'};
+  if(!d.type){
+    const cards=add('div','','management-types');
+    for(const type of Object.keys(labels)){
+      const rows=data.quotes.filter(q=>q.type===type),count=new Set(rows.filter(q=>q.ok).map(q=>q.cityId)).size;
+      const b=document.createElement('button');b.type='button';b.className='management-type';b.dataset.managementType=type;
+      const title=document.createElement('strong'),desc=document.createElement('span'),status=document.createElement('small');
+      title.textContent=labels[type];desc.textContent=purposes[type];status.textContent=count?count+'座城市可执行':'暂无可执行城市 · 查看原因';b.append(title,desc,status);b.disabled=locked;
+      b.onclick=()=>{d.type=type;d.error='';body.scrollTop=0;renderManagement();};cards.append(b);
     }
-    if(!quotes.length){const p=document.createElement('p');p.textContent='暂无符合条件的城市。';body.append(p);}
+  }else{
+    const back=add('button','‹ 返回选择经营类型','secondary');back.dataset.managementBack='';back.disabled=locked;back.onclick=()=>{d.type=null;d.error='';renderManagement();body.scrollTop=0;};
+    add('h4',labels[d.type]);
+    const rows=data.quotes.filter(q=>q.type===d.type),ids=[...new Set(rows.map(q=>q.cityId))];
+    if(!ids.length)add('p','暂无符合条件的城市。促销和建设需要自有城市；股票需要已有经营者的城市。','hint');
+    for(const cityId of ids){
+      const choices=rows.filter(q=>q.cityId===cityId),shares=d.shares[cityId]||1,q=choices.find(q=>q.shares===shares)||choices[0],city=game.cities[cityId];
+      const row=document.createElement('article');row.className='management-city';row.dataset.cityId=cityId;
+      const title=document.createElement('h4');title.textContent=cityId;row.append(title);
+      const line=text=>{const el=document.createElement('p');el.textContent=text;row.append(el);};
+      if(d.type==='active_stock_buy'){
+        const label=document.createElement('label');label.textContent='买入股数 ';const select=document.createElement('select');select.setAttribute('aria-label',cityId+'买入股数');
+        for(const n of [1,2]){const o=document.createElement('option');o.value=n;o.textContent=n+'股';select.append(o);}select.value=shares;select.disabled=locked;select.onchange=()=>{d.shares[cityId]=Number(select.value);renderManagement();};label.append(select);row.append(label);
+        const st=game.stocks[cityId];line('每股 '+fmt(st.price)+' · 已持有 '+(st.holders[game.self.playerId]||0)+'股');line('近3轮经营收入 '+fmt((st.rentHistory||[]).reduce((a,b)=>a+b,0))+' · 上次每股派息 '+fmt(st.lastDividendPerShare||0));line('本次手续费 '+fmt(q.fee||0)+' · 市场最多20股，城主最多持有本城4股；收益随经营变化。');
+      }
+      if(q.finalAmount!==undefined)line('实际支出 '+fmt(q.finalAmount)+(q.cashAfter!==undefined?' · 操作后现金 '+fmt(q.cashAfter):''));
+      if(d.type==='active_build')line('房级 '+city.houseLevel+' → '+Math.min(4,city.houseLevel+1)+(q.rentAfter!==undefined?' · 标准租金 '+fmt(q.rentBefore)+' → '+fmt(q.rentAfter):''));
+      if(d.type==='active_promote'&&q.reward)line('每次客流奖励 '+fmt(q.reward)+' · 最多'+q.remainingRewards+'次 · 第'+q.expiresAfterCompleteRound+'完整轮后到期；无客流可能零收益。');
+      if(!q.ok)line(q.reason);
+      const confirm=document.createElement('button');confirm.type='button';confirm.className='primary';confirm.dataset.managementConfirm='';confirm.textContent='确认'+labels[d.type];confirm.disabled=locked||!q.ok;
+      confirm.onclick=()=>{
+        const generation=modalGeneration,key=d.key;
+        sendAction({type:d.type,cityId,shares:q.shares,quoteVersion:q.quoteVersion,listingEpoch:q.listingEpoch},res=>{
+          if(!managementOpen||modalGeneration!==generation||managementKey()!==key)return;
+          if(res.ok){d.request=null;closeModal();return;}
+          d.error=res.error||'报价已更新，请核对后再次确认';if(!res.unconfirmed)d.request=null;renderManagement();
+        });
+        d.request=activeRequest;renderManagement();
+      };
+      row.append(confirm);body.append(row);
+    }
   }
-  const close=document.createElement('button');close.type='button';close.className='secondary';close.textContent='取消';close.onclick=closeModal;body.append(close);openModal('主动经营');generation=modalGeneration;
+  const close=add('button','关闭查看','secondary');close.type='button';close.onclick=closeModal;body.scrollTop=top;
 }
 
 function openPropertySupport(){
@@ -657,7 +700,7 @@ function renderActionBar() {
   const cur = game.players[game.turnIndex];
   $('dice').textContent = game.dice ? '骰子 ' + game.dice : '骰子 · 待掷';
   $('turnInfo').textContent = '当前回合：' + cur.name + '（第 ' + game.rounds + ' 轮）';
-  const canRoll = game.phase === 'waiting_roll' && isMyTurn();
+  const canRoll = game.phase === 'waiting_roll' && isMyTurn() && !game.self?.activeManagement?.required;
   $('btnRoll').disabled = !canRoll;
   $('btnEndTurn').disabled = !canRoll;
   const resumeStock = game.phase === 'stock' && isMyTurn();
@@ -726,12 +769,19 @@ function renderOpportunities() {
   }
 }
 function opportunityDescription(id) {
+  if(game?.activeManagementRevision==='active-management-v2')return game.opportunityCatalog[id].description;
   if(id==='H1'&&game?.activeManagementRevision==='active-management-v1')return '每圈首次主动远程建设优惠标准建房费的10个百分点，与其他建设优惠共用10个百分点上限；仍占本回合主动经营次数。';
   if(id==='H12' && game?.routeRevision==='opportunity-routes-v1')return '本局首次取得后获得6000。初始同步选择在全员完成后到账；后续调整在本人确认成功后到账。本局只领取一次，换出不补发。';
   return game.opportunityCatalog[id].description;
 }
 function opportunityHistory(id) {
   const o=game.self.opportunities,use=o.usage[id]||0;
+  if(game.activeManagementRevision==='active-management-v2'){
+    if(['H2','H7','H11'].includes(id))return '本圈剩余 '+Math.max(0,2-use)+' 次，换回不恢复';
+    if(id==='H3')return '满足同色条件时持续生效';
+    if(['H4','H6'].includes(id))return '本圈剩余额度 '+fmt(Math.max(0,(id==='H4'?3000:4000)-use));
+    if(id==='H12')return o.oneTimeRewards?.H12?'本局已领取10000，不再补发':'本局尚未领取';
+  }
   if(['H1','H2','H3','H7','H11'].includes(id))return use?'本圈已用，换回不恢复':'本圈可用';
   if(id==='H4'||id==='H6')return '本圈剩余额度 '+fmt(Math.max(0,(id==='H4'?1000:2000)-use));
   if(id==='H8')return '本局已领奖机场：'+(o.visitedAirportIds.join('、')||'无')+'；记录保留';
@@ -807,12 +857,14 @@ function appendSelectedOpportunities(container) {
     const use=personal.usage[id]||0;
     let note='';
     if(['H1','H2','H3','H7','H11'].includes(id))note=use?'本圈已用':'本圈可用';
-    if(id==='H4')note='本圈剩余额度 '+fmt(Math.max(0,1000-use));
-    if(id==='H6')note='本圈剩余额度 '+fmt(Math.max(0,2000-use));
+    if(game.activeManagementRevision==='active-management-v2'&&['H2','H7','H11'].includes(id))note='本圈剩余 '+Math.max(0,2-use)+' 次';
+    if(game.activeManagementRevision==='active-management-v2'&&id==='H3')note='同色连锁满足时持续生效';
+    if(id==='H4')note='本圈剩余额度 '+fmt(Math.max(0,(game.activeManagementRevision==='active-management-v2'?3000:1000)-use));
+    if(id==='H6')note='本圈剩余额度 '+fmt(Math.max(0,(game.activeManagementRevision==='active-management-v2'?4000:2000)-use));
     if(id==='H8')note='已探访 '+personal.visitedAirportIds.length+' / '+Object.keys(game.airports).length+' 机场';
     if(id==='H12')note='已到账';
     summary.textContent=item.name+(note?' · '+note:'');p.textContent=opportunityDescription(id);details.append(summary,p);wrap.append(details);
-    if(id==='H1'){
+    if(id==='H1'&&!game.activeManagementRevision){
       const button=document.createElement('button');button.type='button';button.className='secondary';button.textContent='远程施工';button.disabled=game.phase!=='waiting_roll'||!isMyTurn()||use>0;button.onclick=openRemoteConstruction;wrap.append(button);
     }
   }
@@ -860,8 +912,8 @@ function hideOverlay(id) {
   if (fallback && typeof fallback.focus === 'function') fallback.focus({ preventScroll: true });
 }
 let modalGeneration=0;
-function openModal(title) { modalGeneration++;$('modalTitle').textContent = title; showOverlay('modal'); }
-function closeModal() { bankContext=null;if(game?.phase!=='build_decide')bankRequest=null;modalGeneration++;hideOverlay('modal'); }
+function openModal(title) { if(title!=='主动经营'){managementOpen=false;$('modalBody').classList.remove('management-body');}modalGeneration++;$('modalTitle').textContent = title; showOverlay('modal'); }
+function closeModal() { managementOpen=false;$('modalBody').classList.remove('management-body');bankContext=null;if(game?.phase!=='build_decide')bankRequest=null;modalGeneration++;hideOverlay('modal'); }
 function actionQuote(action) {
   const quotes = game?.self?.quotes;
   if (!quotes) return null;
@@ -925,7 +977,7 @@ function sendAction(action, callback, options = {}) {
       callback?.(res);
       if(routeRequest&&current())renderRouteChoice();
       else if((context&&current())||(released&&!context&&!$('stockModal').classList.contains('hidden')))renderStock();
-      if(released){renderActionBar();if(bankContext&&game.gameId===bankContext.gameId&&game.decision?.decisionId===bankContext.decisionId)renderPending();}
+      if(released){renderActionBar();renderManagement();if(game.phase==='route_choose')renderRouteChoice();if(bankContext&&game.gameId===bankContext.gameId&&game.decision?.decisionId===bankContext.decisionId)renderPending();}
     };
     const transmit = (retry) => {
       if(!current())return;
@@ -1000,7 +1052,7 @@ function renderPending() {
   const isMe = isMyTurn();
   const body = $('modalBody');
   switch (game.phase) {
-    case 'waiting_roll': closeModal(); break;
+    case 'waiting_roll': if(managementOpen)renderManagement();else closeModal(); break;
     case 'frozen_turn':
       if (isMe) {
         const canPay = meP.cash >= 5000;
@@ -1683,6 +1735,7 @@ function organizeRules() {
   add('turn','<p><b>两种模式：</b>房主在开局前选择。普通模式以最后存活者获胜；快速模式从正式开局（包括初始选择）起计时30分钟，到时立即封盘。快速模式股票窗口60秒，转让确认及其他一般决定20秒，自救45秒，初始同步选择及后续路线选择60秒；均不超过整局剩余时间。提前出现最后存活者则提前结束。</p><p>快速封盘取消未成交的订单、购买、建设、拍卖和转让，不再执行未完成的掷骰或选择；已成交的操作保留。按原规则结清分红，按现金、地产、机场、股票及待结算收益，减抵押本金和累计利息后的净资产排名。相同净资产并列，破产玩家按实际出局顺序排在存活者之后。资产估值不是可支付现金。</p>');
   add('bank','<p>购买城市或机场缺现金时可进入募资，按股数卖股、抵押或拆房凑足后手动确认购买；取消城市购买会拍卖，取消机场购买结束回合，已成交卖股的现金保留。筹资不重置倒计时。抵押利息按原座位轮转计算，和资讯完整轮次独立。</p>');
   if(game?.propertySupportRevision==='property-support-v1')add('property','<p><b>置业扶持：</b>购地解锁后，从未拥有城市者连续6个正常掷骰回合没有可负担购地机会，下次掷骰前可从最多3座低价银行城市中原价购买1座，整局一次。拒绝可负担机会归零；监狱掷骰、跳过和飞行不计。取消或缺现金、库存、圈额度保留资格；曾通过购买、拍卖或受让得到城市后永久失去资格。仍计入每圈4城额度，与主动经营次数独立。</p>');
+  if(game?.activeManagementRevision==='active-management-v2')add('property','<p><b>每回合主动经营：</b>正常掷骰前，有合法可负担项目必须完成一项；全部不可执行则放行。先选促销/买股/建设，再选城市确认。普通90秒、快速45秒与掷骰共享；超时按最低支出经营并掷骰。促销费地价3%最高600，当前及后续3完整轮内，完成他人付租另奖地价10%最高1500、最多3次，同时一个活动；无客流无奖励，抵押/转让/出局/封盘取消且不退费。主动买股1–2股、1%手续费，无圈额度，守市场20股/城主4股。远程建设标准建房费115%，优惠合计最多减30个百分点，最高4级。取消及返回不耗次数，失败以服务端新报价为准。</p>');
   if(game?.activeManagementRevision==='active-management-v1')add('property','<p><b>主动经营：</b>正常掷骰前可成功执行促销、主动买股或远程建设中的1项，取消、失败不耗次数，掷骰可直接跳过。促销费为地价4%最高800；当前及下一完整轮内，每次实际完成他人正额租金获得银行奖励地价8%最高1200，最多2次，每圈启动一次、同时一个活动。欠租偿清才奖；抵押、产权变化、出局、到期或封盘结束活动，不退款，奖金不进入分红池。主动买股一次一城1–2股，整笔手续费1%，每圈最多4股、同城2股，原起点窗口额度独立。远程建设支付标准建房费145%，所有优惠最多减10个百分点；H1每圈一次提供10个百分点优惠。原落点建设费用保持。</p>');
   add('property','<p><b>建房募集资金：</b>本人落到自有城市、仍可建房但现金不足时，可抵押其他城市或选择股数出售持股。现金与剩余缺口按实际状态更新，资金足够后返回手动确认建房。普通银行只展示持股，不提供任意卖股；募资不刷新原决定时限。</p>');
   add('stocks','<p><b>股票窗口时限：</b>普通与快速模式均为60秒；查看、调整草稿和转让编辑返回不补时。快速模式转让接收决定最多20秒，返回股票继续沿原窗口剩余预算；个人决定不超过整局剩余时间。</p>');
@@ -1742,7 +1795,7 @@ function buildRules() {
     + '<p><b>股息与报价：</b>城市实际租金收入的 20% 留作待分红，其余给城主。城主经过起点、产权成功转移前及终局时派息；每股为待分红总额除以 20 向下取整，无主股份与零头归经营者，无租金收入就没有基础股息。股价 = 经营报价 + 每股待分红，派息后自然扣除待分红部分。经营报价按建设、抵押与最近 3 个完整轮次的租金变化，每轮涨跌不超过上一报价的 10%，范围为初始的 50%–200%。普通持股不减租；经营机遇带来的优惠由银行补足，不减少城市入账。</p>'
     + '<p><b>股票清算与资产：</b>产权正常转移保留存活玩家股份，新城主超出四股的部分按派息后报价卖出。城市归银行时先派基础股息，再按经营报价的 50% 清算存活玩家股份；重新经营从初始报价与 20 股开始。派息、清算与重新经营使该城市旧订单失效，需看新报价重新确认。股票含待分红价值，经营者待结算收益另计入总资产，到账前不可花费。</p>'
     + '<p><b>环球资讯：</b>全员完成首次环球行程后，在完整轮次边界发布。每条持续 3 轮，最后一轮预告下一条。地区旺季/淡季使对应大洲城市租金增加/减少 15%，每次最多 3000；建设优惠每人每轮首笔成功建房减原费用 15%，最多 2000；航空促销付费机票减 30%；市场平稳无额外费用变化。地区按城市所属大洲识别，房产颜色仅影响连锁经营。监狱与冰冻跳过也计入完整轮次，拍卖、自救和股票窗口完成前不推进资讯。</p>'
-    + '<p><b>经营机遇：</b>开局、首条资讯发布及资讯运行 6 轮后，各进行一次全员三选一。共享 30 秒，到时默认选当前最左项；全局每人只可换一组选项，换组不延时，提交后锁定。所有人完成后一起公开并生效。个人每圈额度仅在本人实际起点结算刷新，重连和完整轮次不刷新；永久机场奖励与换组次数不刷新。租金先算资讯，再算股东礼遇，再算风险准备金；机票资讯与飞行常客按原费相加，总减免最多 50%。</p>'
+    + '<p><b>经营机遇：</b>开局、首条资讯发布及资讯运行 6 轮后，各进行一次全员三选一。共享 60 秒，到时默认选当前最左项；全局每人只可换一组选项，换组不延时，提交后锁定。所有人完成后一起公开并生效。个人每圈额度仅在本人实际起点结算刷新，重连和完整轮次不刷新；永久机场奖励与换组次数不刷新。租金先算资讯，再算股东礼遇，再算风险准备金；机票资讯与飞行常客按原费相加，总减免最多 '+(game?.activeManagementRevision==='active-management-v2'?60:50)+'%。</p>'
     + '<p><b>自救与破产：</b>资金不足时可反复抵押/出售/拍卖/拆房/卖出股票凑钱，凑够或主动放弃才破产；破产时发放 15000 救济金，分给资产未达最高的存活玩家（资产最高者不发放）；认输按破产处理（资产归银行、不进入拍卖、不发放救济金）。</p>'
     + '<p><b>事件记录：</b>全局日志，所有玩家的事件可见（保留 500 条、显示 30 条）。</p>'
     + '<h4>城市地皮价格（20 城）</h4>'
@@ -1755,7 +1808,7 @@ function buildRules() {
     + '</ul></div>'
     + '<h4>机会卡图鉴（40 张）</h4>'
     + groups.map((g) => '<div class="rules-group"><b>' + g.title + '</b><ul>' + g.items.map((i) => '<li>' + i + '</li>').join('') + '</ul></div>').join('');
-  if(game?.routeRevision==='opportunity-routes-v1')$('rulesBody').innerHTML+='<p><b>经营机遇 · 调整路线：</b>'+(game.gameMode==='normal'?'原三次初始同步机遇完成后，以本人真实起点结算为基准，每完成3圈获得一次后续机会。等待中的机会合并，不补领旧门槛。':'初始机遇按正式开局第0、5、10分钟依序进入；后续第15、22分钟各一份，等待安全交接。第28分钟取消未打开机会，第30分钟由快速核心封盘。')+'在本人掷骰前处理，一回合最多一次。三选一，满三项须选旧项替换；可以主动跳过，后续不提供换组。'+'个人60秒'+'，到时保留原路线并消耗机会。新项只影响之后，本圈已用额度、机场领奖、应急资金领取和实际建房成本保留；初始共享60秒、超时选择最左项。应急资金本局仅领一次6000，初始全员结算、后续本人确认成功后到账。</p>';
+  if(game?.routeRevision==='opportunity-routes-v1')$('rulesBody').innerHTML+='<p><b>经营机遇 · 调整路线：</b>'+(game.gameMode==='normal'?'原三次初始同步机遇完成后，以本人真实起点结算为基准，每完成3圈获得一次后续机会。等待中的机会合并，不补领旧门槛。':'初始机遇按正式开局第0、5、10分钟依序进入；后续第15、22分钟各一份，等待安全交接。第28分钟取消未打开机会，第30分钟由快速核心封盘。')+'在本人掷骰前处理，一回合最多一次。三选一，满三项须选旧项替换；可以主动跳过，后续不提供换组。'+'个人60秒'+'，到时保留原路线并消耗机会。新项只影响之后，本圈已用额度、机场领奖、应急资金领取和实际建房成本保留；初始共享60秒、超时选择最左项。应急资金本局仅领一次'+(game?.activeManagementRevision==='active-management-v2'?10000:6000)+'，初始全员结算、后续本人确认成功后到账。</p>';
   organizeRules();
 }
 

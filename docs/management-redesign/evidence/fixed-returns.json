@@ -1,0 +1,59 @@
+{
+  "scope": "九个固定客流场景，非胜率实验；不含随机落点、强化或报价更新",
+  "rows": [
+    {
+      "type": "active_promote",
+      "visits": 0,
+      "cost": 420,
+      "relativeNetAssets": -420
+    },
+    {
+      "type": "active_promote",
+      "visits": 1,
+      "cost": 420,
+      "relativeNetAssets": 980
+    },
+    {
+      "type": "active_promote",
+      "visits": 3,
+      "cost": 420,
+      "relativeNetAssets": 3780
+    },
+    {
+      "type": "active_stock_buy",
+      "visits": 0,
+      "cost": 8080,
+      "relativeNetAssets": -80
+    },
+    {
+      "type": "active_stock_buy",
+      "visits": 1,
+      "cost": 8080,
+      "relativeNetAssets": 40
+    },
+    {
+      "type": "active_stock_buy",
+      "visits": 3,
+      "cost": 8080,
+      "relativeNetAssets": 280
+    },
+    {
+      "type": "active_build",
+      "visits": 0,
+      "cost": 9660,
+      "relativeNetAssets": -1260
+    },
+    {
+      "type": "active_build",
+      "visits": 1,
+      "cost": 9660,
+      "relativeNetAssets": 2940
+    },
+    {
+      "type": "active_build",
+      "visits": 3,
+      "cost": 9660,
+      "relativeNetAssets": 11340
+    }
+  ]
+}

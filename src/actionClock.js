@@ -35,7 +35,7 @@ function decisionDescriptor(state) {
     phase: state.phase,
     actorId,
     targetKey: JSON.stringify(target),
-    seconds: state.quickRevision === 'quick-mode-v1' && state.gameMode === 'quick' ? (state.phase === 'self_rescue' ? 45 : state.phase === 'stock' ? QUICK_STOCK_SECONDS : 20) : MAIN_PHASES.has(state.phase) ? 90 : 60,
+    seconds: state.quickRevision === 'quick-mode-v1' && state.gameMode === 'quick' ? (state.phase === 'waiting_roll' && require('./managementRules').modern(state) ? 45 : state.phase === 'self_rescue' ? 45 : state.phase === 'stock' ? QUICK_STOCK_SECONDS : 20) : MAIN_PHASES.has(state.phase) ? 90 : 60,
   };
 }
 

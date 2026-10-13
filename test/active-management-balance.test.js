@@ -1,7 +1,7 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const {createGameState}=require('../src/state'),active=require('../src/activeManagement'),econ=require('../src/economy'),stocks=require('../src/stocks'),{netAssetSummary}=require('../src/assets');
-function fixture(){const s=createGameState('CURVE',['甲','乙','丙'],2,{activeManagementRevision:active.REVISION});s.phase='waiting_roll';s.pending=null;stocks.transferCity(s,{cityId:'伦敦',newOwnerId:'p0'},[]);stocks.transferCity(s,{cityId:'上海',newOwnerId:'p1'},[]);return s;}
+function fixture(){const s=createGameState('CURVE',['甲','乙','丙'],2,{activeManagementRevision:active.LEGACY_REVISION});s.phase='waiting_roll';s.pending=null;stocks.transferCity(s,{cityId:'伦敦',newOwnerId:'p0'},[]);stocks.transferCity(s,{cityId:'上海',newOwnerId:'p1'},[]);return s;}
 test('真实结算的指定收益轨迹：无租、短中长期，不代替胜率',{timeout:5000},()=>{
  const rows=[];
  for(const kind of ['active_promote','active_stock_buy','active_build'])for(const visits of [0,1,2,5,10]){

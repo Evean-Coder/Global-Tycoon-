@@ -239,7 +239,7 @@ function defaultAction(room, phase) {
   switch (phase) {
     case 'route_choose': return {type:'route_expire',opportunityId:room.state.routeFlow.activeChoice.opportunityId};
     case 'opportunity_choose': return {type:'opportunity_expire',stageId:room.state.opportunityStage.stageId};
-    case 'waiting_roll': return { type: 'roll_dice' };
+    case 'waiting_roll': return { type: require('./src/managementRules').modern(room.state)?'management_timeout':'roll_dice' };
     case 'frozen_turn': return { type: 'respond_frozen', decision: cur && cur.cash >= 5000 ? 'pay' : 'pass' };
     case 'jail_turn': return { type: 'respond_jail', decision: cur && cur.cash >= 15000 ? 'pay' : 'roll' };
     case 'buy': return { type: 'buy', decision: 'pass' };
@@ -435,6 +435,7 @@ function runAction(room, socket, rawAction, source = 'player') {
   const normalized = normalizeAction(room.state, rawAction, {actorId:authenticated?.id,source,timeContext});
   if (!normalized.ok) {
     if (socket) socket.emit('error', { message: normalized.error });
+    if(source==='player'&&['active_promote','active_stock_buy','active_build','remote_build'].includes(rawAction.type))emitGame(room);
     return { ok: false, error: normalized.error };
   }
   const allowedId = normalized.actorId;

@@ -748,11 +748,35 @@ body.landscape-game #actionBar button{grid-row:1/3;min-height:44px;height:auto;m
 body.landscape-game #actionBar #btnRoll,body.landscape-game #actionBar #btnResumeStock{grid-column:2}
 body.landscape-game #actionBar #btnAssets{grid-column:3}
 body.landscape-game #actionBar #btnBank{grid-column:4;display:block}
-body.landscape-game #actionBar #btnEndTurn{grid-column:5;display:block}
-body.landscape-game #actionBar #dice,body.landscape-game #actionBar .spacer,body.landscape-game #btnManagement,body.landscape-game #btnMore,body.landscape-game #infoTabs{display:none}
+body.landscape-game #actionBar #btnManagement{grid-column:2;display:block}
+body.landscape-game #actionBar #btnRoll,body.landscape-game #actionBar #btnResumeStock{grid-column:3}
+body.landscape-game #actionBar #btnAssets{grid-column:4}
+body.landscape-game #actionBar #btnBank{grid-column:5}
+body.landscape-game #actionBar #btnEndTurn{display:none}
+body.landscape-game #actionBar #dice,body.landscape-game #actionBar .spacer,body.landscape-game #btnMore,body.landscape-game #infoTabs{display:none}
 body.landscape-game .overlay{padding:6px}
 body.landscape-game .modal,body.landscape-game .modal.wide{max-height:calc(100dvh - 12px)}
 body.landscape-game .mh{padding:6px 12px}
 body.landscape-game .mh h3{font-size:18px}
 body.landscape-game .mf{padding:6px;gap:4px;flex-wrap:wrap}
 body.landscape-game .mf button{min-height:44px;min-width:44px;font-size:12px;padding:4px 8px}
+
+/* Management is selected by type before choosing a city. */
+.management-types{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0}
+.management-type{display:flex;flex-direction:column;align-items:flex-start;gap:14px;text-align:left;padding:20px 16px;white-space:normal;min-height:160px;border:1px solid var(--line);background:var(--card2)}
+.management-type strong{font-size:18px}.management-type span{font-size:14px;line-height:1.6}.management-type small{font-size:12px}
+.management-summary{font-weight:700;color:var(--text)}.management-error{color:#9c3030}
+.management-city{padding:16px;margin:12px 0;background:var(--card2);border:1px solid var(--line);border-radius:5px;overflow-wrap:anywhere}
+.management-city h4{margin:0 0 10px}.management-city p{font-size:14px;line-height:1.65;margin:8px 0}
+.management-city button{width:100%;min-height:44px}.management-city select{min-height:44px;width:100px}
+.management-body>button{min-height:44px;margin:8px 0}
+@media(max-width:600px){.management-types{grid-template-columns:1fr;gap:8px}.management-type{min-height:100px;gap:8px;padding:14px}.management-city{padding:12px}}
+body.landscape-game .management-types{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+body.landscape-game .management-type{padding:10px;min-height:130px;gap:8px}
+body.landscape-game .management-type strong{font-size:15px}
+
+body.landscape-game .management-body{padding:8px 12px}
+body.landscape-game .management-body .management-summary{font-size:14px;margin:4px 0}
+body.landscape-game .management-body>.hint{font-size:11px;line-height:1.4;margin:4px 0}
+body.landscape-game .management-body>h4{font-size:15px;margin:6px 0}
+body.landscape-game .management-city{margin:6px 0;padding:10px}

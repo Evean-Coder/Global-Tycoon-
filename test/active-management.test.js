@@ -1,7 +1,7 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict');
 const {createGameState}=require('../src/state'),active=require('../src/activeManagement'),stocks=require('../src/stocks'),econ=require('../src/economy'),logic=require('../src/gameLogic'),{normalizeAction}=require('../src/actionValidation');
-function fixture(){const s=createGameState('ACTIVE',['甲','乙'],2,{activeManagementRevision:active.REVISION});s.phase='waiting_roll';s.pending=null;stocks.transferCity(s,{cityId:'内罗毕',newOwnerId:'p0'},[]);return s;}
+function fixture(){const s=createGameState('ACTIVE',['甲','乙'],2,{activeManagementRevision:active.LEGACY_REVISION});s.phase='waiting_roll';s.pending=null;stocks.transferCity(s,{cityId:'内罗毕',newOwnerId:'p0'},[]);return s;}
 function perform(s,type,cityId='内罗毕',shares){const q=active.quote(s,'p0',type,cityId,shares),a={type,cityId,shares,quoteVersion:q.quoteVersion,listingEpoch:q.listingEpoch};assert.equal(q.ok,true,q.reason);const checked=normalizeAction(s,a);assert.equal(checked.ok,true,checked.error);return logic.apply(s,checked.action,()=>.5);}
 test('三类经营互斥，远程旧入口同额，失败无修改，旧局隔离',()=>{
  const s=fixture(),p=s.players[0],base=econ.buildFee(s.cities['内罗毕']);
@@ -36,7 +36,7 @@ test('私人额度隔离、确定性动作重放、产权变化与立即封盘',
  const s=fixture(),copy=globalThis.structuredClone(s);perform(s,'active_promote');perform(copy,'active_promote');assert.deepEqual(s,copy);
  const view=require('../src/gameView').snapshot(s,'p1');assert.equal(view.players[0].activeManagement,undefined);assert.equal(view.self.activeManagement.quota.usedTurnId,null);assert.equal(view.promotions.length,1);assert.equal(JSON.stringify(view.promotions).includes('processedIds'),false);
  stocks.transferCity(s,{cityId:'内罗毕',newOwnerId:'p1'},[]);assert.equal(s.promotions.length,0);
- const quick=createGameState('QUICK',['甲','乙'],2,{activeManagementRevision:active.REVISION,routeRevision:'opportunity-routes-v1',gameMode:'quick',quickRevision:'quick-mode-v1',startedAt:1000});quick.phase='waiting_roll';quick.pending=null;stocks.transferCity(quick,{cityId:'内罗毕',newOwnerId:'p0'},[]);perform(quick,'active_promote');const cash=quick.players[0].cash;
+ const quick=createGameState('QUICK',['甲','乙'],2,{activeManagementRevision:active.LEGACY_REVISION,routeRevision:'opportunity-routes-v1',gameMode:'quick',quickRevision:'quick-mode-v1',startedAt:1000});quick.phase='waiting_roll';quick.pending=null;stocks.transferCity(quick,{cityId:'内罗毕',newOwnerId:'p0'},[]);perform(quick,'active_promote');const cash=quick.players[0].cash;
  require('../src/quickMode').finalize(quick,{reason:'time_limit',elapsedMs:1800000,endedAt:1801000});assert.equal(quick.promotions.length,0);assert.equal(quick.players[0].cash,cash);assert.equal(active.quote(quick,'p0','active_build','内罗毕').ok,false);
 });
 test('特殊决定和非法订单零修改，满级抵押排除、费用上限与报价变更',()=>{

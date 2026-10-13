@@ -36,8 +36,9 @@ function createGameState(roomCode, playerNames, ruleVersion = 2, options = {}) {
   const support = ruleVersion===2 && options.propertySupportRevision===require('./propertySupport').REVISION;
   if(support)for(const p of players)p.propertySupport={everOwnedCity:false,missedPurchaseTurns:0,processedTurnId:null,eligible:false,used:false,turn:null};
   for (const p of players) p.opportunities = initial();
-  const active = ruleVersion===2 && options.activeManagementRevision===require('./activeManagement').REVISION;
+  const active = ruleVersion===2 && [require('./managementRules').REVISION,require('./managementRules').LEGACY_REVISION].includes(options.activeManagementRevision);
   if(active)for(const p of players)p.activeManagement={lapEpoch:p.opportunities.lapEpoch,usedTurnId:null,promotionStartedLap:false,stockBoughtTotal:0,stockBoughtByCity:{}};
+  if(active&&require('./managementRules').modern(options))for(const p of players)p.opportunities.revision=options.activeManagementRevision;
   const routesEnabled = ruleVersion === 2 && options.routeRevision === 'opportunity-routes-v1';
   if (routesEnabled && !['normal', 'quick'].includes(options.gameMode || 'normal')) throw new Error('对局模式无效');
   if (options.quickRevision !== undefined && (options.quickRevision !== 'quick-mode-v1' || !routesEnabled || options.gameMode !== 'quick')) throw new Error('快速模式版本无效');

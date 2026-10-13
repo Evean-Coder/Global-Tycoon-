@@ -193,7 +193,7 @@ function resolveChoices(state, events, rng, cause) {
     const chosen = p.opportunities.selectedIds.at(-1);
     if (chosen === 'H12') {
       if (routes.enabled(state)) emergencyReward(state, p, stage.stageId, events);
-      else economy.reward(state, p, 6000, chosen, events, '应急资金');
+      else economy.reward(state, p, require('./managementRules').emergencyAmount(p), chosen, events, '应急资金');
     }
   }
   routes.markInitialResolved(state, stage.ordinal);
@@ -902,8 +902,15 @@ function applyCore(state, action, rng, context = {}) {
     case 'active_build':
       require('./activeManagement').apply(state,p,action,events);
       break;
+    case 'management_timeout': {
+      if(context.source!=='timeout'||!require('./managementRules').modern(state)||state.phase!=='waiting_roll')return {state,events,rejected:true};
+      const a=require('./activeManagement').timeoutAction(state,p.id);
+      if(a)require('./activeManagement').apply(state,p,a,events);
+      log(events,p.name+' 经营决定超时，'+(a?'已按最低支出完成经营并掷骰':'无可执行经营，自动掷骰'));
+      rollAction(state,p,events,rng);break;
+    }
     case 'roll_dice':
-      if (state.phase !== 'waiting_roll') return { state, events, rejected: true };
+      if (state.phase !== 'waiting_roll'||require('./activeManagement').required(state,p.id)) return { state, events, rejected: true };
       rollAction(state, p, events, rng);
       break;
     case 'respond_frozen':
@@ -1203,6 +1210,7 @@ function flightAction(state, p, action, events, rng) {
     log(events, `${p.name} 免费飞往「${action.target}」`, 'airport');
   }
   p.position = to.id;
+  if(require('./managementRules').modern(state))economy.airportReward(state,p,action.target,events);
   const airport = state.airports[action.target];
   if (!airport.ownerId) {
     log(events, `${p.name} 飞抵无主机场「${action.target}」（飞行不触发购买）`, 'airport');

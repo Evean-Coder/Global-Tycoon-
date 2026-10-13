@@ -1,0 +1,104 @@
+TAP version 13
+# Subtest: per-turn hint is visible, cancel retains opportunity, successful promotion consumes it
+ok 1 - per-turn hint is visible, cancel retains opportunity, successful promotion consumes it
+  ---
+  duration_ms: 3384.437
+  ...
+# Subtest: 经营两级选择与唯一入口：四端真实请求、无项目和报价变更
+ok 2 - 经营两级选择与唯一入口：四端真实请求、无项目和报价变更
+  ---
+  duration_ms: 3795.9834
+  ...
+# Subtest: reference landscape composition stays operable on four screens in both modes
+ok 3 - reference landscape composition stays operable on four screens in both modes
+  ---
+  duration_ms: 9092.238
+  ...
+# Subtest: portrait landscape portrait preserves stock draft, deadline and real piece positions
+ok 4 - portrait landscape portrait preserves stock draft, deadline and real piece positions
+  ---
+  duration_ms: 321.8164
+  ...
+# Subtest: save a clean two-player reference preview
+ok 5 - save a clean two-player reference preview
+  ---
+  duration_ms: 189.0641
+  ...
+# Subtest: B01 本人候选完整历史与初始界面分开
+ok 6 - B01 本人候选完整历史与初始界面分开
+  ---
+  duration_ms: 2313.9739
+  ...
+# Subtest: B02 比较返回确认及主动跳过
+ok 7 - B02 比较返回确认及主动跳过
+  ---
+  duration_ms: 164.4356
+  ...
+# Subtest: B03 同窗口重绘及重连保留草稿，新窗口清理
+ok 8 - B03 同窗口重绘及重连保留草稿，新窗口清理
+  ---
+  duration_ms: 101.8287
+  ...
+# Subtest: B04 失败草稿保留及迟到回执不覆盖新窗口
+ok 9 - B04 失败草稿保留及迟到回执不覆盖新窗口
+  ---
+  duration_ms: 142.6298
+  ...
+# Subtest: B05 查看规则返回和超时不复活窗口
+ok 10 - B05 查看规则返回和超时不复活窗口
+  ---
+  duration_ms: 152.1228
+  ...
+# Subtest: B04b 未确认只查询原操作身份，重复点击不新增请求
+ok 11 - B04b 未确认只查询原操作身份，重复点击不新增请求
+  ---
+  duration_ms: 91.5254
+  ...
+# Subtest: B06 PC平板及手机短横屏滚动与触控
+ok 12 - B06 PC平板及手机短横屏滚动与触控
+  ---
+  duration_ms: 1234.6706
+  ...
+# Subtest: B07 键盘与减少动画及200%内容缩放可操作
+ok 13 - B07 键盘与减少动画及200%内容缩放可操作
+  ---
+  duration_ms: 165.0416
+  ...
+# Subtest: B08 进度与版本规则不混入旧局
+ok 14 - B08 进度与版本规则不混入旧局
+  ---
+  duration_ms: 147.9434
+  ...
+# Subtest: B09 页面能力过旧提示刷新且候选保持
+ok 15 - B09 页面能力过旧提示刷新且候选保持
+  ---
+  duration_ms: 71.3488
+  ...
+# Subtest: B07b 实际浏览器默认200%缩放，键盘确认
+ok 16 - B07b 实际浏览器默认200%缩放，键盘确认
+  ---
+  duration_ms: 2123.3169
+  ...
+# Subtest: PC宽屏布局 / 平板横竖布局 / 手机完整棋盘布局 / 长说明与按钮可达
+ok 17 - PC宽屏布局 / 平板横竖布局 / 手机完整棋盘布局 / 长说明与按钮可达
+  ---
+  duration_ms: 11978.1118
+  ...
+# Subtest: 九类视口股票确认及费用明细可达
+ok 18 - 九类视口股票确认及费用明细可达
+  ---
+  duration_ms: 1705.8974
+  ...
+# Subtest: 键盘焦点与减少动画 / 真正200%页面缩放完成选择详情及交易
+ok 19 - 键盘焦点与减少动画 / 真正200%页面缩放完成选择详情及交易
+  ---
+  duration_ms: 2215.6816
+  ...
+1..19
+# tests 19
+# suites 0
+# pass 19
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

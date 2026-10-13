@@ -16,7 +16,7 @@ async function verifyMap(page,width,height){
  await page.locator('#board [data-square-id="37"]').scrollIntoViewIfNeeded();assert.equal(await page.locator('#board [data-square-id="37"] .mg').isVisible(),true);
  const compact=require('../public/board-layout').mode(width,height)==='compact';
  if(compact)await page.locator('[data-info=more]').click();
- for(const id of compact?['btnRoll','btnAssets','btnBank','btnManagement','btnMore']:['btnRoll','btnAssets','btnBank','btnEndTurn']){const r=await page.locator('#'+id).boundingBox();assert.ok(r.width>=44&&r.height>=44,id+' '+JSON.stringify(r));}
+ for(const id of compact?['btnRoll','btnAssets','btnBank','btnManagement','btnMore']:['btnRoll','btnAssets','btnBank','btnManagement']){const r=await page.locator('#'+id).boundingBox();assert.ok(r.width>=44&&r.height>=44,id+' '+JSON.stringify(r));}
  if(compact)await page.locator('[data-info=news]').click();
  await page.evaluate(()=>window.scrollTo(0,0));measures.push({label:'map-text-'+width+'x'+height,text});
 }

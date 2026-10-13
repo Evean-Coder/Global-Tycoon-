@@ -790,3 +790,21 @@ body.landscape-game .management-footer{gap:12px;padding:6px 12px}body.landscape-
   #modalBody .rescue-explanation>summary{display:flex;align-items:center;min-height:44px;font-size:12px;cursor:pointer;color:var(--blue)}
 }
 @media (orientation:landscape) and (max-height:600px) and (min-width:760px) and (max-width:1200px){#modalBody .lrow:has(>button){grid-template-columns:repeat(4,minmax(0,1fr))}}
+/* Central atlas information: independent news and asset panels. */
+#atlasPanels{position:absolute;z-index:5;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;pointer-events:none}
+body #atlasPanels>#ledger,body #atlasPanels>#newsBar{position:relative;inset:auto;width:auto;height:100%;max-height:none;min-width:0;min-height:0;margin:0;overflow:auto;pointer-events:auto;overscroll-behavior:contain;touch-action:pan-y pinch-zoom;background:#faf2de;border:1px solid #ad925e;border-radius:3px;box-shadow:0 6px 18px #53452330;scrollbar-width:thin}
+body #atlasPanels>#newsBar{display:block;padding:16px;color:var(--text);font-size:14px;line-height:1.55}
+#atlasPanels>#newsBar>*{display:block;margin:0 0 12px}
+#atlasPanels>#ledger>*{flex:0 0 auto}
+#newsBar .news-title{font-size:18px;letter-spacing:1px;color:var(--title);padding-bottom:10px;border-bottom:1px solid var(--line)}
+#newsBar .news-current{font-size:17px;font-weight:700;color:var(--title)}
+#newsBar summary{min-height:44px;display:flex;align-items:center;cursor:pointer;color:var(--blue);font-weight:700}
+#newsBar summary::before{content:'▸';margin-right:6px}#newsBar details[open]>summary::before{content:'▾'}
+#newsBar p{margin:0 0 8px}#newsBar .news-personal{padding:10px;background:var(--card2);border-left:3px solid var(--gold)}
+#newsBar .travel-expense{padding-top:10px;border-top:1px solid var(--line);font-size:12px}
+#newsBar .news-help{min-height:44px;padding:4px 0;background:none;border:0;box-shadow:none;color:var(--blue);text-decoration:underline;font-size:13px}
+body.landscape-game #atlasPanels{gap:8px}
+body.landscape-game #atlasPanels>#newsBar{padding:10px;font-size:12px;line-height:1.5}
+body.landscape-game #newsBar .news-title{font-size:14px;padding-bottom:6px}
+body.landscape-game #newsBar .news-current{font-size:13px}
+body.landscape-game #newsBar .news-personal{padding:7px}

@@ -1,0 +1,49 @@
+TAP version 13
+# Subtest: 三端强制决定沿原入口，纸色弹窗与回合摘要一致
+ok 1 - 三端强制决定沿原入口，纸色弹窗与回合摘要一致
+  ---
+  duration_ms: 5923.5678
+  ...
+# Subtest: 有限双人页面流程：买地、转让返回、股票成交、只读查看与结算
+ok 2 - 有限双人页面流程：买地、转让返回、股票成交、只读查看与结算
+  ---
+  duration_ms: 1821.7139
+  ...
+# Subtest: 卖股自救后当前缺口按实际现金减少，初始欠款与决定期限保持原值
+ok 3 - 卖股自救后当前缺口按实际现金减少，初始欠款与决定期限保持原值
+  ---
+  duration_ms: 145.0758
+  ...
+# Subtest: 卖股自救可选择部分股数、预览缺口并拒绝越界输入
+ok 4 - 卖股自救可选择部分股数、预览缺口并拒绝越界输入
+  ---
+  duration_ms: 174.8856
+  ...
+# Subtest: 建房资金不足可抵押其他城市后返回建房，待建房城市保留且时限不刷新
+ok 5 - 建房资金不足可抵押其他城市后返回建房，待建房城市保留且时限不刷新
+  ---
+  duration_ms: 565.4916
+  ...
+# Subtest: normal and quick on three screens redeem from bank away from the property, keep bank and real deadline
+ok 6 - normal and quick on three screens redeem from bank away from the property, keep bank and real deadline
+  ---
+  duration_ms: 6399.7404
+  ...
+# Subtest: asset row and city details redeem remotely; lack of cash or an unfinished decision visibly explains why
+ok 7 - asset row and city details redeem remotely; lack of cash or an unfinished decision visibly explains why
+  ---
+  duration_ms: 1260.4034
+  ...
+# Subtest: same bank view updates interest and retains scroll, then a phase change replaces it with the required decision
+ok 8 - same bank view updates interest and retains scroll, then a phase change replaces it with the required decision
+  ---
+  duration_ms: 816.6854
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 8
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

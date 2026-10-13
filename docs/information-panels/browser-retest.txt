@@ -1,0 +1,71 @@
+TAP version 13
+# Subtest: 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+ok 1 - 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+  ---
+  duration_ms: 8424.7714
+  ...
+# Subtest: news and ledger are equal separate panels inside the atlas on PC tablet and short landscape
+ok 2 - news and ledger are equal separate panels inside the atlas on PC tablet and short landscape
+  ---
+  duration_ms: 5596.225
+  ...
+# Subtest: opponent broadcasts preserve news and asset reading while latest values and forced decisions update
+not ok 3 - opponent broadcasts preserve news and asset reading while latest values and forced decisions update
+  ---
+  duration_ms: 5424.5212
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\information-panels.spec.js:21:1'
+  failureType: 'testCodeFailure'
+  error: 'page.waitForFunction: Timeout 5000ms exceeded.'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TimeoutError'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\information-panels.spec.js:26:92)
+  ...
+# Subtest: contextual rules open matching topics and subsections without changing stock draft or deadline
+not ok 4 - contextual rules open matching topics and subsections without changing stock draft or deadline
+  ---
+  duration_ms: 1438.3402
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\information-panels.spec.js:30:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'map')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    Object.snapshot (C:\Users\Yifan\Desktop\game\src\gameView.js:9:131)
+    snapshot (C:\Users\Yifan\Desktop\game\src\state.js:108:61)
+    Object.emitGame (C:\Users\Yifan\Desktop\game\server.js:154:18)
+    Object.fixture (C:\Users\Yifan\Desktop\game\e2e\helpers\browserHarness.js:31:43)
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\information-panels.spec.js:38:88)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# [uncaughtException] TypeError: Cannot read properties of undefined (reading 'map')
+#     at Object.snapshot (C:\\Users\\Yifan\\Desktop\\game\\src\\gameView.js:9:131)
+#     at snapshot (C:\\Users\\Yifan\\Desktop\\game\\src\\state.js:108:61)
+#     at emitGame (C:\\Users\\Yifan\\Desktop\\game\\server.js:154:18)
+#     at Socket.<anonymous> (C:\\Users\\Yifan\\Desktop\\game\\server.js:694:9)
+#     at Socket.emit (node:events:524:28)
+#     at Socket.emitReserved (C:\\Users\\Yifan\\Desktop\\game\\node_modules\\socket.io\\dist\\typed-events.js:56:22)
+#     at Socket._onclose (C:\\Users\\Yifan\\Desktop\\game\\node_modules\\socket.io\\dist\\socket.js:554:14)
+#     at Client.onclose (C:\\Users\\Yifan\\Desktop\\game\\node_modules\\socket.io\\dist\\client.js:253:20)
+#     at Socket.emit (node:events:536:35)
+#     at Socket.onClose (C:\\Users\\Yifan\\Desktop\\game\\node_modules\\engine.io\\build\\socket.js:320:18)
+# Error: Test hook "before" at e2e\\information-panels.spec.js:7:6 generated asynchronous activity after the test ended. This activity created the error "TypeError: Cannot read properties of undefined (reading 'map')" and would have caused the test to fail, but instead triggered an uncaughtException event.
+# Subtest: market is readable outside trading; assets share the bank portfolio on phone tablet and PC
+ok 5 - market is readable outside trading; assets share the bank portfolio on phone tablet and PC
+  ---
+  duration_ms: 9830.6871
+  ...
+# Subtest: readonly updates, opponent window, empty portfolio, forced stage and actual trading retain their semantics
+ok 6 - readonly updates, opponent window, empty portfolio, forced stage and actual trading retain their semantics
+  ---
+  duration_ms: 1531.7642
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 4
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0

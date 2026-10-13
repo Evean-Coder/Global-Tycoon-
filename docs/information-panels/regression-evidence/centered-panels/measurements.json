@@ -1,0 +1,186 @@
+{
+  "browser": "Microsoft Edge headless touch emulation",
+  "physicalDevices": "未测；模拟手机横屏",
+  "measurements": [
+    {
+      "width": 932,
+      "height": 430,
+      "map": {
+        "x": 66.140625,
+        "y": 132.375,
+        "width": 549.40625,
+        "height": 602.375,
+        "top": 132.375,
+        "right": 615.546875,
+        "bottom": 734.75,
+        "left": 66.140625
+      },
+      "ledger": {
+        "x": 344.828125,
+        "y": 216.703125,
+        "width": 232.25,
+        "height": 433.703125,
+        "top": 216.703125,
+        "right": 577.078125,
+        "bottom": 650.40625,
+        "left": 344.828125
+      },
+      "scrollHeight": 432,
+      "clientHeight": 432,
+      "overflow": "auto",
+      "text": "我的资产 · 十二字符昵称甲乙丙丁戊己总资产￥109,130现金￥15,130城市6 座机场0 座持股5 股查看完整资产 ↗已选机遇 · 3 项已抵押 0 座 · 无数量限制 · 完整资产中查看城市与操作轮到你行动 · 等待掷骰",
+      "squares": 42,
+      "names": true,
+      "pageOverflow": false,
+      "children": [
+        {
+          "id": "ledgerBody",
+          "flexShrink": "0"
+        },
+        {
+          "id": "turnSummary",
+          "flexShrink": "0"
+        }
+      ],
+      "longContent": {
+        "scrollHeight": 622,
+        "clientHeight": 432
+      }
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "map": {
+        "x": 58.796875,
+        "y": 143.5625,
+        "width": 476.078125,
+        "height": 648.25,
+        "top": 143.5625,
+        "right": 534.875,
+        "bottom": 791.8125,
+        "left": 58.796875
+      },
+      "ledger": {
+        "x": 300.8125,
+        "y": 234.3125,
+        "width": 200.71875,
+        "height": 466.734375,
+        "top": 234.3125,
+        "right": 501.53125,
+        "bottom": 701.046875,
+        "left": 300.8125
+      },
+      "scrollHeight": 465,
+      "clientHeight": 465,
+      "overflow": "auto",
+      "text": "我的资产 · 十二字符昵称甲乙丙丁戊己总资产￥109,130现金￥15,130城市6 座机场0 座持股5 股查看完整资产 ↗已选机遇 · 3 项已抵押 0 座 · 无数量限制 · 完整资产中查看城市与操作轮到你行动 · 等待掷骰",
+      "squares": 42,
+      "names": true,
+      "pageOverflow": false,
+      "children": [
+        {
+          "id": "ledgerBody",
+          "flexShrink": "0"
+        },
+        {
+          "id": "turnSummary",
+          "flexShrink": "0"
+        }
+      ],
+      "longContent": {
+        "scrollHeight": 694,
+        "clientHeight": 441
+      }
+    },
+    {
+      "width": 844,
+      "height": 280,
+      "map": {
+        "x": 60.703125,
+        "y": 132.375,
+        "width": 495.140625,
+        "height": 614.6875,
+        "top": 132.375,
+        "right": 555.84375,
+        "bottom": 747.0625,
+        "left": 60.703125
+      },
+      "ledger": {
+        "x": 312.265625,
+        "y": 218.421875,
+        "width": 208.90625,
+        "height": 442.5625,
+        "top": 218.421875,
+        "right": 521.171875,
+        "bottom": 660.984375,
+        "left": 312.265625
+      },
+      "scrollHeight": 441,
+      "clientHeight": 441,
+      "overflow": "auto",
+      "text": "我的资产 · 十二字符昵称甲乙丙丁戊己总资产￥109,130现金￥15,130城市6 座机场0 座持股5 股查看完整资产 ↗已选机遇 · 3 项已抵押 0 座 · 无数量限制 · 完整资产中查看城市与操作轮到你行动 · 等待掷骰",
+      "squares": 42,
+      "names": true,
+      "pageOverflow": false,
+      "children": [
+        {
+          "id": "ledgerBody",
+          "flexShrink": "0"
+        },
+        {
+          "id": "turnSummary",
+          "flexShrink": "0"
+        }
+      ],
+      "longContent": {
+        "scrollHeight": 694,
+        "clientHeight": 441
+      }
+    },
+    {
+      "width": 568,
+      "height": 320,
+      "map": {
+        "x": 57.15625,
+        "y": 155.875,
+        "width": 459.671875,
+        "height": 660.5625,
+        "top": 155.875,
+        "right": 516.828125,
+        "bottom": 816.4375,
+        "left": 57.15625
+      },
+      "ledger": {
+        "x": 290.984375,
+        "y": 248.34375,
+        "width": 193.65625,
+        "height": 475.59375,
+        "top": 248.34375,
+        "right": 484.640625,
+        "bottom": 723.9375,
+        "left": 290.984375
+      },
+      "scrollHeight": 474,
+      "clientHeight": 474,
+      "overflow": "auto",
+      "text": "我的资产 · 十二字符昵称甲乙丙丁戊己总资产￥109,130现金￥15,130城市6 座机场0 座持股5 股查看完整资产 ↗已选机遇 · 3 项已抵押 0 座 · 无数量限制 · 完整资产中查看城市与操作轮到你行动 · 等待掷骰",
+      "squares": 42,
+      "names": true,
+      "pageOverflow": false,
+      "children": [
+        {
+          "id": "ledgerBody",
+          "flexShrink": "0"
+        },
+        {
+          "id": "turnSummary",
+          "flexShrink": "0"
+        }
+      ],
+      "longContent": {
+        "scrollHeight": 722,
+        "clientHeight": 474
+      }
+    }
+  ]
+}

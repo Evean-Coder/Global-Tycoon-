@@ -1,0 +1,24 @@
+TAP version 13
+# Subtest: news and ledger are equal separate panels inside the atlas on PC tablet and short landscape
+ok 1 - news and ledger are equal separate panels inside the atlas on PC tablet and short landscape
+  ---
+  duration_ms: 8569.2588
+  ...
+# Subtest: opponent broadcasts preserve news and asset reading while latest values and forced decisions update
+ok 2 - opponent broadcasts preserve news and asset reading while latest values and forced decisions update # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.2446
+  ...
+# Subtest: contextual rules open matching topics and subsections without changing stock draft or deadline
+ok 3 - contextual rules open matching topics and subsections without changing stock draft or deadline # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.1941
+  ...
+1..3
+# tests 3
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 2
+# todo 0

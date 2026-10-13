@@ -50,6 +50,7 @@ let lastRecord = null;
 let latestState = null;
 let actionPending = false;
 let choiceRenderKey = '';
+let newsGameId=null;
 let routeDraft = null;
 let requestSequence = 0;
 let lobbyRequest = null;
@@ -60,7 +61,7 @@ let transferReturn = null;
 let toastTimer = null;
 let moveTimer = null, diceTimer = null, diceFinishTimer = null;
 let animationGeneration = 0, quickTimerIv = null, quickTimeAnchor = null;
-let bankContext = null, bankDraft = {}, bankRequest = null, stockRenderKey = null, stockScroll = null, boardLayoutMode = null;
+let bankContext = null, bankDraft = {}, bankRequest = null, stockRenderKey = null, stockScroll = null, boardLayoutMode = null, modalReadContext=null;
 function layoutMode() { return BoardLayout.mode(window.innerWidth,window.innerHeight); }
 function placeBoardSurfaces(){
   if(!game)return;
@@ -70,17 +71,16 @@ function placeBoardSurfaces(){
   const left=first.right-scale.left+inset,top=first.bottom-scale.top+inset,width=lastTop.left-scale.left-left-inset,height=lastBottom.top-scale.top-top-inset;
   if(width<=0||height<=0)return;
   Object.assign($('boardMap').style,{left:left+'px',top:top+'px',right:'auto',bottom:'auto',width:width+'px',height:height+'px'});
-  if(landscape)Object.assign($('ledger').style,{left:(left+width*.14)+'px',right:'auto',top:(top+height*.14)+'px',width:(width*.72)+'px',height:(height*.72)+'px',maxHeight:'none'});
+  Object.assign($('atlasPanels').style,{left:(left+width*.07)+'px',top:(top+height*.14)+'px',width:(width*.86)+'px',height:(height*.72)+'px'});
 }
 function syncResponsiveLayout() {
   const landscape=layoutMode()==='landscape';
   document.body.classList.toggle('landscape-game',landscape);
-  $('ledger').insertBefore($('newsBar'),$('turnSummary'));
   $('actionBar').insertBefore($('btnManagement'),$('btnAssets'));
   $('actionBar').insertBefore($('btnBank'),$('btnEndTurn'));
   $('boardScale').insertBefore($('boardMap'),$('pieces'));
-  if(landscape){$('boardScale').append($('ledger'));$('side').prepend($('mapScrollHint'));}
-  else {$('boardWrap').append($('ledger'));$('view-game').insertBefore($('mapScrollHint'),$('gameMain'));for(const id of ['boardMap','ledger'])for(const property of ['left','right','top','bottom','width','height','max-height'])$(id).style.removeProperty(property);}
+  if(landscape){$('side').prepend($('mapScrollHint'));}
+  else {$('view-game').insertBefore($('mapScrollHint'),$('gameMain'));for(const property of ['left','right','top','bottom','width','height','max-height'])$('boardMap').style.removeProperty(property);}
   $('mapScrollHint').textContent='棋盘可独立滑动 · 点地块看详情';
   placeBoardSurfaces();
   orientationController.sync();
@@ -125,7 +125,7 @@ const orientationController=MobileOrientation.create({active:()=>document.body.c
   syncManagement();
 }});
 $('btnManagement').onclick=()=>openActiveManagement();
-$('btnManagementRules').onclick=()=>{document.body.classList.add('management-help');buildRules();showOverlay('rulesModal');};
+$('btnManagementRules').onclick=()=>{document.body.classList.add('management-help');openRulesTopic('property','management');};
 $('btnLocate').onclick=()=>{const position=playerById(me.gameId)?.position;document.querySelector('#board [data-square-id="'+position+'"]')?.scrollIntoView({block:'center',inline:'nearest'});};
 let pieceResizeFrame = 0;
 function requestPieceLayout() {
@@ -413,7 +413,24 @@ function afterAnim(state) {
   finishRender(state);
   if (animQueued) { const st = animQueued; animQueued = null; processState(st); }
 }
+function readingKey(node){return node.id||[node.tagName,node.dataset.bankCity||node.dataset.city||node.dataset.opportunityId||'',node.querySelector(':scope>summary')?.textContent||(['BUTTON','A'].includes(node.tagName)?node.textContent:node.className)].join('|');}
+function captureReading(){
+  return {gameId:game?.gameId,decisionId:game?.decision?.decisionId,title:$('modalTitle').textContent,views:['newsBar','ledger','modalBody','managementBody','log'].map(id=>{const root=$(id);return {id,scroll:root.scrollTop,details:[...root.querySelectorAll('details')].map(node=>({key:readingKey(node),open:node.open})),nested:[...root.querySelectorAll('.ledger-list')].map(node=>({key:readingKey(node),scroll:node.scrollTop})),focus:root.contains(document.activeElement)?readingKey(document.activeElement):null};})};
+}
+function restoreReading(saved){
+  if(saved.gameId!==game?.gameId)return;
+  for(const view of saved.views){
+    if(view.id==='modalBody'&&(saved.title!==$('modalTitle').textContent||saved.decisionId!==game?.decision?.decisionId&&!modalReadContext))continue;
+    const root=$(view.id);
+    for(const node of root.querySelectorAll('details')){const prior=view.details.find(item=>item.key===readingKey(node));if(prior)node.open=prior.open;}
+    root.scrollTop=view.scroll;
+    for(const node of root.querySelectorAll('.ledger-list')){const prior=view.nested.find(item=>item.key===readingKey(node));if(prior)node.scrollTop=prior.scroll;}
+    const activeOverlay=document.activeElement?.closest('.overlay:not(.hidden)');
+    if(view.focus&&!root.closest('.overlay.hidden')&&(!activeOverlay||activeOverlay.contains(root))){const focus=[...root.querySelectorAll('button,input,summary,a,[tabindex]')].find(node=>readingKey(node)===view.focus&&!node.disabled&&node.getClientRects().length);focus?.focus({preventScroll:true});}
+  }
+}
 function finishRender(state) {
+  const reading=captureReading();
   game = state;
   awaitingPlayerId = game.phase === 'waiting_roll' ? game.players[game.turnIndex]?.id : (game.pending?.awaiting || game.pending?.targetId || game.pending?.playerId || null);
   if (state.phase !== 'stock') {
@@ -461,6 +478,7 @@ function finishRender(state) {
   if (!chanceShown && !receiptPending) renderPending();
   finishStockAfterReceipt();
   syncManagement();
+  restoreReading(reading);
 }
 function afterReceipt() {
   receiptPending = false;
@@ -795,21 +813,35 @@ function quoteExplanation(q) {
 }
 function renderNews() {
   const bar=$('newsBar');
-  if (!game?.world) { bar.classList.add('hidden'); return; }
-  bar.classList.remove('hidden');bar.replaceChildren();
-  const label=document.createElement('strong');label.textContent='环球资讯';bar.append(label);
+  if(newsGameId!==game?.gameId){newsGameId=game?.gameId;bar.replaceChildren();bar.scrollTop=0;}
+  const next=document.createElement('section');
+  const add=node=>next.append(node);
+  bar.classList.remove('hidden');
+  for(const a of [...bar.attributes])next.setAttribute(a.name,a.value);
+  const label=document.createElement('strong');label.className='news-title';label.textContent='环球资讯';add(label);
+  if(!game?.world){const note=document.createElement('p');note.textContent='本局沿用历史规则，未启用环球资讯。';add(note);patchDisplayNode(bar,next);return;}
   const active=game.world.active;
   const info=document.createElement('span');info.className='news-current';
-  info.textContent=active?active.name+(active.region?' · '+active.region:'')+' · '+active.remaining+' 轮':'首次环球行程完成后发布';bar.append(info);
-  if(active){const detail=document.createElement('details'),sum=document.createElement('summary'),p=document.createElement('p');sum.textContent='影响说明';p.textContent=active.description;detail.append(sum,p);bar.append(detail);}
-  if(game.world.preview){const next=document.createElement('span');next.className='news-preview';next.textContent='下轮预告：'+game.world.preview.name+(game.world.preview.region?' · '+game.world.preview.region:'');bar.append(next);}
+  info.textContent=active?active.name+(active.region?' · '+active.region:'')+' · 剩余 '+active.remaining+' 完整轮':'首次环球行程完成后发布';add(info);
+  if(active){
+    const detail=document.createElement('details'),sum=document.createElement('summary'),p=document.createElement('p');detail.id='news-impact';sum.textContent='影响说明';p.textContent=active.description;detail.append(sum,p);add(detail);
+    const impact=document.createElement('p');impact.className='news-personal';
+    const owned=Object.entries(game.cities).filter(([,c])=>c.ownerId===me.gameId&&!c.mortgaged),airports=playerById(me.gameId)?.airports||[];
+    const relevant=owned.filter(([,c])=>c.continent===active.region).map(([id])=>id);
+    impact.textContent=['boom','slowdown'].includes(active.type)?'本人的受影响城市：'+(relevant.join('、')||'暂无该地区的非抵押城市')+'。实际租金见城市报价。':active.type==='construction'?'本人的非抵押城市 '+owned.length+' 座可在符合建设条件时使用资讯优惠；实际费用以建设报价为准。':active.type==='aviation'?'本人的机场 '+airports.length+' 座。航班优惠适用本期符合条件的飞行，免费航班不额外返现。':'本期没有额外经营加成，可按原费用规划。';add(impact);
+  }
+  if(game.world.preview){const preview=document.createElement('span');preview.className='news-preview';preview.textContent='下轮预告：'+game.world.preview.name+(game.world.preview.region?' · '+game.world.preview.region:'');add(preview);}
   const expense=game.travelExpense;
   if(expense){
     const line=document.createElement('span');line.className='travel-expense';
     line.textContent=expense.enabled?'第 '+(expense.completedRounds+1)+' 完整轮 · 回合结束远航开支 '+fmt(expense.currentAmount):'本局沿用原规则 · 无远航开支';
-    bar.append(line);
-    if(expense.preview){const next=document.createElement('span');next.className='travel-preview';next.textContent='远航预告：'+expense.preview.roundsUntil+' 个完整轮后，第 '+expense.preview.startsAtRound+' 轮起每回合 '+fmt(expense.preview.amount);bar.append(next);}
+    add(line);
+    if(expense.preview){const preview=document.createElement('span');preview.className='travel-preview';preview.textContent='远航预告：'+expense.preview.roundsUntil+' 个完整轮后，第 '+expense.preview.startsAtRound+' 轮起每回合 '+fmt(expense.preview.amount);add(preview);}
   }
+  const help=document.createElement('button');help.className='news-help';help.textContent='查看资讯规则';help.onclick=()=>openRulesTopic('opportunities','news');add(help);
+  // Keep the authoritative container's identity, class and accessibility attributes.
+  for(const a of [...bar.attributes])next.setAttribute(a.name,a.value);
+  const scroll=bar.scrollTop;patchDisplayNode(bar,next);bar.scrollTop=scroll;
 }
 function renderOpportunities() {
   if (game?.phase !== 'opportunity_choose' || !game.self?.choice) { hideOverlay('choiceModal');choiceRenderKey='';return; }
@@ -835,7 +867,7 @@ function renderOpportunities() {
   $('btnReroll').disabled=c.submitted||game.decision.paused||c.rerollsLeft<1;
   $('btnReroll').textContent='换一组选项 · 剩余 '+c.rerollsLeft+' 次';
   $('btnReroll').onclick=()=>sendAction({type:'opportunity_reroll',stageId:c.stageId,candidateVersion:c.candidateVersion});
-  $('btnChoiceRules').onclick=()=>{buildRules();showOverlay('rulesModal');};
+  $('btnChoiceRules').onclick=()=>openRulesTopic('opportunities');
   $('btnChoiceDisband').hidden=roomHostId!==socket.id;
   $('btnChoiceDisband').onclick=()=>{if(confirm('解散房间并结算当前资产？'))socket.emit('disbandRoom');};
   closeModal();hideOverlay('stockModal');showOverlay('choiceModal');
@@ -913,7 +945,7 @@ function renderRouteChoice() {
   $('btnRouteConfirm').onclick=()=>submit('route_confirm');$('btnRouteSkip').onclick=()=>submit('route_skip');
   $('btnRouteRetry').classList.toggle('hidden',d.status!=='unconfirmed');$('btnRouteRetry').disabled=!socket.connected||game.decision?.paused;
   $('btnRouteRetry').onclick=()=>d.pendingRequest?.retrieve();
-  $('btnRouteRules').onclick=()=>{buildRules();showOverlay('rulesModal');};
+  $('btnRouteRules').onclick=()=>openRulesTopic('opportunities','routes');
   closeModal();hideOverlay('stockModal');showOverlay('routeModal');
   if(hadFocus&&focusId&&$(focusId)&&!$(focusId).disabled)$(focusId).focus({preventScroll:true});
 }
@@ -992,8 +1024,8 @@ function hideOverlay(id) {
   if (fallback && typeof fallback.focus === 'function') fallback.focus({ preventScroll: true });
 }
 let modalGeneration=0;
-function openModal(title) { modalGeneration++;$('modalTitle').textContent = title; showOverlay('modal'); }
-function closeModal() { bankContext=null;if(game?.phase!=='build_decide')bankRequest=null;modalGeneration++;hideOverlay('modal'); }
+function openModal(title,readContext=null) { modalReadContext=readContext?{...readContext,gameId:game?.gameId,decisionId:game?.decision?.decisionId}:null;modalGeneration++;$('modalTitle').textContent = title; showOverlay('modal'); }
+function closeModal() { modalReadContext=null;bankContext=null;if(game?.phase!=='build_decide')bankRequest=null;modalGeneration++;hideOverlay('modal'); }
 function actionQuote(action) {
   const quotes = game?.self?.quotes;
   if (!quotes) return null;
@@ -1133,6 +1165,14 @@ function rescuePaymentReason(pending){
 }
 
 function renderPending() {
+  if(modalReadContext&&modalReadContext.gameId===game.gameId&&!$('modal').classList.contains('hidden')&&game.phase!=='game_over'&&(!isMyTurn()||game.decision?.decisionId===modalReadContext.decisionId||game.phase==='waiting_roll')){
+    const context=modalReadContext;
+    if(context.kind==='assets')openAssetOverview(context.fromMarket);
+    else if(context.kind==='city')openCityDetail(context.cityId);
+    else openSquareDetail(context.squareId);
+    return;
+  }
+  modalReadContext=null;
   if(bankRequest&&(game.phase!=='build_decide'||game.gameId!==bankRequest.payload.gameId||game.decision?.decisionId!==bankRequest.payload.decisionId))bankRequest=null;
   if(bankContext&&game.gameId===bankContext.gameId&&game.decision?.decisionId===bankContext.decisionId&&isMyTurn()&&!$('modal').classList.contains('hidden')){
     if(bankContext.kind==='build'&&game.phase==='build_decide'){openBank(true);return;}
@@ -1415,10 +1455,10 @@ function appendStockHoldings(body,meP,forBuild=false,buildCost=0) {
 }
 
 // ---------- 资产总览 ----------
-function openAssetOverview() {
+function openAssetOverview(returnToMarket=false) {
   const meP = game.players.find((p) => p.id === me.gameId);
   if (!meP) return;
-  const fromMarket=stockViewMode==='market'&&!$('stockModal').classList.contains('hidden');
+  const fromMarket=returnToMarket===true||stockViewMode==='market'&&!$('stockModal').classList.contains('hidden');
   if (stockReady()||fromMarket) hideOverlay('stockModal');
   const body = $('modalBody');
   body.innerHTML = '<div class="card-tag">MY ASSETS</div>'
@@ -1443,7 +1483,7 @@ function openAssetOverview() {
     + (stockReady() ? '<button class="primary" onclick="resumeStockView()">继续买卖股票</button>' : '')
     + (fromMarket?'<button class="secondary" onclick="closeModal();openStockMarket()">返回股票市场</button>':'')
     + '<button class="primary" onclick="closeModal()">关闭</button></div>');
-  openModal('资产总览');
+  openModal('资产总览',{kind:'assets',fromMarket});
 }
 
 
@@ -1566,10 +1606,11 @@ function setupLobby() {
   $('btnStockTransfer').onclick=()=>openTransferPanel('stock');
   $('btnStockAssets').onclick = openAssetOverview;
   $('btnResumeStock').onclick = resumeStockView;
-  $('btnRules').onclick = () => { buildRules();showOverlay('rulesModal'); };
-  $('btnModalRules').onclick = $('btnStockRules').onclick = $('btnRules').onclick;
+  $('btnRules').onclick = openContextRules;
+  $('btnModalRules').onclick = openContextRules;
+  $('btnStockRules').onclick = ()=>openRulesTopic('stocks');
   $('btnRulesClose').onclick = () => hideOverlay('rulesModal');
-  $('btnSupportRules').onclick=()=>{document.body.classList.add('management-help');openRulesTopic('property');};
+  $('btnSupportRules').onclick=()=>{document.body.classList.add('management-help');openRulesTopic('property','support');};
   $('btnRoll').onclick = () => { if (sendAction({ type: 'roll_dice' })) playDiceAnim(); };
   $('btnEndTurn').onclick = $('btnRoll').onclick;
   $('btnAssets').onclick = openAssetOverview;
@@ -1863,8 +1904,24 @@ function replayClose() {
 function rulesContext(state) {
   return {modern:!state||state.ruleVersion===2,expensesEnabled:state?!!state.travelExpense?.enabled:document.body.dataset.economyRevision==='travel-expense-v1'};
 }
-function openRulesTopic(topic){
-  buildRules();showOverlay('rulesModal');const section=$('rules-topic-'+topic);if(section){section.open=true;section.scrollIntoView({block:'start'});section.querySelector('summary')?.focus();}
+function openContextRules(){
+  const title=$('modalTitle').textContent;
+  if(!$('propertySupportModal').classList.contains('hidden'))return openRulesTopic('property','support');
+  if(!$('managementModal').classList.contains('hidden'))return openRulesTopic('property','management');
+  if(!$('stockModal').classList.contains('hidden'))return openRulesTopic('stocks');
+  if(!$('modal').classList.contains('hidden')){
+    if(/股票转让/.test(title))return openRulesTopic('stocks');
+    if(/自救|城市出售/.test(title))return openRulesTopic('connection');
+    if(/机场|飞行/.test(title)||modalReadContext?.kind==='square'&&game.board.find(sq=>sq.id===modalReadContext.squareId)?.type==='airport')return openRulesTopic('airport');
+    if(/建房|地产|置业/.test(title))return openRulesTopic('property');
+    if(/银行|资产|拍卖|出售|交易|募集/.test(title))return openRulesTopic('bank');
+  }
+  if(game?.phase==='self_rescue')return openRulesTopic('connection');
+  if(['opportunity_choose','route_choose'].includes(game?.phase))return openRulesTopic('opportunities');
+  openRulesTopic('turn');
+}
+function openRulesTopic(topic,anchor){
+  buildRules();showOverlay('rulesModal');const section=$('rules-topic-'+topic);if(section){section.open=true;const target=anchor?$('rules-anchor-'+anchor)||section:section;target.scrollIntoView({block:'start'});target.tabIndex=-1;target.focus({preventScroll:true});}
 }
 function organizeRules() {
   const root=$('rulesBody'),context=rulesContext(game);
@@ -1875,10 +1932,12 @@ function organizeRules() {
     const text=node.textContent;
     if(node.tagName==='P'){
       group=/地产与收租|建房与拆房/.test(text)?'property':/抵押与赎回|城市交易/.test(text)?'bank':/^机场/.test(text)?'airport':/^股票/.test(text)?'stocks':/^环球资讯|^经营机遇/.test(text)?'opportunities':/^自救与破产|^事件记录/.test(text)?'connection':'turn';
+      if(/^环球资讯/.test(text))node.id='rules-anchor-news';
+      if(/^经营机遇/.test(text))node.id='rules-anchor-routes';
     }else if(node.tagName==='H4')group=text.includes('城市')?'property':'turn';
     content[group].append(node);
   }
-  const add=(id,html)=>{const body=document.createElement('div');body.innerHTML=html;content[id].append(body);};
+  const add=(id,html)=>{const body=document.createElement('div');body.innerHTML=html;if(/<b>置业扶持/.test(html))body.id='rules-anchor-support';if(/<b>(回合经营|每回合主动经营|主动经营)：/.test(html))body.id='rules-anchor-management';content[id].append(body);};
   add('turn','<p>个人回合是一次轮到本人行动；个人圈是本人实际完成起点结算到下一次起点结算；完整轮是该轮参与的存活玩家各完成个人回合，监狱和极地跳过也算。股票、拍卖和自救等待不提前推进完整轮。首圈购置限制要求所有存活玩家完成一次环球行程。</p>');
   add('turn','<p><b>两种模式：</b>房主在开局前选择。普通模式以最后存活者获胜；快速模式从正式开局（包括初始选择）起计时30分钟，到时立即封盘。快速模式股票窗口60秒，转让确认及其他一般决定20秒，自救没有独立时限，初始同步选择及后续路线选择60秒；有限时决定不超过整局剩余时间，自救期间整局30分钟计时仍继续。提前出现最后存活者则提前结束。</p><p>快速封盘取消未成交的订单、购买、建设、拍卖和转让，不再执行未完成的掷骰或选择；已成交的操作保留。按原规则结清分红，按现金、地产、机场、股票及待结算收益，减抵押本金和累计利息后的净资产排名。相同净资产并列，破产玩家按实际出局顺序排在存活者之后。资产估值不是可支付现金。</p>');
   add('bank','<p>购买城市或机场缺现金时可进入募资，按股数卖股、抵押或拆房凑足后手动确认购买；取消城市购买会拍卖，取消机场购买结束回合，已成交卖股的现金保留。筹资不重置倒计时。抵押利息按原座位轮转计算，和资讯完整轮次独立。</p>');
@@ -2324,7 +2383,7 @@ function openCityDetail(cityId) {
     + (c.ownerId===me.gameId&&redeemQ?'<button class="secondary" data-redeem-city="'+cityId+'" '+(redeemQ.ok?'':'disabled')+' onclick="emitAct({type:\'redeem\',cityId:\'' + cityId + '\'})">赎回</button>':'')
     + (mine && !c.mortgaged && meP && meP.position === 0 ? '<button class="risk" onclick="sellChoice(\'' + cityId + '\')">出售</button>' : '')
     + '<button class="textbtn" onclick="closeModal()">关闭</button></div>';
-  openModal('地产详情');
+  openModal('地产详情',{kind:'city',cityId});
 }
 function openSquareDetail(squareId) {
   const sq = game && game.board.find((item) => item.id === squareId);
@@ -2374,7 +2433,7 @@ function openSquareDetail(squareId) {
   close.onclick = closeModal;
   actions.appendChild(close);
   body.appendChild(actions);
-  openModal('地块详情');
+  openModal('地块详情',{kind:'square',squareId});
 }
 function openReceipt(ev) {
   const body = $('modalBody');

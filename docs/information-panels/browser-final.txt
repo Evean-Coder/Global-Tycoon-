@@ -1,0 +1,141 @@
+TAP version 13
+# Subtest: news and ledger are equal separate panels inside the atlas on PC tablet and short landscape
+ok 1 - news and ledger are equal separate panels inside the atlas on PC tablet and short landscape
+  ---
+  duration_ms: 5358.1669
+  ...
+# Subtest: opponent broadcasts preserve news and asset reading while latest values and forced decisions update
+ok 2 - opponent broadcasts preserve news and asset reading while latest values and forced decisions update
+  ---
+  duration_ms: 586.718
+  ...
+# Subtest: contextual rules open matching topics and subsections without changing stock draft or deadline
+ok 3 - contextual rules open matching topics and subsections without changing stock draft or deadline
+  ---
+  duration_ms: 1914.0184
+  ...
+# Subtest: mobile information pair fills a centered similar rectangle and preserves scrollable information
+ok 4 - mobile information pair fills a centered similar rectangle and preserves scrollable information
+  ---
+  duration_ms: 9184.3771
+  ...
+# Subtest: normal and quick on three screens redeem from bank away from the property, keep bank and real deadline
+ok 5 - normal and quick on three screens redeem from bank away from the property, keep bank and real deadline
+  ---
+  duration_ms: 6521.6795
+  ...
+# Subtest: asset row and city details redeem remotely; lack of cash or an unfinished decision visibly explains why
+not ok 6 - asset row and city details redeem remotely; lack of cash or an unfinished decision visibly explains why
+  ---
+  duration_ms: 5413.9644
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\mortgage-redemption.spec.js:15:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    locator.tap: Timeout 5000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('#board [data-square-id="36"]')[22m
+    [2m    - locator resolved to <button type="button" class="sq g-红" data-square-id="36" data-current="false" aria-label="36 号地块：中国·上海，持有者 甲">…</button>[22m
+    [2m  - attempting tap action[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is visible, enabled and stable[22m
+    [2m      - scrolling into view if needed[22m
+    [2m      - done scrolling[22m
+    [2m      - <div class="lrow">…</div> from <div id="modal" class="overlay">…</div> subtree intercepts pointer events[22m
+    [2m    - retrying tap action[22m
+    [2m    - waiting 20ms[22m
+    [2m    - waiting for element to be visible, enabled and stable[22m
+    [2m    - element is visible, enabled and stable[22m
+    [2m    - scrolling into view if needed[22m
+    [2m    - done scrolling[22m
+    [2m    - <div class="lrow">…</div> from <div id="modal" class="overlay">…</div> subtree intercepts pointer events[22m
+    [2m  2 × retrying tap action[22m
+    [2m      - waiting 100ms[22m
+    [2m      - waiting for element to be visible, enabled and stable[22m
+    [2m      - element is visible, enabled and stable[22m
+    [2m      - scrolling into view if needed[22m
+    [2m      - done scrolling[22m
+    [2m      - <p class="hint">尚未完成选择</p> from <div id="modal" class="overlay">…</div> subtree intercepts pointer events[22m
+    [2m  2 × retrying tap action[22m
+    [2m      - waiting 500ms[22m
+    [2m      - waiting for element to be visible, enabled and stable[22m
+    [2m      - element is visible, enabled and stable[22m
+    [2m      - scrolling into view if needed[22m
+    [2m      - done scrolling[22m
+    [2m      - <div class="lrow">…</div> from <div id="modal" class="overlay">…</div> subtree intercepts pointer events[22m
+    [2m    - retrying tap action[22m
+    [2m      - waiting 500ms[22m
+    [2m      - waiting for element to be visible, enabled and stable[22m
+    [2m      - element is visible, enabled and stable[22m
+    [2m      - scrolling into view if needed[22m
+    [2m      - done scrolling[22m
+    [2m      - <div class="lrow">…</div> from <div id="modal" class="overlay">…</div> subtree intercepts pointer events[22m
+    [2m    - retrying tap action[22m
+    [2m      - waiting 500ms[22m
+    [2m      - waiting for element to be visible, enabled and stable[22m
+    [2m      - element is visible, enabled and stable[22m
+    [2m      - scrolling into view if needed[22m
+    [2m      - done scrolling[22m
+    [2m      - <p class="hint">尚未完成选择</p> from <div id="modal" class="overlay">…</div> subtree intercepts pointer events[22m
+    [2m    - retrying tap action[22m
+    [2m      - waiting 500ms[22m
+    [2m      - waiting for element to be visible, enabled and stable[22m
+    [2m      - element is visible, enabled and stable[22m
+    [2m      - scrolling into view if needed[22m
+    [2m      - done scrolling[22m
+    [2m      - <p class="hint">尚未完成选择</p> from <div id="modal" class="overlay">…</div> subtree intercepts pointer events[22m
+    [2m  - retrying tap action[22m
+    [2m    - waiting 500ms[22m
+
+  code: 'ERR_TEST_FAILURE'
+  name: 'TimeoutError'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\mortgage-redemption.spec.js:17:178)
+  ...
+# Subtest: same bank view updates interest and retains scroll, then a phase change replaces it with the required decision
+not ok 7 - same bank view updates interest and retains scroll, then a phase change replaces it with the required decision
+  ---
+  duration_ms: 5194.9232
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\mortgage-redemption.spec.js:21:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    locator.tap: Timeout 5000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('#btnBank')[22m
+    [2m    - locator resolved to <button id="btnBank" class="secondary">银行</button>[22m
+    [2m  - attempting tap action[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is visible, enabled and stable[22m
+    [2m      - scrolling into view if needed[22m
+    [2m      - done scrolling[22m
+    [2m      - <div class="lrow">…</div> from <div id="modal" class="overlay">…</div> subtree intercepts pointer events[22m
+    [2m    - retrying tap action[22m
+    [2m    - waiting 20ms[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is visible, enabled and stable[22m
+    [2m      - scrolling into view if needed[22m
+    [2m      - done scrolling[22m
+    [2m      - <div class="lrow">…</div> from <div id="modal" class="overlay">…</div> subtree intercepts pointer events[22m
+    [2m    - retrying tap action[22m
+    [2m      - waiting 100ms[22m
+    [2m    9 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is visible, enabled and stable[22m
+    [2m      - scrolling into view if needed[22m
+    [2m      - done scrolling[22m
+    [2m      - <div class="lrow">…</div> from <div id="modal" class="overlay">…</div> subtree intercepts pointer events[22m
+    [2m    - retrying tap action[22m
+    [2m      - waiting 500ms[22m
+
+  code: 'ERR_TEST_FAILURE'
+  name: 'TimeoutError'
+  stack: |-
+    openBank (C:\Users\Yifan\Desktop\game\e2e\mortgage-redemption.spec.js:5:62)
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\mortgage-redemption.spec.js:22:198)
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 5
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0

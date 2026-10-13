@@ -1,0 +1,81 @@
+TAP version 13
+# Subtest: news and ledger are equal separate panels inside the atlas on PC tablet and short landscape
+not ok 1 - news and ledger are equal separate panels inside the atlas on PC tablet and short landscape
+  ---
+  duration_ms: 3286.9683
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\information-panels.spec.js:8:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The input did not match the regular expression /本人的受影响城市：巴黎、伦敦/. Input:
+
+    '环球资讯地区旺季 · 欧洲 · 剩余 2 完整轮影响说明欧洲标准租金增加15%，每笔最多3000。本人的受影响城市：伦敦、巴黎。实际租金见城市报价。下轮预告：航空促销本局沿用原规则 · 无远航开支查看资讯规则'
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual: '环球资讯地区旺季 · 欧洲 · 剩余 2 完整轮影响说明欧洲标准租金增加15%，每笔最多3000。本人的受影响城市：伦敦、巴黎。实际租金见城市报价。下轮预告：航空促销本局沿用原规则 · 无远航开支查看资讯规则'
+  operator: 'match'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\information-panels.spec.js:14:10)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: opponent broadcasts preserve news and asset reading while latest values and forced decisions update
+not ok 2 - opponent broadcasts preserve news and asset reading while latest values and forced decisions update
+  ---
+  duration_ms: 5475.0007
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\information-panels.spec.js:20:1'
+  failureType: 'testCodeFailure'
+  error: 'page.waitForFunction: Timeout 5000ms exceeded.'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TimeoutError'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\information-panels.spec.js:25:55)
+  ...
+# Subtest: contextual rules open matching topics and subsections without changing stock draft or deadline
+not ok 3 - contextual rules open matching topics and subsections without changing stock draft or deadline
+  ---
+  duration_ms: 5162.103
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\information-panels.spec.js:29:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    page.click: Timeout 5000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('#btnBank')[22m
+    [2m    - locator resolved to <button id="btnBank" class="secondary">银行</button>[22m
+    [2m  - attempting click action[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is visible, enabled and stable[22m
+    [2m      - scrolling into view if needed[22m
+    [2m      - done scrolling[22m
+    [2m      - <div id="modal" class="overlay">…</div> intercepts pointer events[22m
+    [2m    - retrying click action[22m
+    [2m    - waiting 20ms[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is visible, enabled and stable[22m
+    [2m      - scrolling into view if needed[22m
+    [2m      - done scrolling[22m
+    [2m      - <div id="modal" class="overlay">…</div> intercepts pointer events[22m
+    [2m    - retrying click action[22m
+    [2m      - waiting 100ms[22m
+    [2m    9 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is visible, enabled and stable[22m
+    [2m      - scrolling into view if needed[22m
+    [2m      - done scrolling[22m
+    [2m      - <div id="modal" class="overlay">…</div> intercepts pointer events[22m
+    [2m    - retrying click action[22m
+    [2m      - waiting 500ms[22m
+
+  code: 'ERR_TEST_FAILURE'
+  name: 'TimeoutError'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\information-panels.spec.js:32:10)
+  ...
+1..3
+# tests 3
+# suites 0
+# pass 0
+# fail 3
+# cancelled 0
+# skipped 0
+# todo 0

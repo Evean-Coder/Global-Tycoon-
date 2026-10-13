@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>环球大亨 · 资本博弈</title>
-  <link rel="stylesheet" href="style.css?v=20261013-property-budget-v1" />
+  <link rel="stylesheet" href="style.css?v=20261014-information-panels-v1" />
   <meta name="theme-color" content="#e9dfc5" />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" type="image/svg+xml" href="icon.svg" />
@@ -91,8 +91,11 @@
           <div id="board"></div>
           <div id="boardMap" aria-hidden="true"></div>
         <div id="pieces"></div>
+          <div id="atlasPanels">
+            <section id="newsBar" class="news-bar" aria-label="环球资讯"></section>
+            <div id="ledger"><div id="ledgerBody"></div><div id="turnSummary" class="ledger-turn" aria-live="polite"></div></div>
+          </div>
         </div>
-        <div id="ledger"><div id="ledgerBody"></div><section id="newsBar" class="news-bar" aria-label="环球资讯"></section><div id="turnSummary" class="ledger-turn" aria-live="polite"></div></div>
       </div>
       <div id="side">
         <div class="panel" id="sidePlayer"></div>
@@ -219,10 +222,10 @@
   <div id="toast" class="hidden"></div>
 
   <script src="/socket.io/socket.io.js"></script>
-  <script src="rules-catalog.js?v=20261013-property-budget-v1"></script>
-  <script src="contextual-rules.js?v=20261013-property-budget-v1"></script>
-  <script src="board-layout.js?v=20261013-property-budget-v1"></script>
-  <script src="mobile-orientation.js?v=20261013-property-budget-v1"></script>
-  <script src="client.js?v=20261013-property-budget-v1"></script>
+  <script src="rules-catalog.js?v=20261014-information-panels-v1"></script>
+  <script src="contextual-rules.js?v=20261014-information-panels-v1"></script>
+  <script src="board-layout.js?v=20261014-information-panels-v1"></script>
+  <script src="mobile-orientation.js?v=20261014-information-panels-v1"></script>
+  <script src="client.js?v=20261014-information-panels-v1"></script>
 </body>
 </html>

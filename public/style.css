@@ -573,6 +573,10 @@ body.game-active #actionBar{position:relative;flex-shrink:0;left:auto;right:auto
 .bank-stock-card .kv{gap:12px;flex-wrap:wrap;font-size:13px}
 .rescue-stock{margin:12px 0;padding:12px;border:1px solid var(--line);border-radius:6px;background:var(--card2)}
 .rescue-stock h4{margin:0 0 12px;font-size:14px;overflow-wrap:anywhere}
+.rescue-identity{grid-column:1/-1;margin:0 0 8px;line-height:1.5;overflow-wrap:anywhere}
+.rescue-identity>b,.rescue-identity>span,.rescue-player-status>span{display:block}
+.rescue-identity>span{font-size:12px;margin-top:4px}
+.rescue-player-status{padding:8px;margin:8px 0;background:var(--card2);line-height:1.5;overflow-wrap:anywhere;font-size:12px}
 .rescue-stock-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .rescue-stock-controls label{width:100%;font-size:13px}
 .rescue-stock-controls input{width:72px;min-width:0;text-align:center;min-height:44px}

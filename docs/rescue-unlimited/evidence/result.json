@@ -1,0 +1,10 @@
+{
+  "price": 4000,
+  "untimedDecisionId": 1,
+  "waitMs": 600000,
+  "partialFundingStable": true,
+  "reconnectStable": true,
+  "sufficientFundsContinued": true,
+  "explicitAbandonBankrupt": true,
+  "physicalDevices": "未测；Edge触控模拟"
+}

@@ -214,7 +214,7 @@ function chargeEndExpense(state, events, continuation) {
   const p = currentPlayer(state);
   const receipt = travelExpense.settle(state, p.id, events);
   if (receipt && p.cash < 0) {
-    startSelfRescue(state, p, -p.cash, events, '远航开支');
+    startSelfRescue(state, p, -p.cash, events, '远航开支', {amount:receipt.amount});
     state.pending.resume = { kind: 'travel_expense', continuation };
     return true;
   }
@@ -303,7 +303,7 @@ function prepareTurn(state, events, rng) {
         const fee = Math.round(JAIL_FINE * LATE_JAIL_FEE_RATIO);
         p.cash -= fee;
         log(events, `${p.name} 关押满 3 回合，缴纳 30% 出狱费 ${fee} 出狱（80 轮后）`, 'jail');
-        if (p.cash < 0) startSelfRescue(state, p, -p.cash, events, `出狱费`);
+        if (p.cash < 0) startSelfRescue(state, p, -p.cash, events, `出狱费`, {amount:fee});
         else { state.phase = 'waiting_roll'; state.pending = null; }
       } else {
         log(events, `${p.name} 关押满 3 回合，自动释放`, 'jail');
@@ -440,7 +440,7 @@ function resolveCity(state, player, sq, events, rng) {
     const q = economy.quoteRent(state, {playerId:player.id, cityId:sq.cityId});
     economy.applySettlement(state, q, events);
     stocks.refreshPrice(state, sq.cityId, '待分红增加');
-    if (player.cash < 0) startSelfRescue(state, player, -player.cash, events, '支付租金');
+    if (player.cash < 0) startSelfRescue(state, player, -player.cash, events, '支付租金', {cityId:sq.cityId,recipientId:city.ownerId,amount:q.finalAmount});
     else endTurn(state, events, rng);
     return;
   }
@@ -458,7 +458,7 @@ function resolveCity(state, player, sq, events, rng) {
   owner.cash += rent; // 银行补足抵扣部分
   log(events, `${player.name} 向 ${owner.name} 支付 ${cityLabel(state, sq.cityId)} 租金 ${rent}（持股抵扣 ${discount}）`, 'rent');
   if (player.cash < 0) {
-    startSelfRescue(state, player, -player.cash, events, `支付租金`);
+    startSelfRescue(state, player, -player.cash, events, `支付租金`, {cityId:sq.cityId,recipientId:owner.id,amount:pay});
   } else {
     endTurn(state, events, rng);
   }
@@ -482,7 +482,7 @@ function resolveChance(state, player, events, rng) {
   } else if (card.type === 'fine') {
     player.cash -= card.amount;
     log(events, `${player.name} 支付罚款 ${card.amount}`);
-    if (player.cash < 0) startSelfRescue(state, player, -player.cash, events, `机会卡罚款`);
+    if (player.cash < 0) startSelfRescue(state, player, -player.cash, events, `机会卡罚款`, {amount:card.amount,cardName:card.name});
     else endTurn(state, events, rng);
   } else if (card.type === 'move') {
     if (modern(state)) state.movement = {source:'chance', playerId:player.id};
@@ -560,7 +560,7 @@ function resolveAirport(state, player, sq, events, rng) {
   owner.cash += fee;
   log(events, `${player.name} 向 ${owner.name} 支付机场费 ${fee}`, 'airport');
   if (player.cash < 0) {
-    startSelfRescue(state, player, -player.cash, events, `机场费`);
+    startSelfRescue(state, player, -player.cash, events, `机场费`, {airportId:sq.airportId,recipientId:owner.id,amount:fee});
     return;
   }
   state.phase = 'flight';
@@ -570,9 +570,9 @@ function resolveAirport(state, player, sq, events, rng) {
 
 // ---------- 自救 ----------
 
-function startSelfRescue(state, player, due, events, reason) {
+function startSelfRescue(state, player, due, events, reason, payment = null) {
   state.phase = 'self_rescue';
-  state.pending = { playerId: player.id, kind: 'self_rescue', due, reason };
+  state.pending = { playerId: player.id, kind: 'self_rescue', due, reason, ...(payment?{payment}:{}) };
   log(events, `${player.name} 资金不足（欠 ${due}，${reason}），可抵押/出售/拆房自救`, 'rescue');
 }
 
@@ -779,7 +779,7 @@ function auctionWin(state, events, rng) {
   winner.cash -= pend.currentBid;
   if (winner.cash < 0) {
     // 出价以当前现金为准，理论不会发生
-    startSelfRescue(state, winner, -winner.cash, events, `拍卖付款`);
+    startSelfRescue(state, winner, -winner.cash, events, `拍卖付款`, {cityId:pend.cityId,amount:pend.currentBid});
     return;
   }
   city.ownerId = winner.id;
@@ -803,7 +803,7 @@ function finishAuction(state, events, winner, rng) {
   }
   if (ctx && ctx.type === 'self_rescue') {
     state.phase = 'self_rescue';
-    state.pending = { playerId: ctx.playerId, kind: 'self_rescue', due: ctx.due, reason: ctx.reason, resume: ctx.resume };
+    state.pending = { playerId: ctx.playerId, kind: 'self_rescue', due: ctx.due, reason: ctx.reason, resume: ctx.resume, ...(ctx.payment?{payment:ctx.payment}:{}) };
     if (playerById(state, ctx.playerId).cash >= 0) finishSelfRescue(state, events, rng);
     return;
   }
@@ -835,7 +835,7 @@ function advanceDirectSale(state, events, rng) {
     const ctx = pend.context;
     if (ctx && ctx.type === 'self_rescue') {
       state.phase = 'self_rescue';
-      state.pending = { playerId: ctx.playerId, kind: 'self_rescue', due: ctx.due, reason: ctx.reason, resume: ctx.resume };
+      state.pending = { playerId: ctx.playerId, kind: 'self_rescue', due: ctx.due, reason: ctx.reason, resume: ctx.resume, ...(ctx.payment?{payment:ctx.payment}:{}) };
       if (playerById(state, ctx.playerId).cash >= 0) finishSelfRescue(state, events, rng);
       return;
     }
@@ -1082,7 +1082,7 @@ function jailAction(state, p, action, events, rng) {
     p.jailed = false;
     p.jailTurns = 0;
     log(events, `${p.name} 支付 ${JAIL_FINE} 出狱`);
-    if (p.cash < 0) startSelfRescue(state, p, -p.cash, events, `出狱罚金`);
+    if (p.cash < 0) startSelfRescue(state, p, -p.cash, events, `出狱罚金`, {amount:JAIL_FINE});
     else { state.phase = 'waiting_roll'; if (routes.enabled(state)) state.pending = null; }
     return;
   }
@@ -1160,7 +1160,7 @@ function buyAction(state, p, action, events, rng) {
     bumpStock(state, pend.cityId, 0.1);
     enforceOwnerStockCap(state, p, pend.cityId, events);
     log(events, `${p.name} 购买 ${cityLabel(state, pend.cityId)}（${city.price}，本圈第 ${p.lapBuys} 座）`, 'buy');
-    if (p.cash < 0) startSelfRescue(state, p, -p.cash, events, `购买`);
+    if (p.cash < 0) startSelfRescue(state, p, -p.cash, events, `购买`, {cityId:pend.cityId,amount:city.price});
     else endTurn(state, events, rng);
   } else {
     log(events, `${p.name} 放弃购买 ${cityLabel(state, pend.cityId)}，进入拍卖`, 'auction');
@@ -1181,7 +1181,7 @@ function buyAirportAction(state, p, action, events, rng) {
     state.airports[pend.airportId].ownerId = p.id;
     p.airports.push(pend.airportId);
     log(events, `${p.name} 购买机场「${pend.airportId}」（${AIRPORT_PRICE}）`, 'airport');
-    if (p.cash < 0) startSelfRescue(state, p, -p.cash, events, `购买机场`);
+    if (p.cash < 0) startSelfRescue(state, p, -p.cash, events, `购买机场`, {airportId:pend.airportId,amount:AIRPORT_PRICE});
     else endTurn(state, events, rng);
   } else {
     log(events, `${p.name} 放弃购买机场「${pend.airportId}」`);
@@ -1202,14 +1202,15 @@ function flightAction(state, p, action, events, rng) {
   const dist = Math.min(Math.abs(to.id - from.id), 42 - Math.abs(to.id - from.id));
   if (!pend.free) {
     if (modern(state)) {
-      economy.applySettlement(state, economy.quoteFlight(state, {playerId:p.id,target:action.target,fromAirportId:pend.fromAirportId,free:false}), events);
-      if (p.cash < 0) { startSelfRescue(state, p, -p.cash, events, '机票费'); return; }
+      const flightQuote=economy.quoteFlight(state, {playerId:p.id,target:action.target,fromAirportId:pend.fromAirportId,free:false});
+      economy.applySettlement(state, flightQuote, events);
+      if (p.cash < 0) { startSelfRescue(state, p, -p.cash, events, '机票费', {airportId:action.target,amount:flightQuote.finalAmount}); return; }
     } else {
     const ticket = dist * 500;
     p.cash -= ticket;
     log(events, `${p.name} 支付机票费 ${ticket} 飞往「${action.target}」`, 'airport');
     if (p.cash < 0) {
-      startSelfRescue(state, p, -p.cash, events, `机票费`);
+      startSelfRescue(state, p, -p.cash, events, `机票费`, {airportId:action.target,amount:ticket});
       return;
     }
     }

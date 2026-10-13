@@ -251,7 +251,7 @@ function defaultAction(room, phase) {
     case 'auction_bid': return { type: 'auction_respond', decision: 'pass' };
     case 'direct_sale_ask': return { type: 'direct_sale_respond', decision: 'pass' };
     case 'trade_confirm': return { type: 'stock_transfer', accept: false };
-    case 'self_rescue': return { type: 'rescue_done' };
+    case 'self_rescue': return null;
     default: return null;
   }
 }
@@ -292,7 +292,7 @@ function startTimer(room, newDecision = false) {
 
 function timerPayload(room) {
   const c=room.actionClock;
-  return {gameId:room.state.gameId,decisionId:c.decisionId,phase:c.phase,seconds:c.remainingSeconds(),paused:c.paused};
+  return {gameId:room.state.gameId,decisionId:c.decisionId,phase:c.phase,seconds:c.remainingSeconds(),paused:c.paused,...(c.untimed?{untimed:true}:{})};
 }
 function fingerprint(value) {
   if (Array.isArray(value)) return '['+value.map(fingerprint).join(',')+']';

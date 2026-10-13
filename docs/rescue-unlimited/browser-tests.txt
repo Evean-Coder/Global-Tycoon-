@@ -1,0 +1,19 @@
+TAP version 13
+# Subtest: 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+ok 1 - 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+  ---
+  duration_ms: 6119.4303
+  ...
+# Subtest: self-rescue identity and source are visible to both players; waiting and partial funding never expire
+ok 2 - self-rescue identity and source are visible to both players; waiting and partial funding never expire
+  ---
+  duration_ms: 2739.0535
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

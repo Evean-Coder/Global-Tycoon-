@@ -477,13 +477,14 @@ function renderSide() {
   const cur = meP;
   const panel = $('sidePlayer');
   const isHost = hostName() === cur.name;
+  const rescueInfo=p=>game.phase==='self_rescue'&&game.pending?.playerId===p.id?'<p class="rescue-player-status"><b>'+escapeHTML(p.name)+' 正在自救</b><span>'+escapeHTML(rescuePaymentReason(game.pending))+'</span><span>还差 '+fmt(Math.max(0,-p.cash))+' · 自救无时限</span></p>':'';
   let state = '';
   if (!cur.alive) state = ' <span class="badge bankrupt">已破产</span>';
   if (cur.jailed) state += ' <span class="badge host">入狱</span>';
   if (cur.frozen) state += ' <span class="badge host">冰冻</span>';
   panel.innerHTML = '<h3>当前玩家</h3>'
     + '<div class="pinfo"><span class="pdot" style="background:' + cur.color + '"></span><b>' + escapeHTML(cur.name) + '</b>' + (isHost ? ' <span class="badge host">房主</span>' : '') + state + '</div>'
-    + '<div class="turn-phase">' + (isMyTurn() ? '轮到你行动' : '等待其他玩家行动') + ' · 第 ' + game.rounds + ' 轮</div>';
+    + '<div class="turn-phase">' + (isMyTurn() ? '轮到你行动' : '等待其他玩家行动') + ' · 第 ' + game.rounds + ' 轮</div>'+rescueInfo(cur);
   const others = game.players.filter((p) => p.id !== me.gameId);
   const othersEl = $('sideOthers');
   if (othersEl) {
@@ -498,7 +499,7 @@ function renderSide() {
           + '<div class="assets">'
           + '<div class="asset-row"><span>' + (game.quickRevision === 'quick-mode-v1' ? '当前净资产' : '总资产') + '</span><b class="total">' + fmt(game.quickRevision === 'quick-mode-v1' && p.netAssetSummary ? p.netAssetSummary.netAssets : totalAssetsFor(p)) + '</b></div>'
           + '<div class="asset-row"><span>当前现金</span><b>' + fmt(p.cash) + '</b></div>'
-          + '</div>';
+          + '</div>'+rescueInfo(p);
       }).join('') : '<p class="hint">暂无其他玩家</p>');
   }
   const log = $('log');
@@ -1067,6 +1068,17 @@ document.addEventListener('keydown', (event) => {
 });
 function kv(label, val, cls) { return '<div class="kv"><span>' + label + '</span><b class="' + (cls || '') + '">' + val + '</b></div>'; }
 
+function rescuePaymentReason(pending){
+  const payment=pending?.payment,parts=[pending?.reason||'付款原因资料未提供'];
+  if(payment?.cityId)parts.push(payment.cityId);
+  if(payment?.airportId)parts.push(payment.airportId);
+  if(payment?.cardName)parts.push('机会卡「'+payment.cardName+'」');
+  const recipient=playerById(payment?.recipientId);
+  if(recipient)parts.push('收款玩家：'+recipient.name);
+  if(Number.isSafeInteger(payment?.amount))parts.push('原付款 '+fmt(payment.amount));
+  return parts.join(' · ');
+}
+
 function renderPending() {
   if(bankRequest&&(game.phase!=='build_decide'||game.gameId!==bankRequest.payload.gameId||game.decision?.decisionId!==bankRequest.payload.decisionId))bankRequest=null;
   if(bankContext&&game.gameId===bankContext.gameId&&game.decision?.decisionId===bankContext.decisionId&&isMyTurn()&&!$('modal').classList.contains('hidden')){
@@ -1273,6 +1285,7 @@ function renderPending() {
         const pend = game.pending;
         const owned = meP.cities.filter((id) => !game.cities[id].mortgaged);
         body.innerHTML = '<div class="rescue-overview">'
+          + '<p class="rescue-identity"><b>需要自救：'+escapeHTML(meP.name)+'</b><span>'+escapeHTML(rescuePaymentReason(pend))+'</span><span>自救无时限：资金补足后继续，或主动放弃并破产。</span></p>'
           + kv('当前还差',fmt(Math.max(0,-meP.cash)),meP.cash<0?'r':'g')
           + kv('当前现金',fmt(meP.cash))
           + '</div><details class="rescue-explanation"'+(layoutMode()==='landscape'?'':' open')+'><summary>本次欠款与自救方式说明</summary>'
@@ -1291,7 +1304,7 @@ function renderPending() {
             + '<button class="risk" onclick="emitAct({type:\'sell_city\',cityId:\'' + id + '\',mode:\'auction\',context:{type:\'self_rescue\',playerId:\'' + me.gameId + '\',due:' + pend.due + '}})">拍卖保底 +' + fmt(floorAmt) + '</button></div>';
         });
         appendLiquidationStocks(body,meP);
-        body.insertAdjacentHTML('beforeend','<div class="row"><button class="risk solid" onclick="emitAct({type:\'rescue_done\'})">放弃（破产）</button></div>');
+        body.insertAdjacentHTML('beforeend','<div class="row"><button class="risk solid" onclick="emitAct({type:\'rescue_done\'})">放弃自救并破产</button></div>');
         openModal('自救');
       }
       break;
@@ -1602,6 +1615,12 @@ socket.on('timerStarted', (t) => {
 });
 function displayTimer(t) {
   if (timerIv) clearInterval(timerIv); // 防止旧定时器叠加导致跳动
+  timerIv=null;
+  if(t.untimed){
+    const text=t.paused?'自救暂停 · 无时限':'自救无时限';
+    for(const id of ['timer','stockTimer','choiceTimer','routeTimer'])$(id).textContent=text;
+    return;
+  }
   let remain = t.seconds;
   if (t.paused) {
     $('timer').textContent = '决定暂停 · ' + remain + 's';
@@ -1807,7 +1826,7 @@ function organizeRules() {
   }
   const add=(id,html)=>{const body=document.createElement('div');body.innerHTML=html;content[id].append(body);};
   add('turn','<p>个人回合是一次轮到本人行动；个人圈是本人实际完成起点结算到下一次起点结算；完整轮是该轮参与的存活玩家各完成个人回合，监狱和极地跳过也算。股票、拍卖和自救等待不提前推进完整轮。首圈购置限制要求所有存活玩家完成一次环球行程。</p>');
-  add('turn','<p><b>两种模式：</b>房主在开局前选择。普通模式以最后存活者获胜；快速模式从正式开局（包括初始选择）起计时30分钟，到时立即封盘。快速模式股票窗口60秒，转让确认及其他一般决定20秒，自救45秒，初始同步选择及后续路线选择60秒；均不超过整局剩余时间。提前出现最后存活者则提前结束。</p><p>快速封盘取消未成交的订单、购买、建设、拍卖和转让，不再执行未完成的掷骰或选择；已成交的操作保留。按原规则结清分红，按现金、地产、机场、股票及待结算收益，减抵押本金和累计利息后的净资产排名。相同净资产并列，破产玩家按实际出局顺序排在存活者之后。资产估值不是可支付现金。</p>');
+  add('turn','<p><b>两种模式：</b>房主在开局前选择。普通模式以最后存活者获胜；快速模式从正式开局（包括初始选择）起计时30分钟，到时立即封盘。快速模式股票窗口60秒，转让确认及其他一般决定20秒，自救没有独立时限，初始同步选择及后续路线选择60秒；有限时决定不超过整局剩余时间，自救期间整局30分钟计时仍继续。提前出现最后存活者则提前结束。</p><p>快速封盘取消未成交的订单、购买、建设、拍卖和转让，不再执行未完成的掷骰或选择；已成交的操作保留。按原规则结清分红，按现金、地产、机场、股票及待结算收益，减抵押本金和累计利息后的净资产排名。相同净资产并列，破产玩家按实际出局顺序排在存活者之后。资产估值不是可支付现金。</p>');
   add('bank','<p>购买城市或机场缺现金时可进入募资，按股数卖股、抵押或拆房凑足后手动确认购买；取消城市购买会拍卖，取消机场购买结束回合，已成交卖股的现金保留。筹资不重置倒计时。抵押利息按原座位轮转计算，和资讯完整轮次独立。</p>');
   if(game?.propertySupportRevision==='property-support-v1')add('property','<p><b>置业扶持：</b>购地解锁后，从未拥有城市者连续6个正常掷骰回合没有可负担购地机会，下次掷骰前可从最多3座低价银行城市中原价购买1座，整局一次。拒绝可负担机会归零；监狱掷骰、跳过和飞行不计。取消或缺现金、库存、圈额度保留资格；曾通过购买、拍卖或受让得到城市后永久失去资格。仍计入每圈4城额度，与主动经营次数独立。</p>');
   if(game?.activeManagementRevision==='active-management-v3')add('property','<p><b>回合经营：</b>正常回合有可执行项目才自动显示经营选择。第一圈、无标的或全部不可执行时不自动弹窗，可直接掷骰。有项目时先经营一项或点击放弃经营再掷骰；关闭查看仅收起窗口，底栏可继续。放弃不扣钱，本回合不能再经营。超时默认放弃并掷骰，不自动投资。普通90秒/快速45秒与掷骰共享。促销、买股、建设费用与12项强化沿用当前显示的真实报价。</p>');
@@ -1815,7 +1834,7 @@ function organizeRules() {
   if(game?.activeManagementRevision==='active-management-v1')add('property','<p><b>主动经营：</b>正常掷骰前可成功执行促销、主动买股或远程建设中的1项，取消、失败不耗次数，掷骰可直接跳过。促销费为地价4%最高800；当前及下一完整轮内，每次实际完成他人正额租金获得银行奖励地价8%最高1200，最多2次，每圈启动一次、同时一个活动。欠租偿清才奖；抵押、产权变化、出局、到期或封盘结束活动，不退款，奖金不进入分红池。主动买股一次一城1–2股，整笔手续费1%，每圈最多4股、同城2股，原起点窗口额度独立。远程建设支付标准建房费145%，所有优惠最多减10个百分点；H1每圈一次提供10个百分点优惠。原落点建设费用保持。</p>');
   add('property','<p><b>建房募集资金：</b>本人落到自有城市、仍可建房但现金不足时，可抵押其他城市或选择股数出售持股。现金与剩余缺口按实际状态更新，资金足够后返回手动确认建房。普通银行只展示持股，不提供任意卖股；募资不刷新原决定时限。</p>');
   add('stocks','<p><b>股票窗口时限：</b>普通与快速模式均为60秒；查看、调整草稿和转让编辑返回不补时。快速模式转让接收决定最多20秒，返回股票继续沿原窗口剩余预算；个人决定不超过整局剩余时间。</p>');
-  add('connection','<p>任一存活玩家掉线会暂停对局和决定时钟；使用原身份重连恢复实际状态和剩余时间，不能刷新额度。新决定给完整时限，同一决定的无效操作和只读查询不延时。经营机遇共享60秒，超时选当时最左项；交易确认超时拒绝，股票超时结束窗口，飞行超时不飞，购买/建设超时放弃。</p><p>已经扣过的债务不重复扣款。自救补足现金后继续原流程，仍不足可继续处理资产或放弃；无资产则按原破产流程。终局先结算待分红，再按实际总资产记录排名。</p>');
+  add('connection','<p>任一存活玩家掉线会暂停对局和决定时钟；使用原身份重连恢复实际状态和剩余时间，不能刷新额度。新决定给完整时限，同一决定的无效操作和只读查询不延时。经营机遇共享60秒，超时选当时最左项；交易确认超时拒绝，股票超时结束窗口，飞行超时不飞，购买/建设超时放弃。</p><p>已经扣过的债务不重复扣款。自救补足现金后继续原流程，仍不足可继续处理资产或放弃；没有可变现资产时也等待本人主动放弃，不能因自救等待超时而破产。终局先结算待分红，再按实际总资产记录排名。</p>');
   add('connection','<p><b>电脑陪玩：</b>房主开局前可添加或移除电脑玩家，一个真人也能开始，房间合计最多4人。电脑使用标准经营策略，遵守相同费用和额度，只读取公开信息及本人的私人信息，约1秒后自动决策；首版不主动发起转让，收到转让时拒绝。最后一个真人离线后电脑停止行动，重连后恢复；快速模式总时限继续。</p>');
   if(quickGame())add('connection','<p><b>本局快速模式：</b>掉线只暂停个人决定，整局30分钟时钟继续。全员离线也不延长总时限；重连查看已冻结结果。上面的总资产排名说明适用于普通模式，本局按扣除抵押债务后的净资产排名。</p>');
   if(context.modern){
@@ -1872,7 +1891,7 @@ function buildRules() {
     + '<p><b>股票清算与资产：</b>产权正常转移保留存活玩家股份，新城主超出四股的部分按派息后报价卖出。城市归银行时先派基础股息，再按经营报价的 50% 清算存活玩家股份；重新经营从初始报价与 20 股开始。派息、清算与重新经营使该城市旧订单失效，需看新报价重新确认。股票含待分红价值，经营者待结算收益另计入总资产，到账前不可花费。</p>'
     + '<p><b>环球资讯：</b>全员完成首次环球行程后，在完整轮次边界发布。每条持续 3 轮，最后一轮预告下一条。地区旺季/淡季使对应大洲城市租金增加/减少 15%，每次最多 3000；建设优惠每人每轮首笔成功建房减原费用 15%，最多 2000；航空促销付费机票减 30%；市场平稳无额外费用变化。地区按城市所属大洲识别，房产颜色仅影响连锁经营。监狱与冰冻跳过也计入完整轮次，拍卖、自救和股票窗口完成前不推进资讯。</p>'
     + '<p><b>经营机遇：</b>开局、首条资讯发布及资讯运行 6 轮后，各进行一次全员三选一。共享 60 秒，到时默认选当前最左项；全局每人只可换一组选项，换组不延时，提交后锁定。所有人完成后一起公开并生效。个人每圈额度仅在本人实际起点结算刷新，重连和完整轮次不刷新；永久机场奖励与换组次数不刷新。租金先算资讯，再算股东礼遇，再算风险准备金；机票资讯与飞行常客按原费相加，总减免最多 '+(['active-management-v2','active-management-v3'].includes(game?.activeManagementRevision)?60:50)+'%。</p>'
-    + '<p><b>自救与破产：</b>资金不足时可反复抵押/出售/拍卖/拆房/卖出股票凑钱，凑够或主动放弃才破产；破产时发放 15000 救济金，分给资产未达最高的存活玩家（资产最高者不发放）；认输按破产处理（资产归银行、不进入拍卖、不发放救济金）。</p>'
+    + '<p><b>自救与破产：</b>资金不足时可反复抵押/出售/拍卖/拆房/卖出股票凑钱，资金补足后继续原流程，只有主动放弃自救才破产；破产时发放 15000 救济金，分给资产未达最高的存活玩家（资产最高者不发放）；认输按破产处理（资产归银行、不进入拍卖、不发放救济金）。</p>'
     + '<p><b>事件记录：</b>全局日志，所有玩家的事件可见（保留 500 条、显示 30 条）。</p>'
     + '<h4>城市地皮价格（20 城）</h4>'
     + '<div class="rules-group"><ul>'

@@ -176,6 +176,14 @@ test('股票新窗口60秒、到期正常推进，整局仅剩8秒时同步封�
  }
 });
 
+test('unlimited self rescue does not auto-bankrupt but still respects the quick total deadline',async()=>{
+ const x=await setup();await start(x);await allInitial(x);const s=x.room.state;s.phase='self_rescue';s.pending={playerId:'p0',kind:'self_rescue',due:1000,reason:'指定付款'};s.players[0].cash=-1000;api.emitGame(x.room);
+ const id=x.room.actionClock.decisionId;assert.equal(x.room.actionClock.untimed,true);assert.equal(x.room.actionClock.deadlineMs,null);
+ x.time.advance(600000);assert.equal(x.room.state.phase,'self_rescue');assert.equal(x.room.state.players[0].alive,true);assert.equal(x.room.actionClock.decisionId,id);
+ x.time.set(1799999);api.advanceRouteTime(x.room);assert.equal(x.room.state.phase,'self_rescue');assert.equal(x.room.actionClock.expired(),false);
+ x.time.advance(1);assert.equal(x.room.state.phase,'game_over');assert.equal(x.room.state.players[0].alive,true);assert.equal(x.room.gameRecord.quick.reason,'time_limit');assert.equal(x.room.events.filter(e=>e.kind==='quick_end').length,1);
+});
+
 test('建房个人到期保留已变现股票收入，旧筹资请求不能继续卖',async()=>{
  const x=await setup();await start(x);await initial(x);const s=x.room.state;f.own(s,'p0','罗马');f.own(s,'p1','里约热内卢');s.players[0].cash=1000;s.players[0].position=s.board.find(q=>q.cityId==='罗马').id;s.phase='build_decide';s.pending={playerId:'p0',cityId:'罗马'};s.stocks['里约热内卢'].price=2000;s.stocks['里约热内卢'].holders.p0=4;stocks.syncHolders(s);api.emitGame(x.room);
  assert.equal((await submit(x,'p0',{type:'rescue_sell_stock',cityId:'里约热内卢',shares:2,quoteVersion:s.stocks['里约热内卢'].quoteVersion})).ok,true);const old=envelope(x.room,'p0',{type:'rescue_sell_stock',cityId:'里约热内卢',shares:1,quoteVersion:s.stocks['里约热内卢'].quoteVersion});x.time.advance(20000);assert.notEqual(x.room.state.phase,'build_decide');assert.equal((await ack(x.a,'action',old)).ok,false);assert.equal(x.room.state.players[0].cash,5000);assert.equal(x.room.state.cities['罗马'].houseLevel,0);

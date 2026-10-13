@@ -35,7 +35,7 @@ function decisionDescriptor(state) {
     phase: state.phase,
     actorId,
     targetKey: JSON.stringify(target),
-    seconds: state.quickRevision === 'quick-mode-v1' && state.gameMode === 'quick' ? (state.phase === 'waiting_roll' && require('./managementRules').modern(state) ? 45 : state.phase === 'self_rescue' ? 45 : state.phase === 'stock' ? QUICK_STOCK_SECONDS : 20) : MAIN_PHASES.has(state.phase) ? 90 : 60,
+    seconds: state.phase === 'self_rescue' ? null : state.quickRevision === 'quick-mode-v1' && state.gameMode === 'quick' ? (state.phase === 'waiting_roll' && require('./managementRules').modern(state) ? 45 : state.phase === 'stock' ? QUICK_STOCK_SECONDS : 20) : MAIN_PHASES.has(state.phase) ? 90 : 60,
   };
 }
 
@@ -52,6 +52,7 @@ function createActionClock(options = {}) {
     deadlineMs: null,
     remainingMs: 0,
     paused: false,
+    untimed: false,
     timeoutId: null,
   };
 
@@ -86,7 +87,8 @@ function createActionClock(options = {}) {
       return { changed: false, active: false };
     }
     const d = decisionDescriptor(state);
-    if (!newDecision && clock.key === d.key && (clock.timeoutId !== null || clock.paused)) {
+    if (!newDecision && clock.key === d.key && (clock.untimed || clock.timeoutId !== null || clock.paused)) {
+      if(clock.untimed)return {changed:false,active:true};
       if (!clock.paused && clock.deadlineMs != null) clock.remainingMs = Math.max(0, clock.deadlineMs - now());
       if (totalRemainingMs !== null && totalRemainingMs < clock.remainingMs) {
         clock.remainingMs = totalRemainingMs;
@@ -100,16 +102,17 @@ function createActionClock(options = {}) {
     clock.phase = d.phase;
     clock.actorId = d.actorId;
     clock.targetKey = d.targetKey;
-    clock.remainingMs = Math.min(d.seconds * 1000, totalRemainingMs === null ? Infinity : totalRemainingMs);
-    clock.deadlineMs = now() + clock.remainingMs;
+    clock.untimed = d.seconds === null;
+    clock.remainingMs = clock.untimed ? null : Math.min(d.seconds * 1000, totalRemainingMs === null ? Infinity : totalRemainingMs);
+    clock.deadlineMs = clock.untimed ? null : now() + clock.remainingMs;
     clock.paused = false;
     schedule(onTimeout);
     return { changed: true, active: true };
   };
 
   clock.pause = () => {
-    if (clock.key == null || clock.paused || clock.deadlineMs == null) return false;
-    clock.remainingMs = Math.max(0, clock.deadlineMs - now());
+    if (clock.key == null || clock.paused || (!clock.untimed && clock.deadlineMs == null)) return false;
+    if(!clock.untimed)clock.remainingMs = Math.max(0, clock.deadlineMs - now());
     clock.paused = true;
     cancel();
     return true;
@@ -118,7 +121,7 @@ function createActionClock(options = {}) {
   clock.resume = (onTimeout) => {
     if (clock.key == null || !clock.paused) return false;
     clock.paused = false;
-    clock.deadlineMs = now() + clock.remainingMs;
+    clock.deadlineMs = clock.untimed ? null : now() + clock.remainingMs;
     schedule(onTimeout);
     return true;
   };
@@ -132,11 +135,12 @@ function createActionClock(options = {}) {
     clock.deadlineMs = null;
     clock.remainingMs = 0;
     clock.paused = false;
+    clock.untimed = false;
   };
 
-  clock.remainingSeconds = () => Math.ceil((clock.paused ? clock.remainingMs : Math.max(0, (clock.deadlineMs || now()) - now())) / 1000);
+  clock.remainingSeconds = () => clock.untimed ? null : Math.ceil((clock.paused ? clock.remainingMs : Math.max(0, (clock.deadlineMs || now()) - now())) / 1000);
   clock.expired = () => !clock.paused && clock.deadlineMs !== null && now() >= clock.deadlineMs;
-  clock.view = (gameId) => ({gameId,decisionId:clock.decisionId,phase:clock.phase,secondsRemaining:clock.remainingSeconds(),paused:clock.paused});
+  clock.view = (gameId) => ({gameId,decisionId:clock.decisionId,phase:clock.phase,secondsRemaining:clock.remainingSeconds(),paused:clock.paused,...(clock.untimed?{untimed:true}:{})});
   clock.cancel = cancel;
   return clock;
 }

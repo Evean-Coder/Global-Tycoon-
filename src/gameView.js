@@ -25,6 +25,7 @@ function snapshot(s,viewerId,clockView){
  if(s.pending){
   const p={};for(const k of ['type','kind','playerId','cityId','airportId','fromAirportId','free','target','due','reason','awaiting','sellerId','targetId','fromId','items','cash','currentBid','currentBidder','minBid','index','buyerIndex','buyers','bankrupted','isBankruptcyAuction'])if(s.pending[k]!==undefined)p[k]=s.pending[k];
   out.pending=p;
+  if(s.pending.payment)p.payment={...s.pending.payment};
  }
  if(s.opportunityStage&&!s.opportunityStage.resolved){
   const stage=s.opportunityStage;

@@ -1,3 +1,5 @@
+> 最新本地修复（2026-10-13）：手机横屏中央地图居中等比铺满，消除下半部分灰色留空。资源 `20261013-landscape-map-fill-v1`、缓存v27；7组布局/缓存回归通过，见[验收与底部截图](docs/landscape-map-fill/acceptance.md)。用户本次要求先不推送，修复仅本地保存。
+
 > 最新开发（2026-10-13）：每回合强制经营 v2、经营类型→城市的两级窗口、单一底栏入口及12种强化调整。普通90秒/快速45秒内完成经营与掷骰；无项目放行，超时选择最低支出。旧v1对局保持原规则。资源版本 `20261013-management-v2`，PWA缓存v26。本轮部署状态及实测结果见 [验收记录](docs/management-redesign/acceptance.md)，完整设计见 [Spec](docs/management-redesign/spec.md)、[Plan](docs/management-redesign/plan.md)、[Tasks](docs/management-redesign/task.md)、[Checklist](docs/management-redesign/checklist.md)。
 
 # 环球大亨

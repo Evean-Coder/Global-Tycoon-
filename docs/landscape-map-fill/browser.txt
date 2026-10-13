@@ -1,0 +1,44 @@
+TAP version 13
+# Subtest: 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+ok 1 - 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+  ---
+  duration_ms: 6174.769
+  ...
+# Subtest: reference landscape composition stays operable on four screens in both modes
+ok 2 - reference landscape composition stays operable on four screens in both modes
+  ---
+  duration_ms: 9527.3995
+  ...
+# Subtest: portrait landscape portrait preserves stock draft, deadline and real piece positions
+ok 3 - portrait landscape portrait preserves stock draft, deadline and real piece positions
+  ---
+  duration_ms: 295.7124
+  ...
+# Subtest: save a clean two-player reference preview
+ok 4 - save a clean two-player reference preview
+  ---
+  duration_ms: 148.984
+  ...
+# Subtest: PC宽屏布局 / 平板横竖布局 / 手机完整棋盘布局 / 长说明与按钮可达
+ok 5 - PC宽屏布局 / 平板横竖布局 / 手机完整棋盘布局 / 长说明与按钮可达
+  ---
+  duration_ms: 12396.6458
+  ...
+# Subtest: 九类视口股票确认及费用明细可达
+ok 6 - 九类视口股票确认及费用明细可达
+  ---
+  duration_ms: 1689.2752
+  ...
+# Subtest: 键盘焦点与减少动画 / 真正200%页面缩放完成选择详情及交易
+ok 7 - 键盘焦点与减少动画 / 真正200%页面缩放完成选择详情及交易
+  ---
+  duration_ms: 2382.6342
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

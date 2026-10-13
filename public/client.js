@@ -767,7 +767,7 @@ function renderOpportunities() {
       const item=game.opportunityCatalog[id],card=document.createElement('article');card.className='opportunity-card';
       const dir=document.createElement('span');dir.className='opportunity-direction';dir.textContent=item.direction;
       const title=document.createElement('h4');title.textContent=item.name;
-      const description=document.createElement('p');description.textContent=opportunityDescription(item.id);
+      const description=document.createElement('p');description.textContent=opportunityDescription(item.id);description.tabIndex=0;description.setAttribute('aria-label',item.name+'完整效果');
       const button=document.createElement('button');button.type='button';button.className='primary';button.textContent='选择这项机遇';button.dataset.opportunityId=id;
       button.onclick=()=>sendAction({type:'opportunity_choose',stageId:c.stageId,candidateVersion:c.candidateVersion,opportunityId:id});
       card.append(dir,title,description,button);$('choiceCards').append(card);
@@ -1267,12 +1267,13 @@ function renderPending() {
       if (isMe) {
         const pend = game.pending;
         const owned = meP.cities.filter((id) => !game.cities[id].mortgaged);
-        body.innerHTML = '<div class="card-tag">SELF RESCUE</div>'
+        body.innerHTML = '<div class="rescue-overview">'
           + kv('当前还差',fmt(Math.max(0,-meP.cash)),meP.cash<0?'r':'g')
           + kv('当前现金',fmt(meP.cash))
-          + '<p class="hint">本次初始资金缺口 '+fmt(pend.due)+'；卖股、抵押或拆房后，当前还差按最新现金更新。</p>';
-        if(pend.reason){const reason=document.createElement('p');reason.className='hint';reason.textContent='债务来源：'+pend.reason;body.append(reason);}
-        body.innerHTML += '<p class="hint">金额：抵押 = 总价值 × 50%；直接出售 = 总价值 × 80%；拍卖流拍保底 = 总价值 × 50%。</p>';
+          + '</div><details class="rescue-explanation"'+(layoutMode()==='landscape'?'':' open')+'><summary>本次欠款与自救方式说明</summary>'
+          + '<p class="hint">本次初始资金缺口 '+fmt(pend.due)+'；卖股、抵押或拆房后，当前还差按最新现金更新。</p>'
+          + (pend.reason?'<p class="hint">债务来源：'+escapeHTML(pend.reason)+'</p>':'')
+          + '<p class="hint">金额：抵押 = 总价值 × 50%；直接出售 = 总价值 × 80%；拍卖流拍保底 = 总价值 × 50%。</p></details>';
         owned.forEach((id) => {
           const c = game.cities[id];
           const tv = cityTotalValue(c);

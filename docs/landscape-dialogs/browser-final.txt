@@ -1,0 +1,97 @@
+TAP version 13
+# Subtest: 三端强制决定沿原入口，纸色弹窗与回合摘要一致
+ok 1 - 三端强制决定沿原入口，纸色弹窗与回合摘要一致
+  ---
+  duration_ms: 3422.6707
+  ...
+# Subtest: 有限双人页面流程：买地、转让返回、股票成交、只读查看与结算
+ok 2 - 有限双人页面流程：买地、转让返回、股票成交、只读查看与结算
+  ---
+  duration_ms: 469.9424
+  ...
+# Subtest: 卖股自救后当前缺口按实际现金减少，初始欠款与决定期限保持原值
+ok 3 - 卖股自救后当前缺口按实际现金减少，初始欠款与决定期限保持原值
+  ---
+  duration_ms: 58.138
+  ...
+# Subtest: 卖股自救可选择部分股数、预览缺口并拒绝越界输入
+ok 4 - 卖股自救可选择部分股数、预览缺口并拒绝越界输入
+  ---
+  duration_ms: 68.281
+  ...
+# Subtest: 建房资金不足可抵押其他城市后返回建房，待建房城市保留且时限不刷新
+ok 5 - 建房资金不足可抵押其他城市后返回建房，待建房城市保留且时限不刷新
+  ---
+  duration_ms: 143.6384
+  ...
+# Subtest: short landscape initial opportunities keep all three selections visible and complete long descriptions
+not ok 6 - short landscape initial opportunities keep all three selections visible and complete long descriptions
+  ---
+  duration_ms: 2553.4547
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\landscape-dialogs.spec.js:19:1'
+  failureType: 'testCodeFailure'
+  error: 'choice-980{"rect":{"x":6,"y":-9,"width":968,"height":418,"top":-9,"right":974,"bottom":409,"left":6},"width":980,"height":400,"overflow":false}'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    measure (C:\Users\Yifan\Desktop\game\e2e\landscape-dialogs.spec.js:12:9)
+    async TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\landscape-dialogs.spec.js:22:43)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: short landscape stock workspace preserves list space, quantity, browsing and real transaction
+ok 7 - short landscape stock workspace preserves list space, quantity, browsing and real transaction
+  ---
+  duration_ms: 10202.1716
+  ...
+# Subtest: landscape management main and city pages keep fixed footer separate from long content
+ok 8 - landscape management main and city pages keep fixed footer separate from long content
+  ---
+  duration_ms: 3561.2648
+  ...
+# Subtest: all generic landscape dialog families retain natural rows, reachable actions and long bank rescue content
+ok 9 - all generic landscape dialog families retain natural rows, reachable actions and long bank rescue content
+  ---
+  duration_ms: 6600.508
+  ...
+# Subtest: two targets and modes on three screens sell chosen shares then manually buy, repeat cannot sell twice
+ok 10 - two targets and modes on three screens sell chosen shares then manually buy, repeat cannot sell twice
+  ---
+  duration_ms: 4738.7094
+  ...
+# Subtest: no shares gives a clear empty state and cancelling keeps liquidated cash
+ok 11 - no shares gives a clear empty state and cancelling keeps liquidated cash
+  ---
+  duration_ms: 233.1764
+  ...
+# Subtest: self rescue demolition works and selling shows seller waiting until buyer buys or refuses
+ok 12 - self rescue demolition works and selling shows seller waiting until buyer buys or refuses
+  ---
+  duration_ms: 253.5842
+  ...
+# Subtest: normal and quick touch stock lists retain nodes, details, scroll and draft
+ok 13 - normal and quick touch stock lists retain nodes, details, scroll and draft
+  ---
+  duration_ms: 5434.6842
+  ...
+# Subtest: new stock windows start at the first city and same-window updates retain browsing
+ok 14 - new stock windows start at the first city and same-window updates retain browsing
+  ---
+  duration_ms: 1277.1131
+  ...
+# Subtest: stock countdown uses the existing clock on phone, tablet and PC
+ok 15 - stock countdown uses the existing clock on phone, tablet and PC
+  ---
+  duration_ms: 227.4199
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 14
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0

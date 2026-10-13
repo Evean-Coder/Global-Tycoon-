@@ -1,0 +1,131 @@
+TAP version 13
+# Subtest: 三端强制决定沿原入口，纸色弹窗与回合摘要一致
+ok 1 - 三端强制决定沿原入口，纸色弹窗与回合摘要一致
+  ---
+  duration_ms: 4354.643
+  ...
+# Subtest: 有限双人页面流程：买地、转让返回、股票成交、只读查看与结算
+ok 2 - 有限双人页面流程：买地、转让返回、股票成交、只读查看与结算
+  ---
+  duration_ms: 481.9794
+  ...
+# Subtest: 卖股自救后当前缺口按实际现金减少，初始欠款与决定期限保持原值
+ok 3 - 卖股自救后当前缺口按实际现金减少，初始欠款与决定期限保持原值
+  ---
+  duration_ms: 60.5046
+  ...
+# Subtest: 卖股自救可选择部分股数、预览缺口并拒绝越界输入
+ok 4 - 卖股自救可选择部分股数、预览缺口并拒绝越界输入
+  ---
+  duration_ms: 75.0298
+  ...
+# Subtest: 建房资金不足可抵押其他城市后返回建房，待建房城市保留且时限不刷新
+ok 5 - 建房资金不足可抵押其他城市后返回建房，待建房城市保留且时限不刷新
+  ---
+  duration_ms: 164.7477
+  ...
+# Subtest: many bank assets stay readable with one outer scroll on portrait, short landscape, tablet and PC
+ok 6 - many bank assets stay readable with one outer scroll on portrait, short landscape, tablet and PC
+  ---
+  duration_ms: 4787.9886
+  ...
+# Subtest: mortgaging cities keeps ownership and deadline, updates the bank and permits more than two
+ok 7 - mortgaging cities keeps ownership and deadline, updates the bank and permits more than two
+  ---
+  duration_ms: 243.1926
+  ...
+# Subtest: build funding sells selected shares, keeps panel and deadline, then manually builds
+ok 8 - build funding sells selected shares, keeps panel and deadline, then manually builds
+  ---
+  duration_ms: 3744.1288
+  ...
+# Subtest: low-height funding preserves selected quantity, card and scroll through a quote update
+ok 9 - low-height funding preserves selected quantity, card and scroll through a quote update
+  ---
+  duration_ms: 335.9815
+  ...
+# Subtest: 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+ok 10 - 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+  ---
+  duration_ms: 6403.9029
+  ...
+# Subtest: automatic management prompt: fixed left skip/right close, retained draft and idempotent skip
+ok 11 - automatic management prompt: fixed left skip/right close, retained draft and idempotent skip
+  ---
+  duration_ms: 5015.6874
+  ...
+# Subtest: phone landscape gate blocks start, all modals, direct actions and restores stock draft
+ok 12 - phone landscape gate blocks start, all modals, direct actions and restores stock draft
+  ---
+  duration_ms: 5537.7107
+  ...
+# Subtest: two modes and three screens show 60 seconds for initial and later opportunities
+ok 13 - two modes and three screens show 60 seconds for initial and later opportunities
+  ---
+  duration_ms: 3647.4071
+  ...
+# normal 844x390: initial choice
+# normal 844x390: later choice
+# normal 768x1024: initial choice
+# normal 768x1024: later choice
+# normal 1440x900: initial choice
+# normal 1440x900: later choice
+# quick 844x390: initial choice
+# quick 844x390: later choice
+# quick 768x1024: initial choice
+# quick 768x1024: later choice
+# quick 1440x900: initial choice
+# quick 1440x900: later choice
+# Subtest: two targets and modes on three screens sell chosen shares then manually buy, repeat cannot sell twice
+ok 14 - two targets and modes on three screens sell chosen shares then manually buy, repeat cannot sell twice
+  ---
+  duration_ms: 5037.258
+  ...
+# Subtest: no shares gives a clear empty state and cancelling keeps liquidated cash
+ok 15 - no shares gives a clear empty state and cancelling keeps liquidated cash
+  ---
+  duration_ms: 228.7439
+  ...
+# Subtest: self rescue demolition works and selling shows seller waiting until buyer buys or refuses
+ok 16 - self rescue demolition works and selling shows seller waiting until buyer buys or refuses
+  ---
+  duration_ms: 239.5164
+  ...
+# Subtest: normal and quick touch stock lists retain nodes, details, scroll and draft
+ok 17 - normal and quick touch stock lists retain nodes, details, scroll and draft
+  ---
+  duration_ms: 5685.331
+  ...
+# Subtest: new stock windows start at the first city and same-window updates retain browsing
+ok 18 - new stock windows start at the first city and same-window updates retain browsing
+  ---
+  duration_ms: 1264.7247
+  ...
+# Subtest: stock countdown uses the existing clock on phone, tablet and PC
+ok 19 - stock countdown uses the existing clock on phone, tablet and PC
+  ---
+  duration_ms: 246.0566
+  ...
+# Subtest: PC宽屏布局 / 平板横竖布局 / 手机完整棋盘布局 / 长说明与按钮可达
+ok 20 - PC宽屏布局 / 平板横竖布局 / 手机完整棋盘布局 / 长说明与按钮可达
+  ---
+  duration_ms: 11297.8001
+  ...
+# Subtest: 九类视口股票确认及费用明细可达
+ok 21 - 九类视口股票确认及费用明细可达
+  ---
+  duration_ms: 1727.6856
+  ...
+# Subtest: 键盘焦点与减少动画 / 真正200%页面缩放完成选择详情及交易
+ok 22 - 键盘焦点与减少动画 / 真正200%页面缩放完成选择详情及交易
+  ---
+  duration_ms: 2391.0241
+  ...
+1..22
+# tests 22
+# suites 0
+# pass 22
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

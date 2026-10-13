@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>环球大亨 · 资本博弈</title>
-  <link rel="stylesheet" href="style.css?v=20261013-management-prompt-v1" />
+  <link rel="stylesheet" href="style.css?v=20261013-landscape-dialogs-v1" />
   <meta name="theme-color" content="#e9dfc5" />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" type="image/svg+xml" href="icon.svg" />
@@ -126,7 +126,7 @@
 
   <div id="managementModal" class="overlay hidden">
     <section class="modal wide management-dialog" role="dialog" aria-modal="true" aria-labelledby="managementTitle">
-      <div class="mh"><h3 id="managementTitle">本回合主动经营</h3><button id="btnManagementRules" class="textbtn">规则速查</button></div>
+      <div class="mh modal-heading"><h3 id="managementTitle">本回合主动经营</h3><button id="btnManagementRules" class="textbtn">规则速查</button></div>
       <div id="managementBody" class="management-body"></div>
       <div id="managementFooter" class="management-footer"></div>
     </section>
@@ -163,7 +163,7 @@
   <!-- 通用操作弹窗 -->
   <div id="choiceModal" class="overlay hidden">
     <div class="modal wide choice-dialog" role="dialog" aria-modal="true" aria-labelledby="choiceTitle">
-      <div class="mh"><h3 id="choiceTitle">经营机遇</h3><p class="hint">三选一，规划你的经营路线。提交后等待所有人完成；到时默认选择当前最左项。</p></div>
+      <div class="mh"><h3 id="choiceTitle">经营机遇</h3><p class="hint">三选一 · 全员提交后生效 · 到时默认左项</p></div>
       <div class="choice-meta"><span id="choiceStatus" role="status"></span><span id="choiceTimer"></span></div>
       <div id="choiceCards" class="choice-cards"></div>
       <div class="mf"><button id="btnReroll" class="secondary">换一组选项</button><button id="btnChoiceRules" class="textbtn">规则速查</button><button id="btnChoiceDisband" class="risk">解散房间</button></div>
@@ -182,15 +182,18 @@
   <!-- 股票市场 -->
   <div id="stockModal" class="overlay hidden">
     <div class="modal wide" role="dialog" aria-modal="true" aria-labelledby="stockTitle">
-      <div class="mh"><h3 id="stockTitle">股票市场</h3><strong id="stockTimer" aria-live="off"></strong><p id="stockHint" class="hint"></p></div>
-      <div id="stockList"></div>
-      <p id="stockSummary" class="stock-summary" role="status"></p>
-      <div class="mf">
-        <button id="btnStockTransfer" class="secondary">股票转让</button>
-        <button id="btnStockAssets" class="secondary">查看资产</button>
-        <button id="btnStockSkip" class="secondary">放弃交易</button>
-        <button id="btnStockConfirm" class="primary">确认交易</button>
-        <button id="btnStockRules" class="textbtn" type="button">规则速查</button>
+      <div class="mh stock-heading"><h3 id="stockTitle">股票市场</h3><strong id="stockTimer" aria-live="off"></strong><button id="btnStockRules" class="textbtn" type="button">规则速查</button></div>
+      <div class="stock-workspace">
+        <div id="stockList"></div>
+        <aside class="stock-sidebar" aria-label="交易资金与操作">
+          <div class="stock-overview"><p id="stockHint" class="hint"></p><p id="stockSummary" class="stock-summary" role="status"></p></div>
+          <div class="mf">
+            <button id="btnStockTransfer" class="secondary">股票转让</button>
+            <button id="btnStockAssets" class="secondary">查看资产</button>
+            <button id="btnStockSkip" class="secondary">放弃交易</button>
+            <button id="btnStockConfirm" class="primary">确认交易</button>
+          </div>
+        </aside>
       </div>
     </div>
   </div>
@@ -207,10 +210,10 @@
   <div id="toast" class="hidden"></div>
 
   <script src="/socket.io/socket.io.js"></script>
-  <script src="rules-catalog.js?v=20261013-management-prompt-v1"></script>
-  <script src="contextual-rules.js?v=20261013-management-prompt-v1"></script>
-  <script src="board-layout.js?v=20261013-management-prompt-v1"></script>
-  <script src="mobile-orientation.js?v=20261013-management-prompt-v1"></script>
-  <script src="client.js?v=20261013-management-prompt-v1"></script>
+  <script src="rules-catalog.js?v=20261013-landscape-dialogs-v1"></script>
+  <script src="contextual-rules.js?v=20261013-landscape-dialogs-v1"></script>
+  <script src="board-layout.js?v=20261013-landscape-dialogs-v1"></script>
+  <script src="mobile-orientation.js?v=20261013-landscape-dialogs-v1"></script>
+  <script src="client.js?v=20261013-landscape-dialogs-v1"></script>
 </body>
 </html>

@@ -1,0 +1,978 @@
+[
+  {
+    "label": "choice-844",
+    "rect": {
+      "x": 6,
+      "y": 6,
+      "width": 832,
+      "height": 268,
+      "top": 6,
+      "right": 838,
+      "bottom": 274,
+      "left": 6
+    },
+    "width": 844,
+    "height": 280,
+    "overflow": false
+  },
+  {
+    "label": "choice-568",
+    "rect": {
+      "x": 6,
+      "y": 19.609375,
+      "width": 556,
+      "height": 294.390625,
+      "top": 19.609375,
+      "right": 562,
+      "bottom": 314,
+      "left": 6
+    },
+    "width": 568,
+    "height": 320,
+    "overflow": false
+  },
+  {
+    "label": "choice-932",
+    "rect": {
+      "x": 6,
+      "y": 6,
+      "width": 920,
+      "height": 418,
+      "top": 6,
+      "right": 926,
+      "bottom": 424,
+      "left": 6
+    },
+    "width": 932,
+    "height": 430,
+    "overflow": false
+  },
+  {
+    "label": "choice-980",
+    "rect": {
+      "x": 6,
+      "y": 6,
+      "width": 968,
+      "height": 388,
+      "top": 6,
+      "right": 974,
+      "bottom": 394,
+      "left": 6
+    },
+    "width": 980,
+    "height": 400,
+    "overflow": false
+  },
+  {
+    "label": "stock-844",
+    "rect": {
+      "x": 6,
+      "y": 6,
+      "width": 832,
+      "height": 268,
+      "top": 6,
+      "right": 838,
+      "bottom": 274,
+      "left": 6
+    },
+    "width": 844,
+    "height": 280,
+    "overflow": false
+  },
+  {
+    "label": "stock-568",
+    "rect": {
+      "x": 6,
+      "y": 6,
+      "width": 556,
+      "height": 308,
+      "top": 6,
+      "right": 562,
+      "bottom": 314,
+      "left": 6
+    },
+    "width": 568,
+    "height": 320,
+    "overflow": false
+  },
+  {
+    "label": "stock-932",
+    "rect": {
+      "x": 6,
+      "y": 6,
+      "width": 920,
+      "height": 418,
+      "top": 6,
+      "right": 926,
+      "bottom": 424,
+      "left": 6
+    },
+    "width": 932,
+    "height": 430,
+    "overflow": false
+  },
+  {
+    "label": "stock-980",
+    "rect": {
+      "x": 6,
+      "y": 6,
+      "width": 968,
+      "height": 388,
+      "top": 6,
+      "right": 974,
+      "bottom": 394,
+      "left": 6
+    },
+    "width": 980,
+    "height": 400,
+    "overflow": false
+  },
+  {
+    "label": "management-844",
+    "rect": {
+      "x": 6,
+      "y": 6,
+      "width": 832,
+      "height": 268,
+      "top": 6,
+      "right": 838,
+      "bottom": 274,
+      "left": 6
+    },
+    "width": 844,
+    "height": 280,
+    "overflow": false
+  },
+  {
+    "label": "management-568",
+    "rect": {
+      "x": 6,
+      "y": 23.609375,
+      "width": 556,
+      "height": 290.390625,
+      "top": 23.609375,
+      "right": 562,
+      "bottom": 314,
+      "left": 6
+    },
+    "width": 568,
+    "height": 320,
+    "overflow": false
+  },
+  {
+    "label": "management-932",
+    "rect": {
+      "x": 16,
+      "y": 69.796875,
+      "width": 900,
+      "height": 290.390625,
+      "top": 69.796875,
+      "right": 916,
+      "bottom": 360.1875,
+      "left": 16
+    },
+    "width": 932,
+    "height": 430,
+    "overflow": false
+  },
+  {
+    "label": "management-980",
+    "rect": {
+      "x": 40,
+      "y": 54.796875,
+      "width": 900,
+      "height": 290.390625,
+      "top": 54.796875,
+      "right": 940,
+      "bottom": 345.1875,
+      "left": 40
+    },
+    "width": 980,
+    "height": 400,
+    "overflow": false
+  },
+  {
+    "label": "buy-844",
+    "rect": {
+      "x": 6,
+      "y": 6,
+      "width": 832,
+      "height": 268,
+      "top": 6,
+      "right": 838,
+      "bottom": 274,
+      "left": 6
+    },
+    "width": 844,
+    "height": 280,
+    "overflow": false
+  },
+  {
+    "label": "buy_airport-844",
+    "rect": {
+      "x": 6,
+      "y": 6,
+      "width": 832,
+      "height": 268,
+      "top": 6,
+      "right": 838,
+      "bottom": 274,
+      "left": 6
+    },
+    "width": 844,
+    "height": 280,
+    "overflow": false
+  },
+  {
+    "label": "build_decide-844",
+    "rect": {
+      "x": 6,
+      "y": 6,
+      "width": 832,
+      "height": 268,
+      "top": 6,
+      "right": 838,
+      "bottom": 274,
+      "left": 6
+    },
+    "width": 844,
+    "height": 280,
+    "overflow": false
+  },
+  {
+    "label": "flight-844",
+    "rect": {
+      "x": 6,
+      "y": 6,
+      "width": 832,
+      "height": 268,
+      "top": 6,
+      "right": 838,
+      "bottom": 274,
+      "left": 6
+    },
+    "width": 844,
+    "height": 280,
+    "overflow": false
+  },
+  {
+    "label": "jail_turn-844",
+    "rect": {
+      "x": 6,
+      "y": 50.25,
+      "width": 832,
+      "height": 179.5,
+      "top": 50.25,
+      "right": 838,
+      "bottom": 229.75,
+      "left": 6
+    },
+    "width": 844,
+    "height": 280,
+    "overflow": false
+  },
+  {
+    "label": "frozen_turn-844",
+    "rect": {
+      "x": 6,
+      "y": 36.5,
+      "width": 832,
+      "height": 207,
+      "top": 36.5,
+      "right": 838,
+      "bottom": 243.5,
+      "left": 6
+    },
+    "width": 844,
+    "height": 280,
+    "overflow": false
+  },
+  {
+    "label": "auction_bid-844",
+    "rect": {
+      "x": 6,
+      "y": 6,
+      "width": 832,
+      "height": 268,
+      "top": 6,
+      "right": 838,
+      "bottom": 274,
+      "left": 6
+    },
+    "width": 844,
+    "height": 280,
+    "overflow": false
+  },
+  {
+    "label": "direct_sale_ask-844",
+    "rect": {
+      "x": 6,
+      "y": 6,
+      "width": 832,
+      "height": 268,
+      "top": 6,
+      "right": 838,
+      "bottom": 274,
+      "left": 6
+    },
+    "width": 844,
+    "height": 280,
+    "overflow": false
+  },
+  {
+    "label": "self_rescue-844",
+    "rect": {
+      "x": 6,
+      "y": 6,
+      "width": 832,
+      "height": 268,
+      "top": 6,
+      "right": 838,
+      "bottom": 274,
+      "left": 6
+    },
+    "width": 844,
+    "height": 280,
+    "overflow": false
+  },
+  {
+    "label": "btnBank-844",
+    "rect": {
+      "x": 6,
+      "y": 6,
+      "width": 832,
+      "height": 268,
+      "top": 6,
+      "right": 838,
+      "bottom": 274,
+      "left": 6
+    },
+    "width": 844,
+    "height": 280,
+    "overflow": false
+  },
+  {
+    "label": "btnAssets-844",
+    "rect": {
+      "x": 6,
+      "y": 6,
+      "width": 832,
+      "height": 268,
+      "top": 6,
+      "right": 838,
+      "bottom": 274,
+      "left": 6
+    },
+    "width": 844,
+    "height": 280,
+    "overflow": false
+  },
+  {
+    "label": "rules-844",
+    "rect": {
+      "x": 6,
+      "y": 6,
+      "width": 832,
+      "height": 268,
+      "top": 6,
+      "right": 838,
+      "bottom": 274,
+      "left": 6
+    },
+    "width": 844,
+    "height": 280,
+    "overflow": false
+  },
+  {
+    "label": "buy-568",
+    "rect": {
+      "x": 6,
+      "y": 6,
+      "width": 556,
+      "height": 308,
+      "top": 6,
+      "right": 562,
+      "bottom": 314,
+      "left": 6
+    },
+    "width": 568,
+    "height": 320,
+    "overflow": false
+  },
+  {
+    "label": "buy_airport-568",
+    "rect": {
+      "x": 6,
+      "y": 7,
+      "width": 556,
+      "height": 307,
+      "top": 7,
+      "right": 562,
+      "bottom": 314,
+      "left": 6
+    },
+    "width": 568,
+    "height": 320,
+    "overflow": false
+  },
+  {
+    "label": "build_decide-568",
+    "rect": {
+      "x": 6,
+      "y": 7,
+      "width": 556,
+      "height": 307,
+      "top": 7,
+      "right": 562,
+      "bottom": 314,
+      "left": 6
+    },
+    "width": 568,
+    "height": 320,
+    "overflow": false
+  },
+  {
+    "label": "flight-568",
+    "rect": {
+      "x": 6,
+      "y": 6,
+      "width": 556,
+      "height": 308,
+      "top": 6,
+      "right": 562,
+      "bottom": 314,
+      "left": 6
+    },
+    "width": 568,
+    "height": 320,
+    "overflow": false
+  },
+  {
+    "label": "jail_turn-568",
+    "rect": {
+      "x": 6,
+      "y": 116.5,
+      "width": 556,
+      "height": 197.5,
+      "top": 116.5,
+      "right": 562,
+      "bottom": 314,
+      "left": 6
+    },
+    "width": 568,
+    "height": 320,
+    "overflow": false
+  },
+  {
+    "label": "frozen_turn-568",
+    "rect": {
+      "x": 6,
+      "y": 107,
+      "width": 556,
+      "height": 207,
+      "top": 107,
+      "right": 562,
+      "bottom": 314,
+      "left": 6
+    },
+    "width": 568,
+    "height": 320,
+    "overflow": false
+  },
+  {
+    "label": "auction_bid-568",
+    "rect": {
+      "x": 6,
+      "y": 41.5,
+      "width": 556,
+      "height": 272.5,
+      "top": 41.5,
+      "right": 562,
+      "bottom": 314,
+      "left": 6
+    },
+    "width": 568,
+    "height": 320,
+    "overflow": false
+  },
+  {
+    "label": "direct_sale_ask-568",
+    "rect": {
+      "x": 6,
+      "y": 45.5,
+      "width": 556,
+      "height": 268.5,
+      "top": 45.5,
+      "right": 562,
+      "bottom": 314,
+      "left": 6
+    },
+    "width": 568,
+    "height": 320,
+    "overflow": false
+  },
+  {
+    "label": "self_rescue-568",
+    "rect": {
+      "x": 6,
+      "y": 6,
+      "width": 556,
+      "height": 308,
+      "top": 6,
+      "right": 562,
+      "bottom": 314,
+      "left": 6
+    },
+    "width": 568,
+    "height": 320,
+    "overflow": false
+  },
+  {
+    "label": "btnBank-568",
+    "rect": {
+      "x": 6,
+      "y": 6,
+      "width": 556,
+      "height": 308,
+      "top": 6,
+      "right": 562,
+      "bottom": 314,
+      "left": 6
+    },
+    "width": 568,
+    "height": 320,
+    "overflow": false
+  },
+  {
+    "label": "btnAssets-568",
+    "rect": {
+      "x": 6,
+      "y": 6,
+      "width": 556,
+      "height": 308,
+      "top": 6,
+      "right": 562,
+      "bottom": 314,
+      "left": 6
+    },
+    "width": 568,
+    "height": 320,
+    "overflow": false
+  },
+  {
+    "label": "rules-568",
+    "rect": {
+      "x": 6,
+      "y": 6,
+      "width": 556,
+      "height": 308,
+      "top": 6,
+      "right": 562,
+      "bottom": 314,
+      "left": 6
+    },
+    "width": 568,
+    "height": 320,
+    "overflow": false
+  },
+  {
+    "label": "buy-932",
+    "rect": {
+      "x": 36,
+      "y": 23,
+      "width": 860,
+      "height": 384,
+      "top": 23,
+      "right": 896,
+      "bottom": 407,
+      "left": 36
+    },
+    "width": 932,
+    "height": 430,
+    "overflow": false
+  },
+  {
+    "label": "buy_airport-932",
+    "rect": {
+      "x": 36,
+      "y": 61.5,
+      "width": 860,
+      "height": 307,
+      "top": 61.5,
+      "right": 896,
+      "bottom": 368.5,
+      "left": 36
+    },
+    "width": 932,
+    "height": 430,
+    "overflow": false
+  },
+  {
+    "label": "build_decide-932",
+    "rect": {
+      "x": 36,
+      "y": 61.5,
+      "width": 860,
+      "height": 307,
+      "top": 61.5,
+      "right": 896,
+      "bottom": 368.5,
+      "left": 36
+    },
+    "width": 932,
+    "height": 430,
+    "overflow": false
+  },
+  {
+    "label": "flight-932",
+    "rect": {
+      "x": 36,
+      "y": 6,
+      "width": 860,
+      "height": 418,
+      "top": 6,
+      "right": 896,
+      "bottom": 424,
+      "left": 36
+    },
+    "width": 932,
+    "height": 430,
+    "overflow": false
+  },
+  {
+    "label": "jail_turn-932",
+    "rect": {
+      "x": 36,
+      "y": 125.25,
+      "width": 860,
+      "height": 179.5,
+      "top": 125.25,
+      "right": 896,
+      "bottom": 304.75,
+      "left": 36
+    },
+    "width": 932,
+    "height": 430,
+    "overflow": false
+  },
+  {
+    "label": "frozen_turn-932",
+    "rect": {
+      "x": 36,
+      "y": 111.5,
+      "width": 860,
+      "height": 207,
+      "top": 111.5,
+      "right": 896,
+      "bottom": 318.5,
+      "left": 36
+    },
+    "width": 932,
+    "height": 430,
+    "overflow": false
+  },
+  {
+    "label": "auction_bid-932",
+    "rect": {
+      "x": 36,
+      "y": 78.75,
+      "width": 860,
+      "height": 272.5,
+      "top": 78.75,
+      "right": 896,
+      "bottom": 351.25,
+      "left": 36
+    },
+    "width": 932,
+    "height": 430,
+    "overflow": false
+  },
+  {
+    "label": "direct_sale_ask-932",
+    "rect": {
+      "x": 36,
+      "y": 80.75,
+      "width": 860,
+      "height": 268.5,
+      "top": 80.75,
+      "right": 896,
+      "bottom": 349.25,
+      "left": 36
+    },
+    "width": 932,
+    "height": 430,
+    "overflow": false
+  },
+  {
+    "label": "self_rescue-932",
+    "rect": {
+      "x": 36,
+      "y": 6,
+      "width": 860,
+      "height": 418,
+      "top": 6,
+      "right": 896,
+      "bottom": 424,
+      "left": 36
+    },
+    "width": 932,
+    "height": 430,
+    "overflow": false
+  },
+  {
+    "label": "btnBank-932",
+    "rect": {
+      "x": 36,
+      "y": 6,
+      "width": 860,
+      "height": 418,
+      "top": 6,
+      "right": 896,
+      "bottom": 424,
+      "left": 36
+    },
+    "width": 932,
+    "height": 430,
+    "overflow": false
+  },
+  {
+    "label": "btnAssets-932",
+    "rect": {
+      "x": 36,
+      "y": 6,
+      "width": 860,
+      "height": 418,
+      "top": 6,
+      "right": 896,
+      "bottom": 424,
+      "left": 36
+    },
+    "width": 932,
+    "height": 430,
+    "overflow": false
+  },
+  {
+    "label": "rules-932",
+    "rect": {
+      "x": 6,
+      "y": 6,
+      "width": 920,
+      "height": 418,
+      "top": 6,
+      "right": 926,
+      "bottom": 424,
+      "left": 6
+    },
+    "width": 932,
+    "height": 430,
+    "overflow": false
+  },
+  {
+    "label": "buy-980",
+    "rect": {
+      "x": 60,
+      "y": 8,
+      "width": 860,
+      "height": 384,
+      "top": 8,
+      "right": 920,
+      "bottom": 392,
+      "left": 60
+    },
+    "width": 980,
+    "height": 400,
+    "overflow": false
+  },
+  {
+    "label": "buy_airport-980",
+    "rect": {
+      "x": 60,
+      "y": 46.5,
+      "width": 860,
+      "height": 307,
+      "top": 46.5,
+      "right": 920,
+      "bottom": 353.5,
+      "left": 60
+    },
+    "width": 980,
+    "height": 400,
+    "overflow": false
+  },
+  {
+    "label": "build_decide-980",
+    "rect": {
+      "x": 60,
+      "y": 46.5,
+      "width": 860,
+      "height": 307,
+      "top": 46.5,
+      "right": 920,
+      "bottom": 353.5,
+      "left": 60
+    },
+    "width": 980,
+    "height": 400,
+    "overflow": false
+  },
+  {
+    "label": "flight-980",
+    "rect": {
+      "x": 60,
+      "y": 6,
+      "width": 860,
+      "height": 388,
+      "top": 6,
+      "right": 920,
+      "bottom": 394,
+      "left": 60
+    },
+    "width": 980,
+    "height": 400,
+    "overflow": false
+  },
+  {
+    "label": "jail_turn-980",
+    "rect": {
+      "x": 60,
+      "y": 110.25,
+      "width": 860,
+      "height": 179.5,
+      "top": 110.25,
+      "right": 920,
+      "bottom": 289.75,
+      "left": 60
+    },
+    "width": 980,
+    "height": 400,
+    "overflow": false
+  },
+  {
+    "label": "frozen_turn-980",
+    "rect": {
+      "x": 60,
+      "y": 96.5,
+      "width": 860,
+      "height": 207,
+      "top": 96.5,
+      "right": 920,
+      "bottom": 303.5,
+      "left": 60
+    },
+    "width": 980,
+    "height": 400,
+    "overflow": false
+  },
+  {
+    "label": "auction_bid-980",
+    "rect": {
+      "x": 60,
+      "y": 63.75,
+      "width": 860,
+      "height": 272.5,
+      "top": 63.75,
+      "right": 920,
+      "bottom": 336.25,
+      "left": 60
+    },
+    "width": 980,
+    "height": 400,
+    "overflow": false
+  },
+  {
+    "label": "direct_sale_ask-980",
+    "rect": {
+      "x": 60,
+      "y": 65.75,
+      "width": 860,
+      "height": 268.5,
+      "top": 65.75,
+      "right": 920,
+      "bottom": 334.25,
+      "left": 60
+    },
+    "width": 980,
+    "height": 400,
+    "overflow": false
+  },
+  {
+    "label": "self_rescue-980",
+    "rect": {
+      "x": 60,
+      "y": 6,
+      "width": 860,
+      "height": 388,
+      "top": 6,
+      "right": 920,
+      "bottom": 394,
+      "left": 60
+    },
+    "width": 980,
+    "height": 400,
+    "overflow": false
+  },
+  {
+    "label": "btnBank-980",
+    "rect": {
+      "x": 60,
+      "y": 6,
+      "width": 860,
+      "height": 388,
+      "top": 6,
+      "right": 920,
+      "bottom": 394,
+      "left": 60
+    },
+    "width": 980,
+    "height": 400,
+    "overflow": false
+  },
+  {
+    "label": "btnAssets-980",
+    "rect": {
+      "x": 60,
+      "y": 6,
+      "width": 860,
+      "height": 388,
+      "top": 6,
+      "right": 920,
+      "bottom": 394,
+      "left": 60
+    },
+    "width": 980,
+    "height": 400,
+    "overflow": false
+  },
+  {
+    "label": "rules-980",
+    "rect": {
+      "x": 6,
+      "y": 6,
+      "width": 968,
+      "height": 388,
+      "top": 6,
+      "right": 974,
+      "bottom": 394,
+      "left": 6
+    },
+    "width": 980,
+    "height": 400,
+    "overflow": false
+  },
+  {
+    "label": "settlement",
+    "rect": {
+      "x": 60,
+      "y": 6,
+      "width": 860,
+      "height": 388,
+      "top": 6,
+      "right": 920,
+      "bottom": 394,
+      "left": 60
+    },
+    "width": 980,
+    "height": 400,
+    "overflow": false
+  }
+]

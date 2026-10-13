@@ -13,6 +13,7 @@
   --mono:"Consolas","Courier New",monospace;
 }
 html,body{height:100%}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 body{
   font-family:var(--sans);color:var(--text);
   background-color:var(--bg);
@@ -686,3 +687,96 @@ body.orientation-blocked{overflow:hidden}body.orientation-blocked #view-game{vis
 body.management-help #rulesModal{z-index:100}
 body.landscape-game #managementModal{padding:6px}body.landscape-game #managementBody{padding:6px 12px}
 body.landscape-game .management-footer{gap:12px;padding:6px 12px}body.landscape-game .management-footer button{min-height:44px}
+
+/* Preserve natural content height. Only the body, not its individual rows, shrinks. */
+.modal>.mh{flex:none}
+#modalBody{flex:1 1 auto;min-height:0}
+#modalBody>*{flex:0 0 auto;min-width:0}
+.stock-workspace,.stock-sidebar,.stock-overview{display:contents}
+#stockModal .stock-heading{display:flex;align-items:center;gap:12px;flex-wrap:wrap;order:0}
+#stockTitle{flex:1}#stockTimer{white-space:nowrap}
+#stockHint{order:1;margin:4px 24px 0;font-size:12px;line-height:1.5}
+#stockList{order:2;flex:1 1 auto;min-height:0;align-content:start;grid-auto-rows:max-content}
+#stockSummary{order:3;flex:none}#stockModal .mf{order:4;flex:none}
+
+/* Phone landscape dialogs use the height left by browser chrome. */
+@media (orientation:landscape) and (max-height:600px) and (max-width:1200px){
+  .overlay:not(#orientationGate){padding:6px}
+  .overlay .modal,.overlay .modal.wide{width:100%;max-width:1040px;max-height:calc(100dvh - 12px);border-radius:6px;min-height:0}
+  .overlay .modal>.mh{padding:4px 12px;min-height:36px;gap:8px}
+  .overlay .modal>.mh h3{font-size:17px;line-height:24px;letter-spacing:0}
+  .overlay .modal>.mh .hint{font-size:12px;line-height:1.4;margin:2px 0}
+  .overlay .modal>.mf{padding:4px 12px;margin:0;gap:6px;flex-wrap:nowrap;flex:none}
+  .overlay .modal>.mf button{min-width:44px;min-height:44px;padding:4px 8px;font-size:12px}
+  #modal .modal{max-width:860px}
+  #modalBody{padding:8px 12px 12px;gap:8px;font-size:13px;line-height:1.5}
+  #modalBody .hint{font-size:12px;line-height:1.5;margin:4px 0}
+  #modalBody .card-tag{font-size:10px;letter-spacing:1px;margin:0}
+  #modalBody .kv{font-size:13px;line-height:1.5;padding:5px 0;gap:12px;flex-wrap:wrap}
+  #modalBody .row{flex:none;padding:6px 0;gap:6px;flex-wrap:wrap}
+  #modalBody .row button{min-width:80px;min-height:44px;padding:4px 10px;font-size:12px}
+  #modalBody .lrow:has(>button){display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;padding:10px;border:1px solid var(--line);background:var(--card2)}
+  #modalBody .lrow:has(>button)>.nm,#modalBody .lrow:has(>button)>.info{grid-column:1/-1;white-space:normal;font-size:13px;line-height:1.5}
+  #modalBody .lrow>button{height:auto;min-height:44px;min-width:0;white-space:normal;padding:6px;font-size:12px}
+  #modalBody .fee-basis,#modalBody .flight-option{padding:8px;font-size:13px}
+  #modalBody .rescue-stock,#modalBody .bank-stock-card{margin:6px 0;padding:10px}
+  #modalBody .bank-holdings{margin-top:12px;padding-top:12px}
+  #modalBody .bank-mortgage-heading{font-size:16px;margin:10px 0 6px}
+  #modalBody .bank-mortgage-list{margin:6px 0 12px;gap:6px}
+  #modalBody .bank-mortgage-row{padding:8px}
+  #rulesBody{flex:1;min-height:0;padding:8px 12px;font-size:13px}
+  #stockModal .modal{height:calc(100dvh - 12px)}
+  #stockModal .stock-heading{flex-wrap:nowrap;min-height:44px;padding:0 12px;border-bottom:1px solid var(--line)}
+  #stockModal .stock-heading button{font-size:12px;min-height:44px;padding:4px 8px}
+  #stockTimer{font-size:12px}
+  #stockModal .stock-workspace{display:grid;grid-template-columns:minmax(0,1fr) clamp(190px,27vw,250px);gap:0;flex:1;min-height:0}
+  #stockList{order:0;margin:0;padding:8px;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px;min-height:0;overflow-y:auto;overscroll-behavior:contain}
+  #stockModal .stock-sidebar{order:1;display:flex;flex-direction:column;min-width:0;min-height:0;border-left:1px solid var(--line);background:var(--card2)}
+  #stockModal .stock-overview{display:block;flex:1;min-height:0;overflow-y:auto;padding:8px 10px;overscroll-behavior:contain}
+  #stockHint,#stockSummary{margin:0;font-size:12px;line-height:1.55}
+  #stockSummary{padding-top:8px;margin-top:8px;border-top:1px solid var(--line)}
+  #stockModal .stock-sidebar>.mf{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));flex:none;gap:4px;padding:6px;margin:0}
+  #stockModal .stock-sidebar>.mf button{min-width:0;min-height:44px;font-size:12px;padding:4px;white-space:normal}
+  #stockList .stock-item{gap:4px;padding:8px;font-size:12px;line-height:1.45}
+  #stockList .stock-item>b{font-size:14px;letter-spacing:0}
+  #stockList .stock-item .stepper{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+  #stockList .srow{display:flex;align-items:center;justify-content:space-between;flex-wrap:nowrap;gap:2px}
+  #stockList .srow button{min-width:44px;min-height:44px;padding:0}
+  #stockList .stock-help{padding:0 4px;font-size:12px;min-height:44px}
+  #choiceModal .choice-dialog{height:calc(100dvh - 12px);padding-bottom:0}
+  #choiceModal .choice-dialog>.mh{display:flex;align-items:center;gap:12px;min-height:40px}
+  #choiceModal .choice-dialog>.mh h3{flex:none}
+  #choiceModal .choice-meta{padding:2px 12px;font-size:12px;line-height:18px;min-height:22px;gap:4px}
+  #choiceModal .choice-cards{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:minmax(0,1fr);padding:6px 12px;gap:8px;min-height:0;overflow:hidden}
+  #choiceCards .opportunity-card{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto minmax(0,1fr) 44px;min-height:0;overflow:hidden;padding:8px;gap:4px}
+  #choiceCards .opportunity-direction{grid-column:2;grid-row:1;align-self:center;font-size:10px;line-height:14px;padding:2px 5px}
+  #choiceCards .opportunity-card h4{grid-column:1;grid-row:1;font-size:15px;line-height:20px}
+  #choiceCards .opportunity-card p{grid-column:1/-1;grid-row:2;font-size:12px;line-height:1.5;min-height:0;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y}
+  #choiceCards .opportunity-card button{grid-column:1/-1;grid-row:3;margin:0;min-height:44px;font-size:12px;padding:4px 6px}
+  #choiceModal .choice-error:empty{display:none}
+  #choiceModal .choice-error{padding:2px 12px;font-size:12px;min-height:0}
+  #routeModal .route-meta{font-size:12px;padding:2px 12px;line-height:18px}
+  #routeModal .route-body{flex:1;padding:8px 12px;font-size:13px}
+  #routeModal .route-body>.hint{font-size:12px;line-height:1.5;margin:4px 0}
+  #routeModal .route-cards{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+  #routeModal .opportunity-card{padding:10px;gap:6px}
+  #routeModal .opportunity-card h4{font-size:15px}
+  #routeModal .opportunity-card p{font-size:12px;line-height:1.5}
+  #routeModal .mf button{flex:1;min-width:0;font-size:11px;padding:4px}
+  #managementModal .management-dialog{max-width:900px}
+  #managementBody{padding:6px 12px;font-size:13px}
+  #managementBody>*{flex:none}
+  #managementBody .management-types{margin:8px 0;gap:8px}
+  #managementBody .management-type{min-height:110px;padding:10px;gap:6px}
+  #managementBody .management-type span{font-size:12px;line-height:1.5}
+  #managementBody>h4{margin:2px 0;line-height:18px}
+  #managementBody .management-city{margin:6px 0;padding:8px}
+  #managementBody .management-city h4{font-size:15px;margin:0 0 4px}
+  #managementBody .management-city p{font-size:13px;line-height:1.5;margin:4px 0}
+  #managementBody:has(.management-city)>.management-summary,#managementBody:has(.management-city)>.hint{display:none}
+  #modalBody .rescue-overview{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  #modalBody .rescue-overview .kv{align-items:center}
+  #modalBody .rescue-overview b{font-size:16px}
+  #modalBody .rescue-explanation>summary{display:flex;align-items:center;min-height:44px;font-size:12px;cursor:pointer;color:var(--blue)}
+}
+@media (orientation:landscape) and (max-height:600px) and (min-width:760px) and (max-width:1200px){#modalBody .lrow:has(>button){grid-template-columns:repeat(4,minmax(0,1fr))}}

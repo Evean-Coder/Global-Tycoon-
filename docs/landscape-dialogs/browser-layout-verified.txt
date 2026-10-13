@@ -1,0 +1,29 @@
+TAP version 13
+# Subtest: short landscape initial opportunities keep all three selections visible and complete long descriptions
+ok 1 - short landscape initial opportunities keep all three selections visible and complete long descriptions
+  ---
+  duration_ms: 2620.6586
+  ...
+# Subtest: short landscape stock workspace preserves list space, quantity, browsing and real transaction
+ok 2 - short landscape stock workspace preserves list space, quantity, browsing and real transaction
+  ---
+  duration_ms: 12575.9517
+  ...
+# Subtest: landscape management main and city pages keep fixed footer separate from long content
+ok 3 - landscape management main and city pages keep fixed footer separate from long content
+  ---
+  duration_ms: 3586.891
+  ...
+# Subtest: all generic landscape dialog families retain natural rows, reachable actions and long bank rescue content
+ok 4 - all generic landscape dialog families retain natural rows, reachable actions and long bank rescue content
+  ---
+  duration_ms: 6335.8937
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 4
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

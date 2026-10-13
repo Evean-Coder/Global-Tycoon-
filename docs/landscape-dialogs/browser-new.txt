@@ -1,0 +1,36 @@
+TAP version 13
+# Subtest: short landscape initial opportunities keep all three selections visible and complete long descriptions
+not ok 1 - short landscape initial opportunities keep all three selections visible and complete long descriptions
+  ---
+  duration_ms: 2142.8158
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\landscape-dialogs.spec.js:18:1'
+  failureType: 'testCodeFailure'
+  error: '[{"text":"每圈首次主动建设优惠标准建房费15个百分点，与其他建设优惠共用30个百分点上限。","height":14,"scroll":36,"canRead":true},{"text":"起点持股至少2座已归属非抵押城市，每座奖励1000，最高4000。","height":14,"scroll":36,"canRead":true},{"text":"向本人持股的他人城市付租金减25%，每笔最高2000，每圈最高4000。","height":14,"scroll":36,"canRead":true}]'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\landscape-dialogs.spec.js:23:216)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: short landscape stock workspace preserves list space, quantity, browsing and real transaction
+ok 2 - short landscape stock workspace preserves list space, quantity, browsing and real transaction
+  ---
+  duration_ms: 1424.5486
+  ...
+# Subtest: all generic landscape dialog families retain natural rows, reachable actions and long bank rescue content
+ok 3 - all generic landscape dialog families retain natural rows, reachable actions and long bank rescue content
+  ---
+  duration_ms: 3153.8551
+  ...
+1..3
+# tests 3
+# suites 0
+# pass 2
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0

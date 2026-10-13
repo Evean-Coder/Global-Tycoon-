@@ -1,0 +1,34 @@
+'use strict';
+/* global socket, latestState, stockDraft, requestAnimationFrame */
+const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
+const {boot}=require('./helpers/browserHarness'),f=require('../test/helpers/gameplayFixtures'),stocks=require('../src/stocks');
+let h;const dir=path.join(__dirname,'../docs/stock-information/evidence');
+test.before(async()=>{fs.mkdirSync(dir,{recursive:true});h=await boot({mobile:true,viewport:{width:844,height:280}});await h.choose();for(const p of h.pages)p.setDefaultTimeout(5000);});
+test.after(async()=>{if(h)await h.close();});
+function fixture(){const s=f.game(2);s.firstRoundDone=true;s.phase='waiting_roll';s.pending=null;f.own(s,'p0','内罗毕');f.own(s,'p1','上海');s.cities['内罗毕'].mortgaged=true;s.stocks['内罗毕'].holders.p0=2;s.players[0].stocks['内罗毕']=2;s.stocks['上海'].holders.p0=3;s.players[0].stocks['上海']=3;s.stocks['上海'].dividendFund=2000;s.stocks['上海'].lastDividendPerShare=125;stocks.refreshPrice(s,'上海','受控分红报价');s.stocks['悉尼'].clearing=true;return s;}
+test('market is readable outside trading; assets share the bank portfolio on phone tablet and PC',{timeout:30000},async()=>{
+ const p=h.pages[0];
+ for(const [width,height]of [[844,280],[568,320],[768,1024],[1440,900]]){
+  await p.setViewportSize({width,height});await p.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))));const s=fixture();await h.fixture(s);const before=JSON.stringify(h.room.state),deadline=h.room.actionClock.deadlineMs;
+  await p.evaluate(()=>{window.marketActionCount=0;const original=socket.emit;socket.emit=function(event,...args){if(event==='action')window.marketActionCount++;return original.call(this,event,...args);};});
+  await p.locator('#btnStock').tap();await p.waitForSelector('#stockModal:not(.hidden)');assert.match(await p.textContent('#stockHint'),/只读行情/);assert.equal(await p.locator('#stockList .stock-item').count(),20);assert.equal(await p.locator('#stockList [data-kind]').count(),0);for(const id of ['btnStockConfirm','btnStockSkip','btnStockTransfer','stockTimer'])assert.equal(await p.locator('#'+id).isHidden(),true);
+  assert.match(await p.textContent('[data-stock-city="内罗毕"]'),/持有 2 股.*已抵押/s);assert.match(await p.textContent('[data-stock-city="上海"]'),/持有 3 股/);assert.match(await p.textContent('[data-stock-city="悉尼"]'),/正在清算/);assert.match(await p.textContent('[data-stock-city="开普敦"]'),/尚未上市/);
+  const close=await p.locator('#btnStockClose').boundingBox();assert.ok(close.height>=44&&close.y+close.height<=height+1);assert.equal(JSON.stringify(h.room.state),before);assert.equal(h.room.actionClock.deadlineMs,deadline);assert.equal(await p.evaluate(()=>window.marketActionCount),0);
+  await p.locator('[data-stock-city="上海"]').scrollIntoViewIfNeeded();const scroll=await p.locator('#stockList').evaluate(el=>el.scrollTop);
+  await p.click('#btnStockAssets');assert.equal(await p.locator('#stockModal').isHidden(),true);const assetText=await p.textContent('#modalBody .bank-holdings');assert.match(assetText,/持股合计.*5 股/s);assert.match(assetText,/上次每股基础分红.*￥125/s);assert.match(assetText,/全城|整座城市/);assert.equal(await p.locator('#modalBody .bank-stock-card').count(),2);assert.equal(await p.locator('#modalBody [data-fund-city],[data-liquidation-city]').count(),0);
+  await p.locator('#modalBody .bank-holdings').evaluate(el=>el.scrollIntoView({block:'start'}));if(width===844){await p.waitForSelector('#toast',{state:'hidden'});await p.screenshot({path:path.join(dir,'asset-holdings-phone.png')});}
+  await p.getByRole('button',{name:'返回股票市场',exact:true}).click();assert.ok(Math.abs(await p.locator('#stockList').evaluate(el=>el.scrollTop)-scroll)<=2);await p.click('#btnStockClose');
+  await p.click('#btnBank');assert.equal(await p.textContent('#modalBody .bank-holdings'),assetText);await p.getByRole('button',{name:'关闭',exact:true}).last().click();
+  await p.click('#btnAssets');assert.equal(await p.textContent('#modalBody .bank-holdings'),assetText);await p.getByRole('button',{name:'关闭',exact:true}).last().click();assert.equal(await p.evaluate(()=>window.marketActionCount),0);
+ }
+ assert.deepEqual(h.errors,[]);
+});
+test('readonly updates, opponent window, empty portfolio, forced stage and actual trading retain their semantics',{timeout:30000},async()=>{
+ const p=h.pages[0];await p.setViewportSize({width:844,height:390});let s=fixture();await h.fixture(s);await p.click('#btnStock');const row=p.locator('[data-stock-city="上海"]');await row.scrollIntoViewIfNeeded();
+ const next=globalThis.structuredClone(h.room.state);next.stocks['上海'].dividendFund=4000;stocks.refreshPrice(next,'上海','受控变化');await h.fixture(next);assert.equal(await p.locator('#stockModal').isVisible(),true);assert.ok((await row.textContent()).includes('股价 ￥4,200'));await p.waitForSelector('#toast',{state:'hidden'});await p.screenshot({path:path.join(dir,'readonly-market-phone.png')});await p.locator('#btnStockClose').tap();
+ const other=fixture();other.turnIndex=1;other.phase='stock';other.pending={playerId:'p1',kind:'go_stock',after:'end'};stocks.openStockWindow(other,'p1');await h.fixture(other);await p.click('#btnStock');assert.equal(await p.locator('#stockList [data-kind]').count(),0);await p.click('#btnStockClose');
+ const empty=f.game(2);empty.phase='waiting_roll';await h.fixture(empty);await p.click('#btnAssets');assert.match(await p.textContent('#modalBody .bank-holdings'),/当前没有持有股票/);await p.getByRole('button',{name:'关闭',exact:true}).last().click();
+ s=fixture();s.phase='stock';s.pending={playerId:'p0',kind:'go_stock',after:'end'};stocks.openStockWindow(s,'p0');await h.fixture(s);await p.waitForSelector('#stockModal:not(.hidden)');assert.equal(await p.locator('#btnStockClose').isHidden(),true);assert.equal(await p.locator('#btnStockConfirm').isVisible(),true);
+ await p.locator('[data-city="上海"][data-kind=buy][data-delta="1"]').tap();assert.equal(await p.evaluate(()=>stockDraft['上海'].buy),1);const deadline=h.room.actionClock.deadlineMs;await p.click('#btnStockAssets');assert.equal(await p.locator('#modalBody .bank-stock-card').count(),2);await p.getByRole('button',{name:'继续买卖股票',exact:true}).click();assert.equal(await p.evaluate(()=>stockDraft['上海'].buy),1);assert.equal(h.room.actionClock.deadlineMs,deadline);await p.click('#btnStockConfirm');await p.waitForFunction(()=>latestState.phase!=='stock');assert.equal(h.room.state.players[0].stocks['上海'],4);
+ const roll=f.game(2);roll.phase='waiting_roll';await h.fixture(roll);await p.click('#btnStock');const debt=f.game(2);debt.phase='self_rescue';debt.players[0].cash=-1000;debt.pending={playerId:'p0',kind:'self_rescue',due:1000};await h.fixture(debt);assert.equal(await p.locator('#stockModal').isHidden(),true);assert.equal(await p.textContent('#modalTitle'),'自救');assert.deepEqual(h.errors,[]);
+});

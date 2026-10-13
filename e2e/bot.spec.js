@@ -14,7 +14,7 @@ test('三端一个真人添加/移除电脑、真实开局和思考提示',{time
   const code=(await p.locator('#roomCode').textContent()).trim(),room=api.rooms.get(code);room.botDelayMs=400;
   await p.click('#btnStart');await p.waitForSelector('#choiceModal:not(.hidden)');await p.waitForFunction(()=>latestState?.botThinking?.length>0);
   await p.locator('#choiceCards button').first().click();await p.waitForSelector('#choiceModal',{state:'hidden'});assert.equal(room.state.players[1].opportunities.selectedIds.length,1);
-  await p.locator('#btnCloseManagement').waitFor({state:'visible'});await p.click('#btnCloseManagement');
+  if(await p.locator('#btnCloseManagement').isVisible())await p.click('#btnCloseManagement');
   assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false);
   await p.locator('#btnRoll').click();await p.waitForFunction(()=>latestState?.revision>2);
   bots.stop(room);room.actionClock.clear();await context.close();

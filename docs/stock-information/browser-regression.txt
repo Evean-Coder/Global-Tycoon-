@@ -1,0 +1,76 @@
+TAP version 13
+# Subtest: build funding sells selected shares, keeps panel and deadline, then manually builds
+ok 1 - build funding sells selected shares, keeps panel and deadline, then manually builds
+  ---
+  duration_ms: 3917.6902
+  ...
+# Subtest: low-height funding preserves selected quantity, card and scroll through a quote update
+ok 2 - low-height funding preserves selected quantity, card and scroll through a quote update
+  ---
+  duration_ms: 331.0827
+  ...
+# Subtest: 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+ok 3 - 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+  ---
+  duration_ms: 6336.1443
+  ...
+# Subtest: 端到端：创建→加入→开局→掷骰→解散→结算→回放
+ok 4 - 端到端：创建→加入→开局→掷骰→解散→结算→回放
+  ---
+  duration_ms: 30661.9177
+  ...
+# Subtest: short landscape initial opportunities keep all three selections visible and complete long descriptions
+ok 5 - short landscape initial opportunities keep all three selections visible and complete long descriptions
+  ---
+  duration_ms: 2845.8909
+  ...
+# Subtest: short landscape stock workspace preserves list space, quantity, browsing and real transaction
+ok 6 - short landscape stock workspace preserves list space, quantity, browsing and real transaction
+  ---
+  duration_ms: 12127.5231
+  ...
+# Subtest: landscape management main and city pages keep fixed footer separate from long content
+ok 7 - landscape management main and city pages keep fixed footer separate from long content
+  ---
+  duration_ms: 3804.8531
+  ...
+# Subtest: all generic landscape dialog families retain natural rows, reachable actions and long bank rescue content
+not ok 8 - all generic landscape dialog families retain natural rows, reachable actions and long bank rescue content
+  ---
+  duration_ms: 752.9667
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\landscape-dialogs.spec.js:52:1'
+  failureType: 'testCodeFailure'
+  error: "UNKNOWN: unknown error, open 'C:\\Users\\Yifan\\Desktop\\game\\docs\\landscape-dialogs\\evidence\\auction_bid-844x280.png'"
+  code: 'UNKNOWN'
+  stack: |-
+    async open (node:internal/fs/promises:637:25)
+    async Object.writeFile (node:internal/fs/promises:1219:14)
+    async _Page.screenshot (C:\Users\Yifan\Desktop\game\node_modules\playwright-core\lib\coreBundle.js:61393:11)
+    async screenshot (C:\Users\Yifan\Desktop\game\e2e\landscape-dialogs.spec.js:19:86)
+    async TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\landscape-dialogs.spec.js:63:79)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: normal and quick touch stock lists retain nodes, details, scroll and draft
+ok 9 - normal and quick touch stock lists retain nodes, details, scroll and draft
+  ---
+  duration_ms: 5539.0158
+  ...
+# Subtest: new stock windows start at the first city and same-window updates retain browsing
+ok 10 - new stock windows start at the first city and same-window updates retain browsing
+  ---
+  duration_ms: 1213.7369
+  ...
+# Subtest: stock countdown uses the existing clock on phone, tablet and PC
+ok 11 - stock countdown uses the existing clock on phone, tablet and PC
+  ---
+  duration_ms: 242.927
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 10
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0

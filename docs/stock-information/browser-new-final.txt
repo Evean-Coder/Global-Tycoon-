@@ -1,0 +1,19 @@
+TAP version 13
+# Subtest: market is readable outside trading; assets share the bank portfolio on phone tablet and PC
+ok 1 - market is readable outside trading; assets share the bank portfolio on phone tablet and PC
+  ---
+  duration_ms: 6145.4271
+  ...
+# Subtest: readonly updates, opponent window, empty portfolio, forced stage and actual trading retain their semantics
+ok 2 - readonly updates, opponent window, empty portfolio, forced stage and actual trading retain their semantics
+  ---
+  duration_ms: 534.7946
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

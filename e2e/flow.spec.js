@@ -59,8 +59,7 @@ test('端到端：创建→加入→开局→掷骰→解散→结算→回放',
   await p2.locator('#choiceCards button').last().click();
   await p2.waitForFunction(id=>latestState.players[1].opportunities.selectedIds.includes(id),secondChoice,{timeout:5000});
   await p1.waitForSelector('#choiceModal', {state:'hidden'});
-  await p1.locator('#btnCloseManagement').waitFor({state:'visible'});
-  await p1.click('#btnCloseManagement');
+  assert.equal(await p1.locator('#managementModal').isHidden(),true);
   assert.ok((await p1.textContent('#log')).includes('选择经营机遇'),'选择应通过用户操作提交并公开');
   await p1.waitForTimeout(400);
   const stateFrames = socketFrames.filter((frame) => frame.includes('gameState'));
@@ -85,7 +84,9 @@ test('端到端：创建→加入→开局→掷骰→解散→结算→回放',
   assert.equal(await p1.locator('#rulesModal').isVisible(), false, '规则速查应可关闭');
   const beforeStock = socketFrames.length;
   await p1.click('#btnStock');
-  assert.equal(await p1.locator('#stockModal').isVisible(), false, '非股票阶段不应打开交易弹窗');
+  assert.equal(await p1.locator('#stockModal').isVisible(), true, '非股票阶段应打开只读市场');
+  assert.equal(await p1.locator('#btnStockConfirm').isHidden(), true, '只读市场不提供交易确认');
+  await p1.click('#btnStockClose');
   assert.equal(socketFrames.length, beforeStock, '非股票阶段查看入口不应改变游戏状态');
 
   // 掷骰（当前行动玩家为甲）

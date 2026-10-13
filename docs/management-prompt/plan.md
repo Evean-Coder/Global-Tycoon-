@@ -12,6 +12,10 @@ active_skip复用原action事件和gameId/decisionId/actorRevision/actionId协�
 
 主界面底部left active_skip/right close；子界面left back/right close。footer在可滚动body之外，2列、最小44px。放弃回执成功收起；关闭仅隐藏。阶段变更、非本人、已经营/放弃自动收起；同回合广播只刷新已打开视图，不重开关闭窗口。主动规则帮助置于经营之上，退出规则仍见经营；底层通用查看不抢焦点。
 
+后续修订：syncManagement自动打开条件加入服务端self.activeManagement.quotes.some(q=>q.ok)，不按城市/机场数量猜许可。不改报价、掷骰许可或手动查看原因入口。没有可执行报价时不设置managementSeenKey；同一回合之后新增可执行报价可以自动提示，已经主动关闭的回合仍不重复提示。已有自动弹窗测试的初始空回合改为验证隐藏，补充仅机场/资金不足/其他玩家购地后的提示。沿用四份文档自审授权。
+
+发布回归适配：地图信息测试受控注入城市后，先按真实用户入口关闭新经营提示，再测底层内容。合成滑动使用CDP的preventFling，以验证滚动并避免测试把后续点按用于制动惯性；保留真实触屏及滚动断言。截图支持E2E_EVIDENCE_ROOT以避开Windows正在预览的历史截图文件占用；不改变产品逻辑或移除检查。
+
 ## 优先级与缓存
 orientationGate > 用户主动打开的rules > managementModal > 普通modal/股票/机遇（仅在正常经营阶段显示）。Tab焦点规则加入经营层；横屏模块按现有body根inert覆盖新层。资源20261013-management-prompt-v1、缓存v29，新服务器开局v3。旧局不迁移。
 

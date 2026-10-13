@@ -2,9 +2,13 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),{boot}=require('./helpers/browserHarness'),{createGameState}=require('../src/state'),active=require('../src/activeManagement'),{own}=require('../test/helpers/gameplayFixtures');
 test('automatic management prompt: fixed left skip/right close, retained draft and idempotent skip',{timeout:60000},async()=>{
- const h=await boot({mobile:true,gameMode:'quick'}),p=h.pages[0],dir=path.join(__dirname,'../docs/management-prompt/evidence');fs.mkdirSync(dir,{recursive:true});
+ const h=await boot({mobile:true,gameMode:'quick'}),p=h.pages[0],dir=process.env.E2E_EVIDENCE_ROOT?path.join(process.env.E2E_EVIDENCE_ROOT,'management-prompt'):path.join(__dirname,'../docs/management-prompt/evidence');fs.mkdirSync(dir,{recursive:true});
  try{
-  await h.choose({keepManagementOpen:true});await p.waitForSelector('#managementModal:not(.hidden)');assert.equal(await p.locator('[data-management-type]').count(),3);assert.match(await p.textContent('#managementBody'),/可以执行|放弃/);await p.click('#btnCloseManagement');
+  await h.choose({keepManagementOpen:true});assert.equal(await p.locator('#managementModal').isHidden(),true);assert.equal(await p.locator('#btnRoll').isEnabled(),true);
+  const empty=createGameState('EMPTY',['甲','乙'],2,{activeManagementRevision:active.REVISION});empty.turnId=90;empty.phase='waiting_roll';empty.pending=null;await h.fixture(empty);assert.equal(await p.locator('#managementModal').isHidden(),true);
+  empty.firstRoundDone=true;empty.airports['开罗国际机场'].ownerId='p0';empty.players[0].airports.push('开罗国际机场');await h.fixture(empty);assert.equal(await p.locator('#managementModal').isHidden(),true);
+  const acquired=globalThis.structuredClone(empty);own(acquired,'p1','上海');acquired.players[0].cash=0;await h.fixture(acquired);assert.equal(await p.locator('#managementModal').isHidden(),true);
+  acquired.players[0].cash=150000;await h.fixture(acquired);await p.waitForSelector('#managementModal:not(.hidden)');assert.equal(await p.locator('[data-management-type]').count(),3);assert.match(await p.textContent('#managementBody'),/可以执行|放弃/);await p.click('#btnCloseManagement');h.api.emitGame(h.room);assert.equal(await p.locator('#managementModal').isHidden(),true);
   let turn=100;const measurements=[];
   for(const mode of ['normal','quick'])for(const [width,height]of [[1440,900],[768,1024],[844,280]]){
    await p.setViewportSize({width,height});const s=createGameState('PROMPT',['甲','乙'],2,{activeManagementRevision:active.REVISION,routeRevision:'opportunity-routes-v1',gameMode:mode,...(mode==='quick'?{quickRevision:'quick-mode-v1'}:{})});s.phase='waiting_roll';s.pending=null;s.turnId=++turn;s.routeFlow.initialDueOrdinal=3;for(let i=1;i<=3;i++){s.opportunityStage={ordinal:i,resolved:true};require('../src/opportunityRoutes').markInitialResolved(s,i);}own(s,'p0','内罗毕');own(s,'p1','上海');await h.fixture(s);await p.waitForSelector('#managementModal:not(.hidden)');assert.equal(await h.pages[1].locator('#managementModal').isHidden(),true);

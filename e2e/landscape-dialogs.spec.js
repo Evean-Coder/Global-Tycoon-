@@ -2,7 +2,7 @@
 /* global latestState, stockDraft, getComputedStyle, innerWidth, innerHeight, requestAnimationFrame */
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const {boot}=require('./helpers/browserHarness'),f=require('../test/helpers/gameplayFixtures'),stocks=require('../src/stocks');
-const dir=path.join(__dirname,'../docs/landscape-dialogs/evidence');
+const dir=process.env.E2E_EVIDENCE_ROOT?path.join(process.env.E2E_EVIDENCE_ROOT,'landscape-dialogs'):path.join(__dirname,'../docs/landscape-dialogs/evidence');
 const screens=[[844,280],[568,320],[932,430],[980,400]],measurements=[];
 let h;
 test.before(async()=>{fs.mkdirSync(dir,{recursive:true});h=await boot({mobile:true,viewport:{width:844,height:280}});for(const p of h.pages)p.setDefaultTimeout(5000);});

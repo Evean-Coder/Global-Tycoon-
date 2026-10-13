@@ -76,6 +76,7 @@ function syncResponsiveLayout() {
   const landscape=layoutMode()==='landscape';
   document.body.classList.toggle('landscape-game',landscape);
   $('ledger').insertBefore($('newsBar'),$('turnSummary'));
+  $('actionBar').insertBefore($('btnManagement'),$('btnAssets'));
   $('actionBar').insertBefore($('btnBank'),$('btnEndTurn'));
   $('boardScale').insertBefore($('boardMap'),$('pieces'));
   if(landscape){$('boardScale').append($('ledger'));$('side').prepend($('mapScrollHint'));}

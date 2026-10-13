@@ -640,12 +640,9 @@ body.landscape-game #actionBar #turnInfo{grid-column:1;grid-row:2;font-size:10px
 body.landscape-game #actionBar #timer{grid-column:6;grid-row:1/3;font-size:11px;align-self:center;white-space:normal}
 body.landscape-game #actionBar button{grid-row:1/3;min-height:44px;height:auto;min-width:0;padding:4px;font-size:12px}
 body.landscape-game #actionBar #btnRoll,body.landscape-game #actionBar #btnResumeStock{grid-column:2}
-body.landscape-game #actionBar #btnAssets{grid-column:3}
-body.landscape-game #actionBar #btnBank{grid-column:4;display:block}
-body.landscape-game #actionBar #btnManagement{grid-column:2;display:block}
-body.landscape-game #actionBar #btnRoll,body.landscape-game #actionBar #btnResumeStock{grid-column:3}
+body.landscape-game #actionBar #btnManagement{grid-column:3;display:block}
 body.landscape-game #actionBar #btnAssets{grid-column:4}
-body.landscape-game #actionBar #btnBank{grid-column:5}
+body.landscape-game #actionBar #btnBank{grid-column:5;display:block}
 body.landscape-game #actionBar #btnEndTurn{display:none}
 body.landscape-game .overlay{padding:6px}
 body.landscape-game .modal,body.landscape-game .modal.wide{max-height:calc(100dvh - 12px)}

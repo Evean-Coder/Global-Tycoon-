@@ -1,0 +1,666 @@
+{
+  "browser": "Microsoft Edge headless touch emulation",
+  "physicalDevices": "未测；三端模拟视口",
+  "measurements": [
+    {
+      "mode": "normal",
+      "width": 1440,
+      "height": 900,
+      "order": {
+        "buttons": [
+          {
+            "id": "btnRoll",
+            "x": 649.078125,
+            "y": 845,
+            "width": 118,
+            "height": 44,
+            "top": 845,
+            "right": 767.078125,
+            "bottom": 889,
+            "left": 649.078125
+          },
+          {
+            "id": "btnManagement",
+            "x": 779.078125,
+            "y": 845,
+            "width": 118,
+            "height": 44,
+            "top": 845,
+            "right": 897.078125,
+            "bottom": 889,
+            "left": 779.078125
+          },
+          {
+            "id": "btnAssets",
+            "x": 909.078125,
+            "y": 845,
+            "width": 118,
+            "height": 44,
+            "top": 845,
+            "right": 1027.078125,
+            "bottom": 889,
+            "left": 909.078125
+          },
+          {
+            "id": "btnBank",
+            "x": 1039.078125,
+            "y": 845,
+            "width": 118,
+            "height": 44,
+            "top": 845,
+            "right": 1157.078125,
+            "bottom": 889,
+            "left": 1039.078125
+          }
+        ],
+        "dom": [
+          "btnRoll",
+          "btnManagement",
+          "btnAssets",
+          "btnBank"
+        ],
+        "overflow": false
+      },
+      "resume": {
+        "x": 649.078125,
+        "y": 845,
+        "width": 118,
+        "height": 44
+      }
+    },
+    {
+      "mode": "normal",
+      "width": 1024,
+      "height": 768,
+      "order": {
+        "buttons": [
+          {
+            "id": "btnRoll",
+            "x": 43,
+            "y": 713,
+            "width": 181.1875,
+            "height": 44,
+            "top": 713,
+            "right": 224.1875,
+            "bottom": 757,
+            "left": 43
+          },
+          {
+            "id": "btnManagement",
+            "x": 232.1875,
+            "y": 713,
+            "width": 181.203125,
+            "height": 44,
+            "top": 713,
+            "right": 413.390625,
+            "bottom": 757,
+            "left": 232.1875
+          },
+          {
+            "id": "btnAssets",
+            "x": 421.390625,
+            "y": 713,
+            "width": 181.203125,
+            "height": 44,
+            "top": 713,
+            "right": 602.59375,
+            "bottom": 757,
+            "left": 421.390625
+          },
+          {
+            "id": "btnBank",
+            "x": 610.59375,
+            "y": 713,
+            "width": 181.203125,
+            "height": 44,
+            "top": 713,
+            "right": 791.796875,
+            "bottom": 757,
+            "left": 610.59375
+          }
+        ],
+        "dom": [
+          "btnRoll",
+          "btnManagement",
+          "btnAssets",
+          "btnBank"
+        ],
+        "overflow": false
+      },
+      "resume": {
+        "x": 43,
+        "y": 713,
+        "width": 181.1875,
+        "height": 44
+      }
+    },
+    {
+      "mode": "normal",
+      "width": 768,
+      "height": 1024,
+      "order": {
+        "buttons": [
+          {
+            "id": "btnRoll",
+            "x": 43,
+            "y": 969,
+            "width": 130,
+            "height": 44,
+            "top": 969,
+            "right": 173,
+            "bottom": 1013,
+            "left": 43
+          },
+          {
+            "id": "btnManagement",
+            "x": 181,
+            "y": 969,
+            "width": 130,
+            "height": 44,
+            "top": 969,
+            "right": 311,
+            "bottom": 1013,
+            "left": 181
+          },
+          {
+            "id": "btnAssets",
+            "x": 319,
+            "y": 969,
+            "width": 130,
+            "height": 44,
+            "top": 969,
+            "right": 449,
+            "bottom": 1013,
+            "left": 319
+          },
+          {
+            "id": "btnBank",
+            "x": 457,
+            "y": 969,
+            "width": 130,
+            "height": 44,
+            "top": 969,
+            "right": 587,
+            "bottom": 1013,
+            "left": 457
+          }
+        ],
+        "dom": [
+          "btnRoll",
+          "btnManagement",
+          "btnAssets",
+          "btnBank"
+        ],
+        "overflow": false
+      },
+      "resume": {
+        "x": 43,
+        "y": 969,
+        "width": 130,
+        "height": 44
+      }
+    },
+    {
+      "mode": "normal",
+      "width": 932,
+      "height": 430,
+      "order": {
+        "buttons": [
+          {
+            "id": "btnRoll",
+            "x": 210.390625,
+            "y": 377,
+            "width": 147.21875,
+            "height": 44,
+            "top": 377,
+            "right": 357.609375,
+            "bottom": 421,
+            "left": 210.390625
+          },
+          {
+            "id": "btnManagement",
+            "x": 363.609375,
+            "y": 377,
+            "width": 147.234375,
+            "height": 44,
+            "top": 377,
+            "right": 510.84375,
+            "bottom": 421,
+            "left": 363.609375
+          },
+          {
+            "id": "btnAssets",
+            "x": 516.84375,
+            "y": 377,
+            "width": 147.21875,
+            "height": 44,
+            "top": 377,
+            "right": 664.0625,
+            "bottom": 421,
+            "left": 516.84375
+          },
+          {
+            "id": "btnBank",
+            "x": 670.0625,
+            "y": 377,
+            "width": 147.234375,
+            "height": 44,
+            "top": 377,
+            "right": 817.296875,
+            "bottom": 421,
+            "left": 670.0625
+          }
+        ],
+        "dom": [
+          "btnRoll",
+          "btnManagement",
+          "btnAssets",
+          "btnBank"
+        ],
+        "overflow": false
+      },
+      "resume": {
+        "x": 210.390625,
+        "y": 377,
+        "width": 147.21875,
+        "height": 44
+      }
+    },
+    {
+      "mode": "normal",
+      "width": 568,
+      "height": 320,
+      "order": {
+        "buttons": [
+          {
+            "id": "btnRoll",
+            "x": 134,
+            "y": 267,
+            "width": 85.375,
+            "height": 44,
+            "top": 267,
+            "right": 219.375,
+            "bottom": 311,
+            "left": 134
+          },
+          {
+            "id": "btnManagement",
+            "x": 225.375,
+            "y": 267,
+            "width": 85.375,
+            "height": 44,
+            "top": 267,
+            "right": 310.75,
+            "bottom": 311,
+            "left": 225.375
+          },
+          {
+            "id": "btnAssets",
+            "x": 316.75,
+            "y": 267,
+            "width": 85.375,
+            "height": 44,
+            "top": 267,
+            "right": 402.125,
+            "bottom": 311,
+            "left": 316.75
+          },
+          {
+            "id": "btnBank",
+            "x": 408.125,
+            "y": 267,
+            "width": 85.375,
+            "height": 44,
+            "top": 267,
+            "right": 493.5,
+            "bottom": 311,
+            "left": 408.125
+          }
+        ],
+        "dom": [
+          "btnRoll",
+          "btnManagement",
+          "btnAssets",
+          "btnBank"
+        ],
+        "overflow": false
+      },
+      "resume": {
+        "x": 134,
+        "y": 267,
+        "width": 85.375,
+        "height": 44
+      }
+    },
+    {
+      "mode": "quick",
+      "width": 1440,
+      "height": 900,
+      "order": {
+        "buttons": [
+          {
+            "id": "btnRoll",
+            "x": 649.078125,
+            "y": 845,
+            "width": 118,
+            "height": 44,
+            "top": 845,
+            "right": 767.078125,
+            "bottom": 889,
+            "left": 649.078125
+          },
+          {
+            "id": "btnManagement",
+            "x": 779.078125,
+            "y": 845,
+            "width": 118,
+            "height": 44,
+            "top": 845,
+            "right": 897.078125,
+            "bottom": 889,
+            "left": 779.078125
+          },
+          {
+            "id": "btnAssets",
+            "x": 909.078125,
+            "y": 845,
+            "width": 118,
+            "height": 44,
+            "top": 845,
+            "right": 1027.078125,
+            "bottom": 889,
+            "left": 909.078125
+          },
+          {
+            "id": "btnBank",
+            "x": 1039.078125,
+            "y": 845,
+            "width": 118,
+            "height": 44,
+            "top": 845,
+            "right": 1157.078125,
+            "bottom": 889,
+            "left": 1039.078125
+          }
+        ],
+        "dom": [
+          "btnRoll",
+          "btnManagement",
+          "btnAssets",
+          "btnBank"
+        ],
+        "overflow": false
+      },
+      "resume": {
+        "x": 649.078125,
+        "y": 845,
+        "width": 118,
+        "height": 44
+      }
+    },
+    {
+      "mode": "quick",
+      "width": 1024,
+      "height": 768,
+      "order": {
+        "buttons": [
+          {
+            "id": "btnRoll",
+            "x": 43,
+            "y": 713,
+            "width": 181.1875,
+            "height": 44,
+            "top": 713,
+            "right": 224.1875,
+            "bottom": 757,
+            "left": 43
+          },
+          {
+            "id": "btnManagement",
+            "x": 232.1875,
+            "y": 713,
+            "width": 181.203125,
+            "height": 44,
+            "top": 713,
+            "right": 413.390625,
+            "bottom": 757,
+            "left": 232.1875
+          },
+          {
+            "id": "btnAssets",
+            "x": 421.390625,
+            "y": 713,
+            "width": 181.203125,
+            "height": 44,
+            "top": 713,
+            "right": 602.59375,
+            "bottom": 757,
+            "left": 421.390625
+          },
+          {
+            "id": "btnBank",
+            "x": 610.59375,
+            "y": 713,
+            "width": 181.203125,
+            "height": 44,
+            "top": 713,
+            "right": 791.796875,
+            "bottom": 757,
+            "left": 610.59375
+          }
+        ],
+        "dom": [
+          "btnRoll",
+          "btnManagement",
+          "btnAssets",
+          "btnBank"
+        ],
+        "overflow": false
+      },
+      "resume": {
+        "x": 43,
+        "y": 713,
+        "width": 181.1875,
+        "height": 44
+      }
+    },
+    {
+      "mode": "quick",
+      "width": 768,
+      "height": 1024,
+      "order": {
+        "buttons": [
+          {
+            "id": "btnRoll",
+            "x": 43,
+            "y": 969,
+            "width": 130,
+            "height": 44,
+            "top": 969,
+            "right": 173,
+            "bottom": 1013,
+            "left": 43
+          },
+          {
+            "id": "btnManagement",
+            "x": 181,
+            "y": 969,
+            "width": 130,
+            "height": 44,
+            "top": 969,
+            "right": 311,
+            "bottom": 1013,
+            "left": 181
+          },
+          {
+            "id": "btnAssets",
+            "x": 319,
+            "y": 969,
+            "width": 130,
+            "height": 44,
+            "top": 969,
+            "right": 449,
+            "bottom": 1013,
+            "left": 319
+          },
+          {
+            "id": "btnBank",
+            "x": 457,
+            "y": 969,
+            "width": 130,
+            "height": 44,
+            "top": 969,
+            "right": 587,
+            "bottom": 1013,
+            "left": 457
+          }
+        ],
+        "dom": [
+          "btnRoll",
+          "btnManagement",
+          "btnAssets",
+          "btnBank"
+        ],
+        "overflow": false
+      },
+      "resume": {
+        "x": 43,
+        "y": 969,
+        "width": 130,
+        "height": 44
+      }
+    },
+    {
+      "mode": "quick",
+      "width": 932,
+      "height": 430,
+      "order": {
+        "buttons": [
+          {
+            "id": "btnRoll",
+            "x": 210.390625,
+            "y": 377,
+            "width": 147.21875,
+            "height": 44,
+            "top": 377,
+            "right": 357.609375,
+            "bottom": 421,
+            "left": 210.390625
+          },
+          {
+            "id": "btnManagement",
+            "x": 363.609375,
+            "y": 377,
+            "width": 147.234375,
+            "height": 44,
+            "top": 377,
+            "right": 510.84375,
+            "bottom": 421,
+            "left": 363.609375
+          },
+          {
+            "id": "btnAssets",
+            "x": 516.84375,
+            "y": 377,
+            "width": 147.21875,
+            "height": 44,
+            "top": 377,
+            "right": 664.0625,
+            "bottom": 421,
+            "left": 516.84375
+          },
+          {
+            "id": "btnBank",
+            "x": 670.0625,
+            "y": 377,
+            "width": 147.234375,
+            "height": 44,
+            "top": 377,
+            "right": 817.296875,
+            "bottom": 421,
+            "left": 670.0625
+          }
+        ],
+        "dom": [
+          "btnRoll",
+          "btnManagement",
+          "btnAssets",
+          "btnBank"
+        ],
+        "overflow": false
+      },
+      "resume": {
+        "x": 210.390625,
+        "y": 377,
+        "width": 147.21875,
+        "height": 44
+      }
+    },
+    {
+      "mode": "quick",
+      "width": 568,
+      "height": 320,
+      "order": {
+        "buttons": [
+          {
+            "id": "btnRoll",
+            "x": 134,
+            "y": 267,
+            "width": 85.375,
+            "height": 44,
+            "top": 267,
+            "right": 219.375,
+            "bottom": 311,
+            "left": 134
+          },
+          {
+            "id": "btnManagement",
+            "x": 225.375,
+            "y": 267,
+            "width": 85.375,
+            "height": 44,
+            "top": 267,
+            "right": 310.75,
+            "bottom": 311,
+            "left": 225.375
+          },
+          {
+            "id": "btnAssets",
+            "x": 316.75,
+            "y": 267,
+            "width": 85.375,
+            "height": 44,
+            "top": 267,
+            "right": 402.125,
+            "bottom": 311,
+            "left": 316.75
+          },
+          {
+            "id": "btnBank",
+            "x": 408.125,
+            "y": 267,
+            "width": 85.375,
+            "height": 44,
+            "top": 267,
+            "right": 493.5,
+            "bottom": 311,
+            "left": 408.125
+          }
+        ],
+        "dom": [
+          "btnRoll",
+          "btnManagement",
+          "btnAssets",
+          "btnBank"
+        ],
+        "overflow": false
+      },
+      "resume": {
+        "x": 134,
+        "y": 267,
+        "width": 85.375,
+        "height": 44
+      }
+    }
+  ]
+}

@@ -1,19 +1,19 @@
 'use strict';
-const CACHE = 'global-tycoon-v34-centered-ledger';
+const CACHE = 'global-tycoon-v35-piece-speed';
 const CORE = [
   './',
   './index.html',
   './style.css',
   './client.js',
   './board-layout.js',
-  './board-layout.js?v=20261013-centered-ledger-v1',
+  './board-layout.js?v=20261013-piece-speed-v1',
   './rules-catalog.js',
   './contextual-rules.js',
-  './contextual-rules.js?v=20261013-centered-ledger-v1',
-  './rules-catalog.js?v=20261013-centered-ledger-v1',
-  './style.css?v=20261013-centered-ledger-v1',
-  './mobile-orientation.js?v=20261013-centered-ledger-v1',
-  './client.js?v=20261013-centered-ledger-v1',
+  './contextual-rules.js?v=20261013-piece-speed-v1',
+  './rules-catalog.js?v=20261013-piece-speed-v1',
+  './style.css?v=20261013-piece-speed-v1',
+  './mobile-orientation.js?v=20261013-piece-speed-v1',
+  './client.js?v=20261013-piece-speed-v1',
   './socket.io/socket.io.js',
   './assets/board-world-map-v1.webp',
   './assets/atlas-background-v1.webp',

@@ -373,7 +373,7 @@ function playMoveAnim(movers, done) {
     for (const st of steps) lastPos[st.id] = st.path[Math.min(i, st.path.length) - 1];
     renderPieces();
     if (i >= maxLen) { clearInterval(iv);moveTimer=null; done(); }
-  }, 110);
+  }, 220);
 }
 function playDiceAnim() {
   const el = $('dice');

@@ -1,0 +1,19 @@
+TAP version 13
+# Subtest: 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+ok 1 - 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+  ---
+  duration_ms: 5937.1071
+  ...
+# Subtest: half-speed movement preserves queued state, final position and reduced-motion behavior
+ok 2 - half-speed movement preserves queued state, final position and reduced-motion behavior
+  ---
+  duration_ms: 4019.1065
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

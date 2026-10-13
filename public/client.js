@@ -62,13 +62,15 @@ let moveTimer = null, diceTimer = null, diceFinishTimer = null;
 let animationGeneration = 0, quickTimerIv = null, quickTimeAnchor = null;
 let bankContext = null, bankDraft = {}, bankRequest = null, stockRenderKey = null, stockScroll = null, boardLayoutMode = null;
 function layoutMode() { return BoardLayout.mode(window.innerWidth,window.innerHeight); }
-function placeLandscapeSurfaces(){
-  if(layoutMode()!=='landscape'||!game)return;
+function placeBoardSurfaces(){
+  if(!game)return;
   const scale=$('boardScale').getBoundingClientRect(),first=$('board').children[0]?.getBoundingClientRect(),lastTop=$('board').children[11]?.getBoundingClientRect(),lastBottom=$('board').children[21]?.getBoundingClientRect();
   if(!first||!lastTop||!lastBottom)return;
-  const left=first.right-scale.left+2,top=first.bottom-scale.top+2,width=lastTop.left-scale.left-left-2,height=lastBottom.top-scale.top-top-2;
+  const landscape=layoutMode()==='landscape',inset=landscape?2:0;
+  const left=first.right-scale.left+inset,top=first.bottom-scale.top+inset,width=lastTop.left-scale.left-left-inset,height=lastBottom.top-scale.top-top-inset;
+  if(width<=0||height<=0)return;
   Object.assign($('boardMap').style,{left:left+'px',top:top+'px',right:'auto',bottom:'auto',width:width+'px',height:height+'px'});
-  Object.assign($('ledger').style,{left:'auto',right:(scale.width-left-width+8)+'px',top:(top+8)+'px',width:Math.min(280,width*.48)+'px',maxHeight:Math.max(80,Math.min(height-16,$('boardWrap').clientHeight-top-18))+'px'});
+  if(landscape)Object.assign($('ledger').style,{left:'auto',right:(scale.width-left-width+8)+'px',top:(top+8)+'px',width:Math.min(280,width*.48)+'px',maxHeight:Math.max(80,Math.min(height-16,$('boardWrap').clientHeight-top-18))+'px'});
 }
 function syncResponsiveLayout() {
   const landscape=layoutMode()==='landscape';
@@ -79,7 +81,7 @@ function syncResponsiveLayout() {
   if(landscape){$('boardScale').append($('ledger'));$('side').prepend($('mapScrollHint'));}
   else {$('boardWrap').append($('ledger'));$('view-game').insertBefore($('mapScrollHint'),$('gameMain'));for(const id of ['boardMap','ledger'])for(const property of ['left','right','top','bottom','width','height','max-height'])$(id).style.removeProperty(property);}
   $('mapScrollHint').textContent='棋盘可独立滑动 · 点地块看详情';
-  placeLandscapeSurfaces();
+  placeBoardSurfaces();
   orientationController.sync();
 }
 
@@ -131,7 +133,7 @@ function requestPieceLayout() {
     pieceResizeFrame = 0;
     syncResponsiveLayout();
     if(boardLayoutMode!==layoutMode())renderBoard();
-    placeLandscapeSurfaces();
+    placeBoardSurfaces();
     renderPieces();
   });
 }

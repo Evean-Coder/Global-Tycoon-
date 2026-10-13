@@ -527,7 +527,7 @@ button:not(.sq){min-height:44px}
 
 
 /* Atlas components: a complete map with one solid floating information module. */
-#boardMap{position:absolute;left:10%;right:10%;top:10%;bottom:10%;background:#b3bdb6 url("assets/board-world-map-v1.webp") center/cover no-repeat;pointer-events:none;z-index:0}
+#boardMap{position:absolute;left:10%;right:10%;top:10%;bottom:10%;background:#b3bdb6 url("assets/board-world-map-v1.webp") center/100% 100% no-repeat;pointer-events:none;z-index:0}
 #boardWrap{border-radius:3px;box-shadow:0 12px 32px #68552e33}
 body #ledger{position:absolute;left:auto;right:12%;top:14%;width:min(340px,40%);max-height:72%;display:flex;flex-direction:column;overflow:auto;z-index:5;background:#faf2de;border:1px solid #ad925e;border-radius:3px;box-shadow:0 8px 24px #53452340}
 #ledgerBody{flex:none;overflow:visible}.ledger-open{min-height:44px;color:#263d4a}.ledger-note{display:block!important}
@@ -585,7 +585,6 @@ body.game-active #waitBanner,body.game-active #quickClockBar{flex-shrink:0}
 #managementStatus{font-size:12px;color:#715d38}#managementStatus[data-state=ready]{color:#204c3b;font-weight:700}
 #stockTimer{font-size:14px;color:#854d24;font-variant-numeric:tabular-nums}
 @media(min-width:601px) and (min-height:501px){#managementStatus{max-width:220px}#btnManagement{font-size:12px}}
-#boardMap{background-size:contain}
 @media(min-width:601px) and (min-height:501px) and (max-width:1080px){#managementStatus{grid-row:1;grid-column:1/-1}#actionBar #dice{display:none}#actionBar #turnInfo{grid-row:2;grid-column:1/4}#actionBar #timer{grid-row:2}#actionBar button{grid-row:3!important;grid-column:auto!important}#actionBar{grid-template-columns:repeat(5,minmax(0,1fr))}}
 #btnManagement[data-state=ready]{border:2px solid #52776d;background:#e6eee5;color:#204c3b;font-weight:700}
 .fund-preview{font-size:12px;line-height:1.6;margin:8px 0;overflow-wrap:anywhere}

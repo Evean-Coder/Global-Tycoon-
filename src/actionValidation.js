@@ -218,9 +218,10 @@ function normalizeAction(state, raw, context = {}) {
   }
   if (type === 'stock_trade') return validateOrders(state, player, raw.orders, raw.windowId);
   if(type==='support_buy'){
-    const q=require('./propertySupport').quote(state,player.id,raw.cityId);
+    const support=require('./propertySupport'),batch=support.budgetEnabled(state);
+    const q=batch?support.quoteSelection(state,player.id,raw.cityIds??(typeof raw.cityId==='string'?[raw.cityId]:undefined)):support.quote(state,player.id,raw.cityId);
     if(!q.ok||raw.quoteVersion!==q.quoteVersion)return fail(q.reason||'候选报价已变化，请重新选择');
-    return success({type,cityId:raw.cityId,quoteVersion:raw.quoteVersion},player.id);
+    return success({type,...(batch?{cityIds:q.cityIds}:{cityId:raw.cityId}),quoteVersion:raw.quoteVersion},player.id);
   }
   if (type === 'stock_transfer') return validateTransfer(state, player, raw);
   if(type==='active_skip'){const v=require('./activeManagement').view(state,player.id);if(!v?.optional||!v.available)return fail('当前不能放弃经营');return success({type},player.id);}

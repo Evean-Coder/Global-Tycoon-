@@ -1,0 +1,44 @@
+TAP version 13
+# Subtest: budget support is hidden normally, privately pushed and supports one atomic basket across screens
+ok 1 - budget support is hidden normally, privately pushed and supports one atomic basket across screens
+  ---
+  duration_ms: 3663.1883
+  ...
+# Subtest: cancel retains eligibility; quote changes require new selection and late receipts cannot close another window
+not ok 2 - cancel retains eligibility; quote changes require new selection and late receipts cannot close another window
+  ---
+  duration_ms: 30037.5863
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\property-support-budget.spec.js:15:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    locator.tap: Timeout 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('#btnSupportLater')[22m
+    [2m    - locator resolved to <button disabled class="secondary" id="btnSupportLater">暂不购买</button>[22m
+    [2m  - attempting tap action[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is not visible[22m
+    [2m    - retrying tap action[22m
+    [2m    - waiting 20ms[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is not visible[22m
+    [2m    - retrying tap action[22m
+    [2m      - waiting 100ms[22m
+    [2m    57 × waiting for element to be visible, enabled and stable[22m
+    [2m       - element is not visible[22m
+    [2m     - retrying tap action[22m
+    [2m       - waiting 500ms[22m
+
+  code: 'ERR_TEST_FAILURE'
+  name: 'TimeoutError'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\property-support-budget.spec.js:16:86)
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 1
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0

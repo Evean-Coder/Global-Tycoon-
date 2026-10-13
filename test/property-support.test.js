@@ -1,7 +1,7 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict');
 const {createGameState}=require('../src/state'),support=require('../src/propertySupport'),logic=require('../src/gameLogic'),stocks=require('../src/stocks'),{normalizeAction}=require('../src/actionValidation');
-function state(){const s=createGameState('TEST',['甲','乙'],2,{propertySupportRevision:support.REVISION});s.firstRoundDone=true;s.phase='waiting_roll';s.pending=null;return s;}
+function state(){const s=createGameState('TEST',['甲','乙'],2,{propertySupportRevision:support.LEGACY_REVISION});s.firstRoundDone=true;s.phase='waiting_roll';s.pending=null;return s;}
 test('六个有效回合、拒绝归零、重复和旧局隔离',()=>{
  const s=state(),p=s.players[0];for(let i=1;i<=5;i++){s.turnId=i;support.beginRoll(s,p);support.finish(s,p);support.finish(s,p);}assert.equal(p.propertySupport.missedPurchaseTurns,5);assert.equal(p.propertySupport.eligible,false);
  s.turnId=6;support.beginRoll(s,p);support.offer(s,p,s.cities['内罗毕']);support.refuse(s,p);support.finish(s,p);assert.equal(p.propertySupport.missedPurchaseTurns,0);
@@ -12,7 +12,7 @@ test('原价购买原子、原圈额度、曾拥有与本人隐私',()=>{
  const s=state(),p=s.players[0];p.propertySupport.eligible=true;const id=support.candidates(s)[0],q=support.quote(s,p.id,id),a={type:'support_buy',cityId:id,quoteVersion:q.quoteVersion};
  const before=p.cash;assert.equal(normalizeAction(s,a).ok,true);const result=logic.apply(s,a,()=>.5);assert.equal(result.rejected,undefined);assert.equal(p.cash,before-q.finalAmount);assert.equal(p.lapBuys,1);assert.equal(p.propertySupport.used,true);assert.equal(p.propertySupport.everOwnedCity,true);assert.equal(s.cities[id].ownerId,p.id);assert.equal(normalizeAction(s,a).ok,false);
  const view=require('../src/gameView').snapshot(s,'p1');assert.equal(view.players[0].propertySupport,undefined);
- const record=require('../src/record').buildGameRecord({state:s,code:s.roomCode,events:[]},'normal');assert.equal(record.propertySupportRevision,support.REVISION);assert.equal(JSON.stringify(record).includes('missedPurchaseTurns'),false);assert.equal(JSON.stringify(record).includes('eligible'),false);
+ const record=require('../src/record').buildGameRecord({state:s,code:s.roomCode,events:[]},'normal');assert.equal(record.propertySupportRevision,support.LEGACY_REVISION);assert.equal(JSON.stringify(record).includes('missedPurchaseTurns'),false);assert.equal(JSON.stringify(record).includes('eligible'),false);
  stocks.clearCityToBank(s,{cityId:id},[]);assert.equal(support.quote(s,p.id,id).ok,false);
 });
 test('库存、现金、阶段及报价变化无修改',()=>{

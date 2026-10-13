@@ -74,7 +74,7 @@ function choose(v,memory={}) {
     case 'waiting_roll': {
       if((memory.steps||0)>=6)return requiredAction(v)||{type:'roll_dice'};
       const support=best(ctx,(v.self.propertySupport?.candidates||[]).filter(c=>c.ok&&p.lapBuys<4).map(c=>cityCandidate(c.cityId,c.finalAmount,{type:'support_buy',cityId:c.cityId,quoteVersion:c.quoteVersion})));
-      if(support)return support.action;
+      if(support)return v.self.propertySupport?.budgetPurchase?{type:'support_buy',cityIds:[support.action.cityId],quoteVersion:v.self.propertySupport.selectionVersion}:support.action;
       const active=v.self.activeManagement,options=[];
       for(const c of active?.available?active.quotes:[])if(c.ok){
         const action={type:c.type,cityId:c.cityId,quoteVersion:c.quoteVersion,...(c.shares?{shares:c.shares,listingEpoch:c.listingEpoch}:{})};

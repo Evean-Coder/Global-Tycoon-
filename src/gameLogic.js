@@ -859,12 +859,16 @@ function applyCore(state, action, rng, context = {}) {
   let routeResult;
   switch (action.type) {
     case 'support_buy': {
-      const q=support.quote(state,p.id,action.cityId);
+      const batch=support.budgetEnabled(state),q=batch?support.quoteSelection(state,p.id,action.cityIds??(typeof action.cityId==='string'?[action.cityId]:undefined)):support.quote(state,p.id,action.cityId);
       if(!q.ok||q.quoteVersion!==action.quoteVersion)return {state,events,rejected:true};
-      stocks.transferCity(state,{cityId:action.cityId,newOwnerId:p.id},events);
-      p.cash-=q.finalAmount;p.lapBuys++;p.propertySupport.used=true;
-      state.cities[action.cityId].buildReady=false;
-      log(events,p.name+' 使用置业扶持，原价购买 '+cityLabel(state,action.cityId),'buy');
+      const ids=batch?q.cityIds:[action.cityId];
+      p.cash-=q.finalAmount;
+      for(const cityId of ids){
+        stocks.transferCity(state,{cityId,newOwnerId:p.id},events);
+        state.cities[cityId].buildReady=false;
+        log(events,p.name+' 使用置业扶持，原价购买 '+cityLabel(state,cityId),'buy');
+      }
+      p.lapBuys+=ids.length;p.propertySupport.used=true;
       break;
     }
     case 'route_confirm':

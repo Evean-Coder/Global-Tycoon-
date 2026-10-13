@@ -601,7 +601,7 @@ function renderLedger() {
     const status=document.createElement('p');status.className='hint';status.textContent=summary.label+'；'+summary.quotaTexts.join('；');body.append(status);
     for(const a of (game.promotions||[]).filter(a=>a.playerId===meP.id)){const info=document.createElement('p');info.className='hint';info.textContent=a.cityId+' 促销 · 剩余奖励'+a.remainingRewards+'次 · 第'+a.expiresAfterCompleteRound+'完整轮后结束';body.append(info);}
   }
-  if(support&&!support.everOwnedCity&&!support.used){
+  if(support&&!support.budgetPurchase&&!support.everOwnedCity&&!support.used){
     const entry=document.createElement('button');entry.className='ledger-open';entry.type='button';
     entry.textContent=support.eligible?'置业扶持 · 查看原价购地机会':'置业扶持 · 无机会 '+support.progress+'/6 回合';
     entry.onclick=openPropertySupport;body.append(entry);
@@ -687,10 +687,63 @@ function renderManagement(){
 }
 function closeManagement(){managementGeneration++;managementOpen=false;hideOverlay('managementModal');}
 function syncManagement(){
+  syncPropertySupport();
+  if(!$('propertySupportModal').classList.contains('hidden'))return;
   const a=game?.self?.activeManagement;
   if(!a||!isMyTurn()||game.phase!=='waiting_roll'||a.usedThisTurn||a.skippedThisTurn){if(managementOpen)closeManagement();return;}
   if(managementOpen){renderManagement();return;}
   if(a.optional&&a.available&&a.quotes.some(q=>q.ok)&&!game.decision?.paused&&!receiptPending&&!animBusy&&!diceAnimating&&!orientationController.isBlocked()&&managementSeenKey!==managementKey())openActiveManagement();
+}
+
+let supportDraft=null,supportSeenKey=null;
+function supportKey(){return JSON.stringify([game?.gameId,game?.self?.playerId,game?.turnId]);}
+function closePropertySupport(){hideOverlay('propertySupportModal');}
+function syncPropertySupport(){
+  const data=game?.self?.propertySupport,key=supportKey(),valid=data?.budgetPurchase&&data.eligible&&!data.used&&!data.everOwnedCity&&game.phase==='waiting_roll'&&!game.pending&&game.players[game.turnIndex]?.id===me.gameId;
+  const visible=!$('propertySupportModal').classList.contains('hidden');
+  if(!valid){if(visible)closePropertySupport();supportDraft=null;return;}
+  if(visible){
+    if(supportDraft?.key!==key){closePropertySupport();supportDraft=null;}
+    else if(supportDraft.version!==data.selectionVersion){supportDraft.version=data.selectionVersion;supportDraft.ids=[];supportDraft.error='候选、报价或资金已更新，请重新选择并确认。';renderPropertyBudget();return;}
+    else {if(supportDraft.statusKey!==JSON.stringify([!!game.decision?.paused,socket.connected,actionPending]))renderPropertyBudget();return;}
+  }
+  if(supportSeenKey===key||game.decision?.paused||receiptPending||animBusy||diceAnimating||orientationController.isBlocked()||document.querySelector('.overlay:not(.hidden)'))return;
+  supportSeenKey=key;supportDraft={key,version:data.selectionVersion,ids:[],error:'',request:null};
+  showOverlay('propertySupportModal');renderPropertyBudget();
+}
+function renderPropertyBudget(){
+  const data=game?.self?.propertySupport,d=supportDraft;if(!d||d.key!==supportKey()||!data?.budgetPurchase)return;
+  const body=$('propertySupportBody'),top=body.scrollTop;body.replaceChildren();
+  const p=playerById(me.gameId),locked=actionPending||!!d.request||!!game.decision?.paused||!socket.connected;
+  d.statusKey=JSON.stringify([!!game.decision?.paused,socket.connected,actionPending]);
+  const add=(tag,text,cls)=>{const el=document.createElement(tag);el.textContent=text;if(cls)el.className=cls;body.append(el);return el;};
+  add('p','你已获得一次预算选购机会。用自己的现金原价买地，可以选一座或多座；成功后扶持结束，剩余预算不结转。','hint');
+  const total=d.ids.reduce((sum,id)=>sum+(data.candidates.find(q=>q.cityId===id)?.finalAmount||0),0);
+  add('p','已选 '+d.ids.length+' 座 · 总价 '+fmt(total)+' · 预算剩余 '+fmt(Math.max(0,data.budgetAmount-total))+' / '+fmt(data.budgetAmount)+' · 本圈剩余 '+data.remaining+' 座 · 付款后现金 '+fmt(p.cash-total),'support-summary');
+  add('p',data.premiumOpen?'其他城市均已有主，未售纽约和上海已开放。':'纽约和上海暂不开放：其他城市全部被购买后，才可购买未售纽约或上海。','hint');
+  if(d.error)add('p',d.error,'support-error');
+  if(d.request){const retry=add('button','查询刚才的购买结果','secondary');retry.disabled=actionPending||!socket.connected;retry.onclick=()=>d.request.retrieve();}
+  if(!data.candidates.length)add('p','当前没有可售城市，资格仍保留。','hint');
+  const list=add('div','','support-cities');
+  for(const q of data.candidates){
+    const label=document.createElement('label');label.className='support-city';label.dataset.supportCity=q.cityId;
+    const input=document.createElement('input');input.type='checkbox';input.checked=d.ids.includes(q.cityId);input.disabled=locked||!q.ok;input.setAttribute('aria-label','选择'+q.cityId);
+    const text=document.createElement('span');text.textContent=q.cityId+' · '+fmt(q.finalAmount)+(q.ok?'':' · '+q.reason);
+    input.onchange=()=>{d.ids=input.checked?[...d.ids,q.cityId]:d.ids.filter(id=>id!==q.cityId);d.error='';renderPropertyBudget();};label.append(input,text);list.append(label);
+  }
+  const tooMuch=total>data.budgetAmount||total>p.cash||d.ids.length>data.remaining;
+  if(tooMuch)add('p',total>data.budgetAmount?'总价超过选购预算。':total>p.cash?'现金不足。':'超过本圈剩余购地座数。','support-error');
+  $('btnSupportLater').disabled=locked;$('btnSupportConfirm').disabled=locked||!d.ids.length||tooMuch||d.ids.some(id=>!data.candidates.find(q=>q.cityId===id)?.ok);
+  $('btnSupportLater').onclick=()=>{closePropertySupport();syncManagement();};
+  $('btnSupportConfirm').onclick=()=>{
+    const key=d.key;
+    d.request=sendAction({type:'support_buy',cityIds:d.ids.slice(),quoteVersion:d.version},res=>{
+      if(supportDraft!==d||supportKey()!==key)return;
+      if(res.ok){d.request=null;closePropertySupport();return;}
+      if(!res.unconfirmed)d.request=null;d.error=res.error||'操作未确认，请核对状态或查询原请求。';renderPropertyBudget();
+    });renderPropertyBudget();
+  };
+  body.scrollTop=top;
 }
 
 function openPropertySupport(){
@@ -1516,6 +1569,7 @@ function setupLobby() {
   $('btnRules').onclick = () => { buildRules();showOverlay('rulesModal'); };
   $('btnModalRules').onclick = $('btnStockRules').onclick = $('btnRules').onclick;
   $('btnRulesClose').onclick = () => hideOverlay('rulesModal');
+  $('btnSupportRules').onclick=()=>{document.body.classList.add('management-help');openRulesTopic('property');};
   $('btnRoll').onclick = () => { if (sendAction({ type: 'roll_dice' })) playDiceAnim(); };
   $('btnEndTurn').onclick = $('btnRoll').onclick;
   $('btnAssets').onclick = openAssetOverview;
@@ -1828,7 +1882,8 @@ function organizeRules() {
   add('turn','<p>个人回合是一次轮到本人行动；个人圈是本人实际完成起点结算到下一次起点结算；完整轮是该轮参与的存活玩家各完成个人回合，监狱和极地跳过也算。股票、拍卖和自救等待不提前推进完整轮。首圈购置限制要求所有存活玩家完成一次环球行程。</p>');
   add('turn','<p><b>两种模式：</b>房主在开局前选择。普通模式以最后存活者获胜；快速模式从正式开局（包括初始选择）起计时30分钟，到时立即封盘。快速模式股票窗口60秒，转让确认及其他一般决定20秒，自救没有独立时限，初始同步选择及后续路线选择60秒；有限时决定不超过整局剩余时间，自救期间整局30分钟计时仍继续。提前出现最后存活者则提前结束。</p><p>快速封盘取消未成交的订单、购买、建设、拍卖和转让，不再执行未完成的掷骰或选择；已成交的操作保留。按原规则结清分红，按现金、地产、机场、股票及待结算收益，减抵押本金和累计利息后的净资产排名。相同净资产并列，破产玩家按实际出局顺序排在存活者之后。资产估值不是可支付现金。</p>');
   add('bank','<p>购买城市或机场缺现金时可进入募资，按股数卖股、抵押或拆房凑足后手动确认购买；取消城市购买会拍卖，取消机场购买结束回合，已成交卖股的现金保留。筹资不重置倒计时。抵押利息按原座位轮转计算，和资讯完整轮次独立。</p>');
-  if(game?.propertySupportRevision==='property-support-v1')add('property','<p><b>置业扶持：</b>购地解锁后，从未拥有城市者连续6个正常掷骰回合没有可负担购地机会，下次掷骰前可从最多3座低价银行城市中原价购买1座，整局一次。拒绝可负担机会归零；监狱掷骰、跳过和飞行不计。取消或缺现金、库存、圈额度保留资格；曾通过购买、拍卖或受让得到城市后永久失去资格。仍计入每圈4城额度，与主动经营次数独立。</p>');
+  if(game?.propertySupportRevision==='property-support-v2')add('property','<p><b>置业扶持 · 预算选购：</b>默认隐藏机制。购地解锁后，从未拥有城市者连续6个有效正常掷骰回合没有可负担机会，在下一次本人正常掷骰前私有弹窗提醒。整局一次，可用自己的现金原价选择一座或多座银行城市，总价不超过20,000，仍受现金及本圈剩余四城额度限制。允许混合组合，成功统一购买后剩余预算不结转。纽约与上海默认排除，只有其他城市全部当前有主后才开放未售纽约/上海。取消或缺条件保留资格，不新增倒计时，不耗主动经营次数；普通购地、拍卖或受让取得城市后资格永久结束。</p>');
+  else if(game?.propertySupportRevision==='property-support-v1')add('property','<p><b>置业扶持：</b>购地解锁后，从未拥有城市者连续6个正常掷骰回合没有可负担购地机会，下次掷骰前可从最多3座低价银行城市中原价购买1座，整局一次。拒绝可负担机会归零；监狱掷骰、跳过和飞行不计。取消或缺现金、库存、圈额度保留资格；曾通过购买、拍卖或受让得到城市后永久失去资格。仍计入每圈4城额度，与主动经营次数独立。</p>');
   if(game?.activeManagementRevision==='active-management-v3')add('property','<p><b>回合经营：</b>正常回合有可执行项目才自动显示经营选择。第一圈、无标的或全部不可执行时不自动弹窗，可直接掷骰。有项目时先经营一项或点击放弃经营再掷骰；关闭查看仅收起窗口，底栏可继续。放弃不扣钱，本回合不能再经营。超时默认放弃并掷骰，不自动投资。普通90秒/快速45秒与掷骰共享。促销、买股、建设费用与12项强化沿用当前显示的真实报价。</p>');
   if(game?.activeManagementRevision==='active-management-v2')add('property','<p><b>每回合主动经营：</b>正常掷骰前，有合法可负担项目必须完成一项；全部不可执行则放行。先选促销/买股/建设，再选城市确认。普通90秒、快速45秒与掷骰共享；超时按最低支出经营并掷骰。促销费地价3%最高600，当前及后续3完整轮内，完成他人付租另奖地价10%最高1500、最多3次，同时一个活动；无客流无奖励，抵押/转让/出局/封盘取消且不退费。主动买股1–2股、1%手续费，无圈额度，守市场20股/城主4股。远程建设标准建房费115%，优惠合计最多减30个百分点，最高4级。取消及返回不耗次数，失败以服务端新报价为准。</p>');
   if(game?.activeManagementRevision==='active-management-v1')add('property','<p><b>主动经营：</b>正常掷骰前可成功执行促销、主动买股或远程建设中的1项，取消、失败不耗次数，掷骰可直接跳过。促销费为地价4%最高800；当前及下一完整轮内，每次实际完成他人正额租金获得银行奖励地价8%最高1200，最多2次，每圈启动一次、同时一个活动。欠租偿清才奖；抵押、产权变化、出局、到期或封盘结束活动，不退款，奖金不进入分红池。主动买股一次一城1–2股，整笔手续费1%，每圈最多4股、同城2股，原起点窗口额度独立。远程建设支付标准建房费145%，所有优惠最多减10个百分点；H1每圈一次提供10个百分点优惠。原落点建设费用保持。</p>');

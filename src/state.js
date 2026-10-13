@@ -33,7 +33,7 @@ function createPlayer(name, seat, id) {
 
 function createGameState(roomCode, playerNames, ruleVersion = 2, options = {}) {
   const players = playerNames.map((name, i) => createPlayer(name, i, `p${i}`));
-  const support = ruleVersion===2 && options.propertySupportRevision===require('./propertySupport').REVISION;
+  const support = ruleVersion===2 && require('./propertySupport').enabled(options);
   if(support)for(const p of players)p.propertySupport={everOwnedCity:false,missedPurchaseTurns:0,processedTurnId:null,eligible:false,used:false,turn:null};
   for (const p of players) p.opportunities = initial();
   const active = ruleVersion===2 && [require('./managementRules').REVISION,require('./managementRules').REQUIRED_REVISION,require('./managementRules').LEGACY_REVISION].includes(options.activeManagementRevision);

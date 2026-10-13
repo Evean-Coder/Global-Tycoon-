@@ -138,8 +138,8 @@ test('扶持购城后可经营，真实重连保留额度与两次原请求结�
  const {room,clients:pair,fake}=await setup(2);let [a,b]=pair;await until(()=>pair.every(s=>s.game?.self.choice));
  await action(a,choice(a));await action(b,choice(b));await until(()=>a.game?.phase==='waiting_roll');
  room.state.firstRoundDone=true;room.state.players[0].propertySupport.eligible=true;room.state.players[0].propertySupport.missedPurchaseTurns=6;api.emitGame(room);await until(()=>a.game.self.propertySupport.eligible);
- const support=require('../src/propertySupport'),active=require('../src/activeManagement'),cityId=support.candidates(room.state)[0],q=support.quote(room.state,'p0',cityId);
- const firstPayload=envelope(a,{type:'support_buy',cityId,quoteVersion:q.quoteVersion},'support-retry');const first=await ack(a,'action',firstPayload);assert.equal(first.ok,true);await until(()=>a.game.revision>=first.revision);
+ const support=require('../src/propertySupport'),active=require('../src/activeManagement'),cityIds=['内罗毕','卡萨布兰卡','开罗'],cityId=cityIds[0],q=support.quoteSelection(room.state,'p0',cityIds);
+ const firstPayload=envelope(a,{type:'support_buy',cityIds,quoteVersion:q.quoteVersion},'support-retry');const first=await ack(a,'action',firstPayload);assert.equal(first.ok,true);await until(()=>a.game.revision>=first.revision);assert.equal(room.state.players[0].lapBuys,3);assert.ok(cityIds.every(id=>room.state.cities[id].ownerId==='p0'));
  assert.equal(room.state.players[0].activeManagement.usedTurnId,null);
  const promo=active.quote(room.state,'p0','active_promote',cityId),secondPayload=envelope(a,{type:'active_promote',cityId,quoteVersion:promo.quoteVersion},'promotion-retry');const second=await ack(a,'action',secondPayload);assert.equal(second.ok,true);
  const token=a.token,code=room.code,cash=room.state.players[0].cash,usedTurnId=room.state.players[0].activeManagement.usedTurnId;a.close();await until(()=>room.actionClock.paused);fake.advance(100000);

@@ -1,0 +1,19 @@
+TAP version 13
+# Subtest: budget support is hidden normally, privately pushed and supports one atomic basket across screens
+ok 1 - budget support is hidden normally, privately pushed and supports one atomic basket across screens
+  ---
+  duration_ms: 3350.968
+  ...
+# Subtest: cancel retains eligibility; quote changes require new selection and late receipts cannot close another window
+ok 2 - cancel retains eligibility; quote changes require new selection and late receipts cannot close another window
+  ---
+  duration_ms: 399.5994
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

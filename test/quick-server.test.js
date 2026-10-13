@@ -151,7 +151,7 @@ test('新经营与扶持提交遇快速截止：截止先到不成交，成功�
   if(type==='active_promote'){cityId='内罗毕';stocks.transferCity(s,{cityId,newOwnerId:p.id},[]);q=active.quote(s,p.id,type,cityId);}
   else{p.propertySupport.eligible=true;p.propertySupport.missedPurchaseTurns=6;cityId=support.candidates(s)[0];q=support.quote(s,p.id,cityId);}
   assert.equal(q.ok,true,q.reason);api.emitGame(x.room);const cash=p.cash;
-  const payload=envelope(x.room,p.id,{type,cityId,quoteVersion:q.quoteVersion});
+  const payload=envelope(x.room,p.id,{type,...(type==='support_buy'?{cityIds:[cityId]}:{cityId}),quoteVersion:q.quoteVersion});
   if(successFirst){assert.equal((await ack(x.a,'action',payload)).ok,true);assert.equal(x.room.state.players[0].cash,cash-q.finalAmount);}
   x.time.set(1800000);const res=await ack(x.a,'action',successFirst?envelope(x.room,p.id,{type:'roll_dice'}):payload);
   assert.equal(res.ok,false);assert.equal(x.room.state.phase,'game_over');assert.equal(x.room.state.players[0].cash,successFirst?cash-q.finalAmount:cash);

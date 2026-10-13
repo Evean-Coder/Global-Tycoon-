@@ -609,7 +609,8 @@ body.landscape-game #board .sq .own,body.landscape-game #board .sq .subrow{displ
 body.landscape-game #board .sq .num{font-size:9px;top:1px;left:3px}
 body.landscape-game #board .sq .sq-amount{display:block;font-size:10px;line-height:1.12}
 body.landscape-game #boardMap{display:block;position:absolute;z-index:0;background-size:cover;background-position:center;pointer-events:none}
-body.landscape-game #boardScale>#ledger{position:absolute;display:flex;overflow:auto;background:#faf2de;border:1px solid #ad925e;box-shadow:0 4px 12px #53452330;z-index:5;min-height:0;max-width:48%}
+body.landscape-game #boardScale>#ledger{position:absolute;display:flex;overflow:auto;background:#faf2de;border:1px solid #ad925e;box-shadow:0 4px 12px #53452330;z-index:5;min-height:0;max-width:none;overscroll-behavior:contain;touch-action:pan-y pinch-zoom}
+body.landscape-game #boardScale>#ledger>*{flex:0 0 auto}
 body.landscape-game .ledger-title{padding:8px 10px 4px;font-size:13px;letter-spacing:0}
 body.landscape-game .ledger-title em{font-size:10px}
 body.landscape-game .ledger-total{padding:0 10px 7px}

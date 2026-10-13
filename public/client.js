@@ -70,7 +70,7 @@ function placeBoardSurfaces(){
   const left=first.right-scale.left+inset,top=first.bottom-scale.top+inset,width=lastTop.left-scale.left-left-inset,height=lastBottom.top-scale.top-top-inset;
   if(width<=0||height<=0)return;
   Object.assign($('boardMap').style,{left:left+'px',top:top+'px',right:'auto',bottom:'auto',width:width+'px',height:height+'px'});
-  if(landscape)Object.assign($('ledger').style,{left:'auto',right:(scale.width-left-width+8)+'px',top:(top+8)+'px',width:Math.min(280,width*.48)+'px',maxHeight:Math.max(80,Math.min(height-16,$('boardWrap').clientHeight-top-18))+'px'});
+  if(landscape)Object.assign($('ledger').style,{left:(left+width*.14)+'px',right:'auto',top:(top+height*.14)+'px',width:(width*.72)+'px',height:(height*.72)+'px',maxHeight:'none'});
 }
 function syncResponsiveLayout() {
   const landscape=layoutMode()==='landscape';

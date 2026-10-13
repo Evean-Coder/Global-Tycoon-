@@ -1,0 +1,14 @@
+TAP version 13
+# Subtest: mobile portfolio fills a centered similar rectangle and preserves scrollable information
+ok 1 - mobile portfolio fills a centered similar rectangle and preserves scrollable information
+  ---
+  duration_ms: 6070.0556
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

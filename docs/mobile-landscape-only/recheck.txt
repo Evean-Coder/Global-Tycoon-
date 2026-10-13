@@ -1,0 +1,55 @@
+TAP version 13
+# Subtest: 端到端：创建→加入→开局→掷骰→解散→结算→回放
+ok 1 - 端到端：创建→加入→开局→掷骰→解散→结算→回放
+  ---
+  duration_ms: 28605.029
+  ...
+# Subtest: phone landscape gate blocks start, all modals, direct actions and restores stock draft
+ok 2 - phone landscape gate blocks start, all modals, direct actions and restores stock draft
+  ---
+  duration_ms: 5808.6119
+  ...
+# Subtest: phone landscape and tablet allocate usable board, information and action areas
+not ok 3 - phone landscape and tablet allocate usable board, information and action areas
+  ---
+  duration_ms: 5305.5315
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\mobile-playability.spec.js:5:1'
+  failureType: 'testCodeFailure'
+  error: "UNKNOWN: unknown error, open 'C:\\Users\\Yifan\\Desktop\\game\\artifacts\\mobile-playability\\1440x900.png'"
+  code: 'UNKNOWN'
+  stack: |-
+    async open (node:internal/fs/promises:637:25)
+    async Object.writeFile (node:internal/fs/promises:1219:14)
+    async _Page.screenshot (C:\Users\Yifan\Desktop\game\node_modules\playwright-core\lib\coreBundle.js:61393:11)
+    async TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\mobile-playability.spec.js:18:74)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: resize while a route animation is running ends on the real square
+ok 4 - resize while a route animation is running ends on the real square
+  ---
+  duration_ms: 815.2549
+  ...
+# Subtest: normal and quick on three screens redeem from bank away from the property, keep bank and real deadline
+ok 5 - normal and quick on three screens redeem from bank away from the property, keep bank and real deadline
+  ---
+  duration_ms: 3045.0351
+  ...
+# Subtest: asset row and city details redeem remotely; lack of cash or an unfinished decision visibly explains why
+ok 6 - asset row and city details redeem remotely; lack of cash or an unfinished decision visibly explains why
+  ---
+  duration_ms: 305.8833
+  ...
+# Subtest: same bank view updates interest and retains scroll, then a phase change replaces it with the required decision
+ok 7 - same bank view updates interest and retains scroll, then a phase change replaces it with the required decision
+  ---
+  duration_ms: 218.2295
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 6
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0

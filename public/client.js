@@ -1,5 +1,5 @@
 'use strict';
-/* global ContextualRules, BoardLayout */
+/* global ContextualRules, BoardLayout, MobileOrientation */
 
 /* exported afterReceipt, emitAct, downloadRecord, openReplay, replayPrev, replayNext, replayPlay, replayClose, clickTransferEntry, submitTransfer, returnFromTransfer, resumeStockView, startSelectedGame, returnToRoom, openBank */
 
@@ -59,9 +59,8 @@ let transferReturn = null;
 let toastTimer = null;
 let moveTimer = null, diceTimer = null, diceFinishTimer = null;
 let animationGeneration = 0, quickTimerIv = null, quickTimeAnchor = null;
-let infoPanel = 'assets', infoGameId = null, bankContext = null, bankDraft = {}, bankRequest = null, stockRenderKey = null, stockScroll = null, boardLayoutMode = null;
+let bankContext = null, bankDraft = {}, bankRequest = null, stockRenderKey = null, stockScroll = null, boardLayoutMode = null;
 function layoutMode() { return BoardLayout.mode(window.innerWidth,window.innerHeight); }
-function compactLayout() { return layoutMode()==='compact'; }
 function placeLandscapeSurfaces(){
   if(layoutMode()!=='landscape'||!game)return;
   const scale=$('boardScale').getBoundingClientRect(),first=$('board').children[0]?.getBoundingClientRect(),lastTop=$('board').children[11]?.getBoundingClientRect(),lastBottom=$('board').children[21]?.getBoundingClientRect();
@@ -71,21 +70,16 @@ function placeLandscapeSurfaces(){
   Object.assign($('ledger').style,{left:'auto',right:(scale.width-left-width+8)+'px',top:(top+8)+'px',width:Math.min(280,width*.48)+'px',maxHeight:Math.max(80,Math.min(height-16,$('boardWrap').clientHeight-top-18))+'px'});
 }
 function syncResponsiveLayout() {
-  const compact=compactLayout(),landscape=layoutMode()==='landscape',short=false;
-  document.body.classList.toggle('compact-game',compact);
-  document.body.classList.toggle('short-game',short);
+  const landscape=layoutMode()==='landscape';
   document.body.classList.toggle('landscape-game',landscape);
-  if(infoGameId!==game?.gameId){infoGameId=game?.gameId;infoPanel='assets';}
-  if(compact){$('infoAssetSlot').append($('ledger'));$('infoNews').append($('newsBar'));$('infoMore').append($('btnBank'),$('boardMap'));}
-  else {$('boardWrap').append($('ledger'));$('ledger').insertBefore($('newsBar'),$('turnSummary'));$('actionBar').insertBefore($('btnBank'),$('btnEndTurn'));$('boardScale').insertBefore($('boardMap'),$('pieces'));}
+  $('ledger').insertBefore($('newsBar'),$('turnSummary'));
+  $('actionBar').insertBefore($('btnBank'),$('btnEndTurn'));
+  $('boardScale').insertBefore($('boardMap'),$('pieces'));
   if(landscape){$('boardScale').append($('ledger'));$('side').prepend($('mapScrollHint'));}
-  else {$('view-game').insertBefore($('mapScrollHint'),$('gameMain'));for(const id of ['boardMap','ledger'])for(const property of ['left','right','top','bottom','width','height','max-height'])$(id).style.removeProperty(property);}
-  if(short)$('actionDock').append($('actionBar'));else $('view-game').append($('actionBar'));
-  const groups={infoAssetSlot:'assets',sidePlayer:'players',sideOthers:'players',infoNews:'news',infoEvents:'events',infoMore:'more'};
-  for(const [id,panel]of Object.entries(groups))$(id).classList.toggle('info-hidden',compact?panel!==infoPanel:['infoAssetSlot','infoNews'].includes(id));
-  for(const b of $('infoTabs').children)b.setAttribute('aria-pressed',String(b.dataset.info===infoPanel));
-  $('mapScrollHint').textContent=landscape?'棋盘可独立滑动 · 点地块看详情':'上下滑动地图 · 玩家与事件在棋盘下方';
+  else {$('boardWrap').append($('ledger'));$('view-game').insertBefore($('mapScrollHint'),$('gameMain'));for(const id of ['boardMap','ledger'])for(const property of ['left','right','top','bottom','width','height','max-height'])$(id).style.removeProperty(property);}
+  $('mapScrollHint').textContent='棋盘可独立滑动 · 点地块看详情';
   placeLandscapeSurfaces();
+  orientationController.sync();
 }
 
 function stopVisualAnimations() {
@@ -120,8 +114,11 @@ function netSummaryHTML(a) {
 }
 
 const $ = (id) => document.getElementById(id);
-$('infoTabs').onclick=e=>{const b=e.target.closest('[data-info]');if(b){infoPanel=b.dataset.info;syncResponsiveLayout();}};
-$('btnMore').onclick=()=>{infoPanel='more';syncResponsiveLayout();};
+let pendingLandscapeStart=null;
+const orientationController=MobileOrientation.create({active:()=>document.body.classList.contains('game-active')||!!pendingLandscapeStart||lobbyRequest?.event==='startGame',key:()=>latestState?.gameId||pendingLandscapeStart?.roomCode||'entry',onLandscape:()=>{
+  const intent=pendingLandscapeStart;pendingLandscapeStart=null;
+  if(intent&&me.roomCode===intent.roomCode&&roomHostId===socket.id&&(!lastRoomState?.started||latestState?.phase==='game_over'))sendLobbyRequest('startGame',{gameMode:lastRoomState?.gameMode||'normal'});
+}});
 $('btnManagement').onclick=()=>openActiveManagement();
 $('btnLocate').onclick=()=>{const position=playerById(me.gameId)?.position;document.querySelector('#board [data-square-id="'+position+'"]')?.scrollIntoView({block:'center',inline:'nearest'});};
 let pieceResizeFrame = 0;
@@ -146,6 +143,7 @@ function show(id) {
   ['view-lobby', 'view-room', 'view-game'].forEach((v) => $(v).classList.toggle('hidden', v !== id));
   document.body.classList.toggle('game-active', id === 'view-game');
   fitActionBarPadding();
+  orientationController.sync();
 }
 
 function toast(msg) {
@@ -276,7 +274,7 @@ function renderBoard() {
   const board = $('board');
   board.innerHTML = '';
   for (const sq of game.board) {
-    const [r, c] = compactLayout()?BoardLayout.position(sq.id,'compact'):gridPos(sq.id);
+    const [r, c] = gridPos(sq.id);
     const div = document.createElement('button');
     div.type = 'button';
     div.className = 'sq ' + typeClass(sq);
@@ -303,7 +301,6 @@ function renderBoard() {
       + (sq.type==='city'?'<span class="sq-amount" aria-label="地价 '+game.cities[sq.cityId].price+'">¥'+(game.cities[sq.cityId].price/1000).toFixed(1)+'k</span>':'')
       + (sub ? '<span class="subrow">' + sub + '</span>' : '')
       + (owner ? '<span class="own">' + escapeHTML(owner) + '</span>' : '');
-    if(compactLayout())div.querySelector('.num').textContent=sq.id+' '+(sq.id===41?'↺':sq.id%6===5?'↓':Math.floor(sq.id/6)%2?'←':'→');
     board.appendChild(div);
   }
 }
@@ -896,9 +893,11 @@ function showOverlay(id) {
   if (title && opening) { title.tabIndex = -1; title.focus({ preventScroll: true }); }
   // Hidden scroll containers cannot reliably reset their retained position.
   // Restore only when opening; a new window always starts at the first city.
+  orientationController.focus();
   if(id==='stockModal'&&opening)$('stockList').scrollTop=stockScroll?.key===stockKey(game)?stockScroll.top:0;
 }
 function hideOverlay(id) {
+  if(id==='orientationGate'&&orientationController.isBlocked())return;
   const overlay = $(id);
   if (overlay.classList.contains('hidden')) return;
   if(id==='stockModal')stockScroll={key:stockKey(game),top:$('stockList').scrollTop};
@@ -938,6 +937,7 @@ function renderFlightCosts(state) {
 }
 function sendAction(action, callback, options = {}) {
   if (!game) return;
+  if(orientationController.isBlocked()){orientationController.focus();return;}
   if (!socket.connected || restoringSession) { toast('连接正在恢复，操作尚未发送；请等恢复完成后再操作。'); return; }
   if (actionPending) { toast('上一操作仍在等待服务器确认，请稍候。'); return; }
   if (game.decision?.paused) { toast('有玩家掉线，当前对局暂停；等待重连后可继续。'); return; }
@@ -1026,7 +1026,7 @@ function appendLiquidationStocks(body,player,targetCash=0) {
 }
 document.addEventListener('keydown', (event) => {
   if (event.key !== 'Tab') return;
-  const overlay = ['rulesModal', 'routeModal', 'choiceModal', 'stockModal', 'modal'].map($).find((el) => !el.classList.contains('hidden'));
+  const overlay = ['orientationGate', 'rulesModal', 'routeModal', 'choiceModal', 'stockModal', 'modal'].map($).find((el) => !el.classList.contains('hidden'));
   if (!overlay) return;
   const items = [...overlay.querySelectorAll('a[href],summary,button:not(:disabled),input:not(:disabled),select:not(:disabled),[tabindex="0"]')]
     .filter((el) => el.getClientRects().length);
@@ -1599,7 +1599,12 @@ socket.on('disconnect', () => {
 });
 
 // ---------- 结算 ----------
-function startSelectedGame(){sendLobbyRequest('startGame',{gameMode:lastRoomState?.gameMode||'normal'});}
+function startSelectedGame(){
+  if(orientationController.isPhone()&&!orientationController.isLandscape()){
+    pendingLandscapeStart={roomCode:me.roomCode};orientationController.sync(false);void orientationController.request(true);return;
+  }
+  sendLobbyRequest('startGame',{gameMode:lastRoomState?.gameMode||'normal'});
+}
 function returnToRoom(){closeModal();show('view-room');syncLobbyControls();}
 function renderGameOver() {
   if(quickGame()&&game.quickResult){renderQuickGameOver();return;}

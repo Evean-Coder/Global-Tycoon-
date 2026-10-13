@@ -1,0 +1,34 @@
+TAP version 13
+# Subtest: phone landscape gate blocks start, all modals, direct actions and restores stock draft
+ok 1 - phone landscape gate blocks start, all modals, direct actions and restores stock draft
+  ---
+  duration_ms: 3323.7177
+  ...
+# Subtest: all layouts use the unique clockwise 42-square ring
+ok 2 - all layouts use the unique clockwise 42-square ring
+  ---
+  duration_ms: 1.3741
+  ...
+# Subtest: portrait has no alternative board layout; landscape and tablet retain ring layout
+ok 3 - portrait has no alternative board layout; landscape and tablet retain ring layout
+  ---
+  duration_ms: 0.1048
+  ...
+# Subtest: phone identified without treating desktop narrow windows or tablets as phones
+ok 4 - phone identified without treating desktop narrow windows or tablets as phones
+  ---
+  duration_ms: 1.1204
+  ...
+# Subtest: physical portrait with a short keyboard viewport cannot pass landscape gate
+ok 5 - physical portrait with a short keyboard viewport cannot pass landscape gate
+  ---
+  duration_ms: 0.1644
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

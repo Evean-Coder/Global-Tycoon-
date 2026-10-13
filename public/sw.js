@@ -1,18 +1,19 @@
 'use strict';
-const CACHE = 'global-tycoon-v27-landscape-map-fill';
+const CACHE = 'global-tycoon-v28-landscape-only';
 const CORE = [
   './',
   './index.html',
   './style.css',
   './client.js',
   './board-layout.js',
-  './board-layout.js?v=20261013-landscape-map-fill-v1',
+  './board-layout.js?v=20261013-landscape-only-v1',
   './rules-catalog.js',
   './contextual-rules.js',
-  './contextual-rules.js?v=20261013-landscape-map-fill-v1',
-  './rules-catalog.js?v=20261013-landscape-map-fill-v1',
-  './style.css?v=20261013-landscape-map-fill-v1',
-  './client.js?v=20261013-landscape-map-fill-v1',
+  './contextual-rules.js?v=20261013-landscape-only-v1',
+  './rules-catalog.js?v=20261013-landscape-only-v1',
+  './style.css?v=20261013-landscape-only-v1',
+  './mobile-orientation.js?v=20261013-landscape-only-v1',
+  './client.js?v=20261013-landscape-only-v1',
   './socket.io/socket.io.js',
   './assets/board-world-map-v1.webp',
   './assets/atlas-background-v1.webp',

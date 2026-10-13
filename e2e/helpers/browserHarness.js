@@ -17,6 +17,7 @@ async function boot(options={}){
  if(options.beforeStart)await options.beforeStart({api,room,pages});
  if(options.gameMode){await pages[0].locator('input[name=gameModeCard][value='+options.gameMode+']').check();await pages[0].waitForFunction(mode=>document.getElementById('roomMode').value===mode&&!document.getElementById('roomMode').disabled,options.gameMode);}
  prestart.mode=room.gameMode;prestart.guestModeDisabled=await pages[1].locator('#roomMode').isDisabled();
+ if(options.mobile)for(const page of pages){const v=page.viewportSize();if(v.width<=600&&v.height>v.width)await page.setViewportSize({width:v.height,height:v.width});}
  await pages[0].click('#btnStart');await pages[0].waitForSelector('#choiceModal:not(.hidden)');await pages[1].waitForSelector('#choiceModal:not(.hidden)');
  return {api,browser,contexts,pages,room,errors,url,prestart,async choose(){await pages[0].locator('#choiceCards button').first().click();await pages[1].locator('#choiceCards button').last().click();await pages[0].waitForSelector('#choiceModal',{state:'hidden'});},async fixture(state){
   // 仅用于独立界面场景；连续经营场景另由 gameplay-scenario 的合法动作证明。

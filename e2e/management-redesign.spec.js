@@ -6,7 +6,7 @@ test('经营两级选择与唯一入口：四端真实请求、无项目和报�
  const time=fakeClock(),h=await boot({quickClockOptions:time}),page=h.pages[0],dir=path.join(__dirname,'../docs/management-redesign/evidence');fs.mkdirSync(dir,{recursive:true});
  try{
   await h.choose();await page.bringToFront();const rows=[];let turn=100;
-  for(const [width,height]of [[1440,900],[768,1024],[320,700],[844,280]]){
+  for(const [width,height]of [[1440,900],[768,1024],[700,320],[844,280]]){
    await page.setViewportSize({width,height});
    const s=createGameState('UI',['甲','乙'],2,{activeManagementRevision:active.REVISION});s.phase='waiting_roll';s.pending=null;s.turnId=++turn;own(s,'p0','内罗毕');own(s,'p1','上海');
    await h.fixture(s);await page.waitForFunction(()=>game?.self?.activeManagement?.required&&!actionPending);

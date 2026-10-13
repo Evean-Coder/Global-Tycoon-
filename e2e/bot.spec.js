@@ -5,7 +5,7 @@ let browser,url;const contexts=[],errors=[];
 test.before(async()=>{await new Promise(r=>api.server.listen(0,'127.0.0.1',r));url='http://127.0.0.1:'+api.server.address().port;browser=await chromium.launch({channel:process.env.CI?undefined:'msedge',headless:true});});
 test.after(async()=>{for(const c of contexts)await c.close();for(const room of api.rooms.values()){bots.stop(room);room.actionClock.clear();api.stopQuickTimers(room);clearTimeout(room.hostTimer);}api.rooms.clear();await browser.close();await new Promise(r=>api.io.close(r));});
 test('三端一个真人添加/移除电脑、真实开局和思考提示',{timeout:45000},async()=>{
- for(const [width,height]of [[1440,900],[768,1024],[390,844]]){
+ for(const [width,height]of [[1440,900],[768,1024],[844,390]]){
   const context=await browser.newContext({viewport:{width,height},isMobile:width<600,hasTouch:width<600,reducedMotion:'reduce'});contexts.push(context);const p=await context.newPage();p.on('pageerror',e=>errors.push(e.message));
   await p.goto(url,{waitUntil:'networkidle'});await p.fill('#nickname','单人'+width);await p.click('#btnCreate');await p.waitForSelector('#view-room:not(.hidden)');
   assert.equal(await p.locator('#btnStart').isDisabled(),true);assert.equal(await p.locator('.orientation-hint').count(),0);

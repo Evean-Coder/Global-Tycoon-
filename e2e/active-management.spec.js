@@ -10,7 +10,7 @@ test('手机主动经营取消保留次数，建设成功禁用其他项但可�
  const p=h.pages[0];p.setDefaultTimeout(5000);await h.fixture(s);await p.setViewportSize({width:844,height:390});
  const entry=p.getByRole('button',{name:'主动经营 · 促销 / 买股 / 建设',exact:true});await entry.tap();
  const state=JSON.stringify(h.room.state),deadline=h.room.actionClock.deadlineMs;
- for(const [width,height]of [[1440,900],[1024,768],[768,1024],[390,844],[320,568],[844,390]]){
+ for(const [width,height]of [[1440,900],[1024,768],[768,1024],[844,390],[568,320],[844,390]]){
   assert.deepEqual(await p.locator('#modalBody h4').allTextContents(),['限时促销','主动买股','远程建设']);assert.equal(await p.evaluate(()=>game.self.activeManagement.quotes.every(q=>!q.ok||document.getElementById('modalBody').textContent.includes(fmt(q.finalAmount))&&document.getElementById('modalBody').textContent.includes(fmt(q.cashAfter)))),true);
   await p.setViewportSize({width,height});const button=p.getByRole('button',{name:'确认远程建设',exact:true}).first();await button.scrollIntoViewIfNeeded();const r=await button.boundingBox();assert.ok(r.height>=44&&r.y>=0&&r.y+r.height<=height);assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false);
  }

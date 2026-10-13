@@ -1,14 +1,14 @@
 'use strict';
 /* global latestState, stockDraft */
 const test=require('node:test'),assert=require('node:assert/strict'),{boot}=require('./helpers/browserHarness'),f=require('../test/helpers/gameplayFixtures'),stocks=require('../src/stocks');
-let h;const time=f.fakeClock();test.before(async()=>{h=await boot({mobile:true,viewport:{width:390,height:844},gameMode:'quick',quickClockOptions:time});await h.choose();});test.after(async()=>{if(h)await h.close();});
+let h;const time=f.fakeClock();test.before(async()=>{h=await boot({mobile:true,viewport:{width:844,height:390},gameMode:'quick',quickClockOptions:time});await h.choose();});test.after(async()=>{if(h)await h.close();});
 test('normal and quick touch stock lists retain nodes, details, scroll and draft',{timeout:60000},async()=>{
  const p=h.pages[0];p.setDefaultTimeout(6000);
  for(const mode of ['normal','quick'])for(const width of [320,390,430]){
   const s=require('../src/state').createGameState('STOCK',['甲','乙'],2,{routeRevision:'opportunity-routes-v1',gameMode:mode,...(mode==='quick'?{quickRevision:'quick-mode-v1'}:{})});s.routeFlow.initialCompletedOrdinal=1;s.routeFlow.initialDueOrdinal=1;
   for(const id of Object.keys(s.cities))f.own(s,'p1',id);
   s.stocks['上海'].holders.p0=2;stocks.syncHolders(s);
-  stocks.openStockWindow(s,'p0');s.phase='stock';s.pending={playerId:'p0',kind:'go_stock',after:'end'};await p.setViewportSize({width,height:844});await h.fixture(s);await p.waitForSelector('#stockModal:not(.hidden)');
+  stocks.openStockWindow(s,'p0');s.phase='stock';s.pending={playerId:'p0',kind:'go_stock',after:'end'};await p.setViewportSize({width:844,height:width});await h.fixture(s);await p.waitForSelector('#stockModal:not(.hidden)');
   assert.equal(require('../src/quickMode').enabled(h.room.state),mode==='quick');
   const initialScroll=await p.locator('#stockList').evaluate(el=>el.scrollTop);assert.ok(initialScroll<=2,'每个新窗口从顶部开始 '+JSON.stringify({mode,width,initialScroll}));
   assert.match(await p.locator('#stockTimer').textContent(),/60s/);const deadline=h.room.actionClock.deadlineMs;
@@ -30,7 +30,7 @@ test('normal and quick touch stock lists retain nodes, details, scroll and draft
 
 test('new stock windows start at the first city and same-window updates retain browsing',{timeout:30000},async()=>{
  const p=h.pages[0];
- for(const mode of ['normal','quick'])for(const [width,height]of [[320,568],[390,844],[430,932],[768,1024],[1440,900]]){
+ for(const mode of ['normal','quick'])for(const [width,height]of [[568,320],[844,390],[932,430],[768,1024],[1440,900]]){
   const s=require('../src/state').createGameState('TOP',['甲','乙'],2,{routeRevision:'opportunity-routes-v1',gameMode:mode,...(mode==='quick'?{quickRevision:'quick-mode-v1'}:{})});s.routeFlow.initialCompletedOrdinal=1;s.routeFlow.initialDueOrdinal=1;for(const id of Object.keys(s.cities))f.own(s,'p1',id);
   await p.setViewportSize({width,height});stocks.openStockWindow(s,'p0');s.phase='stock';s.pending={kind:'go_stock',playerId:'p0',after:'end'};await h.fixture(s);
   const list=p.locator('#stockList');assert.ok(await list.evaluate(el=>el.scrollTop)<=2);
@@ -43,7 +43,7 @@ test('new stock windows start at the first city and same-window updates retain b
 
 test('stock countdown uses the existing clock on phone, tablet and PC',async()=>{
  const p=h.pages[0],s=require('../src/state').createGameState('TIMER',['甲','乙'],2,{routeRevision:'opportunity-routes-v1',gameMode:'quick',quickRevision:'quick-mode-v1'});s.routeFlow.initialCompletedOrdinal=1;s.routeFlow.initialDueOrdinal=1;f.own(s,'p1','上海');stocks.openStockWindow(s,'p0');s.phase='stock';s.pending={playerId:'p0',kind:'go_stock',after:'end'};await h.fixture(s);
- for(const [width,height]of [[390,844],[768,1024],[1440,900]]){await p.setViewportSize({width,height});await p.waitForFunction(()=>document.getElementById('stockTimer').textContent.includes('60s'));const r=await p.locator('#stockTimer').boundingBox();assert.ok(r.y>=0&&r.y+r.height<=height);}
+ for(const [width,height]of [[844,390],[768,1024],[1440,900]]){await p.setViewportSize({width,height});await p.waitForFunction(()=>document.getElementById('stockTimer').textContent.includes('60s'));const r=await p.locator('#stockTimer').boundingBox();assert.ok(r.y>=0&&r.y+r.height<=height);}
  const deadline=h.room.actionClock.deadlineMs;time.advance(10000);h.api.emitGame(h.room);await p.waitForFunction(()=>document.getElementById('stockTimer').textContent.includes('50s'));assert.equal(h.room.actionClock.deadlineMs,deadline);
  const plus=p.locator('[data-stock-city="上海"] [data-kind=buy][data-delta="1"]');await plus.focus();await p.keyboard.press('Enter');assert.equal(await plus.evaluate(el=>el===document.activeElement),true);assert.equal(await p.locator('[data-stock-city="上海"] [data-quantity=buy]').textContent(),'1');
 });

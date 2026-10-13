@@ -22,7 +22,7 @@ test('模式卡权限、独立地图与唯一悬浮模块',{timeout:45000},async
  const p=h.pages[0];
  await h.choose();
  const dir=path.join(__dirname,'../docs/frontend-atlas/evidence');fs.mkdirSync(dir,{recursive:true});
- for(const [width,height]of [[1440,900],[1024,768],[768,1024],[390,844],[844,390],[320,568]]){
+ for(const [width,height]of [[1440,900],[1024,768],[768,1024],[844,390],[844,390],[568,320]]){
   await p.setViewportSize({width,height});
   await p.waitForTimeout(100);
   assert.equal(await p.locator('#ledger #newsBar').count(),1);

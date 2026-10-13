@@ -406,46 +406,11 @@ button.sq{width:100%;height:100%;appearance:none;font-family:var(--sans);letter-
   #side .panel:nth-child(3){grid-column:1 / -1}
 }
 @media (max-width:720px){
-  #gameMain{padding-bottom:120px}
   .view{padding:10px}
   header{padding:10px 14px}
   .brand h1{font-size:18px;letter-spacing:3px}
   .brand .sub{display:none}
-  #gameMain{gap:10px}
-  #boardWrap{height:auto;max-width:none;overflow:hidden;border-radius:12px;flex:none}
-  #board{grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:repeat(11,minmax(84px,auto));width:100%;height:auto;aspect-ratio:auto;max-width:none;padding:2px;gap:1px;margin:0}
-  #board::before{background-size:cover,100% 100%,cover;background-position:center,center 58%,center}
-  #pieces .piece{width:11px;height:11px;border-width:1px}
-  .sq{padding:11px 1px 4px;border-radius:2px;border-top-width:3px;white-space:normal}
-  .sq .nm{display:block;font-size:10px;line-height:1.4;width:100%;overflow-wrap:anywhere}
-  .sq .own{display:block;width:100%;overflow-wrap:anywhere;line-height:1.4}
-  .sq .subrow{display:flex;flex-wrap:wrap;justify-content:center;max-width:100%;gap:2px}
-  .sq .lvl,.sq .mg{padding:1px 2px;overflow-wrap:anywhere;max-width:100%}
   
-  .ledger-title{padding:6px 9px 2px;font-size:12px}
-  .ledger-title em{font-size:8px}
-  .ledger-total{padding:0 9px 4px}
-  .ledger-total span{font-size:9px}
-  .ledger-total strong{font-size:18px}
-  .ledger-summary{gap:2px 6px;padding:4px 9px}
-  .ledger-summary span{font-size:8px}
-  .ledger-summary b{font-size:10px}
-  .ledger-open{min-height:22px;margin:0 9px 4px;font-size:10px}
-  #side{width:100%;display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
-  #side .panel:nth-child(3),#side .side-ops{grid-column:auto}
-  #side .panel{padding:12px}
-  #side .panel h3{font-size:13px}
-  #log{max-height:110px}
-  #actionBar{position:fixed;left:0;right:0;bottom:0;z-index:40;margin:0;border-radius:14px 14px 0 0;display:grid;grid-template-columns:1.4fr repeat(3,minmax(0,1fr));grid-template-rows:auto auto;gap:6px;padding:7px 9px calc(7px + env(safe-area-inset-bottom))}
-  #actionBar .spacer{display:none}
-  #actionBar #dice{grid-column:1;grid-row:1;font-size:10px;letter-spacing:0}
-  #actionBar #turnInfo{grid-column:2 / 4;grid-row:1;font-size:10px}
-  #actionBar #timer{grid-column:4;grid-row:1;font-size:10px;text-align:right;letter-spacing:0}
-  #btnRoll{grid-column:1;grid-row:2}
-  #btnAssets{grid-column:2;grid-row:2}
-  #btnBank{grid-column:3;grid-row:2}
-  #btnEndTurn{grid-column:4;grid-row:2}
-  #actionBar button{min-width:0;min-height:44px;height:auto;padding:0 3px;font-size:11px}
   .overlay{align-items:flex-end;padding:0}
   .modal,.modal.wide{max-width:none;max-height:min(88dvh,760px);border-radius:18px 18px 0 0;padding-bottom:env(safe-area-inset-bottom)}
   .modal .mh{padding:16px 16px 8px}
@@ -474,12 +439,8 @@ button.sq{width:100%;height:100%;appearance:none;font-family:var(--sans);letter-
   .card{padding:18px 14px}
   header{padding:8px 10px}
   .brand h1{font-size:16px}
-  #actionBar{gap:5px;padding:7px 7px calc(7px + env(safe-area-inset-bottom))}
-  #actionBar button{min-width:0;font-size:10px}
   #modalBody{padding:14px 14px 4px}
   #modalBody .row button,.btnrow button{min-width:0;padding:0 10px}
-  #side .panel{padding:10px}
-  #log{max-height:96px}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{scroll-behavior:auto !important;animation-duration:.01ms !important;transition-duration:.01ms !important}
@@ -590,7 +551,6 @@ body.game-active #view-game{display:flex;flex:1;flex-direction:column;min-height
 body.game-active #gameMain{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;padding-bottom:8px!important;touch-action:pan-y pinch-zoom}
 body.game-active #actionBar{position:relative;flex-shrink:0;left:auto;right:auto;bottom:auto;width:100%;margin:8px 0 0;box-shadow:none}
 .sq .sq-amount{display:block;font-family:var(--mono);font-size:9px;line-height:1.2;color:var(--muted);max-width:100%;overflow-wrap:anywhere}
-/* Portrait phone: readable 6 x 17 clockwise perimeter, independent map and ledger. */
 .flight-cancel{display:flex;justify-content:center;margin-top:16px;padding-top:12px;border-top:1px solid var(--line)}
 .flight-cancel button{width:100%;min-height:44px}
 .bot-controls{margin:12px 0}.bot-controls .hint{font-size:12px;line-height:1.6}
@@ -620,79 +580,11 @@ body.game-active #actionBar{position:relative;flex-shrink:0;left:auto;right:auto
 .opportunity-card,.selected-opportunities,.fee-basis,.flight-option,.record-economy,.flight-costs,.route-comparison{background:var(--card2);border-color:var(--line);border-radius:3px;color:var(--text)}
 body.game-active #waitBanner,body.game-active #quickClockBar{flex-shrink:0}
 
-/* Compact mobile play surface: the same route, arranged in seven readable rows. */
-#infoTabs,#btnMore,#actionDock{display:none}.info-hidden{display:none!important}
 #managementStatus{font-size:12px;color:#715d38}#managementStatus[data-state=ready]{color:#204c3b;font-weight:700}
 #stockTimer{font-size:14px;color:#854d24;font-variant-numeric:tabular-nums}
-body.compact-game.game-active header{height:42px;min-height:42px;padding:4px 8px;gap:4px}
-body.compact-game.game-active header .brand{font-size:16px;line-height:1.2}
-body.compact-game.game-active header .sub{display:none}
-body.compact-game.game-active header button{min-height:32px;padding:4px 8px;font-size:12px}
-body.compact-game.game-active #view-game{padding:4px;gap:4px}
-body.compact-game #quickClockBar{margin:0;padding:3px 8px;min-height:26px;border-radius:4px;gap:3px;font-size:11px}
-body.compact-game #quickTimer{font-size:16px}body.compact-game #quickEndHint{font-size:11px}
-body.compact-game #mapScrollHint{display:none}
-body.compact-game.game-active #gameMain{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(160px,1fr) 140px;gap:4px;overflow:hidden;padding:0!important}
-body.compact-game #boardWrap{min-width:0;min-height:0;overflow:auto;margin:0;padding:0;border:0;box-shadow:none;touch-action:pan-y pinch-zoom}
-body.compact-game #boardScale{height:auto;min-height:0;width:100%;background:#b3bdb6;position:relative}
-body.compact-game #board{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-template-rows:repeat(7,minmax(88px,max-content));height:auto;aspect-ratio:auto;width:100%;padding:3px;gap:2px;position:relative}
-body.compact-game #board .sq{padding:14px 2px 4px;min-width:0;min-height:88px;height:auto;overflow:visible;border-radius:4px}
-body.compact-game #board .sq .nm,body.compact-game #board .sq .own,body.compact-game #board .sq .sq-amount{display:block;font-size:11px;line-height:1.2;white-space:normal;overflow-wrap:anywhere}
-body.compact-game #board .sq .glyph{display:none}body.compact-game #board .sq .num{font-size:10px}
-body.compact-game #board .sq .subrow{display:block;font-size:11px}
-body.compact-game #boardMap{display:none}
-body.compact-game #side{display:flex;flex-direction:column;min-height:0;min-width:0;overflow:hidden;margin:0;padding:0;gap:0;background:#faf2de;border:1px solid #ad925e;border-radius:4px}
-body.compact-game #infoTabs{display:flex;flex:none;gap:0;border-bottom:1px solid #ad925e}
-body.compact-game #infoTabs button{flex:1;min-width:0;min-height:44px;padding:4px;font-size:12px;background:transparent;border:0;box-shadow:none}
-body.compact-game #infoTabs button[aria-pressed=true]{background:#ead8af;color:#253d4a;font-weight:700}
-body.compact-game #side>.panel,body.compact-game #infoAssetSlot,body.compact-game #infoNews,body.compact-game #infoMore{min-height:0;overflow:auto;flex:1;margin:0;padding:8px;box-shadow:none;border:0}
-body.compact-game #side .panel{font-size:12px}body.compact-game #sidePlayer{flex:none;max-height:45%}body.compact-game #sideOthers{flex:1}
-body.compact-game #ledger{position:relative;inset:auto;width:100%;max-height:none;overflow:visible;border:0;box-shadow:none;background:transparent}
-body.compact-game #ledgerBody{padding:0;gap:4px}
-body.compact-game .ledger-title{padding:0;font-size:12px;letter-spacing:0}
-body.compact-game .ledger-total{padding:0;display:flex;align-items:center;gap:8px}
-body.compact-game .ledger-total strong{font-size:20px}
-body.compact-game .ledger-total span{font-size:11px}
-body.compact-game .ledger-summary{padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}
-body.compact-game .ledger-summary span,body.compact-game .ledger-summary b{font-size:11px}
-body.compact-game .ledger-open{min-height:44px;margin:0;padding:4px;font-size:12px}
-body.compact-game .ledger-turn{display:none}
-body.compact-game #infoNews #newsBar{display:block;max-height:none;margin:0;padding:0;background:transparent;border:0;font-size:12px}
-body.compact-game #infoMore{display:flex;flex-wrap:wrap;gap:4px;align-content:flex-start}
-body.compact-game #infoMore button{min-height:44px;font-size:12px;padding:4px 8px}
-body.compact-game.game-active #actionBar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:auto auto 44px;gap:2px;padding:4px 4px calc(4px + env(safe-area-inset-bottom));margin:0;border-radius:4px;min-width:0}
-body.compact-game #actionBar #managementStatus{grid-column:1/-1;grid-row:1;font-size:11px;line-height:14px;overflow-wrap:anywhere}
-body.compact-game #actionBar #turnInfo{grid-column:1/4;grid-row:2;font-size:11px;text-align:left;line-height:14px}
-body.compact-game #actionBar #timer{grid-column:4;grid-row:2;font-size:11px;line-height:14px}
-body.compact-game #actionBar button{grid-row:3;grid-column:auto;min-width:0;min-height:44px;padding:3px;font-size:12px}
-body.compact-game #actionBar #dice,body.compact-game #actionBar .spacer,body.compact-game #btnEndTurn{display:none}
-body.compact-game #btnMore{display:block}
-body.compact-game .overlay{padding:6px}
-body.compact-game .modal,body.compact-game .modal.wide{max-height:calc(100dvh - 12px)}
-body.compact-game .mh{padding:8px 12px}body.compact-game .mh h3{font-size:18px}
-body.compact-game #stockHint{font-size:11px;margin:3px 0}
-body.compact-game .mf{padding:6px;gap:4px}body.compact-game .mf button{min-height:44px;padding:4px 8px;font-size:12px}
-body.compact-game #stockList,body.compact-game #modalBody{padding:8px}
-body.short-game.game-active header{height:34px;min-height:34px}
-body.short-game #quickClockBar{min-height:22px;padding:1px 8px}
-body.short-game.game-active #gameMain{grid-template-columns:minmax(0,1fr) minmax(230px,32%);grid-template-rows:minmax(0,1fr)}
-body.short-game #actionDock{display:block;flex:none}
-body.short-game #actionBar{grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-template-rows:auto auto 44px 44px!important}
-body.short-game #actionBar #turnInfo{grid-column:1!important}body.short-game #actionBar #timer{grid-column:2!important}
-body.short-game #actionBar button{grid-row:auto!important}
-body.short-game #actionBar #managementStatus{font-size:10px}
-body.short-game #board .sq{min-height:88px}
 @media(min-width:601px) and (min-height:501px){#managementStatus{max-width:220px}#btnManagement{font-size:12px}}
-body.compact-game #infoMore #boardMap{display:block;position:relative;inset:auto;flex:0 0 100%;width:100%;aspect-ratio:3/2;background-size:contain;border:1px solid #ad925e}
-body.compact-game.game-active #gameMain{align-items:stretch;align-content:stretch}
-body.compact-game #boardWrap,body.compact-game #side{height:100%;width:100%}
 #boardMap{background-size:contain}
 @media(min-width:601px) and (min-height:501px) and (max-width:1080px){#managementStatus{grid-row:1;grid-column:1/-1}#actionBar #dice{display:none}#actionBar #turnInfo{grid-row:2;grid-column:1/4}#actionBar #timer{grid-row:2}#actionBar button{grid-row:3!important;grid-column:auto!important}#actionBar{grid-template-columns:repeat(5,minmax(0,1fr))}}
-body.short-game.game-active header{height:24px;min-height:24px;padding:0 8px}
-body.short-game.game-active header .brand h1{font-size:16px;line-height:20px;letter-spacing:1px}
-body.short-game.game-active header button{min-height:24px;height:24px;padding:0 8px}
-body.short-game #quickClockBar{height:22px;min-height:22px;font-size:11px}
-body.compact-game #board .sq[data-current=true]{box-shadow:inset 0 0 0 2px #52776d;background:#f7f4e8}
 #btnManagement[data-state=ready]{border:2px solid #52776d;background:#e6eee5;color:#204c3b;font-weight:700}
 .fund-preview{font-size:12px;line-height:1.6;margin:8px 0;overflow-wrap:anywhere}
 
@@ -753,7 +645,6 @@ body.landscape-game #actionBar #btnRoll,body.landscape-game #actionBar #btnResum
 body.landscape-game #actionBar #btnAssets{grid-column:4}
 body.landscape-game #actionBar #btnBank{grid-column:5}
 body.landscape-game #actionBar #btnEndTurn{display:none}
-body.landscape-game #actionBar #dice,body.landscape-game #actionBar .spacer,body.landscape-game #btnMore,body.landscape-game #infoTabs{display:none}
 body.landscape-game .overlay{padding:6px}
 body.landscape-game .modal,body.landscape-game .modal.wide{max-height:calc(100dvh - 12px)}
 body.landscape-game .mh{padding:6px 12px}
@@ -780,3 +671,10 @@ body.landscape-game .management-body .management-summary{font-size:14px;margin:4
 body.landscape-game .management-body>.hint{font-size:11px;line-height:1.4;margin:4px 0}
 body.landscape-game .management-body>h4{font-size:15px;margin:6px 0}
 body.landscape-game .management-city{margin:6px 0;padding:10px}
+
+body.landscape-game #actionBar #dice,body.landscape-game #actionBar .spacer{display:none}
+#orientationGate{position:fixed;inset:0;z-index:2147483000;background:rgba(38,49,49,.95);display:flex;align-items:center;justify-content:center;padding:20px;overscroll-behavior:contain;touch-action:pan-y}
+.orientation-dialog{width:min(100%,420px);max-height:calc(100dvh - 40px);overflow:auto;padding:28px 24px;border:1px solid #b99455;border-radius:12px;background:#faf2de;text-align:center;box-shadow:0 18px 50px #0006}
+.orientation-dialog h2{font-size:24px;margin:12px 0 16px}.orientation-dialog p{line-height:1.75;margin:14px 0;font-size:15px}
+.orientation-dialog .hint{font-size:12px}.orientation-dialog button{width:100%;min-height:48px;margin:8px 0}.rotate-symbol{font-size:52px;color:#9a7036;line-height:1}
+body.orientation-blocked{overflow:hidden}body.orientation-blocked #view-game{visibility:hidden}

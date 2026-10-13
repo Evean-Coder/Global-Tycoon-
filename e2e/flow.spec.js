@@ -118,5 +118,5 @@ test('端到端：创建→加入→开局→掷骰→解散→结算→回放',
   const replayText = await p1.evaluate(() => document.getElementById('modalBody').textContent || '');
   assert.ok(replayText.includes('事件回放'), '回放应显示事件时间线');
   assert.ok(await p1.locator('text=下一条').count() > 0, '回放应有下一条按钮');
-  await p1.click('text=关闭');
+  await p1.getByRole('button',{name:'关闭',exact:true}).last().click();
 }, { timeout: 60000 });

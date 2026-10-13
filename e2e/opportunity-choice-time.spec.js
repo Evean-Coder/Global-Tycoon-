@@ -8,7 +8,7 @@ async function chooseInitial(){
 }
 test('two modes and three screens show 60 seconds for initial and later opportunities',{timeout:60000},async(t)=>{
  const p=h.pages[0];p.setDefaultTimeout(5000);
- for(const mode of ['normal','quick'])for(const [width,height]of [[390,844],[768,1024],[1440,900]]){
+ for(const mode of ['normal','quick'])for(const [width,height]of [[844,390],[768,1024],[1440,900]]){
   t.diagnostic(`${mode} ${width}x${height}: initial choice`);
   elapsed=0;
   await p.bringToFront();await p.setViewportSize({width,height});const s=createGameState('CHOICE',['甲','乙'],2,{routeRevision:routes.REVISION,gameMode:mode,...(mode==='quick'?{quickRevision:'quick-mode-v1'}:{})});s.routeFlow.initialDueOrdinal=1;opp.beginOpportunityStage(s,1,{kind:'start'},f.rng());await h.fixture(s);assert.match(await p.locator('#choiceTimer').textContent(),/60 秒/);const deadline=h.room.actionClock.deadlineMs;time.advance(10000);h.api.emitGame(h.room);await p.waitForFunction(()=>document.getElementById('choiceTimer').textContent.includes('50 秒'));assert.equal(h.room.actionClock.deadlineMs,deadline);await chooseInitial();assert.equal(h.room.state.phase,'waiting_roll');

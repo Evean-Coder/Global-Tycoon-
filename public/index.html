@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>环球大亨 · 资本博弈</title>
-  <link rel="stylesheet" href="style.css?v=20261013-landscape-map-fill-v1" />
+  <link rel="stylesheet" href="style.css?v=20261013-landscape-only-v1" />
   <meta name="theme-color" content="#e9dfc5" />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" type="image/svg+xml" href="icon.svg" />
@@ -95,8 +95,6 @@
         <div id="ledger"><div id="ledgerBody"></div><section id="newsBar" class="news-bar" aria-label="环球资讯"></section><div id="turnSummary" class="ledger-turn" aria-live="polite"></div></div>
       </div>
       <div id="side">
-        <nav id="infoTabs" aria-label="对局信息"><button data-info="assets">资产</button><button data-info="players">玩家</button><button data-info="news">资讯</button><button data-info="events">事件</button><button data-info="more">更多</button></nav>
-        <div id="infoAssetSlot"></div><div id="infoNews"></div>
         <div class="panel" id="sidePlayer"></div>
         <div class="panel" id="sideOthers"></div>
         <div class="panel" id="infoEvents">
@@ -109,7 +107,6 @@
           <button id="btnSurrender" class="risk">认输</button>
           <button id="btnDisband" class="risk">解散房间</button>
         </div>
-        <div id="actionDock"></div>
       </div>
     </div>
     <div id="actionBar">
@@ -121,12 +118,22 @@
       <button id="btnResumeStock" class="primary hidden">继续买卖</button>
       <button id="btnAssets" class="secondary">查看资产</button>
       <button id="btnManagement" class="secondary">主动经营</button>
-      <button id="btnMore" class="secondary">更多</button>
       <button id="btnBank" class="secondary">银行</button>
       <button id="btnEndTurn" class="secondary" disabled>结束回合</button>
       <span id="timer" class="muted"></span>
     </div>
   </section>
+
+  <div id="orientationGate" class="overlay hidden">
+    <section class="orientation-dialog" role="alertdialog" aria-modal="true" aria-labelledby="orientationTitle" aria-describedby="orientationInstructions">
+      <div class="rotate-symbol" aria-hidden="true">↻</div>
+      <h2 id="orientationTitle" tabindex="-1">请横屏游玩</h2>
+      <p id="orientationInstructions">打开手机的<strong>自动旋转</strong>，再将手机横放。iPhone请关闭控制中心的<strong>竖屏锁定</strong>。</p>
+      <p id="orientationStatus" role="status">检测到横屏后会自动继续游戏。</p>
+      <button id="btnLandscape" class="primary">尝试自动横屏</button>
+      <p class="hint">若浏览器不支持，请手动开启自动旋转。已开局对局的倒计时照常进行。</p>
+    </section>
+  </div>
 
   <!-- 通用操作弹窗 -->
   <div id="routeModal" class="overlay hidden">
@@ -192,9 +199,10 @@
   <div id="toast" class="hidden"></div>
 
   <script src="/socket.io/socket.io.js"></script>
-  <script src="rules-catalog.js?v=20261013-landscape-map-fill-v1"></script>
-  <script src="contextual-rules.js?v=20261013-landscape-map-fill-v1"></script>
-  <script src="board-layout.js?v=20261013-landscape-map-fill-v1"></script>
-  <script src="client.js?v=20261013-landscape-map-fill-v1"></script>
+  <script src="rules-catalog.js?v=20261013-landscape-only-v1"></script>
+  <script src="contextual-rules.js?v=20261013-landscape-only-v1"></script>
+  <script src="board-layout.js?v=20261013-landscape-only-v1"></script>
+  <script src="mobile-orientation.js?v=20261013-landscape-only-v1"></script>
+  <script src="client.js?v=20261013-landscape-only-v1"></script>
 </body>
 </html>

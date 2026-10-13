@@ -6,8 +6,8 @@ const {chromium}=require('playwright'),api=require('../server'),bots=require('..
 let browser,url;const contexts=[],errors=[];
 test.before(async()=>{await new Promise(r=>api.server.listen(0,'127.0.0.1',r));url='http://127.0.0.1:'+api.server.address().port;browser=await chromium.launch({channel:process.env.CI?undefined:'msedge',headless:true});});
 test.after(async()=>{for(const c of contexts)await c.close();for(const r of api.rooms.values()){bots.stop(r);r.actionClock.clear();api.stopQuickTimers(r);clearTimeout(r.hostTimer);}api.rooms.clear();await browser.close();await new Promise(r=>api.io.close(r));});
-for(const opponent of ['human','bot'])test('手机下方信息真实可见且未被棋盘覆盖：'+opponent,{timeout:30000},async()=>{
- const context=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true,reducedMotion:'reduce'});contexts.push(context);
+for(const opponent of ['human','bot'])test('手机横屏右侧信息真实可见且未被棋盘覆盖：'+opponent,{timeout:30000},async()=>{
+ const context=await browser.newContext({viewport:{width:844,height:390},isMobile:true,hasTouch:true,reducedMotion:'reduce'});contexts.push(context);
  const p=await context.newPage();p.setDefaultTimeout(5000);p.on('pageerror',e=>errors.push(e.message));
  await p.goto(url,{waitUntil:'networkidle'});await p.fill('#nickname','手机玩家');await p.click('#btnCreate');await p.waitForSelector('#view-room:not(.hidden)');
  const code=(await p.locator('#roomCode').textContent()).trim(),room=api.rooms.get(code);let guest;
@@ -23,17 +23,16 @@ for(const opponent of ['human','bot'])test('手机下方信息真实可见且未
  const initial=await p.evaluate(()=>({revision:latestState.revision,decision:latestState.decision?.decisionId}));
  const measurements=[];
  for(const width of [320,390,430,768]){
-  await p.setViewportSize({width,height:844});
+  await p.setViewportSize(width<=600?{width:844,height:width}:{width,height:1024});
   await p.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))));
   const layout=await p.evaluate(()=>{const board=document.getElementById('boardWrap').getBoundingClientRect(),side=document.getElementById('side').getBoundingClientRect();return {boardHeight:board.height,sideAfterBoard:side.top>=board.bottom,overflow:document.documentElement.scrollWidth>innerWidth+1};});
-  assert.equal(layout.sideAfterBoard,true,width+'px 玩家/事件必须排在棋盘后，不能叠在棋盘背后');assert.equal(layout.overflow,false);
+  if(width>600)assert.equal(layout.sideAfterBoard,true,width+'px 平板信息在棋盘后');assert.equal(layout.overflow,false);
   if(width<=600){
    const content=await p.evaluate(()=>({inside:[...document.querySelectorAll('#board .sq')].every(el=>{const box=el.getBoundingClientRect();return [...el.querySelectorAll('.nm,.own,.sq-amount,.subrow')].every(child=>{const r=child.getBoundingClientRect();return r.top>=box.top&&r.bottom<=box.bottom&&r.left>=box.left&&r.right<=box.right;});})}));
    assert.equal(content.inside,true,width+'px 长昵称、房屋及抵押标记均在格内');
   }
   const rows=[];
   for(const id of ['ledger','newsBar','sidePlayer','sideOthers','log']){
-   if(width<=600)await p.locator('[data-info='+({ledger:'assets',newsBar:'news',sidePlayer:'players',sideOthers:'players',log:'events'}[id])+']').click();
    const m=await p.evaluate(id=>{const e=document.getElementById(id);e.scrollIntoView({block:'center'});const r=e.getBoundingClientRect();let top=Math.max(0,r.top),bottom=Math.min(window.innerHeight,r.bottom);for(let parent=e.parentElement;parent;parent=parent.parentElement){if(/auto|scroll|hidden/.test(getComputedStyle(parent).overflowY)){const clip=parent.getBoundingClientRect();top=Math.max(top,clip.top);bottom=Math.min(bottom,clip.bottom);}}const hit=document.elementFromPoint(r.left+r.width/2,(top+bottom)/2);return {id,text:e.textContent,visible:r.height>0&&bottom>top,uncovered:!!hit&&e.contains(hit)};},id);
    assert.equal(m.visible,true,width+'px '+id+'可滚动到');assert.equal(m.uncovered,true,width+'px '+id+'不能只存在于DOM而被别的元素覆盖');assert.ok(m.text.trim());rows.push(m);
   }

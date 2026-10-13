@@ -6,12 +6,12 @@ const {boot}=require('./helpers/browserHarness'),f=require('../test/helpers/game
 const evidence=path.join(__dirname,'../docs/gameplay-usability/mobile-evidence');
 let h;const measurements=[],timeout=60000;
 test.before(async()=>{
- fs.mkdirSync(evidence,{recursive:true});h=await boot({viewport:{width:375,height:812},mobile:true});await h.choose();
+ fs.mkdirSync(evidence,{recursive:true});h=await boot({viewport:{width:812,height:375},mobile:true});await h.choose();
  await h.pages[0].evaluate(()=>setInterval(()=>{window.__fixtureRevision=latestState?.revision||0;},10));
 });
 test.after(async()=>{fs.writeFileSync(path.join(evidence,'measurements.json'),JSON.stringify(measurements,null,2)+'\n');if(h){fs.writeFileSync(path.join(evidence,'page-errors.json'),JSON.stringify(h.errors,null,2)+'\n');await h.close();}});
 async function phone(options={}){
- const ctx=await h.browser.newContext({viewport:{width:375,height:812},isMobile:true,hasTouch:true,reducedMotion:'reduce'});h.contexts.push(ctx);
+ const ctx=await h.browser.newContext({viewport:{width:812,height:375},isMobile:true,hasTouch:true,reducedMotion:'reduce'});h.contexts.push(ctx);
  if(options.storageDenied)await ctx.addInitScript(()=>{Storage.prototype.setItem=()=>{throw new DOMException('受控存储限制','QuotaExceededError');};});
  const page=await ctx.newPage();page.on('pageerror',e=>h.errors.push(e.message));page.on('dialog',d=>d.accept());
  await page.goto(h.url,{waitUntil:'networkidle'});await page.fill('#nickname',options.name||'触控玩家');await page.waitForFunction(()=>!document.getElementById('btnCreate').disabled);
@@ -88,7 +88,7 @@ test('过期转让返回不打开旧股票窗口或关闭新决定',{timeout},as
 
 test('手机横屏三段布局与三端文字/触控矩阵',{timeout},async()=>{
  const page=h.pages[0],s=f.game(2);f.own(s,'p0','上海');s.cities['上海'].houseLevel=4;s.players[0].name='十二个汉字姓名显示测试';f.own(s,'p1','东京');s.cities['东京'].mortgaged=true;await h.fixture(s);
- for(const [width,height] of [[320,568],[375,812],[430,932],[568,320],[812,375],[884,330],[932,430],[768,1024],[1024,768],[1440,900]]){
+ for(const [width,height] of [[568,320],[812,375],[932,430],[568,320],[812,375],[884,330],[932,430],[768,1024],[1024,768],[1440,900]]){
   await page.setViewportSize({width,height});await page.locator('#board .sq').first().scrollIntoViewIfNeeded();
   const m=await page.evaluate(()=>{
    const rect=el=>{const r=el.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height,bottom:r.bottom};};
@@ -107,7 +107,7 @@ test('手机横屏三段布局与三端文字/触控矩阵',{timeout},async()=>{
 });
 
 test('WebSocket不可用时回退轮询并能触控创建',{timeout},async()=>{
- const ctx=await h.browser.newContext({viewport:{width:375,height:812},isMobile:true,hasTouch:true});h.contexts.push(ctx);
+ const ctx=await h.browser.newContext({viewport:{width:812,height:375},isMobile:true,hasTouch:true});h.contexts.push(ctx);
  await ctx.addInitScript(()=>{window.WebSocket=class {constructor(){setTimeout(()=>this.onerror?.(new window.Event('error')),10);}close(){}send(){}};});
  const page=await ctx.newPage();page.on('pageerror',e=>h.errors.push(e.message));
  try{

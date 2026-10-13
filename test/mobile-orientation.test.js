@@ -1,0 +1,5 @@
+'use strict';
+const test=require('node:test'),assert=require('node:assert/strict'),policy=require('../public/mobile-orientation');
+const phone={width:390,height:844,screenWidth:390,screenHeight:844,coarse:true,orientationType:'portrait-primary'};
+test('phone identified without treating desktop narrow windows or tablets as phones',()=>{assert.ok(policy.isPhone(phone));assert.equal(policy.isPhone({...phone,coarse:false}),false);assert.equal(policy.isPhone({...phone,screenWidth:768,screenHeight:1024}),false);assert.ok(policy.isPhone({...phone,mobileUA:true,coarse:false}));});
+test('physical portrait with a short keyboard viewport cannot pass landscape gate',()=>{assert.equal(policy.isLandscape(phone),false);assert.equal(policy.isLandscape({...phone,width:390,height:280}),false);assert.ok(policy.isLandscape({...phone,width:844,height:390,screenWidth:844,screenHeight:390,orientationType:'landscape-primary'}));assert.equal(policy.isLandscape({...phone,width:844,height:390,orientationType:''}),false);});

@@ -3,11 +3,11 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const {boot}=require('./helpers/browserHarness'),f=require('../test/helpers/gameplayFixtures');
 let h;test.before(async()=>{h=await boot({mobile:true});await h.choose();await h.pages[0].bringToFront();});test.after(async()=>{if(h)await h.close();});
-async function openBank(p){if(!await p.locator('#btnBank').isVisible())await p.locator('#btnMore').tap();await p.locator('#btnBank').tap();}
+async function openBank(p){await p.locator('#btnBank').tap();}
 function fixture(){const s=f.game(2);for(const id of Object.keys(s.cities))f.own(s,'p0',id);s.players[0].cash=100000;s.cities['上海'].mortgaged=true;s.cities['上海'].mortgageInterest=500;for(const stock of Object.values(s.stocks))stock.holders.p0=3;require('../src/stocks').syncHolders(s);return s;}
 test('many bank assets stay readable with one outer scroll on portrait, short landscape, tablet and PC',{timeout:45000},async()=>{
  const p=h.pages[0],out=path.join(__dirname,'../artifacts/bank-mortgage-layout');fs.mkdirSync(out,{recursive:true});const results=[];
- for(const [width,height]of [[320,700],[844,280],[932,430],[768,1024],[1440,900]]){
+ for(const [width,height]of [[700,320],[844,280],[932,430],[768,1024],[1440,900]]){
   await p.setViewportSize({width,height});await h.fixture(fixture());await openBank(p);
   const metrics=await p.locator('.bank-mortgage-list').evaluate(list=>{const r=list.getBoundingClientRect(),body=document.getElementById('modalBody'),br=body.getBoundingClientRect();return {listHeight:r.height,rows:[...list.children].map(row=>{const box=row.getBoundingClientRect();return {height:box.height,button:row.querySelector('button').getBoundingClientRect().height,inside:[...row.querySelectorAll('strong,span,button')].every(el=>{const b=el.getBoundingClientRect();return b.left>=box.left&&b.right<=box.right&&el.scrollWidth<=el.clientWidth+1;})};}),outerScroll:body.scrollHeight>body.clientHeight,contained:r.left>=br.left&&r.right<=br.right,nestedScroll:list.scrollHeight>list.clientHeight+1,pageOverflow:document.documentElement.scrollWidth>window.innerWidth};});
   assert.ok(metrics.rows.length>10);assert.ok(metrics.listHeight>metrics.rows.length*60);assert.ok(metrics.rows.every(r=>r.height>=68&&r.button>=44&&r.inside));assert.equal(metrics.nestedScroll,false);assert.equal(metrics.pageOverflow,false);assert.equal(metrics.contained,true);assert.equal(metrics.outerScroll,true);

@@ -71,6 +71,7 @@ test('键盘焦点与减少动画 / 真正200%页面缩放完成选择详情及�
   await page.evaluate(()=>new Promise(resolve=>socket.emit('disbandRoom',{},resolve)));
   await page.evaluate(()=>new Promise(resolve=>socket.emit('startGame',{},resolve)));
   await page.waitForSelector('#choiceModal:not(.hidden)');await page.locator('#choiceCards button').first().focus();await page.keyboard.press('Enter');await h.pages[1].locator('#choiceCards button').last().click();await page.waitForSelector('#choiceModal',{state:'hidden'});
+  await page.locator('#btnCloseManagement').waitFor({state:'visible'});await page.click('#btnCloseManagement');
   await measure(page,'actual-default-page-zoom-200');
   await page.locator('#board [data-square-id="1"]').focus();await page.keyboard.press('Enter');await page.waitForSelector('#modal:not(.hidden)');await page.keyboard.press('Tab');assert.equal(await page.evaluate(()=>document.activeElement.closest('#modal')!==null),true);await page.keyboard.press('Shift+Tab');assert.equal(await page.evaluate(()=>document.activeElement.closest('#modal')!==null),true);await page.getByRole('button',{name:'关闭',exact:true}).last().click();
   assert.equal(await page.evaluate(()=>document.activeElement.dataset.squareId),'1');

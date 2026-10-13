@@ -1,0 +1,381 @@
+TAP version 13
+# Subtest: per-turn hint is visible, cancel retains opportunity, successful promotion consumes it
+ok 1 - per-turn hint is visible, cancel retains opportunity, successful promotion consumes it
+  ---
+  duration_ms: 3717.9447
+  ...
+# Subtest: 三端强制决定沿原入口，纸色弹窗与回合摘要一致
+ok 2 - 三端强制决定沿原入口，纸色弹窗与回合摘要一致
+  ---
+  duration_ms: 3858.8482
+  ...
+# Subtest: 有限双人页面流程：买地、转让返回、股票成交、只读查看与结算
+ok 3 - 有限双人页面流程：买地、转让返回、股票成交、只读查看与结算
+  ---
+  duration_ms: 515.1011
+  ...
+# Subtest: 卖股自救后当前缺口按实际现金减少，初始欠款与决定期限保持原值
+ok 4 - 卖股自救后当前缺口按实际现金减少，初始欠款与决定期限保持原值
+  ---
+  duration_ms: 68.8545
+  ...
+# Subtest: 卖股自救可选择部分股数、预览缺口并拒绝越界输入
+ok 5 - 卖股自救可选择部分股数、预览缺口并拒绝越界输入
+  ---
+  duration_ms: 77.2821
+  ...
+# Subtest: 建房资金不足可抵押其他城市后返回建房，待建房城市保留且时限不刷新
+ok 6 - 建房资金不足可抵押其他城市后返回建房，待建房城市保留且时限不刷新
+  ---
+  duration_ms: 173.5932
+  ...
+# Subtest: many bank assets stay readable with one outer scroll on portrait, short landscape, tablet and PC
+ok 7 - many bank assets stay readable with one outer scroll on portrait, short landscape, tablet and PC
+  ---
+  duration_ms: 4019.9514
+  ...
+# Subtest: mortgaging cities keeps ownership and deadline, updates the bank and permits more than two
+ok 8 - mortgaging cities keeps ownership and deadline, updates the bank and permits more than two
+  ---
+  duration_ms: 249.5623
+  ...
+# Subtest: 三端一个真人添加/移除电脑、真实开局和思考提示
+not ok 9 - 三端一个真人添加/移除电脑、真实开局和思考提示
+  ---
+  duration_ms: 31791.3763
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\bot.spec.js:7:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    locator.click: Timeout 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('#btnRoll')[22m
+    [2m    - locator resolved to <button id="btnRoll" class="primary">掷骰子</button>[22m
+    [2m  - attempting click action[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is visible, enabled and stable[22m
+    [2m      - scrolling into view if needed[22m
+    [2m      - done scrolling[22m
+    [2m      - <div class="overlay" id="managementModal">…</div> intercepts pointer events[22m
+    [2m    - retrying click action[22m
+    [2m    - waiting 20ms[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is visible, enabled and stable[22m
+    [2m      - scrolling into view if needed[22m
+    [2m      - done scrolling[22m
+    [2m      - <div class="overlay" id="managementModal">…</div> intercepts pointer events[22m
+    [2m    - retrying click action[22m
+    [2m      - waiting 100ms[22m
+    [2m    58 × waiting for element to be visible, enabled and stable[22m
+    [2m       - element is visible, enabled and stable[22m
+    [2m       - scrolling into view if needed[22m
+    [2m       - done scrolling[22m
+    [2m       - <div class="overlay" id="managementModal">…</div> intercepts pointer events[22m
+    [2m     - retrying click action[22m
+    [2m       - waiting 500ms[22m
+
+  code: 'ERR_TEST_FAILURE'
+  name: 'TimeoutError'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\bot.spec.js:18:31)
+  ...
+# Subtest: build funding sells selected shares, keeps panel and deadline, then manually builds
+ok 10 - build funding sells selected shares, keeps panel and deadline, then manually builds
+  ---
+  duration_ms: 3682.2616
+  ...
+# Subtest: low-height funding preserves selected quantity, card and scroll through a quote update
+ok 11 - low-height funding preserves selected quantity, card and scroll through a quote update
+  ---
+  duration_ms: 299.6779
+  ...
+# Subtest: 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+not ok 12 - 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+  ---
+  duration_ms: 35067.0389
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\cache.spec.js:7:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    page.click: Timeout 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('#btnRules')[22m
+    [2m    - locator resolved to <button id="btnRules" class="ghost">规则速查</button>[22m
+    [2m  - attempting click action[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is visible, enabled and stable[22m
+    [2m      - scrolling into view if needed[22m
+    [2m      - done scrolling[22m
+    [2m      - <div class="overlay" id="managementModal">…</div> intercepts pointer events[22m
+    [2m    - retrying click action[22m
+    [2m    - waiting 20ms[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is visible, enabled and stable[22m
+    [2m      - scrolling into view if needed[22m
+    [2m      - done scrolling[22m
+    [2m      - <div class="overlay" id="managementModal">…</div> intercepts pointer events[22m
+    [2m    - retrying click action[22m
+    [2m      - waiting 100ms[22m
+    [2m    58 × waiting for element to be visible, enabled and stable[22m
+    [2m       - element is visible, enabled and stable[22m
+    [2m       - scrolling into view if needed[22m
+    [2m       - done scrolling[22m
+    [2m       - <div class="overlay" id="managementModal">…</div> intercepts pointer events[22m
+    [2m     - retrying click action[22m
+    [2m       - waiting 500ms[22m
+
+  code: 'ERR_TEST_FAILURE'
+  name: 'TimeoutError'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\cache.spec.js:24:122)
+  ...
+# Subtest: 统一动作封装 / 同步机遇选择与重选 / 自然规则说明 / 资讯当前与预告
+not ok 13 - 统一动作封装 / 同步机遇选择与重选 / 自然规则说明 / 资讯当前与预告
+  ---
+  duration_ms: 32167.2061
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\gameplay.spec.js:9:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    page.click: Timeout 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('#btnRules')[22m
+    [2m    - locator resolved to <button id="btnRules" class="ghost">规则速查</button>[22m
+    [2m  - attempting click action[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is visible, enabled and stable[22m
+    [2m      - scrolling into view if needed[22m
+    [2m      - done scrolling[22m
+    [2m      - <div class="overlay" id="managementModal">…</div> intercepts pointer events[22m
+    [2m    - retrying click action[22m
+    [2m    - waiting 20ms[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is visible, enabled and stable[22m
+    [2m      - scrolling into view if needed[22m
+    [2m      - done scrolling[22m
+    [2m      - <div class="overlay" id="managementModal">…</div> intercepts pointer events[22m
+    [2m    - retrying click action[22m
+    [2m      - waiting 100ms[22m
+    [2m    58 × waiting for element to be visible, enabled and stable[22m
+    [2m       - element is visible, enabled and stable[22m
+    [2m       - scrolling into view if needed[22m
+    [2m       - done scrolling[22m
+    [2m       - <div class="overlay" id="managementModal">…</div> intercepts pointer events[22m
+    [2m     - retrying click action[22m
+    [2m       - waiting 500ms[22m
+
+  code: 'ERR_TEST_FAILURE'
+  name: 'TimeoutError'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\gameplay.spec.js:20:10)
+  ...
+# Subtest: 已选机遇与主动入口 / 城市租金与资讯明细 / 建拆房最终费用 / 服务端资产摘要 / 机票与机场费用边界
+ok 14 - 已选机遇与主动入口 / 城市租金与资讯明细 / 建拆房最终费用 / 服务端资产摘要 / 机票与机场费用边界
+  ---
+  duration_ms: 340.5801
+  ...
+# Subtest: 股票成交回执 / 股票转让回执 / 报价原因与实际历史股息 / 失败订单保留草稿
+ok 15 - 股票成交回执 / 股票转让回执 / 报价原因与实际历史股息 / 失败订单保留草稿
+  ---
+  duration_ms: 484.3504
+  ...
+# Subtest: 结构化收益和旧记录 / 普通流程回归
+ok 16 - 结构化收益和旧记录 / 普通流程回归
+  ---
+  duration_ms: 51.0914
+  ...
+# Subtest: 远航预告→收费不足→抵押自救→换人→自然终局记录与回放
+ok 17 - 远航预告→收费不足→抵押自救→换人→自然终局记录与回放
+  ---
+  duration_ms: 304.8871
+  ...
+# Subtest: automatic management prompt: fixed left skip/right close, retained draft and idempotent skip
+ok 18 - automatic management prompt: fixed left skip/right close, retained draft and idempotent skip
+  ---
+  duration_ms: 4691.1335
+  ...
+# Subtest: 经营两级选择与唯一入口：四端真实请求、无项目和报价变更
+ok 19 - 经营两级选择与唯一入口：四端真实请求、无项目和报价变更
+  ---
+  duration_ms: 3657.8164
+  ...
+# Subtest: 手机横屏右侧信息真实可见且未被棋盘覆盖：human
+not ok 20 - 手机横屏右侧信息真实可见且未被棋盘覆盖：human
+  ---
+  duration_ms: 2544.3757
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\mobile-information.spec.js:9:39'
+  failureType: 'testCodeFailure'
+  error: |-
+    320px ledger不能只存在于DOM而被别的元素覆盖
+
+    false !== true
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\mobile-information.spec.js:37:62)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: 手机横屏右侧信息真实可见且未被棋盘覆盖：bot
+not ok 21 - 手机横屏右侧信息真实可见且未被棋盘覆盖：bot
+  ---
+  duration_ms: 1039.8892
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\mobile-information.spec.js:9:39'
+  failureType: 'testCodeFailure'
+  error: |-
+    320px ledger不能只存在于DOM而被别的元素覆盖
+
+    false !== true
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\mobile-information.spec.js:37:62)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: reference landscape composition stays operable on four screens in both modes
+ok 22 - reference landscape composition stays operable on four screens in both modes
+  ---
+  duration_ms: 9469.7015
+  ...
+# Subtest: portrait landscape portrait preserves stock draft, deadline and real piece positions
+ok 23 - portrait landscape portrait preserves stock draft, deadline and real piece positions
+  ---
+  duration_ms: 151.5913
+  ...
+# Subtest: save a clean two-player reference preview
+ok 24 - save a clean two-player reference preview
+  ---
+  duration_ms: 165.6596
+  ...
+# Subtest: phone landscape gate blocks start, all modals, direct actions and restores stock draft
+ok 25 - phone landscape gate blocks start, all modals, direct actions and restores stock draft
+  ---
+  duration_ms: 5391.1993
+  ...
+# Subtest: phone landscape and tablet allocate usable board, information and action areas
+ok 26 - phone landscape and tablet allocate usable board, information and action areas
+  ---
+  duration_ms: 5608.9308
+  ...
+# Subtest: resize while a route animation is running ends on the real square
+ok 27 - resize while a route animation is running ends on the real square
+  ---
+  duration_ms: 827.9218
+  ...
+# Subtest: normal and quick on three screens redeem from bank away from the property, keep bank and real deadline
+ok 28 - normal and quick on three screens redeem from bank away from the property, keep bank and real deadline
+  ---
+  duration_ms: 3242.181
+  ...
+# Subtest: asset row and city details redeem remotely; lack of cash or an unfinished decision visibly explains why
+ok 29 - asset row and city details redeem remotely; lack of cash or an unfinished decision visibly explains why
+  ---
+  duration_ms: 311.9657
+  ...
+# Subtest: same bank view updates interest and retains scroll, then a phase change replaces it with the required decision
+ok 30 - same bank view updates interest and retains scroll, then a phase change replaces it with the required decision
+  ---
+  duration_ms: 232.3488
+  ...
+# Subtest: normal and quick allow a third mortgage from bank, assets and details on all screens
+ok 31 - normal and quick allow a third mortgage from bank, assets and details on all screens
+  ---
+  duration_ms: 4988.522
+  ...
+# Subtest: third mortgages work in rescue and city, airport and build fundraising on a phone
+ok 32 - third mortgages work in rescue and city, airport and build fundraising on a phone
+  ---
+  duration_ms: 490.45
+  ...
+# Subtest: two modes and three screens show 60 seconds for initial and later opportunities
+ok 33 - two modes and three screens show 60 seconds for initial and later opportunities
+  ---
+  duration_ms: 3670.5922
+  ...
+# normal 844x390: initial choice
+# normal 844x390: later choice
+# normal 768x1024: initial choice
+# normal 768x1024: later choice
+# normal 1440x900: initial choice
+# normal 1440x900: later choice
+# quick 844x390: initial choice
+# quick 844x390: later choice
+# quick 768x1024: initial choice
+# quick 768x1024: later choice
+# quick 1440x900: initial choice
+# quick 1440x900: later choice
+# Subtest: two targets and modes on three screens sell chosen shares then manually buy, repeat cannot sell twice
+ok 34 - two targets and modes on three screens sell chosen shares then manually buy, repeat cannot sell twice
+  ---
+  duration_ms: 4903.7301
+  ...
+# Subtest: no shares gives a clear empty state and cancelling keeps liquidated cash
+ok 35 - no shares gives a clear empty state and cancelling keeps liquidated cash
+  ---
+  duration_ms: 240.0165
+  ...
+# Subtest: self rescue demolition works and selling shows seller waiting until buyer buys or refuses
+ok 36 - self rescue demolition works and selling shows seller waiting until buyer buys or refuses
+  ---
+  duration_ms: 261.4497
+  ...
+# Subtest: normal and quick touch stock lists retain nodes, details, scroll and draft
+ok 37 - normal and quick touch stock lists retain nodes, details, scroll and draft
+  ---
+  duration_ms: 5632.5993
+  ...
+# Subtest: new stock windows start at the first city and same-window updates retain browsing
+ok 38 - new stock windows start at the first city and same-window updates retain browsing
+  ---
+  duration_ms: 1363.9277
+  ...
+# Subtest: stock countdown uses the existing clock on phone, tablet and PC
+ok 39 - stock countdown uses the existing clock on phone, tablet and PC
+  ---
+  duration_ms: 189.9893
+  ...
+# Subtest: PC宽屏布局 / 平板横竖布局 / 手机完整棋盘布局 / 长说明与按钮可达
+ok 40 - PC宽屏布局 / 平板横竖布局 / 手机完整棋盘布局 / 长说明与按钮可达
+  ---
+  duration_ms: 11234.7703
+  ...
+# Subtest: 九类视口股票确认及费用明细可达
+ok 41 - 九类视口股票确认及费用明细可达
+  ---
+  duration_ms: 1443.9292
+  ...
+# Subtest: 键盘焦点与减少动画 / 真正200%页面缩放完成选择详情及交易
+not ok 42 - 键盘焦点与减少动画 / 真正200%页面缩放完成选择详情及交易
+  ---
+  duration_ms: 2215.8109
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\responsive.spec.js:57:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+
+    false !== true
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\responsive.spec.js:75:186)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+1..42
+# tests 42
+# suites 0
+# pass 36
+# fail 6
+# cancelled 0
+# skipped 0
+# todo 0

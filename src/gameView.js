@@ -8,7 +8,7 @@ function snapshot(s,viewerId,clockView){
  const out={};
  if(require('./activeManagement').enabled(s)){out.activeManagementRevision=s.activeManagementRevision;out.promotions=s.promotions.map(a=>({playerId:a.playerId,cityId:a.cityId,reward:a.reward,remainingRewards:a.remainingRewards,expiresAfterCompleteRound:a.expiresAfterCompleteRound}));}
  if(require('./propertySupport').enabled(s))out.propertySupportRevision=s.propertySupportRevision;
- for(const k of ['roomCode','gameId','ruleVersion','revision','status','board','cities','airports','stocks','firstRoundDone','turnIndex','phase','dice','rounds','rank','winner','startedAt'])out[k]=s[k];
+ for(const k of ['roomCode','gameId','ruleVersion','revision','status','board','cities','airports','stocks','firstRoundDone','turnIndex','turnId','phase','dice','rounds','rank','winner','startedAt'])out[k]=s[k];
  out.players=s.players.map(p=>{
   const x={};for(const k of ['id','name','seat','color','cash','position','alive','jailed','jailTurns','frozen','cities','airports','stocks','lapBuys','lapDone','connected','socketId'])x[k]=p[k];
   x.opportunities={selectedIds:p.opportunities.selectedIds.slice()};

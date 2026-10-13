@@ -1,10 +1,10 @@
 'use strict';
 const econ=require('./economy'),stocks=require('./stocks');
-const {REVISION,LEGACY_REVISION,modern}=require('./managementRules');
-function enabled(s){return [REVISION,LEGACY_REVISION].includes(s.activeManagementRevision);}
+const {REVISION,REQUIRED_REVISION,LEGACY_REVISION,modern,optional}=require('./managementRules');
+function enabled(s){return [REVISION,REQUIRED_REVISION,LEGACY_REVISION].includes(s.activeManagementRevision);}
 function quota(p){const r=p.activeManagement,epoch=p.opportunities.lapEpoch;return r.lapEpoch===epoch?r:{...r,lapEpoch:epoch,promotionStartedLap:false,stockBoughtTotal:0,stockBoughtByCity:{}};}
 function writable(p){const q=quota(p);p.activeManagement=q;return q;}
-function eligible(s,p){return enabled(s)&&p?.alive&&s.phase==='waiting_roll'&&!s.pending&&!p.jailed&&!p.frozen&&s.players[s.turnIndex].id===p.id&&p.activeManagement.usedTurnId!==s.turnId;}
+function eligible(s,p){return enabled(s)&&p?.alive&&s.phase==='waiting_roll'&&!s.pending&&!p.jailed&&!p.frozen&&s.players[s.turnIndex].id===p.id&&p.activeManagement.usedTurnId!==s.turnId&&(!optional(s)||p.activeManagement.skippedTurnId!==s.turnId);}
 function quote(s,id,kind,cityId,shares){
  const p=s.players.find(x=>x.id===id),c=s.cities[cityId],st=s.stocks[cityId];
  if(!eligible(s,p))return {ok:false,reason:'仅正常掷骰前可经营，每回合成功一项'};
@@ -53,7 +53,8 @@ function rentCompleted(s,q,settlementId,events){
  if(s.players.find(x=>x.id===q.playerId).cash<0)s.promotionReceipts.push(receipt);else reward(s,receipt,events);
 }
 function resolveReceipts(s,events){if(!enabled(s))return;clean(s);s.promotionReceipts=s.promotionReceipts.filter(r=>{const p=s.players.find(x=>x.id===r.tenantId);if(!p?.alive)return false;if(p.cash<0)return true;reward(s,r,events);return false;});}
-function view(s,id){if(!enabled(s))return null;const p=s.players.find(x=>x.id===id);if(!p)return null;const quotes=[];for(const cid of Object.keys(s.cities)){if(s.cities[cid].ownerId===id)for(const type of ['active_promote','active_build'])quotes.push({type,cityId:cid,...quote(s,id,type,cid)});if(s.cities[cid].ownerId)for(const shares of [1,2])quotes.push({type:'active_stock_buy',cityId:cid,shares,...quote(s,id,'active_stock_buy',cid,shares)});}const required=modern(s)&&quotes.some(q=>q.ok);return {mandatory:modern(s),required,available:eligible(s,p),usedThisTurn:p.activeManagement.usedTurnId===s.turnId,reason:p.activeManagement.usedTurnId===s.turnId?'本回合已完成一项经营':required?'请先完成一项经营再掷骰':eligible(s,p)?'当前所有项目均不可执行，可直接掷骰；详情查看各城市原因':'仅本人正常掷骰前可经营',quota:quota(p),quotes};}
+function view(s,id){if(!enabled(s))return null;const p=s.players.find(x=>x.id===id);if(!p)return null;const quotes=[];for(const cid of Object.keys(s.cities)){if(s.cities[cid].ownerId===id)for(const type of ['active_promote','active_build'])quotes.push({type,cityId:cid,...quote(s,id,type,cid)});if(s.cities[cid].ownerId)for(const shares of [1,2])quotes.push({type:'active_stock_buy',cityId:cid,shares,...quote(s,id,'active_stock_buy',cid,shares)});}const required=modern(s)&&quotes.some(q=>q.ok);return {optional:optional(s),skippedThisTurn:optional(s)&&p.activeManagement.skippedTurnId===s.turnId,mandatory:modern(s)&&!optional(s),required,available:eligible(s,p),usedThisTurn:p.activeManagement.usedTurnId===s.turnId,reason:optional(s)&&p.activeManagement.skippedTurnId===s.turnId?'本回合已放弃经营':p.activeManagement.usedTurnId===s.turnId?'本回合已完成一项经营':required?(optional(s)?'请执行一项经营，或放弃后掷骰':'请先完成一项经营再掷骰'):eligible(s,p)?'当前所有项目均不可执行，可直接掷骰；详情查看各城市原因':'仅本人正常掷骰前可经营',quota:quota(p),quotes};}
 function required(s,id){return modern(s)&&!!view(s,id)?.required;}
 function timeoutAction(s,id){const q=view(s,id)?.quotes.filter(q=>q.ok).sort((a,b)=>a.finalAmount-b.finalAmount||a.type.localeCompare(b.type)||a.cityId.localeCompare(b.cityId)||(a.shares||0)-(b.shares||0))[0];return q?{type:q.type,cityId:q.cityId,shares:q.shares,listingEpoch:q.listingEpoch,quoteVersion:q.quoteVersion}:null;}
-module.exports={LEGACY_REVISION,required,timeoutAction,REVISION,enabled,quote,apply,clean,rentCompleted,resolveReceipts,view};
+function skip(s,p,events,reason='player'){if(!optional(s)||!eligible(s,p))throw new Error('当前不能放弃经营');writable(p).skippedTurnId=s.turnId;events.push({type:'management',kind:'management_skipped',playerId:p.id,reason,text:p.name+' '+(reason==='timeout'?'经营超时，默认放弃':'放弃本回合经营')});}
+module.exports={skip,REQUIRED_REVISION,LEGACY_REVISION,required,timeoutAction,REVISION,enabled,quote,apply,clean,rentCompleted,resolveReceipts,view};

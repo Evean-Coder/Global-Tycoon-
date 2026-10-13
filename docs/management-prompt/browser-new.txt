@@ -1,0 +1,22 @@
+TAP version 13
+# Subtest: automatic management prompt: fixed left skip/right close, retained draft and idempotent skip
+not ok 1 - automatic management prompt: fixed left skip/right close, retained draft and idempotent skip
+  ---
+  duration_ms: 9028.3786
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\management-prompt.spec.js:4:1'
+  failureType: 'testCodeFailure'
+  error: '{"mode":"quick","width":1440,"height":900,"state":{"lapEpoch":0,"usedTurnId":null,"skippedTurnId":null,"promotionStartedLap":false,"stockBoughtTotal":0,"stockBoughtByCity":{}},"ui":{"self":{"optional":true,"skippedThisTurn":false,"mandatory":false,"required":false,"available":false,"usedThisTurn":false,"reason":"仅本人正常掷骰前可经营","quota":{"lapEpoch":0,"usedTurnId":null,"skippedTurnId":null,"promotionStartedLap":false,"stockBoughtTotal":0,"stockBoughtByCity":{}},"quotes":[{"type":"active_promote","cityId":"内罗毕","ok":false,"reason":"仅正常掷骰前可经营，每回合成功一项"},{"type":"active_build","cityId":"内罗毕","ok":false,"reason":"仅正常掷骰前可经营，每回合成功一项"},{"type":"active_stock_buy","cityId":"内罗毕","shares":1,"ok":false,"reason":"仅正常掷骰前可经营，每回合成功一项"},{"type":"active_stock_buy","cityId":"内罗毕","shares":2,"ok":false,"reason":"仅正常掷骰前可经营，每回合成功一项"},{"type":"active_stock_buy","cityId":"上海","shares":1,"ok":false,"reason":"仅正常掷骰前可经营，每回合成功一项"},{"type":"active_stock_buy","cityId":"上海","shares":2,"ok":false,"reason":"仅正常掷骰前可经营，每回合成功一项"}]},"toast":"操作已过期，请根据当前页面重新操作","payload":{"type":"active_skip","gameId":"ade22a75-3264-41bd-a1a7-4633b28aa3f6","actionId":"c8930c11-7d5f-4ccd-806e-b7720fe6765c","decisionId":6,"actorRevision":0}}} page.waitForFunction: Timeout 5000ms exceeded.'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\management-prompt.spec.js:15:395)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0

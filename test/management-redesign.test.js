@@ -1,7 +1,7 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict');
 const {createGameState}=require('../src/state'),active=require('../src/activeManagement'),econ=require('../src/economy'),stocks=require('../src/stocks'),opp=require('../src/opportunities'),logic=require('../src/gameLogic'),{normalizeAction}=require('../src/actionValidation'),{snapshot}=require('../src/gameView'),{own,fakeClock}=require('./helpers/gameplayFixtures'),{createActionClock,decisionDescriptor}=require('../src/actionClock');
-function game(){const s=createGameState('NEW',['甲','乙','丙'],2,{activeManagementRevision:active.REVISION,routeRevision:'opportunity-routes-v1'});s.phase='waiting_roll';s.pending=null;return s;}
+function game(){const s=createGameState('NEW',['甲','乙','丙'],2,{activeManagementRevision:active.REQUIRED_REVISION,routeRevision:'opportunity-routes-v1'});s.phase='waiting_roll';s.pending=null;return s;}
 function select(s,...ids){s.players[0].opportunities.selectedIds=ids;}
 function perform(s,type,cityId='内罗毕',shares){const q=active.quote(s,'p0',type,cityId,shares);assert.ok(q.ok,q.reason);const a={type,cityId,shares,quoteVersion:q.quoteVersion,listingEpoch:q.listingEpoch},n=normalizeAction(s,a);assert.ok(n.ok,n.error);assert.ok(!logic.apply(s,n.action,()=>.5).rejected);return q;}
 test('v2门禁、无项目放行、失败原子性、旧局可跳过',()=>{

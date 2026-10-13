@@ -15,6 +15,7 @@ for(const opponent of ['human','bot'])test('手机横屏右侧信息真实可见
  else{guest=await context.newPage();await guest.goto(url,{waitUntil:'networkidle'});await guest.fill('#nickname','真人对手');await guest.fill('#joinCode',code);await guest.click('#btnJoin');}
  await p.waitForFunction(()=>!document.getElementById('btnStart').disabled);await p.click('#btnStart');await p.waitForSelector('#choiceModal:not(.hidden)');await p.locator('#choiceCards button').first().click();
  if(guest)await guest.locator('#choiceCards button').first().click();await p.bringToFront();await p.waitForSelector('#choiceModal',{state:'hidden'});
+ await p.locator('#btnCloseManagement').waitFor({state:'visible'});await p.click('#btnCloseManagement');
  // Long owner names, houses and mortgage markers must fit even in the top row.
  room.state.players[0].name='十二字符昵称甲乙丙丁戊己';
  for(const cityId of ['内罗毕','上海','东京'])require('../src/stocks').transferCity(room.state,{cityId,newOwnerId:'p0'},[]);

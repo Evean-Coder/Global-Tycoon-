@@ -1,0 +1,14 @@
+TAP version 13
+# Subtest: automatic management prompt: fixed left skip/right close, retained draft and idempotent skip
+ok 1 - automatic management prompt: fixed left skip/right close, retained draft and idempotent skip
+  ---
+  duration_ms: 4675.7414
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

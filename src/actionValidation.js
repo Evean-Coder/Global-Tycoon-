@@ -57,6 +57,7 @@ function phaseAllows(state, type) {
   if (phase === 'route_choose') return routes.enabled(state) && ['route_confirm', 'route_skip', 'route_expire'].includes(type);
   const map = {
     roll_dice: ['waiting_roll'],
+    active_skip: ['waiting_roll'],
     management_timeout: ['waiting_roll'],
     respond_frozen: ['frozen_turn'],
     respond_jail: ['jail_turn'],
@@ -193,7 +194,7 @@ function normalizeAction(state, raw, context = {}) {
   }
   if (type === 'end_phase' || !phaseAllows(state, type)) return fail('当前阶段无法执行该操作');
   if(type==='management_timeout'&&(context.source!=='timeout'||!require('./managementRules').modern(state)))return fail('仅服务端可处理经营超时');
-  if(type==='roll_dice'&&require('./activeManagement').required(state,currentPlayer(state)?.id))return fail('请先完成一项主动经营再掷骰');
+  if(type==='roll_dice'&&require('./activeManagement').required(state,currentPlayer(state)?.id))return fail(require('./managementRules').optional(state)?'请先执行一项经营或放弃经营，再掷骰':'请先完成一项主动经营再掷骰');
   if (state.phase === 'route_choose') {
     try {
       routes.validateChoice(state, raw, context);
@@ -222,6 +223,7 @@ function normalizeAction(state, raw, context = {}) {
     return success({type,cityId:raw.cityId,quoteVersion:raw.quoteVersion},player.id);
   }
   if (type === 'stock_transfer') return validateTransfer(state, player, raw);
+  if(type==='active_skip'){const v=require('./activeManagement').view(state,player.id);if(!v?.optional||!v.available)return fail('当前不能放弃经营');return success({type},player.id);}
   if(['active_promote','active_stock_buy','active_build'].includes(type)||(type==='remote_build'&&require('./activeManagement').enabled(state))){
     const q=require('./activeManagement').quote(state,player.id,type,raw.cityId,raw.shares);
     if(!q.ok||raw.quoteVersion!==q.quoteVersion||(type==='active_stock_buy'&&raw.listingEpoch!==q.listingEpoch))return fail(q.reason||'经营报价已更新，请重新确认');

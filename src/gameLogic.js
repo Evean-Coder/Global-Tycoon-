@@ -897,6 +897,8 @@ function applyCore(state, action, rng, context = {}) {
       if(require('./activeManagement').enabled(state)){require('./activeManagement').apply(state,p,action,events);break;}
       economy.applySettlement(state, economy.quoteBuild(state, {playerId:p.id,cityId:action.cityId,mode:'remote'}), events);
       break;
+    case 'active_skip':
+      require('./activeManagement').skip(state,p,events);break;
     case 'active_promote':
     case 'active_stock_buy':
     case 'active_build':
@@ -904,9 +906,14 @@ function applyCore(state, action, rng, context = {}) {
       break;
     case 'management_timeout': {
       if(context.source!=='timeout'||!require('./managementRules').modern(state)||state.phase!=='waiting_roll')return {state,events,rejected:true};
-      const a=require('./activeManagement').timeoutAction(state,p.id);
-      if(a)require('./activeManagement').apply(state,p,a,events);
-      log(events,p.name+' 经营决定超时，'+(a?'已按最低支出完成经营并掷骰':'无可执行经营，自动掷骰'));
+      const active=require('./activeManagement');
+      if(require('./managementRules').optional(state)){
+        if(active.view(state,p.id)?.available)active.skip(state,p,events,'timeout');
+        log(events,p.name+' 经营决定超时，未处理时默认放弃并自动掷骰');
+      }else{
+        const a=active.timeoutAction(state,p.id);if(a)active.apply(state,p,a,events);
+        log(events,p.name+' 经营决定超时，'+(a?'已按最低支出完成经营并掷骰':'无可执行经营，自动掷骰'));
+      }
       rollAction(state,p,events,rng);break;
     }
     case 'roll_dice':

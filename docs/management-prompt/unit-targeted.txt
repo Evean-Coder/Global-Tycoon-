@@ -1,0 +1,139 @@
+TAP version 13
+# Subtest: 三类经营互斥，远程旧入口同额，失败无修改，旧局隔离
+ok 1 - 三类经营互斥，远程旧入口同额，失败无修改，旧局隔离
+  ---
+  duration_ms: 4.2598
+  ...
+# Subtest: 主动股票手续费与独立圈额度，报价和持股上限校验
+ok 2 - 主动股票手续费与独立圈额度，报价和持股上限校验
+  ---
+  duration_ms: 0.8091
+  ...
+# Subtest: 促销奖励不进入分红池，最多两次且重复结算无奖励
+ok 3 - 促销奖励不进入分红池，最多两次且重复结算无奖励
+  ---
+  duration_ms: 0.4648
+  ...
+# Subtest: 欠租只在偿清后奖励，破产不奖励，抵押和期限结束失效
+ok 4 - 欠租只在偿清后奖励，破产不奖励，抵押和期限结束失效
+  ---
+  duration_ms: 1.158
+  ...
+# Subtest: H1主动建设优惠受10个百分点上限，普通建房保留原报价
+ok 5 - H1主动建设优惠受10个百分点上限，普通建房保留原报价
+  ---
+  duration_ms: 0.9554
+  ...
+# Subtest: 私人额度隔离、确定性动作重放、产权变化与立即封盘
+ok 6 - 私人额度隔离、确定性动作重放、产权变化与立即封盘
+  ---
+  duration_ms: 7.26
+  ...
+# Subtest: 特殊决定和非法订单零修改，满级抵押排除、费用上限与报价变更
+ok 7 - 特殊决定和非法订单零修改，满级抵押排除、费用上限与报价变更
+  ---
+  duration_ms: 2.3807
+  ...
+# Subtest: 促销换圈替换不退款，主动股票圈总额不随出售恢复
+ok 8 - 促销换圈替换不退款，主动股票圈总额不随出售恢复
+  ---
+  duration_ms: 0.8408
+  ...
+# Subtest: 三项各成功一次互斥，掷骰可跳过，资金不足及他人身份零修改
+ok 9 - 三项各成功一次互斥，掷骰可跳过，资金不足及他人身份零修改
+  ---
+  duration_ms: 2.3826
+  ...
+# Subtest: 全部活动失效出口与上市/余股/城主持股边界
+ok 10 - 全部活动失效出口与上市/余股/城主持股边界
+  ---
+  duration_ms: 1.6203
+  ...
+# Subtest: 只读提示保留原许可、缺资料不猜金额
+ok 11 - 只读提示保留原许可、缺资料不猜金额
+  ---
+  duration_ms: 1.1368
+  ...
+# Subtest: v3 explicitly skipping spends no money or lap quota and cannot buy again until next turn
+ok 12 - v3 explicitly skipping spends no money or lap quota and cannot buy again until next turn
+  ---
+  duration_ms: 6.1431
+  ...
+# Subtest: skip is only legal for the current normal decision, and does not add time
+ok 13 - skip is only legal for the current normal decision, and does not add time
+  ---
+  duration_ms: 1.927
+  ...
+# Subtest: v3 trusted timeout skips and rolls without investing, v2 retains its spending rule
+ok 14 - v3 trusted timeout skips and rolls without investing, v2 retains its spending rule
+  ---
+  duration_ms: 1.5073
+  ...
+# Subtest: AI may skip when every investment breaks its cash reserve, and old versions reject skip
+ok 15 - AI may skip when every investment breaks its cash reserve, and old versions reject skip
+  ---
+  duration_ms: 4.8059
+  ...
+# Subtest: v2门禁、无项目放行、失败原子性、旧局可跳过
+ok 16 - v2门禁、无项目放行、失败原子性、旧局可跳过
+  ---
+  duration_ms: 5.8837
+  ...
+# Subtest: v2三类费用、促销不替换、没有圈额度但保留20/4股
+ok 17 - v2三类费用、促销不替换、没有圈额度但保留20/4股
+  ---
+  duration_ms: 1.5839
+  ...
+# Subtest: 促销完整期限、3次上限、欠租清偿幂等和撤销
+ok 18 - 促销完整期限、3次上限、欠租清偿幂等和撤销
+  ---
+  duration_ms: 0.8106
+  ...
+# Subtest: 可信超时选择最低支出后掷骰；重放一致，普通请求不得伪造
+ok 19 - 可信超时选择最低支出后掷骰；重放一致，普通请求不得伪造
+  ---
+  duration_ms: 2.5509
+  ...
+# Subtest: 快速45秒/普通90秒，经营/查看不改变决定期限
+ok 20 - 快速45秒/普通90秒，经营/查看不改变决定期限
+  ---
+  duration_ms: 0.8402
+  ...
+# Subtest: H1 H2 H3：建设优惠30%总上限，前两次与连锁持续生效
+ok 21 - H1 H2 H3：建设优惠30%总上限，前两次与连锁持续生效
+  ---
+  duration_ms: 0.9619
+  ...
+# Subtest: H4 H5 H9 H10：真实股息、分散及航空/轻资产奖励
+ok 22 - H4 H5 H9 H10：真实股息、分散及航空/轻资产奖励
+  ---
+  duration_ms: 0.7169
+  ...
+# Subtest: H6 H11：股东25%再减30%，防御前两次、各自上限
+ok 23 - H6 H11：股东25%再减30%，防御前两次、各自上限
+  ---
+  duration_ms: 0.6312
+  ...
+# Subtest: H7 H8：两次航班优惠、60%合计上限，机场首访和跨圈访问
+ok 24 - H7 H8：两次航班优惠、60%合计上限，机场首访和跨圈访问
+  ---
+  duration_ms: 0.5257
+  ...
+# Subtest: H12新版金额、一次凭据、目录隐私与AI必做fallback
+ok 25 - H12新版金额、一次凭据、目录隐私与AI必做fallback
+  ---
+  duration_ms: 4.8723
+  ...
+# Subtest: 有限真实收益对照：0/1/3次客流，三类经营不混淆回报
+ok 26 - 有限真实收益对照：0/1/3次客流，三类经营不混淆回报
+  ---
+  duration_ms: 5.8496
+  ...
+1..26
+# tests 26
+# suites 0
+# pass 26
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

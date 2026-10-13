@@ -1,7 +1,7 @@
 'use strict';
 
 const econ=require('./economy'),ev=require('./botEvaluation');
-function requiredAction(v){const a=v.self.activeManagement;if(!a?.required)return null;const q=a.quotes.filter(q=>q.ok).sort((a,b)=>a.finalAmount-b.finalAmount||a.type.localeCompare(b.type)||a.cityId.localeCompare(b.cityId)||(a.shares||0)-(b.shares||0))[0];return q?{type:q.type,cityId:q.cityId,shares:q.shares,listingEpoch:q.listingEpoch,quoteVersion:q.quoteVersion}:null;}
+function requiredAction(v){const a=v.self.activeManagement;if(a?.optional&&a.available)return {type:'active_skip'};if(!a?.required)return null;const q=a.quotes.filter(q=>q.ok).sort((a,b)=>a.finalAmount-b.finalAmount||a.type.localeCompare(b.type)||a.cityId.localeCompare(b.cityId)||(a.shares||0)-(b.shares||0))[0];return q?{type:q.type,cityId:q.cityId,shares:q.shares,listingEpoch:q.listingEpoch,quoteVersion:q.quoteVersion}:null;}
 const actionKey=a=>[a.type,a.cityId||a.target||'',a.shares||0,a.orders?.[0]?.cityId||''].join('|');
 function best(ctx,options){return options.filter(c=>ev.affordable(ctx,c.cashCost)).map(c=>ev.evaluate(ctx,c)).filter(c=>c.score>1e-6).sort((a,b)=>b.score-a.score||actionKey(a.action||{}).localeCompare(actionKey(b.action||{})))[0];}
 function cityCandidate(id,cost,action){return {kind:'city',cityId:id,cashCost:cost,action};}
@@ -142,7 +142,7 @@ function choose(v,memory={}) {
   }
 }
 function fallback(v,memory={}) {
-  if(v.phase==='waiting_roll'&&v.self.activeManagement?.required)return requiredAction(v);
+  if(v.phase==='waiting_roll'&&(v.self.activeManagement?.required||v.self.activeManagement?.optional&&v.self.activeManagement?.available))return requiredAction(v);
   if(v.phase==='opportunity_choose'){const c=v.self.choice;return {type:'opportunity_choose',stageId:c.stageId,candidateVersion:c.candidateVersion,opportunityId:c.candidateIds.slice().sort()[0]};}
   if(v.phase==='route_choose'){const c=v.self.routeChoice;return {type:'route_skip',opportunityId:c.opportunityId,candidateVersion:c.candidateVersion};}
   if(v.phase==='self_rescue')return rescue(v,memory,true);

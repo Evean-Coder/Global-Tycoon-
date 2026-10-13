@@ -17,6 +17,7 @@ test('统一动作封装 / 同步机遇选择与重选 / 自然规则说明 / �
  assert.equal(await b.evaluate(()=>document.activeElement.closest('#choiceModal')!==null),true,'旁人状态更新后键盘仍可操作本人候选');
  assert.equal(await a.locator('#btnReroll').isDisabled(),true);assert.equal(await b.evaluate(()=>game.players[0].opportunities.selectedIds.length),0);
  await b.locator('#choiceCards button').last().click();await a.waitForSelector('#choiceModal',{state:'hidden'});assert.equal(await a.locator('#btnRoll').isEnabled(),true);
+ await a.locator('#btnCloseManagement').waitFor({state:'visible'});await a.click('#btnCloseManagement');
  await a.click('#btnRules');const rules=await a.textContent('#rulesBody');assert.ok(rules.includes('派息后自然扣除'));assert.equal(/海克斯|世界局势|世界事件|强化池|扩展模式|经典模式/.test(rules),false);await a.click('#btnRulesClose');
 });
 test('已选机遇与主动入口 / 城市租金与资讯明细 / 建拆房最终费用 / 服务端资产摘要 / 机票与机场费用边界',{timeout:60000},async()=>{

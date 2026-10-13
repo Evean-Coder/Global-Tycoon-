@@ -59,6 +59,8 @@ test('端到端：创建→加入→开局→掷骰→解散→结算→回放',
   await p2.locator('#choiceCards button').last().click();
   await p2.waitForFunction(id=>latestState.players[1].opportunities.selectedIds.includes(id),secondChoice,{timeout:5000});
   await p1.waitForSelector('#choiceModal', {state:'hidden'});
+  await p1.locator('#btnCloseManagement').waitFor({state:'visible'});
+  await p1.click('#btnCloseManagement');
   assert.ok((await p1.textContent('#log')).includes('选择经营机遇'),'选择应通过用户操作提交并公开');
   await p1.waitForTimeout(400);
   const stateFrames = socketFrames.filter((frame) => frame.includes('gameState'));

@@ -2,7 +2,7 @@
 
 // These estimates use public rules and the seat's snapshot, never the hidden dice bag.
 const econ = require('./economy');
-const {modern}=require('./managementRules');
+const {modern,balanced}=require('./managementRules');
 const {AIRPORTS} = require('./board');
 const CONFIG = Object.freeze({steps:8, discount:.92, baseReserve:6000, rentBuffer:.6, stockRatio:.25, cityStockRatio:.1});
 const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
@@ -145,6 +145,17 @@ function promotionValue(ctx,id,reward,remainingRewards=2,limit=2) {
   return Math.min(remainingRewards,sum(Array.from({length:Math.ceil(Math.min(limit,ctx.horizon))},(_,t)=>expectedHits(ctx,id,t)*weight(ctx,t,Math.min(limit,ctx.horizon)))))*reward;
 }
 function aviationBonus(view,id){return Math.min(5000,Object.entries(AIRPORTS).filter(([aid])=>view.airports[aid].ownerId===id).reduce((n,[,a])=>n+1000+(view.cities[a.adjacentCity].ownerId===id&&!view.cities[a.adjacentCity].mortgaged?1500:0),0));}
+function activeDividendValue(ctx,id,shares,remaining){
+ const {view,self}=ctx,c=view.cities[id],st=view.stocks[id];if(c.mortgaged||!view.players.find(p=>p.id===c.ownerId)?.alive)return 0;
+ let survival=1,pool=st.dividendFund||0,value=0;
+ for(let t=0;t<Math.ceil(ctx.horizon);t++){
+  pool+=(rents(ctx,id,c.houseLevel)[t]||0)*.2;
+  const chance=ctx.forecast[c.ownerId]?.[t]?.go||0;
+  value+=survival*chance*pool/20*shares*.3*weight(ctx,t);pool*=1-chance;
+  survival*=1-(ctx.forecast[self.id]?.[t]?.go||0);
+ }
+ return Math.min(Math.max(0,remaining),value);
+}
 function evaluate(ctx,candidate) {
   const {view,self}=ctx,c=view.cities[candidate.cityId],cost=candidate.cashCost||0;
   let assetDelta=0,expectedIncome=0,riskPenalty=0;
@@ -166,7 +177,15 @@ function evaluate(ctx,candidate) {
       if(old)expectedIncome-=promotionValue(ctx,old.cityId,old.reward,old.remainingRewards,Math.max(0,old.expiresAfterCompleteRound-view.completeRounds+1));
       break;
     }
-    case 'stock':({assetDelta,expectedIncome,riskPenalty}=stockBenefit(ctx,c.id,candidate.shares,candidate.quote?.fee||0));break;
+    case 'order': {
+      assetDelta=-cost;
+      for(let step=1;step<=2;step++)if(ctx.horizon>=step)expectedIncome+=candidate.quote.paymentEach*CONFIG.discount**step;
+      break;
+    }
+    case 'stock':
+      ({assetDelta,expectedIncome,riskPenalty}=stockBenefit(ctx,c.id,candidate.shares,candidate.quote?.fee||0));
+      if(candidate.quote?.dividendBonusRate===30)expectedIncome+=activeDividendValue(ctx,c.id,candidate.shares,candidate.quote.dividendBonusRemaining);
+      break;
     case 'airport': {
       assetDelta=15000-cost;
       const sq=view.board.find(s=>s.airportId===candidate.target),count=self.airports.length+1;
@@ -224,7 +243,7 @@ function opportunityValue(ctx,id) {
   if(modern(view))return opportunityValueV2(ctx,id,own,buildable,remaining,g,count);
   switch(id) {
     case 'H1':case 'H2':case 'H3': {
-      const eligible=buildable.filter(c=>id!=='H3'||own.filter(x=>x.group===c.group).length>=2);
+      const eligible=buildable.filter(c=>(id!=='H3'||own.filter(x=>x.group===c.group).length>=2)&&(id!=='H1'||!balanced(view)||(c.houseLevel>0&&!view.self.activeManagement?.remoteBuildLapsRemaining&&view.self.activeManagement?.lastRemoteBuildCityId!==c.id)));
       const cuts=eligible.map(c=>id==='H1'&&view.activeManagementRevision?econ.buildFee(c)*.1:Math.min(id==='H1'?Infinity:1500,econ.buildFee(c)*.1));
       return Math.max(0,...cuts)*Math.min(eligible.length,remaining(1,id));
     }
@@ -292,7 +311,9 @@ function liquidation(ctx,deficit,includeStocks=true) {
       const shares=Math.min(held,Math.ceil(deficit/st.price)),benefit=stockBenefit(ctx,id,shares);
       const after={...view,stocks:{...view.stocks,[id]:{...st,holders:{...st.holders,[self.id]:held-shares}}}};
       const bonusLoss=changedBonusLoss(ctx,after,['H5','H6']);
-      options.push({action:{type:'rescue_sell_stock',cityId:id,shares,quoteVersion:st.quoteVersion},amount:shares*st.price,loss:benefit.assetDelta+benefit.expectedIncome+bonusLoss});
+      const reward=view.self.activeManagement?.investment,marked=reward?.sharesByCity[id];
+      const activeLoss=marked?.listingEpoch===st.listingEpoch?activeDividendValue(ctx,id,Math.min(marked.shares,shares),Math.max(0,1500-reward.bonusPaid)):0;
+      options.push({action:{type:'rescue_sell_stock',cityId:id,shares,quoteVersion:st.quoteVersion},amount:shares*st.price,loss:benefit.assetDelta+benefit.expectedIncome+bonusLoss+activeLoss});
     }
   }
   const own=sorted(Object.values(view.cities).filter(c=>c.ownerId===self.id));
@@ -301,7 +322,8 @@ function liquidation(ctx,deficit,includeStocks=true) {
       const amount=econ.mortgageValue(c),after={...view,cities:{...view.cities,[c.id]:{...c,mortgaged:true}}};
       const next={...ctx,view:after,rentCache:new Map()},held=view.stocks[c.id].holders[self.id]||0;
       const stockLoss=held?stockBenefit(ctx,c.id,held).assetDelta-stockBenefit(next,c.id,held).assetDelta:0;
-      options.push({action:{type:'rescue_mortgage',cityId:c.id},amount,loss:cityIncome(ctx,c.id)+amount*.05*ctx.horizon+stockLoss+changedBonusLoss(ctx,after,['H3','H4','H5','H9'])});
+      const order=view.self.activeManagement?.order,orderLoss=order?.targetKind==='city'&&order.targetId===c.id?order.paymentEach*order.paymentsRemaining:0;
+      options.push({action:{type:'rescue_mortgage',cityId:c.id},amount,loss:cityIncome(ctx,c.id)+amount*.05*ctx.horizon+stockLoss+changedBonusLoss(ctx,after,['H3','H4','H5','H9'])+orderLoss});
     }
     const q=view.self.quotes.demolish[c.id];
     if(q?.ok&&q.finalAmount<0){

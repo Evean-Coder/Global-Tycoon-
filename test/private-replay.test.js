@@ -2,7 +2,7 @@
 const test=require('node:test'),assert=require('node:assert/strict');
 const {createGameState}=require('../src/state'),journal=require('../src/privateReplay'),support=require('../src/propertySupport'),active=require('../src/activeManagement'),logic=require('../src/gameLogic');
 test('私人计数、产权与经营按有序状态变更重建，公开记录不泄漏',{timeout:5000},()=>{
- const state=createGameState('REPLAY',['甲','乙'],2,{propertySupportRevision:support.REVISION,activeManagementRevision:active.REVISION});state.phase='waiting_roll';state.pending=null;state.firstRoundDone=true;
+ const state=createGameState('REPLAY',['甲','乙'],2,{propertySupportRevision:support.REVISION,activeManagementRevision:'active-management-v3'});state.phase='waiting_roll';state.pending=null;state.firstRoundDone=true;
  const room={state,events:[],code:'REPLAY'};journal.capture(room);
  for(let i=0;i<6;i++){state.turnId++;support.beginRoll(state,state.players[0]);support.finish(state,state.players[0]);journal.capture(room,{source:'turn_completed',turnId:state.turnId});}
  const cid=support.candidates(state)[0],q=support.quote(state,'p0',cid),action={type:'support_buy',cityIds:[cid],quoteVersion:q.quoteVersion};logic.apply(state,action,()=>.5);journal.capture(room,{action,source:'player'});

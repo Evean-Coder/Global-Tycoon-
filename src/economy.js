@@ -1,6 +1,6 @@
 'use strict';
 const opp=require('./opportunities');
-const {modern}=require('./managementRules');
+const {modern,balanced}=require('./managementRules');
 const {AIRPORTS}=require('./board');
 function safe(value){if(!Number.isSafeInteger(value))throw new Error('金额超出有效范围');return value;}
 function rounded(value,numerator,denominator=100){
@@ -23,12 +23,19 @@ function plan(s,p,kind,id,base,amount,effects=[],quotaChanges=[]){
 }
 function discount(id,name,amount,requested){return {id,name,amount,requested};}
 function quoteBuild(s,{playerId,cityId,mode='normal'}){
+ if(balanced(s)&&mode==='remote')mode='active';
  const p=getPlayer(s,playerId),c=s.cities[cityId];
  if(!p||!p.alive||!c||c.ownerId!==p.id||c.mortgaged||c.houseLevel>=4)return denied('城市须为自有、非抵押且未满四级');
  if(mode==='remote'){
   if(s.phase!=='waiting_roll'||s.players[s.turnIndex].id!==p.id||!opp.has(p,'H1')||opp.used(p,'H1'))return denied('远程施工仅本人等待掷骰且本圈仍有次数时可用');
  }else if(mode!=='active'&&(p.position!==s.board.find(q=>q.cityId===cityId)?.id||c.buildReady===false))return denied('需再次到达自己的城市后建房');
- const base=buildFee(c),limit=rounded(base,mode==='active'&&!modern(s)?10:30),effects=[],quotaChanges=[];
+ if(balanced(s)&&mode==='active'){
+  const last=p.activeManagement.lastRemoteBuildLap,remaining=last===null?0:Math.max(0,last+3-p.opportunities.lapEpoch);
+  if(remaining>0)return {...denied('远程建设还需经过起点 '+remaining+' 次'),remoteBuildLapsRemaining:remaining};
+  if(p.activeManagement.lastRemoteBuildCityId===cityId)return denied('不能连续两次远程建设同一城市，请先成功建设另一城市；普通落点建设不受影响');
+ }
+ const base=buildFee(c),targetLevel=c.houseLevel+1,multiplier=balanced(s)&&mode==='active'?[150,200,300,350][c.houseLevel]:mode==='active'?(modern(s)?115:145):100;
+ const nominal=rounded(base,multiplier),floor=rounded(base,150),limit=balanced(s)&&mode==='active'?Math.min(rounded(base,30),nominal-floor):rounded(base,mode==='active'&&!modern(s)?10:30),effects=[],quotaChanges=[];
  let reduction=0;
  function offer(id,name,requested){
   const amount=Math.max(0,Math.min(requested,limit-reduction));effects.push(discount(id,name,amount,requested));reduction+=amount;
@@ -40,7 +47,8 @@ function quoteBuild(s,{playerId,cityId,mode='normal'}){
  const chain=Object.values(s.cities).filter(x=>x.ownerId===p.id&&!x.mortgaged&&x.group===c.group).length>=2;
  if(opp.has(p,'H3')&&(modern(s)||!opp.used(p,'H3'))&&chain)offer('H3','连锁经营',Math.min(modern(s)?2000:1500,rounded(base,10)));
  if(mode==='remote')quotaChanges.push({id:'H1',amount:1});
- const q=plan(s,p,'build',cityId,base,(mode==='active'?rounded(base,modern(s)?115:145):base)-reduction,effects,quotaChanges);
+ const q=plan(s,p,'build',cityId,base,nominal-reduction,effects,quotaChanges);
+ if(balanced(s)&&mode==='active')Object.assign(q,{targetLevel,nominalMultiplier:multiplier,nominalAmount:nominal,minimumAmount:floor,remoteBuildLapsRemaining:0});
  if(p.cash<q.finalAmount)return {...q,ok:false,reason:'现金不足以支付实际建房费用'};
  q.buildCostChanges={cityId,add:q.finalAmount};return q;
 }

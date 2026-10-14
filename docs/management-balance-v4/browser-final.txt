@@ -1,0 +1,50 @@
+TAP version 13
+# [uncaughtException] TypeError: Cannot read properties of undefined (reading 'status')
+#     at Timeout.heartbeat [as _onTimeout] (C:\\Users\\Yifan\\Desktop\\game\\server.js:219:88)
+#     at listOnTimeout (node:internal/timers:581:17)
+#     at process.processTimers (node:internal/timers:519:7)
+# Subtest: v4 three routes and construction cost/cooldown are usable on all screens and both modes
+ok 1 - v4 three routes and construction cost/cooldown are usable on all screens and both modes
+  ---
+  duration_ms: 21237.5032
+  ...
+# Subtest: order targets include airports, callbacks deduplicate and two turn payments preserve cancellation rules
+ok 2 - order targets include airports, callbacks deduplicate and two turn payments preserve cancellation rules
+  ---
+  duration_ms: 221.8078
+  ...
+# Subtest: active investment selects four shares with no fee; reconnect and stale quote require explicit confirmation
+ok 3 - active investment selects four shares with no fee; reconnect and stale quote require explicit confirmation
+  ---
+  duration_ms: 278.0538
+  ...
+# Error: Test hook "before" at e2e\\management-balance-v4.spec.js:7:6 generated asynchronous activity after the test ended. This activity created the error "TypeError: Cannot read properties of undefined (reading 'status')" and would have caused the test to fail, but instead triggered an uncaughtException event.
+# Subtest: C:\\Users\\Yifan\\Desktop\\game\\e2e\\management-balance-v4.spec.js
+not ok 1 - C:\\Users\\Yifan\\Desktop\\game\\e2e\\management-balance-v4.spec.js
+  ---
+  duration_ms: 22784.2478
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\management-balance-v4.spec.js:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# Subtest: automatic management prompt: fixed left skip/right close, retained draft and idempotent skip
+ok 5 - automatic management prompt: fixed left skip/right close, retained draft and idempotent skip
+  ---
+  duration_ms: 4884.7182
+  ...
+# Subtest: 经营两级选择与唯一入口：四端真实请求、无项目和报价变更
+ok 6 - 经营两级选择与唯一入口：四端真实请求、无项目和报价变更
+  ---
+  duration_ms: 3670.9518
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 5
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0

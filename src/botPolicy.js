@@ -72,14 +72,15 @@ function choose(v,memory={}) {
       return best?{type:'route_confirm',...envelope,newId:best.newId,replaceId:best.replaceId}:{type:'route_skip',...envelope};
     }
     case 'waiting_roll': {
+      if(v.self.activeManagement?.balanced&&v.gameMode==='quick'&&ctx.horizon<1)return requiredAction(v)||{type:'roll_dice'};
       if((memory.steps||0)>=6)return requiredAction(v)||{type:'roll_dice'};
       const support=best(ctx,(v.self.propertySupport?.candidates||[]).filter(c=>c.ok&&p.lapBuys<4).map(c=>cityCandidate(c.cityId,c.finalAmount,{type:'support_buy',cityId:c.cityId,quoteVersion:c.quoteVersion})));
       if(support)return v.self.propertySupport?.budgetPurchase?{type:'support_buy',cityIds:[support.action.cityId],quoteVersion:v.self.propertySupport.selectionVersion}:support.action;
       const active=v.self.activeManagement,options=[];
       for(const c of active?.available?active.quotes:[])if(c.ok){
-        const action={type:c.type,cityId:c.cityId,quoteVersion:c.quoteVersion,...(c.shares?{shares:c.shares,listingEpoch:c.listingEpoch}:{})};
+        const action={type:c.type,cityId:c.cityId,quoteVersion:c.quoteVersion,...(c.targetKind?{targetKind:c.targetKind}:{}),...(c.shares?{shares:c.shares,listingEpoch:c.listingEpoch}:{})};
         if(c.type==='active_stock_buy'){if(ev.stockAllowed(ctx,c.cityId,c.shares))options.push(stockCandidate(c.cityId,c.shares,c,action));}
-        else options.push({kind:c.type==='active_build'?'build':'promote',cityId:c.cityId,cashCost:c.finalAmount,quote:c,action});
+        else options.push({kind:c.type==='active_build'?'build':c.type==='active_order'?'order':'promote',cityId:c.cityId,cashCost:c.finalAmount,quote:c,action});
       }
       return best(ctx,options)?.action||requiredAction(v)||{type:'roll_dice'};
     }

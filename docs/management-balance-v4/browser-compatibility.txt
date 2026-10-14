@@ -1,0 +1,19 @@
+TAP version 13
+# Subtest: automatic management prompt: fixed left skip/right close, retained draft and idempotent skip
+ok 1 - automatic management prompt: fixed left skip/right close, retained draft and idempotent skip
+  ---
+  duration_ms: 5127.9797
+  ...
+# Subtest: 经营两级选择与唯一入口：四端真实请求、无项目和报价变更
+ok 2 - 经营两级选择与唯一入口：四端真实请求、无项目和报价变更
+  ---
+  duration_ms: 3804.2449
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

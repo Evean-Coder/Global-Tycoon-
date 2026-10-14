@@ -14,6 +14,7 @@ function refreshWindowCityQuote(s,id){
  w.prices[id]=st.price;w.quoteVersions[id]=st.quoteVersion;w.listingEpochs[id]=st.listingEpoch;
 }
 function initializeListing(s,id){
+ require('./activeInvestment').clearListing(s,id);
  const st=s.stocks[id];
  st.operatingPrice=econ.rounded(s.cities[id].price,20);st.dividendFund=0;st.roundRent=0;st.rentHistory=[];st.lastDividendPerShare=0;st.clearing=false;st.listingEpoch=(st.listingEpoch||0)+1;st.clearedEpoch=null;
  st.holders={};refreshPrice(s,id,'开始经营');syncHolders(s);
@@ -45,6 +46,7 @@ function settleCityDividend(s,id,reason,settlementId,events){
    const bonus=Math.min(Math.max(0,(modern(s)?3000:1000)-opp.used(p,'H4')),econ.rounded(amount,modern(s)?50:20));
    if(bonus){opp.consume(p,'H4',bonus);econ.reward(s,p,bonus,'H4',events,'稳健股息');}
   }
+  require('./activeInvestment').reward(s,p,id,per,reason,settlementId+':'+p.id,events);
  }
  const remainder=fund-distributed,owner=s.players.find(p=>p.id===c.ownerId&&p.alive);
  if(owner&&reason!=='bank_clear')owner.cash=econ.safe(owner.cash+remainder);
@@ -68,7 +70,7 @@ function applyBuy(s,playerId,cityId,shares,amount,events){
  const st=validateBuy(s,playerId,cityId,shares),p=s.players.find(x=>x.id===playerId);
  if(!Number.isSafeInteger(amount)||amount<0||p.cash<amount)throw new Error('现金不足');
  econ.safe(p.cash-amount);p.cash-=amount;st.holders[playerId]=(st.holders[playerId]||0)+shares;syncHolders(s);
- events.push({type:'stock',kind:'stock_trade',active:true,playerId,cityId,shares,side:'buy',unitPrice:st.price,amount,fee:amount-shares*st.price,text:p.name+' 主动买入 '+cityId+' '+shares+'股，含手续费 '+amount});
+ const fee=amount-shares*st.price;events.push({type:'stock',kind:'stock_trade',active:true,playerId,cityId,shares,side:'buy',unitPrice:st.price,amount,fee,text:p.name+' 主动买入 '+cityId+' '+shares+'股，总额 '+amount+'，手续费 '+fee});
 }
 function planStockTrade(s,playerId,windowId,orders){
  const w=s.stockWindow,p=s.players.find(p=>p.id===playerId);
@@ -92,7 +94,7 @@ function planStockTrade(s,playerId,windowId,orders){
 }
 function applyStockTrade(s,q,events){
  const p=s.players.find(p=>p.id===q.playerId);p.cash=econ.safe(p.cash+q.proceeds-q.cost);
- for(const o of q.orders){const st=s.stocks[o.cityId];st.holders[p.id]=(st.holders[p.id]||0)+(o.side==='buy'?o.shares:-o.shares);
+ for(const o of q.orders){const st=s.stocks[o.cityId];if(o.side==='sell')require('./activeInvestment').reduce(s,p.id,o.cityId,o.shares);st.holders[p.id]=(st.holders[p.id]||0)+(o.side==='buy'?o.shares:-o.shares);
  events.push({type:'stock',kind:'stock_trade',playerId:p.id,cityId:o.cityId,shares:o.shares,side:o.side,unitPrice:s.stockWindow.prices[o.cityId],amount:o.shares*s.stockWindow.prices[o.cityId],text:p.name+' '+(o.side==='buy'?'买入':'卖出')+o.cityId+' '+o.shares+'股，总额 '+o.shares*s.stockWindow.prices[o.cityId]});}
  s.stockWindow.boughtByCity=q.boughtByCity;s.stockWindow.boughtTotal=q.boughtTotal;syncHolders(s);
 }
@@ -111,13 +113,13 @@ function planTransfer(s, fromId, targetId, items, cash) {
 function applyTransfer(s,q,events){
  const from=s.players.find(p=>p.id===q.fromId),target=s.players.find(p=>p.id===q.targetId);
  // 所有股份与现金均在计划阶段校验后统一提交。
- for(const i of q.items){const st=s.stocks[i.cityId];st.holders[from.id]--;st.holders[target.id]=(st.holders[target.id]||0)+1;}
+ for(const i of q.items){const st=s.stocks[i.cityId];require('./activeInvestment').reduce(s,from.id,i.cityId,1);st.holders[from.id]--;st.holders[target.id]=(st.holders[target.id]||0)+1;}
  from.cash+=q.cash;target.cash-=q.cash;from.transferDone=true;syncHolders(s);
  events.push({type:'stock',kind:'stock_transfer',playerId:from.id,targetId:target.id,items:q.items,cash:q.cash,text:from.name+' 向 '+target.name+' 转让股份，协商金额 '+q.cash});
 }
 function enforceOwnerStockCap(s,p,id,events){
  const st=s.stocks[id],held=st.holders[p.id]||0;if(held<=4)return;
- const extra=held-4;st.holders[p.id]=4;p.cash=econ.safe(p.cash+extra*st.price);syncHolders(s);
+ const extra=held-4;require('./activeInvestment').reduce(s,p.id,id,extra);st.holders[p.id]=4;p.cash=econ.safe(p.cash+extra*st.price);syncHolders(s);
  events.push({type:'stock',kind:'stock_trade',playerId:p.id,cityId:id,shares:extra,unitPrice:st.price,amount:extra*st.price,text:p.name+' 超过本城四股，按派息后报价卖出 '+extra+' 股'});
 }
 function transferCity(s,{cityId,newOwnerId},events){
@@ -143,6 +145,7 @@ function clearCityToBank(s,{cityId},events){
   events.push({type:'stock',kind:'stock_liquidation',cityId,playerId:p.id,amount,shares,unitPrice:unit,text:p.name+' '+cityId+' 股票清算 '+amount});
  }
  st.holders={};st.dividendFund=0;st.rentHistory=[];st.roundRent=0;st.clearing=false;st.clearedEpoch=st.listingEpoch;
+ require('./activeInvestment').clearListing(s,cityId);
  const previous=s.players.find(p=>p.id===c.ownerId);if(previous)previous.cities=previous.cities.filter(id=>id!==cityId);
  Object.assign(c,{ownerId:null,houseLevel:0,buildCosts:[],mortgaged:false,mortgageInterest:0});
  require('./activeManagement').clean(s);
@@ -151,6 +154,7 @@ function clearCityToBank(s,{cityId},events){
 function settleFinalEconomy(s,endReason,events){
  if(s.finalSettlementDone)return;
  if(require('./activeManagement').enabled(s)){s.promotions=[];s.promotionReceipts=[];}
+ if(require('./managementRules').balanced(s)){for(const order of s.operatingOrders)if(order.paymentsRemaining>0){order.paymentsRemaining=0;order.cancelledReason='对局封盘';}for(const p of s.players)require('./activeInvestment').expireAtGo(s,p);}
  s.world.status='stopped';s.opportunityStage=null;s.stockWindow=null;
  for(const id of Object.keys(s.stocks))settleCityDividend(s,id,'final',s.gameId+':final:'+id,events);
  s.finalSettlementDone=true;s.endReason=endReason;

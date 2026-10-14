@@ -1,0 +1,162 @@
+TAP version 13
+# Subtest: 电脑初始机遇只读本人候选，不读取别人候选或未来随机数
+ok 1 - 电脑初始机遇只读本人候选，不读取别人候选或未来随机数
+  ---
+  duration_ms: 24.2899
+  ...
+# Subtest: 正常掷骰、落点买地、建设与机场有真实经营行为
+ok 2 - 正常掷骰、落点买地、建设与机场有真实经营行为
+  ---
+  duration_ms: 8.3853
+  ...
+# Subtest: 主动经营与扶持复用真实报价，股票使用上市版本
+ok 3 - 主动经营与扶持复用真实报价，股票使用上市版本
+  ---
+  duration_ms: 6.2399
+  ...
+# Subtest: 监狱、冻结、飞行、转让与拍卖有合法退出或出价
+ok 4 - 监狱、冻结、飞行、转让与拍卖有合法退出或出价
+  ---
+  duration_ms: 5.2098
+  ...
+# Subtest: 欠款先卖持股/抵押/拆屋，资金补足后继续，失败有保守默认
+ok 5 - 欠款先卖持股/抵押/拆屋，资金补足后继续，失败有保守默认
+  ---
+  duration_ms: 2.7357
+  ...
+# Subtest: 城主持有四股时不继续买本城，现金储备与窗口上限生效
+ok 6 - 城主持有四股时不继续买本城，现金储备与窗口上限生效
+  ---
+  duration_ms: 1.7982
+  ...
+# Subtest: new v4 and historical v1/v2/v3 remain separate, failed quotes are readonly
+ok 7 - new v4 and historical v1/v2/v3 remain separate, failed quotes are readonly
+  ---
+  duration_ms: 5.8082
+  ...
+# Subtest: all cities and target levels use exact tiers, capped discounts, 150 percent floor and real quota consumption
+ok 8 - all cities and target levels use exact tiers, capped discounts, 150 percent floor and real quota consumption
+  ---
+  duration_ms: 74.0006
+  ...
+# Subtest: remote build shares three-lap cooldown and persistent alternating target, normal construction does not reset it
+ok 9 - remote build shares three-lap cooldown and persistent alternating target, normal construction does not reset it
+  ---
+  duration_ms: 0.7273
+  ...
+# Subtest: stale requests, low cash, cooldown and old promotion alias cannot spend or change remote history
+ok 10 - stale requests, low cash, cooldown and old promotion alias cannot spend or change remote history
+  ---
+  duration_ms: 0.5744
+  ...
+# Subtest: orders pay exactly twice at later own turn starts including frozen and one-turn jail, remain once per personal lap
+ok 11 - orders pay exactly twice at later own turn starts including frozen and one-turn jail, remain once per personal lap
+  ---
+  duration_ms: 1.3234
+  ...
+# Subtest: orders cancel unpaid income on mortgage, transfer, airport loss and seal; no unpaid amount enters assets
+ok 12 - orders cancel unpaid income on mortgage, transfer, airport loss and seal; no unpaid amount enters assets
+  ---
+  duration_ms: 1.8414
+  ...
+# Subtest: active purchase 1-4 is fee-free with no new lap cap, owner 4 and market 20 still apply
+ok 13 - active purchase 1-4 is fee-free with no new lap cap, owner 4 and market 20 still apply
+  ---
+  duration_ms: 0.6892
+  ...
+# Subtest: investment reward is based on marked live shares and basic go dividend, stacks without compounding and deduplicates
+ok 14 - investment reward is based on marked live shares and basic go dividend, stacks without compounding and deduplicates
+  ---
+  duration_ms: 3.2523
+  ...
+# Subtest: own actual go pays the old purchase pool before expiration, later dividends cannot revive the reward
+not ok 15 - own actual go pays the old purchase pool before expiration, later dividends cannot revive the reward
+  ---
+  duration_ms: 4.1319
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\test\\management-balance-v4.test.js:75:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    请先执行一项经营或放弃经营，再掷骰
+
+    false !== true
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    execute (C:\Users\Yifan\Desktop\game\test\management-balance-v4.test.js:6:64)
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\test\management-balance-v4.test.js:76:224)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+    Test.run (node:internal/test_runner/test:796:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:526:18)
+    Test.postRun (node:internal/test_runner/test:889:19)
+    Test.run (node:internal/test_runner/test:835:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: sale, transfer, forced cap, bank clearing and new listing remove reward shares first, transferred shares do not inherit
+ok 16 - sale, transfer, forced cap, bank clearing and new listing remove reward shares first, transferred shares do not inherit
+  ---
+  duration_ms: 1.2078
+  ...
+# Subtest: v4 private state, chosen bot actions, late quick investments and journal replay remain consistent
+not ok 17 - v4 private state, chosen bot actions, late quick investments and journal replay remain consistent
+  ---
+  duration_ms: 14.2217
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\test\\management-balance-v4.test.js:88:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+
+    + 'active_stock_buy'
+    - 'active_skip'
+               ^
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'active_skip'
+  actual: 'active_stock_buy'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\test\management-balance-v4.test.js:92:172)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+    Test.run (node:internal/test_runner/test:796:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:526:18)
+    Test.postRun (node:internal/test_runner/test:889:19)
+    Test.run (node:internal/test_runner/test:835:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: v3 explicitly skipping spends no money or lap quota and cannot buy again until next turn
+ok 18 - v3 explicitly skipping spends no money or lap quota and cannot buy again until next turn
+  ---
+  duration_ms: 7.7872
+  ...
+# Subtest: skip is only legal for the current normal decision, and does not add time
+ok 19 - skip is only legal for the current normal decision, and does not add time
+  ---
+  duration_ms: 1.4551
+  ...
+# Subtest: v3 trusted timeout skips and rolls without investing, v2 retains its spending rule
+ok 20 - v3 trusted timeout skips and rolls without investing, v2 retains its spending rule
+  ---
+  duration_ms: 1.8937
+  ...
+# Subtest: AI may skip when every investment breaks its cash reserve, and old versions reject skip
+ok 21 - AI may skip when every investment breaks its cash reserve, and old versions reject skip
+  ---
+  duration_ms: 4.4563
+  ...
+# Subtest: 私人计数、产权与经营按有序状态变更重建，公开记录不泄漏
+ok 22 - 私人计数、产权与经营按有序状态变更重建，公开记录不泄漏
+  ---
+  duration_ms: 27.023
+  ...
+1..22
+# tests 22
+# suites 0
+# pass 20
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0

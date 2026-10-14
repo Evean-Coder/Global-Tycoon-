@@ -274,6 +274,7 @@ function prepareTurn(state, events, rng) {
     return;
   }
   let p = currentPlayer(state);
+  require('./operatingOrders').settleAtTurnStart(state,p,events);
   // 11/32 号监狱：关押 1 回合——该玩家的下一回合直接跳过（不做任何行动）；
   // 循环处理连续多名待跳过的玩家（如多人先后入 1 回合监狱）
   let skipGuard = 0;
@@ -282,6 +283,7 @@ function prepareTurn(state, events, rng) {
     log(events, `${p.name} 被关押 1 回合，本回合跳过`, 'jail');
     if (!completeSkippedJail(state, events, rng)) return;
     p = currentPlayer(state);
+    require('./operatingOrders').settleAtTurnStart(state,p,events);
   }
   log(events, `轮到 ${p.name}`);
   if (p.frozen) {
@@ -333,6 +335,7 @@ function settleGo(state, player, events) {
     opportunities.refresh(player);
     routes.markLapProgress(state, player.id);
     for (const id of player.cities) stocks.settleCityDividend(state, id, 'go', state.gameId + ':go:' + state.turnId + ':' + id, events);
+    require('./activeInvestment').expireAtGo(state,player);
     economy.goRewards(state, player, events);
     return;
   }
@@ -638,6 +641,7 @@ function bankrupt(state, player, events, rng) {
     state.stocks[cityId].holders[player.id] = 0;
   }
   player.stocks = {};
+  require('./activeInvestment').expireAtGo(state,player);
   log(events, `${player.name} 的机场归还银行、股票作废、剩余现金归银行`);
   player.cash = 0;
   player.cities = [];
@@ -672,6 +676,7 @@ function surrenderLiquidation(state, player, events, rng) {
   for (const airportId of player.airports) state.airports[airportId].ownerId = null;
   player.airports = [];
   for (const cityId of Object.keys(player.stocks)) state.stocks[cityId].holders[player.id] = 0;
+  require('./activeInvestment').expireAtGo(state,player);
   player.stocks = {};
   player.cash = 0;
   player.mortgageInterest = 0;
@@ -904,6 +909,7 @@ function applyCore(state, action, rng, context = {}) {
     case 'active_skip':
       require('./activeManagement').skip(state,p,events);break;
     case 'active_promote':
+    case 'active_order':
     case 'active_stock_buy':
     case 'active_build':
       require('./activeManagement').apply(state,p,action,events);
@@ -1042,7 +1048,7 @@ function apply(state, action, rng, context = {}) {
   routeTimes.set(state, context.timeContext);
   try {
     const result = applyCore(state, action, rng, context);
-    if(!result.rejected){require('./activeManagement').clean(state);require('./activeManagement').resolveReceipts(state,result.events);}
+    if(!result.rejected){require('./operatingOrders').clean(state,result.events);require('./activeManagement').clean(state);require('./activeManagement').resolveReceipts(state,result.events);}
     if (!result.rejected && routes.enabled(state)) {
       for (const p of state.players.filter(p => !p.alive)) result.events.push(...routes.cancelRoutes(state, p.id, action.type === 'surrender' ? 'surrender' : 'eliminated').events);
       safeRouteChoice(state, rng);
@@ -1423,6 +1429,7 @@ function rescueSellStock(state, p, action, events, rng) {
   if (held <= 0) return;
   const shares = action.shares ? Math.min(action.shares, held) : held;
   p.cash += shares * st.price;
+  require('./activeInvestment').reduce(state,p.id,action.cityId,shares);
   st.holders[p.id] = held - shares;
   p.stocks[action.cityId] = Math.max(0, (p.stocks[action.cityId] || 0) - shares);
   log(events, `${p.name} 卖出 ${cityLabel(state, action.cityId)} 股份 ×${shares} ${state.phase==='build_decide'?'建房筹资':state.phase==='buy_fundraise'?'购买筹资':'自救'}（+${shares * st.price}）`, 'rescue');

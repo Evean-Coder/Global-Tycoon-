@@ -1,19 +1,19 @@
 'use strict';
-const CACHE = 'global-tycoon-v39-information-panels';
+const CACHE = 'global-tycoon-v40-management';
 const CORE = [
   './',
   './index.html',
   './style.css',
   './client.js',
   './board-layout.js',
-  './board-layout.js?v=20261014-information-panels-v1',
+  './board-layout.js?v=20261014-management-v4',
   './rules-catalog.js',
   './contextual-rules.js',
-  './contextual-rules.js?v=20261014-information-panels-v1',
-  './rules-catalog.js?v=20261014-information-panels-v1',
-  './style.css?v=20261014-information-panels-v1',
-  './mobile-orientation.js?v=20261014-information-panels-v1',
-  './client.js?v=20261014-information-panels-v1',
+  './contextual-rules.js?v=20261014-management-v4',
+  './rules-catalog.js?v=20261014-management-v4',
+  './style.css?v=20261014-management-v4',
+  './mobile-orientation.js?v=20261014-management-v4',
+  './client.js?v=20261014-management-v4',
   './socket.io/socket.io.js',
   './assets/board-world-map-v1.webp',
   './assets/atlas-background-v1.webp',

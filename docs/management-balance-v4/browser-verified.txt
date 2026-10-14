@@ -1,0 +1,29 @@
+TAP version 13
+# Subtest: 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+ok 1 - 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+  ---
+  duration_ms: 6151.9904
+  ...
+# Subtest: v4 three routes and construction cost/cooldown are usable on all screens and both modes
+ok 2 - v4 three routes and construction cost/cooldown are usable on all screens and both modes
+  ---
+  duration_ms: 20718.5206
+  ...
+# Subtest: order targets include airports, callbacks deduplicate and two turn payments preserve cancellation rules
+ok 3 - order targets include airports, callbacks deduplicate and two turn payments preserve cancellation rules
+  ---
+  duration_ms: 277.6966
+  ...
+# Subtest: active investment selects four shares with no fee; reconnect and stale quote require explicit confirmation
+ok 4 - active investment selects four shares with no fee; reconnect and stale quote require explicit confirmation
+  ---
+  duration_ms: 205.9738
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 4
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

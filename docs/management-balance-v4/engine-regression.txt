@@ -1,0 +1,533 @@
+TAP version 13
+# Subtest: 三类经营互斥，远程旧入口同额，失败无修改，旧局隔离
+ok 1 - 三类经营互斥，远程旧入口同额，失败无修改，旧局隔离
+  ---
+  duration_ms: 5.8148
+  ...
+# Subtest: 主动股票手续费与独立圈额度，报价和持股上限校验
+ok 2 - 主动股票手续费与独立圈额度，报价和持股上限校验
+  ---
+  duration_ms: 0.8452
+  ...
+# Subtest: 促销奖励不进入分红池，最多两次且重复结算无奖励
+ok 3 - 促销奖励不进入分红池，最多两次且重复结算无奖励
+  ---
+  duration_ms: 0.824
+  ...
+# Subtest: 欠租只在偿清后奖励，破产不奖励，抵押和期限结束失效
+ok 4 - 欠租只在偿清后奖励，破产不奖励，抵押和期限结束失效
+  ---
+  duration_ms: 0.7693
+  ...
+# Subtest: H1主动建设优惠受10个百分点上限，普通建房保留原报价
+ok 5 - H1主动建设优惠受10个百分点上限，普通建房保留原报价
+  ---
+  duration_ms: 1.0878
+  ...
+# Subtest: 私人额度隔离、确定性动作重放、产权变化与立即封盘
+ok 6 - 私人额度隔离、确定性动作重放、产权变化与立即封盘
+  ---
+  duration_ms: 4.8314
+  ...
+# Subtest: 特殊决定和非法订单零修改，满级抵押排除、费用上限与报价变更
+ok 7 - 特殊决定和非法订单零修改，满级抵押排除、费用上限与报价变更
+  ---
+  duration_ms: 2.518
+  ...
+# Subtest: 促销换圈替换不退款，主动股票圈总额不随出售恢复
+ok 8 - 促销换圈替换不退款，主动股票圈总额不随出售恢复
+  ---
+  duration_ms: 0.8545
+  ...
+# Subtest: 三项各成功一次互斥，掷骰可跳过，资金不足及他人身份零修改
+ok 9 - 三项各成功一次互斥，掷骰可跳过，资金不足及他人身份零修改
+  ---
+  duration_ms: 2.3288
+  ...
+# Subtest: 全部活动失效出口与上市/余股/城主持股边界
+ok 10 - 全部活动失效出口与上市/余股/城主持股边界
+  ---
+  duration_ms: 1.7623
+  ...
+# bot CPU {"samples":100,"p50":0,"p95":0,"max":0,"wallP95":1.0815000000000055,"wallMax":2.1899999999999977,"unit":"毫秒CPU时间；wall为实际耗时","timingNote":"Windows进程CPU计时粒度较粗，短样本可能为0；同时报告高精度实际耗时，不把0解释为零计算成本。","node":"v20.20.2","platform":"win32","cpu":"Intel(R) Core(TM) i7-14650HX","scope":"固定4人20城，经营/股票/自救/机遇四类快照，非对局模拟"}
+# Subtest: 有限预测质量守恒，一步十点位置正确，冻结与监狱停留不算租金命中
+ok 11 - 有限预测质量守恒，一步十点位置正确，冻结与监狱停留不算租金命中
+  ---
+  duration_ms: 8.0272
+  ...
+# Subtest: 储备使用本人真实租金与原机场费，预告远航开支提高预算
+ok 12 - 储备使用本人真实租金与原机场费，预告远航开支提高预算
+  ---
+  duration_ms: 5.3239
+  ...
+# Subtest: 建设名义资产减实际成本，资讯到期后回归原租金
+ok 13 - 建设名义资产减实际成本，资讯到期后回归原租金
+  ---
+  duration_ms: 4.4246
+  ...
+# Subtest: 城主收入含保留收益与本人股息一次，外部股东只占真实份额
+ok 14 - 城主收入含保留收益与本人股息一次，外部股东只占真实份额
+  ---
+  duration_ms: 3.6976
+  ...
+# Subtest: 收购已上市城市保留外部股份，不把旧基金当购房收益
+ok 15 - 收购已上市城市保留外部股份，不把旧基金当购房收益
+  ---
+  duration_ms: 1.9665
+  ...
+# Subtest: 基金已含在股价，不重复计分红；真实派息前后未来增量不变
+ok 16 - 基金已含在股价，不重复计分红；真实派息前后未来增量不变
+  ---
+  duration_ms: 3.4127
+  ...
+# Subtest: 股票手续费、抵押惩罚、供应和集中限制采用真实规则
+ok 17 - 股票手续费、抵押惩罚、供应和集中限制采用真实规则
+  ---
+  duration_ms: 2.5908
+  ...
+# Subtest: 快速视野真实剩余时间、有限轮速与缺失后备，零时限禁新增投资
+ok 18 - 快速视野真实剩余时间、有限轮速与缺失后备，零时限禁新增投资
+  ---
+  duration_ms: 0.99
+  ...
+# Subtest: 100固定快照CPU基准（不运行完整对局）
+ok 19 - 100固定快照CPU基准（不运行完整对局）
+  ---
+  duration_ms: 80.6231
+  ...
+# Subtest: 电脑初始机遇只读本人候选，不读取别人候选或未来随机数
+ok 20 - 电脑初始机遇只读本人候选，不读取别人候选或未来随机数
+  ---
+  duration_ms: 20.4131
+  ...
+# Subtest: 正常掷骰、落点买地、建设与机场有真实经营行为
+ok 21 - 正常掷骰、落点买地、建设与机场有真实经营行为
+  ---
+  duration_ms: 10.8457
+  ...
+# Subtest: 主动经营与扶持复用真实报价，股票使用上市版本
+ok 22 - 主动经营与扶持复用真实报价，股票使用上市版本
+  ---
+  duration_ms: 6.3798
+  ...
+# Subtest: 监狱、冻结、飞行、转让与拍卖有合法退出或出价
+ok 23 - 监狱、冻结、飞行、转让与拍卖有合法退出或出价
+  ---
+  duration_ms: 5.7498
+  ...
+# Subtest: 欠款先卖持股/抵押/拆屋，资金补足后继续，失败有保守默认
+ok 24 - 欠款先卖持股/抵押/拆屋，资金补足后继续，失败有保守默认
+  ---
+  duration_ms: 3.0019
+  ...
+# Subtest: 城主持有四股时不继续买本城，现金储备与窗口上限生效
+ok 25 - 城主持有四股时不继续买本城，现金储备与窗口上限生效
+  ---
+  duration_ms: 2.002
+  ...
+# Subtest: 银行远程赎回正常Socket：重复、非本人、断线重连保留真实清偿与预算
+ok 26 - 银行远程赎回正常Socket：重复、非本人、断线重连保留真实清偿与预算
+  ---
+  duration_ms: 113.0515
+  ...
+# Subtest: 第三座抵押Socket重复请求仅放款一次，其他玩家和迟到决定不能成交
+ok 27 - 第三座抵押Socket重复请求仅放款一次，其他玩家和迟到决定不能成交
+  ---
+  duration_ms: 68.8642
+  ...
+# Subtest: 重复创建同一房间不会导致已两人但无法开始
+ok 28 - 重复创建同一房间不会导致已两人但无法开始
+  ---
+  duration_ms: 34.6416
+  ...
+# Subtest: 逐人私有投影 / 六十秒时钟 / 迟到消息与同时提交
+ok 29 - 逐人私有投影 / 六十秒时钟 / 迟到消息与同时提交
+  ---
+  duration_ms: 60.0018
+  ...
+# Subtest: 换组选项不延长倒计时 / 断线暂停 / 重连保留选项和剩余秒数
+ok 30 - 换组选项不延长倒计时 / 断线暂停 / 重连保留选项和剩余秒数
+  ---
+  duration_ms: 43.2041
+  ...
+# Subtest: 普通动作封装 / 费用版本 / 去重缓存 / 新开局隔离 / 未确认选择终止
+ok 31 - 普通动作封装 / 费用版本 / 去重缓存 / 新开局隔离 / 未确认选择终止
+  ---
+  duration_ms: 2962.9663
+  ...
+# Subtest: V1、V5 二至四人真实开局、健康检查与重新开局
+ok 32 - V1、V5 二至四人真实开局、健康检查与重新开局
+  ---
+  duration_ms: 191.7299
+  ...
+# Subtest: V66 已提交重连保留锁定、候选与剩余时间
+ok 33 - V66 已提交重连保留锁定、候选与剩余时间
+  ---
+  duration_ms: 38.6172
+  ...
+# Subtest: V46、V66、V67 股票重连不重置累计预算，成交重放一次
+ok 34 - V46、V66、V67 股票重连不重置累计预算，成交重放一次
+  ---
+  duration_ms: 57.716
+  ...
+# Subtest: V26、V67 远程重放、报价过期、越权及成功缓存有界
+ok 35 - V26、V67 远程重放、报价过期、越权及成功缓存有界
+  ---
+  duration_ms: 257.3701
+  ...
+# Subtest: V64 暂停解散与闲置结束先派息，记录和重复终止一致
+ok 36 - V64 暂停解散与闲置结束先派息，记录和重复终止一致
+  ---
+  duration_ms: 113.2501
+  ...
+# Subtest: V4 缺新增信息旧对局认证重连后仍按旧规则，新开局升级
+ok 37 - V4 缺新增信息旧对局认证重连后仍按旧规则，新开局升级
+  ---
+  duration_ms: 55.6802
+  ...
+# Subtest: V49、V67 协商转让确认重放只转一次，不提前派息
+ok 38 - V49、V67 协商转让确认重放只转一次，不提前派息
+  ---
+  duration_ms: 53.3087
+  ...
+# Subtest: 可用性：报价、持股、额度及现金失效均原子拒绝且不延时
+ok 39 - 可用性：报价、持股、额度及现金失效均原子拒绝且不延时
+  ---
+  duration_ms: 76.8141
+  ...
+# Subtest: 扶持购城后可经营，真实重连保留额度与两次原请求结果
+not ok 40 - 扶持购城后可经营，真实重连保留额度与两次原请求结果
+  ---
+  duration_ms: 39.5553
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\test\\gameplay-server.test.js:137:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+
+    false !== true
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\test\gameplay-server.test.js:144:231)
+    process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: new v4 and historical v1/v2/v3 remain separate, failed quotes are readonly
+ok 41 - new v4 and historical v1/v2/v3 remain separate, failed quotes are readonly
+  ---
+  duration_ms: 5.1584
+  ...
+# Subtest: all cities and target levels use exact tiers, capped discounts, 150 percent floor and real quota consumption
+ok 42 - all cities and target levels use exact tiers, capped discounts, 150 percent floor and real quota consumption
+  ---
+  duration_ms: 74.9019
+  ...
+# Subtest: remote build shares three-lap cooldown and persistent alternating target, normal construction does not reset it
+ok 43 - remote build shares three-lap cooldown and persistent alternating target, normal construction does not reset it
+  ---
+  duration_ms: 0.6739
+  ...
+# Subtest: stale requests, low cash, cooldown and old promotion alias cannot spend or change remote history
+ok 44 - stale requests, low cash, cooldown and old promotion alias cannot spend or change remote history
+  ---
+  duration_ms: 0.7601
+  ...
+# Subtest: orders pay exactly twice at later own turn starts including frozen and one-turn jail, remain once per personal lap
+ok 45 - orders pay exactly twice at later own turn starts including frozen and one-turn jail, remain once per personal lap
+  ---
+  duration_ms: 1.4397
+  ...
+# Subtest: orders cancel unpaid income on mortgage, transfer, airport loss and seal; no unpaid amount enters assets
+ok 46 - orders cancel unpaid income on mortgage, transfer, airport loss and seal; no unpaid amount enters assets
+  ---
+  duration_ms: 1.6768
+  ...
+# Subtest: active purchase 1-4 is fee-free with no new lap cap, owner 4 and market 20 still apply
+ok 47 - active purchase 1-4 is fee-free with no new lap cap, owner 4 and market 20 still apply
+  ---
+  duration_ms: 0.6505
+  ...
+# Subtest: investment reward is based on marked live shares and basic go dividend, stacks without compounding and deduplicates
+ok 48 - investment reward is based on marked live shares and basic go dividend, stacks without compounding and deduplicates
+  ---
+  duration_ms: 0.9019
+  ...
+# Subtest: own actual go pays the old purchase pool before expiration, later dividends cannot revive the reward
+ok 49 - own actual go pays the old purchase pool before expiration, later dividends cannot revive the reward
+  ---
+  duration_ms: 1.7842
+  ...
+# Subtest: sale, transfer, forced cap, bank clearing and new listing remove reward shares first, transferred shares do not inherit
+ok 50 - sale, transfer, forced cap, bank clearing and new listing remove reward shares first, transferred shares do not inherit
+  ---
+  duration_ms: 1.6102
+  ...
+# Subtest: v4 private state, chosen bot actions, late quick investments and journal replay remain consistent
+ok 51 - v4 private state, chosen bot actions, late quick investments and journal replay remain consistent
+  ---
+  duration_ms: 11.5743
+  ...
+# Subtest: v3 explicitly skipping spends no money or lap quota and cannot buy again until next turn
+ok 52 - v3 explicitly skipping spends no money or lap quota and cannot buy again until next turn
+  ---
+  duration_ms: 7.8571
+  ...
+# Subtest: skip is only legal for the current normal decision, and does not add time
+ok 53 - skip is only legal for the current normal decision, and does not add time
+  ---
+  duration_ms: 1.3978
+  ...
+# Subtest: v3 trusted timeout skips and rolls without investing, v2 retains its spending rule
+ok 54 - v3 trusted timeout skips and rolls without investing, v2 retains its spending rule
+  ---
+  duration_ms: 2.06
+  ...
+# Subtest: AI may skip when every investment breaks its cash reserve, and old versions reject skip
+ok 55 - AI may skip when every investment breaks its cash reserve, and old versions reject skip
+  ---
+  duration_ms: 4.9818
+  ...
+# Subtest: v2门禁、无项目放行、失败原子性、旧局可跳过
+ok 56 - v2门禁、无项目放行、失败原子性、旧局可跳过
+  ---
+  duration_ms: 10.3633
+  ...
+# Subtest: v2三类费用、促销不替换、没有圈额度但保留20/4股
+ok 57 - v2三类费用、促销不替换、没有圈额度但保留20/4股
+  ---
+  duration_ms: 1.6442
+  ...
+# Subtest: 促销完整期限、3次上限、欠租清偿幂等和撤销
+ok 58 - 促销完整期限、3次上限、欠租清偿幂等和撤销
+  ---
+  duration_ms: 0.9516
+  ...
+# Subtest: 可信超时选择最低支出后掷骰；重放一致，普通请求不得伪造
+ok 59 - 可信超时选择最低支出后掷骰；重放一致，普通请求不得伪造
+  ---
+  duration_ms: 3.1587
+  ...
+# Subtest: 快速45秒/普通90秒，经营/查看不改变决定期限
+ok 60 - 快速45秒/普通90秒，经营/查看不改变决定期限
+  ---
+  duration_ms: 0.8565
+  ...
+# Subtest: H1 H2 H3：建设优惠30%总上限，前两次与连锁持续生效
+ok 61 - H1 H2 H3：建设优惠30%总上限，前两次与连锁持续生效
+  ---
+  duration_ms: 0.9794
+  ...
+# Subtest: H4 H5 H9 H10：真实股息、分散及航空/轻资产奖励
+ok 62 - H4 H5 H9 H10：真实股息、分散及航空/轻资产奖励
+  ---
+  duration_ms: 0.7595
+  ...
+# Subtest: H6 H11：股东25%再减30%，防御前两次、各自上限
+ok 63 - H6 H11：股东25%再减30%，防御前两次、各自上限
+  ---
+  duration_ms: 0.5014
+  ...
+# Subtest: H7 H8：两次航班优惠、60%合计上限，机场首访和跨圈访问
+ok 64 - H7 H8：两次航班优惠、60%合计上限，机场首访和跨圈访问
+  ---
+  duration_ms: 0.5034
+  ...
+# Subtest: H12新版金额、一次凭据、目录隐私与AI必做fallback
+ok 65 - H12新版金额、一次凭据、目录隐私与AI必做fallback
+  ---
+  duration_ms: 5.4089
+  ...
+# Subtest: 有限真实收益对照：0/1/3次客流，三类经营不混淆回报
+ok 66 - 有限真实收益对照：0/1/3次客流，三类经营不混淆回报
+  ---
+  duration_ms: 1909.9151
+  ...
+# Subtest: 私人计数、产权与经营按有序状态变更重建，公开记录不泄漏
+ok 67 - 私人计数、产权与经营按有序状态变更重建，公开记录不泄漏
+  ---
+  duration_ms: 45.3536
+  ...
+# Subtest: QS01: room modes agree for two to four players and enforce owner permissions
+ok 68 - QS01: room modes agree for two to four players and enforce owner permissions
+  ---
+  duration_ms: 96.4177
+  ...
+# Subtest: QS02: capabilities and conflicting mode fail without replacing prior state
+ok 69 - QS02: capabilities and conflicting mode fail without replacing prior state
+  ---
+  duration_ms: 14.4364
+  ...
+# Subtest: QS03: real total clock begins with first choice and shares injected time source
+ok 70 - QS03: real total clock begins with first choice and shares injected time source
+  ---
+  duration_ms: 14.9073
+  ...
+# Subtest: QS04: atomic close can retry after failed economic checks with no partial authoritative mutation
+ok 71 - QS04: atomic close can retry after failed economic checks with no partial authoritative mutation
+  ---
+  duration_ms: 33.684
+  ...
+# Subtest: QS05: skipped nodes, warning deduplication and late callbacks prioritize total deadline
+ok 72 - QS05: skipped nodes, warning deduplication and late callbacks prioritize total deadline
+  ---
+  duration_ms: 26.8024
+  ...
+# Subtest: QS04b: partial candidate clearing failure never commits to the real room
+ok 73 - QS04b: partial candidate clearing failure never commits to the real room
+  ---
+  duration_ms: 24.1874
+  ...
+# Subtest: QS06: committed action survives deadline; execution crossing cutoff discards candidate
+ok 74 - QS06: committed action survives deadline; execution crossing cutoff discards candidate
+  ---
+  duration_ms: 97.5713
+  ...
+# Subtest: QS07: successful receipt remains queryable after closure while new requests fail
+ok 75 - QS07: successful receipt remains queryable after closure while new requests fail
+  ---
+  duration_ms: 20.6333
+  ...
+# Subtest: QS08: same decision has no refill, simultaneous personal and total deadline only closes
+ok 76 - QS08: same decision has no refill, simultaneous personal and total deadline only closes
+  ---
+  duration_ms: 21.9692
+  ...
+# Subtest: QS09: stock quote updates keep budget; unconfirmed transfer is cancelled at deadline
+ok 77 - QS09: stock quote updates keep budget; unconfirmed transfer is cancelled at deadline
+  ---
+  duration_ms: 41.6965
+  ...
+# Subtest: QS10: due initial stages open safely in order without replaying turn preparation
+ok 78 - QS10: due initial stages open safely in order without replaying turn preparation
+  ---
+  duration_ms: 35.2272
+  ...
+# Subtest: QS11: later milestones queue once, active choice survives 28 then cancels at 30
+ok 79 - QS11: later milestones queue once, active choice survives 28 then cancels at 30
+  ---
+  duration_ms: 43.8416
+  ...
+# Subtest: QS12: natural quick finish sends one identical record with frozen reason
+ok 80 - QS12: natural quick finish sends one identical record with frozen reason
+  ---
+  duration_ms: 37.4228
+  ...
+# Subtest: QS13: offline personal pause never pauses total deadline and reconnect receives record
+ok 81 - QS13: offline personal pause never pauses total deadline and reconnect receives record
+  ---
+  duration_ms: 52.4599
+  ...
+# Subtest: QS14: disband and idle cleanup preserve net ranking and actual termination reason
+ok 82 - QS14: disband and idle cleanup preserve net ranking and actual termination reason
+  ---
+  duration_ms: 29.5853
+  ...
+# Subtest: QS15: restart resets identity and old callbacks cannot touch next game
+ok 83 - QS15: restart resets identity and old callbacks cannot touch next game
+  ---
+  duration_ms: 16.4218
+  ...
+# Subtest: QS16: five-second heartbeat updates time without changing revision or decision
+ok 84 - QS16: five-second heartbeat updates time without changing revision or decision
+  ---
+  duration_ms: 54.2669
+  ...
+# Subtest: QS17: finite real quick game grows, operates, skips routes and seals an unconfirmed purchase
+not ok 85 - QS17: finite real quick game grows, operates, skips routes and seals an unconfirmed purchase
+  ---
+  duration_ms: 120.2397
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\test\\quick-server.test.js:108:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    {"phase":"waiting_roll","a":{"type":"active_order","cityId":"内罗毕","listingEpoch":1,"quoteVersion":"[\"active-management-v4\",13,\"p0\",\"active_order\",\"内罗毕\",null,\"p0\",0,false,3,1,{},{\"id\":1,\"type\":\"boom\",\"region\":\"美洲\",\"name\":\"地区旺季\",\"description\":\"相关地区城市租金增加15%，每笔最多增加3000。\",\"remaining\":2},[],null,false,0,{},\"city\",157264,1,null,null,null,[],null,{\"lapEpoch\":1,\"bonusPaid\":0,\"sharesByCity\":{},\"receipts\":[]}]"},"result":{"ok":false,"error":"经营订单目标无效"}}
+
+    false !== true
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    action (C:\Users\Yifan\Desktop\game\test\quick-server.test.js:112:72)
+    process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    async roll (C:\Users\Yifan\Desktop\game\test\quick-server.test.js:113:158)
+    async TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\test\quick-server.test.js:120:229)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: QS18: real clock closes unopened routes at 28 and cancels active choice at 30
+ok 86 - QS18: real clock closes unopened routes at 28 and cancels active choice at 30
+  ---
+  duration_ms: 57.8014
+  ...
+# Subtest: QS19: actual route confirmation before at and across total cutoff is atomic
+ok 87 - QS19: actual route confirmation before at and across total cutoff is atomic
+  ---
+  duration_ms: 1935.8465
+  ...
+# Subtest: 新经营与扶持提交遇快速截止：截止先到不成交，成功先到保留结果
+not ok 88 - 新经营与扶持提交遇快速截止：截止先到不成交，成功先到保留结果
+  ---
+  duration_ms: 22.7126
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\test\\quick-server.test.js:146:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    本局限时促销已替换为经营订单
+
+    false !== true
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\test\quick-server.test.js:153:10)
+    process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: 建房筹资真实Socket：重复只卖一次、决定不续期、快速封盘优先
+ok 89 - 建房筹资真实Socket：重复只卖一次、决定不续期、快速封盘优先
+  ---
+  duration_ms: 29.8299
+  ...
+# Subtest: 股票新窗口60秒、到期正常推进，整局仅剩8秒时同步封盘一次
+ok 90 - 股票新窗口60秒、到期正常推进，整局仅剩8秒时同步封盘一次
+  ---
+  duration_ms: 81.0308
+  ...
+# Subtest: unlimited self rescue does not auto-bankrupt but still respects the quick total deadline
+ok 91 - unlimited self rescue does not auto-bankrupt but still respects the quick total deadline
+  ---
+  duration_ms: 47.1497
+  ...
+# Subtest: 建房个人到期保留已变现股票收入，旧筹资请求不能继续卖
+ok 92 - 建房个人到期保留已变现股票收入，旧筹资请求不能继续卖
+  ---
+  duration_ms: 28.7458
+  ...
+# Subtest: 购买募资卖股真实Socket：两目标同请求只变现一次，个人超时及快速封盘阻止卖出
+ok 93 - 购买募资卖股真实Socket：两目标同请求只变现一次，个人超时及快速封盘阻止卖出
+  ---
+  duration_ms: 241.9146
+  ...
+# Subtest: 抵押远程赎回真实Socket：重复只扣一次、非本人拒绝、快速封盘优先且净资产一致
+ok 94 - 抵押远程赎回真实Socket：重复只扣一次、非本人拒绝、快速封盘优先且净资产一致
+  ---
+  duration_ms: 84.6008
+  ...
+1..94
+# tests 94
+# suites 0
+# pass 91
+# fail 3
+# cancelled 0
+# skipped 0
+# todo 0

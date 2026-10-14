@@ -435,7 +435,7 @@ function runAction(room, socket, rawAction, source = 'player') {
   const normalized = normalizeAction(room.state, rawAction, {actorId:authenticated?.id,source,timeContext});
   if (!normalized.ok) {
     if (socket) socket.emit('error', { message: normalized.error });
-    if(source==='player'&&['active_promote','active_stock_buy','active_build','remote_build'].includes(rawAction.type))emitGame(room);
+    if(source==='player'&&['active_order','active_promote','active_stock_buy','active_build','remote_build'].includes(rawAction.type))emitGame(room);
     return { ok: false, error: normalized.error };
   }
   const allowedId = normalized.actorId;

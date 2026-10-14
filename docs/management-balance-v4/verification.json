@@ -1,0 +1,16 @@
+{
+  "uniquePassedEngineCases": 156,
+  "fullSimulationGames": 0,
+  "browserPassedCases": 6,
+  "engineSources": [
+    "engine-verified.txt",
+    "engine-server-final.txt",
+    "finance-hints-final.txt"
+  ],
+  "published": false,
+  "browserSources": [
+    "browser-verified.txt",
+    "browser-compatibility.txt"
+  ],
+  "productionFeeBoundaries": 320
+}

@@ -36,9 +36,10 @@ function createGameState(roomCode, playerNames, ruleVersion = 2, options = {}) {
   const support = ruleVersion===2 && require('./propertySupport').enabled(options);
   if(support)for(const p of players)p.propertySupport={everOwnedCity:false,missedPurchaseTurns:0,processedTurnId:null,eligible:false,used:false,turn:null};
   for (const p of players) p.opportunities = initial();
-  const active = ruleVersion===2 && [require('./managementRules').REVISION,require('./managementRules').REQUIRED_REVISION,require('./managementRules').LEGACY_REVISION].includes(options.activeManagementRevision);
+  const active = ruleVersion===2 && require('./managementRules').enabled(options);
   if(active)for(const p of players)p.activeManagement={lapEpoch:p.opportunities.lapEpoch,usedTurnId:null,...(require('./managementRules').optional(options)?{skippedTurnId:null}:{}),promotionStartedLap:false,stockBoughtTotal:0,stockBoughtByCity:{}};
   if(active&&require('./managementRules').modern(options))for(const p of players)p.opportunities.revision=options.activeManagementRevision;
+  if(active&&require('./managementRules').balanced(options))for(const p of players){Object.assign(p.activeManagement,{lastRemoteBuildLap:null,lastRemoteBuildCityId:null,lastOrderLap:null});p.activeInvestment={lapEpoch:p.opportunities.lapEpoch,bonusPaid:0,sharesByCity:{},receipts:[]};}
   const routesEnabled = ruleVersion === 2 && options.routeRevision === 'opportunity-routes-v1';
   if (routesEnabled && !['normal', 'quick'].includes(options.gameMode || 'normal')) throw new Error('对局模式无效');
   if (options.quickRevision !== undefined && (options.quickRevision !== 'quick-mode-v1' || !routesEnabled || options.gameMode !== 'quick')) throw new Error('快速模式版本无效');
@@ -63,6 +64,7 @@ function createGameState(roomCode, playerNames, ruleVersion = 2, options = {}) {
   }
   return {
     ...(active?{activeManagementRevision:options.activeManagementRevision,promotions:[],promotionReceipts:[]}:{}),
+    ...(active&&require('./managementRules').balanced(options)?{operatingOrders:[]}:{}),
     ...(support?{propertySupportRevision:options.propertySupportRevision}:{}),
     ...(options.quickRevision ? {quickRevision: options.quickRevision, quick: {durationMs:1800000,startedAt:options.startedAt ?? Date.now(),status:'running',warnings:[]}} : {}),
     ...(routesEnabled ? {

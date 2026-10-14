@@ -86,6 +86,11 @@ function computeStats(state, events) {
       stats.economy.promotionCosts=events.filter(e=>e.type==='promotion'&&e.kind!=='promotion_reward').reduce((sum,e)=>sum+e.amount,0);
       stats.economy.promotionRewards=events.filter(e=>e.kind==='promotion_reward').reduce((sum,e)=>sum+e.amount,0);
       stats.economy.activeStockFees=events.filter(e=>e.kind==='stock_trade'&&e.active).reduce((sum,e)=>sum+e.fee,0);
+      if(require('./managementRules').balanced(state)){
+        stats.economy.orderCosts=events.filter(e=>e.kind==='order_started').reduce((sum,e)=>sum+e.amount,0);
+        stats.economy.orderPayments=events.filter(e=>e.kind==='order_payment').reduce((sum,e)=>sum+e.amount,0);
+        stats.economy.activeInvestmentRewards=events.filter(e=>e.kind==='active_investment_reward').reduce((sum,e)=>sum+e.amount,0);
+      }
     }
     stats.economy.travelExpensesByPlayer={};
     for(const e of events)if(e.kind==='travel_expense'){

@@ -84,6 +84,7 @@ function phaseAllows(state, type) {
     remote_build: ['waiting_roll'],
     support_buy: ['waiting_roll'],
     active_promote: ['waiting_roll'],
+    active_order: ['waiting_roll'],
     active_stock_buy: ['waiting_roll'],
     active_build: ['waiting_roll'],
     opportunity_choose: ['opportunity_choose'],
@@ -225,10 +226,10 @@ function normalizeAction(state, raw, context = {}) {
   }
   if (type === 'stock_transfer') return validateTransfer(state, player, raw);
   if(type==='active_skip'){const v=require('./activeManagement').view(state,player.id);if(!v?.optional||!v.available)return fail('当前不能放弃经营');return success({type},player.id);}
-  if(['active_promote','active_stock_buy','active_build'].includes(type)||(type==='remote_build'&&require('./activeManagement').enabled(state))){
-    const q=require('./activeManagement').quote(state,player.id,type,raw.cityId,raw.shares);
+  if(['active_order','active_promote','active_stock_buy','active_build'].includes(type)||(type==='remote_build'&&require('./activeManagement').enabled(state))){
+    const q=require('./activeManagement').quote(state,player.id,type,raw.cityId,raw.shares,raw.targetKind);
     if(!q.ok||raw.quoteVersion!==q.quoteVersion||(type==='active_stock_buy'&&raw.listingEpoch!==q.listingEpoch))return fail(q.reason||'经营报价已更新，请重新确认');
-    return success({type,cityId:raw.cityId,shares:raw.shares,quoteVersion:raw.quoteVersion},player.id);
+    return success({type,cityId:raw.cityId,shares:raw.shares,quoteVersion:raw.quoteVersion,...(type==='active_order'?{targetKind:raw.targetKind}:{})},player.id);
   }
   if (type === 'surrender' && ((state.pending && state.phase !== 'waiting_roll') || actorId !== (currentPlayer(state) && currentPlayer(state).id))) return fail('当前不能认输');
   const enums = {

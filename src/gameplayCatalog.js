@@ -38,5 +38,7 @@ const DESCRIPTIONS_V2 = [
 ];
 const OPPORTUNITIES_V2=OPPORTUNITIES.map((o,i)=>Object.freeze({...o,description:DESCRIPTIONS_V2[i]}));
 const BY_ID_V2=Object.fromEntries(OPPORTUNITIES_V2.map(o=>[o.id,o]));
-const catalogFor=s=>require('./managementRules').modern(s)?BY_ID_V2:BY_ID;
-module.exports = { REGIONS, NEWS, OPPORTUNITIES, BY_ID, OPPORTUNITIES_V2, BY_ID_V2, catalogFor };
+const OPPORTUNITIES_V4=OPPORTUNITIES_V2.map(o=>o.id==='H1'?Object.freeze({...o,description:'每圈首次受惠远程建设减标准建房费15个百分点，优惠合计最多30个百分点、实付最低150%；一级房已在下限时不耗优惠。远程建设成功后需经过起点3次，且不能连续建设同一城市。'}):o);
+const BY_ID_V4=Object.fromEntries(OPPORTUNITIES_V4.map(o=>[o.id,o]));
+const catalogFor=s=>require('./managementRules').balanced(s)?BY_ID_V4:require('./managementRules').modern(s)?BY_ID_V2:BY_ID;
+module.exports = { REGIONS, NEWS, OPPORTUNITIES, BY_ID, OPPORTUNITIES_V2, BY_ID_V2, OPPORTUNITIES_V4, BY_ID_V4, catalogFor };

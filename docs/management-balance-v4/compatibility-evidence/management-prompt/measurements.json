@@ -1,0 +1,176 @@
+[
+  {
+    "mode": "normal",
+    "width": 1440,
+    "height": 900,
+    "footer": [
+      {
+        "text": "放弃经营",
+        "x": 385,
+        "y": 589.484375,
+        "width": 327,
+        "height": 48,
+        "top": 589.484375,
+        "right": 712,
+        "bottom": 637.484375,
+        "left": 385
+      },
+      {
+        "text": "关闭查看",
+        "x": 728,
+        "y": 589.484375,
+        "width": 327,
+        "height": 48,
+        "top": 589.484375,
+        "right": 1055,
+        "bottom": 637.484375,
+        "left": 728
+      }
+    ]
+  },
+  {
+    "mode": "normal",
+    "width": 768,
+    "height": 1024,
+    "footer": [
+      {
+        "text": "放弃经营",
+        "x": 49,
+        "y": 651.484375,
+        "width": 327,
+        "height": 48,
+        "top": 651.484375,
+        "right": 376,
+        "bottom": 699.484375,
+        "left": 49
+      },
+      {
+        "text": "关闭查看",
+        "x": 392,
+        "y": 651.484375,
+        "width": 327,
+        "height": 48,
+        "top": 651.484375,
+        "right": 719,
+        "bottom": 699.484375,
+        "left": 392
+      }
+    ]
+  },
+  {
+    "mode": "normal",
+    "width": 844,
+    "height": 280,
+    "footer": [
+      {
+        "text": "放弃经营",
+        "x": 19,
+        "y": 223,
+        "width": 397,
+        "height": 44,
+        "top": 223,
+        "right": 416,
+        "bottom": 267,
+        "left": 19
+      },
+      {
+        "text": "关闭查看",
+        "x": 428,
+        "y": 223,
+        "width": 397,
+        "height": 44,
+        "top": 223,
+        "right": 825,
+        "bottom": 267,
+        "left": 428
+      }
+    ]
+  },
+  {
+    "mode": "quick",
+    "width": 1440,
+    "height": 900,
+    "footer": [
+      {
+        "text": "放弃经营",
+        "x": 385,
+        "y": 589.484375,
+        "width": 327,
+        "height": 48,
+        "top": 589.484375,
+        "right": 712,
+        "bottom": 637.484375,
+        "left": 385
+      },
+      {
+        "text": "关闭查看",
+        "x": 728,
+        "y": 589.484375,
+        "width": 327,
+        "height": 48,
+        "top": 589.484375,
+        "right": 1055,
+        "bottom": 637.484375,
+        "left": 728
+      }
+    ]
+  },
+  {
+    "mode": "quick",
+    "width": 768,
+    "height": 1024,
+    "footer": [
+      {
+        "text": "放弃经营",
+        "x": 49,
+        "y": 651.484375,
+        "width": 327,
+        "height": 48,
+        "top": 651.484375,
+        "right": 376,
+        "bottom": 699.484375,
+        "left": 49
+      },
+      {
+        "text": "关闭查看",
+        "x": 392,
+        "y": 651.484375,
+        "width": 327,
+        "height": 48,
+        "top": 651.484375,
+        "right": 719,
+        "bottom": 699.484375,
+        "left": 392
+      }
+    ]
+  },
+  {
+    "mode": "quick",
+    "width": 844,
+    "height": 280,
+    "footer": [
+      {
+        "text": "放弃经营",
+        "x": 19,
+        "y": 223,
+        "width": 397,
+        "height": 44,
+        "top": 223,
+        "right": 416,
+        "bottom": 267,
+        "left": 19
+      },
+      {
+        "text": "关闭查看",
+        "x": 428,
+        "y": 223,
+        "width": 397,
+        "height": 44,
+        "top": 223,
+        "right": 825,
+        "bottom": 267,
+        "left": 428
+      }
+    ]
+  }
+]

@@ -1,0 +1,380 @@
+TAP version 13
+# Subtest: 三类经营互斥，远程旧入口同额，失败无修改，旧局隔离
+ok 1 - 三类经营互斥，远程旧入口同额，失败无修改，旧局隔离
+  ---
+  duration_ms: 8.5229
+  ...
+# Subtest: 主动股票手续费与独立圈额度，报价和持股上限校验
+ok 2 - 主动股票手续费与独立圈额度，报价和持股上限校验
+  ---
+  duration_ms: 2.542
+  ...
+# Subtest: 促销奖励不进入分红池，最多两次且重复结算无奖励
+ok 3 - 促销奖励不进入分红池，最多两次且重复结算无奖励
+  ---
+  duration_ms: 0.9282
+  ...
+# Subtest: 欠租只在偿清后奖励，破产不奖励，抵押和期限结束失效
+ok 4 - 欠租只在偿清后奖励，破产不奖励，抵押和期限结束失效
+  ---
+  duration_ms: 0.9136
+  ...
+# Subtest: H1主动建设优惠受10个百分点上限，普通建房保留原报价
+ok 5 - H1主动建设优惠受10个百分点上限，普通建房保留原报价
+  ---
+  duration_ms: 1.5052
+  ...
+# Subtest: 私人额度隔离、确定性动作重放、产权变化与立即封盘
+ok 6 - 私人额度隔离、确定性动作重放、产权变化与立即封盘
+  ---
+  duration_ms: 9.2209
+  ...
+# Subtest: 特殊决定和非法订单零修改，满级抵押排除、费用上限与报价变更
+ok 7 - 特殊决定和非法订单零修改，满级抵押排除、费用上限与报价变更
+  ---
+  duration_ms: 5.3036
+  ...
+# Subtest: 促销换圈替换不退款，主动股票圈总额不随出售恢复
+ok 8 - 促销换圈替换不退款，主动股票圈总额不随出售恢复
+  ---
+  duration_ms: 0.8704
+  ...
+# Subtest: 三项各成功一次互斥，掷骰可跳过，资金不足及他人身份零修改
+ok 9 - 三项各成功一次互斥，掷骰可跳过，资金不足及他人身份零修改
+  ---
+  duration_ms: 2.8078
+  ...
+# Subtest: 全部活动失效出口与上市/余股/城主持股边界
+ok 10 - 全部活动失效出口与上市/余股/城主持股边界
+  ---
+  duration_ms: 1.7682
+  ...
+# bot CPU {"samples":100,"p50":0,"p95":0,"max":46,"wallP95":1.2578000000000031,"wallMax":3.3389999999999986,"unit":"毫秒CPU时间；wall为实际耗时","timingNote":"Windows进程CPU计时粒度较粗，短样本可能为0；同时报告高精度实际耗时，不把0解释为零计算成本。","node":"v20.20.2","platform":"win32","cpu":"Intel(R) Core(TM) i7-14650HX","scope":"固定4人20城，经营/股票/自救/机遇四类快照，非对局模拟"}
+# Subtest: 有限预测质量守恒，一步十点位置正确，冻结与监狱停留不算租金命中
+ok 11 - 有限预测质量守恒，一步十点位置正确，冻结与监狱停留不算租金命中
+  ---
+  duration_ms: 8.9513
+  ...
+# Subtest: 储备使用本人真实租金与原机场费，预告远航开支提高预算
+ok 12 - 储备使用本人真实租金与原机场费，预告远航开支提高预算
+  ---
+  duration_ms: 5.3939
+  ...
+# Subtest: 建设名义资产减实际成本，资讯到期后回归原租金
+ok 13 - 建设名义资产减实际成本，资讯到期后回归原租金
+  ---
+  duration_ms: 4.7396
+  ...
+# Subtest: 城主收入含保留收益与本人股息一次，外部股东只占真实份额
+ok 14 - 城主收入含保留收益与本人股息一次，外部股东只占真实份额
+  ---
+  duration_ms: 5.5151
+  ...
+# Subtest: 收购已上市城市保留外部股份，不把旧基金当购房收益
+ok 15 - 收购已上市城市保留外部股份，不把旧基金当购房收益
+  ---
+  duration_ms: 3.8005
+  ...
+# Subtest: 基金已含在股价，不重复计分红；真实派息前后未来增量不变
+ok 16 - 基金已含在股价，不重复计分红；真实派息前后未来增量不变
+  ---
+  duration_ms: 2.9856
+  ...
+# Subtest: 股票手续费、抵押惩罚、供应和集中限制采用真实规则
+ok 17 - 股票手续费、抵押惩罚、供应和集中限制采用真实规则
+  ---
+  duration_ms: 2.2987
+  ...
+# Subtest: 快速视野真实剩余时间、有限轮速与缺失后备，零时限禁新增投资
+ok 18 - 快速视野真实剩余时间、有限轮速与缺失后备，零时限禁新增投资
+  ---
+  duration_ms: 1.2086
+  ...
+# Subtest: 100固定快照CPU基准（不运行完整对局）
+ok 19 - 100固定快照CPU基准（不运行完整对局）
+  ---
+  duration_ms: 86.3917
+  ...
+# Subtest: 电脑初始机遇只读本人候选，不读取别人候选或未来随机数
+ok 20 - 电脑初始机遇只读本人候选，不读取别人候选或未来随机数
+  ---
+  duration_ms: 19.871
+  ...
+# Subtest: 正常掷骰、落点买地、建设与机场有真实经营行为
+ok 21 - 正常掷骰、落点买地、建设与机场有真实经营行为
+  ---
+  duration_ms: 9.3674
+  ...
+# Subtest: 主动经营与扶持复用真实报价，股票使用上市版本
+ok 22 - 主动经营与扶持复用真实报价，股票使用上市版本
+  ---
+  duration_ms: 5.5979
+  ...
+# Subtest: 监狱、冻结、飞行、转让与拍卖有合法退出或出价
+ok 23 - 监狱、冻结、飞行、转让与拍卖有合法退出或出价
+  ---
+  duration_ms: 7.3387
+  ...
+# Subtest: 欠款先卖持股/抵押/拆屋，资金补足后继续，失败有保守默认
+ok 24 - 欠款先卖持股/抵押/拆屋，资金补足后继续，失败有保守默认
+  ---
+  duration_ms: 2.9235
+  ...
+# Subtest: 城主持有四股时不继续买本城，现金储备与窗口上限生效
+ok 25 - 城主持有四股时不继续买本城，现金储备与窗口上限生效
+  ---
+  duration_ms: 1.4576
+  ...
+# Subtest: 定义五类资讯目录 / 定义十二项机遇目录
+ok 26 - 定义五类资讯目录 / 定义十二项机遇目录
+  ---
+  duration_ms: 2.1604
+  ...
+# Subtest: 银行远程赎回正常Socket：重复、非本人、断线重连保留真实清偿与预算
+ok 27 - 银行远程赎回正常Socket：重复、非本人、断线重连保留真实清偿与预算
+  ---
+  duration_ms: 94.3187
+  ...
+# Subtest: 第三座抵押Socket重复请求仅放款一次，其他玩家和迟到决定不能成交
+ok 28 - 第三座抵押Socket重复请求仅放款一次，其他玩家和迟到决定不能成交
+  ---
+  duration_ms: 44.5651
+  ...
+# Subtest: 重复创建同一房间不会导致已两人但无法开始
+ok 29 - 重复创建同一房间不会导致已两人但无法开始
+  ---
+  duration_ms: 25.1223
+  ...
+# Subtest: 逐人私有投影 / 六十秒时钟 / 迟到消息与同时提交
+ok 30 - 逐人私有投影 / 六十秒时钟 / 迟到消息与同时提交
+  ---
+  duration_ms: 46.8673
+  ...
+# Subtest: 换组选项不延长倒计时 / 断线暂停 / 重连保留选项和剩余秒数
+ok 31 - 换组选项不延长倒计时 / 断线暂停 / 重连保留选项和剩余秒数
+  ---
+  duration_ms: 40.7992
+  ...
+# Subtest: 普通动作封装 / 费用版本 / 去重缓存 / 新开局隔离 / 未确认选择终止
+ok 32 - 普通动作封装 / 费用版本 / 去重缓存 / 新开局隔离 / 未确认选择终止
+  ---
+  duration_ms: 49.734
+  ...
+# Subtest: V1、V5 二至四人真实开局、健康检查与重新开局
+ok 33 - V1、V5 二至四人真实开局、健康检查与重新开局
+  ---
+  duration_ms: 158.4065
+  ...
+# Subtest: V66 已提交重连保留锁定、候选与剩余时间
+ok 34 - V66 已提交重连保留锁定、候选与剩余时间
+  ---
+  duration_ms: 36.9816
+  ...
+# Subtest: V46、V66、V67 股票重连不重置累计预算，成交重放一次
+ok 35 - V46、V66、V67 股票重连不重置累计预算，成交重放一次
+  ---
+  duration_ms: 59.5024
+  ...
+# Subtest: V26、V67 远程重放、报价过期、越权及成功缓存有界
+ok 36 - V26、V67 远程重放、报价过期、越权及成功缓存有界
+  ---
+  duration_ms: 257.3326
+  ...
+# Subtest: V64 暂停解散与闲置结束先派息，记录和重复终止一致
+ok 37 - V64 暂停解散与闲置结束先派息，记录和重复终止一致
+  ---
+  duration_ms: 112.9417
+  ...
+# Subtest: V4 缺新增信息旧对局认证重连后仍按旧规则，新开局升级
+ok 38 - V4 缺新增信息旧对局认证重连后仍按旧规则，新开局升级
+  ---
+  duration_ms: 55.1318
+  ...
+# Subtest: V49、V67 协商转让确认重放只转一次，不提前派息
+ok 39 - V49、V67 协商转让确认重放只转一次，不提前派息
+  ---
+  duration_ms: 54.6047
+  ...
+# Subtest: 可用性：报价、持股、额度及现金失效均原子拒绝且不延时
+ok 40 - 可用性：报价、持股、额度及现金失效均原子拒绝且不延时
+  ---
+  duration_ms: 75.8331
+  ...
+# Subtest: 扶持购城后可经营，真实重连保留额度与两次原请求结果
+ok 41 - 扶持购城后可经营，真实重连保留额度与两次原请求结果
+  ---
+  duration_ms: 55.2093
+  ...
+# Subtest: v4 remote build and active stock real requests deduplicate and preserve cooldown and clock
+ok 42 - v4 remote build and active stock real requests deduplicate and preserve cooldown and clock
+  ---
+  duration_ms: 57.8405
+  ...
+# Subtest: new v4 and historical v1/v2/v3 remain separate, failed quotes are readonly
+ok 43 - new v4 and historical v1/v2/v3 remain separate, failed quotes are readonly
+  ---
+  duration_ms: 6.0474
+  ...
+# Subtest: all cities and target levels use exact tiers, capped discounts, 150 percent floor and real quota consumption
+ok 44 - all cities and target levels use exact tiers, capped discounts, 150 percent floor and real quota consumption
+  ---
+  duration_ms: 73.3203
+  ...
+# Subtest: remote build shares three-lap cooldown and persistent alternating target, normal construction does not reset it
+ok 45 - remote build shares three-lap cooldown and persistent alternating target, normal construction does not reset it
+  ---
+  duration_ms: 1.3547
+  ...
+# Subtest: stale requests, low cash, cooldown and old promotion alias cannot spend or change remote history
+ok 46 - stale requests, low cash, cooldown and old promotion alias cannot spend or change remote history
+  ---
+  duration_ms: 0.5833
+  ...
+# Subtest: orders pay exactly twice at later own turn starts including frozen and one-turn jail, remain once per personal lap
+ok 47 - orders pay exactly twice at later own turn starts including frozen and one-turn jail, remain once per personal lap
+  ---
+  duration_ms: 1.3373
+  ...
+# Subtest: orders cancel unpaid income on mortgage, transfer, airport loss and seal; no unpaid amount enters assets
+ok 48 - orders cancel unpaid income on mortgage, transfer, airport loss and seal; no unpaid amount enters assets
+  ---
+  duration_ms: 1.5098
+  ...
+# Subtest: active purchase 1-4 is fee-free with no new lap cap, owner 4 and market 20 still apply
+ok 49 - active purchase 1-4 is fee-free with no new lap cap, owner 4 and market 20 still apply
+  ---
+  duration_ms: 0.9959
+  ...
+# Subtest: investment reward is based on marked live shares and basic go dividend, stacks without compounding and deduplicates
+ok 50 - investment reward is based on marked live shares and basic go dividend, stacks without compounding and deduplicates
+  ---
+  duration_ms: 1.3785
+  ...
+# Subtest: own actual go pays the old purchase pool before expiration, later dividends cannot revive the reward
+ok 51 - own actual go pays the old purchase pool before expiration, later dividends cannot revive the reward
+  ---
+  duration_ms: 1.1274
+  ...
+# Subtest: sale, transfer, forced cap, bank clearing and new listing remove reward shares first, transferred shares do not inherit
+ok 52 - sale, transfer, forced cap, bank clearing and new listing remove reward shares first, transferred shares do not inherit
+  ---
+  duration_ms: 1.0579
+  ...
+# Subtest: v4 private state, chosen bot actions, late quick investments and journal replay remain consistent
+ok 53 - v4 private state, chosen bot actions, late quick investments and journal replay remain consistent
+  ---
+  duration_ms: 13.111
+  ...
+# Subtest: v3 explicitly skipping spends no money or lap quota and cannot buy again until next turn
+ok 54 - v3 explicitly skipping spends no money or lap quota and cannot buy again until next turn
+  ---
+  duration_ms: 7.4393
+  ...
+# Subtest: skip is only legal for the current normal decision, and does not add time
+ok 55 - skip is only legal for the current normal decision, and does not add time
+  ---
+  duration_ms: 1.3358
+  ...
+# Subtest: v3 trusted timeout skips and rolls without investing, v2 retains its spending rule
+ok 56 - v3 trusted timeout skips and rolls without investing, v2 retains its spending rule
+  ---
+  duration_ms: 2.4344
+  ...
+# Subtest: AI may skip when every investment breaks its cash reserve, and old versions reject skip
+ok 57 - AI may skip when every investment breaks its cash reserve, and old versions reject skip
+  ---
+  duration_ms: 4.2409
+  ...
+# Subtest: v2门禁、无项目放行、失败原子性、旧局可跳过
+ok 58 - v2门禁、无项目放行、失败原子性、旧局可跳过
+  ---
+  duration_ms: 7.0443
+  ...
+# Subtest: v2三类费用、促销不替换、没有圈额度但保留20/4股
+ok 59 - v2三类费用、促销不替换、没有圈额度但保留20/4股
+  ---
+  duration_ms: 1.7887
+  ...
+# Subtest: 促销完整期限、3次上限、欠租清偿幂等和撤销
+ok 60 - 促销完整期限、3次上限、欠租清偿幂等和撤销
+  ---
+  duration_ms: 0.8545
+  ...
+# Subtest: 可信超时选择最低支出后掷骰；重放一致，普通请求不得伪造
+ok 61 - 可信超时选择最低支出后掷骰；重放一致，普通请求不得伪造
+  ---
+  duration_ms: 2.5818
+  ...
+# Subtest: 快速45秒/普通90秒，经营/查看不改变决定期限
+ok 62 - 快速45秒/普通90秒，经营/查看不改变决定期限
+  ---
+  duration_ms: 0.7686
+  ...
+# Subtest: H1 H2 H3：建设优惠30%总上限，前两次与连锁持续生效
+ok 63 - H1 H2 H3：建设优惠30%总上限，前两次与连锁持续生效
+  ---
+  duration_ms: 0.883
+  ...
+# Subtest: H4 H5 H9 H10：真实股息、分散及航空/轻资产奖励
+ok 64 - H4 H5 H9 H10：真实股息、分散及航空/轻资产奖励
+  ---
+  duration_ms: 0.625
+  ...
+# Subtest: H6 H11：股东25%再减30%，防御前两次、各自上限
+ok 65 - H6 H11：股东25%再减30%，防御前两次、各自上限
+  ---
+  duration_ms: 0.4414
+  ...
+# Subtest: H7 H8：两次航班优惠、60%合计上限，机场首访和跨圈访问
+ok 66 - H7 H8：两次航班优惠、60%合计上限，机场首访和跨圈访问
+  ---
+  duration_ms: 0.4686
+  ...
+# Subtest: H12新版金额、一次凭据、目录隐私与AI必做fallback
+ok 67 - H12新版金额、一次凭据、目录隐私与AI必做fallback
+  ---
+  duration_ms: 5.1514
+  ...
+# Subtest: 有限真实收益对照：0/1/3次客流，三类经营不混淆回报
+ok 68 - 有限真实收益对照：0/1/3次客流，三类经营不混淆回报
+  ---
+  duration_ms: 6.326
+  ...
+# Subtest: 私人计数、产权与经营按有序状态变更重建，公开记录不泄漏
+ok 69 - 私人计数、产权与经营按有序状态变更重建，公开记录不泄漏
+  ---
+  duration_ms: 22.7089
+  ...
+# Subtest: 远航开支由真实事件汇总、记录修订，旧记录不补算
+ok 70 - 远航开支由真实事件汇总、记录修订，旧记录不补算
+  ---
+  duration_ms: 3.9035
+  ...
+# Subtest: computeStats：从事件文本统计关键动作
+ok 71 - computeStats：从事件文本统计关键动作
+  ---
+  duration_ms: 0.2924
+  ...
+# Subtest: buildGameRecord：生成完整对局记录
+ok 72 - buildGameRecord：生成完整对局记录
+  ---
+  duration_ms: 0.7579
+  ...
+# Subtest: 集成：中途解散房间时广播完整对局记录
+ok 73 - 集成：中途解散房间时广播完整对局记录
+  ---
+  duration_ms: 449.785
+  ...
+# Subtest: 公开规则资料准确、确定性生成且检查不写入
+ok 74 - 公开规则资料准确、确定性生成且检查不写入
+  ---
+  duration_ms: 4.7829
+  ...
+1..74
+# tests 74
+# suites 0
+# pass 74
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

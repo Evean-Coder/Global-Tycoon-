@@ -1,0 +1,49 @@
+TAP version 13
+# Subtest: full42-square phone map fits five screens in both modes; short name and glyph remain readable
+ok 1 - full42-square phone map fits five screens in both modes; short name and glyph remain readable
+  ---
+  duration_ms: 3422.7884
+  ...
+# Subtest: details and More retain actual information, stock access and reading through broadcasts
+ok 2 - details and More retain actual information, stock access and reading through broadcasts
+  ---
+  duration_ms: 551.5945
+  ...
+# Subtest: PC and tablet recover original board and information; stock draft survives orientation gate
+ok 3 - PC and tablet recover original board and information; stock draft survives orientation gate
+  ---
+  duration_ms: 477.5275
+  ...
+# Subtest: all layouts use the unique clockwise 42-square ring
+ok 4 - all layouts use the unique clockwise 42-square ring
+  ---
+  duration_ms: 1.3489
+  ...
+# Subtest: portrait has no alternative board layout; landscape and tablet retain ring layout
+ok 5 - portrait has no alternative board layout; landscape and tablet retain ring layout
+  ---
+  duration_ms: 0.1303
+  ...
+# Subtest: compact perimeter has42 unique neighbours including last to first and preserves original mapping
+ok 6 - compact perimeter has42 unique neighbours including last to first and preserves original mapping
+  ---
+  duration_ms: 1.6674
+  ...
+# Subtest: all short names fit three characters, icon and full labels remain and frozen state is read-only
+ok 7 - all short names fit three characters, icon and full labels remain and frozen state is read-only
+  ---
+  duration_ms: 6.4894
+  ...
+# Subtest: ownership color follows players independently from property group or pawn position
+ok 8 - ownership color follows players independently from property group or pawn position
+  ---
+  duration_ms: 0.5278
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 8
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

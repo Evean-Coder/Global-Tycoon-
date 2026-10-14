@@ -2,7 +2,7 @@
 /* global game, latestState, socket, actionPending */
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const {boot}=require('./helpers/browserHarness'),{createGameState}=require('../src/state'),f=require('../test/helpers/gameplayFixtures'),routes=require('../src/opportunityRoutes'),logic=require('../src/gameLogic');
-const dir=path.join(__dirname,'../docs/management-balance-v4/evidence');let h,turn=200;
+const dir=process.env.E2E_EVIDENCE_ROOT?path.join(process.env.E2E_EVIDENCE_ROOT,'management-balance-v4'):path.join(__dirname,'../docs/management-balance-v4/evidence');let h,turn=200;
 function fixture(mode='normal'){const s=createGameState('V4',['甲','乙'],2,{activeManagementRevision:'active-management-v4',routeRevision:routes.REVISION,gameMode:mode,...(mode==='quick'?{quickRevision:'quick-mode-v1'}:{})});s.turnId=++turn;s.phase='waiting_roll';s.pending=null;s.firstRoundDone=true;s.routeFlow.initialDueOrdinal=mode==='quick'?1:3;for(let i=1;i<=s.routeFlow.initialDueOrdinal;i++){s.opportunityStage={ordinal:i,resolved:true};routes.markInitialResolved(s,i);}f.own(s,'p0','内罗毕','开普敦');f.own(s,'p1','罗马');f.selected(s,'p0','H1','H2','H3');return s;}
 test.before(async()=>{fs.mkdirSync(dir,{recursive:true});h=await boot({mobile:true,gameMode:'quick',quickClockOptions:f.fakeClock()});await h.choose();for(const p of h.pages)p.setDefaultTimeout(5000);});test.after(async()=>{if(h)await h.close();});
 test('v4 three routes and construction cost/cooldown are usable on all screens and both modes',{timeout:60000},async()=>{

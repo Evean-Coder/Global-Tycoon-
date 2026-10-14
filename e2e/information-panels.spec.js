@@ -2,7 +2,7 @@
 /* global game, stockDraft, closeModal, closeManagement, finishRender */
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const {boot}=require('./helpers/browserHarness'),f=require('../test/helpers/gameplayFixtures'),stocks=require('../src/stocks'),{createGameState}=require('../src/state'),routes=require('../src/opportunityRoutes');
-const dir=path.join(__dirname,'../docs/information-panels/evidence');let h;
+const dir=process.env.E2E_EVIDENCE_ROOT?path.join(process.env.E2E_EVIDENCE_ROOT,'information-panels'):path.join(__dirname,'../docs/information-panels/evidence');let h;
 function fixture(options={}){const s=createGameState('READ',['玩家0','玩家1'],2,options);s.phase='waiting_roll';s.pending=null;s.firstRoundDone=true;f.own(s,'p0','巴黎','伦敦','上海');f.own(s,'p1','罗马');f.selected(s,'p0','H1','H4');s.world.status='running';s.world.active={id:1,type:'boom',name:'地区旺季',region:'欧洲',description:'欧洲标准租金增加15%，每笔最多3000。',remaining:2};s.world.preview={type:'aviation',name:'航空促销',region:null};return s;}
 test.before(async()=>{fs.mkdirSync(dir,{recursive:true});h=await boot({mobile:true});await h.pages[0].click('#btnChoiceRules');assert.equal(await h.pages[0].locator('#rules-topic-opportunities').getAttribute('open'),'');await h.pages[0].click('#btnRulesClose');await h.choose();for(const p of h.pages)p.setDefaultTimeout(5000);});test.after(async()=>{if(h)await h.close();});
 test.beforeEach(async()=>{await h.pages[0].evaluate(()=>{closeModal();closeManagement();document.getElementById('stockModal').classList.add('hidden');});});

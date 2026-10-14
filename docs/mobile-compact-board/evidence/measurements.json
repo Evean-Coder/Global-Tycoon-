@@ -1,0 +1,7922 @@
+{
+  "physicalDevices": "未测；本地Edge模拟触屏",
+  "measurements": [
+    {
+      "mode": "normal",
+      "width": 568,
+      "height": 280,
+      "zoom": false,
+      "board": {
+        "x": 4,
+        "y": 48,
+        "width": 415.5,
+        "height": 180,
+        "top": 48,
+        "right": 419.5,
+        "bottom": 228,
+        "left": 4
+      },
+      "bar": {
+        "x": 4,
+        "y": 232,
+        "width": 560,
+        "height": 44,
+        "top": 232,
+        "right": 564,
+        "bottom": 276,
+        "left": 4
+      },
+      "scrollWidth": 414,
+      "clientWidth": 414,
+      "scrollHeight": 178,
+      "clientHeight": 178,
+      "tiles": [
+        {
+          "id": 0,
+          "rect": {
+            "x": 6,
+            "y": 50,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 50,
+            "right": 39.375,
+            "bottom": 65.078125,
+            "left": 6
+          },
+          "text": "起点",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 1,
+          "rect": {
+            "x": 40.375,
+            "y": 50,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 50,
+            "right": 73.75,
+            "bottom": 65.078125,
+            "left": 40.375
+          },
+          "text": "内罗毕",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 2,
+          "rect": {
+            "x": 74.75,
+            "y": 50,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 50,
+            "right": 108.125,
+            "bottom": 65.078125,
+            "left": 74.75
+          },
+          "text": "开普敦",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 3,
+          "rect": {
+            "x": 109.125,
+            "y": 50,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 50,
+            "right": 142.5,
+            "bottom": 65.078125,
+            "left": 109.125
+          },
+          "text": "机会",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 4,
+          "rect": {
+            "x": 143.5,
+            "y": 50,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 50,
+            "right": 176.875,
+            "bottom": 65.078125,
+            "left": 143.5
+          },
+          "text": "卡萨",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 5,
+          "rect": {
+            "x": 177.875,
+            "y": 50,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 50,
+            "right": 211.25,
+            "bottom": 65.078125,
+            "left": 177.875
+          },
+          "text": "开罗",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 6,
+          "rect": {
+            "x": 212.25,
+            "y": 50,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 50,
+            "right": 245.625,
+            "bottom": 65.078125,
+            "left": 212.25
+          },
+          "text": "开罗",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 7,
+          "rect": {
+            "x": 246.625,
+            "y": 50,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 50,
+            "right": 280,
+            "bottom": 65.078125,
+            "left": 246.625
+          },
+          "text": "机会",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 8,
+          "rect": {
+            "x": 281,
+            "y": 50,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 50,
+            "right": 314.375,
+            "bottom": 65.078125,
+            "left": 281
+          },
+          "text": "奥克兰",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 9,
+          "rect": {
+            "x": 315.375,
+            "y": 50,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 50,
+            "right": 348.75,
+            "bottom": 65.078125,
+            "left": 315.375
+          },
+          "text": "悉尼",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 10,
+          "rect": {
+            "x": 349.75,
+            "y": 50,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 50,
+            "right": 383.125,
+            "bottom": 65.078125,
+            "left": 349.75
+          },
+          "text": "休闲",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 11,
+          "rect": {
+            "x": 384.125,
+            "y": 50,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 50,
+            "right": 417.5,
+            "bottom": 65.078125,
+            "left": 384.125
+          },
+          "text": "监狱",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 12,
+          "rect": {
+            "x": 384.125,
+            "y": 66.078125,
+            "width": 33.375,
+            "height": 15.09375,
+            "top": 66.078125,
+            "right": 417.5,
+            "bottom": 81.171875,
+            "left": 384.125
+          },
+          "text": "罗马",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 13,
+          "rect": {
+            "x": 384.125,
+            "y": 82.171875,
+            "width": 33.375,
+            "height": 15.09375,
+            "top": 82.171875,
+            "right": 417.5,
+            "bottom": 97.265625,
+            "left": 384.125
+          },
+          "text": "阿姆",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 14,
+          "rect": {
+            "x": 384.125,
+            "y": 98.265625,
+            "width": 33.375,
+            "height": 15.09375,
+            "top": 98.265625,
+            "right": 417.5,
+            "bottom": 113.359375,
+            "left": 384.125
+          },
+          "text": "南极",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 15,
+          "rect": {
+            "x": 384.125,
+            "y": 114.359375,
+            "width": 33.375,
+            "height": 15.09375,
+            "top": 114.359375,
+            "right": 417.5,
+            "bottom": 129.453125,
+            "left": 384.125
+          },
+          "text": "机会",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 16,
+          "rect": {
+            "x": 384.125,
+            "y": 130.453125,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 130.453125,
+            "right": 417.5,
+            "bottom": 145.53125,
+            "left": 384.125
+          },
+          "text": "希思罗",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 17,
+          "rect": {
+            "x": 384.125,
+            "y": 146.53125,
+            "width": 33.375,
+            "height": 15.09375,
+            "top": 146.53125,
+            "right": 417.5,
+            "bottom": 161.625,
+            "left": 384.125
+          },
+          "text": "伦敦",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 18,
+          "rect": {
+            "x": 384.125,
+            "y": 162.625,
+            "width": 33.375,
+            "height": 15.09375,
+            "top": 162.625,
+            "right": 417.5,
+            "bottom": 177.71875,
+            "left": 384.125
+          },
+          "text": "巴黎",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 19,
+          "rect": {
+            "x": 384.125,
+            "y": 178.71875,
+            "width": 33.375,
+            "height": 15.09375,
+            "top": 178.71875,
+            "right": 417.5,
+            "bottom": 193.8125,
+            "left": 384.125
+          },
+          "text": "机会",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 20,
+          "rect": {
+            "x": 384.125,
+            "y": 194.8125,
+            "width": 33.375,
+            "height": 15.09375,
+            "top": 194.8125,
+            "right": 417.5,
+            "bottom": 209.90625,
+            "left": 384.125
+          },
+          "text": "柏林",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 21,
+          "rect": {
+            "x": 384.125,
+            "y": 210.90625,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 417.5,
+            "bottom": 225.984375,
+            "left": 384.125
+          },
+          "text": "监狱",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 22,
+          "rect": {
+            "x": 349.75,
+            "y": 210.90625,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 383.125,
+            "bottom": 225.984375,
+            "left": 349.75
+          },
+          "text": "莫斯科",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 23,
+          "rect": {
+            "x": 315.375,
+            "y": 210.90625,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 348.75,
+            "bottom": 225.984375,
+            "left": 315.375
+          },
+          "text": "休闲",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 24,
+          "rect": {
+            "x": 281,
+            "y": 210.90625,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 314.375,
+            "bottom": 225.984375,
+            "left": 281
+          },
+          "text": "肯尼迪",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 25,
+          "rect": {
+            "x": 246.625,
+            "y": 210.90625,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 280,
+            "bottom": 225.984375,
+            "left": 246.625
+          },
+          "text": "纽约",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 26,
+          "rect": {
+            "x": 212.25,
+            "y": 210.90625,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 245.625,
+            "bottom": 225.984375,
+            "left": 212.25
+          },
+          "text": "机会",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 27,
+          "rect": {
+            "x": 177.875,
+            "y": 210.90625,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 211.25,
+            "bottom": 225.984375,
+            "left": 177.875
+          },
+          "text": "多伦多",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 28,
+          "rect": {
+            "x": 143.5,
+            "y": 210.90625,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 176.875,
+            "bottom": 225.984375,
+            "left": 143.5
+          },
+          "text": "墨城",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 29,
+          "rect": {
+            "x": 109.125,
+            "y": 210.90625,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 142.5,
+            "bottom": 225.984375,
+            "left": 109.125
+          },
+          "text": "里约",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 30,
+          "rect": {
+            "x": 74.75,
+            "y": 210.90625,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 108.125,
+            "bottom": 225.984375,
+            "left": 74.75
+          },
+          "text": "机会",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 31,
+          "rect": {
+            "x": 40.375,
+            "y": 210.90625,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 73.75,
+            "bottom": 225.984375,
+            "left": 40.375
+          },
+          "text": "休闲",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 32,
+          "rect": {
+            "x": 6,
+            "y": 210.90625,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 39.375,
+            "bottom": 225.984375,
+            "left": 6
+          },
+          "text": "监狱",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 33,
+          "rect": {
+            "x": 6,
+            "y": 194.8125,
+            "width": 33.375,
+            "height": 15.09375,
+            "top": 194.8125,
+            "right": 39.375,
+            "bottom": 209.90625,
+            "left": 6
+          },
+          "text": "机会",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 34,
+          "rect": {
+            "x": 6,
+            "y": 178.71875,
+            "width": 33.375,
+            "height": 15.09375,
+            "top": 178.71875,
+            "right": 39.375,
+            "bottom": 193.8125,
+            "left": 6
+          },
+          "text": "北极",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 35,
+          "rect": {
+            "x": 6,
+            "y": 162.625,
+            "width": 33.375,
+            "height": 15.09375,
+            "top": 162.625,
+            "right": 39.375,
+            "bottom": 177.71875,
+            "left": 6
+          },
+          "text": "浦东",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 36,
+          "rect": {
+            "x": 6,
+            "y": 146.53125,
+            "width": 33.375,
+            "height": 15.09375,
+            "top": 146.53125,
+            "right": 39.375,
+            "bottom": 161.625,
+            "left": 6
+          },
+          "text": "上海",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 37,
+          "rect": {
+            "x": 6,
+            "y": 130.453125,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 130.453125,
+            "right": 39.375,
+            "bottom": 145.53125,
+            "left": 6
+          },
+          "text": "东京",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 38,
+          "rect": {
+            "x": 6,
+            "y": 114.359375,
+            "width": 33.375,
+            "height": 15.09375,
+            "top": 114.359375,
+            "right": 39.375,
+            "bottom": 129.453125,
+            "left": 6
+          },
+          "text": "新加坡",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 39,
+          "rect": {
+            "x": 6,
+            "y": 98.265625,
+            "width": 33.375,
+            "height": 15.09375,
+            "top": 98.265625,
+            "right": 39.375,
+            "bottom": 113.359375,
+            "left": 6
+          },
+          "text": "迪拜",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 40,
+          "rect": {
+            "x": 6,
+            "y": 82.171875,
+            "width": 33.375,
+            "height": 15.09375,
+            "top": 82.171875,
+            "right": 39.375,
+            "bottom": 97.265625,
+            "left": 6
+          },
+          "text": "机会",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 41,
+          "rect": {
+            "x": 6,
+            "y": 66.078125,
+            "width": 33.375,
+            "height": 15.09375,
+            "top": 66.078125,
+            "right": 39.375,
+            "bottom": 81.171875,
+            "left": 6
+          },
+          "text": "休闲",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "mode": "normal",
+      "width": 568,
+      "height": 320,
+      "zoom": false,
+      "board": {
+        "x": 4,
+        "y": 48,
+        "width": 415.5,
+        "height": 220,
+        "top": 48,
+        "right": 419.5,
+        "bottom": 268,
+        "left": 4
+      },
+      "bar": {
+        "x": 4,
+        "y": 272,
+        "width": 560,
+        "height": 44,
+        "top": 272,
+        "right": 564,
+        "bottom": 316,
+        "left": 4
+      },
+      "scrollWidth": 414,
+      "clientWidth": 414,
+      "scrollHeight": 218,
+      "clientHeight": 218,
+      "tiles": [
+        {
+          "id": 0,
+          "rect": {
+            "x": 6,
+            "y": 50,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 50,
+            "right": 39.375,
+            "bottom": 68.71875,
+            "left": 6
+          },
+          "text": "起点",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 1,
+          "rect": {
+            "x": 40.375,
+            "y": 50,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 50,
+            "right": 73.75,
+            "bottom": 68.71875,
+            "left": 40.375
+          },
+          "text": "内罗毕",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 2,
+          "rect": {
+            "x": 74.75,
+            "y": 50,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 50,
+            "right": 108.125,
+            "bottom": 68.71875,
+            "left": 74.75
+          },
+          "text": "开普敦",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 3,
+          "rect": {
+            "x": 109.125,
+            "y": 50,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 50,
+            "right": 142.5,
+            "bottom": 68.71875,
+            "left": 109.125
+          },
+          "text": "机会",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 4,
+          "rect": {
+            "x": 143.5,
+            "y": 50,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 50,
+            "right": 176.875,
+            "bottom": 68.71875,
+            "left": 143.5
+          },
+          "text": "卡萨",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 5,
+          "rect": {
+            "x": 177.875,
+            "y": 50,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 50,
+            "right": 211.25,
+            "bottom": 68.71875,
+            "left": 177.875
+          },
+          "text": "开罗",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 6,
+          "rect": {
+            "x": 212.25,
+            "y": 50,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 50,
+            "right": 245.625,
+            "bottom": 68.71875,
+            "left": 212.25
+          },
+          "text": "开罗",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 7,
+          "rect": {
+            "x": 246.625,
+            "y": 50,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 50,
+            "right": 280,
+            "bottom": 68.71875,
+            "left": 246.625
+          },
+          "text": "机会",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 8,
+          "rect": {
+            "x": 281,
+            "y": 50,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 50,
+            "right": 314.375,
+            "bottom": 68.71875,
+            "left": 281
+          },
+          "text": "奥克兰",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 9,
+          "rect": {
+            "x": 315.375,
+            "y": 50,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 50,
+            "right": 348.75,
+            "bottom": 68.71875,
+            "left": 315.375
+          },
+          "text": "悉尼",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 10,
+          "rect": {
+            "x": 349.75,
+            "y": 50,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 50,
+            "right": 383.125,
+            "bottom": 68.71875,
+            "left": 349.75
+          },
+          "text": "休闲",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 11,
+          "rect": {
+            "x": 384.125,
+            "y": 50,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 50,
+            "right": 417.5,
+            "bottom": 68.71875,
+            "left": 384.125
+          },
+          "text": "监狱",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 12,
+          "rect": {
+            "x": 384.125,
+            "y": 69.71875,
+            "width": 33.375,
+            "height": 18.734375,
+            "top": 69.71875,
+            "right": 417.5,
+            "bottom": 88.453125,
+            "left": 384.125
+          },
+          "text": "罗马",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 13,
+          "rect": {
+            "x": 384.125,
+            "y": 89.453125,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 89.453125,
+            "right": 417.5,
+            "bottom": 108.171875,
+            "left": 384.125
+          },
+          "text": "阿姆",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 14,
+          "rect": {
+            "x": 384.125,
+            "y": 109.171875,
+            "width": 33.375,
+            "height": 18.734375,
+            "top": 109.171875,
+            "right": 417.5,
+            "bottom": 127.90625,
+            "left": 384.125
+          },
+          "text": "南极",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 15,
+          "rect": {
+            "x": 384.125,
+            "y": 128.90625,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 128.90625,
+            "right": 417.5,
+            "bottom": 147.625,
+            "left": 384.125
+          },
+          "text": "机会",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 16,
+          "rect": {
+            "x": 384.125,
+            "y": 148.625,
+            "width": 33.375,
+            "height": 18.734375,
+            "top": 148.625,
+            "right": 417.5,
+            "bottom": 167.359375,
+            "left": 384.125
+          },
+          "text": "希思罗",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 17,
+          "rect": {
+            "x": 384.125,
+            "y": 168.359375,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 168.359375,
+            "right": 417.5,
+            "bottom": 187.078125,
+            "left": 384.125
+          },
+          "text": "伦敦",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 18,
+          "rect": {
+            "x": 384.125,
+            "y": 188.078125,
+            "width": 33.375,
+            "height": 18.734375,
+            "top": 188.078125,
+            "right": 417.5,
+            "bottom": 206.8125,
+            "left": 384.125
+          },
+          "text": "巴黎",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 19,
+          "rect": {
+            "x": 384.125,
+            "y": 207.8125,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 207.8125,
+            "right": 417.5,
+            "bottom": 226.53125,
+            "left": 384.125
+          },
+          "text": "机会",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 20,
+          "rect": {
+            "x": 384.125,
+            "y": 227.53125,
+            "width": 33.375,
+            "height": 18.734375,
+            "top": 227.53125,
+            "right": 417.5,
+            "bottom": 246.265625,
+            "left": 384.125
+          },
+          "text": "柏林",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 21,
+          "rect": {
+            "x": 384.125,
+            "y": 247.265625,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 247.265625,
+            "right": 417.5,
+            "bottom": 265.984375,
+            "left": 384.125
+          },
+          "text": "监狱",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 22,
+          "rect": {
+            "x": 349.75,
+            "y": 247.265625,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 247.265625,
+            "right": 383.125,
+            "bottom": 265.984375,
+            "left": 349.75
+          },
+          "text": "莫斯科",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 23,
+          "rect": {
+            "x": 315.375,
+            "y": 247.265625,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 247.265625,
+            "right": 348.75,
+            "bottom": 265.984375,
+            "left": 315.375
+          },
+          "text": "休闲",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 24,
+          "rect": {
+            "x": 281,
+            "y": 247.265625,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 247.265625,
+            "right": 314.375,
+            "bottom": 265.984375,
+            "left": 281
+          },
+          "text": "肯尼迪",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 25,
+          "rect": {
+            "x": 246.625,
+            "y": 247.265625,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 247.265625,
+            "right": 280,
+            "bottom": 265.984375,
+            "left": 246.625
+          },
+          "text": "纽约",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 26,
+          "rect": {
+            "x": 212.25,
+            "y": 247.265625,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 247.265625,
+            "right": 245.625,
+            "bottom": 265.984375,
+            "left": 212.25
+          },
+          "text": "机会",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 27,
+          "rect": {
+            "x": 177.875,
+            "y": 247.265625,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 247.265625,
+            "right": 211.25,
+            "bottom": 265.984375,
+            "left": 177.875
+          },
+          "text": "多伦多",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 28,
+          "rect": {
+            "x": 143.5,
+            "y": 247.265625,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 247.265625,
+            "right": 176.875,
+            "bottom": 265.984375,
+            "left": 143.5
+          },
+          "text": "墨城",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 29,
+          "rect": {
+            "x": 109.125,
+            "y": 247.265625,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 247.265625,
+            "right": 142.5,
+            "bottom": 265.984375,
+            "left": 109.125
+          },
+          "text": "里约",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 30,
+          "rect": {
+            "x": 74.75,
+            "y": 247.265625,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 247.265625,
+            "right": 108.125,
+            "bottom": 265.984375,
+            "left": 74.75
+          },
+          "text": "机会",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 31,
+          "rect": {
+            "x": 40.375,
+            "y": 247.265625,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 247.265625,
+            "right": 73.75,
+            "bottom": 265.984375,
+            "left": 40.375
+          },
+          "text": "休闲",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 32,
+          "rect": {
+            "x": 6,
+            "y": 247.265625,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 247.265625,
+            "right": 39.375,
+            "bottom": 265.984375,
+            "left": 6
+          },
+          "text": "监狱",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 33,
+          "rect": {
+            "x": 6,
+            "y": 227.53125,
+            "width": 33.375,
+            "height": 18.734375,
+            "top": 227.53125,
+            "right": 39.375,
+            "bottom": 246.265625,
+            "left": 6
+          },
+          "text": "机会",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 34,
+          "rect": {
+            "x": 6,
+            "y": 207.8125,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 207.8125,
+            "right": 39.375,
+            "bottom": 226.53125,
+            "left": 6
+          },
+          "text": "北极",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 35,
+          "rect": {
+            "x": 6,
+            "y": 188.078125,
+            "width": 33.375,
+            "height": 18.734375,
+            "top": 188.078125,
+            "right": 39.375,
+            "bottom": 206.8125,
+            "left": 6
+          },
+          "text": "浦东",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 36,
+          "rect": {
+            "x": 6,
+            "y": 168.359375,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 168.359375,
+            "right": 39.375,
+            "bottom": 187.078125,
+            "left": 6
+          },
+          "text": "上海",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 37,
+          "rect": {
+            "x": 6,
+            "y": 148.625,
+            "width": 33.375,
+            "height": 18.734375,
+            "top": 148.625,
+            "right": 39.375,
+            "bottom": 167.359375,
+            "left": 6
+          },
+          "text": "东京",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 38,
+          "rect": {
+            "x": 6,
+            "y": 128.90625,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 128.90625,
+            "right": 39.375,
+            "bottom": 147.625,
+            "left": 6
+          },
+          "text": "新加坡",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 39,
+          "rect": {
+            "x": 6,
+            "y": 109.171875,
+            "width": 33.375,
+            "height": 18.734375,
+            "top": 109.171875,
+            "right": 39.375,
+            "bottom": 127.90625,
+            "left": 6
+          },
+          "text": "迪拜",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 40,
+          "rect": {
+            "x": 6,
+            "y": 89.453125,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 89.453125,
+            "right": 39.375,
+            "bottom": 108.171875,
+            "left": 6
+          },
+          "text": "机会",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 41,
+          "rect": {
+            "x": 6,
+            "y": 69.71875,
+            "width": 33.375,
+            "height": 18.734375,
+            "top": 69.71875,
+            "right": 39.375,
+            "bottom": 88.453125,
+            "left": 6
+          },
+          "text": "休闲",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "mode": "normal",
+      "width": 844,
+      "height": 280,
+      "zoom": false,
+      "board": {
+        "x": 4,
+        "y": 48,
+        "width": 622.5,
+        "height": 180,
+        "top": 48,
+        "right": 626.5,
+        "bottom": 228,
+        "left": 4
+      },
+      "bar": {
+        "x": 4,
+        "y": 232,
+        "width": 836,
+        "height": 44,
+        "top": 232,
+        "right": 840,
+        "bottom": 276,
+        "left": 4
+      },
+      "scrollWidth": 621,
+      "clientWidth": 621,
+      "scrollHeight": 178,
+      "clientHeight": 178,
+      "tiles": [
+        {
+          "id": 0,
+          "rect": {
+            "x": 6,
+            "y": 50,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 50,
+            "right": 56.625,
+            "bottom": 65.078125,
+            "left": 6
+          },
+          "text": "起点",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 1,
+          "rect": {
+            "x": 57.625,
+            "y": 50,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 50,
+            "right": 108.25,
+            "bottom": 65.078125,
+            "left": 57.625
+          },
+          "text": "内罗毕",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 2,
+          "rect": {
+            "x": 109.25,
+            "y": 50,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 50,
+            "right": 159.875,
+            "bottom": 65.078125,
+            "left": 109.25
+          },
+          "text": "开普敦",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 3,
+          "rect": {
+            "x": 160.875,
+            "y": 50,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 50,
+            "right": 211.5,
+            "bottom": 65.078125,
+            "left": 160.875
+          },
+          "text": "机会",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 4,
+          "rect": {
+            "x": 212.5,
+            "y": 50,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 50,
+            "right": 263.125,
+            "bottom": 65.078125,
+            "left": 212.5
+          },
+          "text": "卡萨",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 5,
+          "rect": {
+            "x": 264.125,
+            "y": 50,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 50,
+            "right": 314.75,
+            "bottom": 65.078125,
+            "left": 264.125
+          },
+          "text": "开罗",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 6,
+          "rect": {
+            "x": 315.75,
+            "y": 50,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 50,
+            "right": 366.375,
+            "bottom": 65.078125,
+            "left": 315.75
+          },
+          "text": "开罗",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 7,
+          "rect": {
+            "x": 367.375,
+            "y": 50,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 50,
+            "right": 418,
+            "bottom": 65.078125,
+            "left": 367.375
+          },
+          "text": "机会",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 8,
+          "rect": {
+            "x": 419,
+            "y": 50,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 50,
+            "right": 469.625,
+            "bottom": 65.078125,
+            "left": 419
+          },
+          "text": "奥克兰",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 9,
+          "rect": {
+            "x": 470.625,
+            "y": 50,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 50,
+            "right": 521.25,
+            "bottom": 65.078125,
+            "left": 470.625
+          },
+          "text": "悉尼",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 10,
+          "rect": {
+            "x": 522.25,
+            "y": 50,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 50,
+            "right": 572.875,
+            "bottom": 65.078125,
+            "left": 522.25
+          },
+          "text": "休闲",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 11,
+          "rect": {
+            "x": 573.875,
+            "y": 50,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 50,
+            "right": 624.5,
+            "bottom": 65.078125,
+            "left": 573.875
+          },
+          "text": "监狱",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 12,
+          "rect": {
+            "x": 573.875,
+            "y": 66.078125,
+            "width": 50.625,
+            "height": 15.09375,
+            "top": 66.078125,
+            "right": 624.5,
+            "bottom": 81.171875,
+            "left": 573.875
+          },
+          "text": "罗马",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 13,
+          "rect": {
+            "x": 573.875,
+            "y": 82.171875,
+            "width": 50.625,
+            "height": 15.09375,
+            "top": 82.171875,
+            "right": 624.5,
+            "bottom": 97.265625,
+            "left": 573.875
+          },
+          "text": "阿姆",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 14,
+          "rect": {
+            "x": 573.875,
+            "y": 98.265625,
+            "width": 50.625,
+            "height": 15.09375,
+            "top": 98.265625,
+            "right": 624.5,
+            "bottom": 113.359375,
+            "left": 573.875
+          },
+          "text": "南极",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 15,
+          "rect": {
+            "x": 573.875,
+            "y": 114.359375,
+            "width": 50.625,
+            "height": 15.09375,
+            "top": 114.359375,
+            "right": 624.5,
+            "bottom": 129.453125,
+            "left": 573.875
+          },
+          "text": "机会",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 16,
+          "rect": {
+            "x": 573.875,
+            "y": 130.453125,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 130.453125,
+            "right": 624.5,
+            "bottom": 145.53125,
+            "left": 573.875
+          },
+          "text": "希思罗",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 17,
+          "rect": {
+            "x": 573.875,
+            "y": 146.53125,
+            "width": 50.625,
+            "height": 15.09375,
+            "top": 146.53125,
+            "right": 624.5,
+            "bottom": 161.625,
+            "left": 573.875
+          },
+          "text": "伦敦",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 18,
+          "rect": {
+            "x": 573.875,
+            "y": 162.625,
+            "width": 50.625,
+            "height": 15.09375,
+            "top": 162.625,
+            "right": 624.5,
+            "bottom": 177.71875,
+            "left": 573.875
+          },
+          "text": "巴黎",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 19,
+          "rect": {
+            "x": 573.875,
+            "y": 178.71875,
+            "width": 50.625,
+            "height": 15.09375,
+            "top": 178.71875,
+            "right": 624.5,
+            "bottom": 193.8125,
+            "left": 573.875
+          },
+          "text": "机会",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 20,
+          "rect": {
+            "x": 573.875,
+            "y": 194.8125,
+            "width": 50.625,
+            "height": 15.09375,
+            "top": 194.8125,
+            "right": 624.5,
+            "bottom": 209.90625,
+            "left": 573.875
+          },
+          "text": "柏林",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 21,
+          "rect": {
+            "x": 573.875,
+            "y": 210.90625,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 624.5,
+            "bottom": 225.984375,
+            "left": 573.875
+          },
+          "text": "监狱",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 22,
+          "rect": {
+            "x": 522.25,
+            "y": 210.90625,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 572.875,
+            "bottom": 225.984375,
+            "left": 522.25
+          },
+          "text": "莫斯科",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 23,
+          "rect": {
+            "x": 470.625,
+            "y": 210.90625,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 521.25,
+            "bottom": 225.984375,
+            "left": 470.625
+          },
+          "text": "休闲",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 24,
+          "rect": {
+            "x": 419,
+            "y": 210.90625,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 469.625,
+            "bottom": 225.984375,
+            "left": 419
+          },
+          "text": "肯尼迪",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 25,
+          "rect": {
+            "x": 367.375,
+            "y": 210.90625,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 418,
+            "bottom": 225.984375,
+            "left": 367.375
+          },
+          "text": "纽约",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 26,
+          "rect": {
+            "x": 315.75,
+            "y": 210.90625,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 366.375,
+            "bottom": 225.984375,
+            "left": 315.75
+          },
+          "text": "机会",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 27,
+          "rect": {
+            "x": 264.125,
+            "y": 210.90625,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 314.75,
+            "bottom": 225.984375,
+            "left": 264.125
+          },
+          "text": "多伦多",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 28,
+          "rect": {
+            "x": 212.5,
+            "y": 210.90625,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 263.125,
+            "bottom": 225.984375,
+            "left": 212.5
+          },
+          "text": "墨城",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 29,
+          "rect": {
+            "x": 160.875,
+            "y": 210.90625,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 211.5,
+            "bottom": 225.984375,
+            "left": 160.875
+          },
+          "text": "里约",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 30,
+          "rect": {
+            "x": 109.25,
+            "y": 210.90625,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 159.875,
+            "bottom": 225.984375,
+            "left": 109.25
+          },
+          "text": "机会",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 31,
+          "rect": {
+            "x": 57.625,
+            "y": 210.90625,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 108.25,
+            "bottom": 225.984375,
+            "left": 57.625
+          },
+          "text": "休闲",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 32,
+          "rect": {
+            "x": 6,
+            "y": 210.90625,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 56.625,
+            "bottom": 225.984375,
+            "left": 6
+          },
+          "text": "监狱",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 33,
+          "rect": {
+            "x": 6,
+            "y": 194.8125,
+            "width": 50.625,
+            "height": 15.09375,
+            "top": 194.8125,
+            "right": 56.625,
+            "bottom": 209.90625,
+            "left": 6
+          },
+          "text": "机会",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 34,
+          "rect": {
+            "x": 6,
+            "y": 178.71875,
+            "width": 50.625,
+            "height": 15.09375,
+            "top": 178.71875,
+            "right": 56.625,
+            "bottom": 193.8125,
+            "left": 6
+          },
+          "text": "北极",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 35,
+          "rect": {
+            "x": 6,
+            "y": 162.625,
+            "width": 50.625,
+            "height": 15.09375,
+            "top": 162.625,
+            "right": 56.625,
+            "bottom": 177.71875,
+            "left": 6
+          },
+          "text": "浦东",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 36,
+          "rect": {
+            "x": 6,
+            "y": 146.53125,
+            "width": 50.625,
+            "height": 15.09375,
+            "top": 146.53125,
+            "right": 56.625,
+            "bottom": 161.625,
+            "left": 6
+          },
+          "text": "上海",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 37,
+          "rect": {
+            "x": 6,
+            "y": 130.453125,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 130.453125,
+            "right": 56.625,
+            "bottom": 145.53125,
+            "left": 6
+          },
+          "text": "东京",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 38,
+          "rect": {
+            "x": 6,
+            "y": 114.359375,
+            "width": 50.625,
+            "height": 15.09375,
+            "top": 114.359375,
+            "right": 56.625,
+            "bottom": 129.453125,
+            "left": 6
+          },
+          "text": "新加坡",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 39,
+          "rect": {
+            "x": 6,
+            "y": 98.265625,
+            "width": 50.625,
+            "height": 15.09375,
+            "top": 98.265625,
+            "right": 56.625,
+            "bottom": 113.359375,
+            "left": 6
+          },
+          "text": "迪拜",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 40,
+          "rect": {
+            "x": 6,
+            "y": 82.171875,
+            "width": 50.625,
+            "height": 15.09375,
+            "top": 82.171875,
+            "right": 56.625,
+            "bottom": 97.265625,
+            "left": 6
+          },
+          "text": "机会",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 41,
+          "rect": {
+            "x": 6,
+            "y": 66.078125,
+            "width": 50.625,
+            "height": 15.09375,
+            "top": 66.078125,
+            "right": 56.625,
+            "bottom": 81.171875,
+            "left": 6
+          },
+          "text": "休闲",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "mode": "normal",
+      "width": 844,
+      "height": 390,
+      "zoom": false,
+      "board": {
+        "x": 4,
+        "y": 48,
+        "width": 622.5,
+        "height": 290,
+        "top": 48,
+        "right": 626.5,
+        "bottom": 338,
+        "left": 4
+      },
+      "bar": {
+        "x": 4,
+        "y": 342,
+        "width": 836,
+        "height": 44,
+        "top": 342,
+        "right": 840,
+        "bottom": 386,
+        "left": 4
+      },
+      "scrollWidth": 621,
+      "clientWidth": 621,
+      "scrollHeight": 288,
+      "clientHeight": 288,
+      "tiles": [
+        {
+          "id": 0,
+          "rect": {
+            "x": 6,
+            "y": 50,
+            "width": 50.625,
+            "height": 25.078125,
+            "top": 50,
+            "right": 56.625,
+            "bottom": 75.078125,
+            "left": 6
+          },
+          "text": "起点",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 1,
+          "rect": {
+            "x": 57.625,
+            "y": 50,
+            "width": 50.625,
+            "height": 25.078125,
+            "top": 50,
+            "right": 108.25,
+            "bottom": 75.078125,
+            "left": 57.625
+          },
+          "text": "内罗毕",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 2,
+          "rect": {
+            "x": 109.25,
+            "y": 50,
+            "width": 50.625,
+            "height": 25.078125,
+            "top": 50,
+            "right": 159.875,
+            "bottom": 75.078125,
+            "left": 109.25
+          },
+          "text": "开普敦",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 3,
+          "rect": {
+            "x": 160.875,
+            "y": 50,
+            "width": 50.625,
+            "height": 25.078125,
+            "top": 50,
+            "right": 211.5,
+            "bottom": 75.078125,
+            "left": 160.875
+          },
+          "text": "机会",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 4,
+          "rect": {
+            "x": 212.5,
+            "y": 50,
+            "width": 50.625,
+            "height": 25.078125,
+            "top": 50,
+            "right": 263.125,
+            "bottom": 75.078125,
+            "left": 212.5
+          },
+          "text": "卡萨",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 5,
+          "rect": {
+            "x": 264.125,
+            "y": 50,
+            "width": 50.625,
+            "height": 25.078125,
+            "top": 50,
+            "right": 314.75,
+            "bottom": 75.078125,
+            "left": 264.125
+          },
+          "text": "开罗",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 6,
+          "rect": {
+            "x": 315.75,
+            "y": 50,
+            "width": 50.625,
+            "height": 25.078125,
+            "top": 50,
+            "right": 366.375,
+            "bottom": 75.078125,
+            "left": 315.75
+          },
+          "text": "开罗",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 7,
+          "rect": {
+            "x": 367.375,
+            "y": 50,
+            "width": 50.625,
+            "height": 25.078125,
+            "top": 50,
+            "right": 418,
+            "bottom": 75.078125,
+            "left": 367.375
+          },
+          "text": "机会",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 8,
+          "rect": {
+            "x": 419,
+            "y": 50,
+            "width": 50.625,
+            "height": 25.078125,
+            "top": 50,
+            "right": 469.625,
+            "bottom": 75.078125,
+            "left": 419
+          },
+          "text": "奥克兰",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 9,
+          "rect": {
+            "x": 470.625,
+            "y": 50,
+            "width": 50.625,
+            "height": 25.078125,
+            "top": 50,
+            "right": 521.25,
+            "bottom": 75.078125,
+            "left": 470.625
+          },
+          "text": "悉尼",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 10,
+          "rect": {
+            "x": 522.25,
+            "y": 50,
+            "width": 50.625,
+            "height": 25.078125,
+            "top": 50,
+            "right": 572.875,
+            "bottom": 75.078125,
+            "left": 522.25
+          },
+          "text": "休闲",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 11,
+          "rect": {
+            "x": 573.875,
+            "y": 50,
+            "width": 50.625,
+            "height": 25.078125,
+            "top": 50,
+            "right": 624.5,
+            "bottom": 75.078125,
+            "left": 573.875
+          },
+          "text": "监狱",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 12,
+          "rect": {
+            "x": 573.875,
+            "y": 76.078125,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 76.078125,
+            "right": 624.5,
+            "bottom": 101.171875,
+            "left": 573.875
+          },
+          "text": "罗马",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 13,
+          "rect": {
+            "x": 573.875,
+            "y": 102.171875,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 102.171875,
+            "right": 624.5,
+            "bottom": 127.265625,
+            "left": 573.875
+          },
+          "text": "阿姆",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 14,
+          "rect": {
+            "x": 573.875,
+            "y": 128.265625,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 128.265625,
+            "right": 624.5,
+            "bottom": 153.359375,
+            "left": 573.875
+          },
+          "text": "南极",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 15,
+          "rect": {
+            "x": 573.875,
+            "y": 154.359375,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 154.359375,
+            "right": 624.5,
+            "bottom": 179.453125,
+            "left": 573.875
+          },
+          "text": "机会",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 16,
+          "rect": {
+            "x": 573.875,
+            "y": 180.453125,
+            "width": 50.625,
+            "height": 25.078125,
+            "top": 180.453125,
+            "right": 624.5,
+            "bottom": 205.53125,
+            "left": 573.875
+          },
+          "text": "希思罗",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 17,
+          "rect": {
+            "x": 573.875,
+            "y": 206.53125,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 206.53125,
+            "right": 624.5,
+            "bottom": 231.625,
+            "left": 573.875
+          },
+          "text": "伦敦",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 18,
+          "rect": {
+            "x": 573.875,
+            "y": 232.625,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 232.625,
+            "right": 624.5,
+            "bottom": 257.71875,
+            "left": 573.875
+          },
+          "text": "巴黎",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 19,
+          "rect": {
+            "x": 573.875,
+            "y": 258.71875,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 258.71875,
+            "right": 624.5,
+            "bottom": 283.8125,
+            "left": 573.875
+          },
+          "text": "机会",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 20,
+          "rect": {
+            "x": 573.875,
+            "y": 284.8125,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 284.8125,
+            "right": 624.5,
+            "bottom": 309.90625,
+            "left": 573.875
+          },
+          "text": "柏林",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 21,
+          "rect": {
+            "x": 573.875,
+            "y": 310.90625,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 310.90625,
+            "right": 624.5,
+            "bottom": 336,
+            "left": 573.875
+          },
+          "text": "监狱",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 22,
+          "rect": {
+            "x": 522.25,
+            "y": 310.90625,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 310.90625,
+            "right": 572.875,
+            "bottom": 336,
+            "left": 522.25
+          },
+          "text": "莫斯科",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 23,
+          "rect": {
+            "x": 470.625,
+            "y": 310.90625,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 310.90625,
+            "right": 521.25,
+            "bottom": 336,
+            "left": 470.625
+          },
+          "text": "休闲",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 24,
+          "rect": {
+            "x": 419,
+            "y": 310.90625,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 310.90625,
+            "right": 469.625,
+            "bottom": 336,
+            "left": 419
+          },
+          "text": "肯尼迪",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 25,
+          "rect": {
+            "x": 367.375,
+            "y": 310.90625,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 310.90625,
+            "right": 418,
+            "bottom": 336,
+            "left": 367.375
+          },
+          "text": "纽约",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 26,
+          "rect": {
+            "x": 315.75,
+            "y": 310.90625,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 310.90625,
+            "right": 366.375,
+            "bottom": 336,
+            "left": 315.75
+          },
+          "text": "机会",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 27,
+          "rect": {
+            "x": 264.125,
+            "y": 310.90625,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 310.90625,
+            "right": 314.75,
+            "bottom": 336,
+            "left": 264.125
+          },
+          "text": "多伦多",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 28,
+          "rect": {
+            "x": 212.5,
+            "y": 310.90625,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 310.90625,
+            "right": 263.125,
+            "bottom": 336,
+            "left": 212.5
+          },
+          "text": "墨城",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 29,
+          "rect": {
+            "x": 160.875,
+            "y": 310.90625,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 310.90625,
+            "right": 211.5,
+            "bottom": 336,
+            "left": 160.875
+          },
+          "text": "里约",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 30,
+          "rect": {
+            "x": 109.25,
+            "y": 310.90625,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 310.90625,
+            "right": 159.875,
+            "bottom": 336,
+            "left": 109.25
+          },
+          "text": "机会",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 31,
+          "rect": {
+            "x": 57.625,
+            "y": 310.90625,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 310.90625,
+            "right": 108.25,
+            "bottom": 336,
+            "left": 57.625
+          },
+          "text": "休闲",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 32,
+          "rect": {
+            "x": 6,
+            "y": 310.90625,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 310.90625,
+            "right": 56.625,
+            "bottom": 336,
+            "left": 6
+          },
+          "text": "监狱",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 33,
+          "rect": {
+            "x": 6,
+            "y": 284.8125,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 284.8125,
+            "right": 56.625,
+            "bottom": 309.90625,
+            "left": 6
+          },
+          "text": "机会",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 34,
+          "rect": {
+            "x": 6,
+            "y": 258.71875,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 258.71875,
+            "right": 56.625,
+            "bottom": 283.8125,
+            "left": 6
+          },
+          "text": "北极",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 35,
+          "rect": {
+            "x": 6,
+            "y": 232.625,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 232.625,
+            "right": 56.625,
+            "bottom": 257.71875,
+            "left": 6
+          },
+          "text": "浦东",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 36,
+          "rect": {
+            "x": 6,
+            "y": 206.53125,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 206.53125,
+            "right": 56.625,
+            "bottom": 231.625,
+            "left": 6
+          },
+          "text": "上海",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 37,
+          "rect": {
+            "x": 6,
+            "y": 180.453125,
+            "width": 50.625,
+            "height": 25.078125,
+            "top": 180.453125,
+            "right": 56.625,
+            "bottom": 205.53125,
+            "left": 6
+          },
+          "text": "东京",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 38,
+          "rect": {
+            "x": 6,
+            "y": 154.359375,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 154.359375,
+            "right": 56.625,
+            "bottom": 179.453125,
+            "left": 6
+          },
+          "text": "新加坡",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 39,
+          "rect": {
+            "x": 6,
+            "y": 128.265625,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 128.265625,
+            "right": 56.625,
+            "bottom": 153.359375,
+            "left": 6
+          },
+          "text": "迪拜",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 40,
+          "rect": {
+            "x": 6,
+            "y": 102.171875,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 102.171875,
+            "right": 56.625,
+            "bottom": 127.265625,
+            "left": 6
+          },
+          "text": "机会",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 41,
+          "rect": {
+            "x": 6,
+            "y": 76.078125,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 76.078125,
+            "right": 56.625,
+            "bottom": 101.171875,
+            "left": 6
+          },
+          "text": "休闲",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "mode": "normal",
+      "width": 932,
+      "height": 430,
+      "zoom": false,
+      "board": {
+        "x": 4,
+        "y": 48,
+        "width": 688.5,
+        "height": 330,
+        "top": 48,
+        "right": 692.5,
+        "bottom": 378,
+        "left": 4
+      },
+      "bar": {
+        "x": 4,
+        "y": 382,
+        "width": 924,
+        "height": 44,
+        "top": 382,
+        "right": 928,
+        "bottom": 426,
+        "left": 4
+      },
+      "scrollWidth": 687,
+      "clientWidth": 687,
+      "scrollHeight": 328,
+      "clientHeight": 328,
+      "tiles": [
+        {
+          "id": 0,
+          "rect": {
+            "x": 6,
+            "y": 50,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 50,
+            "right": 62.125,
+            "bottom": 78.71875,
+            "left": 6
+          },
+          "text": "起点",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 1,
+          "rect": {
+            "x": 63.125,
+            "y": 50,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 50,
+            "right": 119.25,
+            "bottom": 78.71875,
+            "left": 63.125
+          },
+          "text": "内罗毕",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 2,
+          "rect": {
+            "x": 120.25,
+            "y": 50,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 50,
+            "right": 176.375,
+            "bottom": 78.71875,
+            "left": 120.25
+          },
+          "text": "开普敦",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 3,
+          "rect": {
+            "x": 177.375,
+            "y": 50,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 50,
+            "right": 233.5,
+            "bottom": 78.71875,
+            "left": 177.375
+          },
+          "text": "机会",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 4,
+          "rect": {
+            "x": 234.5,
+            "y": 50,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 50,
+            "right": 290.625,
+            "bottom": 78.71875,
+            "left": 234.5
+          },
+          "text": "卡萨",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 5,
+          "rect": {
+            "x": 291.625,
+            "y": 50,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 50,
+            "right": 347.75,
+            "bottom": 78.71875,
+            "left": 291.625
+          },
+          "text": "开罗",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 6,
+          "rect": {
+            "x": 348.75,
+            "y": 50,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 50,
+            "right": 404.875,
+            "bottom": 78.71875,
+            "left": 348.75
+          },
+          "text": "开罗",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 7,
+          "rect": {
+            "x": 405.875,
+            "y": 50,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 50,
+            "right": 462,
+            "bottom": 78.71875,
+            "left": 405.875
+          },
+          "text": "机会",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 8,
+          "rect": {
+            "x": 463,
+            "y": 50,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 50,
+            "right": 519.125,
+            "bottom": 78.71875,
+            "left": 463
+          },
+          "text": "奥克兰",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 9,
+          "rect": {
+            "x": 520.125,
+            "y": 50,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 50,
+            "right": 576.25,
+            "bottom": 78.71875,
+            "left": 520.125
+          },
+          "text": "悉尼",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 10,
+          "rect": {
+            "x": 577.25,
+            "y": 50,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 50,
+            "right": 633.375,
+            "bottom": 78.71875,
+            "left": 577.25
+          },
+          "text": "休闲",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 11,
+          "rect": {
+            "x": 634.375,
+            "y": 50,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 50,
+            "right": 690.5,
+            "bottom": 78.71875,
+            "left": 634.375
+          },
+          "text": "监狱",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 12,
+          "rect": {
+            "x": 634.375,
+            "y": 79.71875,
+            "width": 56.125,
+            "height": 28.734375,
+            "top": 79.71875,
+            "right": 690.5,
+            "bottom": 108.453125,
+            "left": 634.375
+          },
+          "text": "罗马",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 13,
+          "rect": {
+            "x": 634.375,
+            "y": 109.453125,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 109.453125,
+            "right": 690.5,
+            "bottom": 138.171875,
+            "left": 634.375
+          },
+          "text": "阿姆",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 14,
+          "rect": {
+            "x": 634.375,
+            "y": 139.171875,
+            "width": 56.125,
+            "height": 28.734375,
+            "top": 139.171875,
+            "right": 690.5,
+            "bottom": 167.90625,
+            "left": 634.375
+          },
+          "text": "南极",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 15,
+          "rect": {
+            "x": 634.375,
+            "y": 168.90625,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 168.90625,
+            "right": 690.5,
+            "bottom": 197.625,
+            "left": 634.375
+          },
+          "text": "机会",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 16,
+          "rect": {
+            "x": 634.375,
+            "y": 198.625,
+            "width": 56.125,
+            "height": 28.734375,
+            "top": 198.625,
+            "right": 690.5,
+            "bottom": 227.359375,
+            "left": 634.375
+          },
+          "text": "希思罗",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 17,
+          "rect": {
+            "x": 634.375,
+            "y": 228.359375,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 228.359375,
+            "right": 690.5,
+            "bottom": 257.078125,
+            "left": 634.375
+          },
+          "text": "伦敦",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 18,
+          "rect": {
+            "x": 634.375,
+            "y": 258.078125,
+            "width": 56.125,
+            "height": 28.734375,
+            "top": 258.078125,
+            "right": 690.5,
+            "bottom": 286.8125,
+            "left": 634.375
+          },
+          "text": "巴黎",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 19,
+          "rect": {
+            "x": 634.375,
+            "y": 287.8125,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 287.8125,
+            "right": 690.5,
+            "bottom": 316.53125,
+            "left": 634.375
+          },
+          "text": "机会",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 20,
+          "rect": {
+            "x": 634.375,
+            "y": 317.53125,
+            "width": 56.125,
+            "height": 28.734375,
+            "top": 317.53125,
+            "right": 690.5,
+            "bottom": 346.265625,
+            "left": 634.375
+          },
+          "text": "柏林",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 21,
+          "rect": {
+            "x": 634.375,
+            "y": 347.265625,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 347.265625,
+            "right": 690.5,
+            "bottom": 375.984375,
+            "left": 634.375
+          },
+          "text": "监狱",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 22,
+          "rect": {
+            "x": 577.25,
+            "y": 347.265625,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 347.265625,
+            "right": 633.375,
+            "bottom": 375.984375,
+            "left": 577.25
+          },
+          "text": "莫斯科",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 23,
+          "rect": {
+            "x": 520.125,
+            "y": 347.265625,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 347.265625,
+            "right": 576.25,
+            "bottom": 375.984375,
+            "left": 520.125
+          },
+          "text": "休闲",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 24,
+          "rect": {
+            "x": 463,
+            "y": 347.265625,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 347.265625,
+            "right": 519.125,
+            "bottom": 375.984375,
+            "left": 463
+          },
+          "text": "肯尼迪",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 25,
+          "rect": {
+            "x": 405.875,
+            "y": 347.265625,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 347.265625,
+            "right": 462,
+            "bottom": 375.984375,
+            "left": 405.875
+          },
+          "text": "纽约",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 26,
+          "rect": {
+            "x": 348.75,
+            "y": 347.265625,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 347.265625,
+            "right": 404.875,
+            "bottom": 375.984375,
+            "left": 348.75
+          },
+          "text": "机会",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 27,
+          "rect": {
+            "x": 291.625,
+            "y": 347.265625,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 347.265625,
+            "right": 347.75,
+            "bottom": 375.984375,
+            "left": 291.625
+          },
+          "text": "多伦多",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 28,
+          "rect": {
+            "x": 234.5,
+            "y": 347.265625,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 347.265625,
+            "right": 290.625,
+            "bottom": 375.984375,
+            "left": 234.5
+          },
+          "text": "墨城",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 29,
+          "rect": {
+            "x": 177.375,
+            "y": 347.265625,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 347.265625,
+            "right": 233.5,
+            "bottom": 375.984375,
+            "left": 177.375
+          },
+          "text": "里约",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 30,
+          "rect": {
+            "x": 120.25,
+            "y": 347.265625,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 347.265625,
+            "right": 176.375,
+            "bottom": 375.984375,
+            "left": 120.25
+          },
+          "text": "机会",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 31,
+          "rect": {
+            "x": 63.125,
+            "y": 347.265625,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 347.265625,
+            "right": 119.25,
+            "bottom": 375.984375,
+            "left": 63.125
+          },
+          "text": "休闲",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 32,
+          "rect": {
+            "x": 6,
+            "y": 347.265625,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 347.265625,
+            "right": 62.125,
+            "bottom": 375.984375,
+            "left": 6
+          },
+          "text": "监狱",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 33,
+          "rect": {
+            "x": 6,
+            "y": 317.53125,
+            "width": 56.125,
+            "height": 28.734375,
+            "top": 317.53125,
+            "right": 62.125,
+            "bottom": 346.265625,
+            "left": 6
+          },
+          "text": "机会",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 34,
+          "rect": {
+            "x": 6,
+            "y": 287.8125,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 287.8125,
+            "right": 62.125,
+            "bottom": 316.53125,
+            "left": 6
+          },
+          "text": "北极",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 35,
+          "rect": {
+            "x": 6,
+            "y": 258.078125,
+            "width": 56.125,
+            "height": 28.734375,
+            "top": 258.078125,
+            "right": 62.125,
+            "bottom": 286.8125,
+            "left": 6
+          },
+          "text": "浦东",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 36,
+          "rect": {
+            "x": 6,
+            "y": 228.359375,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 228.359375,
+            "right": 62.125,
+            "bottom": 257.078125,
+            "left": 6
+          },
+          "text": "上海",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 37,
+          "rect": {
+            "x": 6,
+            "y": 198.625,
+            "width": 56.125,
+            "height": 28.734375,
+            "top": 198.625,
+            "right": 62.125,
+            "bottom": 227.359375,
+            "left": 6
+          },
+          "text": "东京",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 38,
+          "rect": {
+            "x": 6,
+            "y": 168.90625,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 168.90625,
+            "right": 62.125,
+            "bottom": 197.625,
+            "left": 6
+          },
+          "text": "新加坡",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 39,
+          "rect": {
+            "x": 6,
+            "y": 139.171875,
+            "width": 56.125,
+            "height": 28.734375,
+            "top": 139.171875,
+            "right": 62.125,
+            "bottom": 167.90625,
+            "left": 6
+          },
+          "text": "迪拜",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 40,
+          "rect": {
+            "x": 6,
+            "y": 109.453125,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 109.453125,
+            "right": 62.125,
+            "bottom": 138.171875,
+            "left": 6
+          },
+          "text": "机会",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 41,
+          "rect": {
+            "x": 6,
+            "y": 79.71875,
+            "width": 56.125,
+            "height": 28.734375,
+            "top": 79.71875,
+            "right": 62.125,
+            "bottom": 108.453125,
+            "left": 6
+          },
+          "text": "休闲",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "mode": "quick",
+      "width": 568,
+      "height": 280,
+      "zoom": false,
+      "board": {
+        "x": 4,
+        "y": 48,
+        "width": 415.5,
+        "height": 180,
+        "top": 48,
+        "right": 419.5,
+        "bottom": 228,
+        "left": 4
+      },
+      "bar": {
+        "x": 4,
+        "y": 232,
+        "width": 560,
+        "height": 44,
+        "top": 232,
+        "right": 564,
+        "bottom": 276,
+        "left": 4
+      },
+      "scrollWidth": 414,
+      "clientWidth": 414,
+      "scrollHeight": 178,
+      "clientHeight": 178,
+      "tiles": [
+        {
+          "id": 0,
+          "rect": {
+            "x": 6,
+            "y": 50,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 50,
+            "right": 39.375,
+            "bottom": 65.078125,
+            "left": 6
+          },
+          "text": "起点",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 1,
+          "rect": {
+            "x": 40.375,
+            "y": 50,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 50,
+            "right": 73.75,
+            "bottom": 65.078125,
+            "left": 40.375
+          },
+          "text": "内罗毕",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 2,
+          "rect": {
+            "x": 74.75,
+            "y": 50,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 50,
+            "right": 108.125,
+            "bottom": 65.078125,
+            "left": 74.75
+          },
+          "text": "开普敦",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 3,
+          "rect": {
+            "x": 109.125,
+            "y": 50,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 50,
+            "right": 142.5,
+            "bottom": 65.078125,
+            "left": 109.125
+          },
+          "text": "机会",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 4,
+          "rect": {
+            "x": 143.5,
+            "y": 50,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 50,
+            "right": 176.875,
+            "bottom": 65.078125,
+            "left": 143.5
+          },
+          "text": "卡萨",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 5,
+          "rect": {
+            "x": 177.875,
+            "y": 50,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 50,
+            "right": 211.25,
+            "bottom": 65.078125,
+            "left": 177.875
+          },
+          "text": "开罗",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 6,
+          "rect": {
+            "x": 212.25,
+            "y": 50,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 50,
+            "right": 245.625,
+            "bottom": 65.078125,
+            "left": 212.25
+          },
+          "text": "开罗",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 7,
+          "rect": {
+            "x": 246.625,
+            "y": 50,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 50,
+            "right": 280,
+            "bottom": 65.078125,
+            "left": 246.625
+          },
+          "text": "机会",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 8,
+          "rect": {
+            "x": 281,
+            "y": 50,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 50,
+            "right": 314.375,
+            "bottom": 65.078125,
+            "left": 281
+          },
+          "text": "奥克兰",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 9,
+          "rect": {
+            "x": 315.375,
+            "y": 50,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 50,
+            "right": 348.75,
+            "bottom": 65.078125,
+            "left": 315.375
+          },
+          "text": "悉尼",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 10,
+          "rect": {
+            "x": 349.75,
+            "y": 50,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 50,
+            "right": 383.125,
+            "bottom": 65.078125,
+            "left": 349.75
+          },
+          "text": "休闲",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 11,
+          "rect": {
+            "x": 384.125,
+            "y": 50,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 50,
+            "right": 417.5,
+            "bottom": 65.078125,
+            "left": 384.125
+          },
+          "text": "监狱",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 12,
+          "rect": {
+            "x": 384.125,
+            "y": 66.078125,
+            "width": 33.375,
+            "height": 15.09375,
+            "top": 66.078125,
+            "right": 417.5,
+            "bottom": 81.171875,
+            "left": 384.125
+          },
+          "text": "罗马",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 13,
+          "rect": {
+            "x": 384.125,
+            "y": 82.171875,
+            "width": 33.375,
+            "height": 15.09375,
+            "top": 82.171875,
+            "right": 417.5,
+            "bottom": 97.265625,
+            "left": 384.125
+          },
+          "text": "阿姆",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 14,
+          "rect": {
+            "x": 384.125,
+            "y": 98.265625,
+            "width": 33.375,
+            "height": 15.09375,
+            "top": 98.265625,
+            "right": 417.5,
+            "bottom": 113.359375,
+            "left": 384.125
+          },
+          "text": "南极",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 15,
+          "rect": {
+            "x": 384.125,
+            "y": 114.359375,
+            "width": 33.375,
+            "height": 15.09375,
+            "top": 114.359375,
+            "right": 417.5,
+            "bottom": 129.453125,
+            "left": 384.125
+          },
+          "text": "机会",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 16,
+          "rect": {
+            "x": 384.125,
+            "y": 130.453125,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 130.453125,
+            "right": 417.5,
+            "bottom": 145.53125,
+            "left": 384.125
+          },
+          "text": "希思罗",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 17,
+          "rect": {
+            "x": 384.125,
+            "y": 146.53125,
+            "width": 33.375,
+            "height": 15.09375,
+            "top": 146.53125,
+            "right": 417.5,
+            "bottom": 161.625,
+            "left": 384.125
+          },
+          "text": "伦敦",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 18,
+          "rect": {
+            "x": 384.125,
+            "y": 162.625,
+            "width": 33.375,
+            "height": 15.09375,
+            "top": 162.625,
+            "right": 417.5,
+            "bottom": 177.71875,
+            "left": 384.125
+          },
+          "text": "巴黎",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 19,
+          "rect": {
+            "x": 384.125,
+            "y": 178.71875,
+            "width": 33.375,
+            "height": 15.09375,
+            "top": 178.71875,
+            "right": 417.5,
+            "bottom": 193.8125,
+            "left": 384.125
+          },
+          "text": "机会",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 20,
+          "rect": {
+            "x": 384.125,
+            "y": 194.8125,
+            "width": 33.375,
+            "height": 15.09375,
+            "top": 194.8125,
+            "right": 417.5,
+            "bottom": 209.90625,
+            "left": 384.125
+          },
+          "text": "柏林",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 21,
+          "rect": {
+            "x": 384.125,
+            "y": 210.90625,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 417.5,
+            "bottom": 225.984375,
+            "left": 384.125
+          },
+          "text": "监狱",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 22,
+          "rect": {
+            "x": 349.75,
+            "y": 210.90625,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 383.125,
+            "bottom": 225.984375,
+            "left": 349.75
+          },
+          "text": "莫斯科",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 23,
+          "rect": {
+            "x": 315.375,
+            "y": 210.90625,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 348.75,
+            "bottom": 225.984375,
+            "left": 315.375
+          },
+          "text": "休闲",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 24,
+          "rect": {
+            "x": 281,
+            "y": 210.90625,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 314.375,
+            "bottom": 225.984375,
+            "left": 281
+          },
+          "text": "肯尼迪",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 25,
+          "rect": {
+            "x": 246.625,
+            "y": 210.90625,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 280,
+            "bottom": 225.984375,
+            "left": 246.625
+          },
+          "text": "纽约",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 26,
+          "rect": {
+            "x": 212.25,
+            "y": 210.90625,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 245.625,
+            "bottom": 225.984375,
+            "left": 212.25
+          },
+          "text": "机会",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 27,
+          "rect": {
+            "x": 177.875,
+            "y": 210.90625,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 211.25,
+            "bottom": 225.984375,
+            "left": 177.875
+          },
+          "text": "多伦多",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 28,
+          "rect": {
+            "x": 143.5,
+            "y": 210.90625,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 176.875,
+            "bottom": 225.984375,
+            "left": 143.5
+          },
+          "text": "墨城",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 29,
+          "rect": {
+            "x": 109.125,
+            "y": 210.90625,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 142.5,
+            "bottom": 225.984375,
+            "left": 109.125
+          },
+          "text": "里约",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 30,
+          "rect": {
+            "x": 74.75,
+            "y": 210.90625,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 108.125,
+            "bottom": 225.984375,
+            "left": 74.75
+          },
+          "text": "机会",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 31,
+          "rect": {
+            "x": 40.375,
+            "y": 210.90625,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 73.75,
+            "bottom": 225.984375,
+            "left": 40.375
+          },
+          "text": "休闲",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 32,
+          "rect": {
+            "x": 6,
+            "y": 210.90625,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 39.375,
+            "bottom": 225.984375,
+            "left": 6
+          },
+          "text": "监狱",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 33,
+          "rect": {
+            "x": 6,
+            "y": 194.8125,
+            "width": 33.375,
+            "height": 15.09375,
+            "top": 194.8125,
+            "right": 39.375,
+            "bottom": 209.90625,
+            "left": 6
+          },
+          "text": "机会",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 34,
+          "rect": {
+            "x": 6,
+            "y": 178.71875,
+            "width": 33.375,
+            "height": 15.09375,
+            "top": 178.71875,
+            "right": 39.375,
+            "bottom": 193.8125,
+            "left": 6
+          },
+          "text": "北极",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 35,
+          "rect": {
+            "x": 6,
+            "y": 162.625,
+            "width": 33.375,
+            "height": 15.09375,
+            "top": 162.625,
+            "right": 39.375,
+            "bottom": 177.71875,
+            "left": 6
+          },
+          "text": "浦东",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 36,
+          "rect": {
+            "x": 6,
+            "y": 146.53125,
+            "width": 33.375,
+            "height": 15.09375,
+            "top": 146.53125,
+            "right": 39.375,
+            "bottom": 161.625,
+            "left": 6
+          },
+          "text": "上海",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 37,
+          "rect": {
+            "x": 6,
+            "y": 130.453125,
+            "width": 33.375,
+            "height": 15.078125,
+            "top": 130.453125,
+            "right": 39.375,
+            "bottom": 145.53125,
+            "left": 6
+          },
+          "text": "东京",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 38,
+          "rect": {
+            "x": 6,
+            "y": 114.359375,
+            "width": 33.375,
+            "height": 15.09375,
+            "top": 114.359375,
+            "right": 39.375,
+            "bottom": 129.453125,
+            "left": 6
+          },
+          "text": "新加坡",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 39,
+          "rect": {
+            "x": 6,
+            "y": 98.265625,
+            "width": 33.375,
+            "height": 15.09375,
+            "top": 98.265625,
+            "right": 39.375,
+            "bottom": 113.359375,
+            "left": 6
+          },
+          "text": "迪拜",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 40,
+          "rect": {
+            "x": 6,
+            "y": 82.171875,
+            "width": 33.375,
+            "height": 15.09375,
+            "top": 82.171875,
+            "right": 39.375,
+            "bottom": 97.265625,
+            "left": 6
+          },
+          "text": "机会",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 41,
+          "rect": {
+            "x": 6,
+            "y": 66.078125,
+            "width": 33.375,
+            "height": 15.09375,
+            "top": 66.078125,
+            "right": 39.375,
+            "bottom": 81.171875,
+            "left": 6
+          },
+          "text": "休闲",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "mode": "quick",
+      "width": 568,
+      "height": 320,
+      "zoom": false,
+      "board": {
+        "x": 4,
+        "y": 48,
+        "width": 415.5,
+        "height": 220,
+        "top": 48,
+        "right": 419.5,
+        "bottom": 268,
+        "left": 4
+      },
+      "bar": {
+        "x": 4,
+        "y": 272,
+        "width": 560,
+        "height": 44,
+        "top": 272,
+        "right": 564,
+        "bottom": 316,
+        "left": 4
+      },
+      "scrollWidth": 414,
+      "clientWidth": 414,
+      "scrollHeight": 218,
+      "clientHeight": 218,
+      "tiles": [
+        {
+          "id": 0,
+          "rect": {
+            "x": 6,
+            "y": 50,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 50,
+            "right": 39.375,
+            "bottom": 68.71875,
+            "left": 6
+          },
+          "text": "起点",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 1,
+          "rect": {
+            "x": 40.375,
+            "y": 50,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 50,
+            "right": 73.75,
+            "bottom": 68.71875,
+            "left": 40.375
+          },
+          "text": "内罗毕",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 2,
+          "rect": {
+            "x": 74.75,
+            "y": 50,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 50,
+            "right": 108.125,
+            "bottom": 68.71875,
+            "left": 74.75
+          },
+          "text": "开普敦",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 3,
+          "rect": {
+            "x": 109.125,
+            "y": 50,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 50,
+            "right": 142.5,
+            "bottom": 68.71875,
+            "left": 109.125
+          },
+          "text": "机会",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 4,
+          "rect": {
+            "x": 143.5,
+            "y": 50,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 50,
+            "right": 176.875,
+            "bottom": 68.71875,
+            "left": 143.5
+          },
+          "text": "卡萨",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 5,
+          "rect": {
+            "x": 177.875,
+            "y": 50,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 50,
+            "right": 211.25,
+            "bottom": 68.71875,
+            "left": 177.875
+          },
+          "text": "开罗",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 6,
+          "rect": {
+            "x": 212.25,
+            "y": 50,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 50,
+            "right": 245.625,
+            "bottom": 68.71875,
+            "left": 212.25
+          },
+          "text": "开罗",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 7,
+          "rect": {
+            "x": 246.625,
+            "y": 50,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 50,
+            "right": 280,
+            "bottom": 68.71875,
+            "left": 246.625
+          },
+          "text": "机会",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 8,
+          "rect": {
+            "x": 281,
+            "y": 50,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 50,
+            "right": 314.375,
+            "bottom": 68.71875,
+            "left": 281
+          },
+          "text": "奥克兰",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 9,
+          "rect": {
+            "x": 315.375,
+            "y": 50,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 50,
+            "right": 348.75,
+            "bottom": 68.71875,
+            "left": 315.375
+          },
+          "text": "悉尼",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 10,
+          "rect": {
+            "x": 349.75,
+            "y": 50,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 50,
+            "right": 383.125,
+            "bottom": 68.71875,
+            "left": 349.75
+          },
+          "text": "休闲",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 11,
+          "rect": {
+            "x": 384.125,
+            "y": 50,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 50,
+            "right": 417.5,
+            "bottom": 68.71875,
+            "left": 384.125
+          },
+          "text": "监狱",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 12,
+          "rect": {
+            "x": 384.125,
+            "y": 69.71875,
+            "width": 33.375,
+            "height": 18.734375,
+            "top": 69.71875,
+            "right": 417.5,
+            "bottom": 88.453125,
+            "left": 384.125
+          },
+          "text": "罗马",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 13,
+          "rect": {
+            "x": 384.125,
+            "y": 89.453125,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 89.453125,
+            "right": 417.5,
+            "bottom": 108.171875,
+            "left": 384.125
+          },
+          "text": "阿姆",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 14,
+          "rect": {
+            "x": 384.125,
+            "y": 109.171875,
+            "width": 33.375,
+            "height": 18.734375,
+            "top": 109.171875,
+            "right": 417.5,
+            "bottom": 127.90625,
+            "left": 384.125
+          },
+          "text": "南极",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 15,
+          "rect": {
+            "x": 384.125,
+            "y": 128.90625,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 128.90625,
+            "right": 417.5,
+            "bottom": 147.625,
+            "left": 384.125
+          },
+          "text": "机会",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 16,
+          "rect": {
+            "x": 384.125,
+            "y": 148.625,
+            "width": 33.375,
+            "height": 18.734375,
+            "top": 148.625,
+            "right": 417.5,
+            "bottom": 167.359375,
+            "left": 384.125
+          },
+          "text": "希思罗",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 17,
+          "rect": {
+            "x": 384.125,
+            "y": 168.359375,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 168.359375,
+            "right": 417.5,
+            "bottom": 187.078125,
+            "left": 384.125
+          },
+          "text": "伦敦",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 18,
+          "rect": {
+            "x": 384.125,
+            "y": 188.078125,
+            "width": 33.375,
+            "height": 18.734375,
+            "top": 188.078125,
+            "right": 417.5,
+            "bottom": 206.8125,
+            "left": 384.125
+          },
+          "text": "巴黎",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 19,
+          "rect": {
+            "x": 384.125,
+            "y": 207.8125,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 207.8125,
+            "right": 417.5,
+            "bottom": 226.53125,
+            "left": 384.125
+          },
+          "text": "机会",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 20,
+          "rect": {
+            "x": 384.125,
+            "y": 227.53125,
+            "width": 33.375,
+            "height": 18.734375,
+            "top": 227.53125,
+            "right": 417.5,
+            "bottom": 246.265625,
+            "left": 384.125
+          },
+          "text": "柏林",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 21,
+          "rect": {
+            "x": 384.125,
+            "y": 247.265625,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 247.265625,
+            "right": 417.5,
+            "bottom": 265.984375,
+            "left": 384.125
+          },
+          "text": "监狱",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 22,
+          "rect": {
+            "x": 349.75,
+            "y": 247.265625,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 247.265625,
+            "right": 383.125,
+            "bottom": 265.984375,
+            "left": 349.75
+          },
+          "text": "莫斯科",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 23,
+          "rect": {
+            "x": 315.375,
+            "y": 247.265625,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 247.265625,
+            "right": 348.75,
+            "bottom": 265.984375,
+            "left": 315.375
+          },
+          "text": "休闲",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 24,
+          "rect": {
+            "x": 281,
+            "y": 247.265625,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 247.265625,
+            "right": 314.375,
+            "bottom": 265.984375,
+            "left": 281
+          },
+          "text": "肯尼迪",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 25,
+          "rect": {
+            "x": 246.625,
+            "y": 247.265625,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 247.265625,
+            "right": 280,
+            "bottom": 265.984375,
+            "left": 246.625
+          },
+          "text": "纽约",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 26,
+          "rect": {
+            "x": 212.25,
+            "y": 247.265625,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 247.265625,
+            "right": 245.625,
+            "bottom": 265.984375,
+            "left": 212.25
+          },
+          "text": "机会",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 27,
+          "rect": {
+            "x": 177.875,
+            "y": 247.265625,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 247.265625,
+            "right": 211.25,
+            "bottom": 265.984375,
+            "left": 177.875
+          },
+          "text": "多伦多",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 28,
+          "rect": {
+            "x": 143.5,
+            "y": 247.265625,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 247.265625,
+            "right": 176.875,
+            "bottom": 265.984375,
+            "left": 143.5
+          },
+          "text": "墨城",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 29,
+          "rect": {
+            "x": 109.125,
+            "y": 247.265625,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 247.265625,
+            "right": 142.5,
+            "bottom": 265.984375,
+            "left": 109.125
+          },
+          "text": "里约",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 30,
+          "rect": {
+            "x": 74.75,
+            "y": 247.265625,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 247.265625,
+            "right": 108.125,
+            "bottom": 265.984375,
+            "left": 74.75
+          },
+          "text": "机会",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 31,
+          "rect": {
+            "x": 40.375,
+            "y": 247.265625,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 247.265625,
+            "right": 73.75,
+            "bottom": 265.984375,
+            "left": 40.375
+          },
+          "text": "休闲",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 32,
+          "rect": {
+            "x": 6,
+            "y": 247.265625,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 247.265625,
+            "right": 39.375,
+            "bottom": 265.984375,
+            "left": 6
+          },
+          "text": "监狱",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 33,
+          "rect": {
+            "x": 6,
+            "y": 227.53125,
+            "width": 33.375,
+            "height": 18.734375,
+            "top": 227.53125,
+            "right": 39.375,
+            "bottom": 246.265625,
+            "left": 6
+          },
+          "text": "机会",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 34,
+          "rect": {
+            "x": 6,
+            "y": 207.8125,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 207.8125,
+            "right": 39.375,
+            "bottom": 226.53125,
+            "left": 6
+          },
+          "text": "北极",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 35,
+          "rect": {
+            "x": 6,
+            "y": 188.078125,
+            "width": 33.375,
+            "height": 18.734375,
+            "top": 188.078125,
+            "right": 39.375,
+            "bottom": 206.8125,
+            "left": 6
+          },
+          "text": "浦东",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 36,
+          "rect": {
+            "x": 6,
+            "y": 168.359375,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 168.359375,
+            "right": 39.375,
+            "bottom": 187.078125,
+            "left": 6
+          },
+          "text": "上海",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 37,
+          "rect": {
+            "x": 6,
+            "y": 148.625,
+            "width": 33.375,
+            "height": 18.734375,
+            "top": 148.625,
+            "right": 39.375,
+            "bottom": 167.359375,
+            "left": 6
+          },
+          "text": "东京",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 38,
+          "rect": {
+            "x": 6,
+            "y": 128.90625,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 128.90625,
+            "right": 39.375,
+            "bottom": 147.625,
+            "left": 6
+          },
+          "text": "新加坡",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 39,
+          "rect": {
+            "x": 6,
+            "y": 109.171875,
+            "width": 33.375,
+            "height": 18.734375,
+            "top": 109.171875,
+            "right": 39.375,
+            "bottom": 127.90625,
+            "left": 6
+          },
+          "text": "迪拜",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 40,
+          "rect": {
+            "x": 6,
+            "y": 89.453125,
+            "width": 33.375,
+            "height": 18.71875,
+            "top": 89.453125,
+            "right": 39.375,
+            "bottom": 108.171875,
+            "left": 6
+          },
+          "text": "机会",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        },
+        {
+          "id": 41,
+          "rect": {
+            "x": 6,
+            "y": 69.71875,
+            "width": 33.375,
+            "height": 18.734375,
+            "top": 69.71875,
+            "right": 39.375,
+            "bottom": 88.453125,
+            "left": 6
+          },
+          "text": "休闲",
+          "font": 8,
+          "nameWidth": 23,
+          "available": 23,
+          "icon": true
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "mode": "quick",
+      "width": 844,
+      "height": 280,
+      "zoom": false,
+      "board": {
+        "x": 4,
+        "y": 48,
+        "width": 622.5,
+        "height": 180,
+        "top": 48,
+        "right": 626.5,
+        "bottom": 228,
+        "left": 4
+      },
+      "bar": {
+        "x": 4,
+        "y": 232,
+        "width": 836,
+        "height": 44,
+        "top": 232,
+        "right": 840,
+        "bottom": 276,
+        "left": 4
+      },
+      "scrollWidth": 621,
+      "clientWidth": 621,
+      "scrollHeight": 178,
+      "clientHeight": 178,
+      "tiles": [
+        {
+          "id": 0,
+          "rect": {
+            "x": 6,
+            "y": 50,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 50,
+            "right": 56.625,
+            "bottom": 65.078125,
+            "left": 6
+          },
+          "text": "起点",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 1,
+          "rect": {
+            "x": 57.625,
+            "y": 50,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 50,
+            "right": 108.25,
+            "bottom": 65.078125,
+            "left": 57.625
+          },
+          "text": "内罗毕",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 2,
+          "rect": {
+            "x": 109.25,
+            "y": 50,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 50,
+            "right": 159.875,
+            "bottom": 65.078125,
+            "left": 109.25
+          },
+          "text": "开普敦",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 3,
+          "rect": {
+            "x": 160.875,
+            "y": 50,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 50,
+            "right": 211.5,
+            "bottom": 65.078125,
+            "left": 160.875
+          },
+          "text": "机会",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 4,
+          "rect": {
+            "x": 212.5,
+            "y": 50,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 50,
+            "right": 263.125,
+            "bottom": 65.078125,
+            "left": 212.5
+          },
+          "text": "卡萨",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 5,
+          "rect": {
+            "x": 264.125,
+            "y": 50,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 50,
+            "right": 314.75,
+            "bottom": 65.078125,
+            "left": 264.125
+          },
+          "text": "开罗",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 6,
+          "rect": {
+            "x": 315.75,
+            "y": 50,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 50,
+            "right": 366.375,
+            "bottom": 65.078125,
+            "left": 315.75
+          },
+          "text": "开罗",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 7,
+          "rect": {
+            "x": 367.375,
+            "y": 50,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 50,
+            "right": 418,
+            "bottom": 65.078125,
+            "left": 367.375
+          },
+          "text": "机会",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 8,
+          "rect": {
+            "x": 419,
+            "y": 50,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 50,
+            "right": 469.625,
+            "bottom": 65.078125,
+            "left": 419
+          },
+          "text": "奥克兰",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 9,
+          "rect": {
+            "x": 470.625,
+            "y": 50,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 50,
+            "right": 521.25,
+            "bottom": 65.078125,
+            "left": 470.625
+          },
+          "text": "悉尼",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 10,
+          "rect": {
+            "x": 522.25,
+            "y": 50,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 50,
+            "right": 572.875,
+            "bottom": 65.078125,
+            "left": 522.25
+          },
+          "text": "休闲",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 11,
+          "rect": {
+            "x": 573.875,
+            "y": 50,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 50,
+            "right": 624.5,
+            "bottom": 65.078125,
+            "left": 573.875
+          },
+          "text": "监狱",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 12,
+          "rect": {
+            "x": 573.875,
+            "y": 66.078125,
+            "width": 50.625,
+            "height": 15.09375,
+            "top": 66.078125,
+            "right": 624.5,
+            "bottom": 81.171875,
+            "left": 573.875
+          },
+          "text": "罗马",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 13,
+          "rect": {
+            "x": 573.875,
+            "y": 82.171875,
+            "width": 50.625,
+            "height": 15.09375,
+            "top": 82.171875,
+            "right": 624.5,
+            "bottom": 97.265625,
+            "left": 573.875
+          },
+          "text": "阿姆",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 14,
+          "rect": {
+            "x": 573.875,
+            "y": 98.265625,
+            "width": 50.625,
+            "height": 15.09375,
+            "top": 98.265625,
+            "right": 624.5,
+            "bottom": 113.359375,
+            "left": 573.875
+          },
+          "text": "南极",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 15,
+          "rect": {
+            "x": 573.875,
+            "y": 114.359375,
+            "width": 50.625,
+            "height": 15.09375,
+            "top": 114.359375,
+            "right": 624.5,
+            "bottom": 129.453125,
+            "left": 573.875
+          },
+          "text": "机会",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 16,
+          "rect": {
+            "x": 573.875,
+            "y": 130.453125,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 130.453125,
+            "right": 624.5,
+            "bottom": 145.53125,
+            "left": 573.875
+          },
+          "text": "希思罗",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 17,
+          "rect": {
+            "x": 573.875,
+            "y": 146.53125,
+            "width": 50.625,
+            "height": 15.09375,
+            "top": 146.53125,
+            "right": 624.5,
+            "bottom": 161.625,
+            "left": 573.875
+          },
+          "text": "伦敦",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 18,
+          "rect": {
+            "x": 573.875,
+            "y": 162.625,
+            "width": 50.625,
+            "height": 15.09375,
+            "top": 162.625,
+            "right": 624.5,
+            "bottom": 177.71875,
+            "left": 573.875
+          },
+          "text": "巴黎",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 19,
+          "rect": {
+            "x": 573.875,
+            "y": 178.71875,
+            "width": 50.625,
+            "height": 15.09375,
+            "top": 178.71875,
+            "right": 624.5,
+            "bottom": 193.8125,
+            "left": 573.875
+          },
+          "text": "机会",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 20,
+          "rect": {
+            "x": 573.875,
+            "y": 194.8125,
+            "width": 50.625,
+            "height": 15.09375,
+            "top": 194.8125,
+            "right": 624.5,
+            "bottom": 209.90625,
+            "left": 573.875
+          },
+          "text": "柏林",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 21,
+          "rect": {
+            "x": 573.875,
+            "y": 210.90625,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 624.5,
+            "bottom": 225.984375,
+            "left": 573.875
+          },
+          "text": "监狱",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 22,
+          "rect": {
+            "x": 522.25,
+            "y": 210.90625,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 572.875,
+            "bottom": 225.984375,
+            "left": 522.25
+          },
+          "text": "莫斯科",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 23,
+          "rect": {
+            "x": 470.625,
+            "y": 210.90625,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 521.25,
+            "bottom": 225.984375,
+            "left": 470.625
+          },
+          "text": "休闲",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 24,
+          "rect": {
+            "x": 419,
+            "y": 210.90625,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 469.625,
+            "bottom": 225.984375,
+            "left": 419
+          },
+          "text": "肯尼迪",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 25,
+          "rect": {
+            "x": 367.375,
+            "y": 210.90625,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 418,
+            "bottom": 225.984375,
+            "left": 367.375
+          },
+          "text": "纽约",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 26,
+          "rect": {
+            "x": 315.75,
+            "y": 210.90625,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 366.375,
+            "bottom": 225.984375,
+            "left": 315.75
+          },
+          "text": "机会",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 27,
+          "rect": {
+            "x": 264.125,
+            "y": 210.90625,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 314.75,
+            "bottom": 225.984375,
+            "left": 264.125
+          },
+          "text": "多伦多",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 28,
+          "rect": {
+            "x": 212.5,
+            "y": 210.90625,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 263.125,
+            "bottom": 225.984375,
+            "left": 212.5
+          },
+          "text": "墨城",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 29,
+          "rect": {
+            "x": 160.875,
+            "y": 210.90625,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 211.5,
+            "bottom": 225.984375,
+            "left": 160.875
+          },
+          "text": "里约",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 30,
+          "rect": {
+            "x": 109.25,
+            "y": 210.90625,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 159.875,
+            "bottom": 225.984375,
+            "left": 109.25
+          },
+          "text": "机会",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 31,
+          "rect": {
+            "x": 57.625,
+            "y": 210.90625,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 108.25,
+            "bottom": 225.984375,
+            "left": 57.625
+          },
+          "text": "休闲",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 32,
+          "rect": {
+            "x": 6,
+            "y": 210.90625,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 210.90625,
+            "right": 56.625,
+            "bottom": 225.984375,
+            "left": 6
+          },
+          "text": "监狱",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 33,
+          "rect": {
+            "x": 6,
+            "y": 194.8125,
+            "width": 50.625,
+            "height": 15.09375,
+            "top": 194.8125,
+            "right": 56.625,
+            "bottom": 209.90625,
+            "left": 6
+          },
+          "text": "机会",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 34,
+          "rect": {
+            "x": 6,
+            "y": 178.71875,
+            "width": 50.625,
+            "height": 15.09375,
+            "top": 178.71875,
+            "right": 56.625,
+            "bottom": 193.8125,
+            "left": 6
+          },
+          "text": "北极",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 35,
+          "rect": {
+            "x": 6,
+            "y": 162.625,
+            "width": 50.625,
+            "height": 15.09375,
+            "top": 162.625,
+            "right": 56.625,
+            "bottom": 177.71875,
+            "left": 6
+          },
+          "text": "浦东",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 36,
+          "rect": {
+            "x": 6,
+            "y": 146.53125,
+            "width": 50.625,
+            "height": 15.09375,
+            "top": 146.53125,
+            "right": 56.625,
+            "bottom": 161.625,
+            "left": 6
+          },
+          "text": "上海",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 37,
+          "rect": {
+            "x": 6,
+            "y": 130.453125,
+            "width": 50.625,
+            "height": 15.078125,
+            "top": 130.453125,
+            "right": 56.625,
+            "bottom": 145.53125,
+            "left": 6
+          },
+          "text": "东京",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 38,
+          "rect": {
+            "x": 6,
+            "y": 114.359375,
+            "width": 50.625,
+            "height": 15.09375,
+            "top": 114.359375,
+            "right": 56.625,
+            "bottom": 129.453125,
+            "left": 6
+          },
+          "text": "新加坡",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 39,
+          "rect": {
+            "x": 6,
+            "y": 98.265625,
+            "width": 50.625,
+            "height": 15.09375,
+            "top": 98.265625,
+            "right": 56.625,
+            "bottom": 113.359375,
+            "left": 6
+          },
+          "text": "迪拜",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 40,
+          "rect": {
+            "x": 6,
+            "y": 82.171875,
+            "width": 50.625,
+            "height": 15.09375,
+            "top": 82.171875,
+            "right": 56.625,
+            "bottom": 97.265625,
+            "left": 6
+          },
+          "text": "机会",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 41,
+          "rect": {
+            "x": 6,
+            "y": 66.078125,
+            "width": 50.625,
+            "height": 15.09375,
+            "top": 66.078125,
+            "right": 56.625,
+            "bottom": 81.171875,
+            "left": 6
+          },
+          "text": "休闲",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "mode": "quick",
+      "width": 844,
+      "height": 390,
+      "zoom": false,
+      "board": {
+        "x": 4,
+        "y": 48,
+        "width": 622.5,
+        "height": 290,
+        "top": 48,
+        "right": 626.5,
+        "bottom": 338,
+        "left": 4
+      },
+      "bar": {
+        "x": 4,
+        "y": 342,
+        "width": 836,
+        "height": 44,
+        "top": 342,
+        "right": 840,
+        "bottom": 386,
+        "left": 4
+      },
+      "scrollWidth": 621,
+      "clientWidth": 621,
+      "scrollHeight": 288,
+      "clientHeight": 288,
+      "tiles": [
+        {
+          "id": 0,
+          "rect": {
+            "x": 6,
+            "y": 50,
+            "width": 50.625,
+            "height": 25.078125,
+            "top": 50,
+            "right": 56.625,
+            "bottom": 75.078125,
+            "left": 6
+          },
+          "text": "起点",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 1,
+          "rect": {
+            "x": 57.625,
+            "y": 50,
+            "width": 50.625,
+            "height": 25.078125,
+            "top": 50,
+            "right": 108.25,
+            "bottom": 75.078125,
+            "left": 57.625
+          },
+          "text": "内罗毕",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 2,
+          "rect": {
+            "x": 109.25,
+            "y": 50,
+            "width": 50.625,
+            "height": 25.078125,
+            "top": 50,
+            "right": 159.875,
+            "bottom": 75.078125,
+            "left": 109.25
+          },
+          "text": "开普敦",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 3,
+          "rect": {
+            "x": 160.875,
+            "y": 50,
+            "width": 50.625,
+            "height": 25.078125,
+            "top": 50,
+            "right": 211.5,
+            "bottom": 75.078125,
+            "left": 160.875
+          },
+          "text": "机会",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 4,
+          "rect": {
+            "x": 212.5,
+            "y": 50,
+            "width": 50.625,
+            "height": 25.078125,
+            "top": 50,
+            "right": 263.125,
+            "bottom": 75.078125,
+            "left": 212.5
+          },
+          "text": "卡萨",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 5,
+          "rect": {
+            "x": 264.125,
+            "y": 50,
+            "width": 50.625,
+            "height": 25.078125,
+            "top": 50,
+            "right": 314.75,
+            "bottom": 75.078125,
+            "left": 264.125
+          },
+          "text": "开罗",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 6,
+          "rect": {
+            "x": 315.75,
+            "y": 50,
+            "width": 50.625,
+            "height": 25.078125,
+            "top": 50,
+            "right": 366.375,
+            "bottom": 75.078125,
+            "left": 315.75
+          },
+          "text": "开罗",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 7,
+          "rect": {
+            "x": 367.375,
+            "y": 50,
+            "width": 50.625,
+            "height": 25.078125,
+            "top": 50,
+            "right": 418,
+            "bottom": 75.078125,
+            "left": 367.375
+          },
+          "text": "机会",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 8,
+          "rect": {
+            "x": 419,
+            "y": 50,
+            "width": 50.625,
+            "height": 25.078125,
+            "top": 50,
+            "right": 469.625,
+            "bottom": 75.078125,
+            "left": 419
+          },
+          "text": "奥克兰",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 9,
+          "rect": {
+            "x": 470.625,
+            "y": 50,
+            "width": 50.625,
+            "height": 25.078125,
+            "top": 50,
+            "right": 521.25,
+            "bottom": 75.078125,
+            "left": 470.625
+          },
+          "text": "悉尼",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 10,
+          "rect": {
+            "x": 522.25,
+            "y": 50,
+            "width": 50.625,
+            "height": 25.078125,
+            "top": 50,
+            "right": 572.875,
+            "bottom": 75.078125,
+            "left": 522.25
+          },
+          "text": "休闲",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 11,
+          "rect": {
+            "x": 573.875,
+            "y": 50,
+            "width": 50.625,
+            "height": 25.078125,
+            "top": 50,
+            "right": 624.5,
+            "bottom": 75.078125,
+            "left": 573.875
+          },
+          "text": "监狱",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 12,
+          "rect": {
+            "x": 573.875,
+            "y": 76.078125,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 76.078125,
+            "right": 624.5,
+            "bottom": 101.171875,
+            "left": 573.875
+          },
+          "text": "罗马",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 13,
+          "rect": {
+            "x": 573.875,
+            "y": 102.171875,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 102.171875,
+            "right": 624.5,
+            "bottom": 127.265625,
+            "left": 573.875
+          },
+          "text": "阿姆",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 14,
+          "rect": {
+            "x": 573.875,
+            "y": 128.265625,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 128.265625,
+            "right": 624.5,
+            "bottom": 153.359375,
+            "left": 573.875
+          },
+          "text": "南极",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 15,
+          "rect": {
+            "x": 573.875,
+            "y": 154.359375,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 154.359375,
+            "right": 624.5,
+            "bottom": 179.453125,
+            "left": 573.875
+          },
+          "text": "机会",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 16,
+          "rect": {
+            "x": 573.875,
+            "y": 180.453125,
+            "width": 50.625,
+            "height": 25.078125,
+            "top": 180.453125,
+            "right": 624.5,
+            "bottom": 205.53125,
+            "left": 573.875
+          },
+          "text": "希思罗",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 17,
+          "rect": {
+            "x": 573.875,
+            "y": 206.53125,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 206.53125,
+            "right": 624.5,
+            "bottom": 231.625,
+            "left": 573.875
+          },
+          "text": "伦敦",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 18,
+          "rect": {
+            "x": 573.875,
+            "y": 232.625,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 232.625,
+            "right": 624.5,
+            "bottom": 257.71875,
+            "left": 573.875
+          },
+          "text": "巴黎",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 19,
+          "rect": {
+            "x": 573.875,
+            "y": 258.71875,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 258.71875,
+            "right": 624.5,
+            "bottom": 283.8125,
+            "left": 573.875
+          },
+          "text": "机会",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 20,
+          "rect": {
+            "x": 573.875,
+            "y": 284.8125,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 284.8125,
+            "right": 624.5,
+            "bottom": 309.90625,
+            "left": 573.875
+          },
+          "text": "柏林",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 21,
+          "rect": {
+            "x": 573.875,
+            "y": 310.90625,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 310.90625,
+            "right": 624.5,
+            "bottom": 336,
+            "left": 573.875
+          },
+          "text": "监狱",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 22,
+          "rect": {
+            "x": 522.25,
+            "y": 310.90625,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 310.90625,
+            "right": 572.875,
+            "bottom": 336,
+            "left": 522.25
+          },
+          "text": "莫斯科",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 23,
+          "rect": {
+            "x": 470.625,
+            "y": 310.90625,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 310.90625,
+            "right": 521.25,
+            "bottom": 336,
+            "left": 470.625
+          },
+          "text": "休闲",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 24,
+          "rect": {
+            "x": 419,
+            "y": 310.90625,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 310.90625,
+            "right": 469.625,
+            "bottom": 336,
+            "left": 419
+          },
+          "text": "肯尼迪",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 25,
+          "rect": {
+            "x": 367.375,
+            "y": 310.90625,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 310.90625,
+            "right": 418,
+            "bottom": 336,
+            "left": 367.375
+          },
+          "text": "纽约",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 26,
+          "rect": {
+            "x": 315.75,
+            "y": 310.90625,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 310.90625,
+            "right": 366.375,
+            "bottom": 336,
+            "left": 315.75
+          },
+          "text": "机会",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 27,
+          "rect": {
+            "x": 264.125,
+            "y": 310.90625,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 310.90625,
+            "right": 314.75,
+            "bottom": 336,
+            "left": 264.125
+          },
+          "text": "多伦多",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 28,
+          "rect": {
+            "x": 212.5,
+            "y": 310.90625,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 310.90625,
+            "right": 263.125,
+            "bottom": 336,
+            "left": 212.5
+          },
+          "text": "墨城",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 29,
+          "rect": {
+            "x": 160.875,
+            "y": 310.90625,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 310.90625,
+            "right": 211.5,
+            "bottom": 336,
+            "left": 160.875
+          },
+          "text": "里约",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 30,
+          "rect": {
+            "x": 109.25,
+            "y": 310.90625,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 310.90625,
+            "right": 159.875,
+            "bottom": 336,
+            "left": 109.25
+          },
+          "text": "机会",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 31,
+          "rect": {
+            "x": 57.625,
+            "y": 310.90625,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 310.90625,
+            "right": 108.25,
+            "bottom": 336,
+            "left": 57.625
+          },
+          "text": "休闲",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 32,
+          "rect": {
+            "x": 6,
+            "y": 310.90625,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 310.90625,
+            "right": 56.625,
+            "bottom": 336,
+            "left": 6
+          },
+          "text": "监狱",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 33,
+          "rect": {
+            "x": 6,
+            "y": 284.8125,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 284.8125,
+            "right": 56.625,
+            "bottom": 309.90625,
+            "left": 6
+          },
+          "text": "机会",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 34,
+          "rect": {
+            "x": 6,
+            "y": 258.71875,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 258.71875,
+            "right": 56.625,
+            "bottom": 283.8125,
+            "left": 6
+          },
+          "text": "北极",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 35,
+          "rect": {
+            "x": 6,
+            "y": 232.625,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 232.625,
+            "right": 56.625,
+            "bottom": 257.71875,
+            "left": 6
+          },
+          "text": "浦东",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 36,
+          "rect": {
+            "x": 6,
+            "y": 206.53125,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 206.53125,
+            "right": 56.625,
+            "bottom": 231.625,
+            "left": 6
+          },
+          "text": "上海",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 37,
+          "rect": {
+            "x": 6,
+            "y": 180.453125,
+            "width": 50.625,
+            "height": 25.078125,
+            "top": 180.453125,
+            "right": 56.625,
+            "bottom": 205.53125,
+            "left": 6
+          },
+          "text": "东京",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 38,
+          "rect": {
+            "x": 6,
+            "y": 154.359375,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 154.359375,
+            "right": 56.625,
+            "bottom": 179.453125,
+            "left": 6
+          },
+          "text": "新加坡",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 39,
+          "rect": {
+            "x": 6,
+            "y": 128.265625,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 128.265625,
+            "right": 56.625,
+            "bottom": 153.359375,
+            "left": 6
+          },
+          "text": "迪拜",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 40,
+          "rect": {
+            "x": 6,
+            "y": 102.171875,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 102.171875,
+            "right": 56.625,
+            "bottom": 127.265625,
+            "left": 6
+          },
+          "text": "机会",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        },
+        {
+          "id": 41,
+          "rect": {
+            "x": 6,
+            "y": 76.078125,
+            "width": 50.625,
+            "height": 25.09375,
+            "top": 76.078125,
+            "right": 56.625,
+            "bottom": 101.171875,
+            "left": 6
+          },
+          "text": "休闲",
+          "font": 10.128,
+          "nameWidth": 41,
+          "available": 41,
+          "icon": true
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "mode": "quick",
+      "width": 932,
+      "height": 430,
+      "zoom": false,
+      "board": {
+        "x": 4,
+        "y": 48,
+        "width": 688.5,
+        "height": 330,
+        "top": 48,
+        "right": 692.5,
+        "bottom": 378,
+        "left": 4
+      },
+      "bar": {
+        "x": 4,
+        "y": 382,
+        "width": 924,
+        "height": 44,
+        "top": 382,
+        "right": 928,
+        "bottom": 426,
+        "left": 4
+      },
+      "scrollWidth": 687,
+      "clientWidth": 687,
+      "scrollHeight": 328,
+      "clientHeight": 328,
+      "tiles": [
+        {
+          "id": 0,
+          "rect": {
+            "x": 6,
+            "y": 50,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 50,
+            "right": 62.125,
+            "bottom": 78.71875,
+            "left": 6
+          },
+          "text": "起点",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 1,
+          "rect": {
+            "x": 63.125,
+            "y": 50,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 50,
+            "right": 119.25,
+            "bottom": 78.71875,
+            "left": 63.125
+          },
+          "text": "内罗毕",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 2,
+          "rect": {
+            "x": 120.25,
+            "y": 50,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 50,
+            "right": 176.375,
+            "bottom": 78.71875,
+            "left": 120.25
+          },
+          "text": "开普敦",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 3,
+          "rect": {
+            "x": 177.375,
+            "y": 50,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 50,
+            "right": 233.5,
+            "bottom": 78.71875,
+            "left": 177.375
+          },
+          "text": "机会",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 4,
+          "rect": {
+            "x": 234.5,
+            "y": 50,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 50,
+            "right": 290.625,
+            "bottom": 78.71875,
+            "left": 234.5
+          },
+          "text": "卡萨",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 5,
+          "rect": {
+            "x": 291.625,
+            "y": 50,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 50,
+            "right": 347.75,
+            "bottom": 78.71875,
+            "left": 291.625
+          },
+          "text": "开罗",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 6,
+          "rect": {
+            "x": 348.75,
+            "y": 50,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 50,
+            "right": 404.875,
+            "bottom": 78.71875,
+            "left": 348.75
+          },
+          "text": "开罗",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 7,
+          "rect": {
+            "x": 405.875,
+            "y": 50,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 50,
+            "right": 462,
+            "bottom": 78.71875,
+            "left": 405.875
+          },
+          "text": "机会",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 8,
+          "rect": {
+            "x": 463,
+            "y": 50,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 50,
+            "right": 519.125,
+            "bottom": 78.71875,
+            "left": 463
+          },
+          "text": "奥克兰",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 9,
+          "rect": {
+            "x": 520.125,
+            "y": 50,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 50,
+            "right": 576.25,
+            "bottom": 78.71875,
+            "left": 520.125
+          },
+          "text": "悉尼",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 10,
+          "rect": {
+            "x": 577.25,
+            "y": 50,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 50,
+            "right": 633.375,
+            "bottom": 78.71875,
+            "left": 577.25
+          },
+          "text": "休闲",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 11,
+          "rect": {
+            "x": 634.375,
+            "y": 50,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 50,
+            "right": 690.5,
+            "bottom": 78.71875,
+            "left": 634.375
+          },
+          "text": "监狱",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 12,
+          "rect": {
+            "x": 634.375,
+            "y": 79.71875,
+            "width": 56.125,
+            "height": 28.734375,
+            "top": 79.71875,
+            "right": 690.5,
+            "bottom": 108.453125,
+            "left": 634.375
+          },
+          "text": "罗马",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 13,
+          "rect": {
+            "x": 634.375,
+            "y": 109.453125,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 109.453125,
+            "right": 690.5,
+            "bottom": 138.171875,
+            "left": 634.375
+          },
+          "text": "阿姆",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 14,
+          "rect": {
+            "x": 634.375,
+            "y": 139.171875,
+            "width": 56.125,
+            "height": 28.734375,
+            "top": 139.171875,
+            "right": 690.5,
+            "bottom": 167.90625,
+            "left": 634.375
+          },
+          "text": "南极",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 15,
+          "rect": {
+            "x": 634.375,
+            "y": 168.90625,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 168.90625,
+            "right": 690.5,
+            "bottom": 197.625,
+            "left": 634.375
+          },
+          "text": "机会",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 16,
+          "rect": {
+            "x": 634.375,
+            "y": 198.625,
+            "width": 56.125,
+            "height": 28.734375,
+            "top": 198.625,
+            "right": 690.5,
+            "bottom": 227.359375,
+            "left": 634.375
+          },
+          "text": "希思罗",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 17,
+          "rect": {
+            "x": 634.375,
+            "y": 228.359375,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 228.359375,
+            "right": 690.5,
+            "bottom": 257.078125,
+            "left": 634.375
+          },
+          "text": "伦敦",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 18,
+          "rect": {
+            "x": 634.375,
+            "y": 258.078125,
+            "width": 56.125,
+            "height": 28.734375,
+            "top": 258.078125,
+            "right": 690.5,
+            "bottom": 286.8125,
+            "left": 634.375
+          },
+          "text": "巴黎",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 19,
+          "rect": {
+            "x": 634.375,
+            "y": 287.8125,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 287.8125,
+            "right": 690.5,
+            "bottom": 316.53125,
+            "left": 634.375
+          },
+          "text": "机会",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 20,
+          "rect": {
+            "x": 634.375,
+            "y": 317.53125,
+            "width": 56.125,
+            "height": 28.734375,
+            "top": 317.53125,
+            "right": 690.5,
+            "bottom": 346.265625,
+            "left": 634.375
+          },
+          "text": "柏林",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 21,
+          "rect": {
+            "x": 634.375,
+            "y": 347.265625,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 347.265625,
+            "right": 690.5,
+            "bottom": 375.984375,
+            "left": 634.375
+          },
+          "text": "监狱",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 22,
+          "rect": {
+            "x": 577.25,
+            "y": 347.265625,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 347.265625,
+            "right": 633.375,
+            "bottom": 375.984375,
+            "left": 577.25
+          },
+          "text": "莫斯科",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 23,
+          "rect": {
+            "x": 520.125,
+            "y": 347.265625,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 347.265625,
+            "right": 576.25,
+            "bottom": 375.984375,
+            "left": 520.125
+          },
+          "text": "休闲",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 24,
+          "rect": {
+            "x": 463,
+            "y": 347.265625,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 347.265625,
+            "right": 519.125,
+            "bottom": 375.984375,
+            "left": 463
+          },
+          "text": "肯尼迪",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 25,
+          "rect": {
+            "x": 405.875,
+            "y": 347.265625,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 347.265625,
+            "right": 462,
+            "bottom": 375.984375,
+            "left": 405.875
+          },
+          "text": "纽约",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 26,
+          "rect": {
+            "x": 348.75,
+            "y": 347.265625,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 347.265625,
+            "right": 404.875,
+            "bottom": 375.984375,
+            "left": 348.75
+          },
+          "text": "机会",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 27,
+          "rect": {
+            "x": 291.625,
+            "y": 347.265625,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 347.265625,
+            "right": 347.75,
+            "bottom": 375.984375,
+            "left": 291.625
+          },
+          "text": "多伦多",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 28,
+          "rect": {
+            "x": 234.5,
+            "y": 347.265625,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 347.265625,
+            "right": 290.625,
+            "bottom": 375.984375,
+            "left": 234.5
+          },
+          "text": "墨城",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 29,
+          "rect": {
+            "x": 177.375,
+            "y": 347.265625,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 347.265625,
+            "right": 233.5,
+            "bottom": 375.984375,
+            "left": 177.375
+          },
+          "text": "里约",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 30,
+          "rect": {
+            "x": 120.25,
+            "y": 347.265625,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 347.265625,
+            "right": 176.375,
+            "bottom": 375.984375,
+            "left": 120.25
+          },
+          "text": "机会",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 31,
+          "rect": {
+            "x": 63.125,
+            "y": 347.265625,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 347.265625,
+            "right": 119.25,
+            "bottom": 375.984375,
+            "left": 63.125
+          },
+          "text": "休闲",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 32,
+          "rect": {
+            "x": 6,
+            "y": 347.265625,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 347.265625,
+            "right": 62.125,
+            "bottom": 375.984375,
+            "left": 6
+          },
+          "text": "监狱",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 33,
+          "rect": {
+            "x": 6,
+            "y": 317.53125,
+            "width": 56.125,
+            "height": 28.734375,
+            "top": 317.53125,
+            "right": 62.125,
+            "bottom": 346.265625,
+            "left": 6
+          },
+          "text": "机会",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 34,
+          "rect": {
+            "x": 6,
+            "y": 287.8125,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 287.8125,
+            "right": 62.125,
+            "bottom": 316.53125,
+            "left": 6
+          },
+          "text": "北极",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 35,
+          "rect": {
+            "x": 6,
+            "y": 258.078125,
+            "width": 56.125,
+            "height": 28.734375,
+            "top": 258.078125,
+            "right": 62.125,
+            "bottom": 286.8125,
+            "left": 6
+          },
+          "text": "浦东",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 36,
+          "rect": {
+            "x": 6,
+            "y": 228.359375,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 228.359375,
+            "right": 62.125,
+            "bottom": 257.078125,
+            "left": 6
+          },
+          "text": "上海",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 37,
+          "rect": {
+            "x": 6,
+            "y": 198.625,
+            "width": 56.125,
+            "height": 28.734375,
+            "top": 198.625,
+            "right": 62.125,
+            "bottom": 227.359375,
+            "left": 6
+          },
+          "text": "东京",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 38,
+          "rect": {
+            "x": 6,
+            "y": 168.90625,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 168.90625,
+            "right": 62.125,
+            "bottom": 197.625,
+            "left": 6
+          },
+          "text": "新加坡",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 39,
+          "rect": {
+            "x": 6,
+            "y": 139.171875,
+            "width": 56.125,
+            "height": 28.734375,
+            "top": 139.171875,
+            "right": 62.125,
+            "bottom": 167.90625,
+            "left": 6
+          },
+          "text": "迪拜",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 40,
+          "rect": {
+            "x": 6,
+            "y": 109.453125,
+            "width": 56.125,
+            "height": 28.71875,
+            "top": 109.453125,
+            "right": 62.125,
+            "bottom": 138.171875,
+            "left": 6
+          },
+          "text": "机会",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        },
+        {
+          "id": 41,
+          "rect": {
+            "x": 6,
+            "y": 79.71875,
+            "width": 56.125,
+            "height": 28.734375,
+            "top": 79.71875,
+            "right": 62.125,
+            "bottom": 108.453125,
+            "left": 6
+          },
+          "text": "休闲",
+          "font": 11,
+          "nameWidth": 46,
+          "available": 46,
+          "icon": true
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "realRollTrace": [
+        {
+          "position": 1,
+          "at": 927
+        },
+        {
+          "position": 2,
+          "at": 1146.1000000014901
+        },
+        {
+          "position": 3,
+          "at": 1366.1000000014901
+        },
+        {
+          "position": 4,
+          "at": 1585.1000000014901
+        },
+        {
+          "position": 5,
+          "at": 1815.1000000014901
+        }
+      ],
+      "smallSpace": "568x220 fallback,44x32 tiles",
+      "safeArea": "24px sides/20px bottom simulated",
+      "deadlinePreserved": true
+    }
+  ]
+}

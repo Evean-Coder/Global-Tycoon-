@@ -1,0 +1,44 @@
+TAP version 13
+# Subtest: roll then management ordering is shared across modes, viewports and stock continuation
+ok 1 - roll then management ordering is shared across modes, viewports and stock continuation
+  ---
+  duration_ms: 7235.6532
+  ...
+# Subtest: 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+ok 2 - 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+  ---
+  duration_ms: 6001.3811
+  ...
+# Subtest: full42-square phone map fits five screens in both modes; short name and glyph remain readable
+ok 3 - full42-square phone map fits five screens in both modes; short name and glyph remain readable
+  ---
+  duration_ms: 3310.9265
+  ...
+# Subtest: details and More retain actual information, stock access and reading through broadcasts
+ok 4 - details and More retain actual information, stock access and reading through broadcasts
+  ---
+  duration_ms: 612.7764
+  ...
+# Subtest: PC and tablet recover original board and information; stock draft survives orientation gate
+ok 5 - PC and tablet recover original board and information; stock draft survives orientation gate
+  ---
+  duration_ms: 497.8402
+  ...
+# Subtest: all tile categories retain focus and actual ownership through broadcasts; grouped pawns remain readable
+ok 6 - all tile categories retain focus and actual ownership through broadcasts; grouped pawns remain readable
+  ---
+  duration_ms: 2368.0543
+  ...
+# Subtest: real roll retains half-speed movement and small-space zoom is only a view change
+ok 7 - real roll retains half-speed movement and small-space zoom is only a view change
+  ---
+  duration_ms: 2067.1094
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

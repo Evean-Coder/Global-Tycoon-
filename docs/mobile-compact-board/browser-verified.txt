@@ -1,0 +1,382 @@
+TAP version 13
+# Subtest: roll then management ordering is shared across modes, viewports and stock continuation
+ok 1 - roll then management ordering is shared across modes, viewports and stock continuation
+  ---
+  duration_ms: 7740.2682
+  ...
+not ok 2 - C:\\Users\\Yifan\\Desktop\\game\\e2e\\action-button-order.spec.js
+  ---
+  duration_ms: 495.1113
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\action-button-order.spec.js:7:6'
+  failureType: 'hookFailed'
+  error: "UNKNOWN: unknown error, open 'C:\\Users\\Yifan\\Desktop\\game\\docs\\action-button-order\\evidence\\measurements.json'"
+  code: 'UNKNOWN'
+  stack: |-
+    Object.writeFileSync (node:fs:2380:20)
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\action-button-order.spec.js:7:46)
+    process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    async TestHook.run (node:internal/test_runner/test:797:9)
+    async Test.runHook (node:internal/test_runner/test:723:9)
+    async after (node:internal/test_runner/test:755:9)
+    async Test.run (node:internal/test_runner/test:804:7)
+  ...
+# Subtest: per-turn hint is visible, cancel retains opportunity, successful promotion consumes it
+ok 3 - per-turn hint is visible, cancel retains opportunity, successful promotion consumes it
+  ---
+  duration_ms: 4339.5838
+  ...
+# Subtest: 三端强制决定沿原入口，纸色弹窗与回合摘要一致
+ok 4 - 三端强制决定沿原入口，纸色弹窗与回合摘要一致
+  ---
+  duration_ms: 4242.7442
+  ...
+# Subtest: 有限双人页面流程：买地、转让返回、股票成交、只读查看与结算
+ok 5 - 有限双人页面流程：买地、转让返回、股票成交、只读查看与结算
+  ---
+  duration_ms: 553.1075
+  ...
+# Subtest: 卖股自救后当前缺口按实际现金减少，初始欠款与决定期限保持原值
+ok 6 - 卖股自救后当前缺口按实际现金减少，初始欠款与决定期限保持原值
+  ---
+  duration_ms: 87.243
+  ...
+# Subtest: 卖股自救可选择部分股数、预览缺口并拒绝越界输入
+ok 7 - 卖股自救可选择部分股数、预览缺口并拒绝越界输入
+  ---
+  duration_ms: 99.6231
+  ...
+# Subtest: 建房资金不足可抵押其他城市后返回建房，待建房城市保留且时限不刷新
+ok 8 - 建房资金不足可抵押其他城市后返回建房，待建房城市保留且时限不刷新
+  ---
+  duration_ms: 195.6688
+  ...
+# Subtest: many bank assets stay readable with one outer scroll on portrait, short landscape, tablet and PC
+ok 9 - many bank assets stay readable with one outer scroll on portrait, short landscape, tablet and PC
+  ---
+  duration_ms: 4295.5352
+  ...
+# Subtest: mortgaging cities keeps ownership and deadline, updates the bank and permits more than two
+ok 10 - mortgaging cities keeps ownership and deadline, updates the bank and permits more than two
+  ---
+  duration_ms: 284.4775
+  ...
+# Subtest: 三端一个真人添加/移除电脑、真实开局和思考提示
+ok 11 - 三端一个真人添加/移除电脑、真实开局和思考提示
+  ---
+  duration_ms: 4468.8864
+  ...
+# Subtest: build funding sells selected shares, keeps panel and deadline, then manually builds
+ok 12 - build funding sells selected shares, keeps panel and deadline, then manually builds
+  ---
+  duration_ms: 3939.8712
+  ...
+# Subtest: low-height funding preserves selected quantity, card and scroll through a quote update
+ok 13 - low-height funding preserves selected quantity, card and scroll through a quote update
+  ---
+  duration_ms: 404.8157
+  ...
+# Subtest: 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+ok 14 - 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+  ---
+  duration_ms: 6124.5184
+  ...
+# Subtest: 端到端：创建→加入→开局→掷骰→解散→结算→回放
+ok 15 - 端到端：创建→加入→开局→掷骰→解散→结算→回放
+  ---
+  duration_ms: 30308.1723
+  ...
+# Subtest: 统一动作封装 / 同步机遇选择与重选 / 自然规则说明 / 资讯当前与预告
+ok 16 - 统一动作封装 / 同步机遇选择与重选 / 自然规则说明 / 资讯当前与预告
+  ---
+  duration_ms: 2223.8855
+  ...
+# Subtest: 已选机遇与主动入口 / 城市租金与资讯明细 / 建拆房最终费用 / 服务端资产摘要 / 机票与机场费用边界
+ok 17 - 已选机遇与主动入口 / 城市租金与资讯明细 / 建拆房最终费用 / 服务端资产摘要 / 机票与机场费用边界
+  ---
+  duration_ms: 242.0512
+  ...
+# Subtest: 股票成交回执 / 股票转让回执 / 报价原因与实际历史股息 / 失败订单保留草稿
+ok 18 - 股票成交回执 / 股票转让回执 / 报价原因与实际历史股息 / 失败订单保留草稿
+  ---
+  duration_ms: 325.5579
+  ...
+# Subtest: 结构化收益和旧记录 / 普通流程回归
+ok 19 - 结构化收益和旧记录 / 普通流程回归
+  ---
+  duration_ms: 45.5721
+  ...
+# Subtest: 远航预告→收费不足→抵押自救→换人→自然终局记录与回放
+ok 20 - 远航预告→收费不足→抵押自救→换人→自然终局记录与回放
+  ---
+  duration_ms: 207.5329
+  ...
+# Subtest: news and ledger are equal separate panels inside the atlas on PC tablet and short landscape
+ok 21 - news and ledger are equal separate panels inside the atlas on PC tablet and short landscape
+  ---
+  duration_ms: 6150.6074
+  ...
+# Subtest: opponent broadcasts preserve news and asset reading while latest values and forced decisions update
+ok 22 - opponent broadcasts preserve news and asset reading while latest values and forced decisions update
+  ---
+  duration_ms: 253.3753
+  ...
+# Subtest: contextual rules open matching topics and subsections without changing stock draft or deadline
+ok 23 - contextual rules open matching topics and subsections without changing stock draft or deadline
+  ---
+  duration_ms: 828.5922
+  ...
+# Subtest: short landscape initial opportunities keep all three selections visible and complete long descriptions
+ok 24 - short landscape initial opportunities keep all three selections visible and complete long descriptions
+  ---
+  duration_ms: 2815.6772
+  ...
+# Subtest: short landscape stock workspace preserves list space, quantity, browsing and real transaction
+ok 25 - short landscape stock workspace preserves list space, quantity, browsing and real transaction
+  ---
+  duration_ms: 12635.322
+  ...
+# Subtest: landscape management main and city pages keep fixed footer separate from long content
+ok 26 - landscape management main and city pages keep fixed footer separate from long content
+  ---
+  duration_ms: 3817.94
+  ...
+# Subtest: all generic landscape dialog families retain natural rows, reachable actions and long bank rescue content
+ok 27 - all generic landscape dialog families retain natural rows, reachable actions and long bank rescue content
+  ---
+  duration_ms: 6982.1534
+  ...
+# Subtest: v4 three routes and construction cost/cooldown are usable on all screens and both modes
+ok 28 - v4 three routes and construction cost/cooldown are usable on all screens and both modes
+  ---
+  duration_ms: 19986.446
+  ...
+# Subtest: order targets include airports, callbacks deduplicate and two turn payments preserve cancellation rules
+ok 29 - order targets include airports, callbacks deduplicate and two turn payments preserve cancellation rules
+  ---
+  duration_ms: 237.4684
+  ...
+# Subtest: active investment selects four shares with no fee; reconnect and stale quote require explicit confirmation
+ok 30 - active investment selects four shares with no fee; reconnect and stale quote require explicit confirmation
+  ---
+  duration_ms: 274.4344
+  ...
+# Subtest: automatic management prompt: fixed left skip/right close, retained draft and idempotent skip
+ok 31 - automatic management prompt: fixed left skip/right close, retained draft and idempotent skip
+  ---
+  duration_ms: 5224.3376
+  ...
+# Subtest: 经营两级选择与唯一入口：四端真实请求、无项目和报价变更
+ok 32 - 经营两级选择与唯一入口：四端真实请求、无项目和报价变更
+  ---
+  duration_ms: 3983.4705
+  ...
+# Subtest: full42-square phone map fits five screens in both modes; short name and glyph remain readable
+ok 33 - full42-square phone map fits five screens in both modes; short name and glyph remain readable
+  ---
+  duration_ms: 3571.0829
+  ...
+# Subtest: details and More retain actual information, stock access and reading through broadcasts
+ok 34 - details and More retain actual information, stock access and reading through broadcasts
+  ---
+  duration_ms: 573.1361
+  ...
+# Subtest: PC and tablet recover original board and information; stock draft survives orientation gate
+ok 35 - PC and tablet recover original board and information; stock draft survives orientation gate
+  ---
+  duration_ms: 499.2131
+  ...
+# Subtest: all tile categories retain focus and actual ownership through broadcasts; grouped pawns remain readable
+ok 36 - all tile categories retain focus and actual ownership through broadcasts; grouped pawns remain readable
+  ---
+  duration_ms: 2410.9111
+  ...
+# Subtest: real roll retains half-speed movement and small-space zoom is only a view change
+ok 37 - real roll retains half-speed movement and small-space zoom is only a view change
+  ---
+  duration_ms: 2151.6831
+  ...
+# Subtest: 手机横屏右侧信息真实可见且未被棋盘覆盖：human
+ok 38 - 手机横屏右侧信息真实可见且未被棋盘覆盖：human
+  ---
+  duration_ms: 4670.79
+  ...
+# Subtest: 手机横屏右侧信息真实可见且未被棋盘覆盖：bot
+ok 39 - 手机横屏右侧信息真实可见且未被棋盘覆盖：bot
+  ---
+  duration_ms: 1304.2168
+  ...
+# Subtest: reference landscape composition stays operable on four screens in both modes
+ok 40 - reference landscape composition stays operable on four screens in both modes
+  ---
+  duration_ms: 10369.1325
+  ...
+# Subtest: portrait landscape portrait preserves stock draft, deadline and real piece positions
+ok 41 - portrait landscape portrait preserves stock draft, deadline and real piece positions
+  ---
+  duration_ms: 166.4408
+  ...
+# Subtest: save a clean two-player reference preview
+ok 42 - save a clean two-player reference preview
+  ---
+  duration_ms: 156.9692
+  ...
+# Subtest: phone landscape gate blocks start, all modals, direct actions and restores stock draft
+ok 43 - phone landscape gate blocks start, all modals, direct actions and restores stock draft
+  ---
+  duration_ms: 5910.0507
+  ...
+# Subtest: mobile information pair fills a centered similar rectangle and preserves scrollable information
+ok 44 - mobile information pair fills a centered similar rectangle and preserves scrollable information
+  ---
+  duration_ms: 6281.6087
+  ...
+# Subtest: phone landscape and tablet allocate usable board, information and action areas
+ok 45 - phone landscape and tablet allocate usable board, information and action areas
+  ---
+  duration_ms: 5810.292
+  ...
+# Subtest: resize while a route animation is running ends on the real square
+ok 46 - resize while a route animation is running ends on the real square
+  ---
+  duration_ms: 1610.6105
+  ...
+# Subtest: normal and quick on three screens redeem from bank away from the property, keep bank and real deadline
+ok 47 - normal and quick on three screens redeem from bank away from the property, keep bank and real deadline
+  ---
+  duration_ms: 3475.7864
+  ...
+# Subtest: asset row and city details redeem remotely; lack of cash or an unfinished decision visibly explains why
+ok 48 - asset row and city details redeem remotely; lack of cash or an unfinished decision visibly explains why
+  ---
+  duration_ms: 387.4439
+  ...
+# Subtest: same bank view updates interest and retains scroll, then a phase change replaces it with the required decision
+ok 49 - same bank view updates interest and retains scroll, then a phase change replaces it with the required decision
+  ---
+  duration_ms: 240.3956
+  ...
+# Subtest: normal and quick allow a third mortgage from bank, assets and details on all screens
+ok 50 - normal and quick allow a third mortgage from bank, assets and details on all screens
+  ---
+  duration_ms: 5380.7514
+  ...
+# Subtest: third mortgages work in rescue and city, airport and build fundraising on a phone
+ok 51 - third mortgages work in rescue and city, airport and build fundraising on a phone
+  ---
+  duration_ms: 551.7587
+  ...
+# Subtest: two modes and three screens show 60 seconds for initial and later opportunities
+ok 52 - two modes and three screens show 60 seconds for initial and later opportunities
+  ---
+  duration_ms: 4137.972
+  ...
+# normal 844x390: initial choice
+# normal 844x390: later choice
+# normal 768x1024: initial choice
+# normal 768x1024: later choice
+# normal 1440x900: initial choice
+# normal 1440x900: later choice
+# quick 844x390: initial choice
+# quick 844x390: later choice
+# quick 768x1024: initial choice
+# quick 768x1024: later choice
+# quick 1440x900: initial choice
+# quick 1440x900: later choice
+# Subtest: central map stretches across PC interior and follows resizing without blocking controls
+ok 53 - central map stretches across PC interior and follows resizing without blocking controls
+  ---
+  duration_ms: 3991.8317
+  ...
+# Subtest: half-speed movement preserves queued state, final position and reduced-motion behavior
+ok 54 - half-speed movement preserves queued state, final position and reduced-motion behavior
+  ---
+  duration_ms: 4225.2331
+  ...
+# Subtest: budget support is hidden normally, privately pushed and supports one atomic basket across screens
+ok 55 - budget support is hidden normally, privately pushed and supports one atomic basket across screens
+  ---
+  duration_ms: 3177.0106
+  ...
+# Subtest: cancel retains eligibility; quote changes require new selection and late receipts cannot close another window
+ok 56 - cancel retains eligibility; quote changes require new selection and late receipts cannot close another window
+  ---
+  duration_ms: 262.7659
+  ...
+# Subtest: two targets and modes on three screens sell chosen shares then manually buy, repeat cannot sell twice
+ok 57 - two targets and modes on three screens sell chosen shares then manually buy, repeat cannot sell twice
+  ---
+  duration_ms: 5818.123
+  ...
+# Subtest: no shares gives a clear empty state and cancelling keeps liquidated cash
+ok 58 - no shares gives a clear empty state and cancelling keeps liquidated cash
+  ---
+  duration_ms: 279.4256
+  ...
+# Subtest: self rescue demolition works and selling shows seller waiting until buyer buys or refuses
+ok 59 - self rescue demolition works and selling shows seller waiting until buyer buys or refuses
+  ---
+  duration_ms: 320.0262
+  ...
+# Subtest: normal and quick touch stock lists retain nodes, details, scroll and draft
+ok 60 - normal and quick touch stock lists retain nodes, details, scroll and draft
+  ---
+  duration_ms: 6188.9238
+  ...
+# Subtest: new stock windows start at the first city and same-window updates retain browsing
+ok 61 - new stock windows start at the first city and same-window updates retain browsing
+  ---
+  duration_ms: 1877.132
+  ...
+# Subtest: stock countdown uses the existing clock on phone, tablet and PC
+ok 62 - stock countdown uses the existing clock on phone, tablet and PC
+  ---
+  duration_ms: 363.1763
+  ...
+# Subtest: task cards readable on desktop tablet and short phone landscape; explicit accept, help anchor and close
+ok 63 - task cards readable on desktop tablet and short phone landscape; explicit accept, help anchor and close
+  ---
+  duration_ms: 3593.7123
+  ...
+# Subtest: news details and task reader survive other broadcasts; costs and private progress update from state
+ok 64 - news details and task reader survive other broadcasts; costs and private progress update from state
+  ---
+  duration_ms: 161.1118
+  ...
+# Subtest: self-rescue identity and source are visible to both players; waiting and partial funding never expire
+ok 65 - self-rescue identity and source are visible to both players; waiting and partial funding never expire
+  ---
+  duration_ms: 3074.8727
+  ...
+# Subtest: PC宽屏布局 / 平板横竖布局 / 手机完整棋盘布局 / 长说明与按钮可达
+ok 66 - PC宽屏布局 / 平板横竖布局 / 手机完整棋盘布局 / 长说明与按钮可达
+  ---
+  duration_ms: 11831.459
+  ...
+# Subtest: 九类视口股票确认及费用明细可达
+ok 67 - 九类视口股票确认及费用明细可达
+  ---
+  duration_ms: 2125.6041
+  ...
+# Subtest: 键盘焦点与减少动画 / 真正200%页面缩放完成选择详情及交易
+ok 68 - 键盘焦点与减少动画 / 真正200%页面缩放完成选择详情及交易
+  ---
+  duration_ms: 2262.8847
+  ...
+# Subtest: market is readable outside trading; assets share the bank portfolio on phone tablet and PC
+ok 69 - market is readable outside trading; assets share the bank portfolio on phone tablet and PC
+  ---
+  duration_ms: 6225.0173
+  ...
+# Subtest: readonly updates, opponent window, empty portfolio, forced stage and actual trading retain their semantics
+ok 70 - readonly updates, opponent window, empty portfolio, forced stage and actual trading retain their semantics
+  ---
+  duration_ms: 483.5663
+  ...
+1..70
+# tests 70
+# suites 0
+# pass 69
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0

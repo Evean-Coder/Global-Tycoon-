@@ -1,7 +1,7 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const {boot}=require('./helpers/browserHarness'),f=require('../test/helpers/gameplayFixtures');
-const dir=path.join(__dirname,'../docs/pc-map-fill/evidence'),measurements=[];
+const dir=process.env.E2E_EVIDENCE_ROOT?path.join(process.env.E2E_EVIDENCE_ROOT,'pc-map-fill'):path.join(__dirname,'../docs/pc-map-fill/evidence'),measurements=[];
 let h;
 test.before(async()=>{fs.mkdirSync(dir,{recursive:true});h=await boot();await h.choose();const s=f.game(2);s.players[0].position=7;s.players[1].position=18;f.own(s,'p0','上海');await h.fixture(s);});
 test.after(async()=>{if(h)await h.close();fs.writeFileSync(path.join(dir,'measurements.json'),JSON.stringify({browser:'Microsoft Edge headless',physicalDevices:'未测；有限模拟视口',measurements},null,2));});

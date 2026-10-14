@@ -23,7 +23,7 @@ test('mobile information pair fills a centered similar rectangle and preserves s
   // Stress long explanatory text separately; real content may now fit without scrolling.
   const note=await p.locator('.ledger-note').textContent();await p.locator('.ledger-note').evaluate(el=>el.textContent=el.textContent.repeat(20));
   m.longContent=await p.locator('#ledger').evaluate(el=>({scrollHeight:el.scrollHeight,clientHeight:el.clientHeight}));assert.ok(m.longContent.scrollHeight>m.longContent.clientHeight);
-  await p.locator('#ledger').evaluate(el=>el.scrollTop=el.scrollHeight);assert.ok(await p.locator('#ledger').evaluate(el=>Math.abs(el.scrollHeight-el.scrollTop-el.clientHeight)<=1));
+  await p.locator('#ledger').evaluate(el=>{el.scrollTop=el.scrollHeight;});await p.waitForFunction(()=>{const el=document.getElementById('ledger');return Math.abs(el.scrollHeight-el.scrollTop-el.clientHeight)<=1;});
   await p.locator('#turnSummary').scrollIntoViewIfNeeded();assert.equal(await p.locator('#turnSummary').isVisible(),true);
   await p.locator('.ledger-note').evaluate((el,text)=>el.textContent=text,note);await p.locator('#ledger').evaluate(el=>el.scrollTop=0);await p.locator('#boardWrap').evaluate(el=>{const ledger=document.getElementById('ledger');el.scrollTop=Math.max(0,ledger.offsetTop-8);el.scrollLeft=0;});
   await p.locator('#toast').waitFor({state:'hidden',timeout:5000});await p.screenshot({path:path.join(dir,width+'x'+height+'.png')});

@@ -808,3 +808,88 @@ body.landscape-game #atlasPanels>#newsBar{padding:10px;font-size:12px;line-heigh
 body.landscape-game #newsBar .news-title{font-size:14px;padding-bottom:6px}
 body.landscape-game #newsBar .news-current{font-size:13px}
 body.landscape-game #newsBar .news-personal{padding:7px}
+
+/* Phone whole-board view: display detail on demand, keep the entire route visible. */
+.compact-only{display:none!important}
+body.compact-game.game-active{--compact-safe-top:env(safe-area-inset-top,0px);--compact-safe-right:env(safe-area-inset-right,0px);--compact-safe-bottom:env(safe-area-inset-bottom,0px);--compact-safe-left:env(safe-area-inset-left,0px);padding:var(--compact-safe-top) var(--compact-safe-right) var(--compact-safe-bottom) var(--compact-safe-left)}
+body.compact-game.game-active header{height:44px;min-height:44px;padding:0 4px;border:0;gap:4px;flex-direction:row-reverse;box-shadow:0 2px 8px #68552e22}
+body.compact-game header .brand{display:none}
+body.compact-game header>#btnRules{height:44px;min-height:44px;min-width:44px;padding:0 6px;font-size:11px}
+body.compact-game #compactStatus{display:flex!important;flex:1;min-width:0;gap:8px;align-items:center;height:44px}
+body.compact-game #compactStatus #turnInfo{flex:1;min-width:0;font-size:11px;line-height:16px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer}
+body.compact-game #compactStatus #timer{flex:none;font-size:11px;max-width:105px;line-height:15px;white-space:normal}
+body.compact-game #compactStatus #quickClockBar{flex:none;min-height:0;margin:0;padding:0;border:0;box-shadow:none;background:none}
+body.compact-game #quickClockBar>span:first-child{font-size:0}
+body.compact-game #quickClockBar>span:first-child::before{content:'整局 ';font-size:10px}
+body.compact-game #quickTimer{font-size:13px}
+body.compact-game #quickEndHint{display:none}
+body.compact-game.game-active #view-game{width:100%;max-width:none;padding:4px;gap:4px}
+body.compact-game.game-active #gameMain{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,1fr);gap:6px;position:relative;flex:1;min-height:0;width:100%;padding:0!important;overflow:hidden}
+body.compact-game #boardWrap{height:100%;width:100%;overflow:hidden;margin:0;box-shadow:none;border:1px solid #9c8257}
+body.compact-game #boardScale{width:100%;height:100%;min-height:0;min-width:0}
+body.compact-game #board{width:100%;height:100%;min-height:0;aspect-ratio:auto;grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:repeat(11,minmax(0,1fr));padding:1px;gap:1px}
+body.compact-game #board .sq{display:grid;grid-template-columns:4px minmax(0,1fr) 4px;align-items:center;min-height:0;min-width:0;padding:0;border:1px solid #a99c7b;border-radius:2px;overflow:hidden;background:linear-gradient(var(--owner-tint,#ffffff66),var(--owner-tint,#ffffff66)),#faf2de;box-shadow:inset 0 2px var(--owner-color,#b5aa8c)}
+body.compact-game #board .sq .num{position:static;display:block;width:4px;font-size:5.5px;line-height:6px;color:#263d4a;word-break:break-all;white-space:normal;text-align:center}
+body.compact-game #board .sq .glyph{display:block;position:static;width:4px;height:6px;line-height:6px;margin:0;color:#263d4a}
+body.compact-game #board .sq .glyph svg{display:block;width:100%;height:100%}
+body.compact-game #board .sq .nm{position:static;display:block;width:100%;max-width:100%;font-size:clamp(8px,1.2vw,11px);font-weight:700;line-height:12px;letter-spacing:-.3px;white-space:nowrap;overflow-wrap:normal;grid-column:2;grid-row:1}
+body.compact-game #board .sq .glyph{grid-column:3;grid-row:1}
+
+body.compact-game #board .sq[data-current=true]{outline:1px solid #263d4a;outline-offset:-2px}
+body.compact-game #atlasPanels{display:grid;gap:5px}
+body.compact-game #atlasPanels>#newsBar{padding:6px;font-size:10px;line-height:1.4}
+body.compact-game #atlasPanels>#newsBar>*{margin-bottom:6px}
+body.compact-game #atlasPanels>#newsBar .news-current{font-size:11px}
+body.compact-game #atlasPanels>#newsBar summary{font-size:10px;min-height:24px}
+body.compact-game #ledger .ledger-title{padding:6px;font-size:11px}
+body.compact-game #ledger .ledger-title em{font-size:9px}
+body.compact-game #ledger .ledger-total{padding:0 6px 6px}
+body.compact-game #ledger .ledger-total strong{font-size:18px}
+body.compact-game #ledger .ledger-summary{padding:6px;gap:5px}
+body.compact-game #ledger .ledger-summary b{font-size:10px}
+body.compact-game #ledger .ledger-summary span{font-size:9px}
+body.compact-game #ledger .ledger-note,body.compact-game #ledger .hint,body.compact-game #ledger .ledger-turn{padding:5px 6px;font-size:10px}
+body.compact-game #ledger .ledger-open{margin:0 6px;min-height:44px;font-size:10px}
+body.compact-game #gameMain>#side{width:100%;height:100%;min-width:0;min-height:0;overflow:auto;display:flex;flex-direction:column;gap:5px}
+body.compact-game #gameMain>#side .panel{flex:none;margin:0;padding:6px;font-size:10px}
+body.compact-game #gameMain>#side h3{font-size:11px;line-height:16px;margin:0 0 4px}
+body.compact-game #gameMain>#side .kv{padding:4px 0;font-size:10px;gap:4px;flex-wrap:wrap}
+body.compact-game #gameMain>#side .player-name{font-size:11px}
+body.compact-game #gameMain>#side button{min-height:44px;font-size:10px;padding:2px}
+body.compact-game #gameMain>#side #log{font-size:10px;line-height:1.4;max-height:120px}
+body.compact-game #gameMain>#side .side-ops{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}
+body.compact-game #gameMain>#side #mapScrollHint{font-size:9px;margin:0}
+body.compact-game #boardMap{background-size:100% 100%}
+body.compact-game #pieces .piece{width:4px;height:4px;border-width:.5px;box-shadow:0 1px 2px #0008;transition:left .24s linear,top .24s linear}
+body.compact-game #pieces .piece-group{width:6px;height:5px;line-height:4px;text-align:center;font-size:5px;border-radius:3px;background:#263d4a!important;color:#fff;border-color:#f4dfae}
+body.compact-game.game-active #actionBar{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));grid-template-rows:44px;padding:0;gap:4px;height:44px;min-height:44px;margin:0;border:0;background:none;overflow:visible}
+body.compact-game #actionBar #managementStatus,body.compact-game #actionBar #dice,body.compact-game #actionBar .spacer{display:none}
+body.compact-game #actionBar button{grid-row:1;grid-column:auto;min-height:44px;height:44px;margin:0;padding:0 2px;font-size:12px;border-radius:3px}
+body.compact-game #actionBar #btnRoll,body.compact-game #actionBar #btnResumeStock{grid-column:1}
+body.compact-game #actionBar #btnManagement{grid-column:2}
+body.compact-game #actionBar #btnAssets{grid-column:3}
+body.compact-game #actionBar #btnBank{grid-column:4}
+body.compact-game #actionBar #btnCompactInfo{display:block!important;grid-column:5}
+body.compact-game #waitBanner{position:absolute;z-index:11;left:4px;right:4px;top:44px;margin:0;min-height:0;padding:2px 8px;font-size:10px;line-height:14px;border-radius:2px;background:#faf2deee;pointer-events:none}
+body.compact-game #compactInfoModal{z-index:65}
+body.compact-game #toast{top:max(4px,var(--compact-safe-top));padding:6px 10px;max-width:45vw;font-size:11px;pointer-events:none}
+.compact-info-dialog{display:flex;flex-direction:column;overflow:hidden;max-height:calc(100dvh - 12px)}
+.compact-info-nav{display:flex;gap:4px;padding:4px 10px;flex:none}
+.compact-info-nav button{flex:1;min-height:44px;font-size:12px;padding:2px}
+#compactInfoBody{overflow:auto;min-height:0;padding:8px 12px;overscroll-behavior:contain}
+body.compact-game #compactInfoBody #newsBar{position:relative;display:block;height:auto;width:100%;max-height:none;margin:0 0 8px;padding:10px;border:1px solid #b49b66;border-radius:3px;background:#faf2de;font-size:12px;overflow:visible}
+body.compact-game #compactInfoBody #side{height:auto;overflow:visible;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+body.compact-game #compactInfoBody #side>.panel{height:auto;margin:0;min-width:0}
+body.compact-game #compactInfoBody #infoEvents,body.compact-game #compactInfoBody #infoMore,body.compact-game #compactInfoBody #mapScrollHint{grid-column:1/-1}
+body.compact-game #compactInfoBody #log{max-height:180px}
+body.compact-game.compact-map-zoom #boardWrap{overflow:auto}
+body.compact-game.compact-map-zoom #boardScale{min-width:553px;min-height:366px}
+body.compact-game.compact-map-zoom #board{grid-template-columns:repeat(12,minmax(44px,1fr));grid-template-rows:repeat(11,minmax(32px,1fr))}
+@media(prefers-reduced-motion:reduce){body.compact-game #pieces .piece{transition:none}}
+
+body.compact-game #compactTurn{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;height:44px;gap:2px}
+body.compact-game #compactTurn #turnInfo{flex:none;line-height:15px;font-size:11px}
+body.compact-game #compactTurn #managementStatus{display:block;max-width:none;font-size:10px;line-height:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+body.compact-game #compactTurn:has(#waitBanner:not(.hidden)) #managementStatus{display:none}
+body.compact-game #compactTurn #waitBanner{position:static;left:auto;right:auto;top:auto;padding:0;background:none;border:0;font-size:10px;line-height:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#compactInfoNotice{font-size:12px;padding:8px;background:#eee2c4;border-left:3px solid #c99c49;margin-bottom:8px}

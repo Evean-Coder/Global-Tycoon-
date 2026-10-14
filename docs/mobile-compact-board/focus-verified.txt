@@ -1,0 +1,49 @@
+TAP version 13
+# Subtest: news and ledger are equal separate panels inside the atlas on PC tablet and short landscape
+ok 1 - news and ledger are equal separate panels inside the atlas on PC tablet and short landscape
+  ---
+  duration_ms: 6181.5668
+  ...
+# Subtest: opponent broadcasts preserve news and asset reading while latest values and forced decisions update
+ok 2 - opponent broadcasts preserve news and asset reading while latest values and forced decisions update
+  ---
+  duration_ms: 247.5835
+  ...
+# Subtest: contextual rules open matching topics and subsections without changing stock draft or deadline
+ok 3 - contextual rules open matching topics and subsections without changing stock draft or deadline
+  ---
+  duration_ms: 827.5211
+  ...
+# Subtest: full42-square phone map fits five screens in both modes; short name and glyph remain readable
+ok 4 - full42-square phone map fits five screens in both modes; short name and glyph remain readable
+  ---
+  duration_ms: 3391.9636
+  ...
+# Subtest: details and More retain actual information, stock access and reading through broadcasts
+ok 5 - details and More retain actual information, stock access and reading through broadcasts
+  ---
+  duration_ms: 636.5761
+  ...
+# Subtest: PC and tablet recover original board and information; stock draft survives orientation gate
+ok 6 - PC and tablet recover original board and information; stock draft survives orientation gate
+  ---
+  duration_ms: 491.787
+  ...
+# Subtest: all tile categories retain focus and actual ownership through broadcasts; grouped pawns remain readable
+ok 7 - all tile categories retain focus and actual ownership through broadcasts; grouped pawns remain readable
+  ---
+  duration_ms: 2355.3735
+  ...
+# Subtest: real roll retains half-speed movement and small-space zoom is only a view change
+ok 8 - real roll retains half-speed movement and small-space zoom is only a view change
+  ---
+  duration_ms: 2035.6723
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 8
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

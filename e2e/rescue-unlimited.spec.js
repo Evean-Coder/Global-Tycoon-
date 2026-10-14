@@ -2,7 +2,7 @@
 /* global game, socket */
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const {boot}=require('./helpers/browserHarness'),f=require('../test/helpers/gameplayFixtures'),stocks=require('../src/stocks'),{createActionClock}=require('../src/actionClock');
-const dir=path.join(__dirname,'../docs/rescue-unlimited/evidence');let h;const time=f.fakeClock();
+const dir=process.env.E2E_EVIDENCE_ROOT?path.join(process.env.E2E_EVIDENCE_ROOT,'rescue-unlimited'):path.join(__dirname,'../docs/rescue-unlimited/evidence');let h;const time=f.fakeClock();
 test.before(async()=>{fs.mkdirSync(dir,{recursive:true});h=await boot({mobile:true});await h.choose();h.room.actionClock.clear();h.room.actionClock=createActionClock(time);});
 test.after(async()=>{if(h)await h.close();});
 test('self-rescue identity and source are visible to both players; waiting and partial funding never expire',{timeout:45000},async()=>{

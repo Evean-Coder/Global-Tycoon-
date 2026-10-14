@@ -1,5 +1,5 @@
 'use strict';
-/* global ContextualRules, BoardLayout, MobileOrientation */
+/* global ContextualRules, BoardLayout, BoardPresentation, MobileOrientation */
 
 /* exported afterReceipt, emitAct, downloadRecord, openReplay, replayPrev, replayNext, replayPlay, replayClose, clickTransferEntry, submitTransfer, returnFromTransfer, resumeStockView, startSelectedGame, returnToRoom, openBank */
 
@@ -64,29 +64,52 @@ let toastTimer = null;
 let moveTimer = null, diceTimer = null, diceFinishTimer = null;
 let animationGeneration = 0, quickTimerIv = null, quickTimeAnchor = null;
 let bankContext = null, bankDraft = {}, bankRequest = null, stockRenderKey = null, stockScroll = null, boardLayoutMode = null, modalReadContext=null;
-function layoutMode() { return BoardLayout.mode(window.innerWidth,window.innerHeight); }
+let compactMapZoom=false;
+function layoutMode() { return BoardLayout.mode(window.innerWidth,window.innerHeight,orientationController.isPhone()); }
+function compactBoard(){return layoutMode()==='compact-landscape';}
 function placeBoardSurfaces(){
   if(!game)return;
-  const scale=$('boardScale').getBoundingClientRect(),first=$('board').children[0]?.getBoundingClientRect(),lastTop=$('board').children[11]?.getBoundingClientRect(),lastBottom=$('board').children[21]?.getBoundingClientRect();
+  const anchors=BoardLayout.geometry(layoutMode()).anchors,scale=$('boardScale').getBoundingClientRect(),first=$('board').children[anchors[0]]?.getBoundingClientRect(),lastTop=$('board').children[anchors[1]]?.getBoundingClientRect(),lastBottom=$('board').children[anchors[2]]?.getBoundingClientRect();
   if(!first||!lastTop||!lastBottom)return;
-  const landscape=layoutMode()==='landscape',inset=landscape?2:0;
+  const landscape=layoutMode()!=='perimeter',inset=landscape?2:0;
   const left=first.right-scale.left+inset,top=first.bottom-scale.top+inset,width=lastTop.left-scale.left-left-inset,height=lastBottom.top-scale.top-top-inset;
   if(width<=0||height<=0)return;
   Object.assign($('boardMap').style,{left:left+'px',top:top+'px',right:'auto',bottom:'auto',width:width+'px',height:height+'px'});
   Object.assign($('atlasPanels').style,{left:(left+width*.07)+'px',top:(top+height*.14)+'px',width:(width*.86)+'px',height:(height*.72)+'px'});
 }
 function syncResponsiveLayout() {
-  const landscape=layoutMode()==='landscape';
+  const compact=compactBoard(),landscape=layoutMode()!=='perimeter';
   document.body.classList.toggle('landscape-game',landscape);
+  document.body.classList.toggle('compact-game',compact);
+  if(compact){
+    if($('compactStatus').parentElement!==document.querySelector('header'))document.querySelector('header').append($('compactStatus'));for(const id of ['turnInfo','managementStatus','waitBanner'])if($(id).parentElement!==$('compactTurn'))$('compactTurn').append($(id));for(const id of ['timer','quickClockBar'])if($(id).parentElement!==$('compactStatus'))$('compactStatus').append($(id));
+    if($('compactInfoModal').classList.contains('hidden'))restoreCompactPanels();
+  }else{
+    $('view-game').insertBefore($('mapScrollHint'),$('gameMain'));$('view-game').insertBefore($('quickClockBar'),$('mapScrollHint'));$('view-game').insertBefore($('compactStatus'),$('quickClockBar'));
+    $('actionBar').insertBefore($('turnInfo'),$('actionBar').querySelector('.spacer'));$('actionBar').insertBefore($('managementStatus'),$('dice'));$('actionBar').append($('timer'));$('view-game').insertBefore($('waitBanner'),$('view-game').firstElementChild);
+    restoreCompactPanels();hideOverlay('compactInfoModal');
+  }
+  document.body.classList.toggle('compact-map-zoom',compact&&(compactMapZoom||$('boardWrap').clientHeight<177||$('boardWrap').clientWidth<405));
   $('actionBar').insertBefore($('btnManagement'),$('btnAssets'));
   $('actionBar').insertBefore($('btnBank'),$('btnEndTurn'));
   $('boardScale').insertBefore($('boardMap'),$('pieces'));
   if(landscape){$('side').prepend($('mapScrollHint'));}
   else {$('view-game').insertBefore($('mapScrollHint'),$('gameMain'));for(const property of ['left','right','top','bottom','width','height','max-height'])$('boardMap').style.removeProperty(property);}
-  $('mapScrollHint').textContent='棋盘可独立滑动 · 点地块看详情';
+  $('mapScrollHint').textContent=compact?'完整42格 · 点击地块查看详情':'棋盘可独立滑动 · 点地块看详情';
+  syncCompactControls();
   placeBoardSurfaces();
   orientationController.sync();
 }
+
+function syncCompactControls(){
+ $('turnInfo').tabIndex=compactBoard()?0:-1;$('turnInfo').setAttribute('role',compactBoard()?'button':'status');
+ $('btnZoomMap').textContent=document.body.classList.contains('compact-map-zoom')?'缩回全图':'放大地图';
+}
+function restoreCompactPanels(){
+ if($('newsBar').parentElement!==$('atlasPanels'))$('atlasPanels').prepend($('newsBar'));
+ if($('side').parentElement!==$('gameMain'))$('gameMain').append($('side'));
+}
+function openCompactInfo(target){if(!compactBoard())return;for(const id of ['newsBar','side'])$('compactInfoBody').append($(id));showOverlay('compactInfoModal');if(target)window.requestAnimationFrame(()=>$(target)?.scrollIntoView({block:'start'}));}
 
 function stopVisualAnimations() {
   animationGeneration++;
@@ -145,7 +168,7 @@ if ('ResizeObserver' in window) {
   const chromeLayout = new window.ResizeObserver(fitActionBarPadding);
   for (const id of ['newsBar', 'waitBanner', 'quickClockBar', 'actionBar']) chromeLayout.observe($(id));
 }
-window.addEventListener('resize', requestPieceLayout);
+window.addEventListener('resize', requestPieceLayout);window.visualViewport?.addEventListener('resize',requestPieceLayout);
 
 function show(id) {
   ['view-lobby', 'view-room', 'view-game'].forEach((v) => $(v).classList.toggle('hidden', v !== id));
@@ -223,7 +246,7 @@ function updateWaitBanner() {
     const names=status.offlineIds.map(id=>playerById(id)?.name||id);
     const waits=status.waits.map(w=>(playerById(w.playerId)?.name||w.playerId)+' 最多等待'+Math.max(0,w.secondsRemaining-Math.floor((window.performance.now()-offlineReceivedAt)/1000))+'秒');
     banner.textContent=status.paused?(status.reason==='self_rescue'?'等待离线玩家重连自救；不会自动破产':'全员离线暂停；快速模式总时限继续'):(names.join('、')+' 离线；'+(waits.length?waits.join('，')+'后保守托管':'在线玩家继续，离线回合保守托管'));
-    banner.classList.toggle('hidden',!names.length);return;
+    banner.classList.toggle('hidden',!names.length);syncCompactNotice();return;
   }
   const aliveOffline = disconnectedNames.filter((n) => {
     const gp = game ? game.players.find((p) => p.name === n) : null;
@@ -233,7 +256,9 @@ function updateWaitBanner() {
     banner.textContent = '⏸ ' + aliveOffline.join('、') + (quickGame() ? ' 掉线，个人决定暂停；整局时间继续，等待重连…' : ' 掉线，对局暂停，等待重连…');
     banner.classList.remove('hidden');
   } else banner.classList.add('hidden');
+  syncCompactNotice();
 }
+function syncCompactNotice(){const banner=$('waitBanner'),notice=$('compactInfoNotice');notice.textContent=banner.textContent;notice.classList.toggle('hidden',banner.classList.contains('hidden'));banner.title=banner.textContent;}
 
 // ---------- 数值口径（与服务端一致，仅展示） ----------
 function houseInvest(city) { return Math.round(city.price * 0.6 * (city.houseLevel || 0)); }
@@ -258,16 +283,7 @@ function hostName() {
 }
 
 // ---------- 棋盘 ----------
-function gridPos(id) {
-  // 横向长方形闭环：起点左上角，顺时针。上边 0-11 → 右边 12-20 → 下边 21-32 → 左边 33-41
-  if (id <= 10) return [1, id + 1];
-  if (id === 11) return [1, 12];
-  if (id <= 20) return [id - 10, 12];
-  if (id === 21) return [11, 12];
-  if (id <= 31) return [11, 33 - id];
-  if (id === 32) return [11, 1];
-  return [43 - id, 1];
-}
+function gridPos(id) { return BoardLayout.position(id,layoutMode()); }
 function typeClass(sq) {
   if (sq.type === 'city') return 'g-' + (game.cities[sq.cityId] ? game.cities[sq.cityId].group : '');
   if (sq.type === 'start') return 't-start';
@@ -288,7 +304,7 @@ function sqLabel(sq) {
 function renderBoard() {
   boardLayoutMode=layoutMode();
   const board = $('board');
-  board.innerHTML = '';
+  const oldTiles=new Map([...board.children].map(tile=>[tile.dataset.squareId,tile]));
   for (const sq of game.board) {
     const [r, c] = gridPos(sq.id);
     const div = document.createElement('button');
@@ -311,14 +327,20 @@ function renderBoard() {
       owner = a.ownerId ? (playerById(a.ownerId)?.name || '') : '';
     }
     if (sq.type !== 'city') div.onclick = () => openSquareDetail(sq.id);
+    const presentation=BoardPresentation.tile(sq,game);
+    if(compactBoard()){div.dataset.owner=String(presentation.ownerId||'');if(presentation.ownerColor){div.style.setProperty('--owner-color',presentation.ownerColor);div.style.setProperty('--owner-tint',presentation.ownerColor+'18');}div.dataset.shortName=presentation.shortLabel;}
     const glyph = { start: '↗', city: '◆', chance: '?', airport: '✈', rest: '☀', jail: '▥', pole: '✦' }[sq.type] || '•';
     div.setAttribute('aria-label', sq.id + ' 号地块：' + sqLabel(sq) + (owner ? '，持有者 ' + owner : ''));
     div.innerHTML = '<span class="num">' + sq.id + '</span><span class="glyph" aria-hidden="true">' + glyph + '</span><span class="nm">' + sqLabel(sq) + '</span>'
       + (sq.type==='city'?'<span class="sq-amount" aria-label="地价 '+game.cities[sq.cityId].price+'">¥'+(game.cities[sq.cityId].price/1000).toFixed(1)+'k</span>':'')
       + (sub ? '<span class="subrow">' + sub + '</span>' : '')
       + (owner ? '<span class="own">' + escapeHTML(owner) + '</span>' : '');
-    board.appendChild(div);
+    if(compactBoard()){div.innerHTML='<span class="num">'+sq.id+'</span><span class="glyph">'+presentation.glyph+'</span><span class="nm">'+escapeHTML(presentation.shortLabel)+'</span>';div.setAttribute('aria-label',sq.id+'号 '+presentation.kindLabel+'：'+presentation.fullLabel+'，持有者 '+presentation.ownerName);}
+    const prior=oldTiles.get(String(sq.id));
+    if(prior){patchDisplayNode(prior,div);oldTiles.delete(String(sq.id));}
+    else board.appendChild(div);
   }
+  for(const tile of oldTiles.values())tile.remove();
 }
 
 // ---------- 掷骰 / 棋子移动动画 ----------
@@ -345,15 +367,17 @@ function renderPieces() {
     const pos = lastPos[p.id] != null ? lastPos[p.id] : p.position;
     const xy = pieceXY(pos);
     const idx = offsets[pos]-- - 1;
+    if(compactBoard()&&counts[pos]>=2&&idx!==counts[pos]-1)return;
     const d = document.createElement('span');
     d.className = 'piece';
-    d.style.background = p.color;
+    d.style.background = p.color;d.dataset.playerId=p.id;d.setAttribute('aria-label',p.name+'，'+pos+'号地块');
+    if(compactBoard()&&counts[pos]>=2){d.classList.add('piece-group');d.textContent=String(counts[pos]);d.setAttribute('aria-label',counts[pos]+'位玩家在'+pos+'号地块，点地块查看');}
     const columns = Math.min(2, counts[pos]);
     const rows = Math.ceil(counts[pos] / columns);
-    const gapX = Math.min(14, xy.width / (columns + 1));
-    const gapY = Math.min(14, xy.height / (rows + 1));
-    d.style.left = (xy.x + (idx % columns - (columns - 1) / 2) * gapX) + 'px';
-    d.style.top = (xy.y + (Math.floor(idx / columns) - (rows - 1) / 2) * gapY) + 'px';
+    const gapX = Math.min(compactBoard()?6:14, xy.width / (columns + 1));
+    const gapY = Math.min(compactBoard()?3:14, xy.height / (rows + 1));
+    d.style.left = (compactBoard()?xy.x+xy.width/2-4.5:xy.x + (idx % columns - (columns - 1) / 2) * gapX) + 'px';
+    d.style.top = (compactBoard()?xy.y+xy.height/2-3:xy.y+(Math.floor(idx / columns) - (rows - 1) / 2)*gapY) + 'px';
     layer.appendChild(d);
   });
 }
@@ -425,7 +449,7 @@ function afterAnim(state) {
 }
 function readingKey(node){return node.id||[node.tagName,node.dataset.bankCity||node.dataset.city||node.dataset.opportunityId||'',node.querySelector(':scope>summary')?.textContent||(['BUTTON','A'].includes(node.tagName)?node.textContent:node.className)].join('|');}
 function captureReading(){
-  return {gameId:game?.gameId,decisionId:game?.decision?.decisionId,title:$('modalTitle').textContent,views:['newsBar','ledger','modalBody','managementBody','log'].map(id=>{const root=$(id);return {id,scroll:root.scrollTop,details:[...root.querySelectorAll('details')].map(node=>({key:readingKey(node),open:node.open})),nested:[...root.querySelectorAll('.ledger-list')].map(node=>({key:readingKey(node),scroll:node.scrollTop})),focus:root.contains(document.activeElement)?readingKey(document.activeElement):null};})};
+  return {gameId:game?.gameId,decisionId:game?.decision?.decisionId,title:$('modalTitle').textContent,views:['newsBar','ledger','modalBody','managementBody','log','compactInfoBody'].map(id=>{const root=$(id);return {id,scroll:root.scrollTop,details:[...root.querySelectorAll('details')].map(node=>({key:readingKey(node),open:node.open})),nested:[...root.querySelectorAll('.ledger-list')].map(node=>({key:readingKey(node),scroll:node.scrollTop})),focus:root.contains(document.activeElement)?readingKey(document.activeElement):null};})};
 }
 function restoreReading(saved){
   if(saved.gameId!==game?.gameId)return;
@@ -1008,6 +1032,7 @@ function openRemoteConstruction() {
 // ---------- 通用弹窗 ----------
 const overlayReturnFocus = new Map();
 function showOverlay(id) {
+  if(!['compactInfoModal','rulesModal'].includes(id))hideOverlay('compactInfoModal');
   const overlay = $(id);
   const opening=overlay.classList.contains('hidden');
   if (opening) {
@@ -1030,6 +1055,7 @@ function hideOverlay(id) {
   if(id==='rulesModal')document.body.classList.remove('management-help');
   if(id==='stockModal'){const position={key:stockDisplayKey(),top:$('stockList').scrollTop};if(stockViewMode==='market')stockMarketScroll=position;else stockScroll=position;stockViewMode=null;}
   overlay.classList.add('hidden');
+  if(id==='compactInfoModal')restoreCompactPanels();
   const previous = overlayReturnFocus.get(id);
   overlayReturnFocus.delete(id);
   const target = previous?.element?.isConnected && previous.element.getClientRects().length && !previous.element.disabled && !previous.element.closest('.overlay.hidden')
@@ -1635,6 +1661,13 @@ function setupLobby() {
   };
   $('btnSurrender').onclick = () => { if (confirm('确认认输？')) sendAction({ type: 'surrender' }); };
   $('btnDisband').onclick = () => { if (confirm('解散房间？')) socket.emit('disbandRoom'); };
+  $('btnCompactInfo').onclick=()=>openCompactInfo();
+  $('btnCompactInfoClose').onclick=()=>hideOverlay('compactInfoModal');
+  $('btnCompactInfoRules').onclick=()=>openRulesTopic('connection');
+  $('btnZoomMap').onclick=()=>{if($('boardWrap').clientHeight<177){toast('当前可用空间较小，已启用放大地图；增加空间后可回全图。');return;}compactMapZoom=!compactMapZoom;hideOverlay('compactInfoModal');requestPieceLayout();};
+  for(const b of document.querySelectorAll('[data-info-target]'))b.onclick=()=>$(b.dataset.infoTarget).scrollIntoView({block:'start'});
+  $('turnInfo').onclick=()=>{if(compactBoard())openCompactInfo('sidePlayer');};
+  $('turnInfo').onkeydown=e=>{if(compactBoard()&&(e.key==='Enter'||e.key===' ')){e.preventDefault();openCompactInfo('sidePlayer');}};
   $('btnMissions').onclick = openMissions;
   $('btnStock').onclick = openStockMarket;
   $('btnStockClose').onclick=()=>hideOverlay('stockModal');
@@ -2405,6 +2438,7 @@ function openCityDetail(cityId) {
   const redeemQ=c.mortgaged?redemptionQuote(cityId):null;
   body.innerHTML = '<div class="card-tag">PROPERTY DETAIL</div>'
     + kv('地产名称', (c.country ? c.country + '·' : '') + cityId)
+    + kv('地块编号',sq.id)+kv('房产色组',escapeHTML(c.group||'未提供'))
     + kv('地皮价格', fmt(c.price), 'g')
     + kv('持有者', owner ? escapeHTML(owner.name) : '无')
     + kv('房屋等级', (c.houseLevel || 0) + ' 级')
@@ -2423,8 +2457,9 @@ function openCityDetail(cityId) {
     + (c.ownerId===me.gameId&&redeemQ?'<button class="secondary" data-redeem-city="'+cityId+'" '+(redeemQ.ok?'':'disabled')+' onclick="emitAct({type:\'redeem\',cityId:\'' + cityId + '\'})">赎回</button>':'')
     + (mine && !c.mortgaged && meP && meP.position === 0 ? '<button class="risk" onclick="sellChoice(\'' + cityId + '\')">出售</button>' : '')
     + '<button class="textbtn" onclick="closeModal()">关闭</button></div>';
-  openModal('地产详情',{kind:'city',cityId});
+  appendSquareOccupants(body,sq.id);openModal('地产详情',{kind:'city',cityId});
 }
+function appendSquareOccupants(body,squareId){const players=game.players.filter(p=>p.alive&&p.position===squareId),row=document.createElement('div');row.innerHTML=kv('当前同格玩家',escapeHTML(players.map(p=>p.name).join('、')||'无'));body.insertBefore(row.firstElementChild,body.querySelector(':scope>.row'));}
 function openSquareDetail(squareId) {
   const sq = game && game.board.find((item) => item.id === squareId);
   if (!sq) return;
@@ -2473,7 +2508,7 @@ function openSquareDetail(squareId) {
   close.onclick = closeModal;
   actions.appendChild(close);
   body.appendChild(actions);
-  openModal('地块详情',{kind:'square',squareId});
+  appendSquareOccupants(body,squareId);openModal('地块详情',{kind:'square',squareId});
 }
 function openReceipt(ev) {
   const body = $('modalBody');

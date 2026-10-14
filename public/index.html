@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>环球大亨 · 资本博弈</title>
-  <link rel="stylesheet" href="style.css?v=20261014-remaining" />
+  <link rel="stylesheet" href="style.css?v=20261014-compact-board" />
   <meta name="theme-color" content="#e9dfc5" />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" type="image/svg+xml" href="icon.svg" />
@@ -84,6 +84,7 @@
       <span>快速模式 · 整局剩余 <strong id="quickTimer">30:00</strong></span>
       <span id="quickEndHint">到时封盘，按净资产排名</span>
     </section>
+    <div id="compactStatus" class="compact-only" aria-label="对局状态"><div id="compactTurn"></div></div>
     <p id="mapScrollHint" class="board-scroll-hint">上下滑动地图 · 玩家与事件在棋盘下方</p>
     <div id="gameMain">
       <div id="boardWrap">
@@ -124,10 +125,19 @@
       <button id="btnAssets" class="secondary">查看资产</button>
       <button id="btnBank" class="secondary">银行</button>
       <button id="btnEndTurn" class="secondary" disabled>结束回合</button>
+      <button id="btnCompactInfo" class="secondary compact-only" type="button">更多</button>
       <span id="timer" class="muted"></span>
     </div>
   </section>
 
+  <div id="compactInfoModal" class="overlay hidden">
+    <section class="modal wide compact-info-dialog" role="dialog" aria-modal="true" aria-labelledby="compactInfoTitle">
+      <div class="mh"><h3 id="compactInfoTitle">对局信息</h3><button id="btnCompactInfoRules" class="textbtn" type="button">规则速查</button></div>
+      <nav class="compact-info-nav" aria-label="资料主题"><button data-info-target="newsBar" type="button">资讯</button><button data-info-target="sidePlayer" type="button">玩家</button><button data-info-target="infoEvents" type="button">事件</button><button id="btnZoomMap" type="button">放大地图</button></nav>
+      <div id="compactInfoBody"><p id="compactInfoNotice" class="hidden" role="status"></p></div>
+      <div class="mf"><button id="btnCompactInfoClose" class="primary" type="button">返回地图</button></div>
+    </section>
+  </div>
   <div id="propertySupportModal" class="overlay hidden">
     <section class="modal wide support-dialog" role="dialog" aria-modal="true" aria-labelledby="propertySupportTitle">
       <div class="mh modal-heading"><h3 id="propertySupportTitle">置业扶持 · 一次预算选购</h3><button id="btnSupportRules" class="textbtn">规则速查</button></div>
@@ -223,10 +233,11 @@
   <div id="toast" class="hidden"></div>
 
   <script src="/socket.io/socket.io.js"></script>
-  <script src="rules-catalog.js?v=20261014-remaining"></script>
-  <script src="contextual-rules.js?v=20261014-remaining"></script>
-  <script src="board-layout.js?v=20261014-remaining"></script>
-  <script src="mobile-orientation.js?v=20261014-remaining"></script>
-  <script src="client.js?v=20261014-remaining"></script>
+  <script src="rules-catalog.js?v=20261014-compact-board"></script>
+  <script src="contextual-rules.js?v=20261014-compact-board"></script>
+  <script src="board-layout.js?v=20261014-compact-board"></script>
+  <script src="board-presentation.js?v=20261014-compact-board"></script>
+  <script src="mobile-orientation.js?v=20261014-compact-board"></script>
+  <script src="client.js?v=20261014-compact-board"></script>
 </body>
 </html>

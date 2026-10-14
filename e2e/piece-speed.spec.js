@@ -2,7 +2,7 @@
 /* global lastPos, game, animBusy, animQueued, moveTimer */
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const {boot}=require('./helpers/browserHarness'),f=require('../test/helpers/gameplayFixtures');
-const dir=path.join(__dirname,'../docs/piece-speed/evidence');
+const dir=process.env.E2E_EVIDENCE_ROOT?path.join(process.env.E2E_EVIDENCE_ROOT,'piece-speed'):path.join(__dirname,'../docs/piece-speed/evidence');
 let h;
 test.before(async()=>{fs.mkdirSync(dir,{recursive:true});h=await boot();await h.choose();await h.fixture(f.game(2));});
 test.after(async()=>{if(h)await h.close();});

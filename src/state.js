@@ -40,6 +40,7 @@ function createGameState(roomCode, playerNames, ruleVersion = 2, options = {}) {
   if(active)for(const p of players)p.activeManagement={lapEpoch:p.opportunities.lapEpoch,usedTurnId:null,...(require('./managementRules').optional(options)?{skippedTurnId:null}:{}),promotionStartedLap:false,stockBoughtTotal:0,stockBoughtByCity:{}};
   if(active&&require('./managementRules').modern(options))for(const p of players)p.opportunities.revision=options.activeManagementRevision;
   if(active&&require('./managementRules').balanced(options))for(const p of players){Object.assign(p.activeManagement,{lastRemoteBuildLap:null,lastRemoteBuildCityId:null,lastOrderLap:null});p.activeInvestment={lapEpoch:p.opportunities.lapEpoch,bonusPaid:0,sharesByCity:{},receipts:[]};}
+  if(ruleVersion===2&&require('./businessMissions').enabled(options))for(const p of players)p.businessMission=require('./businessMissions').initial();
   const routesEnabled = ruleVersion === 2 && options.routeRevision === 'opportunity-routes-v1';
   if (routesEnabled && !['normal', 'quick'].includes(options.gameMode || 'normal')) throw new Error('对局模式无效');
   if (options.quickRevision !== undefined && (options.quickRevision !== 'quick-mode-v1' || !routesEnabled || options.gameMode !== 'quick')) throw new Error('快速模式版本无效');
@@ -63,6 +64,9 @@ function createGameState(roomCode, playerNames, ruleVersion = 2, options = {}) {
     stocks[cityId] = { price: Math.round((cities[cityId].price / 10) * 2), holders: {}, operatingPrice: Math.round(cities[cityId].price * 0.2), dividendFund: 0, roundRent: 0, rentHistory: [], listingEpoch: 0, quoteVersion: 0, clearing: false, lastDividendPerShare: 0 };
   }
   return {
+    ...(options.worldRevision===require('./worldEvents').REVISION?{worldRevision:options.worldRevision}:{}),
+    ...(require('./businessMissions').enabled(options)?{businessMissionRevision:options.businessMissionRevision}:{}),
+    ...(options.disconnectRevision===require('./disconnectPolicy').REVISION?{disconnectRevision:options.disconnectRevision}:{}),
     ...(active?{activeManagementRevision:options.activeManagementRevision,promotions:[],promotionReceipts:[]}:{}),
     ...(active&&require('./managementRules').balanced(options)?{operatingOrders:[]}:{}),
     ...(support?{propertySupportRevision:options.propertySupportRevision}:{}),

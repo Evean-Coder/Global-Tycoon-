@@ -11,7 +11,7 @@ test('公开规则资料准确、确定性生成且检查不写入', () => {
   const context = { window: {} }; vm.runInNewContext(before, context);
   const catalog = JSON.parse(JSON.stringify(context.window.RULES_CATALOG));
   assert.deepEqual(catalog.opportunities, source.OPPORTUNITIES_V4);
-  assert.deepEqual(catalog.news, source.NEWS);
+  assert.deepEqual(catalog.news, source.NEWS_V2);
   assert.equal(catalog.opportunities.length, 12);
   assert.deepEqual(Object.keys(catalog).sort(), ['news', 'opportunities', 'regions']);
   assert.equal(build(true), true);

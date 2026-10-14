@@ -30,6 +30,8 @@ function settleAtTurnStart(s,p,events){
  const order=s.operatingOrders.find(o=>o.playerId===p.id&&o.paymentsRemaining>0);
  if(!order||s.turnId<=order.createdTurnId||order.lastPaidTurnId===s.turnId)return;
  p.cash=econ.safe(p.cash+order.paymentEach);order.paymentsRemaining--;order.lastPaidTurnId=s.turnId;
+ const world=require('./worldEvents').effectRules(s),bonus=s.world?.active?.type==='stable'?Math.min(world.orderCap,econ.rounded(order.paymentEach,world.orderPercent)):0;
+ if(bonus){p.cash=econ.safe(p.cash+bonus);events.push({type:'news',kind:'world_order_reward',settlementId:order.orderId+':news:'+s.turnId,playerId:p.id,amount:bonus,text:p.name+' 订单扶持奖励 '+bonus});}
  events.push({type:'management',kind:'order_payment',settlementId:order.orderId+':'+s.turnId,playerId:p.id,targetId:order.targetId,amount:order.paymentEach,text:p.name+' 收到 '+order.targetId+' 订单款 '+order.paymentEach+'，剩余 '+order.paymentsRemaining+' 次'});
 }
 module.exports={quote,start,clean,settleAtTurnStart};

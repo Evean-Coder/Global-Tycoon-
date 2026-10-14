@@ -14,6 +14,7 @@ test('建立多人完整流程驱动 / 覆盖开局首圈资讯启动 / 覆盖�
  for(let i=1;i<3;i++)assert.equal((await ack(clients[i],'joinRoom',{roomCode:code,name:['场景甲','场景乙','场景丙'][i]})).ok,true);
  const room=api.rooms.get(code),clock=fakeClock();room.rng=createRng(22);room.actionClock=createActionClock(clock);
  assert.equal((await ack(clients[0],'startGame',{})).ok,true);await wait(()=>clients.every(s=>s.game?.self.choice));
+ delete room.state.disconnectRevision; // Keep this historical pause/replay trajectory; new offline progression has separate Socket tests.
  const trace=[],windowSteps=new Map();let steps=0,reconnected=false,remoteDiscount=false;
  async function act(index,a){
   const sock=clients[index],g=sock.game,payload={...a,gameId:g.gameId,actionId:'scenario-'+(++steps),decisionId:g.decision.decisionId,actorRevision:g.self.actorRevision};
@@ -85,5 +86,5 @@ test('建立多人完整流程驱动 / 覆盖开局首圈资讯启动 / 覆盖�
  assert.equal((await ack(clients[0],'disbandRoom',{})).ok,true);assert.equal(room.state.status,'over');assert.ok(Object.values(room.state.stocks).every(s=>s.dividendFund===0));
  assert.equal(room.gameRecord.stats.eventCount,room.events.length);assert.equal(room.gameRecord.players[0].totalAssets,api.totalAssets(room.state,room.state.players[0]));
  const summary={seed:22,players:3,steps,actualNode:process.version,checks:['V1','V11','V12','V19','V26','V43','V46','V50','V53','V64','V66','V76'],observed:{reconnected,remoteDiscount,thirdChoice:true,newsRounds:room.state.world.roundsCompleted},trace,events:room.events,record:room.gameRecord};
- fs.writeFileSync(path.join(__dirname,'../docs/world-events-augments/scenario-evidence.json'),JSON.stringify(summary,null,2));
+ const evidence=process.env.TEST_EVIDENCE_ROOT?path.join(process.env.TEST_EVIDENCE_ROOT,'world-events-augments'):path.join(__dirname,'../docs/world-events-augments');fs.mkdirSync(evidence,{recursive:true});fs.writeFileSync(path.join(evidence,'scenario-evidence.json'),JSON.stringify(summary,null,2));
 }, {timeout:60000});

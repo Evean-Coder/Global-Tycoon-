@@ -12,7 +12,7 @@ function diff(before,after,path=[],out=[]){
  return out;
 }
 function capture(room,metadata={source:'system'}){
- const s=room.state;if(!s||(!s.activeManagementRevision&&!s.propertySupportRevision))return;
+ const s=room.state;if(!s||(!s.activeManagementRevision&&!s.propertySupportRevision&&!s.businessMissionRevision&&!s.worldRevision&&!s.disconnectRevision))return;
  const next=clone(s);
  if(!room.privateReplay||room.privateReplay.gameId!==s.gameId)room.privateReplay={schema:'global-tycoon.private-replay.v1',gameId:s.gameId,initial:next,frames:[],last:next};
  else{

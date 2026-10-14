@@ -1,3 +1,11 @@
+> 当前状态更新：2026-10-14。本地三路线v4、一次预算置业扶持、独立资讯/台账与规则定位已完成；本轮进一步完成离线推进、自愿经营任务及资讯数值增强。下方2026-10-10候选/待审批/验收数量是历史记录，不能作为当前状态。[本轮验收](../reconnect-experience/acceptance.md)。未推送、未部署，真机手测与线上GitHub CI待发布后核实。
+
+| 本轮模块 | Spec | Plan | Tasks | Checklist |
+|---|---|---|---|---|
+| 离线推进 | [规格](../reconnect-experience/spec.md) | [设计](../reconnect-experience/plan.md) | [任务](../reconnect-experience/task.md) | [验收](../reconnect-experience/checklist.md) |
+| 自愿经营任务 | [规格](../business-missions/spec.md) | [设计](../business-missions/plan.md) | [任务](../business-missions/task.md) | [验收](../business-missions/checklist.md) |
+| 环球资讯增强 | [规格](../world-news-v2/spec.md) | [设计](../world-news-v2/plan.md) | [任务](../world-news-v2/task.md) | [验收](../world-news-v2/checklist.md) |
+
 # 游戏改进汇总
 
 > 最新状态（2026-10-10）：用户已最终确认开发。地图前端、规则提示、置业扶持和主动经营均已接入；已运行有限固定、浏览器与联机回归，逐项证据见[开发记录](progress.md)。未推送或部署。以下早期候选与待审批状态为历史记录，当前方案以独立Spec/Plan/Tasks/Checklist及[开发方案总览](development-plan.md)为准。

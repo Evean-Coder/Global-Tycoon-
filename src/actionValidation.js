@@ -58,6 +58,7 @@ function phaseAllows(state, type) {
   const map = {
     roll_dice: ['waiting_roll'],
     active_skip: ['waiting_roll'],
+    mission_manage: ['waiting_roll'],
     management_timeout: ['waiting_roll'],
     respond_frozen: ['frozen_turn'],
     respond_jail: ['jail_turn'],
@@ -217,6 +218,7 @@ function normalizeAction(state, raw, context = {}) {
     if(type==='opportunity_reroll'&&!player.opportunities.rerollsLeft)return fail('本局换组选项次数已用完');
     return success({type,stageId:raw.stageId,candidateVersion:raw.candidateVersion,...(type==='opportunity_choose'?{opportunityId:raw.opportunityId}:{})},actorId);
   }
+  if(type==='mission_manage'){const q=require('./businessMissions').quote(state,player.id,raw.missionType);if(!q.ok||raw.quoteVersion!==q.quoteVersion)return fail(q.reason||'任务状态已更新');return success({type,missionType:raw.missionType,quoteVersion:raw.quoteVersion},player.id);}
   if (type === 'stock_trade') return validateOrders(state, player, raw.orders, raw.windowId);
   if(type==='support_buy'){
     const support=require('./propertySupport'),batch=support.budgetEnabled(state);

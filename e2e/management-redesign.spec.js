@@ -3,7 +3,7 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const {boot}=require('./helpers/browserHarness'),{createGameState}=require('../src/state'),{own,fakeClock}=require('../test/helpers/gameplayFixtures'),active=require('../src/activeManagement');
 test('经营两级选择与唯一入口：四端真实请求、无项目和报价变更',{timeout:90000},async()=>{
- const time=fakeClock(),h=await boot({quickClockOptions:time}),page=h.pages[0],dir=path.join(__dirname,'../docs/management-redesign/evidence');fs.mkdirSync(dir,{recursive:true});
+ const time=fakeClock(),h=await boot({quickClockOptions:time}),page=h.pages[0],dir=process.env.E2E_EVIDENCE_ROOT?path.join(process.env.E2E_EVIDENCE_ROOT,'management-redesign'):path.join(__dirname,'../docs/management-redesign/evidence');fs.mkdirSync(dir,{recursive:true});
  try{
   await h.choose();await page.bringToFront();const rows=[];let turn=100;
   for(const [width,height]of [[1440,900],[768,1024],[700,320],[844,280]]){

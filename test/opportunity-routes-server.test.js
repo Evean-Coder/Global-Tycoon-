@@ -113,6 +113,7 @@ test('S11 普通两人真实初始阶段起点换路线与后续重连',async()=
  assert.equal(room.state.phase,'route_choose');assert.equal(room.state.routeFlow.activeChoice.playerId,'p0');assert.equal(room.state.players[0].opportunities.lapEpoch-room.state.routeFlow.players.p0.baselineLapEpoch,3);
  await until(()=>a.game?.self.routeChoice);assert.equal(b.game.self.routeChoice,undefined);const held=room.state.players[0].opportunities.selectedIds.slice(),c=room.state.routeFlow.activeChoice;
  const result=await submit(a,{type:'route_confirm',opportunityId:c.opportunityId,candidateVersion:1,newId:c.candidateIds[0],replaceId:held[0]});assert.equal(result.routeResult.outcome,'replaced');const selected=room.state.players[0].opportunities.selectedIds.slice();
- await roll(9);assert.equal(room.state.turnIndex,1);await roll(9);const token=a.token;a.close();await until(()=>room.actionClock.paused);const next=await connect();await ack(next,'reconnect',{roomCode:room.code,name:'甲',token});await until(()=>next.game?.self.opportunities);
+ await roll(9);assert.equal(room.state.turnIndex,1);await roll(9);delete room.state.disconnectRevision; // Verify historical reconnect compatibility.
+ const token=a.token;a.close();await until(()=>room.actionClock.paused);const next=await connect();await ack(next,'reconnect',{roomCode:room.code,name:'甲',token});await until(()=>next.game?.self.opportunities);
  assert.deepEqual(next.game.self.opportunities.selectedIds,selected);assert.equal(next.game.phase,'waiting_roll');assert.equal(room.state.routeFlow.activeChoice,null);
 });

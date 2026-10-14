@@ -138,7 +138,8 @@ function createActionClock(options = {}) {
     clock.untimed = false;
   };
 
-  clock.remainingSeconds = () => clock.untimed ? null : Math.ceil((clock.paused ? clock.remainingMs : Math.max(0, (clock.deadlineMs || now()) - now())) / 1000);
+  clock.remainingMilliseconds = () => clock.untimed ? null : (clock.paused ? clock.remainingMs : Math.max(0, (clock.deadlineMs ?? now()) - now()));
+  clock.remainingSeconds = () => clock.untimed ? null : Math.ceil(clock.remainingMilliseconds() / 1000);
   clock.expired = () => !clock.paused && clock.deadlineMs !== null && now() >= clock.deadlineMs;
   clock.view = (gameId) => ({gameId,decisionId:clock.decisionId,phase:clock.phase,secondsRemaining:clock.remainingSeconds(),paused:clock.paused,...(clock.untimed?{untimed:true}:{})});
   clock.cancel = cancel;

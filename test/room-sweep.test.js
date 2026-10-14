@@ -159,6 +159,8 @@ test('集成：破产玩家断开不影响对局，存活玩家断开仍暂停',
   await new Promise((r) => c.emit('joinRoom', { roomCode: code, name: '丙' }, r));
   await new Promise((r) => a.emit('startGame', {}, r));
   await waitState(a, 'waiting_roll');
+  // Explicit historical pause model (new games permit online actors to continue).
+  delete rooms.get(code).state.disconnectRevision;
   // 乙破产并断开
   rooms.get(code).state.players[1].alive = false;
   b.close();

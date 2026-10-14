@@ -1,3 +1,11 @@
+> 当前状态更新：2026-10-14。本地三路线v4、一次预算置业扶持、独立资讯/台账与规则定位已完成；本轮进一步完成离线推进、自愿经营任务及资讯数值增强。下方2026-10-10候选/待审批/验收数量是历史记录，不能作为当前状态。[本轮验收](../reconnect-experience/acceptance.md)。未推送、未部署，真机手测与线上GitHub CI待发布后核实。
+
+| 本轮模块 | Spec | Plan | Tasks | Checklist |
+|---|---|---|---|---|
+| 离线推进 | [规格](../reconnect-experience/spec.md) | [设计](../reconnect-experience/plan.md) | [任务](../reconnect-experience/task.md) | [验收](../reconnect-experience/checklist.md) |
+| 自愿经营任务 | [规格](../business-missions/spec.md) | [设计](../business-missions/plan.md) | [任务](../business-missions/task.md) | [验收](../business-missions/checklist.md) |
+| 环球资讯增强 | [规格](../world-news-v2/spec.md) | [设计](../world-news-v2/plan.md) | [任务](../world-news-v2/task.md) | [验收](../world-news-v2/checklist.md) |
+
 # 验收证据索引
 
 2026-10-10。本轮按四份 Checklist 核对，证据由指定场景、相关原有回归、资源/CSS检查和截图复核组合构成；清单条数不等于自动测试条数。

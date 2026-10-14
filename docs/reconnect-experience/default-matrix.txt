@@ -1,0 +1,79 @@
+TAP version 13
+# Subtest: tasks use real post-accept normal building, cash threshold, and one coupon; remote does not count
+ok 1 - tasks use real post-accept normal building, cash threshold, and one coupon; remote does not count
+  ---
+  duration_ms: 4.5813
+  ...
+# Subtest: paid flights complete, free flights and low remaining cash do not
+ok 2 - paid flights complete, free flights and low remaining cash do not
+  ---
+  duration_ms: 1.5103
+  ...
+# Subtest: coupon cuts share caps and remote floor; zero saving preserves coupon; old games have no missions
+ok 3 - coupon cuts share caps and remote floor; zero saving preserves coupon; old games have no missions
+  ---
+  duration_ms: 0.569
+  ...
+# Subtest: flight coupons share 60 percent cap, no cashback on free ticket, once only
+ok 4 - flight coupons share 60 percent cap, no cashback on free ticket, once only
+  ---
+  duration_ms: 0.4323
+  ...
+# Subtest: task abandonment, two-go expiry, seal and out clear; no private progress or coupon asset value
+ok 5 - task abandonment, two-go expiry, seal and out clear; no private progress or coupon asset value
+  ---
+  duration_ms: 3.7313
+  ...
+# Subtest: invalid, stale and foreign mission requests do not modify state; original action flow handles real acceptance
+ok 6 - invalid, stale and foreign mission requests do not modify state; original action flow handles real acceptance
+  ---
+  duration_ms: 1.674
+  ...
+# Subtest: all city rents and builds use new news caps, while historical games retain original effects
+ok 7 - all city rents and builds use new news caps, while historical games retain original effects
+  ---
+  duration_ms: 3.2334
+  ...
+# Subtest: stable news only rewards paid orders once, no cancellation payout or future asset inflation
+ok 8 - stable news only rewards paid orders once, no cancellation payout or future asset inflation
+  ---
+  duration_ms: 0.8807
+  ...
+# Subtest: offline grace is at most20s, is not replenished by reconnect, continuous disconnect has zero next wait
+ok 9 - offline grace is at most20s, is not replenished by reconnect, continuous disconnect has zero next wait
+  ---
+  duration_ms: 1.2712
+  ...
+# Subtest: nonactor disconnect does not pause, self rescue waits untimed, all offline stops defaults, old games pause
+ok 10 - nonactor disconnect does not pause, self rescue waits untimed, all offline stops defaults, old games pause
+  ---
+  duration_ms: 0.4393
+  ...
+# Subtest: synchronous defaults choose only offline left option; online choices keep full clock
+ok 11 - synchronous defaults choose only offline left option; online choices keep full clock
+  ---
+  duration_ms: 0.745
+  ...
+# Subtest: offline frozen never pays, jailed rolls, short original deadline caps grace and stale callback is harmless
+ok 12 - offline frozen never pays, jailed rolls, short original deadline caps grace and stale callback is harmless
+  ---
+  duration_ms: 215.5226
+  ...
+# Subtest: two to four seats and bots keep online decisions available; all humans offline stops bots
+ok 13 - two to four seats and bots keep online decisions available; all humans offline stops bots
+  ---
+  duration_ms: 2.0538
+  ...
+# Subtest: mission success and new version rules round-trip through private replay without leaking progress
+ok 14 - mission success and new version rules round-trip through private replay without leaking progress
+  ---
+  duration_ms: 6.7806
+  ...
+1..14
+# tests 14
+# suites 0
+# pass 14
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

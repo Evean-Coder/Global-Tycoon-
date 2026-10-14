@@ -11,23 +11,23 @@ window.RULES_CATALOG = {
   "news": {
     "boom": {
       "name": "地区旺季",
-      "description": "相关地区城市租金增加15%，每笔最多增加3000。"
+      "description": "相关地区城市租金增加30%，每笔最多增加6000。"
     },
     "slowdown": {
       "name": "地区淡季",
-      "description": "相关地区城市租金减少15%，每笔最多减少3000。"
+      "description": "相关地区城市租金减少30%，每笔最多减少6000。"
     },
     "construction": {
       "name": "建设优惠季",
-      "description": "每位玩家每轮首次成功建房优惠15%，最多2000。"
+      "description": "每位玩家每轮首次成功建房优惠标准费用25%，最多3000；总优惠上限及远程150%底价仍有效。"
     },
     "aviation": {
       "name": "航空促销",
-      "description": "付费机票优惠30%，机场通行费不变。"
+      "description": "付费机票优惠40%；与飞行常客、任务券合计最多60%，机场通行费不变。"
     },
     "stable": {
-      "name": "市场平稳期",
-      "description": "市场平稳，已选机遇继续按条件生效。"
+      "name": "订单扶持期",
+      "description": "实际收到经营订单款时额外奖励10%，每次最多150；取消、未收款和封盘不奖励。"
     }
   },
   "opportunities": [

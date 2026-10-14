@@ -1,7 +1,7 @@
 'use strict';
 const fs = require('node:fs');
 const path = require('node:path');
-const { REGIONS, NEWS, OPPORTUNITIES_V4: OPPORTUNITIES } = require('../src/gameplayCatalog');
+const { REGIONS, NEWS_V2: NEWS, OPPORTUNITIES_V4: OPPORTUNITIES } = require('../src/gameplayCatalog');
 const target = path.join(__dirname, '../public/rules-catalog.js');
 function content() {
   return "'use strict';\n// Generated from src/gameplayCatalog.js; run scripts/build-rules-catalog.js.\nwindow.RULES_CATALOG = " + JSON.stringify({ regions: REGIONS, news: NEWS, opportunities: OPPORTUNITIES }, null, 2) + ';\n';

@@ -1,3 +1,11 @@
+> 当前状态更新：2026-10-14。本地三路线v4、一次预算置业扶持、独立资讯/台账与规则定位已完成；本轮进一步完成离线推进、自愿经营任务及资讯数值增强。下方2026-10-10候选/待审批/验收数量是历史记录，不能作为当前状态。[本轮验收](../reconnect-experience/acceptance.md)。未推送、未部署，真机手测与线上GitHub CI待发布后核实。
+
+| 本轮模块 | Spec | Plan | Tasks | Checklist |
+|---|---|---|---|---|
+| 离线推进 | [规格](../reconnect-experience/spec.md) | [设计](../reconnect-experience/plan.md) | [任务](../reconnect-experience/task.md) | [验收](../reconnect-experience/checklist.md) |
+| 自愿经营任务 | [规格](../business-missions/spec.md) | [设计](../business-missions/plan.md) | [任务](../business-missions/task.md) | [验收](../business-missions/checklist.md) |
+| 环球资讯增强 | [规格](../world-news-v2/spec.md) | [设计](../world-news-v2/plan.md) | [任务](../world-news-v2/task.md) | [验收](../world-news-v2/checklist.md) |
+
 # 全部改进的开发方案总览
 
 更新日期：2026-10-10。用户授权：后续文档由助手自行判断合理性、修正并记录，最终开始开发前统一询问。此授权替代逐份文档询问；用户随后最终回复“确认”，已允许开发。当前进度见 [开发记录](progress.md)。

@@ -7,6 +7,14 @@ const NEWS = {
   aviation: { name: '航空促销', description: '付费机票优惠30%，机场通行费不变。' },
   stable: { name: '市场平稳期', description: '市场平稳，已选机遇继续按条件生效。' },
 };
+const NEWS_V2={
+ boom:{name:'地区旺季',description:'相关地区城市租金增加30%，每笔最多增加6000。'},
+ slowdown:{name:'地区淡季',description:'相关地区城市租金减少30%，每笔最多减少6000。'},
+ construction:{name:'建设优惠季',description:'每位玩家每轮首次成功建房优惠标准费用25%，最多3000；总优惠上限及远程150%底价仍有效。'},
+ aviation:{name:'航空促销',description:'付费机票优惠40%；与飞行常客、任务券合计最多60%，机场通行费不变。'},
+ stable:{name:'订单扶持期',description:'实际收到经营订单款时额外奖励10%，每次最多150；取消、未收款和封盘不奖励。'}
+};
+const catalogForWorld=s=>s.worldRevision==='world-news-v2'?NEWS_V2:NEWS;
 const OPPORTUNITIES = [
  ['H1','地产','远程施工','每圈一次，等待掷骰时给自有非抵押城市建一级房，无需到达；支付实际费用。'],
  ['H2','地产','标准化施工','每圈首次成功建房优惠原费用10%，最多1500。'],
@@ -41,4 +49,4 @@ const BY_ID_V2=Object.fromEntries(OPPORTUNITIES_V2.map(o=>[o.id,o]));
 const OPPORTUNITIES_V4=OPPORTUNITIES_V2.map(o=>o.id==='H1'?Object.freeze({...o,description:'每圈首次受惠远程建设减标准建房费15个百分点，优惠合计最多30个百分点、实付最低150%；一级房已在下限时不耗优惠。远程建设成功后需经过起点3次，且不能连续建设同一城市。'}):o);
 const BY_ID_V4=Object.fromEntries(OPPORTUNITIES_V4.map(o=>[o.id,o]));
 const catalogFor=s=>require('./managementRules').balanced(s)?BY_ID_V4:require('./managementRules').modern(s)?BY_ID_V2:BY_ID;
-module.exports = { REGIONS, NEWS, OPPORTUNITIES, BY_ID, OPPORTUNITIES_V2, BY_ID_V2, OPPORTUNITIES_V4, BY_ID_V4, catalogFor };
+module.exports = { REGIONS, NEWS, NEWS_V2, catalogForWorld, OPPORTUNITIES, BY_ID, OPPORTUNITIES_V2, BY_ID_V2, OPPORTUNITIES_V4, BY_ID_V4, catalogFor };

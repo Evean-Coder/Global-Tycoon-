@@ -337,6 +337,7 @@ function settleGo(state, player, events) {
     for (const id of player.cities) stocks.settleCityDividend(state, id, 'go', state.gameId + ':go:' + state.turnId + ':' + id, events);
     require('./activeInvestment').expireAtGo(state,player);
     economy.goRewards(state, player, events);
+    require('./businessMissions').onGo(state,player,events);
     return;
   }
   // 名下城市股息
@@ -602,6 +603,7 @@ function finishSelfRescue(state, events, rng) {
 // ---------- 破产 ----------
 
 function bankrupt(state, player, events, rng) {
+  require('./businessMissions').clear(state,player);
   player.alive = false;
   if (!state.rank.includes(player.id)) state.rank.push(player.id);
   log(events, `${player.name} 破产出局`, 'bankrupt');
@@ -660,6 +662,7 @@ function bankrupt(state, player, events, rng) {
 }
 
 function surrenderLiquidation(state, player, events, rng) {
+  require('./businessMissions').clear(state,player);
   player.alive = false;
   if (!state.rank.includes(player.id)) state.rank.push(player.id);
   log(events, `${player.name} 认输，资产直接归银行`, 'bankrupt');
@@ -906,6 +909,8 @@ function applyCore(state, action, rng, context = {}) {
       if(require('./activeManagement').enabled(state)){require('./activeManagement').apply(state,p,action,events);break;}
       economy.applySettlement(state, economy.quoteBuild(state, {playerId:p.id,cityId:action.cityId,mode:'remote'}), events);
       break;
+    case 'mission_manage':
+      require('./businessMissions').apply(state,p.id,action,events);break;
     case 'active_skip':
       require('./activeManagement').skip(state,p,events);break;
     case 'active_promote':

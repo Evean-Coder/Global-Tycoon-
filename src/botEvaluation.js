@@ -43,7 +43,7 @@ function worldRent(c, view, t=0, level=c.houseLevel) {
   let n=econ.rentFor({...c,houseLevel:level});
   const w=view.world||{},active=w.active;
   const news=t<(active?.remaining||0)?active:t<(active?.remaining||0)+(w.preview?.remaining||0)?w.preview:null;
-  if(news?.region===c.continent&&['boom','slowdown'].includes(news.type))n+=Math.min(3000,Math.round(n*.15))*(news.type==='boom'?1:-1);
+  if(news?.region===c.continent&&['boom','slowdown'].includes(news.type)){const rules=require('./worldEvents').effectRules(view);n+=Math.min(rules.rentCap,econ.rounded(n,rules.rentPercent))*(news.type==='boom'?1:-1);}
   return n;
 }
 function airportFee(view, id, ownerId=view.airports[id]?.ownerId, count) {
@@ -179,7 +179,7 @@ function evaluate(ctx,candidate) {
     }
     case 'order': {
       assetDelta=-cost;
-      for(let step=1;step<=2;step++)if(ctx.horizon>=step)expectedIncome+=candidate.quote.paymentEach*CONFIG.discount**step;
+      for(let step=1;step<=2;step++)if(ctx.horizon>=step){const active=view.world?.active,preview=view.world?.preview,t=step-1,current=t<(active?.remaining||0)?active:t<(active?.remaining||0)+(preview?.remaining||0)?preview:null,rules=require('./worldEvents').effectRules(view),bonus=current?.type==='stable'?Math.min(rules.orderCap,econ.rounded(candidate.quote.paymentEach,rules.orderPercent)):0;expectedIncome+=(candidate.quote.paymentEach+bonus)*CONFIG.discount**step;}
       break;
     }
     case 'stock':

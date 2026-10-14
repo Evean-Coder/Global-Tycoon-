@@ -82,6 +82,8 @@ function computeStats(state, events) {
       if(e.kind==='flight')stats.economy.flightSavings+=e.baseAmount-e.finalAmount;
     }
     stats.economy.travelExpenses=0;
+    if(state.businessMissionRevision){stats.missions={completed:events.filter(e=>e.kind==='mission_completed').length,couponSavings:events.filter(e=>e.kind==='mission_coupon_used').reduce((n,e)=>n+e.amount,0)};}
+    if(state.worldRevision)stats.economy.worldOrderRewards=events.filter(e=>e.kind==='world_order_reward').reduce((n,e)=>n+e.amount,0);
     if(state.activeManagementRevision){
       stats.economy.promotionCosts=events.filter(e=>e.type==='promotion'&&e.kind!=='promotion_reward').reduce((sum,e)=>sum+e.amount,0);
       stats.economy.promotionRewards=events.filter(e=>e.kind==='promotion_reward').reduce((sum,e)=>sum+e.amount,0);
@@ -111,6 +113,7 @@ function buildGameRecord(room, endReason) {
     ...(st.economyRevision?{economyRevision:st.economyRevision,travelExpense:require('./travelExpense').stage(st)}:{}),
     // This record is broadcast to all players. Private eligibility and quota
     // state stays in the authoritative state/checkpoint, not the public replay.
+    ...Object.fromEntries(['disconnectRevision','businessMissionRevision','worldRevision'].filter(k=>st[k]).map(k=>[k,st[k]])),
     ...(st.propertySupportRevision?{propertySupportRevision:st.propertySupportRevision}:{}),
     ...(st.activeManagementRevision?{activeManagementRevision:st.activeManagementRevision,promotions:st.promotions.map(a=>({playerId:a.playerId,cityId:a.cityId,reward:a.reward,remainingRewards:a.remainingRewards,expiresAfterCompleteRound:a.expiresAfterCompleteRound}))}:{}),
     roomCode: room.code,

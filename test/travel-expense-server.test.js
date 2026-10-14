@@ -59,7 +59,7 @@ test('收费债务断线暂停、认证重连与自救一致', async () => {
   assert.equal((await ack(a, 'action', envelope(a, { type: 'rescue_mortgage', cityId: '上海' }))).ok, true);
   assert.equal(room.state.turnIndex, 1); assert.equal(room.events.filter(e => e.kind === 'travel_expense').length, 1);
 });
-test('直接出售与拍卖超时恢复收费自救，债务超时终局仍只扣一次', async () => {
+test('直接出售与拍卖超时恢复收费自救，债务自救无时限且主动放弃终局仍只扣一次', async () => {
   for (const mode of ['direct', 'auction']) {
     const { a, b, room, fake } = await setup(), s = ending(0); own(s, 'p0', '上海'); await publish(room, s, a, b);
     await ack(a, 'action', envelope(a, { type: 'stock_done' })); await until(() => a.game.phase === 'self_rescue');
@@ -68,6 +68,6 @@ test('直接出售与拍卖超时恢复收费自救，债务超时终局仍只�
     assert.equal(room.events.filter(e => e.kind === 'travel_expense').length, 1); room.actionClock.clear();
   }
   const { a, b, room, fake } = await setup(); await publish(room, ending(0), a, b); await ack(a, 'action', envelope(a, { type: 'stock_done' }));
-  fake.advance(60000); assert.equal(room.state.status, 'over'); assert.equal(room.state.winner, 'p1');
+  fake.advance(60000); assert.equal(room.state.phase,'self_rescue');assert.equal(room.actionClock.untimed,true);await until(()=>a.game.phase==='self_rescue');assert.equal((await ack(a,'action',envelope(a,{type:'rescue_done'}))).ok,true);assert.equal(room.state.status, 'over'); assert.equal(room.state.winner, 'p1');
   assert.equal(room.gameRecord.stats.economy.travelExpenses, 1500);
 });

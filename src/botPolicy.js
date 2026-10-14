@@ -74,6 +74,13 @@ function choose(v,memory={}) {
     case 'waiting_roll': {
       if(v.self.activeManagement?.balanced&&v.gameMode==='quick'&&ctx.horizon<1)return requiredAction(v)||{type:'roll_dice'};
       if((memory.steps||0)>=6)return requiredAction(v)||{type:'roll_dice'};
+      const missions=v.self.businessMission;
+      if(missions&&!missions.active&&!missions.coupon&&ctx.horizon>=2&&p.cash>=ctx.reserve+6500){
+        const city=v.board.filter(sq=>sq.cityId&&((sq.id-p.position+42)%42)>0&&((sq.id-p.position+42)%42)<=10).map(sq=>v.cities[sq.cityId]).find(c=>c.ownerId===p.id&&!c.mortgaged&&c.houseLevel<4&&p.cash-econ.buildFee(c)>=ctx.reserve+6000&&ev.evaluate(ctx,{kind:'build',cityId:c.id,cashCost:econ.buildFee(c)}).score>0);
+        const paidAirport=v.board.some(sq=>sq.airportId&&((sq.id-p.position+42)%42)>0&&((sq.id-p.position+42)%42)<=10&&v.airports[sq.airportId].ownerId&&v.airports[sq.airportId].ownerId!==p.id);
+        const type=city?'build':paidAirport?'flight':null;
+        if(type&&missions.quotes[type]?.ok)return {type:'mission_manage',missionType:type,quoteVersion:missions.quotes[type].quoteVersion};
+      }
       const support=best(ctx,(v.self.propertySupport?.candidates||[]).filter(c=>c.ok&&p.lapBuys<4).map(c=>cityCandidate(c.cityId,c.finalAmount,{type:'support_buy',cityId:c.cityId,quoteVersion:c.quoteVersion})));
       if(support)return v.self.propertySupport?.budgetPurchase?{type:'support_buy',cityIds:[support.action.cityId],quoteVersion:v.self.propertySupport.selectionVersion}:support.action;
       const active=v.self.activeManagement,options=[];

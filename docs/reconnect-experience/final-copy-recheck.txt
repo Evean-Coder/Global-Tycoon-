@@ -1,0 +1,49 @@
+TAP version 13
+# Subtest: task cards readable on desktop tablet and short phone landscape; explicit accept, help anchor and close
+ok 1 - task cards readable on desktop tablet and short phone landscape; explicit accept, help anchor and close
+  ---
+  duration_ms: 2975.6786
+  ...
+# Subtest: news details and task reader survive other broadcasts; costs and private progress update from state
+ok 2 - news details and task reader survive other broadcasts; costs and private progress update from state
+  ---
+  duration_ms: 132.5081
+  ...
+# Subtest: nondecider disconnect still permits authenticated online action and forced defaults cannot be forged
+ok 3 - nondecider disconnect still permits authenticated online action and forced defaults cannot be forged
+  ---
+  duration_ms: 65.4405
+  ...
+# Subtest: offline current decider gets20s once then defaults; original deadline and reconnect budget stay intact
+ok 4 - offline current decider gets20s once then defaults; original deadline and reconnect budget stay intact
+  ---
+  duration_ms: 58.5547
+  ...
+# Subtest: all humans offline pauses without defaults; untimed offline self rescue also waits for reconnection
+ok 5 - all humans offline pauses without defaults; untimed offline self rescue also waits for reconnection
+  ---
+  duration_ms: 63.9954
+  ...
+# Subtest: offline synchronous participant chooses individually, online player retains60s and original selection
+ok 6 - offline synchronous participant chooses individually, online player retains60s and original selection
+  ---
+  duration_ms: 64.8438
+  ...
+# Subtest: mission acceptance receipt deduplicates, foreign action fails, reconnect preserves private task
+ok 7 - mission acceptance receipt deduplicates, foreign action fails, reconnect preserves private task
+  ---
+  duration_ms: 60.5623
+  ...
+# Subtest: new quick game keeps total deadline through all-human disconnect and returns final record on reconnect
+ok 8 - new quick game keeps total deadline through all-human disconnect and returns final record on reconnect
+  ---
+  duration_ms: 50.6691
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 8
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

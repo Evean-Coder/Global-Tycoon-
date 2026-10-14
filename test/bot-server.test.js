@@ -81,10 +81,10 @@ test('普通及快速有限联机轨迹：经营、股票、自救和飞行通�
    if(mode==='quick')api.closeQuickGame(room,'disband');else api.finalizeGame(room,'disband');api.emitGame(room);assert.equal(room.botJobs.size,0);policy.choose=original;
   }
  }finally{policy.choose=original;}
- const fs=require('node:fs'),path=require('node:path'),dir=path.join(__dirname,'../artifacts/ai-strategy');fs.mkdirSync(dir,{recursive:true});fs.writeFileSync(path.join(dir,'server-trajectories.json'),JSON.stringify(reports,null,2));
+ const fs=require('node:fs'),path=require('node:path'),dir=(process.env.TEST_EVIDENCE_ROOT?path.join(process.env.TEST_EVIDENCE_ROOT,'ai-strategy'):path.join(__dirname,'../artifacts/ai-strategy'));fs.mkdirSync(dir,{recursive:true});fs.writeFileSync(path.join(dir,'server-trajectories.json'),JSON.stringify(reports,null,2));
 });
 
-test('服务器给电脑相同公开快速时限，临近封盘也完成必需经营',async()=>{
+test('服务器给电脑相同公开快速时限，临近封盘放弃可选经营并继续推进',async()=>{
  const {room}=await setup('quick');bots.stop(room);const routes=require('../src/opportunityRoutes'),policy=require('../src/botPolicy'),original=policy.choose,captured=[];
  for(const p of room.state.players)p.opportunities.selectedIds=['H1','H8','H10'];
  for(let i=1;i<=3;i++){room.state.opportunityStage={resolved:true,ordinal:i};routes.markInitialResolved(room.state,i);}
@@ -92,7 +92,7 @@ test('服务器给电脑相同公开快速时限，临近封盘也完成必需�
  stocks.transferCity(room.state,{cityId:'纽约',newOwnerId:'p1'},[]);room.state.cities['纽约'].houseLevel=3;room.state.cities['纽约'].buildCosts=[11400,11400,11400];room.state.stocks['纽约'].holders.p1=4;stocks.syncHolders(room.state);room.state.players[0].position=15;
  try{policy.choose=(v,m)=>{captured.push({time:v.quickTime,action:original(v,m)});return captured[captured.length-1].action;};fixture(room,'waiting_roll');await until(()=>captured.length>0&&room.state.phase!=='waiting_roll');}
  finally{policy.choose=original;bots.stop(room);}
- assert.deepEqual(captured[0].time,time);assert.ok(['active_promote','active_build','active_stock_buy'].includes(captured[0].action.type));api.closeQuickGame(room,'time_limit');assert.equal(room.state.phase,'game_over');api.emitGame(room);assert.equal(room.botJobs.size,0);
+ assert.deepEqual(captured[0].time,time);assert.equal(captured[0].action.type,'active_skip');api.closeQuickGame(room,'time_limit');assert.equal(room.state.phase,'game_over');api.emitGame(room);assert.equal(room.botJobs.size,0);
 });
 test('后续路线选择使用本人成熟路线并能推进，快速封盘撤销电脑动作',async()=>{
  const {room}=await setup(),routes=require('../src/opportunityRoutes');

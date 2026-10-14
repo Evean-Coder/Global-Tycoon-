@@ -34,6 +34,7 @@ function quoteBuild(s,{playerId,cityId,mode='normal'}){
   if(remaining>0)return {...denied('远程建设还需经过起点 '+remaining+' 次'),remoteBuildLapsRemaining:remaining};
   if(p.activeManagement.lastRemoteBuildCityId===cityId)return denied('不能连续两次远程建设同一城市，请先成功建设另一城市；普通落点建设不受影响');
  }
+ const world=require('./worldEvents').effectRules(s);
  const base=buildFee(c),targetLevel=c.houseLevel+1,multiplier=balanced(s)&&mode==='active'?[150,200,300,350][c.houseLevel]:mode==='active'?(modern(s)?115:145):100;
  const nominal=rounded(base,multiplier),floor=rounded(base,150),limit=balanced(s)&&mode==='active'?Math.min(rounded(base,30),nominal-floor):rounded(base,mode==='active'&&!modern(s)?10:30),effects=[],quotaChanges=[];
  let reduction=0;
@@ -42,12 +43,15 @@ function quoteBuild(s,{playerId,cityId,mode='normal'}){
   if(amount>0)quotaChanges.push({id,amount:1});
  }
  if(mode==='active'&&opp.has(p,'H1')&&!opp.used(p,'H1'))offer('H1','远程施工',rounded(base,modern(s)?15:10));
- if(s.world?.active?.type==='construction'&&!s.world.constructionUsedIds.includes(p.id))offer('construction','建设优惠',Math.min(2000,rounded(base,15)));
+ if(s.world?.active?.type==='construction'&&!s.world.constructionUsedIds.includes(p.id))offer('construction','建设优惠',Math.min(world.buildCap,rounded(base,world.buildPercent)));
  if(opp.has(p,'H2')&&opp.used(p,'H2')<(modern(s)?2:1))offer('H2','标准化施工',Math.min(modern(s)?2000:1500,rounded(base,10)));
  const chain=Object.values(s.cities).filter(x=>x.ownerId===p.id&&!x.mortgaged&&x.group===c.group).length>=2;
  if(opp.has(p,'H3')&&(modern(s)||!opp.used(p,'H3'))&&chain)offer('H3','连锁经营',Math.min(modern(s)?2000:1500,rounded(base,10)));
  if(mode==='remote')quotaChanges.push({id:'H1',amount:1});
+ const coupon=require('./businessMissions').couponOffer(s,p,'build',base),couponCut=coupon?Math.max(0,Math.min(coupon.amount,limit-reduction)):0;
+ if(couponCut){reduction+=couponCut;effects.push(discount('mission_coupon','任务建房券',couponCut,coupon.amount));}
  const q=plan(s,p,'build',cityId,base,nominal-reduction,effects,quotaChanges);
+ q.managementMode=mode;if(couponCut)q.missionCoupon={id:coupon.id,amount:couponCut};
  if(balanced(s)&&mode==='active')Object.assign(q,{targetLevel,nominalMultiplier:multiplier,nominalAmount:nominal,minimumAmount:floor,remoteBuildLapsRemaining:0});
  if(p.cash<q.finalAmount)return {...q,ok:false,reason:'现金不足以支付实际建房费用'};
  q.buildCostChanges={cityId,add:q.finalAmount};return q;
@@ -64,7 +68,8 @@ function rentAmounts(s,{playerId,cityId,baseAmount}){
  const base=safe(baseAmount),active=s.world?.active,effects=[],quotaChanges=[];
  let income=base;
  if(base&&active?.region===c.continent&&(active.type==='boom'||active.type==='slowdown')){
-  const delta=Math.min(3000,rounded(base,15))*(active.type==='boom'?1:-1);income+=delta;effects.push({id:active.type,name:active.name,amount:delta});
+  const world=require('./worldEvents').effectRules(s);
+  const delta=Math.min(world.rentCap,rounded(base,world.rentPercent))*(active.type==='boom'?1:-1);income+=delta;effects.push({id:active.type,name:active.name,amount:delta});
  }
  let amount=income;
  if(amount>0&&c.ownerId!==p.id&&opp.has(p,'H6')&&(s.stocks[cityId].holders[p.id]||0)>0){
@@ -88,13 +93,16 @@ function quoteFlight(s,{playerId,target,fromAirportId,free=false}){
  const p=getPlayer(s,playerId),from=s.board.find(x=>x.airportId===fromAirportId),to=s.board.find(x=>x.airportId===target);
  if(!p||!from||!to||from===to)return denied('航班目标无效');
  const distance=Math.min(Math.abs(to.id-from.id),42-Math.abs(to.id-from.id)),base=free?0:distance*500;
+ const world=require('./worldEvents').effectRules(s);
  const effects=[],quotaChanges=[];let reduction=0;
- if(base&&s.world?.active?.type==='aviation'){const cut=rounded(base,30);reduction+=cut;effects.push(discount('aviation','航空促销',cut,cut));}
+ if(base&&s.world?.active?.type==='aviation'){const cut=rounded(base,world.flightPercent);reduction+=cut;effects.push(discount('aviation','航空促销',cut,cut));}
  if(base&&opp.has(p,'H7')&&opp.used(p,'H7')<(modern(s)?2:1)){
-  const cut=Math.min(modern(s)?3000:1500,rounded(base,modern(s)?40:20),rounded(base,modern(s)?60:50)-reduction);
+  const cut=Math.min(modern(s)?3000:1500,rounded(base,modern(s)?40:20),rounded(base,world.flightCap)-reduction);
   if(cut){reduction+=cut;effects.push(discount('H7','飞行常客',cut,cut));quotaChanges.push({id:'H7',amount:1});}
  }
- const q=plan(s,p,'flight',target,base,base-reduction,effects,quotaChanges);q.target=target;return q;
+ const coupon=require('./businessMissions').couponOffer(s,p,'flight',base),cut=coupon?Math.max(0,Math.min(coupon.amount,rounded(base,world.flightCap)-reduction)):0;
+ if(cut){reduction+=cut;effects.push(discount('mission_coupon','任务机票券',cut,coupon.amount));}
+ const q=plan(s,p,'flight',target,base,base-reduction,effects,quotaChanges);q.target=target;if(cut)q.missionCoupon={id:coupon.id,amount:cut};return q;
 }
 function applySettlement(s,q,events){
  if(!q.ok||q.guards.revision!==s.revision)throw new Error(q.reason||'报价已失效，请重新确认');
@@ -114,6 +122,7 @@ function applySettlement(s,q,events){
  let text=p.name+' '+label[q.kind]+' '+Math.abs(q.finalAmount)+(q.effects.length?'（'+q.effects.map(e=>e.name+' '+e.amount).join('，')+'）':'');
  if(q.kind==='city_rent'){const owner=getPlayer(s,s.cities[q.cityId].ownerId);text=p.name+' 向 '+owner.name+' 支付 '+q.cityId+' 租金：标准 '+q.baseAmount+'，资讯后 '+q.income+'，实际支付 '+q.finalAmount+'，银行补足 '+q.bankSupplement+'，城主现金 '+(q.income-q.fundDeltas[q.cityId])+'，待分红 '+q.fundDeltas[q.cityId]+(q.effects.length?'（'+q.effects.map(e=>e.name+' '+e.amount).join('，')+'）':'');}
  events.push({type:q.kind==='city_rent'?'rent':q.kind,kind:q.kind,settlementId:s.gameId+':money:'+s.settlementSeq,playerId:p.id,cityId:q.cityId,baseAmount:q.baseAmount,finalAmount:q.finalAmount,effects:q.effects,bankSupplement:q.bankSupplement||0,cashDeltas:{...q.cashDeltas},fundDeltas:{...q.fundDeltas},text});
+ require('./businessMissions').observe(s,p,q,events);
  if(q.kind==='city_rent')require('./activeManagement').rentCompleted(s,q,s.gameId+':money:'+s.settlementSeq,events);
 }
 function reward(s,p,amount,id,events,reason){

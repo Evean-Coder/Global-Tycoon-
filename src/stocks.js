@@ -153,6 +153,7 @@ function clearCityToBank(s,{cityId},events){
 }
 function settleFinalEconomy(s,endReason,events){
  if(s.finalSettlementDone)return;
+ for(const p of s.players)require('./businessMissions').clear(s,p);
  if(require('./activeManagement').enabled(s)){s.promotions=[];s.promotionReceipts=[];}
  if(require('./managementRules').balanced(s)){for(const order of s.operatingOrders)if(order.paymentsRemaining>0){order.paymentsRemaining=0;order.cancelledReason='对局封盘';}for(const p of s.players)require('./activeInvestment').expireAtGo(s,p);}
  s.world.status='stopped';s.opportunityStage=null;s.stockWindow=null;

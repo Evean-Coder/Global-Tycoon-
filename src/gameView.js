@@ -6,6 +6,8 @@ const {catalogFor}=require('./gameplayCatalog');
 const routes=require('./opportunityRoutes');
 function snapshot(s,viewerId,clockView){
  const out={};
+ for(const k of ['disconnectRevision','businessMissionRevision','worldRevision'])if(s[k])out[k]=s[k];
+ out.newsCatalog=require('./gameplayCatalog').catalogForWorld(s);
  if(require('./activeManagement').enabled(s)){out.activeManagementRevision=s.activeManagementRevision;out.promotions=s.promotions.map(a=>({playerId:a.playerId,cityId:a.cityId,reward:a.reward,remainingRewards:a.remainingRewards,expiresAfterCompleteRound:a.expiresAfterCompleteRound}));}
  if(require('./propertySupport').enabled(s))out.propertySupportRevision=s.propertySupportRevision;
  for(const k of ['roomCode','gameId','ruleVersion','revision','status','board','cities','airports','stocks','firstRoundDone','turnIndex','turnId','phase','dice','rounds','rank','winner','startedAt'])out[k]=s[k];
@@ -45,6 +47,7 @@ function snapshot(s,viewerId,clockView){
  const player=s.players.find(p=>p.id===viewerId);
  if(player){
   out.self={playerId:player.id,actorRevision:s.actorRevision[player.id],opportunities:globalThis.structuredClone(player.opportunities),quotes:{build:{},demolish:{},rent:{},flight:{},redeem:{}},stockWindow:null};
+  if(require('./businessMissions').enabled(s))out.self.businessMission=require('./businessMissions').view(s,player.id);
   if(require('./propertySupport').enabled(s))out.self.propertySupport=require('./propertySupport').view(s,player.id);
   if(require('./activeManagement').enabled(s))out.self.activeManagement=require('./activeManagement').view(s,player.id);
   if(routes.enabled(s)){

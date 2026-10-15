@@ -55,6 +55,11 @@ function rescue(v,memory={},simple=false) {
 }
 function choose(v,memory={}) {
   const ctx=ev.context(v),p=ctx.self,q=v.self.quotes;
+  if(v.stockInvestmentRevision==='stock-investment-v2'){
+    const incoming=(v.self.stockOffers||[]).find(o=>o.status==='pending'&&o.makerId!==p.id);
+    if(incoming){const protectedActor=v.pending?.awaiting||v.pending?.targetId||v.pending?.playerId||v.players[v.turnIndex]?.id,protectedSelf=protectedActor===p.id&&!['waiting_roll','stock','opportunity_choose','route_choose'].includes(v.phase),b=ev.stockBenefit(ctx,incoming.cityId,incoming.shares),ownExit=v.self.stockInvestment.cities[incoming.cityId].bankExitByShares[incoming.shares]||0,value=incoming.buyerId===p.id?incoming.recipientExit+b.expectedIncome-incoming.cash:incoming.cash-incoming.fee-ownExit-b.expectedIncome;return {type:'stock_offer_reply',offerId:incoming.offerId,offerVersion:incoming.version,accept:!protectedSelf&&value>0&&(incoming.buyerId!==p.id||ev.affordable(ctx,incoming.cash))};}
+    const own=(v.self.stockOffers||[]).find(o=>o.status==='pending'&&o.makerId===p.id);if(own)return null;
+  }
   switch(v.phase) {
     case 'opportunity_choose': {
       const c=v.self.choice;
@@ -84,6 +89,10 @@ function choose(v,memory={}) {
       const support=best(ctx,(v.self.propertySupport?.candidates||[]).filter(c=>c.ok&&p.lapBuys<4).map(c=>cityCandidate(c.cityId,c.finalAmount,{type:'support_buy',cityId:c.cityId,quoteVersion:c.quoteVersion})));
       if(support)return v.self.propertySupport?.budgetPurchase?{type:'support_buy',cityIds:[support.action.cityId],quoteVersion:v.self.propertySupport.selectionVersion}:support.action;
       const active=v.self.activeManagement,options=[];
+      if(v.stockInvestmentRevision==='stock-investment-v2'){
+        for(const id of Object.keys(v.stocks))for(const shares of [1,2])if(ev.stockAllowed(ctx,id,shares))options.push(stockCandidate(id,shares,{finalAmount:v.stocks[id].price*shares},{type:'stock_trade',stockContext:v.self.stockInvestment.context,orders:[{cityId:id,side:'buy',shares,quoteVersion:v.stocks[id].quoteVersion,listingEpoch:v.stocks[id].listingEpoch}]}));
+        if(!v.self.stockInvestment.invitationUsed&&ctx.horizon>=2){for(const id of Object.keys(v.stocks).sort()){const st=v.stocks[id],held=st.holders[p.id]||0,cap=v.cities[id].ownerId===p.id?2:4;if(!v.cities[id].ownerId||Object.values(st.holders).reduce((n,v)=>n+v,0)<10||held>=cap)continue;const target=v.players.find(x=>x.id!==p.id&&x.alive&&x.connected!==false&&st.holders[x.id]>0);if(!target)continue;const b=ev.stockBenefit(ctx,id,1);if(b.expectedIncome>st.price*.15&&ev.affordable(ctx,st.price))return {type:'stock_offer_create',side:'buy',targetId:target.id,cityId:id,shares:1,cash:st.price,stockContext:v.self.stockInvestment.context,quoteVersion:st.quoteVersion,listingEpoch:st.listingEpoch};}}
+      }
       for(const c of active?.available?active.quotes:[])if(c.ok){
         const action={type:c.type,cityId:c.cityId,quoteVersion:c.quoteVersion,...(c.targetKind?{targetKind:c.targetKind}:{}),...(c.shares?{shares:c.shares,listingEpoch:c.listingEpoch}:{})};
         if(c.type==='active_stock_buy'){if(ev.stockAllowed(ctx,c.cityId,c.shares))options.push(stockCandidate(c.cityId,c.shares,c,action));}
@@ -138,11 +147,11 @@ function choose(v,memory={}) {
     case 'stock': {
       const w=v.self.stockWindow;
       if(!w||(memory.steps||0)>=8)return {type:'stock_done'};
-      if(p.cash<ctx.reserve){const tool=ev.liquidation(ctx,ctx.reserve-p.cash).find(t=>t.action.type==='rescue_sell_stock');if(tool){const {cityId,shares,quoteVersion}=tool.action;return {type:'stock_trade',windowId:w.windowId,orders:[{cityId,side:'sell',shares,quoteVersion,listingEpoch:v.stocks[cityId].listingEpoch}]};}}
+      if(p.cash<ctx.reserve){const tool=ev.liquidation(ctx,ctx.reserve-p.cash).find(t=>t.action.type==='rescue_sell_stock');if(tool){const {cityId,shares,quoteVersion}=tool.action;return {type:'stock_trade',windowId:w.windowId,...(v.stockInvestmentRevision?{stockContext:v.self.stockInvestment.context}:{}),orders:[{cityId,side:'sell',shares,quoteVersion,listingEpoch:v.stocks[cityId].listingEpoch}]};}}
       const options=[];
       for(const id of Object.keys(v.stocks))for(const shares of [1,2])if(ev.stockAllowed(ctx,id,shares,w,memory)){
         const s=v.stocks[id],quote={finalAmount:s.price*shares,fee:0};
-        options.push(stockCandidate(id,shares,quote,{type:'stock_trade',windowId:w.windowId,orders:[{cityId:id,side:'buy',shares,quoteVersion:s.quoteVersion,listingEpoch:s.listingEpoch}]}));
+        options.push(stockCandidate(id,shares,quote,{type:'stock_trade',windowId:w.windowId,...(v.stockInvestmentRevision?{stockContext:v.self.stockInvestment.context}:{}),orders:[{cityId:id,side:'buy',shares,quoteVersion:s.quoteVersion,listingEpoch:s.listingEpoch}]}));
       }
       return best(ctx,options)?.action||{type:'stock_done'};
     }

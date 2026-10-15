@@ -1,6 +1,27 @@
 'use strict';
 // Generated from src/gameplayCatalog.js; run scripts/build-rules-catalog.js.
 window.RULES_CATALOG = {
+  "stockInvestment": {
+    "revision": "stock-investment-v2",
+    "totalShares": 10,
+    "ownerCap": 2,
+    "externalCap": 4,
+    "rentalPercent": 20,
+    "bankPercent": 40,
+    "ordinaryExitPercent": 90,
+    "clearExitPercent": 50,
+    "playerSaleFeePercent": 2,
+    "offerSeconds": 20,
+    "turnLimit": {
+      "shares": 2,
+      "cities": 1
+    },
+    "goLimit": {
+      "shares": 4,
+      "cities": 3,
+      "perCity": 2
+    }
+  },
   "regions": [
     "非洲",
     "大洋洲",

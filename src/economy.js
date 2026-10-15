@@ -81,7 +81,9 @@ function rentAmounts(s,{playerId,cityId,baseAmount}){
   if(cut){amount-=cut;effects.push(discount('H11','风险准备金',cut,cut));quotaChanges.push({id:'H11',amount:1});}
  }
  const q=plan(s,p,'city_rent',cityId,base,amount,effects,quotaChanges);
- const fund=rounded(income,20);q.income=income;q.bankSupplement=income-amount;q.cashDeltas[c.ownerId]=(q.cashDeltas[c.ownerId]||0)+income-fund;q.fundDeltas[cityId]=fund;q.roundRent=income;
+ const fund=rounded(income,20);q.income=income;q.bankSupplement=income-amount;q.roundRent=income;
+ if(require('./stockInvestment').enabled(s))require('./stockInvestment').rentPlan(s,q);
+ else{q.cashDeltas[c.ownerId]=(q.cashDeltas[c.ownerId]||0)+income-fund;q.fundDeltas[cityId]=fund;}
  return q;
 }
 function quoteRent(s,{playerId,cityId}){
@@ -121,9 +123,11 @@ function applySettlement(s,q,events){
  const label={build:'建房',demolish:'拆房返还',city_rent:'城市租金',flight:'机票'};
  let text=p.name+' '+label[q.kind]+' '+Math.abs(q.finalAmount)+(q.effects.length?'（'+q.effects.map(e=>e.name+' '+e.amount).join('，')+'）':'');
  if(q.kind==='city_rent'){const owner=getPlayer(s,s.cities[q.cityId].ownerId);text=p.name+' 向 '+owner.name+' 支付 '+q.cityId+' 租金：标准 '+q.baseAmount+'，资讯后 '+q.income+'，实际支付 '+q.finalAmount+'，银行补足 '+q.bankSupplement+'，城主现金 '+(q.income-q.fundDeltas[q.cityId])+'，待分红 '+q.fundDeltas[q.cityId]+(q.effects.length?'（'+q.effects.map(e=>e.name+' '+e.amount).join('，')+'）':'');}
+ if(q.stockDividends){text=p.name+' 支付 '+q.cityId+' 租金 '+q.finalAmount+'，经营收入 '+q.income+'，城主租金留存 '+q.ownerRentalIncome+'，股息即时到账';require('./stockInvestment').rentCommit(s,q,events,s.gameId+':money:'+s.settlementSeq);}
  events.push({type:q.kind==='city_rent'?'rent':q.kind,kind:q.kind,settlementId:s.gameId+':money:'+s.settlementSeq,playerId:p.id,cityId:q.cityId,baseAmount:q.baseAmount,finalAmount:q.finalAmount,effects:q.effects,bankSupplement:q.bankSupplement||0,cashDeltas:{...q.cashDeltas},fundDeltas:{...q.fundDeltas},text});
  require('./businessMissions').observe(s,p,q,events);
  if(q.kind==='city_rent')require('./activeManagement').rentCompleted(s,q,s.gameId+':money:'+s.settlementSeq,events);
+ if(require('./stockInvestment').enabled(s))require('./stockInvestment').refreshAll(s);
 }
 function reward(s,p,amount,id,events,reason){
  if(!p.alive||!amount)return;

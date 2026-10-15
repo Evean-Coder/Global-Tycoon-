@@ -16,6 +16,7 @@ function quote(s,id,kind,cityId,shares,targetKind){
   if(modern(s)&&s.promotions.some(a=>a.playerId===id&&a.remainingRewards>0&&s.roundFlow.index<=a.expiresAfterCompleteRound))return {ok:false,reason:'已有促销进行中，结束后可再次开展'};
   q={ok:true,baseAmount:c.price,finalAmount:Math.min(econ.rounded(c.price,modern(s)?3:4),modern(s)?600:800),reward:Math.min(econ.rounded(c.price,modern(s)?10:8),modern(s)?1500:1200),remainingRewards:modern(s)?3:2,expiresAfterCompleteRound:s.roundFlow.index+(modern(s)?3:1)};
  }else if(kind==='active_stock_buy'){
+  if(require('./stockInvestment').enabled(s))return {ok:false,reason:'股票买卖请使用独立股票市场，不消耗主动经营机会'};
   try{stocks.validateBuy(s,id,cityId,shares);}catch(e){return {ok:false,reason:e.message};}
   if(!Number.isSafeInteger(shares)||shares<1||shares>(balanced(s)?4:2)||(!modern(s)&&(r.stockBoughtTotal+shares>4||(r.stockBoughtByCity[cityId]||0)+shares>2)))return {ok:false,reason:balanced(s)?'一次1–4股，市场20股，城主最多4股':modern(s)?'一次1–2股，市场20股，城主最多4股':'一次1–2股，每圈最多4股、同城2股'};
   const base=econ.safe(st.price*shares),fee=balanced(s)?0:econ.rounded(base,1);q={ok:true,baseAmount:base,fee,finalAmount:econ.safe(base+fee),shares,listingEpoch:st.listingEpoch,...(balanced(s)?{dividendBonusRate:30,dividendBonusRemaining:Math.max(0,1500-p.activeInvestment.bonusPaid)}:{})};
@@ -65,7 +66,7 @@ function view(s,id){
  if(!enabled(s))return null;const p=s.players.find(x=>x.id===id);if(!p)return null;const quotes=[];
  for(const cid of Object.keys(s.cities)){
   if(s.cities[cid].ownerId===id)for(const type of [balanced(s)?'active_order':'active_promote','active_build'])quotes.push({type,cityId:cid,...(type==='active_order'?{targetKind:'city'}:{}),...quote(s,id,type,cid,undefined,type==='active_order'?'city':undefined)});
-  if(s.cities[cid].ownerId)for(const shares of balanced(s)?[1,2,3,4]:[1,2])quotes.push({type:'active_stock_buy',cityId:cid,shares,...quote(s,id,'active_stock_buy',cid,shares)});
+  if(!require('./stockInvestment').enabled(s)&&s.cities[cid].ownerId)for(const shares of balanced(s)?[1,2,3,4]:[1,2])quotes.push({type:'active_stock_buy',cityId:cid,shares,...quote(s,id,'active_stock_buy',cid,shares)});
  }
  if(balanced(s))for(const [aid,a]of Object.entries(s.airports))if(a.ownerId===id)quotes.push({type:'active_order',cityId:aid,targetKind:'airport',...quote(s,id,'active_order',aid,undefined,'airport')});
  const required=modern(s)&&quotes.some(q=>q.ok),last=p.activeManagement.lastRemoteBuildLap;

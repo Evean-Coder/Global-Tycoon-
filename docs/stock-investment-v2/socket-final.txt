@@ -1,0 +1,29 @@
+TAP version 13
+# Subtest: 旧客户端缺少股票能力声明时不能开启新规则局
+ok 1 - 旧客户端缺少股票能力声明时不能开启新规则局
+  ---
+  duration_ms: 23.8989
+  ...
+# Subtest: 真实socket完成买入、股息、双向议价和部分回收，幂等与隐私正确
+ok 2 - 真实socket完成买入、股息、双向议价和部分回收，幂等与隐私正确
+  ---
+  duration_ms: 169.5878
+  ...
+# Subtest: 真实动作的四类募资可指定股数卖股；不足不提前完成
+ok 3 - 真实动作的四类募资可指定股数卖股；不足不提前完成
+  ---
+  duration_ms: 3.1796
+  ...
+# Subtest: 真实新局AI使用新股票并在非本人回合回复报价
+ok 4 - 真实新局AI使用新股票并在非本人回合回复报价
+  ---
+  duration_ms: 197.8723
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 4
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

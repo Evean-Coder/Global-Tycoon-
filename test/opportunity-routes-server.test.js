@@ -7,7 +7,7 @@ const {io:Client}=require('socket.io-client'),api=require('../server'),logic=req
 let url,sequence=0;const clients=[];
 const ack=(s,event,data)=>new Promise(r=>s.emit(event,data,r));
 async function until(fn){const end=Date.now()+3000;while(Date.now()<end){if(fn())return;await new Promise(r=>setTimeout(r,5));}throw new Error('等待状态超时');}
-async function connect(compatible=true){const s=Client(url,{transports:['websocket'],auth:compatible?{clientRouteRevision:routes.REVISION}:{}});clients.push(s);s.on('gameState',g=>s.game=g);s.on('reconnectToken',t=>s.token=t.token);await new Promise(r=>s.once('connect',r));return s;}
+async function connect(compatible=true){const s=Client(url,{transports:['websocket'],auth:compatible?{clientRouteRevision:routes.REVISION,stockInvestmentProtocol:2}:{}});clients.push(s);s.on('gameState',g=>s.game=g);s.on('reconnectToken',t=>s.token=t.token);await new Promise(r=>s.once('connect',r));return s;}
 async function setup(compatible=true){const a=await connect(),b=await connect(compatible),res=await ack(a,'createRoom',{name:'甲'});await ack(b,'joinRoom',{roomCode:res.roomCode,name:'乙'});const room=api.rooms.get(res.roomCode);room.rng=f.rng();return {a,b,room};}
 function envelope(room,action){return {...action,gameId:room.state.gameId,actionId:'route-net-'+(++sequence),decisionId:room.actionClock.decisionId,actorRevision:room.state.actorRevision.p0};}
 function fixture(room){room.state=ready();room.state.roomCode=room.code;room.actionClock.clear();api.emitGame(room);}

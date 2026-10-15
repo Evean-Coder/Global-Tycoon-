@@ -1,21 +1,23 @@
 'use strict';
-const CACHE = 'global-tycoon-v42-compact-board';
+const CACHE = 'global-tycoon-v43-stock-investment';
 const CORE = [
   './',
   './index.html',
   './style.css',
   './client.js',
+  './stock-investment-view.js',
+  './stock-investment-view.js?v=20261015-stock-investment',
   './board-layout.js',
   './board-presentation.js',
-  './board-presentation.js?v=20261014-compact-board',
-  './board-layout.js?v=20261014-compact-board',
+  './board-presentation.js?v=20261015-stock-investment',
+  './board-layout.js?v=20261015-stock-investment',
   './rules-catalog.js',
   './contextual-rules.js',
-  './contextual-rules.js?v=20261014-compact-board',
-  './rules-catalog.js?v=20261014-compact-board',
-  './style.css?v=20261014-compact-board',
-  './mobile-orientation.js?v=20261014-compact-board',
-  './client.js?v=20261014-compact-board',
+  './contextual-rules.js?v=20261015-stock-investment',
+  './rules-catalog.js?v=20261015-stock-investment',
+  './style.css?v=20261015-stock-investment',
+  './mobile-orientation.js?v=20261015-stock-investment',
+  './client.js?v=20261015-stock-investment',
   './socket.io/socket.io.js',
   './assets/board-world-map-v1.webp',
   './assets/atlas-background-v1.webp',
@@ -37,7 +39,7 @@ self.addEventListener('fetch', (e) => {
   // 联机握手和轮询不作为静态资源缓存；离线只提供页面外壳。
   if (url.pathname.startsWith('/socket.io/') && url.pathname !== '/socket.io/socket.io.js') return;
   const isNav = e.request.mode === 'navigate' || url.pathname === '/' || url.pathname.endsWith('/index.html');
-  const strictCore = /\/(?:client\.js|style\.css|rules-catalog\.js|contextual-rules\.js|board-layout\.js)$/.test(url.pathname) || url.pathname === '/socket.io/socket.io.js';
+  const strictCore = /\/(?:client\.js|stock-investment-view\.js|style\.css|rules-catalog\.js|contextual-rules\.js|board-layout\.js)$/.test(url.pathname) || url.pathname === '/socket.io/socket.io.js';
   if (isNav) {
     // HTML/导航：网络优先，失败回退缓存，保证更新即时生效
     e.respondWith(

@@ -1,5 +1,5 @@
 'use strict';
-/* global ContextualRules, BoardLayout, BoardPresentation, MobileOrientation */
+/* global ContextualRules, BoardLayout, BoardPresentation, MobileOrientation, StockInvestmentView */
 
 /* exported afterReceipt, emitAct, downloadRecord, openReplay, replayPrev, replayNext, replayPlay, replayClose, clickTransferEntry, submitTransfer, returnFromTransfer, resumeStockView, startSelectedGame, returnToRoom, openBank */
 
@@ -23,7 +23,7 @@ function fitActionBarPadding() {
 window.addEventListener('load', fitActionBarPadding);
 window.addEventListener('resize', fitActionBarPadding);
 
-const socket = io({ auth: {clientRouteRevision:'opportunity-routes-v1',clientQuickRevision:'quick-mode-v1'}, transports: ['websocket', 'polling'], tryAllTransports: true });
+const socket = io({ auth: {clientRouteRevision:'opportunity-routes-v1',clientQuickRevision:'quick-mode-v1',stockInvestmentProtocol:2}, transports: ['websocket', 'polling'], tryAllTransports: true });
 let me = { name: '', roomCode: null };
 let game = null;
 let offlineReceivedAt=0;
@@ -190,6 +190,7 @@ const escapeHTML = (value) => String(value ?? '').replace(/[&<>"']/g, c => ({'&'
 
 function stockKey(state) {
   if (!state || state.phase === 'game_over') return null;
+  if (StockInvestmentView.enabled(state)) {const c=state.self?.stockInvestment?.context;return c?JSON.stringify([state.gameId,state.self.playerId,c.kind,c.id]):null;}
   if (state.ruleVersion === 2) {
     const w = state.self?.stockWindow;
     return w && w.playerId === state.self.playerId ? JSON.stringify([state.gameId,state.self.playerId,w.windowId]) : null;
@@ -219,13 +220,14 @@ function isCurrentStockContext(context) {
   return !!context && context.key === stockContext?.key && context.generation === stockContext.generation && context.key === stockKey(latestState || game);
 }
 function stockReady() {
+  if(StockInvestmentView.enabled(game))return !!stockContext&&!!game.self.stockInvestment.context&&isMyTurn()&&!animBusy&&!diceAnimating&&stockKey(game)===stockContext.key&&game.revision===latestState?.revision;
   return !!stockContext && game?.phase === 'stock' && isMyTurn() && !animBusy && !diceAnimating &&
     stockKey(game) === stockContext.key && (game.ruleVersion !== 2 || (game.revision === latestState?.revision && latestState.phase === 'stock'));
 }
 function refreshStockDraftQuotes() {
   if (!stockReady()) return;
   for (const [id,d] of Object.entries(stockDraft)) {
-    const st=game.stocks[id]; if (st) d.basis={price:st.price,quoteVersion:st.quoteVersion,listingEpoch:st.listingEpoch};
+    const st=game.stocks[id]; if (st) d.basis={price:st.price,quoteVersion:st.quoteVersion,listingEpoch:st.listingEpoch,...(StockInvestmentView.enabled(game)?{exit:StockInvestmentView.exit(game,id,d.sell||0)}:{})};
   }
   stockContext.status='editing';stockContext.error='报价已更新，请核对金额后确认交易。';renderStock();
 }
@@ -469,7 +471,7 @@ function finishRender(state) {
   awaitingPlayerId = game.phase === 'waiting_roll' ? game.players[game.turnIndex]?.id : (game.pending?.awaiting || game.pending?.targetId || game.pending?.playerId || null);
   if (state.phase !== 'stock') {
     stockAutoShown = false;
-    if(stockViewMode!=='market'||stockViewingGameId!==game.gameId||state.phase==='game_over'||(isMyTurn()&&state.phase!=='waiting_roll'))hideOverlay('stockModal');
+    if(!(StockInvestmentView.enabled(game)&&game.self.stockInvestment.context)&&(stockViewMode!=='market'||stockViewingGameId!==game.gameId||state.phase==='game_over'||(isMyTurn()&&state.phase!=='waiting_roll')))hideOverlay('stockModal');
   }
   renderBoard();
   renderSide();
@@ -481,6 +483,7 @@ function finishRender(state) {
   renderOpportunities();
   renderRouteChoice();
   if (!$('stockModal').classList.contains('hidden')) renderStock();
+  if(StockInvestmentView.enabled(game)){const count=(game.self.stockOffers||[]).filter(o=>o.status==='pending'&&o.makerId!==me.gameId).length;$('btnStock').textContent='股票市场'+(count?' · '+count+'份报价':'');if($('investmentOffers')&&!$('investmentOffers').classList.contains('hidden'))renderInvestmentOffers();}
   updateWaitBanner();
   fitActionBarPadding();
   let chanceShown = false;
@@ -689,6 +692,7 @@ function renderManagement(){
   if(!d.type){
     const cards=add('div','','management-types');
     for(const type of Object.keys(labels)){
+      if(StockInvestmentView.enabled(game)&&type==='active_stock_buy')continue;
       const rows=data.quotes.filter(q=>q.type===type),count=new Set(rows.filter(q=>q.ok).map(q=>q.cityId)).size;
       const b=document.createElement('button');b.type='button';b.className='management-type';b.dataset.managementType=type;
       const title=document.createElement('strong'),desc=document.createElement('span'),status=document.createElement('small');
@@ -1121,6 +1125,7 @@ function sendAction(action, callback, options = {}) {
   if (game.ruleVersion === 2) {
     const q = actionQuote(action);
     if (q) payload.quoteVersion = action.quoteVersion || q.quoteVersion;
+    if(StockInvestmentView.enabled(game)&&action.type==='stock_trade')payload.stockContext=game.self.stockInvestment.context;
     if (action.type === 'rescue_sell_stock') payload.quoteVersion = game.stocks[action.cityId].quoteVersion;
     if (['stock_trade','stock_transfer'].includes(action.type) && game.phase === 'stock') payload.windowId = game.self.stockWindow?.windowId;
     payload = {...payload,gameId:game.gameId,actionId:window.crypto?.randomUUID?.() || socket.id+':'+Date.now()+':'+(++requestSequence),decisionId:game.decision.decisionId,actorRevision:game.self.actorRevision};
@@ -1176,6 +1181,7 @@ function sendAction(action, callback, options = {}) {
 function emitAct(action) { sendAction(action); }
 
 function appendLiquidationStocks(body,player,targetCash=0) {
+  if(StockInvestmentView.enabled(game)){appendInvestmentLiquidation(body,player,targetCash);return;}
   const heldStocks=Object.entries(player.stocks||{}).filter(([,n])=>n>0);
   const heading=document.createElement('p');heading.className='hint';heading.textContent='出售股票筹资（按当前股价，现金即时到账）：';body.append(heading);
   if(!heldStocks.length){const empty=document.createElement('p');empty.className='hint';empty.textContent='没有可卖出的股票。';body.append(empty);return;}
@@ -1295,7 +1301,7 @@ function renderPending() {
             : (lapCap
               ? '<p class="hint">本圈（起点到起点）已达 4 座房产上限（购买、拍卖与直接出售所得均计入，机场不限），本圈不能再获得城市。</p><div class="row"><button class="risk" onclick="emitAct({type:\'buy\',decision:\'pass\'})">放弃购买（进入拍卖）</button></div>'
               : '<div class="row"><button class="risk" onclick="emitAct({type:\'buy\',decision:\'pass\'})">放弃购买</button><button class="positive" onclick="emitAct({type:\'buy\',decision:\'buy\'})">确认购买</button></div>'));
-        openModal('地产购买');
+        appendStockOwnershipNotice(body,game.pending.cityId);openModal('地产购买');
       }
       break;
     case 'buy_airport':
@@ -1405,7 +1411,7 @@ function renderPending() {
             : '<div class="row"><input id="bidAmt" type="number" class="mono" value="' + min + '" min="' + min + '" style="flex:1" />'
               + '<button class="primary" onclick="emitAct({type:\'auction_respond\',decision:\'bid\',amount:+$(\'bidAmt\').value})">出价</button>'
               + '<button class="secondary" onclick="emitAct({type:\'auction_respond\',decision:\'pass\'})">放弃</button></div>');
-        openModal('拍卖');
+        appendStockOwnershipNotice(body,game.pending.cityId);openModal('拍卖');
       } else {
         const bidder = playerById(game.pending.awaiting);
         closeModal();
@@ -1422,7 +1428,7 @@ function renderPending() {
           + kv('出售方', seller ? escapeHTML(seller.name) : '—')
           + kv('成交价格', fmt(cityTotalValue(city)), 'g')
           + '<div class="row"><button class="primary" onclick="emitAct({type:\'direct_sale_respond\',decision:\'buy\'})">购买</button><button class="secondary" onclick="emitAct({type:\'direct_sale_respond\',decision:\'pass\'})">放弃</button></div>';
-        openModal('直接出售');
+        appendStockOwnershipNotice(body,game.pending.cityId);openModal('直接出售');
       } else {
         const buyer = playerById(game.pending.awaiting);
         const dcity = game.cities[game.pending.cityId];
@@ -1478,6 +1484,7 @@ function sellChoice(cityId) {
 }
 
 function appendStockHoldings(body,meP,forBuild=false,buildCost=0) {
+  if(StockInvestmentView.enabled(game)){if(forBuild)appendInvestmentLiquidation(body,meP,buildCost);else appendInvestmentHoldings(body);return;}
   const holdings=Object.entries(game.stocks).filter(([,st])=>(st.holders[me.gameId]||0)>0);
   const portfolio=document.createElement('section');portfolio.className='bank-holdings';
   const heading=document.createElement('h4');heading.textContent='我的持股明细';portfolio.append(heading);
@@ -1527,7 +1534,7 @@ function openAssetOverview(returnToMarket=false) {
     + kv('当前现金', fmt(meP.cash))
     + kv('城市 / 抵押', meP.cities.length + ' / ' + meP.cities.filter((id) => game.cities[id].mortgaged).length)
     + kv('机场', (meP.airports || []).length);
-  if(meP.assetSummary){const a=meP.assetSummary;body.insertAdjacentHTML('beforeend',kv('地产价值',fmt(a.propertyValue))+kv('股票价值（含待分红）',fmt(a.stockValue))+kv('待结算经营收益',fmt(a.retainedPending))+'<p class="hint">待结算收益计入总资产，派发后才能使用现金；名下持股计入股票价值。</p>');}
+  if(meP.assetSummary&&!StockInvestmentView.enabled(game)){const a=meP.assetSummary;body.insertAdjacentHTML('beforeend',kv('地产价值',fmt(a.propertyValue))+kv('股票价值（含待分红）',fmt(a.stockValue))+kv('待结算经营收益',fmt(a.retainedPending))+'<p class="hint">待结算收益计入总资产，派发后才能使用现金；名下持股计入股票价值。</p>');}
   if(meP.netAssetSummary)body.insertAdjacentHTML('beforeend','<details class="net-details"><summary>资产估值与抵押债务</summary>'+netSummaryHTML(meP.netAssetSummary)+'<p class="hint">估值不是可支付现金；'+(quickGame()?'本局按净资产排名，封盘先派息。':'本局沿用原总资产记录规则。')+'</p></details>');
   appendStockHoldings(body,meP);
   appendSelectedOpportunities(body);
@@ -1538,7 +1545,7 @@ function openAssetOverview(returnToMarket=false) {
     body.appendChild(wrap);
   } else body.insertAdjacentHTML('beforeend', '<p class="hint">暂无城市资产</p>');
   body.insertAdjacentHTML('beforeend', '<p class="hint">抵押时机：轮到你行动时可随时抵押（竞拍、交易确认期间除外）；抵押城市数量不限，同一城市不可重复抵押。本人正常回合掷骰前，可在银行或资产详情偿还本金和利息，赎回任意自有抵押城市，无需落到该城市。</p>');
-  if(!stockReady())body.insertAdjacentHTML('beforeend','<p class="hint">股票转让：仅经过起点后，在本人的股票交易窗口内可发起。</p>');
+  if(!stockReady()&&!StockInvestmentView.enabled(game))body.insertAdjacentHTML('beforeend','<p class="hint">股票转让：仅经过起点后，在本人的股票交易窗口内可发起。</p>');
   if(game.self?.businessMission){const m=game.self.businessMission;body.insertAdjacentHTML('beforeend','<section class="mission-summary"><h4>经营任务</h4><p>'+escapeHTML(m.active?m.catalog[m.active.type].name+' · 两次经过起点内完成':m.coupon?'持有'+(m.coupon.type==='build'?'建房':'机票')+'奖励券':'暂无进行中的任务')+'</p><button class="secondary" type="button" onclick="openMissions()">查看经营任务</button></section>');}
   body.insertAdjacentHTML('beforeend', '<div class="row">'+(stockReady()?'<button class="secondary" onclick="clickTransferEntry()">股票转让</button>':'')
     + (stockReady() ? '<button class="primary" onclick="resumeStockView()">继续买卖股票</button>' : '')
@@ -1673,7 +1680,7 @@ function setupLobby() {
   $('btnStockClose').onclick=()=>hideOverlay('stockModal');
   $('btnStockSkip').onclick = finishStockWindow;
   $('btnStockConfirm').onclick = submitStock;
-  $('btnStockTransfer').onclick=()=>openTransferPanel('stock');
+  $('btnStockTransfer').onclick=()=>StockInvestmentView.enabled(game)?openInvestmentOffers():openTransferPanel('stock');
   $('btnStockAssets').onclick = openAssetOverview;
   $('btnResumeStock').onclick = resumeStockView;
   $('btnRules').onclick = openContextRules;
@@ -2016,13 +2023,13 @@ function organizeRules() {
   else if(game?.propertySupportRevision==='property-support-v1')add('property','<p><b>置业扶持：</b>购地解锁后，从未拥有城市者连续6个正常掷骰回合没有可负担购地机会，下次掷骰前可从最多3座低价银行城市中原价购买1座，整局一次。拒绝可负担机会归零；监狱掷骰、跳过和飞行不计。取消或缺现金、库存、圈额度保留资格；曾通过购买、拍卖或受让得到城市后永久失去资格。仍计入每圈4城额度，与主动经营次数独立。</p>');
   if(game?.activeManagementRevision==='active-management-v3')add('property','<p><b>回合经营：</b>正常回合有可执行项目才自动显示经营选择。第一圈、无标的或全部不可执行时不自动弹窗，可直接掷骰。有项目时先经营一项或点击放弃经营再掷骰；关闭查看仅收起窗口，底栏可继续。放弃不扣钱，本回合不能再经营。超时默认放弃并掷骰，不自动投资。普通90秒/快速45秒与掷骰共享。促销、买股、建设费用与12项强化沿用当前显示的真实报价。</p>');
   if(game?.businessMissionRevision)add('property','<section id="rules-anchor-tasks"><h4>自愿经营任务</h4><p>每圈最多接受一个，进行中或持券时不能再接；两次经过起点内完成。建设实践只计接受后的普通落点建房；航线探索只计接受后的实际付费航班，完成后现金须至少6000。奖励券两圈内自动用于对应费用，建房券10%、机票券20%、各最高1000，遵守费用总优惠上限和远程建设150%底价；实际优惠为零不消耗券，失败不完成任务。放弃不退回本圈机会，出局或封盘清除任务和券。</p></section>');
-  if(game?.activeManagementRevision==='active-management-v4')add('property','<p><b>回合经营：</b>每个正常回合最多一项，可主动放弃，超时默认放弃并掷骰；无项目不自动弹窗，关闭查看保留选择，普通90秒/快速45秒与掷骰共享。三路线先选类型，再选目标确认。</p><p><b>远程建设：</b>每次升一级，按目标房级收标准建房费150%/200%/300%/350%，优惠合计最多30个百分点，实付最低150%；零优惠不耗次数。成功后需本人经过起点3次，且不能连续建设同一城；等待、普通建房、换机遇、城市买卖均不重置。仅有一城时首次之后可继续普通落点建设。</p><p><b>经营订单：</b>自有非抵押城市或自有机场，每个人圈最多一单、同时一单；预付基础价格10%最高1000，后续两次本人回合开始各收12%最高1500。产权变化、城市抵押、出局或封盘取消未付收入，不退预付款，未付收入不计资产。</p><p><b>主动买股：</b>一城1–4股免手续费，无新增圈购股额度，仍守全城20股与城主4股。只对本圈主动买入且仍持有股份的正常起点基础股息另奖30%，本圈最高1500；本人下一次起点结算完后过期。卖出或转让优先消减奖励股份，受让者不继承，清算/转让派息/封盘不发该奖；与稳健股息各按基础现金股息独立计算，不保证本金和收益。</p>');
+  if(!StockInvestmentView.enabled(game)&&game?.activeManagementRevision==='active-management-v4')add('property','<p><b>回合经营：</b>每个正常回合最多一项，可主动放弃，超时默认放弃并掷骰；无项目不自动弹窗，关闭查看保留选择，普通90秒/快速45秒与掷骰共享。三路线先选类型，再选目标确认。</p><p><b>远程建设：</b>每次升一级，按目标房级收标准建房费150%/200%/300%/350%，优惠合计最多30个百分点，实付最低150%；零优惠不耗次数。成功后需本人经过起点3次，且不能连续建设同一城；等待、普通建房、换机遇、城市买卖均不重置。仅有一城时首次之后可继续普通落点建设。</p><p><b>经营订单：</b>自有非抵押城市或自有机场，每个人圈最多一单、同时一单；预付基础价格10%最高1000，后续两次本人回合开始各收12%最高1500。产权变化、城市抵押、出局或封盘取消未付收入，不退预付款，未付收入不计资产。</p><p><b>主动买股：</b>一城1–4股免手续费，无新增圈购股额度，仍守全城20股与城主4股。只对本圈主动买入且仍持有股份的正常起点基础股息另奖30%，本圈最高1500；本人下一次起点结算完后过期。卖出或转让优先消减奖励股份，受让者不继承，清算/转让派息/封盘不发该奖；与稳健股息各按基础现金股息独立计算，不保证本金和收益。</p>');
   if(game?.activeManagementRevision==='active-management-v2')add('property','<p><b>每回合主动经营：</b>正常掷骰前，有合法可负担项目必须完成一项；全部不可执行则放行。先选促销/买股/建设，再选城市确认。普通90秒、快速45秒与掷骰共享；超时按最低支出经营并掷骰。促销费地价3%最高600，当前及后续3完整轮内，完成他人付租另奖地价10%最高1500、最多3次，同时一个活动；无客流无奖励，抵押/转让/出局/封盘取消且不退费。主动买股1–2股、1%手续费，无圈额度，守市场20股/城主4股。远程建设标准建房费115%，优惠合计最多减30个百分点，最高4级。取消及返回不耗次数，失败以服务端新报价为准。</p>');
   if(game?.activeManagementRevision==='active-management-v1')add('property','<p><b>主动经营：</b>正常掷骰前可成功执行促销、主动买股或远程建设中的1项，取消、失败不耗次数，掷骰可直接跳过。促销费为地价4%最高800；当前及下一完整轮内，每次实际完成他人正额租金获得银行奖励地价8%最高1200，最多2次，每圈启动一次、同时一个活动。欠租偿清才奖；抵押、产权变化、出局、到期或封盘结束活动，不退款，奖金不进入分红池。主动买股一次一城1–2股，整笔手续费1%，每圈最多4股、同城2股，原起点窗口额度独立。远程建设支付标准建房费145%，所有优惠最多减10个百分点；H1每圈一次提供10个百分点优惠。原落点建设费用保持。</p>');
   add('property','<p><b>建房募集资金：</b>本人落到自有城市、仍可建房但现金不足时，可抵押其他城市或选择股数出售持股。现金与剩余缺口按实际状态更新，资金足够后返回手动确认建房。普通银行只展示持股，不提供任意卖股；募资不刷新原决定时限。</p>');
   add('stocks','<p><b>股票窗口时限：</b>普通与快速模式均为60秒；查看、调整草稿和转让编辑返回不补时。快速模式转让接收决定最多20秒，返回股票继续沿原窗口剩余预算；个人决定不超过整局剩余时间。</p>');
   add('connection',(game?.disconnectRevision==='disconnect-v1'?'<p>非当前决策者离线时在线玩家继续；轮到离线玩家最多等20秒且不超过原期限，随后保守托管：放弃经营并掷骰，放弃购买、建房、募资、飞行、股票和拍卖，拒绝转让；冻结不付费，监狱掷骰。持续离线后续普通决定直接默认；认证重连结束托管，同一决定反复断线不补时。同步机遇只替离线者选当前最左项，在线者仍保留60秒；已提交不重选。离线自救无限等待本人重连，全真人离线暂停个人决定和AI。</p>':'<p>任一存活玩家掉线会暂停对局和决定时钟；使用原身份重连恢复实际状态和剩余时间，不能刷新额度。新决定给完整时限，同一决定的无效操作和只读查询不延时。经营机遇共享60秒，超时选当时最左项；交易确认超时拒绝，股票超时结束窗口，飞行超时不飞，购买/建设超时放弃。</p><p>已经扣过的债务不重复扣款。自救补足现金后继续原流程，仍不足可继续处理资产或放弃；没有可变现资产时也等待本人主动放弃，不能因自救等待超时而破产。终局先结算待分红，再按实际总资产记录排名。</p>')+(game?.disconnectRevision==='disconnect-v1'?'<p>自救无独立时限，由本人凑够资金继续或主动放弃破产；已经扣过的债务不重复扣款。只读查看、重复请求和重连不刷新额度或原决定期限。</p>':''));
-  add('connection','<p><b>电脑陪玩：</b>房主开局前可添加或移除电脑玩家，一个真人也能开始，房间合计最多4人。电脑使用标准经营策略，遵守相同费用和额度，只读取公开信息及本人的私人信息，约1秒后自动决策；首版不主动发起转让，收到转让时拒绝。最后一个真人离线后电脑停止行动，重连后恢复；快速模式总时限继续。</p>');
+  add('connection','<p><b>电脑陪玩：</b>房主开局前可添加或移除电脑玩家，一个真人也能开始，房间合计最多4人。电脑使用标准经营策略，遵守相同费用和额度，只读取公开信息及本人的私人信息，约1秒后自动决策；股票改版新局支持按收益与现金储备评估议价，并可在非本人回合回复；旧局沿原交易行为。最后一个真人离线后电脑停止行动，重连后恢复；快速模式总时限继续。</p>');
   if(quickGame())add('connection','<p><b>本局快速模式：</b>个人决定是否暂停按本局离线版本处理，整局30分钟时钟继续。全员离线也不延长总时限；重连查看已冻结结果。上面的总资产排名说明适用于普通模式，本局按扣除抵押债务后的净资产排名。</p>');
   if(context.modern){
     const catalog=game?.opportunityCatalog||Object.fromEntries((window.RULES_CATALOG?.opportunities||[]).map(o=>[o.id,o]));
@@ -2035,6 +2042,8 @@ function organizeRules() {
     add('opportunities','<p>本局为历史玩法，不启用现代资讯与经营机遇。</p>');
   }
   add('faq','<h4>为什么飞到自家机场仍扣钱？</h4><p>免费取决于出发机场。例：落在他人唯一的开罗机场先付3000，再飞到自家希思罗机场，无优惠机票5000，目的地不再收通行费。回合结束远航开支另列。</p><h4>下一圈股票额度如何恢复？</h4><p>再次实际经过起点后形成新窗口，已买累计为0；现金、城市资格和20股供给仍须满足。同窗口重连或卖出不会补额度。</p><h4>本人城市4股和窗口2股有什么区别？</h4><p>4股是本人作为城主的持有上限；2股是本窗口该城累计买入上限。其他玩家城市可以持有超过4股。</p><h4>每股分红是多少？</h4><p>现代规则中城市收入10000，20%即2000进入分红池；20股每股100，持2股基础分红200。实际按累计池除20向下取整，机遇额外奖励另算，未售股份和零头归城主；基础分红在城主经过起点等实际派息时到账。旧局使用其原规则。</p><h4>免费机票为什么还有回合结束开支？</h4><p>机票与远航开支是两项费用。启用该修订的新局第81–120完整轮每回合1500，第121轮起3000；免费飞行仍适用，旧局不收费。</p>');
+  if(StockInvestmentView.enabled(game)){content.stocks.replaceChildren();add('stocks','<h4>股票投资 · 每城10股</h4><p>城主最多2股，外部股东每城最多4股，无默认持股减租。每次实际确认租金后，租金20%及银行追加40%按10股即时分配，未发行银行份额不支付，租金未分配余额归城主。H4只奖励租金股息，H6为独立已选机遇。</p><p>本人正常掷骰前累计买2股1城；起点窗口累计4股3城、每城2股。买卖不占主动经营机会，卖出、关闭和重连不恢复额度。参考价＝标准地产建设资产×12%×实际经营系数×抵押系数。</p><p>银行即时回收按当前价与每份来源上限较小值的90%，清算50%。按取得先后出售，玩家高价倒手不能抬高来源上限，低价受让会降低上限；0元受赠可分红但银行回收0。净资产按真实银行回收额计，参考价单列。股票涨价可协商卖给其他玩家，但不保证成交或本金。</p><p>每人每个人回合可发出一次1–4股单城收购或出售报价，卖方付总价2%手续费。双方确认才成交，不预留现金或份额；最多20秒且不延长原决定，掷骰、结束原窗口、任一方离线或报价产权变化即取消。关闭查看不取消，回复不阻塞其他玩家。</p>');add('property','<p>本局主动经营保留经营订单与远程施工，股票移到独立市场，不消耗经营机会；原主动买股30%奖励在本局不适用。</p>');}
+  if(StockInvestmentView.enabled(game)){for(const h of [...content.faq.querySelectorAll('h4')])if(/股票|本人城市4股|每股分红/.test(h.textContent)){h.nextElementSibling?.remove();h.remove();}add('faq','<h4>股价上涨为什么银行回收没涨？</h4><p>银行按当前价与每份来源上限的较小值90%回收。建房及玩家高价倒手不能提高旧股份的银行上限；想兑现上涨溢价，需要和其他玩家协商成交。买入股票后立即出售有约10%价差，持股主要通过实际股息回报。</p>');}
   const nav=document.createElement('nav');nav.className='rules-nav';nav.setAttribute('aria-label','规则主题');
   for(const [id,title]of topics){const a=document.createElement('a');a.href='#rules-topic-'+id;a.textContent=title;a.onclick=e=>{e.preventDefault();content[id].open=true;content[id].scrollIntoView({block:'start'});content[id].firstChild.focus();};nav.append(a);}
   root.replaceChildren(nav,...topics.map(([id])=>content[id]));
@@ -2109,6 +2118,7 @@ function redemptionQuote(cityId){
 }
 
 function stockPreview(state, playerId, draft) {
+  if(StockInvestmentView.enabled(state))return StockInvestmentView.preview(state,playerId,draft);
   const p=state.players.find(x=>x.id===playerId),w=state.self?.stockWindow;
   const used=w?.boughtByCity||{},usedTotal=w?.boughtTotal||0;
   const buys=Object.keys(draft).filter(id=>draft[id].buy>0);
@@ -2167,11 +2177,13 @@ function patchDisplayNode(old,next) {
 function stockDisplayKey(){return stockViewMode==='market'?JSON.stringify(['market',game?.gameId,me.gameId]):stockContext?.key??stockKey(game);}
 function openStockMarket(){
   if(!game)return;
-  stockViewMode=game.phase==='stock'&&isMyTurn()?'trade':'market';stockViewingGameId=game.gameId;
+  stockViewMode=(StockInvestmentView.enabled(game)?!!game.self.stockInvestment.context:game.phase==='stock'&&isMyTurn())?'trade':'market';stockViewingGameId=game.gameId;
   renderStock();showOverlay('stockModal');
 }
 function renderStock() {
   if(!game)return;
+  if(StockInvestmentView.enabled(game)){renderInvestmentMarket();return;}
+  $('stockModal').classList.remove('stock-investment');$('btnStockTransfer').textContent='股票转让';$('btnStockSkip').textContent='放弃交易';
   const market=stockViewMode==='market'||!(game.phase==='stock'&&isMyTurn());
   const p=game.players.find(x=>x.id===me.gameId),preview=stockPreview(game,me.gameId,market?{}:stockDraft);
   const target=$('stockList'),list=document.createElement('div'),key=market?JSON.stringify(['market',game.gameId,me.gameId]):stockDisplayKey();
@@ -2231,9 +2243,11 @@ function adjStock(cityId,kind,delta) {
   const next={...stockDraft,[cityId]:d},preview=stockPreview(game,me.gameId,next);
   if(delta>0&&preview.errors.length){toast(preview.errors[0]);return;}
   if(!d.basis){const st=game.stocks[cityId];d.basis={price:st.price,quoteVersion:st.quoteVersion,listingEpoch:st.listingEpoch};}
+  if(StockInvestmentView.enabled(game))d.basis.exit=StockInvestmentView.exit(game,cityId,d.sell||0);
   stockDraft=next;stockContext.error='';renderStock();
 }
 function finishStockWindow() {
+  if(StockInvestmentView.enabled(game)&&game.self.stockInvestment.context?.kind==='turn'){hideOverlay('stockModal');return;}
   if(!stockReady()||actionPending||stockContext.pendingRequest)return;
   const context=captureStockContext();stockContext.status='ending';
   sendAction({type:'stock_done'},res=>{
@@ -2245,7 +2259,7 @@ function finishStockAfterReceipt() {
   const receipt=stockContext?.receipt;
   if(!receipt||!stockReady()||actionPending)return;
   if(game.ruleVersion===2&&game.revision<receipt.revision)return;
-  stockDraft={};stockContext.receipt=null;stockContext.error='交易已成交。';finishStockWindow();
+  stockDraft={};stockContext.receipt=null;stockContext.error='交易已成交。';if(StockInvestmentView.enabled(game)){stockContext.status='editing';renderStock();}else finishStockWindow();
 }
 function submitStock() {
   if(!stockReady()||actionPending||stockContext.status==='awaiting_state')return;
@@ -2296,6 +2310,7 @@ function renderTransferPanel() {
   };
 }
 function clickTransferEntry() {
+  if(StockInvestmentView.enabled(game)){openInvestmentOffers();return;}
   if (!game || game.phase !== 'stock' || !isMyTurn()) { toast('仅经过起点（股票窗口）时可发起转让'); return; }
   openTransferPanel('assets');
 }
@@ -2457,7 +2472,7 @@ function openCityDetail(cityId) {
     + (c.ownerId===me.gameId&&redeemQ?'<button class="secondary" data-redeem-city="'+cityId+'" '+(redeemQ.ok?'':'disabled')+' onclick="emitAct({type:\'redeem\',cityId:\'' + cityId + '\'})">赎回</button>':'')
     + (mine && !c.mortgaged && meP && meP.position === 0 ? '<button class="risk" onclick="sellChoice(\'' + cityId + '\')">出售</button>' : '')
     + '<button class="textbtn" onclick="closeModal()">关闭</button></div>';
-  appendSquareOccupants(body,sq.id);openModal('地产详情',{kind:'city',cityId});
+  appendStockOwnershipNotice(body,cityId);appendSquareOccupants(body,sq.id);openModal('地产详情',{kind:'city',cityId});
 }
 function appendSquareOccupants(body,squareId){const players=game.players.filter(p=>p.alive&&p.position===squareId),row=document.createElement('div');row.innerHTML=kv('当前同格玩家',escapeHTML(players.map(p=>p.name).join('、')||'无'));body.insertBefore(row.firstElementChild,body.querySelector(':scope>.row'));}
 function openSquareDetail(squareId) {
@@ -2527,3 +2542,41 @@ function openReceipt(ev) {
 const btnTransfer = document.getElementById('btnTransfer');
 if (btnTransfer) btnTransfer.onclick = submitTransfer;
 socket.on('gameState', (state) => { if (state && state.phase === 'trade_confirm') handleTradeConfirm(); });
+
+// Modern stocks share the same authoritative amounts across every surface.
+function appendStockOwnershipNotice(body,id){const q=game.self?.stockOwnershipPreviews?.[id];if(!q)return;const p=document.createElement('p');p.className='hint stock-ownership-notice';p.textContent='取得该城市后，超出城主2股上限的'+q.shares+'股将由银行回收，当前合计到账'+fmt(q.bankProceeds)+'；产权取得前报价变化时以最新预览为准。';body.insertBefore(p,body.querySelector(':scope>.row'));}
+function renderInvestmentMarket(){
+ const data=game.self.stockInvestment,trade=stockReady()&&stockViewMode!=='market',preview=stockPreview(game,me.gameId,trade?stockDraft:{}),target=$('stockList'),key=stockDisplayKey(),same=stockRenderKey===key,scroll=target.scrollTop,next=document.createElement('div');
+ $('stockModal').classList.toggle('stock-readonly',!trade);$('stockModal').classList.add('stock-investment');$('stockTitle').textContent=trade?'股票市场 · '+(data.context.kind==='go'?'起点交易':'掷骰前交易'):'股票市场 · 行情查看';$('stockTimer').classList.toggle('hidden',!trade);
+ for(const id of ['btnStockConfirm','btnStockSkip'])$(id).classList.toggle('hidden',!trade);$('btnStockClose').classList.toggle('hidden',trade);$('btnStockTransfer').classList.remove('hidden');$('btnStockTransfer').textContent='玩家议价 / 收件';$('btnStockTransfer').disabled=actionPending;
+ for(const [id,st]of Object.entries(game.stocks)){
+  const c=game.cities[id],row=preview.rows[id],d=trade?stockDraft[id]||{buy:0,sell:0}:{buy:0,sell:0},f=StockInvestmentView.facts(game,id),card=document.createElement('article');card.className='stock-item investment-card';card.dataset.stockCity=id;
+  card.innerHTML='<b>'+escapeHTML((c.country?c.country+'·':'')+id)+'</b><span>买入参考价 '+fmt(st.price)+' / 股 · 房级 '+c.houseLevel+'</span><span>本人 '+row.held+'股 · 市场剩余 '+row.supply+'/10股 · '+(c.ownerId===me.gameId?'城主上限2股':'外部股东上限4股')+'</span><span>持仓银行回收 '+fmt(f.exit)+' · 持仓支出 '+fmt(f.paidCost)+'</span><span>上次每股：租金 '+fmt(st.lastDividend?.rentalPerShare||0)+' ＋ 银行 '+fmt(st.lastDividend?.bankPerShare||0)+'</span>';
+  const detail=document.createElement('details'),summary=document.createElement('summary'),text=document.createElement('p');summary.textContent='经营与收益依据';text.textContent=(c.ownerId?'经营者 '+(playerById(c.ownerId)?.name||'未知'):'尚未上市')+'；近'+(st.rentHistoryV2?.length||0)+'个完整轮实际收租'+f.rentCount+'次、共'+fmt(f.rentAmount)+'。'+st.priceChange.reason+'。银行按当前价与来源上限较小值的90%回收，建房涨价不保证银行溢价退出。'+(c.mortgaged?'抵押中不产生租金股息。':'');const theory=game.self.quotes.rent[id]?.stockDividendFacts,extra=document.createElement('p');extra.textContent='玩家持股：'+(Object.entries(st.holders).filter(([,n])=>n>0).map(([pid,n])=>(playerById(pid)?.name||pid)+' '+n+'股').join('、')||'尚无股东')+'。当前资讯：'+(game.world.active?.name||'未生效')+'。'+(theory?'按当前租金规则计算，每股理论租金 '+fmt(theory.rentalPerShare)+' ＋ 银行 '+fmt(theory.bankPerShare)+'，实际以落地结算为准。':'城市未经营，无理论租金股息。');detail.append(summary,text,extra);card.append(detail);
+  if(trade){const controls=document.createElement('div');controls.className='stepper';for(const kind of ['buy','sell']){const r=document.createElement('div');r.className='srow';const label=document.createElement('span');label.className='lbl';label.textContent=kind==='buy'?'买':'卖';r.append(label);for(const delta of [-1,1]){const b=document.createElement('button');b.type='button';b.textContent=delta<0?'−':'+';Object.assign(b.dataset,{city:id,kind,delta:String(delta)});b.setAttribute('aria-label',id+(kind==='buy'?'买入':'卖出')+(delta<0?'减少':'增加'));b.disabled=actionPending||!!stockContext.pendingRequest||(delta<0?!d[kind]:!row[kind==='buy'?'canIncrementBuy':'canIncrementSell']);r.append(b);if(delta===-1){const n=document.createElement('span');n.dataset.quantity=kind;n.textContent=d[kind];r.append(n);}}controls.append(r);}card.append(controls);const note=document.createElement('small');note.className='stock-reasons';note.textContent=(row.changed?'报价或回收额已改变，请更新报价。':'')+(d.sell?'所选卖出到账 '+fmt(StockInvestmentView.exit(game,id,d.sell))+'。':'')+row.reasons.join('；');card.append(note);}
+  next.append(card);
+ }
+ if(!same){target.replaceChildren(...next.children);stockRenderKey=key;target.scrollTop=0;}else{const old=new Map([...target.children].map(n=>[n.dataset.stockCity,n]));for(const n of [...next.children]){const prev=old.get(n.dataset.stockCity);if(prev)patchDisplayNode(prev,n);else target.append(n);}target.scrollTop=scroll;}
+ const q=data.quota;$('stockHint').textContent=trade?'累计已买 '+q.boughtTotal+'/'+q.totalLimit+'股，最多'+q.cityLimit+'城、单城'+q.perCityLimit+'股；买卖不占经营机会。关闭、卖出或重连不恢复额度。':'可随时查看；本人正常掷骰前或起点窗口可买卖。租金20%＋银行40%按10股分配，只有已持股份额获得银行款。';
+ $('stockSummary').textContent=trade?'买入 '+fmt(preview.cost)+' · 银行回收 '+fmt(preview.proceeds)+' · 交易后现金 '+fmt(preview.netCash)+'。'+(stockContext.error||'')+preview.errors.join('；'):'持股银行可变现额 '+fmt(game.players.find(p=>p.id===me.gameId).assetSummary.stockValue)+'，用于净资产排名；市场参考价不等于回收价。';
+ const uncertain=stockContext?.status==='unconfirmed';$('btnStockConfirm').textContent=uncertain?'重试获取结果':preview.quoteChanged?'更新报价':'确认交易';$('btnStockConfirm').disabled=!trade||actionPending||stockContext?.status==='awaiting_state'||(!uncertain&&!preview.quoteChanged&&(!Object.values(stockDraft).some(d=>d.buy||d.sell)||preview.errors.length>0));$('btnStockSkip').textContent=data.context?.kind==='go'?'结束起点窗口':'关闭查看';$('btnStockSkip').disabled=actionPending||!!stockContext?.pendingRequest;
+}
+function appendInvestmentHoldings(body){
+ const section=document.createElement('section');section.className='bank-holdings';section.innerHTML='<h4>我的持股明细</h4>';let count=0;
+ for(const id of Object.keys(game.stocks)){const f=StockInvestmentView.facts(game,id);if(!f.held)continue;count++;const card=document.createElement('article');card.className='bank-stock-card';card.dataset.bankCity=id;card.innerHTML='<h5>'+escapeHTML(id)+' · '+f.held+'股</h5>'+kv('持仓实际支出',fmt(f.paidCost))+kv('银行即时回收 / 净资产估值',fmt(f.exit))+kv('市场参考价值',fmt(f.marketValue))+kv('累计租金股息 / 银行追加',fmt(f.rental)+' / '+fmt(f.bank))+kv('累计机遇奖励',fmt(f.extra))+kv('系统买入 / 玩家买入支出',fmt(f.systemBuyCost)+' / '+fmt(f.playerBuyCost))+kv('银行回收 / 玩家出售净收入',fmt(f.bankSaleNet)+' / '+fmt(f.playerSaleNet))+kv('累计现金净收支',fmt(f.cashNet))+kv('含当前银行估值的总变化',fmt(f.cashNet+f.exit));section.append(card);}
+ if(!count)section.insertAdjacentHTML('beforeend','<p>当前没有持有股票。</p>');section.insertAdjacentHTML('beforeend','<p class="hint">参考价随经营变化；银行回收受每份来源上限约束。买入即卖出约损失10%；0元受赠可分红但回收为0。协商出售由对方确认，卖方手续费2%。</p>');body.append(section);
+}
+function appendInvestmentLiquidation(body,p,targetCash){
+ const heading=document.createElement('h4');heading.textContent='出售股票筹资 · 按实际银行回收额';body.append(heading);let count=0;
+ for(const [id,st]of Object.entries(game.stocks)){const held=st.holders[p.id]||0;if(!held)continue;count++;const card=document.createElement('article');card.className='rescue-stock';card.dataset.rescueCity=id;const title=document.createElement('h5');title.textContent=id+' · 持有'+held+'股';const input=document.createElement('input');input.type='number';input.min=1;input.max=held;input.step=1;input.value=Math.min(held,Math.max(1,bankDraft[id]||1));input.setAttribute('aria-label',id+'卖出股数');const controls=document.createElement('div');controls.className='rescue-stock-controls';const label=document.createElement('label');label.textContent='卖出股数';label.append(input);controls.append(label);for(const delta of [-1,1]){const b=document.createElement('button');b.type='button';b.textContent=delta<0?'−':'+';b.setAttribute('aria-label',id+(delta<0?'减少':'增加')+'卖出股数');b.onclick=()=>{input.value=Math.min(held,Math.max(1,Number(input.value)+delta));input.dispatchEvent(new window.Event('input'));};controls.append(b);}const preview=document.createElement('p'),sell=document.createElement('button');sell.type='button';sell.className='secondary';sell.dataset.liquidationCity=id;sell.dataset.fundCity=id;const update=()=>{const n=Number(input.value),valid=Number.isSafeInteger(n)&&n>=1&&n<=held,amount=valid?StockInvestmentView.exit(game,id,n):0;bankDraft[id]=n;preview.textContent=valid?'到账 '+fmt(amount)+' · 仍差 '+fmt(Math.max(0,targetCash-p.cash-amount))+'；按取得先后顺序出售。':'请选择整数股数';sell.textContent='卖出所选股份';sell.disabled=!valid||amount<=0||actionPending||p.cash>=targetCash||!game.cities[id].ownerId||st.clearing;};input.oninput=update;sell.onclick=()=>sendAction({type:'rescue_sell_stock',cityId:id,shares:Number(input.value)});update();card.append(title,controls,preview,sell);body.append(card);}
+ if(!count){const p=document.createElement('p');p.textContent='没有可卖出的股票。';body.append(p);}
+}
+function openInvestmentOffers(){
+ if(!$('investmentOffers')){const overlay=document.createElement('div');overlay.id='investmentOffers';overlay.className='overlay hidden';overlay.innerHTML='<div class="modal wide" role="dialog" aria-modal="true" aria-labelledby="investmentOfferTitle"><div class="mh"><h3 id="investmentOfferTitle">玩家议价</h3><button id="offerHelp" class="textbtn">规则速查</button></div><div class="investment-offer-body"><p class="hint">每个人回合最多发起一次，最多20秒且不延长原决定。掷骰、结束原窗口或任一方离线将取消；关闭查看仍保留报价。卖方支付2%手续费。0元受赠股份可分红，但银行回收为0。</p><form id="offerEditor"><label>方向<select id="offerSide"><option value="buy">向玩家收购</option><option value="sell">向玩家出售</option></select></label><label>玩家<select id="offerTarget"></select></label><label>城市<select id="offerCity"></select></label><label>股数<input id="offerShares" type="number" min="1" max="4" value="1"></label><label>协商总价<input id="offerCash" type="number" min="0" step="1" value="1000"></label><p id="offerEditorPreview" class="hint"></p><button id="offerSend" class="primary" type="submit">发出报价</button></form><div id="offerInbox" aria-live="polite"></div></div><div class="mf"><button id="offerClose" class="secondary">关闭查看</button></div></div>';document.body.append(overlay);$('offerClose').onclick=()=>hideOverlay('investmentOffers');$('offerHelp').onclick=()=>openRulesTopic('stocks');$('offerEditor').onsubmit=e=>{e.preventDefault();const id=$('offerCity').value,st=game.stocks[id];sendAction({type:'stock_offer_create',side:$('offerSide').value,targetId:$('offerTarget').value,cityId:id,shares:Number($('offerShares').value),cash:Number($('offerCash').value),stockContext:game.self.stockInvestment.context,quoteVersion:st?.quoteVersion,listingEpoch:st?.listingEpoch},r=>{if(!r.ok)toast(r.error);renderInvestmentOffers();});};for(const id of ['offerCash','offerShares','offerSide'])$(id).oninput=()=>{const cash=Number($('offerCash').value);$('offerEditorPreview').textContent='卖方手续费 '+fmt(Math.round(cash*.02))+'；对方确认前不扣款、不预留股份。成交后银行回收额见下方报价预览。';};}
+ $('offerTarget').replaceChildren(...game.players.filter(p=>p.id!==me.gameId&&p.alive&&p.connected!==false).map(p=>new window.Option(p.name,p.id)));$('offerCity').replaceChildren(...Object.keys(game.cities).filter(id=>game.cities[id].ownerId&&!game.stocks[id].clearing).map(id=>new window.Option(id,id)));renderInvestmentOffers();showOverlay('investmentOffers');
+}
+function renderInvestmentOffers(){
+ const data=game.self.stockInvestment;$('offerSend').disabled=!data.context||data.invitationUsed||actionPending;$('offerEditor').classList.toggle('offer-unavailable',!data.context||data.invitationUsed);
+ const body=document.createElement('div');for(const o of [...game.self.stockOffers].reverse()){const card=document.createElement('article');card.className='bank-stock-card';card.dataset.bankCity=o.offerId;const buyer=playerById(o.buyerId),seller=playerById(o.sellerId);card.innerHTML='<h4>'+escapeHTML(o.cityId)+' · '+o.shares+'股</h4><p>'+escapeHTML(seller?.name)+' → '+escapeHTML(buyer?.name)+' · 总价 '+fmt(o.cash)+' · 卖方手续费 '+fmt(o.fee)+'</p><p>接收后银行可变现 '+fmt(o.recipientExit)+'（受来源限制）</p><p>'+(o.status==='pending'?'有效至 '+new Date(o.expiresAt).toLocaleTimeString()+'，最多20秒':escapeHTML(o.reason||o.status))+'</p>';if(o.status==='pending')for(const accept of o.makerId===me.gameId?[null]:[false,true]){const b=document.createElement('button');b.type='button';b.className=accept?'primary':'secondary';b.textContent=accept===null?'取消报价':accept?'接受报价':'拒绝报价';b.disabled=actionPending;b.onclick=()=>sendAction({type:accept===null?'stock_offer_cancel':'stock_offer_reply',offerId:o.offerId,offerVersion:o.version,...(accept===null?{}:{accept})},r=>{if(!r.ok)toast(r.error);renderInvestmentOffers();});card.append(b);}body.append(card);}
+ if(!body.children.length)body.innerHTML='<p>暂无收到或发出的报价。收到报价后，股票市场入口会显示数量。</p>';const target=$('offerInbox');if(target.firstElementChild)patchDisplayNode(target.firstElementChild,body);else target.append(body);
+}

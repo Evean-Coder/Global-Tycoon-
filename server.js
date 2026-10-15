@@ -17,6 +17,7 @@ const quick = require('./src/quickMode');
 const opportunities = require('./src/opportunities');
 const routes = require('./src/opportunityRoutes');
 const stocks = require('./src/stocks');
+const stockInvestment=require('./src/stockInvestment'),stockOffers=require('./src/stockOffers');
 const { assetSummary } = require('./src/assets');
 const { safe } = require('./src/economy');
 const botPolicy = require('./src/botPolicy');
@@ -26,7 +27,7 @@ const BOT_AUTH = Symbol('internal-bot');
 
 const PORT = process.env.PORT || 3000;
 // 2026-10-05有限对照及投资压力审查通过，仅新局启用；旧局不迁移。
-const NEW_GAME_ECONOMY = { disconnectRevision:disconnectPolicy.REVISION, businessMissionRevision:require('./src/businessMissions').REVISION, worldRevision:require('./src/worldEvents').REVISION, economyRevision: 'travel-expense-v1', routeRevision: routes.REVISION, gameMode: 'normal', propertySupportRevision:require('./src/propertySupport').REVISION, activeManagementRevision:require('./src/activeManagement').REVISION };
+const NEW_GAME_ECONOMY = { stockInvestmentRevision:stockInvestment.REVISION, disconnectRevision:disconnectPolicy.REVISION, businessMissionRevision:require('./src/businessMissions').REVISION, worldRevision:require('./src/worldEvents').REVISION, economyRevision: 'travel-expense-v1', routeRevision: routes.REVISION, gameMode: 'normal', propertySupportRevision:require('./src/propertySupport').REVISION, activeManagementRevision:require('./src/activeManagement').REVISION };
 const HOST_TRANSFER_MS = 10 * 60 * 1000;
 const LOBBY_IDLE_MS = 10 * 60 * 1000; // 大厅（未开局）空房保留时限
 const GAME_IDLE_MS = 30 * 60 * 1000; // 对局中/已结束房间无人保留时限
@@ -140,6 +141,7 @@ function emitRoom(room) {
 }
 
 function emitGame(room, newDecision = false) {
+  syncStockOffers(room);
   privateReplay.capture(room, room.replayMetadata);
   room.replayMetadata = undefined;
   if (!room.state) return;
@@ -191,6 +193,7 @@ function finalizeGame(room, endReason) {
 }
 
 function stopQuickTimers(room) {
+  clearTimeout(room.stockOfferTimer);room.stockOfferTimer=null;
   disconnectPolicy.stop(room);
   room.quickClock?.stop();
   if (room.quickHeartbeat != null) (room.quickClockOptions?.clearTimeout || clearTimeout)(room.quickHeartbeat);
@@ -308,6 +311,7 @@ function appendEvents(room, events) {
 }
 function assertEconomy(state) {
   if(state.ruleVersion!==2)return;
+  stockInvestment.assert(state);
   for(const p of state.players){safe(p.cash);for(const n of Object.values(p.opportunities.usage))if(!Number.isSafeInteger(n)||n<0)throw new Error('机遇额度无效');}
   for(const c of Object.values(state.cities)){
     if(!Number.isSafeInteger(c.houseLevel)||c.houseLevel<0||c.houseLevel>4)throw new Error('房屋等级无效');
@@ -381,10 +385,10 @@ function runBotDecision(room,id){
     action=memory.failures?botPolicy.fallback(view,memory):botPolicy.choose(view,memory);
   }
   catch(err){console.error('[bot-policy]',id,err);action=botPolicy.fallback(view,memory);}
-  if(!action){memory.blockedKey=room.state.gameId+'|'+room.actionClock.decisionId+'|'+id+'|'+room.state.actorRevision[id];room.botMemory.set(id,memory);return;}
+  if(!action){memory.blockedKey=room.state.gameId+'|'+room.actionClock.decisionId+'|'+id+'|'+room.state.actorRevision[id]+(stockInvestment.enabled(room.state)?'|'+room.state.revision:'');room.botMemory.set(id,memory);return;}
   memory.steps++;room.botMemory.set(id,memory);
   const envelope={...action,gameId:view.gameId,actionId:'bot:'+id+':'+view.revision+':'+memory.steps,decisionId:view.decision.decisionId,actorRevision:view.self.actorRevision};
-  const internalSocket={[BOT_AUTH]:id,handshake:{auth:{clientRouteRevision:routes.REVISION,clientQuickRevision:quick.REVISION}},emit(){}};
+  const internalSocket={[BOT_AUTH]:id,handshake:{auth:{clientRouteRevision:routes.REVISION,clientQuickRevision:quick.REVISION,stockInvestmentProtocol:2}},emit(){}};
   const result=runAction(room,internalSocket,envelope);
   if(result.ok){
     memory.failures=0;
@@ -394,7 +398,7 @@ function runBotDecision(room,id){
       for(const order of action.orders)if(order.side==='sell'&&!memory.soldCityIds.includes(order.cityId))memory.soldCityIds.push(order.cityId);
     }
   }
-  else {memory.failures++;if(memory.failures>=2)memory.blockedKey=room.state.gameId+'|'+room.actionClock.decisionId+'|'+id+'|'+room.state.actorRevision[id];console.error('[bot-action]',id,action.type,result.error);}
+  else {memory.failures++;if(memory.failures>=2)memory.blockedKey=room.state.gameId+'|'+room.actionClock.decisionId+'|'+id+'|'+room.state.actorRevision[id]+(stockInvestment.enabled(room.state)?'|'+room.state.revision:'');console.error('[bot-action]',id,action.type,result.error);}
 }
 
 function runAction(room, socket, rawAction, source = 'player', offlineActorId = null) {
@@ -412,6 +416,7 @@ function runAction(room, socket, rawAction, source = 'player', offlineActorId = 
     if(remembered){if(remembered.print!==print)return {ok:false,code:'ACTION_ID',error:'同一操作身份不能更改内容'};return {...remembered.receipt};}
     if(routes.enabled(room.state) && socket.handshake?.auth?.clientRouteRevision !== routes.REVISION)return {ok:false,code:'UPDATE',error:'页面版本过旧，请刷新后重新连接'};
     if(quick.enabled(room.state) && socket.handshake?.auth?.clientQuickRevision !== quick.REVISION)return {ok:false,code:'UPDATE',error:'页面版本过旧，请刷新后重新连接'};
+    if(stockInvestment.enabled(room.state)&&socket.handshake?.auth?.stockInvestmentProtocol!==2)return {ok:false,code:'UPDATE',error:'股票规则已升级，请更新页面后重连'};
   }
   let timeContext;
   try {
@@ -435,7 +440,8 @@ function runAction(room, socket, rawAction, source = 'player', offlineActorId = 
     if (socket) socket.emit('error', { message: error });
     return { ok: false,code:'PAUSED', error };
   }
-  const normalized = normalizeAction(room.state, rawAction, {actorId:authenticated?.id||offlineActorId,source,timeContext});
+  const stockTime={now:Date.now(),decisionDeadline:room.actionClock.remainingMilliseconds()===null?null:Date.now()+room.actionClock.remainingMilliseconds(),quickDeadline:timeContext.mode==='quick'?Date.now()+timeContext.totalRemainingMs:Infinity};
+  const normalized = normalizeAction(room.state, rawAction, {actorId:authenticated?.id||offlineActorId,source,timeContext,stockTime});
   if (!normalized.ok) {
     if (socket) socket.emit('error', { message: normalized.error });
     if(source==='player'&&['active_order','active_promote','active_stock_buy','active_build','remote_build'].includes(rawAction.type))emitGame(room);
@@ -454,7 +460,7 @@ function runAction(room, socket, rawAction, source = 'player', offlineActorId = 
   let candidate;
   try {
     candidate = globalThis.structuredClone(room.state);
-    res = logic.apply(candidate, normalized.action, rng, {actorId:normalized.actorId,source,timeContext});
+    res = logic.apply(candidate, normalized.action, rng, {actorId:normalized.actorId,source,timeContext,stockTime});
     assertEconomy(candidate);
     routes.assertRoutes(candidate);
   } catch (err) {
@@ -505,6 +511,15 @@ function syncSocketIds(room) {
     const rp = playerByGameId(room, gp.id);
     if (rp) gp.socketId = rp.socketId;
   }
+}
+
+function syncStockOffers(room){
+ if(!stockInvestment.enabled(room.state))return;
+ for(const p of room.state.players)p.connected=room.players.find(r=>r.id===p.id)?.connected!==false;
+ const events=[];if(stockOffers.sweep(room.state,Date.now(),events)){room.state.revision++;appendEvents(room,events);}
+ clearTimeout(room.stockOfferTimer);room.stockOfferTimer=null;
+ const due=room.state.stockOffers.filter(o=>o.status==='pending').map(o=>o.expiresAt);
+ if(due.length){room.stockOfferTimer=setTimeout(()=>{if(rooms.get(room.code)===room)emitGame(room);},Math.max(1,Math.min(...due)-Date.now()));room.stockOfferTimer.unref?.();}
 }
 
 function safeHandler(fn) {
@@ -620,6 +635,7 @@ io.on('connection', (socket) => {
     if(data?.gameMode !== undefined && data.gameMode !== mode)return cb && cb({ok:false,error:'模式与房间配置不一致，请核对后开始'});
     if(room.players.filter(p=>p.kind!=='bot').some(p=>!p.connected || io.sockets.sockets.get(p.socketId)?.handshake.auth?.clientRouteRevision !== routes.REVISION))return cb && cb({ok:false,error:'请所有玩家刷新页面并连接后再开始'});
     if(mode==='quick' && room.players.filter(p=>p.kind!=='bot').some(p=>io.sockets.sockets.get(p.socketId)?.handshake.auth?.clientQuickRevision !== quick.REVISION))return cb && cb({ok:false,error:'快速模式需要所有玩家刷新页面后再开始'});
+    if(room.players.filter(p=>p.kind!=='bot').some(p=>io.sockets.sockets.get(p.socketId)?.handshake.auth?.stockInvestmentProtocol!==2))return cb&&cb({ok:false,error:'股票规则已升级，请所有玩家更新页面后再开始'});
     const startedAt = Date.now();
     const candidate = createGameState(room.code, room.players.map(p=>p.name), 2, {...NEW_GAME_ECONOMY,gameMode:mode,...(mode==='quick'?{quickRevision:quick.REVISION,startedAt}:{})});
     let clock = null;

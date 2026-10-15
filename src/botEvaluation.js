@@ -14,7 +14,7 @@ function forecast(view, steps=CONFIG.steps) {
   for(const p of view.players.filter(p=>p.alive)) {
     let mass=Array(42).fill(0);mass[p.position]=1;
     result[p.id]=[];
-    for(let t=0;t<Math.min(CONFIG.steps,Math.ceil(steps));t++) {
+    for(let t=0;t<Math.min(view.stockInvestmentRevision==='stock-investment-v2'?24:CONFIG.steps,Math.ceil(steps));t++) {
       const next=Array(42).fill(0),landing=Array(42).fill(0);let go=0;
       for(let i=0;i<42;i++)if(mass[i]) {
         if(t===0&&p.frozen){next[i]+=mass[i];continue;}
@@ -82,7 +82,7 @@ function rents(ctx, cityId, level) {
   return ctx.rentCache.get(key);
 }
 function ownerFactor(ctx,id) {
-  return 1-sum(Object.entries(ctx.view.stocks[id]?.holders||{}).filter(([pid])=>pid!==ctx.self.id&&ctx.view.players.some(p=>p.id===pid&&p.alive)).map(([,n])=>n))*.01;
+  return 1-sum(Object.entries(ctx.view.stocks[id]?.holders||{}).filter(([pid])=>pid!==ctx.self.id&&ctx.view.players.some(p=>p.id===pid&&p.alive)).map(([,n])=>n))*(ctx.view.stockInvestmentRevision==='stock-investment-v2'?.02:.01);
 }
 function cityIncome(ctx,id,level=ctx.view.cities[id].houseLevel,newOwner=false) {
   const c=ctx.view.cities[id],sq=ctx.view.board.find(s=>s.cityId===id);
@@ -100,17 +100,26 @@ function stockAllowed(ctx,id,shares,window=null,memory={}) {
   const {view,self}=ctx,c=view.cities[id],s=view.stocks[id];
   if(!c?.ownerId||c.mortgaged||s?.clearing||!Number.isSafeInteger(shares)||shares<1||shares>2)return false;
   const held=s.holders[self.id]||0,total=sum(Object.values(s.holders));
-  if(total+shares>20||(c.ownerId===self.id&&held+shares>4))return false;
+  const modernStock=view.stockInvestmentRevision==='stock-investment-v2';
+  if(total+shares>(modernStock?10:20)||held+shares>(modernStock?(c.ownerId===self.id?2:4):c.ownerId===self.id?4:20))return false;
+  if(modernStock){const q=view.self.stockInvestment.quota;if(q.boughtTotal+shares>q.totalLimit||(q.boughtByCity[id]||0)+shares>q.perCityLimit||(!q.boughtByCity[id]&&Object.keys(q.boughtByCity).length>=q.cityLimit))return false;}
   const assets=self.assetSummary?.total||0,value=self.assetSummary?.stockValue||0;
   if(assets<=0||value+shares*s.price>assets*CONFIG.stockRatio||(held+shares)*s.price>assets*CONFIG.cityStockRatio)return false;
   if(window){
     if(memory.windowId===window.windowId&&memory.soldCityIds?.includes(id))return false;
-    if(window.boughtTotal+shares>6||(window.boughtByCity[id]||0)+shares>2||(!Object.hasOwn(window.boughtByCity,id)&&Object.keys(window.boughtByCity).length>=3))return false;
+    if(window.boughtTotal+shares>(modernStock?4:6)||(window.boughtByCity[id]||0)+shares>2||(!Object.hasOwn(window.boughtByCity,id)&&Object.keys(window.boughtByCity).length>=3))return false;
   }
   return true;
 }
 function stockBenefit(ctx,id,shares=1,fee=0) {
   const {view,self}=ctx,c=view.cities[id],s=view.stocks[id];
+  if(view.stockInvestmentRevision==='stock-investment-v2'){
+    // Long-term shares need a longer horizon than a one-turn action. Quick
+    // mode always retains its actual remaining-time horizon.
+    const projected=view.quickRevision?ctx:(ctx.stockLongContext||=( {...ctx,horizon:24,forecast:forecast(view,24),rentCache:new Map()}));
+    const rent=sum(rents(projected,id,c.houseLevel).map((r,t)=>r*(view.quickRevision?weight(projected,t):.98**t))),base=rent*.02*shares,bank=rent*.04*shares,extra=view.self.opportunities.selectedIds.includes('H4')?Math.min(base*.5,Math.max(0,3000-(view.self.opportunities.usage.H4||0))):0;
+    return {assetDelta:-s.price*shares*.1-fee,expectedIncome:bank+(c.ownerId===self.id?0:base)+extra,riskPenalty:0};
+  }
   const p0=econ.rounded(c.price,20),base=econ.rounded(c.price,30);
   let price=s.operatingPrice,history=s.rentHistory.slice(-3),dividends=0;
   if(!Number.isFinite(price))price=s.price-Math.floor(s.dividendFund/20);
@@ -281,7 +290,7 @@ function opportunityValueV2(ctx,id,own,buildable,remaining,g,count){
       const cuts=eligible.map(c=>id==='H1'?econ.buildFee(c)*.15:Math.min(2000,econ.buildFee(c)*.1)).sort((a,b)=>b-a);
       return sum(cuts.slice(0,Math.ceil(Math.min(ctx.horizon,id==='H3'?cuts.length:remaining(id==='H2'?2:1,id)))));
     }
-    case 'H4':return Math.min(remaining(3000,id),sum(Object.keys(view.stocks).map(cid=>expectedRent(cid)*.005*(view.stocks[cid].holders[self.id]||0))));
+    case 'H4':return Math.min(remaining(3000,id),sum(Object.keys(view.stocks).map(cid=>expectedRent(cid)*(view.stockInvestmentRevision==='stock-investment-v2'?.01:.005)*(view.stocks[cid].holders[self.id]||0))));
     case 'H5':return count>=2?Math.min(4000,count*1000)*g:0;
     case 'H6':return Math.min(remaining(4000,id),sum(view.board.filter(sq=>sq.cityId&&view.stocks[sq.cityId].holders[self.id]>0&&view.cities[sq.cityId].ownerId!==self.id).map(sq=>sum(ctx.forecast[self.id].map((r,t)=>r.landing[sq.id]*Math.min(2000,worldRent(view.cities[sq.cityId],view,t)*.25)*weight(ctx,t))))));
     case 'H7':return Math.max(0,...Object.values(view.self.quotes.flight).filter(q=>q.ok&&q.baseAmount>0).map(q=>Math.min(3000,q.baseAmount*.4)))*Math.min(2,remaining(2,id));
@@ -308,12 +317,13 @@ function liquidation(ctx,deficit,includeStocks=true) {
   if(includeStocks)for(const id of Object.keys(view.stocks).sort()){
     const st=view.stocks[id],held=st.holders[self.id]||0;
     if(view.cities[id].ownerId&&!st.clearing&&held>0&&st.price>0){
-      const shares=Math.min(held,Math.ceil(deficit/st.price)),benefit=stockBenefit(ctx,id,shares);
+      const exits=view.self.stockInvestment?.cities[id]?.bankExitByShares;
+      const shares=exits?(exits.findIndex((amount,n)=>n>0&&amount>=deficit)>0?exits.findIndex((amount,n)=>n>0&&amount>=deficit):held):Math.min(held,Math.ceil(deficit/st.price)),n=Math.min(held,shares<1?held:shares),benefit=stockBenefit(ctx,id,n);
       const after={...view,stocks:{...view.stocks,[id]:{...st,holders:{...st.holders,[self.id]:held-shares}}}};
       const bonusLoss=changedBonusLoss(ctx,after,['H5','H6']);
       const reward=view.self.activeManagement?.investment,marked=reward?.sharesByCity[id];
       const activeLoss=marked?.listingEpoch===st.listingEpoch?activeDividendValue(ctx,id,Math.min(marked.shares,shares),Math.max(0,1500-reward.bonusPaid)):0;
-      options.push({action:{type:'rescue_sell_stock',cityId:id,shares,quoteVersion:st.quoteVersion},amount:shares*st.price,loss:benefit.assetDelta+benefit.expectedIncome+bonusLoss+activeLoss});
+      const amount=exits?exits[n]:n*st.price;if(amount>0)options.push({action:{type:'rescue_sell_stock',cityId:id,shares:n,quoteVersion:st.quoteVersion},amount,loss:Math.max(0,(view.stockInvestmentRevision?0:benefit.assetDelta)+benefit.expectedIncome+bonusLoss+activeLoss)});
     }
   }
   const own=sorted(Object.values(view.cities).filter(c=>c.ownerId===self.id));

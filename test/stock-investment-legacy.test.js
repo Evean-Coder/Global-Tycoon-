@@ -1,0 +1,3 @@
+'use strict';
+const test=require('node:test'),assert=require('node:assert/strict'),{createGameState}=require('../src/state'),stocks=require('../src/stocks'),econ=require('../src/economy');
+test('旧局继续20股、城主4股、分红池及起点派息',()=>{const s=createGameState('legacy',['a','b'],2);stocks.transferCity(s,{cityId:'开罗',newOwnerId:'p0'},[]);s.stocks['开罗'].holders.p1=4;stocks.syncHolders(s);const q=econ.rentAmounts(s,{playerId:'p1',cityId:'开罗',baseAmount:6000});econ.applySettlement(s,q,[]);assert.equal(s.stocks['开罗'].dividendFund,1200);const before=s.players[1].cash;stocks.settleCityDividend(s,'开罗','go','old',[]);assert.equal(s.players[1].cash-before,240);assert.equal(s.stockInvestmentRevision,undefined);assert.equal(s.stocks['开罗'].units,undefined);});

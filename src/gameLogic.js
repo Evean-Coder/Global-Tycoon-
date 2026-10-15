@@ -861,6 +861,7 @@ function advanceDirectSale(state, events, rng) {
 function applyCore(state, action, rng, context = {}) {
   const events = [];
   const p = currentPlayer(state);
+  if(require('./stockInvestment').enabled(state)&&action.type.startsWith('stock_offer_')){require('./stockOffers').apply(state,context.actorId,action,context.stockTime,events);return {state,events};}
   if (state.phase === 'opportunity_choose' && !['opportunity_choose','opportunity_reroll','opportunity_expire'].includes(action.type)) return {state,events,rejected:true};
   if (state.phase === 'route_choose' && !['route_confirm','route_skip','route_expire'].includes(action.type)) return {state,events,rejected:true};
   if (['route_confirm','route_skip','route_expire'].includes(action.type) && (state.phase !== 'route_choose' || !routes.enabled(state))) return {state,events,rejected:true};
@@ -1026,6 +1027,7 @@ function applyCore(state, action, rng, context = {}) {
       finishSelfRescue(state, events, rng);
       break;
     case 'stock_trade':
+      if(require('./stockInvestment').enabled(state)){require('./stockInvestment').applyTrade(state,require('./stockInvestment').planTrade(state,p.id,action.stockContext,action.orders),events);if(state.phase==='stock')state.pending.traded=true;break;}
       if (state.phase !== 'stock') return { state, events, rejected: true };
       if (modern(state)) {
         stocks.applyStockTrade(state, stocks.planStockTrade(state, p.id, action.windowId, action.orders), events);
@@ -1059,6 +1061,7 @@ function apply(state, action, rng, context = {}) {
       safeRouteChoice(state, rng);
       routes.assertRoutes(state);
     }
+    if(!result.rejected&&require('./stockInvestment').enabled(state)){for(const p of state.players.filter(p=>!p.alive))require('./stockInvestment').drop(state,p.id);require('./stockInvestment').refreshAll(state);require('./stockOffers').sweep(state,context.stockTime?.now??Date.now(),result.events);}
     return result;
   } finally { routeTimes.delete(state); }
 }
@@ -1433,6 +1436,7 @@ function rescueSellStock(state, p, action, events, rng) {
   const held = st.holders[p.id] || 0;
   if (held <= 0) return;
   const shares = action.shares ? Math.min(action.shares, held) : held;
+  if(require('./stockInvestment').enabled(state)){require('./stockInvestment').bankSell(state,p.id,action.cityId,shares,events);if(state.phase==='self_rescue'&&p.cash>=0)finishSelfRescue(state,events,rng);return;}
   p.cash += shares * st.price;
   require('./activeInvestment').reduce(state,p.id,action.cityId,shares);
   st.holders[p.id] = held - shares;

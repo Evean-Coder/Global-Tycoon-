@@ -1,0 +1,80 @@
+TAP version 13
+# Subtest: 三端一个真人添加/移除电脑、真实开局和思考提示
+ok 1 - 三端一个真人添加/移除电脑、真实开局和思考提示
+  ---
+  duration_ms: 6527.459
+  ...
+# Subtest: build funding sells selected shares, keeps panel and deadline, then manually builds
+ok 2 - build funding sells selected shares, keeps panel and deadline, then manually builds
+  ---
+  duration_ms: 4485.7827
+  ...
+# Subtest: low-height funding preserves selected quantity, card and scroll through a quote update
+ok 3 - low-height funding preserves selected quantity, card and scroll through a quote update
+  ---
+  duration_ms: 415.5935
+  ...
+# Subtest: 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+not ok 4 - 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+  ---
+  duration_ms: 7503.6251
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\cache.spec.js:7:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    page.evaluate: Error: 新缓存安装/旧缓存清理未完成：["global-tycoon-v43-stock-investment"]
+        at eval (eval at evaluate (:311:30), <anonymous>:1:250)
+        at async <anonymous>:337:30
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    eval (eval at evaluate (:311:30), <anonymous>:1:250)
+    async <anonymous>:337:30
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\cache.spec.js:21:13)
+  ...
+# Subtest: two targets and modes on three screens sell chosen shares then manually buy, repeat cannot sell twice
+ok 5 - two targets and modes on three screens sell chosen shares then manually buy, repeat cannot sell twice
+  ---
+  duration_ms: 5165.146
+  ...
+# Subtest: no shares gives a clear empty state and cancelling keeps liquidated cash
+ok 6 - no shares gives a clear empty state and cancelling keeps liquidated cash
+  ---
+  duration_ms: 253.4606
+  ...
+# Subtest: self rescue demolition works and selling shows seller waiting until buyer buys or refuses
+ok 7 - self rescue demolition works and selling shows seller waiting until buyer buys or refuses
+  ---
+  duration_ms: 294.9632
+  ...
+# Subtest: market is readable outside trading; assets share the bank portfolio on phone tablet and PC
+ok 8 - market is readable outside trading; assets share the bank portfolio on phone tablet and PC
+  ---
+  duration_ms: 6313.0908
+  ...
+# Subtest: readonly updates, opponent window, empty portfolio, forced stage and actual trading retain their semantics
+ok 9 - readonly updates, opponent window, empty portfolio, forced stage and actual trading retain their semantics
+  ---
+  duration_ms: 486.9032
+  ...
+# Subtest: 三端交易、数量/展开/滚动稳定、资产和募资回收金额一致
+ok 10 - 三端交易、数量/展开/滚动稳定、资产和募资回收金额一致
+  ---
+  duration_ms: 4405.6837
+  ...
+# Subtest: 真实玩家议价双向成交，关闭不丢报价且全局决定不改变
+ok 11 - 真实玩家议价双向成交，关闭不丢报价且全局决定不改变
+  ---
+  duration_ms: 420.5499
+  ...
+# Subtest: 收购方向的0元受让有明确回收预览，四种尺寸收件可操作
+ok 12 - 收购方向的0元受让有明确回收预览，四种尺寸收件可操作
+  ---
+  duration_ms: 749.1645
+  ...
+1..12
+# tests 12
+# suites 0
+# pass 11
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0

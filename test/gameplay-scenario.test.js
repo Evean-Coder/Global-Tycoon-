@@ -4,7 +4,7 @@ const {io:Client}=require('socket.io-client'),api=require('../server');
 const {createRng}=require('../src/random'),{createActionClock}=require('../src/actionClock'),{fakeClock}=require('./helpers/gameplayFixtures');
 let url;const sockets=[];
 const ack=(s,event,data)=>new Promise(resolve=>s.emit(event,data,resolve));
-async function connect(){const s=Client(url,{transports:['websocket'],auth:{clientRouteRevision:'opportunity-routes-v1'}});sockets.push(s);s.on('gameState',g=>s.game=g);s.on('reconnectToken',t=>s.token=t.token);await new Promise(r=>s.once('connect',r));return s;}
+async function connect(){const s=Client(url,{transports:['websocket'],auth:{clientRouteRevision:'opportunity-routes-v1',stockInvestmentProtocol:2}});sockets.push(s);s.on('gameState',g=>s.game=g);s.on('reconnectToken',t=>s.token=t.token);await new Promise(r=>s.once('connect',r));return s;}
 async function wait(fn){for(let i=0;i<600;i++){if(fn())return;await new Promise(r=>setTimeout(r,5));}throw new Error('场景消息未到达');}
 test.before(async()=>{await new Promise(r=>api.server.listen(0,'127.0.0.1',r));url='http://127.0.0.1:'+api.server.address().port;});
 test.after(()=>{for(const s of sockets)s.close();for(const r of api.rooms.values()){r.actionClock.clear();if(r.hostTimer)clearTimeout(r.hostTimer);}api.rooms.clear();api.io.close();});
@@ -14,6 +14,7 @@ test('建立多人完整流程驱动 / 覆盖开局首圈资讯启动 / 覆盖�
  for(let i=1;i<3;i++)assert.equal((await ack(clients[i],'joinRoom',{roomCode:code,name:['场景甲','场景乙','场景丙'][i]})).ok,true);
  const room=api.rooms.get(code),clock=fakeClock();room.rng=createRng(22);room.actionClock=createActionClock(clock);
  assert.equal((await ack(clients[0],'startGame',{})).ok,true);await wait(()=>clients.every(s=>s.game?.self.choice));
+ delete room.state.stockInvestmentRevision; // Historical pooled-dividend trajectory, retained for compatibility.
  delete room.state.disconnectRevision; // Keep this historical pause/replay trajectory; new offline progression has separate Socket tests.
  const trace=[],windowSteps=new Map();let steps=0,reconnected=false,remoteDiscount=false;
  async function act(index,a){

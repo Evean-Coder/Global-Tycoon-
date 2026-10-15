@@ -63,7 +63,7 @@ function createGameState(roomCode, playerNames, ruleVersion = 2, options = {}) {
     cities[cityId].buildCosts = [];
     stocks[cityId] = { price: Math.round((cities[cityId].price / 10) * 2), holders: {}, operatingPrice: Math.round(cities[cityId].price * 0.2), dividendFund: 0, roundRent: 0, rentHistory: [], listingEpoch: 0, quoteVersion: 0, clearing: false, lastDividendPerShare: 0 };
   }
-  return {
+  const state = {
     ...(options.worldRevision===require('./worldEvents').REVISION?{worldRevision:options.worldRevision}:{}),
     ...(require('./businessMissions').enabled(options)?{businessMissionRevision:options.businessMissionRevision}:{}),
     ...(options.disconnectRevision===require('./disconnectPolicy').REVISION?{disconnectRevision:options.disconnectRevision}:{}),
@@ -107,6 +107,8 @@ function createGameState(roomCode, playerNames, ruleVersion = 2, options = {}) {
     rngSeed: Math.floor(Math.random() * 1e9),
     startedAt: Date.now(),
   };
+  if(ruleVersion===2&&require('./stockInvestment').enabled(options)){state.stockInvestmentRevision=options.stockInvestmentRevision;require('./stockInvestment').initialize(state);}
+  return state;
 }
 
 // 对外快照：只投影客户端需要的字段，避免泄露未来随机序列与身份凭据。

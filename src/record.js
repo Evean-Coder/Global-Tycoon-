@@ -74,6 +74,7 @@ function computeStats(state, events) {
     stats.news=events.filter(e=>e.kind==='news').map(e=>({...e.news}));
     for(const e of events){
       if(e.kind==='dividend')stats.economy.baseDividends+=e.amount;
+      if(e.kind==='instant_stock_dividend'){stats.economy.baseDividends+=e.rental;stats.economy.bankBonuses+=e.bank+e.extra;}
       if(e.kind==='opportunity_reward')stats.economy.bankBonuses+=e.amount;
       if(e.kind==='retained_income')stats.economy.retainedIncome+=e.amount;
       if(e.kind==='stock_liquidation')stats.economy.stockLiquidation+=e.amount;
@@ -113,7 +114,7 @@ function buildGameRecord(room, endReason) {
     ...(st.economyRevision?{economyRevision:st.economyRevision,travelExpense:require('./travelExpense').stage(st)}:{}),
     // This record is broadcast to all players. Private eligibility and quota
     // state stays in the authoritative state/checkpoint, not the public replay.
-    ...Object.fromEntries(['disconnectRevision','businessMissionRevision','worldRevision'].filter(k=>st[k]).map(k=>[k,st[k]])),
+    ...Object.fromEntries(['stockInvestmentRevision','disconnectRevision','businessMissionRevision','worldRevision'].filter(k=>st[k]).map(k=>[k,st[k]])),
     ...(st.propertySupportRevision?{propertySupportRevision:st.propertySupportRevision}:{}),
     ...(st.activeManagementRevision?{activeManagementRevision:st.activeManagementRevision,promotions:st.promotions.map(a=>({playerId:a.playerId,cityId:a.cityId,reward:a.reward,remainingRewards:a.remainingRewards,expiresAfterCompleteRound:a.expiresAfterCompleteRound}))}:{}),
     roomCode: room.code,

@@ -186,6 +186,11 @@ function validateTransfer(state, player, raw) {
 function normalizeAction(state, raw, context = {}) {
   if (!plainObject(raw) || typeof raw.type !== 'string') return fail('动作格式无效');
   const type = raw.type;
+  if(require('./stockInvestment').enabled(state)){
+    if(type.startsWith('stock_offer_')){try{require('./stockOffers').validate(state,context.actorId,raw,context.stockTime);return success({...raw},context.actorId);}catch(err){return fail(err.message);}}
+    if(type==='stock_transfer')return fail('本局请使用玩家议价交易');
+    if(type==='stock_trade'){const pid=currentPlayer(state)?.id;try{require('./stockInvestment').planTrade(state,pid,raw.stockContext,raw.orders);return success({type,stockContext:raw.stockContext,orders:raw.orders},pid);}catch(err){return fail(err.message);}}
+  }
   if(type==='rescue_sell_stock'&&state.phase==='buy_fundraise'){
     const p=currentPlayer(state),st=state.stocks[raw.cityId];
     if(!require('./purchaseFundraising').eligible(state,p)||!safeInt(raw.shares,1)||!st||raw.shares>(st.holders[p.id]||0)||!Number.isSafeInteger(st.price)||st.price<=0||!state.cities[raw.cityId]?.ownerId||st.clearing)return fail('当前不能卖股为购买筹资');

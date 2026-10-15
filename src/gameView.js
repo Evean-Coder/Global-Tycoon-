@@ -6,6 +6,7 @@ const {catalogFor}=require('./gameplayCatalog');
 const routes=require('./opportunityRoutes');
 function snapshot(s,viewerId,clockView){
  const out={};
+ if(require('./stockInvestment').enabled(s))out.stockInvestmentRevision=s.stockInvestmentRevision;
  for(const k of ['disconnectRevision','businessMissionRevision','worldRevision'])if(s[k])out[k]=s[k];
  out.newsCatalog=require('./gameplayCatalog').catalogForWorld(s);
  if(require('./activeManagement').enabled(s)){out.activeManagementRevision=s.activeManagementRevision;out.promotions=s.promotions.map(a=>({playerId:a.playerId,cityId:a.cityId,reward:a.reward,remainingRewards:a.remainingRewards,expiresAfterCompleteRound:a.expiresAfterCompleteRound}));}
@@ -19,6 +20,7 @@ function snapshot(s,viewerId,clockView){
  });
  out.cities=Object.fromEntries(Object.entries(s.cities).map(([id,c])=>[id,{...c,standardRent:c.mortgaged?0:econ.rentFor(c)}]));
  out.stocks=Object.fromEntries(Object.entries(s.stocks).map(([id,st])=>[id,{price:st.price,holders:{...st.holders},operatingPrice:st.operatingPrice,dividendFund:st.dividendFund,rentHistory:st.rentHistory.slice(),lastDividendPerShare:st.lastDividendPerShare,priceChange:st.priceChange,listingEpoch:st.listingEpoch,quoteVersion:st.quoteVersion,clearing:st.clearing}]));
+ if(require('./stockInvestment').enabled(s))for(const [id,st]of Object.entries(s.stocks))Object.assign(out.stocks[id],{totalShares:10,ownerCap:2,externalCap:4,lastDividend:{...st.lastDividend},rentHistoryV2:st.rentHistoryV2.map(r=>({...r}))});
  out.world={status:s.world.status,active:s.world.active?{...s.world.active}:null,preview:s.world.preview?{...s.world.preview}:null,roundsCompleted:s.world.roundsCompleted};
  out.completeRounds=s.roundFlow.index;
  out.travelExpense=require('./travelExpense').stage(s);
@@ -47,6 +49,8 @@ function snapshot(s,viewerId,clockView){
  const player=s.players.find(p=>p.id===viewerId);
  if(player){
   out.self={playerId:player.id,actorRevision:s.actorRevision[player.id],opportunities:globalThis.structuredClone(player.opportunities),quotes:{build:{},demolish:{},rent:{},flight:{},redeem:{}},stockWindow:null};
+  if(require('./stockInvestment').enabled(s)){out.self.stockInvestment=require('./stockInvestment').viewFor(s,player.id);out.self.stockOffers=require('./stockOffers').view(s,player.id);}
+  if(require('./stockInvestment').enabled(s)){out.self.stockOwnershipPreviews={};for(const id of Object.keys(s.stocks)){const extra=(s.stocks[id].holders[player.id]||0)-2;if(extra>0)out.self.stockOwnershipPreviews[id]={shares:extra,bankProceeds:require('./stockInvestment').exit(s,player.id,id,extra),reason:'取得本城后城主最多2股，超额按来源上限90%强制回收'};}}
   if(require('./businessMissions').enabled(s))out.self.businessMission=require('./businessMissions').view(s,player.id);
   if(require('./propertySupport').enabled(s))out.self.propertySupport=require('./propertySupport').view(s,player.id);
   if(require('./activeManagement').enabled(s))out.self.activeManagement=require('./activeManagement').view(s,player.id);

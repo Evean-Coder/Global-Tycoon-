@@ -1,0 +1,12 @@
+{
+  "date": "2026-10-18",
+  "scope": "文档结构、需求映射、任务字段、相对链接、真实入口；未执行功能或玩法测试",
+  "functionalRequirements": 12,
+  "acceptanceCriteria": 18,
+  "tasks": 18,
+  "checklistItems": 36,
+  "implementationStarted": false,
+  "allChecklistUnchecked": true,
+  "errors": [],
+  "passed": true
+}

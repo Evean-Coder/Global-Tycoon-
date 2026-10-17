@@ -1,0 +1,1168 @@
+{
+  "date": "2026-10-16",
+  "scope": "Candidate arithmetic only; no engine, actual arrival probability, auction, quota lifecycle, individual rent discounts, UI or gameplay balance proof",
+  "passed": 10,
+  "checks": 10,
+  "cityLevelCases": 100,
+  "orderCases": 21,
+  "ledgerCases": 5400,
+  "fullGames": 0,
+  "observedMaxPerSettlementOwnerCashDelta": 660,
+  "observedMaxPerSettlementBankOutflowDelta": 300,
+  "results": [
+    {
+      "name": "20 current cities and five house levels checked",
+      "passed": true
+    },
+    {
+      "name": "21 city or airport order examples conserve principal",
+      "passed": true
+    },
+    {
+      "name": "ordinary order net maximum reduced from 2000 to 600",
+      "passed": true
+    },
+    {
+      "name": "existing news receipt effect included, maximum reduced from 2300 to 760",
+      "passed": true
+    },
+    {
+      "name": "airport total and news rounding are 1450 and 596 net",
+      "passed": true
+    },
+    {
+      "name": "Nairobi zero house supplemental full activity is below one normal rent increase",
+      "passed": true
+    },
+    {
+      "name": "all full activity extra rentals at most 80% of same-land-price standard single rent increase benchmark",
+      "passed": true
+    },
+    {
+      "name": "news is additive and does not inflate campaign base",
+      "passed": true
+    },
+    {
+      "name": "both external and owner holdings with H4 honor rental and bank accounting",
+      "passed": true
+    },
+    {
+      "name": "owner-only two shares plus H4 yield 660 incremental cash on 600 rent extra, not a fake 600 net cap",
+      "passed": true
+    }
+  ],
+  "orders": [
+    {
+      "city": "内罗毕",
+      "advance": 360,
+      "first": 280,
+      "second": 280,
+      "profit": 200,
+      "newsProfit": 256,
+      "currentProfit": 504,
+      "currentNewsProfit": 590
+    },
+    {
+      "city": "开普敦",
+      "advance": 720,
+      "first": 468,
+      "second": 468,
+      "profit": 216,
+      "newsProfit": 310,
+      "currentProfit": 1008,
+      "currentNewsProfit": 1180
+    },
+    {
+      "city": "卡萨布兰卡",
+      "advance": 480,
+      "first": 340,
+      "second": 340,
+      "profit": 200,
+      "newsProfit": 268,
+      "currentProfit": 672,
+      "currentNewsProfit": 788
+    },
+    {
+      "city": "开罗",
+      "advance": 600,
+      "first": 400,
+      "second": 400,
+      "profit": 200,
+      "newsProfit": 280,
+      "currentProfit": 840,
+      "currentNewsProfit": 984
+    },
+    {
+      "city": "奥克兰",
+      "advance": 840,
+      "first": 546,
+      "second": 546,
+      "profit": 252,
+      "newsProfit": 362,
+      "currentProfit": 1176,
+      "currentNewsProfit": 1378
+    },
+    {
+      "city": "悉尼",
+      "advance": 1000,
+      "first": 662,
+      "second": 662,
+      "profit": 324,
+      "newsProfit": 456,
+      "currentProfit": 1592,
+      "currentNewsProfit": 1852
+    },
+    {
+      "city": "罗马",
+      "advance": 1000,
+      "first": 680,
+      "second": 680,
+      "profit": 360,
+      "newsProfit": 496,
+      "currentProfit": 1880,
+      "currentNewsProfit": 2168
+    },
+    {
+      "city": "阿姆斯特丹",
+      "advance": 1000,
+      "first": 650,
+      "second": 650,
+      "profit": 300,
+      "newsProfit": 430,
+      "currentProfit": 1400,
+      "currentNewsProfit": 1640
+    },
+    {
+      "city": "莫斯科",
+      "advance": 1000,
+      "first": 665,
+      "second": 665,
+      "profit": 330,
+      "newsProfit": 464,
+      "currentProfit": 1640,
+      "currentNewsProfit": 1904
+    },
+    {
+      "city": "伦敦",
+      "advance": 1000,
+      "first": 710,
+      "second": 710,
+      "profit": 420,
+      "newsProfit": 562,
+      "currentProfit": 2000,
+      "currentNewsProfit": 2300
+    },
+    {
+      "city": "巴黎",
+      "advance": 1000,
+      "first": 695,
+      "second": 695,
+      "profit": 390,
+      "newsProfit": 530,
+      "currentProfit": 2000,
+      "currentNewsProfit": 2300
+    },
+    {
+      "city": "柏林",
+      "advance": 1000,
+      "first": 725,
+      "second": 725,
+      "profit": 450,
+      "newsProfit": 596,
+      "currentProfit": 2000,
+      "currentNewsProfit": 2300
+    },
+    {
+      "city": "纽约",
+      "advance": 1000,
+      "first": 785,
+      "second": 785,
+      "profit": 570,
+      "newsProfit": 728,
+      "currentProfit": 2000,
+      "currentNewsProfit": 2300
+    },
+    {
+      "city": "多伦多",
+      "advance": 1000,
+      "first": 710,
+      "second": 710,
+      "profit": 420,
+      "newsProfit": 562,
+      "currentProfit": 2000,
+      "currentNewsProfit": 2300
+    },
+    {
+      "city": "墨西哥城",
+      "advance": 1000,
+      "first": 680,
+      "second": 680,
+      "profit": 360,
+      "newsProfit": 496,
+      "currentProfit": 1880,
+      "currentNewsProfit": 2168
+    },
+    {
+      "city": "里约热内卢",
+      "advance": 1000,
+      "first": 695,
+      "second": 695,
+      "profit": 390,
+      "newsProfit": 530,
+      "currentProfit": 2000,
+      "currentNewsProfit": 2300
+    },
+    {
+      "city": "新加坡",
+      "advance": 1000,
+      "first": 710,
+      "second": 710,
+      "profit": 420,
+      "newsProfit": 562,
+      "currentProfit": 2000,
+      "currentNewsProfit": 2300
+    },
+    {
+      "city": "东京",
+      "advance": 1000,
+      "first": 755,
+      "second": 755,
+      "profit": 510,
+      "newsProfit": 662,
+      "currentProfit": 2000,
+      "currentNewsProfit": 2300
+    },
+    {
+      "city": "迪拜",
+      "advance": 1000,
+      "first": 725,
+      "second": 725,
+      "profit": 450,
+      "newsProfit": 596,
+      "currentProfit": 2000,
+      "currentNewsProfit": 2300
+    },
+    {
+      "city": "上海",
+      "advance": 1000,
+      "first": 800,
+      "second": 800,
+      "profit": 600,
+      "newsProfit": 760,
+      "currentProfit": 2000,
+      "currentNewsProfit": 2300
+    },
+    {
+      "city": "机场",
+      "advance": 1000,
+      "first": 725,
+      "second": 725,
+      "profit": 450,
+      "newsProfit": 596,
+      "currentProfit": 2000,
+      "currentNewsProfit": 2300
+    }
+  ],
+  "cityLevels": [
+    {
+      "city": "内罗毕",
+      "houseLevel": 0,
+      "base": 1080,
+      "singleExtra": 86,
+      "twoExtras": 172,
+      "ordinaryBuildFee": 2160,
+      "standardUpgradeRentBenchmark": 1080
+    },
+    {
+      "city": "内罗毕",
+      "houseLevel": 1,
+      "base": 2160,
+      "singleExtra": 173,
+      "twoExtras": 346,
+      "ordinaryBuildFee": 2160,
+      "standardUpgradeRentBenchmark": 1080
+    },
+    {
+      "city": "内罗毕",
+      "houseLevel": 2,
+      "base": 3240,
+      "singleExtra": 259,
+      "twoExtras": 518,
+      "ordinaryBuildFee": 2160,
+      "standardUpgradeRentBenchmark": 1080
+    },
+    {
+      "city": "内罗毕",
+      "houseLevel": 3,
+      "base": 4320,
+      "singleExtra": 346,
+      "twoExtras": 692,
+      "ordinaryBuildFee": 2160,
+      "standardUpgradeRentBenchmark": 1080
+    },
+    {
+      "city": "内罗毕",
+      "houseLevel": 4,
+      "base": 5400,
+      "singleExtra": 432,
+      "twoExtras": 864,
+      "ordinaryBuildFee": 2160,
+      "standardUpgradeRentBenchmark": 1080
+    },
+    {
+      "city": "开普敦",
+      "houseLevel": 0,
+      "base": 2160,
+      "singleExtra": 173,
+      "twoExtras": 346,
+      "ordinaryBuildFee": 4320,
+      "standardUpgradeRentBenchmark": 2160
+    },
+    {
+      "city": "开普敦",
+      "houseLevel": 1,
+      "base": 4320,
+      "singleExtra": 346,
+      "twoExtras": 692,
+      "ordinaryBuildFee": 4320,
+      "standardUpgradeRentBenchmark": 2160
+    },
+    {
+      "city": "开普敦",
+      "houseLevel": 2,
+      "base": 6480,
+      "singleExtra": 518,
+      "twoExtras": 1036,
+      "ordinaryBuildFee": 4320,
+      "standardUpgradeRentBenchmark": 2160
+    },
+    {
+      "city": "开普敦",
+      "houseLevel": 3,
+      "base": 8640,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 4320,
+      "standardUpgradeRentBenchmark": 2160
+    },
+    {
+      "city": "开普敦",
+      "houseLevel": 4,
+      "base": 10800,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 4320,
+      "standardUpgradeRentBenchmark": 2160
+    },
+    {
+      "city": "卡萨布兰卡",
+      "houseLevel": 0,
+      "base": 1440,
+      "singleExtra": 115,
+      "twoExtras": 230,
+      "ordinaryBuildFee": 2880,
+      "standardUpgradeRentBenchmark": 1440
+    },
+    {
+      "city": "卡萨布兰卡",
+      "houseLevel": 1,
+      "base": 2880,
+      "singleExtra": 230,
+      "twoExtras": 460,
+      "ordinaryBuildFee": 2880,
+      "standardUpgradeRentBenchmark": 1440
+    },
+    {
+      "city": "卡萨布兰卡",
+      "houseLevel": 2,
+      "base": 4320,
+      "singleExtra": 346,
+      "twoExtras": 692,
+      "ordinaryBuildFee": 2880,
+      "standardUpgradeRentBenchmark": 1440
+    },
+    {
+      "city": "卡萨布兰卡",
+      "houseLevel": 3,
+      "base": 5760,
+      "singleExtra": 461,
+      "twoExtras": 922,
+      "ordinaryBuildFee": 2880,
+      "standardUpgradeRentBenchmark": 1440
+    },
+    {
+      "city": "卡萨布兰卡",
+      "houseLevel": 4,
+      "base": 7200,
+      "singleExtra": 576,
+      "twoExtras": 1152,
+      "ordinaryBuildFee": 2880,
+      "standardUpgradeRentBenchmark": 1440
+    },
+    {
+      "city": "开罗",
+      "houseLevel": 0,
+      "base": 1800,
+      "singleExtra": 144,
+      "twoExtras": 288,
+      "ordinaryBuildFee": 3600,
+      "standardUpgradeRentBenchmark": 1800
+    },
+    {
+      "city": "开罗",
+      "houseLevel": 1,
+      "base": 3600,
+      "singleExtra": 288,
+      "twoExtras": 576,
+      "ordinaryBuildFee": 3600,
+      "standardUpgradeRentBenchmark": 1800
+    },
+    {
+      "city": "开罗",
+      "houseLevel": 2,
+      "base": 5400,
+      "singleExtra": 432,
+      "twoExtras": 864,
+      "ordinaryBuildFee": 3600,
+      "standardUpgradeRentBenchmark": 1800
+    },
+    {
+      "city": "开罗",
+      "houseLevel": 3,
+      "base": 7200,
+      "singleExtra": 576,
+      "twoExtras": 1152,
+      "ordinaryBuildFee": 3600,
+      "standardUpgradeRentBenchmark": 1800
+    },
+    {
+      "city": "开罗",
+      "houseLevel": 4,
+      "base": 9000,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 3600,
+      "standardUpgradeRentBenchmark": 1800
+    },
+    {
+      "city": "奥克兰",
+      "houseLevel": 0,
+      "base": 2520,
+      "singleExtra": 202,
+      "twoExtras": 404,
+      "ordinaryBuildFee": 5040,
+      "standardUpgradeRentBenchmark": 2520
+    },
+    {
+      "city": "奥克兰",
+      "houseLevel": 1,
+      "base": 5040,
+      "singleExtra": 403,
+      "twoExtras": 806,
+      "ordinaryBuildFee": 5040,
+      "standardUpgradeRentBenchmark": 2520
+    },
+    {
+      "city": "奥克兰",
+      "houseLevel": 2,
+      "base": 7560,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 5040,
+      "standardUpgradeRentBenchmark": 2520
+    },
+    {
+      "city": "奥克兰",
+      "houseLevel": 3,
+      "base": 10080,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 5040,
+      "standardUpgradeRentBenchmark": 2520
+    },
+    {
+      "city": "奥克兰",
+      "houseLevel": 4,
+      "base": 12600,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 5040,
+      "standardUpgradeRentBenchmark": 2520
+    },
+    {
+      "city": "悉尼",
+      "houseLevel": 0,
+      "base": 3240,
+      "singleExtra": 259,
+      "twoExtras": 518,
+      "ordinaryBuildFee": 6480,
+      "standardUpgradeRentBenchmark": 3240
+    },
+    {
+      "city": "悉尼",
+      "houseLevel": 1,
+      "base": 6480,
+      "singleExtra": 518,
+      "twoExtras": 1036,
+      "ordinaryBuildFee": 6480,
+      "standardUpgradeRentBenchmark": 3240
+    },
+    {
+      "city": "悉尼",
+      "houseLevel": 2,
+      "base": 9720,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 6480,
+      "standardUpgradeRentBenchmark": 3240
+    },
+    {
+      "city": "悉尼",
+      "houseLevel": 3,
+      "base": 12960,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 6480,
+      "standardUpgradeRentBenchmark": 3240
+    },
+    {
+      "city": "悉尼",
+      "houseLevel": 4,
+      "base": 16200,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 6480,
+      "standardUpgradeRentBenchmark": 3240
+    },
+    {
+      "city": "罗马",
+      "houseLevel": 0,
+      "base": 3600,
+      "singleExtra": 288,
+      "twoExtras": 576,
+      "ordinaryBuildFee": 7200,
+      "standardUpgradeRentBenchmark": 3600
+    },
+    {
+      "city": "罗马",
+      "houseLevel": 1,
+      "base": 7200,
+      "singleExtra": 576,
+      "twoExtras": 1152,
+      "ordinaryBuildFee": 7200,
+      "standardUpgradeRentBenchmark": 3600
+    },
+    {
+      "city": "罗马",
+      "houseLevel": 2,
+      "base": 10800,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 7200,
+      "standardUpgradeRentBenchmark": 3600
+    },
+    {
+      "city": "罗马",
+      "houseLevel": 3,
+      "base": 14400,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 7200,
+      "standardUpgradeRentBenchmark": 3600
+    },
+    {
+      "city": "罗马",
+      "houseLevel": 4,
+      "base": 18000,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 7200,
+      "standardUpgradeRentBenchmark": 3600
+    },
+    {
+      "city": "阿姆斯特丹",
+      "houseLevel": 0,
+      "base": 3000,
+      "singleExtra": 240,
+      "twoExtras": 480,
+      "ordinaryBuildFee": 6000,
+      "standardUpgradeRentBenchmark": 3000
+    },
+    {
+      "city": "阿姆斯特丹",
+      "houseLevel": 1,
+      "base": 6000,
+      "singleExtra": 480,
+      "twoExtras": 960,
+      "ordinaryBuildFee": 6000,
+      "standardUpgradeRentBenchmark": 3000
+    },
+    {
+      "city": "阿姆斯特丹",
+      "houseLevel": 2,
+      "base": 9000,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 6000,
+      "standardUpgradeRentBenchmark": 3000
+    },
+    {
+      "city": "阿姆斯特丹",
+      "houseLevel": 3,
+      "base": 12000,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 6000,
+      "standardUpgradeRentBenchmark": 3000
+    },
+    {
+      "city": "阿姆斯特丹",
+      "houseLevel": 4,
+      "base": 15000,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 6000,
+      "standardUpgradeRentBenchmark": 3000
+    },
+    {
+      "city": "莫斯科",
+      "houseLevel": 0,
+      "base": 3300,
+      "singleExtra": 264,
+      "twoExtras": 528,
+      "ordinaryBuildFee": 6600,
+      "standardUpgradeRentBenchmark": 3300
+    },
+    {
+      "city": "莫斯科",
+      "houseLevel": 1,
+      "base": 6600,
+      "singleExtra": 528,
+      "twoExtras": 1056,
+      "ordinaryBuildFee": 6600,
+      "standardUpgradeRentBenchmark": 3300
+    },
+    {
+      "city": "莫斯科",
+      "houseLevel": 2,
+      "base": 9900,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 6600,
+      "standardUpgradeRentBenchmark": 3300
+    },
+    {
+      "city": "莫斯科",
+      "houseLevel": 3,
+      "base": 13200,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 6600,
+      "standardUpgradeRentBenchmark": 3300
+    },
+    {
+      "city": "莫斯科",
+      "houseLevel": 4,
+      "base": 16500,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 6600,
+      "standardUpgradeRentBenchmark": 3300
+    },
+    {
+      "city": "伦敦",
+      "houseLevel": 0,
+      "base": 4200,
+      "singleExtra": 336,
+      "twoExtras": 672,
+      "ordinaryBuildFee": 8400,
+      "standardUpgradeRentBenchmark": 4200
+    },
+    {
+      "city": "伦敦",
+      "houseLevel": 1,
+      "base": 8400,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 8400,
+      "standardUpgradeRentBenchmark": 4200
+    },
+    {
+      "city": "伦敦",
+      "houseLevel": 2,
+      "base": 12600,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 8400,
+      "standardUpgradeRentBenchmark": 4200
+    },
+    {
+      "city": "伦敦",
+      "houseLevel": 3,
+      "base": 16800,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 8400,
+      "standardUpgradeRentBenchmark": 4200
+    },
+    {
+      "city": "伦敦",
+      "houseLevel": 4,
+      "base": 21000,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 8400,
+      "standardUpgradeRentBenchmark": 4200
+    },
+    {
+      "city": "巴黎",
+      "houseLevel": 0,
+      "base": 3900,
+      "singleExtra": 312,
+      "twoExtras": 624,
+      "ordinaryBuildFee": 7800,
+      "standardUpgradeRentBenchmark": 3900
+    },
+    {
+      "city": "巴黎",
+      "houseLevel": 1,
+      "base": 7800,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 7800,
+      "standardUpgradeRentBenchmark": 3900
+    },
+    {
+      "city": "巴黎",
+      "houseLevel": 2,
+      "base": 11700,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 7800,
+      "standardUpgradeRentBenchmark": 3900
+    },
+    {
+      "city": "巴黎",
+      "houseLevel": 3,
+      "base": 15600,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 7800,
+      "standardUpgradeRentBenchmark": 3900
+    },
+    {
+      "city": "巴黎",
+      "houseLevel": 4,
+      "base": 19500,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 7800,
+      "standardUpgradeRentBenchmark": 3900
+    },
+    {
+      "city": "柏林",
+      "houseLevel": 0,
+      "base": 4500,
+      "singleExtra": 360,
+      "twoExtras": 720,
+      "ordinaryBuildFee": 9000,
+      "standardUpgradeRentBenchmark": 4500
+    },
+    {
+      "city": "柏林",
+      "houseLevel": 1,
+      "base": 9000,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 9000,
+      "standardUpgradeRentBenchmark": 4500
+    },
+    {
+      "city": "柏林",
+      "houseLevel": 2,
+      "base": 13500,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 9000,
+      "standardUpgradeRentBenchmark": 4500
+    },
+    {
+      "city": "柏林",
+      "houseLevel": 3,
+      "base": 18000,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 9000,
+      "standardUpgradeRentBenchmark": 4500
+    },
+    {
+      "city": "柏林",
+      "houseLevel": 4,
+      "base": 24750,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 9000,
+      "standardUpgradeRentBenchmark": 4500
+    },
+    {
+      "city": "纽约",
+      "houseLevel": 0,
+      "base": 5700,
+      "singleExtra": 456,
+      "twoExtras": 912,
+      "ordinaryBuildFee": 11400,
+      "standardUpgradeRentBenchmark": 5700
+    },
+    {
+      "city": "纽约",
+      "houseLevel": 1,
+      "base": 11400,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 11400,
+      "standardUpgradeRentBenchmark": 5700
+    },
+    {
+      "city": "纽约",
+      "houseLevel": 2,
+      "base": 17100,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 11400,
+      "standardUpgradeRentBenchmark": 5700
+    },
+    {
+      "city": "纽约",
+      "houseLevel": 3,
+      "base": 22800,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 11400,
+      "standardUpgradeRentBenchmark": 5700
+    },
+    {
+      "city": "纽约",
+      "houseLevel": 4,
+      "base": 31350,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 11400,
+      "standardUpgradeRentBenchmark": 5700
+    },
+    {
+      "city": "多伦多",
+      "houseLevel": 0,
+      "base": 4200,
+      "singleExtra": 336,
+      "twoExtras": 672,
+      "ordinaryBuildFee": 8400,
+      "standardUpgradeRentBenchmark": 4200
+    },
+    {
+      "city": "多伦多",
+      "houseLevel": 1,
+      "base": 8400,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 8400,
+      "standardUpgradeRentBenchmark": 4200
+    },
+    {
+      "city": "多伦多",
+      "houseLevel": 2,
+      "base": 12600,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 8400,
+      "standardUpgradeRentBenchmark": 4200
+    },
+    {
+      "city": "多伦多",
+      "houseLevel": 3,
+      "base": 16800,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 8400,
+      "standardUpgradeRentBenchmark": 4200
+    },
+    {
+      "city": "多伦多",
+      "houseLevel": 4,
+      "base": 21000,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 8400,
+      "standardUpgradeRentBenchmark": 4200
+    },
+    {
+      "city": "墨西哥城",
+      "houseLevel": 0,
+      "base": 3600,
+      "singleExtra": 288,
+      "twoExtras": 576,
+      "ordinaryBuildFee": 7200,
+      "standardUpgradeRentBenchmark": 3600
+    },
+    {
+      "city": "墨西哥城",
+      "houseLevel": 1,
+      "base": 7200,
+      "singleExtra": 576,
+      "twoExtras": 1152,
+      "ordinaryBuildFee": 7200,
+      "standardUpgradeRentBenchmark": 3600
+    },
+    {
+      "city": "墨西哥城",
+      "houseLevel": 2,
+      "base": 10800,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 7200,
+      "standardUpgradeRentBenchmark": 3600
+    },
+    {
+      "city": "墨西哥城",
+      "houseLevel": 3,
+      "base": 14400,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 7200,
+      "standardUpgradeRentBenchmark": 3600
+    },
+    {
+      "city": "墨西哥城",
+      "houseLevel": 4,
+      "base": 18000,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 7200,
+      "standardUpgradeRentBenchmark": 3600
+    },
+    {
+      "city": "里约热内卢",
+      "houseLevel": 0,
+      "base": 3900,
+      "singleExtra": 312,
+      "twoExtras": 624,
+      "ordinaryBuildFee": 7800,
+      "standardUpgradeRentBenchmark": 3900
+    },
+    {
+      "city": "里约热内卢",
+      "houseLevel": 1,
+      "base": 7800,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 7800,
+      "standardUpgradeRentBenchmark": 3900
+    },
+    {
+      "city": "里约热内卢",
+      "houseLevel": 2,
+      "base": 11700,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 7800,
+      "standardUpgradeRentBenchmark": 3900
+    },
+    {
+      "city": "里约热内卢",
+      "houseLevel": 3,
+      "base": 15600,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 7800,
+      "standardUpgradeRentBenchmark": 3900
+    },
+    {
+      "city": "里约热内卢",
+      "houseLevel": 4,
+      "base": 19500,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 7800,
+      "standardUpgradeRentBenchmark": 3900
+    },
+    {
+      "city": "新加坡",
+      "houseLevel": 0,
+      "base": 4200,
+      "singleExtra": 336,
+      "twoExtras": 672,
+      "ordinaryBuildFee": 8400,
+      "standardUpgradeRentBenchmark": 4200
+    },
+    {
+      "city": "新加坡",
+      "houseLevel": 1,
+      "base": 8400,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 8400,
+      "standardUpgradeRentBenchmark": 4200
+    },
+    {
+      "city": "新加坡",
+      "houseLevel": 2,
+      "base": 12600,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 8400,
+      "standardUpgradeRentBenchmark": 4200
+    },
+    {
+      "city": "新加坡",
+      "houseLevel": 3,
+      "base": 16800,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 8400,
+      "standardUpgradeRentBenchmark": 4200
+    },
+    {
+      "city": "新加坡",
+      "houseLevel": 4,
+      "base": 21000,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 8400,
+      "standardUpgradeRentBenchmark": 4200
+    },
+    {
+      "city": "东京",
+      "houseLevel": 0,
+      "base": 5100,
+      "singleExtra": 408,
+      "twoExtras": 816,
+      "ordinaryBuildFee": 10200,
+      "standardUpgradeRentBenchmark": 5100
+    },
+    {
+      "city": "东京",
+      "houseLevel": 1,
+      "base": 10200,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 10200,
+      "standardUpgradeRentBenchmark": 5100
+    },
+    {
+      "city": "东京",
+      "houseLevel": 2,
+      "base": 15300,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 10200,
+      "standardUpgradeRentBenchmark": 5100
+    },
+    {
+      "city": "东京",
+      "houseLevel": 3,
+      "base": 20400,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 10200,
+      "standardUpgradeRentBenchmark": 5100
+    },
+    {
+      "city": "东京",
+      "houseLevel": 4,
+      "base": 28050,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 10200,
+      "standardUpgradeRentBenchmark": 5100
+    },
+    {
+      "city": "迪拜",
+      "houseLevel": 0,
+      "base": 4500,
+      "singleExtra": 360,
+      "twoExtras": 720,
+      "ordinaryBuildFee": 9000,
+      "standardUpgradeRentBenchmark": 4500
+    },
+    {
+      "city": "迪拜",
+      "houseLevel": 1,
+      "base": 9000,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 9000,
+      "standardUpgradeRentBenchmark": 4500
+    },
+    {
+      "city": "迪拜",
+      "houseLevel": 2,
+      "base": 13500,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 9000,
+      "standardUpgradeRentBenchmark": 4500
+    },
+    {
+      "city": "迪拜",
+      "houseLevel": 3,
+      "base": 18000,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 9000,
+      "standardUpgradeRentBenchmark": 4500
+    },
+    {
+      "city": "迪拜",
+      "houseLevel": 4,
+      "base": 24750,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 9000,
+      "standardUpgradeRentBenchmark": 4500
+    },
+    {
+      "city": "上海",
+      "houseLevel": 0,
+      "base": 6000,
+      "singleExtra": 480,
+      "twoExtras": 960,
+      "ordinaryBuildFee": 12000,
+      "standardUpgradeRentBenchmark": 6000
+    },
+    {
+      "city": "上海",
+      "houseLevel": 1,
+      "base": 12000,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 12000,
+      "standardUpgradeRentBenchmark": 6000
+    },
+    {
+      "city": "上海",
+      "houseLevel": 2,
+      "base": 18000,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 12000,
+      "standardUpgradeRentBenchmark": 6000
+    },
+    {
+      "city": "上海",
+      "houseLevel": 3,
+      "base": 24000,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 12000,
+      "standardUpgradeRentBenchmark": 6000
+    },
+    {
+      "city": "上海",
+      "houseLevel": 4,
+      "base": 33000,
+      "singleExtra": 600,
+      "twoExtras": 1200,
+      "ordinaryBuildFee": 12000,
+      "standardUpgradeRentBenchmark": 6000
+    }
+  ]
+}

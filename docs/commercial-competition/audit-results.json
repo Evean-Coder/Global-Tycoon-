@@ -1,0 +1,1018 @@
+{
+  "date": "2026-10-17",
+  "scope": "Candidate income through current pure rent/stock quote plus abstract eligibility and valid movement-prefix counterexamples; no new game implementation, game win rates, UI or auction proof",
+  "fullGames": 0,
+  "combinations": 9000,
+  "examples": [
+    {
+      "city": "开罗",
+      "level": 2,
+      "distribution": "none",
+      "perks": "none",
+      "nominalExtra": 810,
+      "ownerIncrement": 810,
+      "tenantIncrement": -810,
+      "bankIncrement": 0,
+      "cashDeltas": {
+        "tenant": -810,
+        "owner": 810
+      },
+      "ownerAfterBid3000Once": -2190
+    },
+    {
+      "city": "开罗",
+      "level": 2,
+      "distribution": "none",
+      "perks": "H4-all",
+      "nominalExtra": 810,
+      "ownerIncrement": 810,
+      "tenantIncrement": -810,
+      "bankIncrement": 0,
+      "cashDeltas": {
+        "tenant": -810,
+        "owner": 810
+      },
+      "ownerAfterBid3000Once": -2190
+    },
+    {
+      "city": "开罗",
+      "level": 2,
+      "distribution": "none",
+      "perks": "H6-tenant",
+      "nominalExtra": 810,
+      "ownerIncrement": 810,
+      "tenantIncrement": -810,
+      "bankIncrement": 0,
+      "cashDeltas": {
+        "tenant": -810,
+        "owner": 810
+      },
+      "ownerAfterBid3000Once": -2190
+    },
+    {
+      "city": "开罗",
+      "level": 2,
+      "distribution": "none",
+      "perks": "H11-tenant",
+      "nominalExtra": 810,
+      "ownerIncrement": 810,
+      "tenantIncrement": -567,
+      "bankIncrement": 243,
+      "cashDeltas": {
+        "tenant": -567,
+        "owner": 810
+      },
+      "ownerAfterBid3000Once": -2190
+    },
+    {
+      "city": "开罗",
+      "level": 2,
+      "distribution": "none",
+      "perks": "H4-H6-H11",
+      "nominalExtra": 810,
+      "ownerIncrement": 810,
+      "tenantIncrement": -567,
+      "bankIncrement": 243,
+      "cashDeltas": {
+        "tenant": -567,
+        "owner": 810
+      },
+      "ownerAfterBid3000Once": -2190
+    },
+    {
+      "city": "开罗",
+      "level": 2,
+      "distribution": "two-player-tenant-four",
+      "perks": "none",
+      "nominalExtra": 810,
+      "ownerIncrement": 746,
+      "tenantIncrement": -618,
+      "bankIncrement": 128,
+      "cashDeltas": {
+        "tenant": -618,
+        "owner": 746
+      },
+      "ownerAfterBid3000Once": -2254
+    },
+    {
+      "city": "开罗",
+      "level": 2,
+      "distribution": "two-player-tenant-four",
+      "perks": "H4-all",
+      "nominalExtra": 810,
+      "ownerIncrement": 746,
+      "tenantIncrement": -586,
+      "bankIncrement": 160,
+      "cashDeltas": {
+        "tenant": -586,
+        "owner": 746
+      },
+      "ownerAfterBid3000Once": -2254
+    },
+    {
+      "city": "开罗",
+      "level": 2,
+      "distribution": "two-player-tenant-four",
+      "perks": "H6-tenant",
+      "nominalExtra": 810,
+      "ownerIncrement": 746,
+      "tenantIncrement": -415,
+      "bankIncrement": 331,
+      "cashDeltas": {
+        "tenant": -415,
+        "owner": 746
+      },
+      "ownerAfterBid3000Once": -2254
+    },
+    {
+      "city": "开罗",
+      "level": 2,
+      "distribution": "two-player-tenant-four",
+      "perks": "H11-tenant",
+      "nominalExtra": 810,
+      "ownerIncrement": 746,
+      "tenantIncrement": -375,
+      "bankIncrement": 371,
+      "cashDeltas": {
+        "tenant": -375,
+        "owner": 746
+      },
+      "ownerAfterBid3000Once": -2254
+    },
+    {
+      "city": "开罗",
+      "level": 2,
+      "distribution": "two-player-tenant-four",
+      "perks": "H4-H6-H11",
+      "nominalExtra": 810,
+      "ownerIncrement": 746,
+      "tenantIncrement": -201,
+      "bankIncrement": 545,
+      "cashDeltas": {
+        "tenant": -201,
+        "owner": 746
+      },
+      "ownerAfterBid3000Once": -2254
+    },
+    {
+      "city": "开罗",
+      "level": 2,
+      "distribution": "two-player-owner-two-tenant-four",
+      "perks": "none",
+      "nominalExtra": 810,
+      "ownerIncrement": 810,
+      "tenantIncrement": -618,
+      "bankIncrement": 192,
+      "cashDeltas": {
+        "tenant": -618,
+        "owner": 810
+      },
+      "ownerAfterBid3000Once": -2190
+    },
+    {
+      "city": "开罗",
+      "level": 2,
+      "distribution": "two-player-owner-two-tenant-four",
+      "perks": "H4-all",
+      "nominalExtra": 810,
+      "ownerIncrement": 826,
+      "tenantIncrement": -586,
+      "bankIncrement": 240,
+      "cashDeltas": {
+        "tenant": -586,
+        "owner": 826
+      },
+      "ownerAfterBid3000Once": -2174
+    },
+    {
+      "city": "开罗",
+      "level": 2,
+      "distribution": "two-player-owner-two-tenant-four",
+      "perks": "H6-tenant",
+      "nominalExtra": 810,
+      "ownerIncrement": 810,
+      "tenantIncrement": -415,
+      "bankIncrement": 395,
+      "cashDeltas": {
+        "tenant": -415,
+        "owner": 810
+      },
+      "ownerAfterBid3000Once": -2190
+    },
+    {
+      "city": "开罗",
+      "level": 2,
+      "distribution": "two-player-owner-two-tenant-four",
+      "perks": "H11-tenant",
+      "nominalExtra": 810,
+      "ownerIncrement": 810,
+      "tenantIncrement": -375,
+      "bankIncrement": 435,
+      "cashDeltas": {
+        "tenant": -375,
+        "owner": 810
+      },
+      "ownerAfterBid3000Once": -2190
+    },
+    {
+      "city": "开罗",
+      "level": 2,
+      "distribution": "two-player-owner-two-tenant-four",
+      "perks": "H4-H6-H11",
+      "nominalExtra": 810,
+      "ownerIncrement": 826,
+      "tenantIncrement": -201,
+      "bankIncrement": 625,
+      "cashDeltas": {
+        "tenant": -201,
+        "owner": 826
+      },
+      "ownerAfterBid3000Once": -2174
+    },
+    {
+      "city": "开罗",
+      "level": 2,
+      "distribution": "owner-only-two",
+      "perks": "none",
+      "nominalExtra": 810,
+      "ownerIncrement": 874,
+      "tenantIncrement": -810,
+      "bankIncrement": 64,
+      "cashDeltas": {
+        "tenant": -810,
+        "owner": 874
+      },
+      "ownerAfterBid3000Once": -2126
+    },
+    {
+      "city": "开罗",
+      "level": 2,
+      "distribution": "owner-only-two",
+      "perks": "H4-all",
+      "nominalExtra": 810,
+      "ownerIncrement": 890,
+      "tenantIncrement": -810,
+      "bankIncrement": 80,
+      "cashDeltas": {
+        "tenant": -810,
+        "owner": 890
+      },
+      "ownerAfterBid3000Once": -2110
+    },
+    {
+      "city": "开罗",
+      "level": 2,
+      "distribution": "owner-only-two",
+      "perks": "H6-tenant",
+      "nominalExtra": 810,
+      "ownerIncrement": 874,
+      "tenantIncrement": -810,
+      "bankIncrement": 64,
+      "cashDeltas": {
+        "tenant": -810,
+        "owner": 874
+      },
+      "ownerAfterBid3000Once": -2126
+    },
+    {
+      "city": "开罗",
+      "level": 2,
+      "distribution": "owner-only-two",
+      "perks": "H11-tenant",
+      "nominalExtra": 810,
+      "ownerIncrement": 874,
+      "tenantIncrement": -567,
+      "bankIncrement": 307,
+      "cashDeltas": {
+        "tenant": -567,
+        "owner": 874
+      },
+      "ownerAfterBid3000Once": -2126
+    },
+    {
+      "city": "开罗",
+      "level": 2,
+      "distribution": "owner-only-two",
+      "perks": "H4-H6-H11",
+      "nominalExtra": 810,
+      "ownerIncrement": 890,
+      "tenantIncrement": -567,
+      "bankIncrement": 323,
+      "cashDeltas": {
+        "tenant": -567,
+        "owner": 890
+      },
+      "ownerAfterBid3000Once": -2110
+    },
+    {
+      "city": "开罗",
+      "level": 2,
+      "distribution": "four-player-all-external",
+      "perks": "none",
+      "nominalExtra": 810,
+      "ownerIncrement": 650,
+      "tenantIncrement": -618,
+      "bankIncrement": 320,
+      "cashDeltas": {
+        "tenant": -618,
+        "a": 144,
+        "b": 144,
+        "owner": 650
+      },
+      "ownerAfterBid3000Once": -2350
+    },
+    {
+      "city": "开罗",
+      "level": 2,
+      "distribution": "four-player-all-external",
+      "perks": "H4-all",
+      "nominalExtra": 810,
+      "ownerIncrement": 650,
+      "tenantIncrement": -586,
+      "bankIncrement": 400,
+      "cashDeltas": {
+        "tenant": -586,
+        "a": 168,
+        "b": 168,
+        "owner": 650
+      },
+      "ownerAfterBid3000Once": -2350
+    },
+    {
+      "city": "开罗",
+      "level": 2,
+      "distribution": "four-player-all-external",
+      "perks": "H6-tenant",
+      "nominalExtra": 810,
+      "ownerIncrement": 650,
+      "tenantIncrement": -415,
+      "bankIncrement": 523,
+      "cashDeltas": {
+        "tenant": -415,
+        "a": 144,
+        "b": 144,
+        "owner": 650
+      },
+      "ownerAfterBid3000Once": -2350
+    },
+    {
+      "city": "开罗",
+      "level": 2,
+      "distribution": "four-player-all-external",
+      "perks": "H11-tenant",
+      "nominalExtra": 810,
+      "ownerIncrement": 650,
+      "tenantIncrement": -375,
+      "bankIncrement": 563,
+      "cashDeltas": {
+        "tenant": -375,
+        "a": 144,
+        "b": 144,
+        "owner": 650
+      },
+      "ownerAfterBid3000Once": -2350
+    },
+    {
+      "city": "开罗",
+      "level": 2,
+      "distribution": "four-player-all-external",
+      "perks": "H4-H6-H11",
+      "nominalExtra": 810,
+      "ownerIncrement": 650,
+      "tenantIncrement": -201,
+      "bankIncrement": 785,
+      "cashDeltas": {
+        "tenant": -201,
+        "a": 168,
+        "b": 168,
+        "owner": 650
+      },
+      "ownerAfterBid3000Once": -2350
+    },
+    {
+      "city": "开罗",
+      "level": 2,
+      "distribution": "three-player-all-issued",
+      "perks": "none",
+      "nominalExtra": 810,
+      "ownerIncrement": 746,
+      "tenantIncrement": -618,
+      "bankIncrement": 320,
+      "cashDeltas": {
+        "tenant": -618,
+        "owner": 746,
+        "a": 192
+      },
+      "ownerAfterBid3000Once": -2254
+    },
+    {
+      "city": "开罗",
+      "level": 2,
+      "distribution": "three-player-all-issued",
+      "perks": "H4-all",
+      "nominalExtra": 810,
+      "ownerIncrement": 762,
+      "tenantIncrement": -586,
+      "bankIncrement": 400,
+      "cashDeltas": {
+        "tenant": -586,
+        "owner": 762,
+        "a": 224
+      },
+      "ownerAfterBid3000Once": -2238
+    },
+    {
+      "city": "开罗",
+      "level": 2,
+      "distribution": "three-player-all-issued",
+      "perks": "H6-tenant",
+      "nominalExtra": 810,
+      "ownerIncrement": 746,
+      "tenantIncrement": -415,
+      "bankIncrement": 523,
+      "cashDeltas": {
+        "tenant": -415,
+        "owner": 746,
+        "a": 192
+      },
+      "ownerAfterBid3000Once": -2254
+    },
+    {
+      "city": "开罗",
+      "level": 2,
+      "distribution": "three-player-all-issued",
+      "perks": "H11-tenant",
+      "nominalExtra": 810,
+      "ownerIncrement": 746,
+      "tenantIncrement": -375,
+      "bankIncrement": 563,
+      "cashDeltas": {
+        "tenant": -375,
+        "owner": 746,
+        "a": 192
+      },
+      "ownerAfterBid3000Once": -2254
+    },
+    {
+      "city": "开罗",
+      "level": 2,
+      "distribution": "three-player-all-issued",
+      "perks": "H4-H6-H11",
+      "nominalExtra": 810,
+      "ownerIncrement": 762,
+      "tenantIncrement": -201,
+      "bankIncrement": 785,
+      "cashDeltas": {
+        "tenant": -201,
+        "owner": 762,
+        "a": 224
+      },
+      "ownerAfterBid3000Once": -2238
+    },
+    {
+      "city": "上海",
+      "level": 4,
+      "distribution": "none",
+      "perks": "none",
+      "nominalExtra": 3000,
+      "ownerIncrement": 3000,
+      "tenantIncrement": -3000,
+      "bankIncrement": 0,
+      "cashDeltas": {
+        "tenant": -3000,
+        "owner": 3000
+      },
+      "ownerAfterBid3000Once": 0
+    },
+    {
+      "city": "上海",
+      "level": 4,
+      "distribution": "none",
+      "perks": "H4-all",
+      "nominalExtra": 3000,
+      "ownerIncrement": 3000,
+      "tenantIncrement": -3000,
+      "bankIncrement": 0,
+      "cashDeltas": {
+        "tenant": -3000,
+        "owner": 3000
+      },
+      "ownerAfterBid3000Once": 0
+    },
+    {
+      "city": "上海",
+      "level": 4,
+      "distribution": "none",
+      "perks": "H6-tenant",
+      "nominalExtra": 3000,
+      "ownerIncrement": 3000,
+      "tenantIncrement": -3000,
+      "bankIncrement": 0,
+      "cashDeltas": {
+        "tenant": -3000,
+        "owner": 3000
+      },
+      "ownerAfterBid3000Once": 0
+    },
+    {
+      "city": "上海",
+      "level": 4,
+      "distribution": "none",
+      "perks": "H11-tenant",
+      "nominalExtra": 3000,
+      "ownerIncrement": 3000,
+      "tenantIncrement": -3000,
+      "bankIncrement": 0,
+      "cashDeltas": {
+        "tenant": -3000,
+        "owner": 3000
+      },
+      "ownerAfterBid3000Once": 0
+    },
+    {
+      "city": "上海",
+      "level": 4,
+      "distribution": "none",
+      "perks": "H4-H6-H11",
+      "nominalExtra": 3000,
+      "ownerIncrement": 3000,
+      "tenantIncrement": -3000,
+      "bankIncrement": 0,
+      "cashDeltas": {
+        "tenant": -3000,
+        "owner": 3000
+      },
+      "ownerAfterBid3000Once": 0
+    },
+    {
+      "city": "上海",
+      "level": 4,
+      "distribution": "two-player-tenant-four",
+      "perks": "none",
+      "nominalExtra": 3000,
+      "ownerIncrement": 2760,
+      "tenantIncrement": -2280,
+      "bankIncrement": 480,
+      "cashDeltas": {
+        "tenant": -2280,
+        "owner": 2760
+      },
+      "ownerAfterBid3000Once": -240
+    },
+    {
+      "city": "上海",
+      "level": 4,
+      "distribution": "two-player-tenant-four",
+      "perks": "H4-all",
+      "nominalExtra": 3000,
+      "ownerIncrement": 2760,
+      "tenantIncrement": -2160,
+      "bankIncrement": 600,
+      "cashDeltas": {
+        "tenant": -2160,
+        "owner": 2760
+      },
+      "ownerAfterBid3000Once": -240
+    },
+    {
+      "city": "上海",
+      "level": 4,
+      "distribution": "two-player-tenant-four",
+      "perks": "H6-tenant",
+      "nominalExtra": 3000,
+      "ownerIncrement": 2760,
+      "tenantIncrement": -2280,
+      "bankIncrement": 480,
+      "cashDeltas": {
+        "tenant": -2280,
+        "owner": 2760
+      },
+      "ownerAfterBid3000Once": -240
+    },
+    {
+      "city": "上海",
+      "level": 4,
+      "distribution": "two-player-tenant-four",
+      "perks": "H11-tenant",
+      "nominalExtra": 3000,
+      "ownerIncrement": 2760,
+      "tenantIncrement": -2280,
+      "bankIncrement": 480,
+      "cashDeltas": {
+        "tenant": -2280,
+        "owner": 2760
+      },
+      "ownerAfterBid3000Once": -240
+    },
+    {
+      "city": "上海",
+      "level": 4,
+      "distribution": "two-player-tenant-four",
+      "perks": "H4-H6-H11",
+      "nominalExtra": 3000,
+      "ownerIncrement": 2760,
+      "tenantIncrement": -2160,
+      "bankIncrement": 600,
+      "cashDeltas": {
+        "tenant": -2160,
+        "owner": 2760
+      },
+      "ownerAfterBid3000Once": -240
+    },
+    {
+      "city": "上海",
+      "level": 4,
+      "distribution": "two-player-owner-two-tenant-four",
+      "perks": "none",
+      "nominalExtra": 3000,
+      "ownerIncrement": 3000,
+      "tenantIncrement": -2280,
+      "bankIncrement": 720,
+      "cashDeltas": {
+        "tenant": -2280,
+        "owner": 3000
+      },
+      "ownerAfterBid3000Once": 0
+    },
+    {
+      "city": "上海",
+      "level": 4,
+      "distribution": "two-player-owner-two-tenant-four",
+      "perks": "H4-all",
+      "nominalExtra": 3000,
+      "ownerIncrement": 3060,
+      "tenantIncrement": -2160,
+      "bankIncrement": 900,
+      "cashDeltas": {
+        "tenant": -2160,
+        "owner": 3060
+      },
+      "ownerAfterBid3000Once": 60
+    },
+    {
+      "city": "上海",
+      "level": 4,
+      "distribution": "two-player-owner-two-tenant-four",
+      "perks": "H6-tenant",
+      "nominalExtra": 3000,
+      "ownerIncrement": 3000,
+      "tenantIncrement": -2280,
+      "bankIncrement": 720,
+      "cashDeltas": {
+        "tenant": -2280,
+        "owner": 3000
+      },
+      "ownerAfterBid3000Once": 0
+    },
+    {
+      "city": "上海",
+      "level": 4,
+      "distribution": "two-player-owner-two-tenant-four",
+      "perks": "H11-tenant",
+      "nominalExtra": 3000,
+      "ownerIncrement": 3000,
+      "tenantIncrement": -2280,
+      "bankIncrement": 720,
+      "cashDeltas": {
+        "tenant": -2280,
+        "owner": 3000
+      },
+      "ownerAfterBid3000Once": 0
+    },
+    {
+      "city": "上海",
+      "level": 4,
+      "distribution": "two-player-owner-two-tenant-four",
+      "perks": "H4-H6-H11",
+      "nominalExtra": 3000,
+      "ownerIncrement": 3060,
+      "tenantIncrement": -2160,
+      "bankIncrement": 900,
+      "cashDeltas": {
+        "tenant": -2160,
+        "owner": 3060
+      },
+      "ownerAfterBid3000Once": 60
+    },
+    {
+      "city": "上海",
+      "level": 4,
+      "distribution": "owner-only-two",
+      "perks": "none",
+      "nominalExtra": 3000,
+      "ownerIncrement": 3240,
+      "tenantIncrement": -3000,
+      "bankIncrement": 240,
+      "cashDeltas": {
+        "tenant": -3000,
+        "owner": 3240
+      },
+      "ownerAfterBid3000Once": 240
+    },
+    {
+      "city": "上海",
+      "level": 4,
+      "distribution": "owner-only-two",
+      "perks": "H4-all",
+      "nominalExtra": 3000,
+      "ownerIncrement": 3300,
+      "tenantIncrement": -3000,
+      "bankIncrement": 300,
+      "cashDeltas": {
+        "tenant": -3000,
+        "owner": 3300
+      },
+      "ownerAfterBid3000Once": 300
+    },
+    {
+      "city": "上海",
+      "level": 4,
+      "distribution": "owner-only-two",
+      "perks": "H6-tenant",
+      "nominalExtra": 3000,
+      "ownerIncrement": 3240,
+      "tenantIncrement": -3000,
+      "bankIncrement": 240,
+      "cashDeltas": {
+        "tenant": -3000,
+        "owner": 3240
+      },
+      "ownerAfterBid3000Once": 240
+    },
+    {
+      "city": "上海",
+      "level": 4,
+      "distribution": "owner-only-two",
+      "perks": "H11-tenant",
+      "nominalExtra": 3000,
+      "ownerIncrement": 3240,
+      "tenantIncrement": -3000,
+      "bankIncrement": 240,
+      "cashDeltas": {
+        "tenant": -3000,
+        "owner": 3240
+      },
+      "ownerAfterBid3000Once": 240
+    },
+    {
+      "city": "上海",
+      "level": 4,
+      "distribution": "owner-only-two",
+      "perks": "H4-H6-H11",
+      "nominalExtra": 3000,
+      "ownerIncrement": 3300,
+      "tenantIncrement": -3000,
+      "bankIncrement": 300,
+      "cashDeltas": {
+        "tenant": -3000,
+        "owner": 3300
+      },
+      "ownerAfterBid3000Once": 300
+    },
+    {
+      "city": "上海",
+      "level": 4,
+      "distribution": "four-player-all-external",
+      "perks": "none",
+      "nominalExtra": 3000,
+      "ownerIncrement": 2400,
+      "tenantIncrement": -2280,
+      "bankIncrement": 1200,
+      "cashDeltas": {
+        "tenant": -2280,
+        "a": 540,
+        "b": 540,
+        "owner": 2400
+      },
+      "ownerAfterBid3000Once": -600
+    },
+    {
+      "city": "上海",
+      "level": 4,
+      "distribution": "four-player-all-external",
+      "perks": "H4-all",
+      "nominalExtra": 3000,
+      "ownerIncrement": 2400,
+      "tenantIncrement": -2160,
+      "bankIncrement": 1500,
+      "cashDeltas": {
+        "tenant": -2160,
+        "a": 630,
+        "b": 630,
+        "owner": 2400
+      },
+      "ownerAfterBid3000Once": -600
+    },
+    {
+      "city": "上海",
+      "level": 4,
+      "distribution": "four-player-all-external",
+      "perks": "H6-tenant",
+      "nominalExtra": 3000,
+      "ownerIncrement": 2400,
+      "tenantIncrement": -2280,
+      "bankIncrement": 1200,
+      "cashDeltas": {
+        "tenant": -2280,
+        "a": 540,
+        "b": 540,
+        "owner": 2400
+      },
+      "ownerAfterBid3000Once": -600
+    },
+    {
+      "city": "上海",
+      "level": 4,
+      "distribution": "four-player-all-external",
+      "perks": "H11-tenant",
+      "nominalExtra": 3000,
+      "ownerIncrement": 2400,
+      "tenantIncrement": -2280,
+      "bankIncrement": 1200,
+      "cashDeltas": {
+        "tenant": -2280,
+        "a": 540,
+        "b": 540,
+        "owner": 2400
+      },
+      "ownerAfterBid3000Once": -600
+    },
+    {
+      "city": "上海",
+      "level": 4,
+      "distribution": "four-player-all-external",
+      "perks": "H4-H6-H11",
+      "nominalExtra": 3000,
+      "ownerIncrement": 2400,
+      "tenantIncrement": -2160,
+      "bankIncrement": 1500,
+      "cashDeltas": {
+        "tenant": -2160,
+        "a": 630,
+        "b": 630,
+        "owner": 2400
+      },
+      "ownerAfterBid3000Once": -600
+    },
+    {
+      "city": "上海",
+      "level": 4,
+      "distribution": "three-player-all-issued",
+      "perks": "none",
+      "nominalExtra": 3000,
+      "ownerIncrement": 2760,
+      "tenantIncrement": -2280,
+      "bankIncrement": 1200,
+      "cashDeltas": {
+        "tenant": -2280,
+        "owner": 2760,
+        "a": 720
+      },
+      "ownerAfterBid3000Once": -240
+    },
+    {
+      "city": "上海",
+      "level": 4,
+      "distribution": "three-player-all-issued",
+      "perks": "H4-all",
+      "nominalExtra": 3000,
+      "ownerIncrement": 2820,
+      "tenantIncrement": -2160,
+      "bankIncrement": 1500,
+      "cashDeltas": {
+        "tenant": -2160,
+        "owner": 2820,
+        "a": 840
+      },
+      "ownerAfterBid3000Once": -180
+    },
+    {
+      "city": "上海",
+      "level": 4,
+      "distribution": "three-player-all-issued",
+      "perks": "H6-tenant",
+      "nominalExtra": 3000,
+      "ownerIncrement": 2760,
+      "tenantIncrement": -2280,
+      "bankIncrement": 1200,
+      "cashDeltas": {
+        "tenant": -2280,
+        "owner": 2760,
+        "a": 720
+      },
+      "ownerAfterBid3000Once": -240
+    },
+    {
+      "city": "上海",
+      "level": 4,
+      "distribution": "three-player-all-issued",
+      "perks": "H11-tenant",
+      "nominalExtra": 3000,
+      "ownerIncrement": 2760,
+      "tenantIncrement": -2280,
+      "bankIncrement": 1200,
+      "cashDeltas": {
+        "tenant": -2280,
+        "owner": 2760,
+        "a": 720
+      },
+      "ownerAfterBid3000Once": -240
+    },
+    {
+      "city": "上海",
+      "level": 4,
+      "distribution": "three-player-all-issued",
+      "perks": "H4-H6-H11",
+      "nominalExtra": 3000,
+      "ownerIncrement": 2820,
+      "tenantIncrement": -2160,
+      "bankIncrement": 1500,
+      "cashDeltas": {
+        "tenant": -2160,
+        "owner": 2820,
+        "a": 840
+      },
+      "ownerAfterBid3000Once": -180
+    }
+  ],
+  "eligibility": {
+    "previousWinner": "A",
+    "nextWithBanOnly": [
+      "B"
+    ],
+    "nextWithAllLimits": [],
+    "path": [
+      {
+        "completeRound": 1,
+        "id": "A",
+        "roll": 1,
+        "position": 4,
+        "squareType": "city"
+      },
+      {
+        "completeRound": 1,
+        "id": "B",
+        "roll": 2,
+        "position": 6,
+        "squareType": "airport"
+      },
+      {
+        "completeRound": 2,
+        "id": "A",
+        "roll": 3,
+        "position": 7,
+        "squareType": "chance"
+      },
+      {
+        "completeRound": 2,
+        "id": "B",
+        "roll": 4,
+        "position": 10,
+        "squareType": "rest"
+      },
+      {
+        "completeRound": 3,
+        "id": "A",
+        "roll": 5,
+        "position": 12,
+        "squareType": "city"
+      },
+      {
+        "completeRound": 3,
+        "id": "B",
+        "roll": 6,
+        "position": 16,
+        "squareType": "airport"
+      },
+      {
+        "completeRound": 4,
+        "id": "A",
+        "roll": 7,
+        "position": 19,
+        "squareType": "chance"
+      },
+      {
+        "completeRound": 4,
+        "id": "B",
+        "roll": 8,
+        "position": 24,
+        "squareType": "airport"
+      }
+    ],
+    "qualification": "Moves on chance squares can resolve cash cards; airport choices can decline flight. This is an allowed prefix, not a simulated full game."
+  },
+  "order": {
+    "advance": 2000,
+    "profit": 2000,
+    "firstPayment": 2000,
+    "secondPayment": 2000,
+    "cashAfterFirstRelativeToBeforeOrder": 0
+  },
+  "breakeven": {
+    "fullyExternalShanghaiPerHit": 2400,
+    "atBid3000ExpectedHitsRequired": 1.25,
+    "maxHits": 2,
+    "fullyExternalCairoPerHit": 650,
+    "cairoMaximumBeforeBid": 1300
+  }
+}

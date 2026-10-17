@@ -1,0 +1,915 @@
+{
+  "date": "2026-10-17",
+  "status": "candidate arithmetic only",
+  "fullGames": 0,
+  "orderCases": 21,
+  "cityLevelCases": 100,
+  "competition": {
+    "bidMin": 100,
+    "bidMax": 3000,
+    "bidStep": 100,
+    "ratePercent": 15,
+    "perSettlementCap": 3000,
+    "maxHits": 2,
+    "durationRounds": 4
+  },
+  "exclusions": "No auction, quotas, actual arrival probabilities, owner-share/H4/individual-reduction accounting, UI, gameplay balance or deployment proof",
+  "orders": [
+    {
+      "city": "内罗毕",
+      "advance": 1000,
+      "first": 250,
+      "second": 1750,
+      "profit": 1000,
+      "newsProfit": 1175
+    },
+    {
+      "city": "开普敦",
+      "advance": 1000,
+      "first": 250,
+      "second": 1750,
+      "profit": 1000,
+      "newsProfit": 1175
+    },
+    {
+      "city": "卡萨布兰卡",
+      "advance": 1000,
+      "first": 250,
+      "second": 1750,
+      "profit": 1000,
+      "newsProfit": 1175
+    },
+    {
+      "city": "开罗",
+      "advance": 1000,
+      "first": 250,
+      "second": 1750,
+      "profit": 1000,
+      "newsProfit": 1175
+    },
+    {
+      "city": "奥克兰",
+      "advance": 1000,
+      "first": 250,
+      "second": 1750,
+      "profit": 1000,
+      "newsProfit": 1175
+    },
+    {
+      "city": "悉尼",
+      "advance": 1080,
+      "first": 270,
+      "second": 1890,
+      "profit": 1080,
+      "newsProfit": 1257
+    },
+    {
+      "city": "罗马",
+      "advance": 1200,
+      "first": 300,
+      "second": 2100,
+      "profit": 1200,
+      "newsProfit": 1380
+    },
+    {
+      "city": "阿姆斯特丹",
+      "advance": 1000,
+      "first": 250,
+      "second": 1750,
+      "profit": 1000,
+      "newsProfit": 1175
+    },
+    {
+      "city": "莫斯科",
+      "advance": 1100,
+      "first": 275,
+      "second": 1925,
+      "profit": 1100,
+      "newsProfit": 1278
+    },
+    {
+      "city": "伦敦",
+      "advance": 1400,
+      "first": 350,
+      "second": 2450,
+      "profit": 1400,
+      "newsProfit": 1585
+    },
+    {
+      "city": "巴黎",
+      "advance": 1300,
+      "first": 325,
+      "second": 2275,
+      "profit": 1300,
+      "newsProfit": 1483
+    },
+    {
+      "city": "柏林",
+      "advance": 1500,
+      "first": 375,
+      "second": 2625,
+      "profit": 1500,
+      "newsProfit": 1688
+    },
+    {
+      "city": "纽约",
+      "advance": 1900,
+      "first": 475,
+      "second": 3325,
+      "profit": 1900,
+      "newsProfit": 2098
+    },
+    {
+      "city": "多伦多",
+      "advance": 1400,
+      "first": 350,
+      "second": 2450,
+      "profit": 1400,
+      "newsProfit": 1585
+    },
+    {
+      "city": "墨西哥城",
+      "advance": 1200,
+      "first": 300,
+      "second": 2100,
+      "profit": 1200,
+      "newsProfit": 1380
+    },
+    {
+      "city": "里约热内卢",
+      "advance": 1300,
+      "first": 325,
+      "second": 2275,
+      "profit": 1300,
+      "newsProfit": 1483
+    },
+    {
+      "city": "新加坡",
+      "advance": 1400,
+      "first": 350,
+      "second": 2450,
+      "profit": 1400,
+      "newsProfit": 1585
+    },
+    {
+      "city": "东京",
+      "advance": 1700,
+      "first": 425,
+      "second": 2975,
+      "profit": 1700,
+      "newsProfit": 1893
+    },
+    {
+      "city": "迪拜",
+      "advance": 1500,
+      "first": 375,
+      "second": 2625,
+      "profit": 1500,
+      "newsProfit": 1688
+    },
+    {
+      "city": "上海",
+      "advance": 2000,
+      "first": 500,
+      "second": 3500,
+      "profit": 2000,
+      "newsProfit": 2200
+    },
+    {
+      "city": "机场",
+      "advance": 1500,
+      "first": 375,
+      "second": 2625,
+      "profit": 1500,
+      "newsProfit": 1688
+    }
+  ],
+  "states": [
+    {
+      "city": "内罗毕",
+      "houseLevel": 0,
+      "base": 1080,
+      "extra": 162,
+      "twice": 324
+    },
+    {
+      "city": "内罗毕",
+      "houseLevel": 1,
+      "base": 2160,
+      "extra": 324,
+      "twice": 648
+    },
+    {
+      "city": "内罗毕",
+      "houseLevel": 2,
+      "base": 3240,
+      "extra": 486,
+      "twice": 972
+    },
+    {
+      "city": "内罗毕",
+      "houseLevel": 3,
+      "base": 4320,
+      "extra": 648,
+      "twice": 1296
+    },
+    {
+      "city": "内罗毕",
+      "houseLevel": 4,
+      "base": 5400,
+      "extra": 810,
+      "twice": 1620
+    },
+    {
+      "city": "开普敦",
+      "houseLevel": 0,
+      "base": 2160,
+      "extra": 324,
+      "twice": 648
+    },
+    {
+      "city": "开普敦",
+      "houseLevel": 1,
+      "base": 4320,
+      "extra": 648,
+      "twice": 1296
+    },
+    {
+      "city": "开普敦",
+      "houseLevel": 2,
+      "base": 6480,
+      "extra": 972,
+      "twice": 1944
+    },
+    {
+      "city": "开普敦",
+      "houseLevel": 3,
+      "base": 8640,
+      "extra": 1296,
+      "twice": 2592
+    },
+    {
+      "city": "开普敦",
+      "houseLevel": 4,
+      "base": 10800,
+      "extra": 1620,
+      "twice": 3240
+    },
+    {
+      "city": "卡萨布兰卡",
+      "houseLevel": 0,
+      "base": 1440,
+      "extra": 216,
+      "twice": 432
+    },
+    {
+      "city": "卡萨布兰卡",
+      "houseLevel": 1,
+      "base": 2880,
+      "extra": 432,
+      "twice": 864
+    },
+    {
+      "city": "卡萨布兰卡",
+      "houseLevel": 2,
+      "base": 4320,
+      "extra": 648,
+      "twice": 1296
+    },
+    {
+      "city": "卡萨布兰卡",
+      "houseLevel": 3,
+      "base": 5760,
+      "extra": 864,
+      "twice": 1728
+    },
+    {
+      "city": "卡萨布兰卡",
+      "houseLevel": 4,
+      "base": 7200,
+      "extra": 1080,
+      "twice": 2160
+    },
+    {
+      "city": "开罗",
+      "houseLevel": 0,
+      "base": 1800,
+      "extra": 270,
+      "twice": 540
+    },
+    {
+      "city": "开罗",
+      "houseLevel": 1,
+      "base": 3600,
+      "extra": 540,
+      "twice": 1080
+    },
+    {
+      "city": "开罗",
+      "houseLevel": 2,
+      "base": 5400,
+      "extra": 810,
+      "twice": 1620
+    },
+    {
+      "city": "开罗",
+      "houseLevel": 3,
+      "base": 7200,
+      "extra": 1080,
+      "twice": 2160
+    },
+    {
+      "city": "开罗",
+      "houseLevel": 4,
+      "base": 9000,
+      "extra": 1350,
+      "twice": 2700
+    },
+    {
+      "city": "奥克兰",
+      "houseLevel": 0,
+      "base": 2520,
+      "extra": 378,
+      "twice": 756
+    },
+    {
+      "city": "奥克兰",
+      "houseLevel": 1,
+      "base": 5040,
+      "extra": 756,
+      "twice": 1512
+    },
+    {
+      "city": "奥克兰",
+      "houseLevel": 2,
+      "base": 7560,
+      "extra": 1134,
+      "twice": 2268
+    },
+    {
+      "city": "奥克兰",
+      "houseLevel": 3,
+      "base": 10080,
+      "extra": 1512,
+      "twice": 3024
+    },
+    {
+      "city": "奥克兰",
+      "houseLevel": 4,
+      "base": 12600,
+      "extra": 1890,
+      "twice": 3780
+    },
+    {
+      "city": "悉尼",
+      "houseLevel": 0,
+      "base": 3240,
+      "extra": 486,
+      "twice": 972
+    },
+    {
+      "city": "悉尼",
+      "houseLevel": 1,
+      "base": 6480,
+      "extra": 972,
+      "twice": 1944
+    },
+    {
+      "city": "悉尼",
+      "houseLevel": 2,
+      "base": 9720,
+      "extra": 1458,
+      "twice": 2916
+    },
+    {
+      "city": "悉尼",
+      "houseLevel": 3,
+      "base": 12960,
+      "extra": 1944,
+      "twice": 3888
+    },
+    {
+      "city": "悉尼",
+      "houseLevel": 4,
+      "base": 16200,
+      "extra": 2430,
+      "twice": 4860
+    },
+    {
+      "city": "罗马",
+      "houseLevel": 0,
+      "base": 3600,
+      "extra": 540,
+      "twice": 1080
+    },
+    {
+      "city": "罗马",
+      "houseLevel": 1,
+      "base": 7200,
+      "extra": 1080,
+      "twice": 2160
+    },
+    {
+      "city": "罗马",
+      "houseLevel": 2,
+      "base": 10800,
+      "extra": 1620,
+      "twice": 3240
+    },
+    {
+      "city": "罗马",
+      "houseLevel": 3,
+      "base": 14400,
+      "extra": 2160,
+      "twice": 4320
+    },
+    {
+      "city": "罗马",
+      "houseLevel": 4,
+      "base": 18000,
+      "extra": 2700,
+      "twice": 5400
+    },
+    {
+      "city": "阿姆斯特丹",
+      "houseLevel": 0,
+      "base": 3000,
+      "extra": 450,
+      "twice": 900
+    },
+    {
+      "city": "阿姆斯特丹",
+      "houseLevel": 1,
+      "base": 6000,
+      "extra": 900,
+      "twice": 1800
+    },
+    {
+      "city": "阿姆斯特丹",
+      "houseLevel": 2,
+      "base": 9000,
+      "extra": 1350,
+      "twice": 2700
+    },
+    {
+      "city": "阿姆斯特丹",
+      "houseLevel": 3,
+      "base": 12000,
+      "extra": 1800,
+      "twice": 3600
+    },
+    {
+      "city": "阿姆斯特丹",
+      "houseLevel": 4,
+      "base": 15000,
+      "extra": 2250,
+      "twice": 4500
+    },
+    {
+      "city": "莫斯科",
+      "houseLevel": 0,
+      "base": 3300,
+      "extra": 495,
+      "twice": 990
+    },
+    {
+      "city": "莫斯科",
+      "houseLevel": 1,
+      "base": 6600,
+      "extra": 990,
+      "twice": 1980
+    },
+    {
+      "city": "莫斯科",
+      "houseLevel": 2,
+      "base": 9900,
+      "extra": 1485,
+      "twice": 2970
+    },
+    {
+      "city": "莫斯科",
+      "houseLevel": 3,
+      "base": 13200,
+      "extra": 1980,
+      "twice": 3960
+    },
+    {
+      "city": "莫斯科",
+      "houseLevel": 4,
+      "base": 16500,
+      "extra": 2475,
+      "twice": 4950
+    },
+    {
+      "city": "伦敦",
+      "houseLevel": 0,
+      "base": 4200,
+      "extra": 630,
+      "twice": 1260
+    },
+    {
+      "city": "伦敦",
+      "houseLevel": 1,
+      "base": 8400,
+      "extra": 1260,
+      "twice": 2520
+    },
+    {
+      "city": "伦敦",
+      "houseLevel": 2,
+      "base": 12600,
+      "extra": 1890,
+      "twice": 3780
+    },
+    {
+      "city": "伦敦",
+      "houseLevel": 3,
+      "base": 16800,
+      "extra": 2520,
+      "twice": 5040
+    },
+    {
+      "city": "伦敦",
+      "houseLevel": 4,
+      "base": 21000,
+      "extra": 3000,
+      "twice": 6000
+    },
+    {
+      "city": "巴黎",
+      "houseLevel": 0,
+      "base": 3900,
+      "extra": 585,
+      "twice": 1170
+    },
+    {
+      "city": "巴黎",
+      "houseLevel": 1,
+      "base": 7800,
+      "extra": 1170,
+      "twice": 2340
+    },
+    {
+      "city": "巴黎",
+      "houseLevel": 2,
+      "base": 11700,
+      "extra": 1755,
+      "twice": 3510
+    },
+    {
+      "city": "巴黎",
+      "houseLevel": 3,
+      "base": 15600,
+      "extra": 2340,
+      "twice": 4680
+    },
+    {
+      "city": "巴黎",
+      "houseLevel": 4,
+      "base": 19500,
+      "extra": 2925,
+      "twice": 5850
+    },
+    {
+      "city": "柏林",
+      "houseLevel": 0,
+      "base": 4500,
+      "extra": 675,
+      "twice": 1350
+    },
+    {
+      "city": "柏林",
+      "houseLevel": 1,
+      "base": 9000,
+      "extra": 1350,
+      "twice": 2700
+    },
+    {
+      "city": "柏林",
+      "houseLevel": 2,
+      "base": 13500,
+      "extra": 2025,
+      "twice": 4050
+    },
+    {
+      "city": "柏林",
+      "houseLevel": 3,
+      "base": 18000,
+      "extra": 2700,
+      "twice": 5400
+    },
+    {
+      "city": "柏林",
+      "houseLevel": 4,
+      "base": 24750,
+      "extra": 3000,
+      "twice": 6000
+    },
+    {
+      "city": "纽约",
+      "houseLevel": 0,
+      "base": 5700,
+      "extra": 855,
+      "twice": 1710
+    },
+    {
+      "city": "纽约",
+      "houseLevel": 1,
+      "base": 11400,
+      "extra": 1710,
+      "twice": 3420
+    },
+    {
+      "city": "纽约",
+      "houseLevel": 2,
+      "base": 17100,
+      "extra": 2565,
+      "twice": 5130
+    },
+    {
+      "city": "纽约",
+      "houseLevel": 3,
+      "base": 22800,
+      "extra": 3000,
+      "twice": 6000
+    },
+    {
+      "city": "纽约",
+      "houseLevel": 4,
+      "base": 31350,
+      "extra": 3000,
+      "twice": 6000
+    },
+    {
+      "city": "多伦多",
+      "houseLevel": 0,
+      "base": 4200,
+      "extra": 630,
+      "twice": 1260
+    },
+    {
+      "city": "多伦多",
+      "houseLevel": 1,
+      "base": 8400,
+      "extra": 1260,
+      "twice": 2520
+    },
+    {
+      "city": "多伦多",
+      "houseLevel": 2,
+      "base": 12600,
+      "extra": 1890,
+      "twice": 3780
+    },
+    {
+      "city": "多伦多",
+      "houseLevel": 3,
+      "base": 16800,
+      "extra": 2520,
+      "twice": 5040
+    },
+    {
+      "city": "多伦多",
+      "houseLevel": 4,
+      "base": 21000,
+      "extra": 3000,
+      "twice": 6000
+    },
+    {
+      "city": "墨西哥城",
+      "houseLevel": 0,
+      "base": 3600,
+      "extra": 540,
+      "twice": 1080
+    },
+    {
+      "city": "墨西哥城",
+      "houseLevel": 1,
+      "base": 7200,
+      "extra": 1080,
+      "twice": 2160
+    },
+    {
+      "city": "墨西哥城",
+      "houseLevel": 2,
+      "base": 10800,
+      "extra": 1620,
+      "twice": 3240
+    },
+    {
+      "city": "墨西哥城",
+      "houseLevel": 3,
+      "base": 14400,
+      "extra": 2160,
+      "twice": 4320
+    },
+    {
+      "city": "墨西哥城",
+      "houseLevel": 4,
+      "base": 18000,
+      "extra": 2700,
+      "twice": 5400
+    },
+    {
+      "city": "里约热内卢",
+      "houseLevel": 0,
+      "base": 3900,
+      "extra": 585,
+      "twice": 1170
+    },
+    {
+      "city": "里约热内卢",
+      "houseLevel": 1,
+      "base": 7800,
+      "extra": 1170,
+      "twice": 2340
+    },
+    {
+      "city": "里约热内卢",
+      "houseLevel": 2,
+      "base": 11700,
+      "extra": 1755,
+      "twice": 3510
+    },
+    {
+      "city": "里约热内卢",
+      "houseLevel": 3,
+      "base": 15600,
+      "extra": 2340,
+      "twice": 4680
+    },
+    {
+      "city": "里约热内卢",
+      "houseLevel": 4,
+      "base": 19500,
+      "extra": 2925,
+      "twice": 5850
+    },
+    {
+      "city": "新加坡",
+      "houseLevel": 0,
+      "base": 4200,
+      "extra": 630,
+      "twice": 1260
+    },
+    {
+      "city": "新加坡",
+      "houseLevel": 1,
+      "base": 8400,
+      "extra": 1260,
+      "twice": 2520
+    },
+    {
+      "city": "新加坡",
+      "houseLevel": 2,
+      "base": 12600,
+      "extra": 1890,
+      "twice": 3780
+    },
+    {
+      "city": "新加坡",
+      "houseLevel": 3,
+      "base": 16800,
+      "extra": 2520,
+      "twice": 5040
+    },
+    {
+      "city": "新加坡",
+      "houseLevel": 4,
+      "base": 21000,
+      "extra": 3000,
+      "twice": 6000
+    },
+    {
+      "city": "东京",
+      "houseLevel": 0,
+      "base": 5100,
+      "extra": 765,
+      "twice": 1530
+    },
+    {
+      "city": "东京",
+      "houseLevel": 1,
+      "base": 10200,
+      "extra": 1530,
+      "twice": 3060
+    },
+    {
+      "city": "东京",
+      "houseLevel": 2,
+      "base": 15300,
+      "extra": 2295,
+      "twice": 4590
+    },
+    {
+      "city": "东京",
+      "houseLevel": 3,
+      "base": 20400,
+      "extra": 3000,
+      "twice": 6000
+    },
+    {
+      "city": "东京",
+      "houseLevel": 4,
+      "base": 28050,
+      "extra": 3000,
+      "twice": 6000
+    },
+    {
+      "city": "迪拜",
+      "houseLevel": 0,
+      "base": 4500,
+      "extra": 675,
+      "twice": 1350
+    },
+    {
+      "city": "迪拜",
+      "houseLevel": 1,
+      "base": 9000,
+      "extra": 1350,
+      "twice": 2700
+    },
+    {
+      "city": "迪拜",
+      "houseLevel": 2,
+      "base": 13500,
+      "extra": 2025,
+      "twice": 4050
+    },
+    {
+      "city": "迪拜",
+      "houseLevel": 3,
+      "base": 18000,
+      "extra": 2700,
+      "twice": 5400
+    },
+    {
+      "city": "迪拜",
+      "houseLevel": 4,
+      "base": 24750,
+      "extra": 3000,
+      "twice": 6000
+    },
+    {
+      "city": "上海",
+      "houseLevel": 0,
+      "base": 6000,
+      "extra": 900,
+      "twice": 1800
+    },
+    {
+      "city": "上海",
+      "houseLevel": 1,
+      "base": 12000,
+      "extra": 1800,
+      "twice": 3600
+    },
+    {
+      "city": "上海",
+      "houseLevel": 2,
+      "base": 18000,
+      "extra": 2700,
+      "twice": 5400
+    },
+    {
+      "city": "上海",
+      "houseLevel": 3,
+      "base": 24000,
+      "extra": 3000,
+      "twice": 6000
+    },
+    {
+      "city": "上海",
+      "houseLevel": 4,
+      "base": 33000,
+      "extra": 3000,
+      "twice": 6000
+    }
+  ],
+  "cases": [
+    {
+      "city": "开罗",
+      "houseLevel": 2,
+      "base": 5400,
+      "extra": 810,
+      "twice": 1620,
+      "fullyExternalIssuedOwnerDelta": 650,
+      "bid": 200,
+      "oneArrivalNet": 450,
+      "twoArrivalNet": 1100,
+      "noArrivalNet": -200
+    },
+    {
+      "city": "上海",
+      "houseLevel": 4,
+      "base": 33000,
+      "extra": 3000,
+      "twice": 6000,
+      "fullyExternalIssuedOwnerDelta": 2400,
+      "bid": 200,
+      "oneArrivalNet": 2200,
+      "twoArrivalNet": 4600,
+      "noArrivalNet": -200
+    }
+  ]
+}

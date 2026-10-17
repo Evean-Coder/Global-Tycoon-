@@ -1,0 +1,144 @@
+TAP version 13
+# Subtest: publication waits first-lap unlock, needs two basic candidates and follows four-round cadence
+ok 1 - publication waits first-lap unlock, needs two basic candidates and follows four-round cadence
+  ---
+  duration_ms: 6.3043
+  ...
+# Subtest: new qualifying player can join fixed published region; natural single bid can win
+ok 2 - new qualifying player can join fixed published region; natural single bid can win
+  ---
+  duration_ms: 2.1719
+  ...
+# Subtest: bid range, ownership, special phases and readonly invalid failure
+ok 3 - bid range, ownership, special phases and readonly invalid failure
+  ---
+  duration_ms: 2.4569
+  ...
+# Subtest: accepted bid consumes turn and original lap but debits only on open, no mutable rebid
+ok 4 - accepted bid consumes turn and original lap but debits only on open, no mutable rebid
+  ---
+  duration_ms: 6.3474
+  ...
+# Subtest: same price challenges previous winner, higher price wins and invalid top falls back
+ok 5 - same price challenges previous winner, higher price wins and invalid top falls back
+  ---
+  duration_ms: 3.248
+  ...
+# Subtest: uniform tied challenger pool and persistent winner through failed period
+ok 6 - uniform tied challenger pool and persistent winner through failed period
+  ---
+  duration_ms: 1.7745
+  ...
+# Subtest: public/private snapshots and accepted events never expose pending amount or flagship
+ok 7 - public/private snapshots and accepted events never expose pending amount or flagship
+  ---
+  duration_ms: 4.5913
+  ...
+# Subtest: H4 sequential paired branches produce 3280 then 6480 with no mutation
+ok 8 - H4 sequential paired branches produce 3280 then 6480 with no mutation
+  ---
+  duration_ms: 12.4369
+  ...
+# Subtest: owner with no issued shares retains full surcharge; tenant concessions do not change owner preview
+ok 9 - owner with no issued shares retains full surcharge; tenant concessions do not change owner preview
+  ---
+  duration_ms: 2.5635
+  ...
+# Subtest: base fifteen percent additive to world, capped, two settlements and stale plan rejected
+ok 10 - base fifteen percent additive to world, capped, two settlements and stale plan rejected
+  ---
+  duration_ms: 9.3116
+  ...
+# Subtest: preview, owner visits, airport and invalid source do not consume advantage
+ok 11 - preview, owner visits, airport and invalid source do not consume advantage
+  ---
+  duration_ms: 1.4439
+  ...
+# Subtest: all cash deltas match bank supplements, dividends and H4 once per rent
+ok 12 - all cash deltas match bank supplements, dividends and H4 once per rent
+  ---
+  duration_ms: 1.9455
+  ...
+# Subtest: expires at fourth-round boundary and never restores on source reacquisition
+ok 13 - expires at fourth-round boundary and never restores on source reacquisition
+  ---
+  duration_ms: 0.4363
+  ...
+# Subtest: AI counts upfront once, delayed principal and future bid liability rather than free action
+ok 14 - AI counts upfront once, delayed principal and future bid liability rather than free action
+  ---
+  duration_ms: 22.1088
+  ...
+# Subtest: AI cannot distinguish hidden bid/dice data and skips near quick seal
+ok 15 - AI cannot distinguish hidden bid/dice data and skips near quick seal
+  ---
+  duration_ms: 7.5613
+  ...
+# Subtest: new explicit version guard and historical v4 order schedule stay separate
+ok 16 - new explicit version guard and historical v4 order schedule stay separate
+  ---
+  duration_ms: 8.1855
+  ...
+# Subtest: real complete boundary closes once and publishes future period without resetting old advantage
+ok 17 - real complete boundary closes once and publishes future period without resetting old advantage
+  ---
+  duration_ms: 5.7103
+  ...
+# Subtest: city source changes terminate both pending bid and order even on return ownership
+ok 18 - city source changes terminate both pending bid and order even on return ownership
+  ---
+  duration_ms: 2.9822
+  ...
+# Subtest: quick sealing cancels unawarded price and unpaid principal, does not reveal secret
+ok 19 - quick sealing cancels unawarded price and unpaid principal, does not reveal secret
+  ---
+  duration_ms: 3.196
+  ...
+# Subtest: private replay restores exact winner and public projection excludes pending private bids
+ok 20 - private replay restores exact winner and public projection excludes pending private bids
+  ---
+  duration_ms: 16.0871
+  ...
+# Subtest: rent final net cash decides rescue and continuing rescue never repeats dividend
+ok 21 - rent final net cash decides rescue and continuing rescue never repeats dividend
+  ---
+  duration_ms: 3.1451
+  ...
+# Subtest: all twenty cities and airport preserve principal, profit and quarter-first schedule
+ok 22 - all twenty cities and airport preserve principal, profit and quarter-first schedule
+  ---
+  duration_ms: 11.5669
+  ...
+# Subtest: new order pays actual two starts once, with principal only in tail and capped news bonus
+ok 23 - new order pays actual two starts once, with principal only in tail and capped news bonus
+  ---
+  duration_ms: 1.5254
+  ...
+# Subtest: cancel after first profit loses outstanding principal; source restoration never revives
+ok 24 - cancel after first profit loses outstanding principal; source restoration never revives
+  ---
+  duration_ms: 1.415
+  ...
+# Subtest: once per lap, one live order, invalid quote readonly and remote build restrictions retained
+ok 25 - once per lap, one live order, invalid quote readonly and remote build restrictions retained
+  ---
+  duration_ms: 0.9387
+  ...
+# Subtest: dual sockets accept immutable hidden bids, reject stale requests, open once, rent and reconnect
+ok 26 - dual sockets accept immutable hidden bids, reject stale requests, open once, rent and reconnect
+  ---
+  duration_ms: 172.1833
+  ...
+# Subtest: missing capability is rejected on new start; bot uses the same authenticated new economy path
+ok 27 - missing capability is rejected on new start; bot uses the same authenticated new economy path
+  ---
+  duration_ms: 50.3554
+  ...
+1..27
+# tests 27
+# suites 0
+# pass 27
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

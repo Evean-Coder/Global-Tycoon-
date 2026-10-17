@@ -6,6 +6,7 @@ const {catalogFor}=require('./gameplayCatalog');
 const routes=require('./opportunityRoutes');
 function snapshot(s,viewerId,clockView){
  const out={};
+ if(require('./managementEconomyRules').enabled(s)){out.managementEconomyRevision=s.managementEconomyRevision;out.competition=require('./commercialCompetition').publicView(s);}
  if(require('./stockInvestment').enabled(s))out.stockInvestmentRevision=s.stockInvestmentRevision;
  for(const k of ['disconnectRevision','businessMissionRevision','worldRevision'])if(s[k])out[k]=s[k];
  out.newsCatalog=require('./gameplayCatalog').catalogForWorld(s);
@@ -49,6 +50,7 @@ function snapshot(s,viewerId,clockView){
  const player=s.players.find(p=>p.id===viewerId);
  if(player){
   out.self={playerId:player.id,actorRevision:s.actorRevision[player.id],opportunities:globalThis.structuredClone(player.opportunities),quotes:{build:{},demolish:{},rent:{},flight:{},redeem:{}},stockWindow:null};
+  if(require('./managementEconomyRules').enabled(s))out.self.competition=require('./commercialCompetition').selfView(s,player.id);
   if(require('./stockInvestment').enabled(s)){out.self.stockInvestment=require('./stockInvestment').viewFor(s,player.id);out.self.stockOffers=require('./stockOffers').view(s,player.id);}
   if(require('./stockInvestment').enabled(s)){out.self.stockOwnershipPreviews={};for(const id of Object.keys(s.stocks)){const extra=(s.stocks[id].holders[player.id]||0)-2;if(extra>0)out.self.stockOwnershipPreviews[id]={shares:extra,bankProceeds:require('./stockInvestment').exit(s,player.id,id,extra),reason:'取得本城后城主最多2股，超额按来源上限90%强制回收'};}}
   if(require('./businessMissions').enabled(s))out.self.businessMission=require('./businessMissions').view(s,player.id);

@@ -1,0 +1,39 @@
+TAP version 13
+# Subtest: roll then management ordering is shared across modes, viewports and stock continuation
+ok 1 - roll then management ordering is shared across modes, viewports and stock continuation
+  ---
+  duration_ms: 7340.8669
+  ...
+# Subtest: 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+ok 2 - 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+  ---
+  duration_ms: 6275.0991
+  ...
+# Subtest: three routes, quarter/tail order and flagship scenarios are readable in four viewports
+ok 3 - three routes, quarter/tail order and flagship scenarios are readable in four viewports
+  ---
+  duration_ms: 4460.3051
+  ...
+# Subtest: negative scenario needs explicit second confirmation; stale quote preserves draft and never auto submits
+ok 4 - negative scenario needs explicit second confirmation; stale quote preserves draft and never auto submits
+  ---
+  duration_ms: 205.9258
+  ...
+# Subtest: no project does not open automatically and cash plan order works through real UI
+ok 5 - no project does not open automatically and cash plan order works through real UI
+  ---
+  duration_ms: 197.261
+  ...
+# Subtest: keyboard, reduced motion and 200 percent equivalent tablet layout preserve reachable controls
+ok 6 - keyboard, reduced motion and 200 percent equivalent tablet layout preserve reachable controls
+  ---
+  duration_ms: 1056.9604
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

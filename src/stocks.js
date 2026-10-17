@@ -139,8 +139,9 @@ function transferCity(s,{cityId,newOwnerId},events){
  else settleCityDividend(s,cityId,'transfer',s.gameId+':transfer:'+s.turnId+':'+cityId,events);
  if(previous&&previous.id!==newOwnerId)previous.cities=previous.cities.filter(id=>id!==cityId);
  if(!p.cities.includes(cityId))p.cities.push(cityId);
+ if(require('./managementEconomyRules').enabled(s)&&c.ownerId!==newOwnerId)c.ownershipEpoch++;
  c.ownerId=newOwnerId;st.clearing=false;enforceOwnerStockCap(s,p,cityId,events);if(require('./stockInvestment').enabled(s))require('./stockInvestment').refresh(s,cityId);refreshWindowCityQuote(s,cityId);
- require('./activeManagement').clean(s);
+ require('./activeManagement').clean(s);require('./commercialCompetition').clean(s,events);
 }
 function clearCityToBank(s,{cityId},events){
  const c=s.cities[cityId],st=s.stocks[cityId];
@@ -156,12 +157,14 @@ function clearCityToBank(s,{cityId},events){
  st.holders={};st.dividendFund=0;st.rentHistory=[];st.roundRent=0;st.clearing=false;st.clearedEpoch=st.listingEpoch;
  require('./activeInvestment').clearListing(s,cityId);
  const previous=s.players.find(p=>p.id===c.ownerId);if(previous)previous.cities=previous.cities.filter(id=>id!==cityId);
+ if(require('./managementEconomyRules').enabled(s)&&c.ownerId)c.ownershipEpoch++;
  Object.assign(c,{ownerId:null,houseLevel:0,buildCosts:[],mortgaged:false,mortgageInterest:0});
- require('./activeManagement').clean(s);
+ require('./activeManagement').clean(s);require('./commercialCompetition').clean(s,events);
  refreshPrice(s,cityId,'停止经营');syncHolders(s);
 }
 function settleFinalEconomy(s,endReason,events){
  if(s.finalSettlementDone)return;
+ require('./commercialCompetition').cancelAll(s,'对局结束',events);
  for(const p of s.players)require('./businessMissions').clear(s,p);
  if(require('./activeManagement').enabled(s)){s.promotions=[];s.promotionReceipts=[];}
  if(require('./managementRules').balanced(s)){for(const order of s.operatingOrders)if(order.paymentsRemaining>0){order.paymentsRemaining=0;order.cancelledReason='对局封盘';}for(const p of s.players)require('./activeInvestment').expireAtGo(s,p);}

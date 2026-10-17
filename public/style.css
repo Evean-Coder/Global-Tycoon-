@@ -914,3 +914,13 @@ body.compact-game #compactTurn #managementStatus{display:block;max-width:none;fo
 body.compact-game #compactTurn:has(#waitBanner:not(.hidden)) #managementStatus{display:none}
 body.compact-game #compactTurn #waitBanner{position:static;left:auto;right:auto;top:auto;padding:0;background:none;border:0;font-size:10px;line-height:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 #compactInfoNotice{font-size:12px;padding:8px;background:#eee2c4;border-left:3px solid #c99c49;margin-bottom:8px}
+
+/* New management routes use one scroll surface, including short landscape screens. */
+#managementBody.management-economy-body{display:block;overflow-y:auto;overflow-x:hidden}
+.management-economy-body .management-city{height:auto;max-height:none;overflow:visible;min-width:0;margin:10px 0;padding:14px}
+.management-economy-body p{line-height:1.55;overflow-wrap:anywhere}
+.management-economy-body .management-types{align-items:stretch}.management-economy-body .management-type{white-space:normal}
+.management-economy-body select{min-height:44px;max-width:100%;font:inherit}
+.competition-scenarios{width:100%;border-collapse:collapse;margin:12px 0;font-variant-numeric:tabular-nums}.competition-scenarios th,.competition-scenarios td{padding:8px 5px;border-bottom:1px solid var(--line);text-align:right}.competition-scenarios th:first-child,.competition-scenarios td:first-child{text-align:left}
+.management-competition-note{background:var(--card2);padding:8px;border-left:3px solid var(--gold-deep)}
+body.landscape-game .management-economy-body .management-city{padding:8px;margin:6px 0}body.landscape-game .management-economy-body p{font-size:12px;margin:6px 0}body.landscape-game .competition-scenarios{font-size:12px}body.landscape-game .management-economy-body h4{font-size:15px;margin:6px 0}

@@ -95,6 +95,10 @@ function choose(v,memory={}) {
       }
       for(const c of active?.available?active.quotes:[])if(c.ok){
         const action={type:c.type,cityId:c.cityId,quoteVersion:c.quoteVersion,...(c.targetKind?{targetKind:c.targetKind}:{}),...(c.shares?{shares:c.shares,listingEpoch:c.listingEpoch}:{})};
+        if(c.type==='active_competition_bid'){
+          for(const amount of [100,200,400,800,1200,2000,3000])if(c.bidTokensByAmount[amount])options.push({kind:'competition',cityId:c.cityId,cashCost:amount,quote:c,action:{...action,periodId:c.periodId,region:c.region,amount,quoteVersion:c.bidTokensByAmount[amount]}});
+          continue;
+        }
         if(c.type==='active_stock_buy'){if(ev.stockAllowed(ctx,c.cityId,c.shares))options.push(stockCandidate(c.cityId,c.shares,c,action));}
         else options.push({kind:c.type==='active_build'?'build':c.type==='active_order'?'order':'promote',cityId:c.cityId,cashCost:c.finalAmount,quote:c,action});
       }

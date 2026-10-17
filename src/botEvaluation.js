@@ -188,7 +188,16 @@ function evaluate(ctx,candidate) {
     }
     case 'order': {
       assetDelta=-cost;
-      for(let step=1;step<=2;step++)if(ctx.horizon>=step){const active=view.world?.active,preview=view.world?.preview,t=step-1,current=t<(active?.remaining||0)?active:t<(active?.remaining||0)+(preview?.remaining||0)?preview:null,rules=require('./worldEvents').effectRules(view),bonus=current?.type==='stable'?Math.min(rules.orderCap,econ.rounded(candidate.quote.paymentEach,rules.orderPercent)):0;expectedIncome+=(candidate.quote.paymentEach+bonus)*CONFIG.discount**step;}
+      for(let step=1;step<=2;step++)if(ctx.horizon>=step){const payment=candidate.quote.scheduledPayments?.[step-1]??candidate.quote.paymentEach,active=view.world?.active,preview=view.world?.preview,t=step-1,current=t<(active?.remaining||0)?active:t<(active?.remaining||0)+(preview?.remaining||0)?preview:null,rules=require('./worldEvents').effectRules(view),bonus=current?.type==='stable'?Math.min(rules.orderCap,econ.rounded(payment,rules.orderPercent)):0;expectedIncome+=(payment+bonus)*CONFIG.discount**step;}
+      break;
+    }
+    case 'competition': {
+      assetDelta=-cost;
+      const left=Math.min(4,Math.max(0,ctx.horizon-1)),sq=view.board.find(sq=>sq.cityId===candidate.cityId),q=candidate.quote;
+      let expectedHits=0;
+      for(const rival of view.players.filter(p=>p.alive&&p.id!==self.id))for(let t=1;t<=Math.ceil(left);t++)expectedHits+=(ctx.forecast[rival.id]?.[t]?.landing[sq.id]||0)*Math.min(1,left-t+1);
+      expectedIncome=Math.min(2,expectedHits)*(q.preview?.increments[1]?.total||0)/2*.75;
+      if(left<1)expectedIncome=0;
       break;
     }
     case 'stock':
@@ -332,7 +341,7 @@ function liquidation(ctx,deficit,includeStocks=true) {
       const amount=econ.mortgageValue(c),after={...view,cities:{...view.cities,[c.id]:{...c,mortgaged:true}}};
       const next={...ctx,view:after,rentCache:new Map()},held=view.stocks[c.id].holders[self.id]||0;
       const stockLoss=held?stockBenefit(ctx,c.id,held).assetDelta-stockBenefit(next,c.id,held).assetDelta:0;
-      const order=view.self.activeManagement?.order,orderLoss=order?.targetKind==='city'&&order.targetId===c.id?order.paymentEach*order.paymentsRemaining:0;
+      const order=view.self.activeManagement?.order,orderLoss=order?.targetKind==='city'&&order.targetId===c.id?(order.scheduledPayments?order.scheduledPayments.slice(order.nextPaymentIndex).reduce((a,b)=>a+b,0):order.paymentEach*order.paymentsRemaining):0;
       options.push({action:{type:'rescue_mortgage',cityId:c.id},amount,loss:cityIncome(ctx,c.id)+amount*.05*ctx.horizon+stockLoss+changedBonusLoss(ctx,after,['H3','H4','H5','H9'])+orderLoss});
     }
     const q=view.self.quotes.demolish[c.id];

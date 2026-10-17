@@ -25,9 +25,11 @@ function quote(s,id,kind,cityId,shares,targetKind){
  if(!q.ok)return q;
  const token=[s.activeManagementRevision,s.turnId,id,kind==='remote_build'?'active_build':kind,cityId,shares,c?.ownerId,c?.houseLevel,c?.mortgaged,st?.quoteVersion,st?.listingEpoch,p.opportunities.usage,s.world.active,s.world.constructionUsedIds,r.usedTurnId,r.promotionStartedLap,r.stockBoughtTotal,r.stockBoughtByCity];
  if(balanced(s))token.push(targetKind,p.cash,p.opportunities.lapEpoch,r.lastRemoteBuildLap,r.lastRemoteBuildCityId,r.lastOrderLap,s.operatingOrders.filter(o=>o.playerId===p.id),s.airports[cityId]?.ownerId,p.activeInvestment);
+ if(q.scheduleRevision)token.push(q.scheduleRevision,q.ownershipEpoch);
  return {...q,...(q.kind==='build'?{rentBefore:econ.rentFor(c),rentAfter:econ.rentFor({...c,houseLevel:c.houseLevel+1})}:{}),quoteVersion:JSON.stringify(token),cashAfter:p.cash-q.finalAmount};
 }
 function apply(s,p,a,events){
+ if(a.type==='active_competition_bid'){require('./commercialCompetition').acceptBid(s,p.id,a,events);return;}
  const q=quote(s,p.id,a.type,a.cityId,a.shares,a.targetKind);
  if(!q.ok||q.quoteVersion!==a.quoteVersion)throw new Error(q.reason||'经营报价已更新，请重新确认');
  const r=writable(p);
@@ -69,6 +71,14 @@ function view(s,id){
   if(!require('./stockInvestment').enabled(s)&&s.cities[cid].ownerId)for(const shares of balanced(s)?[1,2,3,4]:[1,2])quotes.push({type:'active_stock_buy',cityId:cid,shares,...quote(s,id,'active_stock_buy',cid,shares)});
  }
  if(balanced(s))for(const [aid,a]of Object.entries(s.airports))if(a.ownerId===id)quotes.push({type:'active_order',cityId:aid,targetKind:'airport',...quote(s,id,'active_order',aid,undefined,'airport')});
+ if(require('./managementEconomyRules').enabled(s)){
+  const competition=require('./commercialCompetition'),period=s.commercialCompetition.currentPeriod;
+  for(const c of Object.values(s.cities).filter(c=>c.ownerId===id&&period?.publishedRegions.includes(c.continent)&&period.status==='open')){
+   const input={periodId:period.periodId,region:c.continent,cityId:c.id},tokens={};let first=null;
+   for(let amount=100;amount<=3000;amount+=100){const q=competition.quoteBid(s,id,{...input,amount});if(q.ok){tokens[amount]=q.quoteVersion;if(!first)first=q;}}
+   quotes.push({type:'active_competition_bid',...input,...(first||{ok:false,reason:competition.quoteBid(s,id,{...input,amount:100}).reason}),bidTokensByAmount:tokens,...(first?{preview:require('./competitionPreview').previewOwnerCashflow(s,id,c.id)}:{})});
+  }
+ }
  const required=modern(s)&&quotes.some(q=>q.ok),last=p.activeManagement.lastRemoteBuildLap;
  return {optional:optional(s),skippedThisTurn:optional(s)&&p.activeManagement.skippedTurnId===s.turnId,mandatory:modern(s)&&!optional(s),required,available:eligible(s,p),usedThisTurn:p.activeManagement.usedTurnId===s.turnId,reason:optional(s)&&p.activeManagement.skippedTurnId===s.turnId?'本回合已放弃经营':p.activeManagement.usedTurnId===s.turnId?'本回合已完成一项经营':required?(optional(s)?'请执行一项经营，或放弃后掷骰':'请先完成一项经营再掷骰'):eligible(s,p)?'当前所有项目均不可执行，可直接掷骰；详情查看各城市原因':'仅本人正常掷骰前可经营',quota:quota(p),quotes,...(balanced(s)?{balanced:true,remoteBuildLapsRemaining:last===null?0:Math.max(0,last+3-p.opportunities.lapEpoch),lastRemoteBuildCityId:p.activeManagement.lastRemoteBuildCityId,order:s.operatingOrders.find(o=>o.playerId===id)||null,investment:p.activeInvestment}: {})};
 }

@@ -39,6 +39,7 @@
     if(a.mandatory||a.optional)quotaTexts.splice(0,quotaTexts.length,'每正常回合一项','促销同时一个活动','买股一次1–2股，无圈额度');
     if(a.balanced)quotaTexts.splice(0,quotaTexts.length,'每正常回合一项','订单每圈一单、同时一单','主动买股1–4股，免手续费','远程建设：'+(a.remoteBuildLapsRemaining?'还需经过起点'+a.remoteBuildLapsRemaining+'次':'冷却已就绪')+(a.lastRemoteBuildCityId?'；上次'+a.lastRemoteBuildCityId+'不可连续建设':''));
     if(game.stockInvestmentRevision==='stock-investment-v2')for(let i=quotaTexts.length-1;i>=0;i--)if(/买股/.test(quotaTexts[i]))quotaTexts.splice(i,1);
+    if(game.managementEconomyRevision==='management-economy-v1')quotaTexts.push('商业竞争每期/本人圈各一次；暗价轮末开标');
     if(o?.selectedIds?.includes('H1'))quotaTexts.push('本圈远程施工优惠：'+((o.usage?.H1||0)>0?'已使用':'剩余1次')+(a.balanced?'；实付最低150%，一级零减额不耗次数':''));
     return {status,label,canOpen:normal&&!used&&!a.skippedThisTurn,quotaTexts};
   }

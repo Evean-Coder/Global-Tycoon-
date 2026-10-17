@@ -49,5 +49,6 @@ const BY_ID_V2=Object.fromEntries(OPPORTUNITIES_V2.map(o=>[o.id,o]));
 const OPPORTUNITIES_V4=OPPORTUNITIES_V2.map(o=>o.id==='H1'?Object.freeze({...o,description:'每圈首次受惠远程建设减标准建房费15个百分点，优惠合计最多30个百分点、实付最低150%；一级房已在下限时不耗优惠。远程建设成功后需经过起点3次，且不能连续建设同一城市。'}):o);
 const BY_ID_V4=Object.fromEntries(OPPORTUNITIES_V4.map(o=>[o.id,o]));
 const STOCK_INVESTMENT=Object.freeze({revision:'stock-investment-v2',totalShares:10,ownerCap:2,externalCap:4,rentalPercent:20,bankPercent:40,ordinaryExitPercent:90,clearExitPercent:50,playerSaleFeePercent:2,offerSeconds:20,turnLimit:{shares:2,cities:1},goLimit:{shares:4,cities:3,perCity:2}});
+const MANAGEMENT_ECONOMY=Object.freeze({revision:'management-economy-v1',order:{advancePercent:10,minAdvance:1000,maxAdvance:2000,profitPercent:100,firstProfitPercent:25},competition:{minBid:100,maxBid:3000,bidStep:100,surchargePercent:15,surchargeCap:3000,hits:2,rounds:4,periodRounds:4}});
 const catalogFor=s=>require('./managementRules').balanced(s)?BY_ID_V4:require('./managementRules').modern(s)?BY_ID_V2:BY_ID;
-module.exports = { STOCK_INVESTMENT, REGIONS, NEWS, NEWS_V2, catalogForWorld, OPPORTUNITIES, BY_ID, OPPORTUNITIES_V2, BY_ID_V2, OPPORTUNITIES_V4, BY_ID_V4, catalogFor };
+module.exports = { MANAGEMENT_ECONOMY, STOCK_INVESTMENT, REGIONS, NEWS, NEWS_V2, catalogForWorld, OPPORTUNITIES, BY_ID, OPPORTUNITIES_V2, BY_ID_V2, OPPORTUNITIES_V4, BY_ID_V4, catalogFor };

@@ -108,6 +108,11 @@ function createGameState(roomCode, playerNames, ruleVersion = 2, options = {}) {
     startedAt: Date.now(),
   };
   if(ruleVersion===2&&require('./stockInvestment').enabled(options)){state.stockInvestmentRevision=options.stockInvestmentRevision;require('./stockInvestment').initialize(state);}
+  if(options.managementEconomyRevision!==undefined){
+    state.managementEconomyRevision=options.managementEconomyRevision;
+    if(!require('./managementEconomyRules').enabled(state))throw new Error('主动经营新版规则组合无效');
+    require('./commercialCompetition').initialize(state);
+  }
   return state;
 }
 

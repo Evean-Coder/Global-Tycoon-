@@ -1,0 +1,29 @@
+TAP version 13
+# Subtest: three routes, quarter/tail order and flagship scenarios are readable in four viewports
+ok 1 - three routes, quarter/tail order and flagship scenarios are readable in four viewports
+  ---
+  duration_ms: 4624.4103
+  ...
+# Subtest: negative scenario needs explicit second confirmation; stale quote preserves draft and never auto submits
+ok 2 - negative scenario needs explicit second confirmation; stale quote preserves draft and never auto submits # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.1843
+  ...
+# Subtest: no project does not open automatically and cash plan order works through real UI
+ok 3 - no project does not open automatically and cash plan order works through real UI # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.0691
+  ...
+# Subtest: keyboard, reduced motion and 200 percent equivalent tablet layout preserve reachable controls
+ok 4 - keyboard, reduced motion and 200 percent equivalent tablet layout preserve reachable controls # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.0536
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 3
+# todo 0

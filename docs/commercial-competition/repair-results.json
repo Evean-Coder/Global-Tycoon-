@@ -1,0 +1,251 @@
+{
+  "date": "2026-10-17",
+  "scope": "Candidate schedule/eligibility/tie model plus current pure rent quote and stock receipt accounting; no new game implementation, random tie-frequency proof, lifecycle integration, UI or game-balance proof",
+  "fullGames": 0,
+  "checks": 15,
+  "passed": 15,
+  "orders": [
+    {
+      "city": "内罗毕",
+      "advance": 1000,
+      "profit": 1000,
+      "first": 250,
+      "second": 1750,
+      "newsProfit": 1175
+    },
+    {
+      "city": "开普敦",
+      "advance": 1000,
+      "profit": 1000,
+      "first": 250,
+      "second": 1750,
+      "newsProfit": 1175
+    },
+    {
+      "city": "卡萨布兰卡",
+      "advance": 1000,
+      "profit": 1000,
+      "first": 250,
+      "second": 1750,
+      "newsProfit": 1175
+    },
+    {
+      "city": "开罗",
+      "advance": 1000,
+      "profit": 1000,
+      "first": 250,
+      "second": 1750,
+      "newsProfit": 1175
+    },
+    {
+      "city": "奥克兰",
+      "advance": 1000,
+      "profit": 1000,
+      "first": 250,
+      "second": 1750,
+      "newsProfit": 1175
+    },
+    {
+      "city": "悉尼",
+      "advance": 1080,
+      "profit": 1080,
+      "first": 270,
+      "second": 1890,
+      "newsProfit": 1257
+    },
+    {
+      "city": "罗马",
+      "advance": 1200,
+      "profit": 1200,
+      "first": 300,
+      "second": 2100,
+      "newsProfit": 1380
+    },
+    {
+      "city": "阿姆斯特丹",
+      "advance": 1000,
+      "profit": 1000,
+      "first": 250,
+      "second": 1750,
+      "newsProfit": 1175
+    },
+    {
+      "city": "莫斯科",
+      "advance": 1100,
+      "profit": 1100,
+      "first": 275,
+      "second": 1925,
+      "newsProfit": 1278
+    },
+    {
+      "city": "伦敦",
+      "advance": 1400,
+      "profit": 1400,
+      "first": 350,
+      "second": 2450,
+      "newsProfit": 1585
+    },
+    {
+      "city": "巴黎",
+      "advance": 1300,
+      "profit": 1300,
+      "first": 325,
+      "second": 2275,
+      "newsProfit": 1483
+    },
+    {
+      "city": "柏林",
+      "advance": 1500,
+      "profit": 1500,
+      "first": 375,
+      "second": 2625,
+      "newsProfit": 1688
+    },
+    {
+      "city": "纽约",
+      "advance": 1900,
+      "profit": 1900,
+      "first": 475,
+      "second": 3325,
+      "newsProfit": 2098
+    },
+    {
+      "city": "多伦多",
+      "advance": 1400,
+      "profit": 1400,
+      "first": 350,
+      "second": 2450,
+      "newsProfit": 1585
+    },
+    {
+      "city": "墨西哥城",
+      "advance": 1200,
+      "profit": 1200,
+      "first": 300,
+      "second": 2100,
+      "newsProfit": 1380
+    },
+    {
+      "city": "里约热内卢",
+      "advance": 1300,
+      "profit": 1300,
+      "first": 325,
+      "second": 2275,
+      "newsProfit": 1483
+    },
+    {
+      "city": "新加坡",
+      "advance": 1400,
+      "profit": 1400,
+      "first": 350,
+      "second": 2450,
+      "newsProfit": 1585
+    },
+    {
+      "city": "东京",
+      "advance": 1700,
+      "profit": 1700,
+      "first": 425,
+      "second": 2975,
+      "newsProfit": 1893
+    },
+    {
+      "city": "迪拜",
+      "advance": 1500,
+      "profit": 1500,
+      "first": 375,
+      "second": 2625,
+      "newsProfit": 1688
+    },
+    {
+      "city": "上海",
+      "advance": 2000,
+      "profit": 2000,
+      "first": 500,
+      "second": 3500,
+      "newsProfit": 2200
+    },
+    {
+      "city": "机场",
+      "advance": 1500,
+      "profit": 1500,
+      "first": 375,
+      "second": 2625,
+      "newsProfit": 1688
+    }
+  ],
+  "sequentialPreview": {
+    "ownerH4Remaining": 700,
+    "increments": [
+      3280,
+      6480
+    ],
+    "netAfterBid3000": [
+      -3000,
+      280,
+      3480
+    ]
+  },
+  "results": [
+    {
+      "name": "21 targets retain 1000-2000 profit with principal outstanding after first payment",
+      "passed": true
+    },
+    {
+      "name": "Shanghai first 500, tail 3500; cancellation after first leaves minus 1500",
+      "passed": true
+    },
+    {
+      "name": "news bonus recalculated, maximum 2200 rather than old 2300",
+      "passed": true
+    },
+    {
+      "name": "airport split and news round correctly",
+      "passed": true
+    },
+    {
+      "name": "previous winner is eligible alongside challenger",
+      "passed": true
+    },
+    {
+      "name": "two used-lap players cause skipped market, not an empty mandatory window",
+      "passed": true
+    },
+    {
+      "name": "single eligible player is not enough to open a new regional market",
+      "passed": true
+    },
+    {
+      "name": "active advantage ending at bid close permits renewal; later one does not",
+      "passed": true
+    },
+    {
+      "name": "equal price favors challenger, not seat or arrival order",
+      "passed": true
+    },
+    {
+      "name": "higher price wins despite last-winner identity",
+      "passed": true
+    },
+    {
+      "name": "multiple equal-price challengers remain a random pool",
+      "passed": true
+    },
+    {
+      "name": "insufficient cash excluded before comparing price",
+      "passed": true
+    },
+    {
+      "name": "one voluntary valid bidder can win an already-open market",
+      "passed": true
+    },
+    {
+      "name": "sequential H4 allowance yields 3280 then 6480 total, not first-result doubled",
+      "passed": true
+    },
+    {
+      "name": "preview after bid 3000 gives minus3000, plus280, plus3480",
+      "passed": true
+    }
+  ]
+}

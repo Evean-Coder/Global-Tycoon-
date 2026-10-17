@@ -1,0 +1,19 @@
+TAP version 13
+# Subtest: 三端交易、数量/展开/滚动稳定、资产和募资回收金额一致
+ok 1 - 三端交易、数量/展开/滚动稳定、资产和募资回收金额一致
+  ---
+  duration_ms: 4885.5179
+  ...
+# Subtest: 真实玩家议价双向成交，关闭不丢报价且全局决定不改变
+ok 2 - 真实玩家议价双向成交，关闭不丢报价且全局决定不改变
+  ---
+  duration_ms: 499.1224
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

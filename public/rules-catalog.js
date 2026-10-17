@@ -1,6 +1,26 @@
 'use strict';
 // Generated from src/gameplayCatalog.js; run scripts/build-rules-catalog.js.
 window.RULES_CATALOG = {
+  "managementEconomy": {
+    "revision": "management-economy-v1",
+    "order": {
+      "advancePercent": 10,
+      "minAdvance": 1000,
+      "maxAdvance": 2000,
+      "profitPercent": 100,
+      "firstProfitPercent": 25
+    },
+    "competition": {
+      "minBid": 100,
+      "maxBid": 3000,
+      "bidStep": 100,
+      "surchargePercent": 15,
+      "surchargeCap": 3000,
+      "hits": 2,
+      "rounds": 4,
+      "periodRounds": 4
+    }
+  },
   "stockInvestment": {
     "revision": "stock-investment-v2",
     "totalShares": 10,

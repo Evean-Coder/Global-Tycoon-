@@ -1,0 +1,88 @@
+TAP version 13
+# Subtest: 一个真人添加电脑正常/快速开局，电脑自动提交同步机遇，保留隐私
+ok 1 - 一个真人添加电脑正常/快速开局，电脑自动提交同步机遇，保留隐私
+  ---
+  duration_ms: 166.6933
+  ...
+# Subtest: 房主管理容量、非房主拒绝、电脑无法冒名重连、对局中增删拒绝
+ok 2 - 房主管理容量、非房主拒绝、电脑无法冒名重连、对局中增删拒绝
+  ---
+  duration_ms: 18.4492
+  ...
+# Subtest: 电脑落点购买与掷骰推进，重复发布只调度一次，结束取消任务
+ok 3 - 电脑落点购买与掷骰推进，重复发布只调度一次，结束取消任务
+  ---
+  duration_ms: 65.6891
+  ...
+# Subtest: 最后真人掉线停止电脑并记录闲置，重连恢复，房主不会转给电脑
+ok 4 - 最后真人掉线停止电脑并记录闲置，重连恢复，房主不会转给电脑
+  ---
+  duration_ms: 746.3519
+  ...
+# Subtest: 股票成交后正常退出，欠款优先卖股后恢复，不依赖真人按钮
+ok 5 - 股票成交后正常退出，欠款优先卖股后恢复，不依赖真人按钮
+  ---
+  duration_ms: 133.0966
+  ...
+# Subtest: 清理删除房间后电脑没有残留任务
+ok 6 - 清理删除房间后电脑没有残留任务
+  ---
+  duration_ms: 14.8312
+  ...
+# Subtest: 非当前回合电脑回应拍卖与直接出售，过贵股票转让拒绝回到原窗口
+ok 7 - 非当前回合电脑回应拍卖与直接出售，过贵股票转让拒绝回到原窗口
+  ---
+  duration_ms: 211.1259
+  ...
+# Subtest: 普通及快速有限联机轨迹：经营、股票、自救和飞行通过原动作入口
+ok 8 - 普通及快速有限联机轨迹：经营、股票、自救和飞行通过原动作入口
+  ---
+  duration_ms: 618.5451
+  ...
+# Subtest: 服务器给电脑相同公开快速时限，临近封盘放弃可选经营并继续推进
+ok 9 - 服务器给电脑相同公开快速时限，临近封盘放弃可选经营并继续推进
+  ---
+  duration_ms: 108.5883
+  ...
+# Subtest: 后续路线选择使用本人成熟路线并能推进，快速封盘撤销电脑动作
+ok 10 - 后续路线选择使用本人成熟路线并能推进，快速封盘撤销电脑动作
+  ---
+  duration_ms: 72.7826
+  ...
+# Subtest: 真实单人局主动结束、记录电脑身份、重开与旧回调隔离
+ok 11 - 真实单人局主动结束、记录电脑身份、重开与旧回调隔离
+  ---
+  duration_ms: 106.0108
+  ...
+# Subtest: 真实socket完成买入、股息、双向议价和部分回收，幂等与隐私正确
+ok 12 - 真实socket完成买入、股息、双向议价和部分回收，幂等与隐私正确
+  ---
+  duration_ms: 128.4364
+  ...
+# Subtest: 真实动作的四类募资可指定股数卖股；不足不提前完成
+ok 13 - 真实动作的四类募资可指定股数卖股；不足不提前完成
+  ---
+  duration_ms: 3.5476
+  ...
+# Subtest: 真实新局AI使用新股票并在非本人回合回复报价
+not ok 14 - 真实新局AI使用新股票并在非本人回合回复报价
+  ---
+  duration_ms: 3081.0139
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\test\\stock-investment-socket.test.js:25:1'
+  failureType: 'testCodeFailure'
+  error: 'socket state timeout'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    until (C:\Users\Yifan\Desktop\game\test\stock-investment-socket.test.js:8:93)
+    async TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\test\stock-investment-socket.test.js:27:305)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+1..14
+# tests 14
+# suites 0
+# pass 13
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0

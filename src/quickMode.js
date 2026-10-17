@@ -14,6 +14,7 @@ function finalize(s, { reason, elapsedMs, endedAt }) {
   for (const p of s.players) safe(p.cash);
   for (const st of Object.values(s.stocks)) { safe(st.price); safe(st.operatingPrice); safe(st.dividendFund); }
   const events = [], cancelled = [], clearedCityIds = [];
+  require('./commercialCompetition').cancelAll(s,'对局封盘',events);
   if (s.pending) {
     const p = s.pending, item = { phase: s.phase, type: p.type || p.kind || s.phase, reason };
     for (const key of ['playerId', 'targetId', 'fromId', 'cityId', 'airportId']) if (p[key] !== undefined) item[key] = p[key];

@@ -1,0 +1,59 @@
+{
+  "date": "2026-10-16",
+  "status": "candidate design arithmetic only",
+  "checks": 12,
+  "passed": 12,
+  "distributionCases": 25,
+  "fullGames": 0,
+  "excluded": "No auction engine, bidding strategies, actual visit probability, H4, individual discounts, UI, Socket, or win-rate proof",
+  "results": [
+    {
+      "name": "zero rent provides no surcharge",
+      "passed": true
+    },
+    {
+      "name": "undeveloped Nairobi surcharge is 270",
+      "passed": true
+    },
+    {
+      "name": "level-two Cairo surcharge is 1350",
+      "passed": true
+    },
+    {
+      "name": "level-four Shanghai is capped at 3000",
+      "passed": true
+    },
+    {
+      "name": "boom plus campaign gives 42000 before individual reductions",
+      "passed": true
+    },
+    {
+      "name": "quarter rounding matches existing half-up integer rule",
+      "passed": true
+    },
+    {
+      "name": "surcharge is not recursively increased",
+      "passed": true
+    },
+    {
+      "name": "three surcharges total no more than 9000",
+      "passed": true
+    },
+    {
+      "name": "Cairo two collections, fully external-issued shares, bid 1200 yield 960 owner profit",
+      "passed": true
+    },
+    {
+      "name": "Cairo each share receives 27 extra rental and 54 extra bank cash",
+      "passed": true
+    },
+    {
+      "name": "owner-share bank rewards must not be mislabeled as campaign cash guarantees",
+      "passed": true
+    },
+    {
+      "name": "25 fixed rent and stock issuance combinations conserve rental cash",
+      "passed": true
+    }
+  ]
+}

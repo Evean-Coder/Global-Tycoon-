@@ -1,0 +1,24 @@
+TAP version 13
+# Subtest: three routes, quarter/tail order and flagship scenarios are readable in four viewports
+ok 1 - three routes, quarter/tail order and flagship scenarios are readable in four viewports
+  ---
+  duration_ms: 4078.7144
+  ...
+# Subtest: negative scenario needs explicit second confirmation; stale quote preserves draft and never auto submits
+ok 2 - negative scenario needs explicit second confirmation; stale quote preserves draft and never auto submits
+  ---
+  duration_ms: 198.1447
+  ...
+# Subtest: no project does not open automatically and cash plan order works through real UI
+ok 3 - no project does not open automatically and cash plan order works through real UI
+  ---
+  duration_ms: 191.7634
+  ...
+1..3
+# tests 3
+# suites 0
+# pass 3
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

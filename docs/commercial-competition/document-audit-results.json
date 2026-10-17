@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-17",
+  "scope": "Documentation structure only; runtime evidence is recorded separately in acceptance.md",
+  "passed": 4,
+  "checks": [
+    {
+      "name": "15 functional requirements and 21 acceptance criteria are distinct",
+      "passed": true
+    },
+    {
+      "name": "32 tasks contain files, dependencies, steps and verification",
+      "passed": true
+    },
+    {
+      "name": "54 observations cover all 21 acceptance criteria",
+      "passed": true
+    },
+    {
+      "name": "formal documents have no placeholders or broken local Markdown links",
+      "passed": true
+    }
+  ],
+  "requirements": 15,
+  "acceptanceCriteria": 21,
+  "tasks": 32,
+  "checkedObservations": 53,
+  "uncheckedObservations": 1,
+  "fullGames": 0
+}

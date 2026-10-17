@@ -92,6 +92,12 @@ function computeStats(state, events) {
       if(require('./managementRules').balanced(state)){
         stats.economy.orderCosts=events.filter(e=>e.kind==='order_started').reduce((sum,e)=>sum+e.amount,0);
         stats.economy.orderPayments=events.filter(e=>e.kind==='order_payment').reduce((sum,e)=>sum+e.amount,0);
+        if(require('./managementEconomyRules').enabled(state)){
+          stats.economy.orderPrincipalReturned=events.filter(e=>e.kind==='order_payment').reduce((n,e)=>n+(e.principal||0),0);
+          stats.economy.orderProfits=events.filter(e=>e.kind==='order_payment').reduce((n,e)=>n+(e.profit||0),0);
+          stats.economy.competitionCosts=events.filter(e=>e.kind==='competition_period_closed').reduce((n,e)=>n+(e.winner?.amount||0),0);
+          stats.economy.competitionSurcharges=events.filter(e=>e.kind==='city_rent').reduce((n,e)=>n+(e.competition?.surcharge||0),0);
+        }
         stats.economy.activeInvestmentRewards=events.filter(e=>e.kind==='active_investment_reward').reduce((sum,e)=>sum+e.amount,0);
       }
     }
@@ -114,7 +120,7 @@ function buildGameRecord(room, endReason) {
     ...(st.economyRevision?{economyRevision:st.economyRevision,travelExpense:require('./travelExpense').stage(st)}:{}),
     // This record is broadcast to all players. Private eligibility and quota
     // state stays in the authoritative state/checkpoint, not the public replay.
-    ...Object.fromEntries(['stockInvestmentRevision','disconnectRevision','businessMissionRevision','worldRevision'].filter(k=>st[k]).map(k=>[k,st[k]])),
+    ...Object.fromEntries(['managementEconomyRevision','stockInvestmentRevision','disconnectRevision','businessMissionRevision','worldRevision'].filter(k=>st[k]).map(k=>[k,st[k]])),
     ...(st.propertySupportRevision?{propertySupportRevision:st.propertySupportRevision}:{}),
     ...(st.activeManagementRevision?{activeManagementRevision:st.activeManagementRevision,promotions:st.promotions.map(a=>({playerId:a.playerId,cityId:a.cityId,reward:a.reward,remainingRewards:a.remainingRewards,expiresAfterCompleteRound:a.expiresAfterCompleteRound}))}:{}),
     roomCode: room.code,

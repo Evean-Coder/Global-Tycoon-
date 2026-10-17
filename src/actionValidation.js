@@ -86,6 +86,7 @@ function phaseAllows(state, type) {
     support_buy: ['waiting_roll'],
     active_promote: ['waiting_roll'],
     active_order: ['waiting_roll'],
+    active_competition_bid: ['waiting_roll'],
     active_stock_buy: ['waiting_roll'],
     active_build: ['waiting_roll'],
     opportunity_choose: ['opportunity_choose'],
@@ -233,6 +234,11 @@ function normalizeAction(state, raw, context = {}) {
   }
   if (type === 'stock_transfer') return validateTransfer(state, player, raw);
   if(type==='active_skip'){const v=require('./activeManagement').view(state,player.id);if(!v?.optional||!v.available)return fail('当前不能放弃经营');return success({type},player.id);}
+  if(type==='active_competition_bid'){
+    const q=require('./commercialCompetition').quoteBid(state,player.id,raw);
+    if(!q.ok||raw.quoteVersion!==q.quoteVersion)return fail(q.reason||'竞争报价已更新，请再次确认');
+    return success({type,periodId:q.periodId,region:q.region,cityId:q.cityId,amount:q.amount,quoteVersion:q.quoteVersion},player.id);
+  }
   if(['active_order','active_promote','active_stock_buy','active_build'].includes(type)||(type==='remote_build'&&require('./activeManagement').enabled(state))){
     const q=require('./activeManagement').quote(state,player.id,type,raw.cityId,raw.shares,raw.targetKind);
     if(!q.ok||raw.quoteVersion!==q.quoteVersion||(type==='active_stock_buy'&&raw.listingEpoch!==q.listingEpoch))return fail(q.reason||'经营报价已更新，请重新确认');

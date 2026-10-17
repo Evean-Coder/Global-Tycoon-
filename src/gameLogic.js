@@ -147,6 +147,7 @@ function sharesOf(state, playerId, cityId) {
 // ---------- 回合推进 ----------
 
 function finishGame(state, events) {
+  require('./commercialCompetition').cancelAll(state,'对局结束',events);
   if (quickEnabled(state)) {
     state.quickEndIntent = 'normal';
     state.status = 'over'; state.phase = 'game_over'; state.pending = null;
@@ -162,10 +163,13 @@ function finishGame(state, events) {
 }
 
 function completeRoundBoundary(state, events, rng) {
+  if(state.status!=='playing')return false;
   if (!modern(state) || !roundFlow.isComplete(state)) return false;
   const roundId = state.roundFlow.index;
   if (state.roundFlow.boundaryId === roundId) return false;
   state.roundFlow.boundaryId = roundId;
+  require('./commercialCompetition').expireAtBoundary(state,roundId,events);
+  require('./commercialCompetition').commitClose(state,require('./commercialCompetition').planClose(state,roundId,rng),events);
   stocks.updateOperatingQuotes(state, roundId, events);
   const wasWaiting = state.world.status === 'waiting';
   worldEvents.advanceWorld(state, rng, events);
@@ -176,6 +180,7 @@ function completeRoundBoundary(state, events, rng) {
     else if (state.world.roundsCompleted >= 6 && (state.opportunityStage?.ordinal || 0) < 3) stage = 3;
   }
   roundFlow.startRound(state);
+  require('./commercialCompetition').publishAtRoundStart(state,state.roundFlow.index,events);
   if (stage) {
     opportunities.beginOpportunityStage(state, stage, { kind: 'prepare_turn' }, rng);
     return true;
@@ -637,7 +642,7 @@ function bankrupt(state, player, events, rng) {
       if (modern(state)) state.stocks[cityId].clearing = true;
     }
   }
-  for (const airportId of player.airports) state.airports[airportId].ownerId = null;
+  for (const airportId of player.airports) {state.airports[airportId].ownerId = null;if(require('./managementEconomyRules').enabled(state))state.airports[airportId].ownershipEpoch++;}
   player.airports = [];
   for (const cityId of Object.keys(player.stocks)) {
     state.stocks[cityId].holders[player.id] = 0;
@@ -676,7 +681,7 @@ function surrenderLiquidation(state, player, events, rng) {
     log(events, `城市 ${cityLabel(state, cityId)} 归银行（房屋拆除）`);
   }
   player.cities = [];
-  for (const airportId of player.airports) state.airports[airportId].ownerId = null;
+  for (const airportId of player.airports) {state.airports[airportId].ownerId = null;if(require('./managementEconomyRules').enabled(state))state.airports[airportId].ownershipEpoch++;}
   player.airports = [];
   for (const cityId of Object.keys(player.stocks)) state.stocks[cityId].holders[player.id] = 0;
   require('./activeInvestment').expireAtGo(state,player);
@@ -916,6 +921,7 @@ function applyCore(state, action, rng, context = {}) {
       require('./activeManagement').skip(state,p,events);break;
     case 'active_promote':
     case 'active_order':
+    case 'active_competition_bid':
     case 'active_stock_buy':
     case 'active_build':
       require('./activeManagement').apply(state,p,action,events);
@@ -1055,7 +1061,7 @@ function apply(state, action, rng, context = {}) {
   routeTimes.set(state, context.timeContext);
   try {
     const result = applyCore(state, action, rng, context);
-    if(!result.rejected){require('./operatingOrders').clean(state,result.events);require('./activeManagement').clean(state);require('./activeManagement').resolveReceipts(state,result.events);}
+    if(!result.rejected){require('./operatingOrders').clean(state,result.events);require('./commercialCompetition').clean(state,result.events);require('./activeManagement').clean(state);require('./activeManagement').resolveReceipts(state,result.events);}
     if (!result.rejected && routes.enabled(state)) {
       for (const p of state.players.filter(p => !p.alive)) result.events.push(...routes.cancelRoutes(state, p.id, action.type === 'surrender' ? 'surrender' : 'eliminated').events);
       safeRouteChoice(state, rng);
@@ -1197,6 +1203,7 @@ function buyAirportAction(state, p, action, events, rng) {
     }
     p.cash -= AIRPORT_PRICE;
     state.airports[pend.airportId].ownerId = p.id;
+    if(require('./managementEconomyRules').enabled(state))state.airports[pend.airportId].ownershipEpoch++;
     p.airports.push(pend.airportId);
     log(events, `${p.name} 购买机场「${pend.airportId}」（${AIRPORT_PRICE}）`, 'airport');
     if (p.cash < 0) startSelfRescue(state, p, -p.cash, events, `购买机场`, {airportId:pend.airportId,amount:AIRPORT_PRICE});
@@ -1332,6 +1339,7 @@ function buyFundraise(state, p, action, events, rng) {
       if (airport.ownerId) { endTurn(state, events, rng); return; }
       p.cash -= AIRPORT_PRICE;
       airport.ownerId = p.id;
+      if(require('./managementEconomyRules').enabled(state))airport.ownershipEpoch++;
       p.airports.push(target.airportId);
       log(events, `${p.name} 募资完成，购买机场「${target.airportId}」（${AIRPORT_PRICE}）`, 'airport');
     }

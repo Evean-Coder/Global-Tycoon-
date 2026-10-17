@@ -1,0 +1,174 @@
+TAP version 13
+# Subtest: publication waits first-lap unlock, needs two basic candidates and follows four-round cadence
+ok 1 - publication waits first-lap unlock, needs two basic candidates and follows four-round cadence
+  ---
+  duration_ms: 6.6481
+  ...
+# Subtest: new qualifying player can join fixed published region; natural single bid can win
+ok 2 - new qualifying player can join fixed published region; natural single bid can win
+  ---
+  duration_ms: 2.2379
+  ...
+# Subtest: bid range, ownership, special phases and readonly invalid failure
+ok 3 - bid range, ownership, special phases and readonly invalid failure
+  ---
+  duration_ms: 2.5099
+  ...
+# Subtest: accepted bid consumes turn and original lap but debits only on open, no mutable rebid
+ok 4 - accepted bid consumes turn and original lap but debits only on open, no mutable rebid
+  ---
+  duration_ms: 4.1111
+  ...
+# Subtest: same price challenges previous winner, higher price wins and invalid top falls back
+ok 5 - same price challenges previous winner, higher price wins and invalid top falls back
+  ---
+  duration_ms: 1.6297
+  ...
+# Subtest: uniform tied challenger pool and persistent winner through failed period
+ok 6 - uniform tied challenger pool and persistent winner through failed period
+  ---
+  duration_ms: 1.7698
+  ...
+# Subtest: public/private snapshots and accepted events never expose pending amount or flagship
+ok 7 - public/private snapshots and accepted events never expose pending amount or flagship
+  ---
+  duration_ms: 4.6339
+  ...
+# Subtest: H4 sequential paired branches produce 3280 then 6480 with no mutation
+ok 8 - H4 sequential paired branches produce 3280 then 6480 with no mutation
+  ---
+  duration_ms: 11.9062
+  ...
+# Subtest: owner with no issued shares retains full surcharge; tenant concessions do not change owner preview
+ok 9 - owner with no issued shares retains full surcharge; tenant concessions do not change owner preview
+  ---
+  duration_ms: 2.4181
+  ...
+# Subtest: base fifteen percent additive to world, capped, two settlements and stale plan rejected
+ok 10 - base fifteen percent additive to world, capped, two settlements and stale plan rejected
+  ---
+  duration_ms: 10.0487
+  ...
+# Subtest: preview, owner visits, airport and invalid source do not consume advantage
+ok 11 - preview, owner visits, airport and invalid source do not consume advantage
+  ---
+  duration_ms: 1.3833
+  ...
+# Subtest: all cash deltas match bank supplements, dividends and H4 once per rent
+ok 12 - all cash deltas match bank supplements, dividends and H4 once per rent
+  ---
+  duration_ms: 1.8334
+  ...
+# Subtest: expires at fourth-round boundary and never restores on source reacquisition
+ok 13 - expires at fourth-round boundary and never restores on source reacquisition
+  ---
+  duration_ms: 0.457
+  ...
+# Subtest: fully issued stock rent and bank flows stay conserved with owner and external shareholders
+ok 14 - fully issued stock rent and bank flows stay conserved with owner and external shareholders
+  ---
+  duration_ms: 0.7336
+  ...
+# Subtest: AI counts upfront once, delayed principal and future bid liability rather than free action
+ok 15 - AI counts upfront once, delayed principal and future bid liability rather than free action
+  ---
+  duration_ms: 24.2243
+  ...
+# Subtest: AI cannot distinguish hidden bid/dice data and skips near quick seal
+ok 16 - AI cannot distinguish hidden bid/dice data and skips near quick seal
+  ---
+  duration_ms: 6.3094
+  ...
+# Subtest: changing only another seat secret bid cannot change the same own decision
+ok 17 - changing only another seat secret bid cannot change the same own decision
+  ---
+  duration_ms: 8.5587
+  ...
+# Subtest: new explicit version guard and historical v4 order schedule stay separate
+ok 18 - new explicit version guard and historical v4 order schedule stay separate
+  ---
+  duration_ms: 6.5096
+  ...
+# Subtest: real complete boundary closes once and publishes future period without resetting old advantage
+ok 19 - real complete boundary closes once and publishes future period without resetting old advantage
+  ---
+  duration_ms: 4.3009
+  ...
+# Subtest: city source changes terminate both pending bid and order even on return ownership
+ok 20 - city source changes terminate both pending bid and order even on return ownership
+  ---
+  duration_ms: 2.2726
+  ...
+# Subtest: quick sealing cancels unawarded price and unpaid principal, does not reveal secret
+ok 21 - quick sealing cancels unawarded price and unpaid principal, does not reveal secret
+  ---
+  duration_ms: 2.2458
+  ...
+# Subtest: private replay restores exact winner and public projection excludes pending private bids
+ok 22 - private replay restores exact winner and public projection excludes pending private bids
+  ---
+  duration_ms: 17.6853
+  ...
+# Subtest: rent final net cash decides rescue and continuing rescue never repeats dividend
+ok 23 - rent final net cash decides rescue and continuing rescue never repeats dividend
+  ---
+  duration_ms: 3.7973
+  ...
+# Subtest: pending and advantage capacity gate publication; ordinary improvements never reset hits
+ok 24 - pending and advantage capacity gate publication; ordinary improvements never reset hits
+  ---
+  duration_ms: 0.6748
+  ...
+# Subtest: new order pays correctly through actual frozen and skipped-jail prepare continuations
+ok 25 - new order pays correctly through actual frozen and skipped-jail prepare continuations
+  ---
+  duration_ms: 1.017
+  ...
+# Subtest: ordinary end removes active license and unpaid order without refund; public record hides unawarded bids
+ok 26 - ordinary end removes active license and unpaid order without refund; public record hides unawarded bids
+  ---
+  duration_ms: 2.0096
+  ...
+# Subtest: all twenty cities and airport preserve principal, profit and quarter-first schedule
+ok 27 - all twenty cities and airport preserve principal, profit and quarter-first schedule
+  ---
+  duration_ms: 12.0462
+  ...
+# Subtest: new order pays actual two starts once, with principal only in tail and capped news bonus
+ok 28 - new order pays actual two starts once, with principal only in tail and capped news bonus
+  ---
+  duration_ms: 1.8204
+  ...
+# Subtest: cancel after first profit loses outstanding principal; source restoration never revives
+ok 29 - cancel after first profit loses outstanding principal; source restoration never revives
+  ---
+  duration_ms: 1.371
+  ...
+# Subtest: once per lap, one live order, invalid quote readonly and remote build restrictions retained
+ok 30 - once per lap, one live order, invalid quote readonly and remote build restrictions retained
+  ---
+  duration_ms: 0.9128
+  ...
+# Subtest: dual sockets accept immutable hidden bids, reject stale requests, open once, rent and reconnect
+ok 31 - dual sockets accept immutable hidden bids, reject stale requests, open once, rent and reconnect
+  ---
+  duration_ms: 212.0078
+  ...
+# Subtest: missing capability is rejected on new start; bot uses the same authenticated new economy path
+ok 32 - missing capability is rejected on new start; bot uses the same authenticated new economy path
+  ---
+  duration_ms: 49.1544
+  ...
+# Subtest: quick cutoff before or across the closing action discards the uncommitted winning debit
+ok 33 - quick cutoff before or across the closing action discards the uncommitted winning debit
+  ---
+  duration_ms: 104.361
+  ...
+1..33
+# tests 33
+# suites 0
+# pass 33
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

@@ -27,7 +27,7 @@ const BOT_AUTH = Symbol('internal-bot');
 
 const PORT = process.env.PORT || 3000;
 // 2026-10-05有限对照及投资压力审查通过，仅新局启用；旧局不迁移。
-const NEW_GAME_ECONOMY = { stockInvestmentRevision:stockInvestment.REVISION, disconnectRevision:disconnectPolicy.REVISION, businessMissionRevision:require('./src/businessMissions').REVISION, worldRevision:require('./src/worldEvents').REVISION, economyRevision: 'travel-expense-v1', routeRevision: routes.REVISION, gameMode: 'normal', propertySupportRevision:require('./src/propertySupport').REVISION, activeManagementRevision:require('./src/activeManagement').REVISION };
+const NEW_GAME_ECONOMY = { managementEconomyRevision:require('./src/managementEconomyRules').REVISION, stockInvestmentRevision:stockInvestment.REVISION, disconnectRevision:disconnectPolicy.REVISION, businessMissionRevision:require('./src/businessMissions').REVISION, worldRevision:require('./src/worldEvents').REVISION, economyRevision: 'travel-expense-v1', routeRevision: routes.REVISION, gameMode: 'normal', propertySupportRevision:require('./src/propertySupport').REVISION, activeManagementRevision:require('./src/activeManagement').REVISION };
 const HOST_TRANSFER_MS = 10 * 60 * 1000;
 const LOBBY_IDLE_MS = 10 * 60 * 1000; // 大厅（未开局）空房保留时限
 const GAME_IDLE_MS = 30 * 60 * 1000; // 对局中/已结束房间无人保留时限
@@ -312,6 +312,7 @@ function appendEvents(room, events) {
 function assertEconomy(state) {
   if(state.ruleVersion!==2)return;
   stockInvestment.assert(state);
+  require('./src/commercialCompetition').assert(state);
   for(const p of state.players){safe(p.cash);for(const n of Object.values(p.opportunities.usage))if(!Number.isSafeInteger(n)||n<0)throw new Error('机遇额度无效');}
   for(const c of Object.values(state.cities)){
     if(!Number.isSafeInteger(c.houseLevel)||c.houseLevel<0||c.houseLevel>4)throw new Error('房屋等级无效');
@@ -388,7 +389,7 @@ function runBotDecision(room,id){
   if(!action){memory.blockedKey=room.state.gameId+'|'+room.actionClock.decisionId+'|'+id+'|'+room.state.actorRevision[id]+(stockInvestment.enabled(room.state)?'|'+room.state.revision:'');room.botMemory.set(id,memory);return;}
   memory.steps++;room.botMemory.set(id,memory);
   const envelope={...action,gameId:view.gameId,actionId:'bot:'+id+':'+view.revision+':'+memory.steps,decisionId:view.decision.decisionId,actorRevision:view.self.actorRevision};
-  const internalSocket={[BOT_AUTH]:id,handshake:{auth:{clientRouteRevision:routes.REVISION,clientQuickRevision:quick.REVISION,stockInvestmentProtocol:2}},emit(){}};
+  const internalSocket={[BOT_AUTH]:id,handshake:{auth:{clientRouteRevision:routes.REVISION,clientQuickRevision:quick.REVISION,stockInvestmentProtocol:2,managementEconomyProtocol:1}},emit(){}};
   const result=runAction(room,internalSocket,envelope);
   if(result.ok){
     memory.failures=0;
@@ -417,6 +418,7 @@ function runAction(room, socket, rawAction, source = 'player', offlineActorId = 
     if(routes.enabled(room.state) && socket.handshake?.auth?.clientRouteRevision !== routes.REVISION)return {ok:false,code:'UPDATE',error:'页面版本过旧，请刷新后重新连接'};
     if(quick.enabled(room.state) && socket.handshake?.auth?.clientQuickRevision !== quick.REVISION)return {ok:false,code:'UPDATE',error:'页面版本过旧，请刷新后重新连接'};
     if(stockInvestment.enabled(room.state)&&socket.handshake?.auth?.stockInvestmentProtocol!==2)return {ok:false,code:'UPDATE',error:'股票规则已升级，请更新页面后重连'};
+    if(require('./src/managementEconomyRules').enabled(room.state)&&socket.handshake?.auth?.managementEconomyProtocol!==1)return {ok:false,code:'UPDATE',error:'经营规则已升级，请更新页面后重连'};
   }
   let timeContext;
   try {
@@ -444,7 +446,7 @@ function runAction(room, socket, rawAction, source = 'player', offlineActorId = 
   const normalized = normalizeAction(room.state, rawAction, {actorId:authenticated?.id||offlineActorId,source,timeContext,stockTime});
   if (!normalized.ok) {
     if (socket) socket.emit('error', { message: normalized.error });
-    if(source==='player'&&['active_order','active_promote','active_stock_buy','active_build','remote_build'].includes(rawAction.type))emitGame(room);
+    if(source==='player'&&['active_competition_bid','active_order','active_promote','active_stock_buy','active_build','remote_build'].includes(rawAction.type))emitGame(room);
     return { ok: false, error: normalized.error };
   }
   const allowedId = normalized.actorId;
@@ -636,6 +638,7 @@ io.on('connection', (socket) => {
     if(room.players.filter(p=>p.kind!=='bot').some(p=>!p.connected || io.sockets.sockets.get(p.socketId)?.handshake.auth?.clientRouteRevision !== routes.REVISION))return cb && cb({ok:false,error:'请所有玩家刷新页面并连接后再开始'});
     if(mode==='quick' && room.players.filter(p=>p.kind!=='bot').some(p=>io.sockets.sockets.get(p.socketId)?.handshake.auth?.clientQuickRevision !== quick.REVISION))return cb && cb({ok:false,error:'快速模式需要所有玩家刷新页面后再开始'});
     if(room.players.filter(p=>p.kind!=='bot').some(p=>io.sockets.sockets.get(p.socketId)?.handshake.auth?.stockInvestmentProtocol!==2))return cb&&cb({ok:false,error:'股票规则已升级，请所有玩家更新页面后再开始'});
+    if(room.players.filter(p=>p.kind!=='bot').some(p=>io.sockets.sockets.get(p.socketId)?.handshake.auth?.managementEconomyProtocol!==1))return cb&&cb({ok:false,error:'经营规则已升级，请所有玩家更新页面后再开始'});
     const startedAt = Date.now();
     const candidate = createGameState(room.code, room.players.map(p=>p.name), 2, {...NEW_GAME_ECONOMY,gameMode:mode,...(mode==='quick'?{quickRevision:quick.REVISION,startedAt}:{})});
     let clock = null;

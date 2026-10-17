@@ -71,6 +71,8 @@ function rentAmounts(s,{playerId,cityId,baseAmount}){
   const world=require('./worldEvents').effectRules(s);
   const delta=Math.min(world.rentCap,rounded(base,world.rentPercent))*(active.type==='boom'?1:-1);income+=delta;effects.push({id:active.type,name:active.name,amount:delta});
  }
+ const competition=require('./commercialCompetition').planRent(s,{cityId,tenantId:playerId,baseRent:base});
+ if(competition){income=safe(income+competition.surcharge);effects.push({id:'commercial_competition',name:'客源优势',amount:competition.surcharge});}
  let amount=income;
  if(amount>0&&c.ownerId!==p.id&&opp.has(p,'H6')&&(s.stocks[cityId].holders[p.id]||0)>0){
   const cut=Math.min(modern(s)?2000:1000,Math.max(0,(modern(s)?4000:2000)-opp.used(p,'H6')),rounded(amount,modern(s)?25:10));
@@ -81,6 +83,8 @@ function rentAmounts(s,{playerId,cityId,baseAmount}){
   if(cut){amount-=cut;effects.push(discount('H11','风险准备金',cut,cut));quotaChanges.push({id:'H11',amount:1});}
  }
  const q=plan(s,p,'city_rent',cityId,base,amount,effects,quotaChanges);
+ if(competition)q.competition=competition;
+ if(require('./managementEconomyRules').enabled(s))q.guards.settlementSeq=s.settlementSeq||0;
  const fund=rounded(income,20);q.income=income;q.bankSupplement=income-amount;q.roundRent=income;
  if(require('./stockInvestment').enabled(s))require('./stockInvestment').rentPlan(s,q);
  else{q.cashDeltas[c.ownerId]=(q.cashDeltas[c.ownerId]||0)+income-fund;q.fundDeltas[cityId]=fund;}
@@ -108,6 +112,8 @@ function quoteFlight(s,{playerId,target,fromAirportId,free=false}){
 }
 function applySettlement(s,q,events){
  if(!q.ok||q.guards.revision!==s.revision)throw new Error(q.reason||'报价已失效，请重新确认');
+ if(q.competition)require('./commercialCompetition').validateRent(s,q.competition);
+ if(require('./managementEconomyRules').enabled(s)&&q.kind==='city_rent'&&q.guards.settlementSeq!==(s.settlementSeq||0))throw new Error('本次租金计划已失效或已结算');
  for(const [id,delta]of Object.entries(q.cashDeltas))safe(getPlayer(s,id).cash+delta);
  for(const [id,delta]of Object.entries(q.fundDeltas))safe(s.stocks[id].dividendFund+delta);
  for(const [id,delta]of Object.entries(q.cashDeltas))getPlayer(s,id).cash+=delta;
@@ -120,11 +126,12 @@ function applySettlement(s,q,events){
  }
  if(q.roundRent!==undefined)s.stocks[q.cityId].roundRent+=q.roundRent;
  s.settlementSeq=(s.settlementSeq||0)+1;
+ if(q.competition)require('./commercialCompetition').commitRent(s,q.competition,s.gameId+':money:'+s.settlementSeq);
  const label={build:'建房',demolish:'拆房返还',city_rent:'城市租金',flight:'机票'};
  let text=p.name+' '+label[q.kind]+' '+Math.abs(q.finalAmount)+(q.effects.length?'（'+q.effects.map(e=>e.name+' '+e.amount).join('，')+'）':'');
  if(q.kind==='city_rent'){const owner=getPlayer(s,s.cities[q.cityId].ownerId);text=p.name+' 向 '+owner.name+' 支付 '+q.cityId+' 租金：标准 '+q.baseAmount+'，资讯后 '+q.income+'，实际支付 '+q.finalAmount+'，银行补足 '+q.bankSupplement+'，城主现金 '+(q.income-q.fundDeltas[q.cityId])+'，待分红 '+q.fundDeltas[q.cityId]+(q.effects.length?'（'+q.effects.map(e=>e.name+' '+e.amount).join('，')+'）':'');}
  if(q.stockDividends){text=p.name+' 支付 '+q.cityId+' 租金 '+q.finalAmount+'，经营收入 '+q.income+'，城主租金留存 '+q.ownerRentalIncome+'，股息即时到账';require('./stockInvestment').rentCommit(s,q,events,s.gameId+':money:'+s.settlementSeq);}
- events.push({type:q.kind==='city_rent'?'rent':q.kind,kind:q.kind,settlementId:s.gameId+':money:'+s.settlementSeq,playerId:p.id,cityId:q.cityId,baseAmount:q.baseAmount,finalAmount:q.finalAmount,effects:q.effects,bankSupplement:q.bankSupplement||0,cashDeltas:{...q.cashDeltas},fundDeltas:{...q.fundDeltas},text});
+ events.push({type:q.kind==='city_rent'?'rent':q.kind,kind:q.kind,settlementId:s.gameId+':money:'+s.settlementSeq,playerId:p.id,cityId:q.cityId,baseAmount:q.baseAmount,finalAmount:q.finalAmount,effects:q.effects,bankSupplement:q.bankSupplement||0,...(q.competition?{competition:{...q.competition}}:{}),cashDeltas:{...q.cashDeltas},fundDeltas:{...q.fundDeltas},text});
  require('./businessMissions').observe(s,p,q,events);
  if(q.kind==='city_rent')require('./activeManagement').rentCompleted(s,q,s.gameId+':money:'+s.settlementSeq,events);
  if(require('./stockInvestment').enabled(s))require('./stockInvestment').refreshAll(s);

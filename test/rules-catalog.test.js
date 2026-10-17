@@ -13,8 +13,9 @@ test('公开规则资料准确、确定性生成且检查不写入', () => {
   assert.deepEqual(catalog.opportunities, source.OPPORTUNITIES_V4);
   assert.deepEqual(catalog.news, source.NEWS_V2);
   assert.deepEqual(catalog.stockInvestment,source.STOCK_INVESTMENT);
+  assert.deepEqual(catalog.managementEconomy, source.MANAGEMENT_ECONOMY);
   assert.equal(catalog.opportunities.length, 12);
-  assert.deepEqual(Object.keys(catalog).sort(), ['news', 'opportunities', 'regions', 'stockInvestment']);
+  assert.deepEqual(Object.keys(catalog).sort(), ['managementEconomy', 'news', 'opportunities', 'regions', 'stockInvestment']);
   assert.equal(build(true), true);
   assert.equal(fs.readFileSync(file, 'utf8'), before);
   try {

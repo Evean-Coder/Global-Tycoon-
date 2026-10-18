@@ -66,7 +66,7 @@ function commitClose(s,plan,events=[]){
    publicBids.push(entry.reason?{playerId:b.playerId,reason:entry.reason}:{playerId:b.playerId,cityId:b.cityId,amount:b.amount,status:b.status});
    if(b.status==='won'){const owner=player(s,b.playerId);owner.cash-=b.amount;cc.lastWinnerByRegion[b.region]=b.playerId;winning={playerId:b.playerId,cityId:b.cityId,amount:b.amount};cc.advantages.push({advantageId:b.bidId,periodId:p.periodId,playerId:b.playerId,region:b.region,cityId:b.cityId,listingEpoch:b.listingEpoch,ownershipEpoch:b.ownershipEpoch,startsRound:p.activeFromRound,expiresAfterRound:p.activeThroughRound,remainingHits:2,endedReason:null,lastSettlementId:null});}
   }
-  events.push({type:'management',kind:'competition_period_closed',periodId:p.periodId,region:result.region,bids:publicBids,winner:winning,text:result.region+' 商业竞争'+(winning?'：'+player(s,winning.playerId).name+'以'+winning.amount+'中标 '+winning.cityId:'流标')});
+  events.push({type:'management',kind:'competition_period_closed',periodId:p.periodId,periodRound:p.bidRound,region:result.region,bids:publicBids,winner:winning,text:result.region+' 商业竞争'+(winning?'：'+player(s,winning.playerId).name+'以'+winning.amount+'中标 '+winning.cityId:'流标')});
  }
  p.status='closed';cc.lastClosedPeriodId=p.periodId;
 }

@@ -4,7 +4,7 @@ const api=require('../server'),{createGameState,snapshot}=require('../src/state'
 const bots=require('../src/botScheduler');
 const sockets=[];let url,seq=0;
 const ack=(s,event,data={})=>new Promise(r=>s.emit(event,data,r));
-async function connect(){const s=io(url,{transports:['websocket'],auth:{clientRouteRevision:'opportunity-routes-v1',stockInvestmentProtocol:2,managementEconomyProtocol:1,clientQuickRevision:'quick-mode-v1',}});sockets.push(s);s.on('gameState',v=>{s.game=v;});await new Promise(r=>s.once('connect',r));return s;}
+async function connect(){const s=io(url,{transports:['websocket'],auth:{clientRouteRevision:'opportunity-routes-v1',stockInvestmentProtocol:2,managementEconomyProtocol:1,turnExperienceProtocol:1,clientQuickRevision:'quick-mode-v1',}});sockets.push(s);s.on('gameState',v=>{s.game=v;});await new Promise(r=>s.once('connect',r));return s;}
 async function until(fn){const start=Date.now();while(!fn()){if(Date.now()-start>3000)throw Error('socket state timeout');await new Promise(r=>setTimeout(r,5));}}
 async function act(s,a){await until(()=>s.game?.self);return ack(s,'action',{...a,actionId:'investment-'+(++seq),gameId:s.game.gameId,decisionId:s.game.decision.decisionId,actorRevision:s.game.self.actorRevision});}
 test('旧客户端缺少股票能力声明时不能开启新规则局',async()=>{

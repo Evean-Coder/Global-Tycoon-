@@ -1,12 +1,17 @@
 {
   "date": "2026-10-18",
-  "scope": "文档结构、需求映射、任务字段、相对链接、真实入口；未执行功能或玩法测试",
+  "scope": "文档结构、需求映射、任务字段与相对链接；运行验收另见acceptance.md",
   "functionalRequirements": 12,
   "acceptanceCriteria": 18,
   "tasks": 18,
   "checklistItems": 36,
-  "implementationStarted": false,
-  "allChecklistUnchecked": true,
+  "implementationStarted": true,
+  "localChecklistPassed": 33,
+  "unverified": [
+    "C25 real-device zoom",
+    "C35 human playtest",
+    "C36 publication verification pending"
+  ],
   "errors": [],
   "passed": true
 }

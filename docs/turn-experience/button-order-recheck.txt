@@ -1,0 +1,14 @@
+TAP version 13
+# Subtest: roll then management ordering is shared across modes, viewports and stock continuation
+ok 1 - roll then management ordering is shared across modes, viewports and stock continuation
+  ---
+  duration_ms: 7290.7368
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

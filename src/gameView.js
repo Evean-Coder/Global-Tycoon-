@@ -4,8 +4,9 @@ const {assetSummary,netAssetSummary}=require('./assets');
 const quick=require('./quickMode');
 const {catalogFor}=require('./gameplayCatalog');
 const routes=require('./opportunityRoutes');
-function snapshot(s,viewerId,clockView){
+function snapshot(s,viewerId,clockView,context){
  const out={};
+ if(require('./turnExperience').enabled(s))out.turnExperienceRevision=s.turnExperienceRevision;
  if(require('./managementEconomyRules').enabled(s)){out.managementEconomyRevision=s.managementEconomyRevision;out.competition=require('./commercialCompetition').publicView(s);}
  if(require('./stockInvestment').enabled(s))out.stockInvestmentRevision=s.stockInvestmentRevision;
  for(const k of ['disconnectRevision','businessMissionRevision','worldRevision'])if(s[k])out[k]=s[k];
@@ -56,6 +57,7 @@ function snapshot(s,viewerId,clockView){
   if(require('./businessMissions').enabled(s))out.self.businessMission=require('./businessMissions').view(s,player.id);
   if(require('./propertySupport').enabled(s))out.self.propertySupport=require('./propertySupport').view(s,player.id);
   if(require('./activeManagement').enabled(s))out.self.activeManagement=require('./activeManagement').view(s,player.id);
+  if(require('./turnExperience').enabled(s))out.self.turnExperience=require('./turnExperience').view(s,player.id,context?.experience,out.self.activeManagement);
   if(routes.enabled(s)){
    const r=s.routeFlow.players[player.id];
    out.self.route={baselineLapEpoch:r.baselineLapEpoch,lastThreshold:r.lastThreshold,pending:r.pending.map(c=>({...c})),lastResult:r.lastResult?{...r.lastResult}:null,lapsSinceInitial:r.baselineLapEpoch===null?null:player.opportunities.lapEpoch-r.baselineLapEpoch};

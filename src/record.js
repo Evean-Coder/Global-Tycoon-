@@ -120,7 +120,7 @@ function buildGameRecord(room, endReason) {
     ...(st.economyRevision?{economyRevision:st.economyRevision,travelExpense:require('./travelExpense').stage(st)}:{}),
     // This record is broadcast to all players. Private eligibility and quota
     // state stays in the authoritative state/checkpoint, not the public replay.
-    ...Object.fromEntries(['managementEconomyRevision','stockInvestmentRevision','disconnectRevision','businessMissionRevision','worldRevision'].filter(k=>st[k]).map(k=>[k,st[k]])),
+    ...Object.fromEntries(['turnExperienceRevision','managementEconomyRevision','stockInvestmentRevision','disconnectRevision','businessMissionRevision','worldRevision'].filter(k=>st[k]).map(k=>[k,st[k]])),
     ...(st.propertySupportRevision?{propertySupportRevision:st.propertySupportRevision}:{}),
     ...(st.activeManagementRevision?{activeManagementRevision:st.activeManagementRevision,promotions:st.promotions.map(a=>({playerId:a.playerId,cityId:a.cityId,reward:a.reward,remainingRewards:a.remainingRewards,expiresAfterCompleteRound:a.expiresAfterCompleteRound}))}:{}),
     roomCode: room.code,

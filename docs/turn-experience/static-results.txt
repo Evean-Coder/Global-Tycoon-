@@ -1,0 +1,36 @@
+Lint: PASS
+Rules catalog consistency: PASS
+warning: in the working copy of 'docs/gameplay-improvements/summary.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/turn-experience/checklist.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/turn-experience/plan.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/turn-experience/progress.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/turn-experience/spec.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/turn-experience/task.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'eslint.config.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'public/client.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'public/contextual-rules.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'public/index.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'public/management-economy-view.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'public/rules-catalog.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'public/style.css', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'public/sw.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'rules.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'server.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/activeManagement.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/commercialCompetition.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/economy.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/gameLogic.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/gameView.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/operatingOrders.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/record.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/state.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/stocks.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'test/bot-server.test.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'test/gameplay-scenario.test.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'test/gameplay-server.test.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'test/helpers/trackedClient.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'test/management-economy-socket.test.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'test/quick-server.test.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'test/stock-investment-socket.test.js', LF will be replaced by CRLF the next time Git touches it
+Scoped git diff check: PASS

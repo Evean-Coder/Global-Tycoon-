@@ -924,3 +924,17 @@ body.compact-game #compactTurn #waitBanner{position:static;left:auto;right:auto;
 .competition-scenarios{width:100%;border-collapse:collapse;margin:12px 0;font-variant-numeric:tabular-nums}.competition-scenarios th,.competition-scenarios td{padding:8px 5px;border-bottom:1px solid var(--line);text-align:right}.competition-scenarios th:first-child,.competition-scenarios td:first-child{text-align:left}
 .management-competition-note{background:var(--card2);padding:8px;border-left:3px solid var(--gold-deep)}
 body.landscape-game .management-economy-body .management-city{padding:8px;margin:6px 0}body.landscape-game .management-economy-body p{font-size:12px;margin:6px 0}body.landscape-game .competition-scenarios{font-size:12px}body.landscape-game .management-economy-body h4{font-size:15px;margin:6px 0}
+
+/* Turn experience uses the existing surfaces; long content scrolls in the body. */
+.experience-assets,.experience-review{min-width:0;width:100%;overflow-wrap:anywhere}
+.experience-review p{line-height:1.6}.experience-review details>summary{min-height:36px;cursor:pointer;padding:6px 0}
+.experience-receipts{padding-left:24px;margin:12px 0}.experience-receipts li{padding:10px 4px;border-bottom:1px solid var(--line);line-height:1.6}
+.holdings-tabs{display:flex;gap:8px;flex-wrap:wrap}.holdings-tabs button[aria-pressed=true]{border-color:var(--gold-deep);background:var(--card2)}
+.experience-cost{font-weight:600}.experience-entry{margin:8px 0;min-height:36px}
+#experienceLive.sr-only{position:fixed;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+@media(orientation:landscape) and (max-height:600px){
+ .experience-assets,.experience-review{font-size:12px;line-height:1.5}
+ .experience-receipts{margin:6px 0}.experience-receipts li{padding:6px 2px}
+ .experience-review .row{display:flex;flex-wrap:wrap;gap:6px}
+ .experience-review button,.holdings-tabs button{min-height:36px;min-width:44px;font-size:12px;padding:6px 10px}
+}

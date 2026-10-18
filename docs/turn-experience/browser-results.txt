@@ -1,0 +1,39 @@
+TAP version 13
+# Subtest: 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+ok 1 - 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+  ---
+  duration_ms: 6276.5612
+  ...
+# Subtest: empty and cash-tight turns allow direct roll; a legal project can be closed without losing the choice
+ok 2 - empty and cash-tight turns allow direct roll; a legal project can be closed without losing the choice
+  ---
+  duration_ms: 2822.8542
+  ...
+# Subtest: reading defers one automatic reminder and reload does not repeat a seen turn
+ok 3 - reading defers one automatic reminder and reload does not repeat a seen turn
+  ---
+  duration_ms: 855.1535
+  ...
+# Subtest: real buy and sale retain cleared holdings history; recap survives another player reply without stealing reading
+ok 4 - real buy and sale retain cleared holdings history; recap survives another player reply without stealing reading
+  ---
+  duration_ms: 951.256
+  ...
+# Subtest: six sizes keep original board and reach the costs, risks and recap controls
+ok 5 - six sizes keep original board and reach the costs, risks and recap controls
+  ---
+  duration_ms: 1580.7734
+  ...
+# Subtest: invalid targets, explicit skip and unavailable reminder storage keep controls and feedback reliable
+ok 6 - invalid targets, explicit skip and unavailable reminder storage keep controls and feedback reliable
+  ---
+  duration_ms: 333.4322
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

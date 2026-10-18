@@ -113,12 +113,13 @@ function createGameState(roomCode, playerNames, ruleVersion = 2, options = {}) {
     if(!require('./managementEconomyRules').enabled(state))throw new Error('主动经营新版规则组合无效');
     require('./commercialCompetition').initialize(state);
   }
+  if(options.turnExperienceRevision!==undefined){state.turnExperienceRevision=options.turnExperienceRevision;if(!require('./turnExperience').enabled(state))throw new Error('回合体验规则组合无效');}
   return state;
 }
 
 // 对外快照：只投影客户端需要的字段，避免泄露未来随机序列与身份凭据。
-function snapshot(state, viewerId, clockView) {
-  if (state.ruleVersion === 2) return require('./gameView').snapshot(state, viewerId, clockView);
+function snapshot(state, viewerId, clockView, context) {
+  if (state.ruleVersion === 2) return require('./gameView').snapshot(state, viewerId, clockView, context);
   const keys = ['roomCode', 'status', 'players', 'board', 'cities', 'airports', 'stocks', 'firstRoundDone', 'turnIndex', 'phase', 'pending', 'dice', 'rounds', 'rank', 'winner', 'startedAt'];
   const out = {};
   for (const key of keys) out[key] = state[key];

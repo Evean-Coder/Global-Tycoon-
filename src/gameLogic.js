@@ -940,6 +940,7 @@ function applyCore(state, action, rng, context = {}) {
     }
     case 'roll_dice':
       if (state.phase !== 'waiting_roll'||require('./activeManagement').required(state,p.id)) return { state, events, rejected: true };
+      if(require('./turnExperience').enabled(state)&&require('./activeManagement').view(state,p.id)?.available)require('./activeManagement').skip(state,p,events,'roll');
       rollAction(state, p, events, rng);
       break;
     case 'respond_frozen':
@@ -1061,7 +1062,7 @@ function apply(state, action, rng, context = {}) {
   routeTimes.set(state, context.timeContext);
   try {
     const result = applyCore(state, action, rng, context);
-    if(!result.rejected){require('./operatingOrders').clean(state,result.events);require('./commercialCompetition').clean(state,result.events);require('./activeManagement').clean(state);require('./activeManagement').resolveReceipts(state,result.events);}
+    if(!result.rejected){require('./operatingOrders').clean(state,result.events);require('./commercialCompetition').clean(state,result.events);require('./activeManagement').clean(state,result.events);require('./activeManagement').resolveReceipts(state,result.events);}
     if (!result.rejected && routes.enabled(state)) {
       for (const p of state.players.filter(p => !p.alive)) result.events.push(...routes.cancelRoutes(state, p.id, action.type === 'surrender' ? 'surrender' : 'eliminated').events);
       safeRouteChoice(state, rng);

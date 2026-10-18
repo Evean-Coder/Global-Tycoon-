@@ -6,9 +6,14 @@ function validTarget(s,order){
  if(order.targetKind==='airport')return s.airports[order.targetId]?.ownerId===p.id&&(!order.scheduleRevision||s.airports[order.targetId].ownershipEpoch===order.ownershipEpoch);
  const c=s.cities[order.targetId];return c?.ownerId===p.id&&!c.mortgaged&&s.stocks[order.targetId]?.listingEpoch===order.listingEpoch&&(!order.scheduleRevision||c.ownershipEpoch===order.ownershipEpoch);
 }
+function cancel(order,reason,events=[]){
+ if(order.paymentsRemaining<=0)return;
+ order.paymentsRemaining=0;order.cancelledReason=reason;
+ events.push({type:'management',kind:'order_cancelled',playerId:order.playerId,targetId:order.targetId,orderId:order.orderId,orderCreatedTurnId:order.createdTurnId,unpaidPrincipal:order.principalOutstanding,reason,text:order.targetId+' 经营订单取消未领取收入'});
+}
 function clean(s,events=[]){
  if(!balanced(s))return;
- for(const order of s.operatingOrders){if(order.paymentsRemaining>0&&!validTarget(s,order)){order.paymentsRemaining=0;order.cancelledReason='产权、抵押、出局或封盘导致订单失效';events.push({type:'management',kind:'order_cancelled',playerId:order.playerId,targetId:order.targetId,text:order.targetId+' 经营订单取消未领取收入'});}}
+ for(const order of s.operatingOrders)if(order.paymentsRemaining>0&&!validTarget(s,order))cancel(order,'产权、抵押、出局或封盘导致订单失效',events);
 }
 function quote(s,p,targetKind,targetId){
  if(!balanced(s)||!['city','airport'].includes(targetKind))return {ok:false,reason:'经营订单目标无效'};
@@ -28,7 +33,7 @@ function start(s,p,q,events){
  const order={orderId:s.gameId+':order:'+s.turnId+':'+p.id,playerId:p.id,targetKind:q.targetKind,targetId:q.targetId,listingEpoch:q.listingEpoch,createdTurnId:s.turnId,upfront:q.finalAmount,paymentEach:q.paymentEach,paymentsRemaining:2,lastPaidTurnId:null,startedLapEpoch:p.opportunities.lapEpoch,cancelledReason:null};
  if(q.scheduleRevision)Object.assign(order,{scheduleRevision:q.scheduleRevision,baseProfit:q.baseProfit,scheduledPayments:q.scheduledPayments.slice(),nextPaymentIndex:0,principalOutstanding:q.finalAmount,profitPaid:0,ownershipEpoch:q.ownershipEpoch});
  s.operatingOrders=s.operatingOrders.filter(o=>o.playerId!==p.id);s.operatingOrders.push(order);
- events.push({type:'management',kind:'order_started',playerId:p.id,targetId:q.targetId,amount:q.finalAmount,text:p.name+' 启动 '+q.targetId+' 经营订单，预付 '+q.finalAmount});
+ events.push({type:'management',kind:'order_started',playerId:p.id,targetId:q.targetId,orderId:order.orderId,turnId:s.turnId,amount:q.finalAmount,text:p.name+' 启动 '+q.targetId+' 经营订单，预付 '+q.finalAmount});
 }
 function settleAtTurnStart(s,p,events){
  if(!balanced(s))return;clean(s,events);
@@ -39,6 +44,6 @@ function settleAtTurnStart(s,p,events){
  if(order.scheduleRevision){order.nextPaymentIndex++;order.principalOutstanding-=principal;order.profitPaid+=profit;}
  const world=require('./worldEvents').effectRules(s),bonus=s.world?.active?.type==='stable'?Math.min(world.orderCap,econ.rounded(payment,world.orderPercent)):0;
  if(bonus){p.cash=econ.safe(p.cash+bonus);events.push({type:'news',kind:'world_order_reward',settlementId:order.orderId+':news:'+s.turnId,playerId:p.id,amount:bonus,text:p.name+' 订单扶持奖励 '+bonus});}
- events.push({type:'management',kind:'order_payment',settlementId:order.orderId+':'+s.turnId,playerId:p.id,targetId:order.targetId,amount:payment,...(order.scheduleRevision?{principal,profit,newsBonus:bonus}:{}),text:p.name+' 收到 '+order.targetId+' 订单款 '+payment+(order.scheduleRevision?'（本金 '+principal+'，利润 '+profit+'）':'')+'，剩余 '+order.paymentsRemaining+' 次'});
+ events.push({type:'management',kind:'order_payment',orderId:order.orderId,turnId:s.turnId,settlementId:order.orderId+':'+s.turnId,playerId:p.id,targetId:order.targetId,amount:payment,...(order.scheduleRevision?{principal,profit,newsBonus:bonus}:{}),text:p.name+' 收到 '+order.targetId+' 订单款 '+payment+(order.scheduleRevision?'（本金 '+principal+'，利润 '+profit+'）':'')+'，剩余 '+order.paymentsRemaining+' 次'});
 }
-module.exports={quote,start,clean,settleAtTurnStart};
+module.exports={quote,start,clean,cancel,settleAtTurnStart};

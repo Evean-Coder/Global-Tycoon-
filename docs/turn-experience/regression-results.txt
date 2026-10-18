@@ -1,0 +1,2255 @@
+TAP version 13
+# Subtest: 主行动 90 秒、子流程 60 秒，旧回调不能触发新决定
+ok 1 - 主行动 90 秒、子流程 60 秒，旧回调不能触发新决定
+  ---
+  duration_ms: 1.4794
+  ...
+# Subtest: 同一决定不延时，连续不同城市重新计时，暂停恢复保留剩余时间
+ok 2 - 同一决定不延时，连续不同城市重新计时，暂停恢复保留剩余时间
+  ---
+  duration_ms: 0.2284
+  ...
+# Subtest: 进入结束阶段会清除当前定时器
+ok 3 - 进入结束阶段会清除当前定时器
+  ---
+  duration_ms: 0.1904
+  ...
+# Subtest: 取消后的旧回调即使被执行也不会触发新决定
+ok 4 - 取消后的旧回调即使被执行也不会触发新决定
+  ---
+  duration_ms: 0.2032
+  ...
+# Subtest: 同阶段同玩家的新决定也重新取得完整期限
+ok 5 - 同阶段同玩家的新决定也重新取得完整期限
+  ---
+  duration_ms: 0.1918
+  ...
+# Subtest: 公开快照不暴露骰袋、机会卡顺序、随机种子或令牌
+ok 6 - 公开快照不暴露骰袋、机会卡顺序、随机种子或令牌
+  ---
+  duration_ms: 8.3785
+  ...
+# Subtest: 转让确认只使用保存的接收方，失败不产生部分成交
+ok 7 - 转让确认只使用保存的接收方，失败不产生部分成交
+  ---
+  duration_ms: 5.6763
+  ...
+# Subtest: 动作白名单拒绝未知类型、错误阶段和非法枚举
+ok 8 - 动作白名单拒绝未知类型、错误阶段和非法枚举
+  ---
+  duration_ms: 9.6171
+  ...
+# Subtest: 金额、机场和城市标识必须是规范值
+ok 9 - 金额、机场和城市标识必须是规范值
+  ---
+  duration_ms: 0.4336
+  ...
+# Subtest: 拍卖出价必须满足起价、现金和当前最高价规则
+ok 10 - 拍卖出价必须满足起价、现金和当前最高价规则
+  ---
+  duration_ms: 0.5244
+  ...
+# Subtest: 股票订单和转让拒绝字符串、负数、重复与越限输入
+ok 11 - 股票订单和转让拒绝字符串、负数、重复与越限输入
+  ---
+  duration_ms: 0.5114
+  ...
+# Subtest: 同城先卖后买按最终市场余量校验
+ok 12 - 同城先卖后买按最终市场余量校验
+  ---
+  duration_ms: 0.2242
+  ...
+# Subtest: 城市所有者先卖后买按最终持股上限校验
+ok 13 - 城市所有者先卖后买按最终持股上限校验
+  ---
+  duration_ms: 0.1544
+  ...
+# Subtest: 待确认接收方固定，不能改写目标或代替当前玩家认输
+ok 14 - 待确认接收方固定，不能改写目标或代替当前玩家认输
+  ---
+  duration_ms: 0.1784
+  ...
+# Subtest: 自救出售限定修订：上下文取自真实pending，忽略客户端伪造且拒绝身份错配
+ok 15 - 自救出售限定修订：上下文取自真实pending，忽略客户端伪造且拒绝身份错配
+  ---
+  duration_ms: 1.8079
+  ...
+# Subtest: 自救出售限定修订：拍卖成交/流拍、直接出售成功/失败恢复原玩家
+ok 16 - 自救出售限定修订：拍卖成交/流拍、直接出售成功/失败恢复原玩家
+  ---
+  duration_ms: 17.8793
+  ...
+# Subtest: 自救出售限定修订：未补足债务时保留原resume继续依据
+ok 17 - 自救出售限定修订：未补足债务时保留原resume继续依据
+  ---
+  duration_ms: 0.8513
+  ...
+# Subtest: missing state is not treated as permission and deeply frozen views are safe
+ok 18 - missing state is not treated as permission and deeply frozen views are safe
+  ---
+  duration_ms: 1.28
+  ...
+# Subtest: turn opportunity and lap limits are distinct; viewing does not change state
+ok 19 - turn opportunity and lap limits are distinct; viewing does not change state
+  ---
+  duration_ms: 0.2476
+  ...
+# Subtest: 三类经营互斥，远程旧入口同额，失败无修改，旧局隔离
+ok 20 - 三类经营互斥，远程旧入口同额，失败无修改，旧局隔离
+  ---
+  duration_ms: 13.4659
+  ...
+# Subtest: 主动股票手续费与独立圈额度，报价和持股上限校验
+ok 21 - 主动股票手续费与独立圈额度，报价和持股上限校验
+  ---
+  duration_ms: 2.1816
+  ...
+# Subtest: 促销奖励不进入分红池，最多两次且重复结算无奖励
+ok 22 - 促销奖励不进入分红池，最多两次且重复结算无奖励
+  ---
+  duration_ms: 1.1951
+  ...
+# Subtest: 欠租只在偿清后奖励，破产不奖励，抵押和期限结束失效
+ok 23 - 欠租只在偿清后奖励，破产不奖励，抵押和期限结束失效
+  ---
+  duration_ms: 0.9354
+  ...
+# Subtest: H1主动建设优惠受10个百分点上限，普通建房保留原报价
+ok 24 - H1主动建设优惠受10个百分点上限，普通建房保留原报价
+  ---
+  duration_ms: 1.0864
+  ...
+# Subtest: 私人额度隔离、确定性动作重放、产权变化与立即封盘
+ok 25 - 私人额度隔离、确定性动作重放、产权变化与立即封盘
+  ---
+  duration_ms: 6.9072
+  ...
+# Subtest: 特殊决定和非法订单零修改，满级抵押排除、费用上限与报价变更
+ok 26 - 特殊决定和非法订单零修改，满级抵押排除、费用上限与报价变更
+  ---
+  duration_ms: 2.6188
+  ...
+# Subtest: 促销换圈替换不退款，主动股票圈总额不随出售恢复
+ok 27 - 促销换圈替换不退款，主动股票圈总额不随出售恢复
+  ---
+  duration_ms: 1.0014
+  ...
+# Subtest: 三项各成功一次互斥，掷骰可跳过，资金不足及他人身份零修改
+ok 28 - 三项各成功一次互斥，掷骰可跳过，资金不足及他人身份零修改
+  ---
+  duration_ms: 3.1209
+  ...
+# Subtest: 全部活动失效出口与上市/余股/城主持股边界
+ok 29 - 全部活动失效出口与上市/余股/城主持股边界
+  ---
+  duration_ms: 2.625
+  ...
+# Subtest: all layouts use the unique clockwise 42-square ring
+ok 30 - all layouts use the unique clockwise 42-square ring
+  ---
+  duration_ms: 1.5692
+  ...
+# Subtest: portrait has no alternative board layout; landscape and tablet retain ring layout
+ok 31 - portrait has no alternative board layout; landscape and tablet retain ring layout
+  ---
+  duration_ms: 0.1729
+  ...
+# Subtest: compact perimeter has42 unique neighbours including last to first and preserves original mapping
+ok 32 - compact perimeter has42 unique neighbours including last to first and preserves original mapping
+  ---
+  duration_ms: 1.7692
+  ...
+# Subtest: all short names fit three characters, icon and full labels remain and frozen state is read-only
+ok 33 - all short names fit three characters, icon and full labels remain and frozen state is read-only
+  ---
+  duration_ms: 7.6057
+  ...
+# Subtest: ownership color follows players independently from property group or pawn position
+ok 34 - ownership color follows players independently from property group or pawn position
+  ---
+  duration_ms: 0.7431
+  ...
+# Subtest: 棋盘共 42 格，构成符合 spec
+ok 35 - 棋盘共 42 格，构成符合 spec
+  ---
+  duration_ms: 1.6132
+  ...
+# Subtest: 机会卡组 40 张：奖励 15、罚款 15、位移 9、入狱 1
+ok 36 - 机会卡组 40 张：奖励 15、罚款 15、位移 9、入狱 1
+  ---
+  duration_ms: 0.2822
+  ...
+# Subtest: 初始对局状态：2 名玩家、资金 150000、位置 0
+ok 37 - 初始对局状态：2 名玩家、资金 150000、位置 0
+  ---
+  duration_ms: 7.8808
+  ...
+# bot CPU {"samples":100,"p50":0,"p95":0,"max":0,"wallP95":1.5918000000000063,"wallMax":2.3059000000000083,"unit":"毫秒CPU时间；wall为实际耗时","timingNote":"Windows进程CPU计时粒度较粗，短样本可能为0；同时报告高精度实际耗时，不把0解释为零计算成本。","node":"v20.20.2","platform":"win32","cpu":"Intel(R) Core(TM) i7-14650HX","scope":"固定4人20城，经营/股票/自救/机遇四类快照，非对局模拟"}
+# Subtest: 有限预测质量守恒，一步十点位置正确，冻结与监狱停留不算租金命中
+ok 38 - 有限预测质量守恒，一步十点位置正确，冻结与监狱停留不算租金命中
+  ---
+  duration_ms: 12.9394
+  ...
+# Subtest: 储备使用本人真实租金与原机场费，预告远航开支提高预算
+ok 39 - 储备使用本人真实租金与原机场费，预告远航开支提高预算
+  ---
+  duration_ms: 7.9997
+  ...
+# Subtest: 建设名义资产减实际成本，资讯到期后回归原租金
+ok 40 - 建设名义资产减实际成本，资讯到期后回归原租金
+  ---
+  duration_ms: 5.798
+  ...
+# Subtest: 城主收入含保留收益与本人股息一次，外部股东只占真实份额
+ok 41 - 城主收入含保留收益与本人股息一次，外部股东只占真实份额
+  ---
+  duration_ms: 5.0054
+  ...
+# Subtest: 收购已上市城市保留外部股份，不把旧基金当购房收益
+ok 42 - 收购已上市城市保留外部股份，不把旧基金当购房收益
+  ---
+  duration_ms: 3.2084
+  ...
+# Subtest: 基金已含在股价，不重复计分红；真实派息前后未来增量不变
+ok 43 - 基金已含在股价，不重复计分红；真实派息前后未来增量不变
+  ---
+  duration_ms: 3.9092
+  ...
+# Subtest: 股票手续费、抵押惩罚、供应和集中限制采用真实规则
+ok 44 - 股票手续费、抵押惩罚、供应和集中限制采用真实规则
+  ---
+  duration_ms: 2.244
+  ...
+# Subtest: 快速视野真实剩余时间、有限轮速与缺失后备，零时限禁新增投资
+ok 45 - 快速视野真实剩余时间、有限轮速与缺失后备，零时限禁新增投资
+  ---
+  duration_ms: 1.8637
+  ...
+# Subtest: 100固定快照CPU基准（不运行完整对局）
+ok 46 - 100固定快照CPU基准（不运行完整对局）
+  ---
+  duration_ms: 101.8004
+  ...
+# Subtest: 电脑初始机遇只读本人候选，不读取别人候选或未来随机数
+ok 47 - 电脑初始机遇只读本人候选，不读取别人候选或未来随机数
+  ---
+  duration_ms: 38.0359
+  ...
+# Subtest: 正常掷骰、落点买地、建设与机场有真实经营行为
+ok 48 - 正常掷骰、落点买地、建设与机场有真实经营行为
+  ---
+  duration_ms: 11.6318
+  ...
+# Subtest: 主动经营与扶持复用真实报价，股票使用上市版本
+ok 49 - 主动经营与扶持复用真实报价，股票使用上市版本
+  ---
+  duration_ms: 7.2472
+  ...
+# Subtest: 监狱、冻结、飞行、转让与拍卖有合法退出或出价
+ok 50 - 监狱、冻结、飞行、转让与拍卖有合法退出或出价
+  ---
+  duration_ms: 7.0679
+  ...
+# Subtest: 欠款先卖持股/抵押/拆屋，资金补足后继续，失败有保守默认
+ok 51 - 欠款先卖持股/抵押/拆屋，资金补足后继续，失败有保守默认
+  ---
+  duration_ms: 4.1232
+  ...
+# Subtest: 城主持有四股时不继续买本城，现金储备与窗口上限生效
+ok 52 - 城主持有四股时不继续买本城，现金储备与窗口上限生效
+  ---
+  duration_ms: 3.2175
+  ...
+# Subtest: 旧决定/换局回调取消，同一决定重复发布只调度一次
+ok 53 - 旧决定/换局回调取消，同一决定重复发布只调度一次
+  ---
+  duration_ms: 102.7449
+  ...
+# Subtest: 无人在线、暂停、结束与阻断重复失败均不调度
+ok 54 - 无人在线、暂停、结束与阻断重复失败均不调度
+  ---
+  duration_ms: 45.2673
+  ...
+# Subtest: 一个真人添加电脑正常/快速开局，电脑自动提交同步机遇，保留隐私
+ok 55 - 一个真人添加电脑正常/快速开局，电脑自动提交同步机遇，保留隐私
+  ---
+  duration_ms: 183.0935
+  ...
+# Subtest: 房主管理容量、非房主拒绝、电脑无法冒名重连、对局中增删拒绝
+ok 56 - 房主管理容量、非房主拒绝、电脑无法冒名重连、对局中增删拒绝
+  ---
+  duration_ms: 20.6852
+  ...
+# Subtest: 电脑落点购买与掷骰推进，重复发布只调度一次，结束取消任务
+ok 57 - 电脑落点购买与掷骰推进，重复发布只调度一次，结束取消任务
+  ---
+  duration_ms: 57.8812
+  ...
+# Subtest: 最后真人掉线停止电脑并记录闲置，重连恢复，房主不会转给电脑
+ok 58 - 最后真人掉线停止电脑并记录闲置，重连恢复，房主不会转给电脑
+  ---
+  duration_ms: 760.5881
+  ...
+# Subtest: 股票成交后正常退出，欠款优先卖股后恢复，不依赖真人按钮
+ok 59 - 股票成交后正常退出，欠款优先卖股后恢复，不依赖真人按钮
+  ---
+  duration_ms: 137.9568
+  ...
+# Subtest: 清理删除房间后电脑没有残留任务
+ok 60 - 清理删除房间后电脑没有残留任务
+  ---
+  duration_ms: 17.883
+  ...
+# Subtest: 非当前回合电脑回应拍卖与直接出售，过贵股票转让拒绝回到原窗口
+ok 61 - 非当前回合电脑回应拍卖与直接出售，过贵股票转让拒绝回到原窗口
+  ---
+  duration_ms: 201.2994
+  ...
+# Subtest: 普通及快速有限联机轨迹：经营、股票、自救和飞行通过原动作入口
+ok 62 - 普通及快速有限联机轨迹：经营、股票、自救和飞行通过原动作入口
+  ---
+  duration_ms: 621.7
+  ...
+# Subtest: 服务器给电脑相同公开快速时限，临近封盘放弃可选经营并继续推进
+ok 63 - 服务器给电脑相同公开快速时限，临近封盘放弃可选经营并继续推进
+  ---
+  duration_ms: 102.1359
+  ...
+# Subtest: 后续路线选择使用本人成熟路线并能推进，快速封盘撤销电脑动作
+ok 64 - 后续路线选择使用本人成熟路线并能推进，快速封盘撤销电脑动作
+  ---
+  duration_ms: 76.9014
+  ...
+# Subtest: 真实单人局主动结束、记录电脑身份、重开与旧回调隔离
+ok 65 - 真实单人局主动结束、记录电脑身份、重开与旧回调隔离
+  ---
+  duration_ms: 103.2978
+  ...
+# Subtest: partial build funding updates cash, retains pending construction and never auto builds
+ok 66 - partial build funding updates cash, retains pending construction and never auto builds
+  ---
+  duration_ms: 12.0124
+  ...
+# Subtest: invalid, stale, outside-stage and ineligible funding is rejected without mutation
+ok 67 - invalid, stale, outside-stage and ineligible funding is rejected without mutation
+  ---
+  duration_ms: 5.9901
+  ...
+# Subtest: 历史和现代建房筹资沿原变现规则，建房优惠只在真正建设时消耗
+ok 68 - 历史和现代建房筹资沿原变现规则，建房优惠只在真正建设时消耗
+  ---
+  duration_ms: 2.5864
+  ...
+# Subtest: publication waits first-lap unlock, needs two basic candidates and follows four-round cadence
+ok 69 - publication waits first-lap unlock, needs two basic candidates and follows four-round cadence
+  ---
+  duration_ms: 6.716
+  ...
+# Subtest: new qualifying player can join fixed published region; natural single bid can win
+ok 70 - new qualifying player can join fixed published region; natural single bid can win
+  ---
+  duration_ms: 2.1763
+  ...
+# Subtest: bid range, ownership, special phases and readonly invalid failure
+ok 71 - bid range, ownership, special phases and readonly invalid failure
+  ---
+  duration_ms: 2.6078
+  ...
+# Subtest: accepted bid consumes turn and original lap but debits only on open, no mutable rebid
+ok 72 - accepted bid consumes turn and original lap but debits only on open, no mutable rebid
+  ---
+  duration_ms: 6.7035
+  ...
+# Subtest: same price challenges previous winner, higher price wins and invalid top falls back
+ok 73 - same price challenges previous winner, higher price wins and invalid top falls back
+  ---
+  duration_ms: 2.5699
+  ...
+# Subtest: uniform tied challenger pool and persistent winner through failed period
+ok 74 - uniform tied challenger pool and persistent winner through failed period
+  ---
+  duration_ms: 1.9324
+  ...
+# Subtest: public/private snapshots and accepted events never expose pending amount or flagship
+ok 75 - public/private snapshots and accepted events never expose pending amount or flagship
+  ---
+  duration_ms: 7.3137
+  ...
+# Subtest: H4 sequential paired branches produce 3280 then 6480 with no mutation
+ok 76 - H4 sequential paired branches produce 3280 then 6480 with no mutation
+  ---
+  duration_ms: 13.5381
+  ...
+# Subtest: owner with no issued shares retains full surcharge; tenant concessions do not change owner preview
+ok 77 - owner with no issued shares retains full surcharge; tenant concessions do not change owner preview
+  ---
+  duration_ms: 2.6909
+  ...
+# Subtest: base fifteen percent additive to world, capped, two settlements and stale plan rejected
+ok 78 - base fifteen percent additive to world, capped, two settlements and stale plan rejected
+  ---
+  duration_ms: 10.5199
+  ...
+# Subtest: preview, owner visits, airport and invalid source do not consume advantage
+ok 79 - preview, owner visits, airport and invalid source do not consume advantage
+  ---
+  duration_ms: 1.7618
+  ...
+# Subtest: all cash deltas match bank supplements, dividends and H4 once per rent
+ok 80 - all cash deltas match bank supplements, dividends and H4 once per rent
+  ---
+  duration_ms: 2.0823
+  ...
+# Subtest: expires at fourth-round boundary and never restores on source reacquisition
+ok 81 - expires at fourth-round boundary and never restores on source reacquisition
+  ---
+  duration_ms: 0.5165
+  ...
+# Subtest: fully issued stock rent and bank flows stay conserved with owner and external shareholders
+ok 82 - fully issued stock rent and bank flows stay conserved with owner and external shareholders
+  ---
+  duration_ms: 0.7713
+  ...
+# Subtest: 只读提示保留原许可、缺资料不猜金额
+ok 83 - 只读提示保留原许可、缺资料不猜金额
+  ---
+  duration_ms: 1.2463
+  ...
+# Subtest: 实现安全金额与取整工具 / 迁移原基础地产估值
+ok 84 - 实现安全金额与取整工具 / 迁移原基础地产估值
+  ---
+  duration_ms: 0.9671
+  ...
+# Subtest: 计算叠加建房优惠 / 计算资讯费用依据与建设额度 / 校验远程施工资格 / 保存房级实际费用与返还
+ok 85 - 计算叠加建房优惠 / 计算资讯费用依据与建设额度 / 校验远程施工资格 / 保存房级实际费用与返还
+  ---
+  duration_ms: 7.8285
+  ...
+# Subtest: 计算租金优惠及银行补足 / 提交金额计划与守恒检查
+ok 86 - 计算租金优惠及银行补足 / 提交金额计划与守恒检查
+  ---
+  duration_ms: 2.143
+  ...
+# Subtest: 计算航班折扣与免费情况
+ok 87 - 计算航班折扣与免费情况
+  ---
+  duration_ms: 0.8124
+  ...
+# Subtest: 计算三项起点经营奖励 / 计算应急资金与骰子机场奖励
+ok 88 - 计算三项起点经营奖励 / 计算应急资金与骰子机场奖励
+  ---
+  duration_ms: 0.651
+  ...
+# Subtest: 骰子洗牌袋：每 10 次掷骰 1–10 各出现一次，抽完自动补袋
+ok 89 - 骰子洗牌袋：每 10 次掷骰 1–10 各出现一次，抽完自动补袋
+  ---
+  duration_ms: 4.9796
+  ...
+# Subtest: 购买：落在无主城市进入购买阶段，购买后归属与资金正确
+ok 90 - 购买：落在无主城市进入购买阶段，购买后归属与资金正确
+  ---
+  duration_ms: 7.3937
+  ...
+# Subtest: 第一轮（所有玩家回到起点一次）结束前不能购买房产和机场
+ok 91 - 第一轮（所有玩家回到起点一次）结束前不能购买房产和机场
+  ---
+  duration_ms: 1.5386
+  ...
+# Subtest: 第一轮结束：所有玩家回到起点一次后开放购买
+ok 92 - 第一轮结束：所有玩家回到起点一次后开放购买
+  ---
+  duration_ms: 0.4153
+  ...
+# Subtest: 每圈限购 4 座城市：第 5 座被拒绝，跨过起点重置
+ok 93 - 每圈限购 4 座城市：第 5 座被拒绝，跨过起点重置
+  ---
+  duration_ms: 0.4021
+  ...
+# Subtest: 每圈限购 4 座城市：第 5 座被拒绝，跨过起点重置
+ok 94 - 每圈限购 4 座城市：第 5 座被拒绝，跨过起点重置
+  ---
+  duration_ms: 0.3089
+  ...
+# Subtest: 高价城满级租金额外加成：地价≥15000 满级 +10%
+ok 95 - 高价城满级租金额外加成：地价≥15000 满级 +10%
+  ---
+  duration_ms: 0.3326
+  ...
+# Subtest: 收租：路过他人城市支付租金（整数）
+ok 96 - 收租：路过他人城市支付租金（整数）
+  ---
+  duration_ms: 0.2279
+  ...
+# Subtest: 股票抵扣：持股阶梯减免租金，银行补足拥有者
+ok 97 - 股票抵扣：持股阶梯减免租金，银行补足拥有者
+  ---
+  duration_ms: 0.4919
+  ...
+# Subtest: 建房与拆房：经过自有城可建 1 级、拆 1 级返还 60%
+ok 98 - 建房与拆房：经过自有城可建 1 级、拆 1 级返还 60%
+  ---
+  duration_ms: 0.4614
+  ...
+# Subtest: 抵押可随时进行（非掷骰阶段也可）
+ok 99 - 抵押可随时进行（非掷骰阶段也可）
+  ---
+  duration_ms: 0.2225
+  ...
+# Subtest: 抵押与赎回：每轮计息 5%；正常待掷骰可赎回任意自有城市
+ok 100 - 抵押与赎回：每轮计息 5%；正常待掷骰可赎回任意自有城市
+  ---
+  duration_ms: 0.9763
+  ...
+# Subtest: 机会卡：抽到奖励卡获得金额
+ok 101 - 机会卡：抽到奖励卡获得金额
+  ---
+  duration_ms: 0.3166
+  ...
+# Subtest: 拍卖：最高出价者可以结束拍卖（按当前最高价成交）
+ok 102 - 拍卖：最高出价者可以结束拍卖（按当前最高价成交）
+  ---
+  duration_ms: 0.6666
+  ...
+# Subtest: 每圈 4 座上限制：拍卖所得计入 lapBuys
+ok 103 - 每圈 4 座上限制：拍卖所得计入 lapBuys
+  ---
+  duration_ms: 0.2391
+  ...
+# Subtest: 每圈 4 座上限制：已达上限的玩家不能参与拍卖出价
+ok 104 - 每圈 4 座上限制：已达上限的玩家不能参与拍卖出价
+  ---
+  duration_ms: 0.3026
+  ...
+# Subtest: 每圈 4 座上限制：直接出售所得计入 lapBuys
+ok 105 - 每圈 4 座上限制：直接出售所得计入 lapBuys
+  ---
+  duration_ms: 0.4421
+  ...
+# Subtest: 建房：购买后需再次到达才能建房
+ok 106 - 建房：购买后需再次到达才能建房
+  ---
+  duration_ms: 0.3308
+  ...
+# Subtest: 破产：唯一幸存者获胜
+ok 107 - 破产：唯一幸存者获胜
+  ---
+  duration_ms: 1.0879
+  ...
+# Subtest: 拍卖：放弃购买进入拍卖，出价最高者获得
+ok 108 - 拍卖：放弃购买进入拍卖，出价最高者获得
+  ---
+  duration_ms: 0.655
+  ...
+# Subtest: 破产：多城连续拍卖逐座完成，唯一侧存者获胜
+ok 109 - 破产：多城连续拍卖逐座完成，唯一侧存者获胜
+  ---
+  duration_ms: 0.5226
+  ...
+# Subtest: 破产：拍卖中另一玩家出价获得后结算胜负
+ok 110 - 破产：拍卖中另一玩家出价获得后结算胜负
+  ---
+  duration_ms: 0.1979
+  ...
+# Subtest: 破产：押质城市归银行不进拍卖
+ok 111 - 破产：押质城市归银行不进拍卖
+  ---
+  duration_ms: 0.1384
+  ...
+# Subtest: 超阶段自救动作被拒绝
+ok 112 - 超阶段自救动作被拒绝
+  ---
+  duration_ms: 0.1208
+  ...
+# Subtest: 自救：抵押凑够金额自动结束自救，未凑够留在自救界面
+ok 113 - 自救：抵押凑够金额自动结束自救，未凑够留在自救界面
+  ---
+  duration_ms: 0.2412
+  ...
+# Subtest: 破产救济金：仅破产时发放，总额 15000 分给资产最高者之外的存活玩家
+ok 114 - 破产救济金：仅破产时发放，总额 15000 分给资产最高者之外的存活玩家
+  ---
+  duration_ms: 0.213
+  ...
+# Subtest: 监狱：80 轮后 21 号监狱满 3 回合缴纳 30% 出狱费
+ok 115 - 监狱：80 轮后 21 号监狱满 3 回合缴纳 30% 出狱费
+  ---
+  duration_ms: 0.2067
+  ...
+# Subtest: 认输：资产直接归银行，不进入拍卖
+ok 116 - 认输：资产直接归银行，不进入拍卖
+  ---
+  duration_ms: 0.184
+  ...
+# Subtest: 抵押：利息按城市累计，赎回一城只付该城本金+利息
+ok 117 - 抵押：利息按城市累计，赎回一城只付该城本金+利息
+  ---
+  duration_ms: 0.2548
+  ...
+# Subtest: 交易：非起点自愿出售被拒绝，起点允许
+ok 118 - 交易：非起点自愿出售被拒绝，起点允许
+  ---
+  duration_ms: 0.1974
+  ...
+# Subtest: 交易：竞拍中不可临时押押/出售凑钱
+ok 119 - 交易：竞拍中不可临时押押/出售凑钱
+  ---
+  duration_ms: 0.1771
+  ...
+# Subtest: 股票：同笔卖出所得可用于买入
+ok 120 - 股票：同笔卖出所得可用于买入
+  ---
+  duration_ms: 0.6083
+  ...
+# Subtest: 股票：买卖与未交易均有事件记录
+ok 121 - 股票：买卖与未交易均有事件记录
+  ---
+  duration_ms: 0.4717
+  ...
+# Subtest: 股票：现金不足时交易未生效并记录原因
+ok 122 - 股票：现金不足时交易未生效并记录原因
+  ---
+  duration_ms: 0.1943
+  ...
+# Subtest: 股票转让：发起后对方确认回到股票窗口，每回合限一笔
+ok 123 - 股票转让：发起后对方确认回到股票窗口，每回合限一笔
+  ---
+  duration_ms: 0.3977
+  ...
+# Subtest: 排名：按出局顺序记录，胜利者第一
+ok 124 - 排名：按出局顺序记录，胜利者第一
+  ---
+  duration_ms: 0.2208
+  ...
+# Subtest: 购买机场后下一位玩家可正常掷骰（回合切换清空 pending）
+ok 125 - 购买机场后下一位玩家可正常掷骰（回合切换清空 pending）
+  ---
+  duration_ms: 0.2799
+  ...
+# Subtest: 监狱：放弃出狱判定跳过回合，第 3 回合自动释放（免费）
+ok 126 - 监狱：放弃出狱判定跳过回合，第 3 回合自动释放（免费）
+  ---
+  duration_ms: 0.2776
+  ...
+# Subtest: 监狱：掷出 1 或 10 出狱事件包含具体点数
+ok 127 - 监狱：掷出 1 或 10 出狱事件包含具体点数
+  ---
+  duration_ms: 0.1508
+  ...
+# Subtest: 监狱：双方先后入狱后，狱中玩家掷骰出狱可继续推进
+ok 128 - 监狱：双方先后入狱后，狱中玩家掷骰出狱可继续推进
+  ---
+  duration_ms: 0.2449
+  ...
+# Subtest: 监狱：11/32 号监狱关押 1 回合，下回合自动释放
+ok 129 - 监狱：11/32 号监狱关押 1 回合，下回合自动释放
+  ---
+  duration_ms: 0.3814
+  ...
+# Subtest: 监狱：连续两名 1 回合监狱玩家逐个跳过，第三人正常行动
+ok 130 - 监狱：连续两名 1 回合监狱玩家逐个跳过，第三人正常行动
+  ---
+  duration_ms: 0.1408
+  ...
+# Subtest: 监狱与极地互锁：双方先后受困，放弃/掷骰循环后正常轮转
+ok 131 - 监狱与极地互锁：双方先后受困，放弃/掷骰循环后正常轮转
+  ---
+  duration_ms: 0.1937
+  ...
+# Subtest: 飞行到无主机场不触发购买，直接结束回合
+ok 132 - 飞行到无主机场不触发购买，直接结束回合
+  ---
+  duration_ms: 0.5423
+  ...
+# Subtest: 监狱：落到 21 号监狱当回合直接结束回合，不弹掷骰出狱窗口
+ok 133 - 监狱：落到 21 号监狱当回合直接结束回合，不弹掷骰出狱窗口
+  ---
+  duration_ms: 0.1821
+  ...
+# Subtest: 定义五类资讯目录 / 定义十二项机遇目录
+ok 134 - 定义五类资讯目录 / 定义十二项机遇目录
+  ---
+  duration_ms: 1.1559
+  ...
+# Subtest: V6–V10 二至四人、出局、监狱冰冻及原收费边界
+ok 135 - V6–V10 二至四人、出局、监狱冰冻及原收费边界
+  ---
+  duration_ms: 12.0519
+  ...
+# Subtest: V15–V18 地区上限、真实地区与建设独立额度
+ok 136 - V15–V18 地区上限、真实地区与建设独立额度
+  ---
+  duration_ms: 1.6068
+  ...
+# Subtest: V26–V28 远程资格、失败额度和同色链条共享
+ok 137 - V26–V28 远程资格、失败额度和同色链条共享
+  ---
+  duration_ms: 1.8705
+  ...
+# Subtest: V29–V36 十二项机遇金额、次数和适用边界
+ok 138 - V29–V36 十二项机遇金额、次数和适用边界
+  ---
+  duration_ms: 2.2348
+  ...
+# Subtest: V41–V42 标准及旧房费用、末级优先与过期费用
+ok 139 - V41–V42 标准及旧房费用、末级优先与过期费用
+  ---
+  duration_ms: 1.0607
+  ...
+# Subtest: V45–V49 交易全单原子性、卖出净筹资、抵押交易和冻结边界
+ok 140 - V45–V49 交易全单原子性、卖出净筹资、抵押交易和冻结边界
+  ---
+  duration_ms: 1.1365
+  ...
+# Subtest: V50–V56 派息舍入、除息现金、经营历史及上下界
+ok 141 - V50–V56 派息舍入、除息现金、经营历史及上下界
+  ---
+  duration_ms: 1.1199
+  ...
+# Subtest: V58–V60 成功拍卖保留成本历史、失败购买不提前派息、死者股份作废
+ok 142 - V58–V60 成功拍卖保留成本历史、失败购买不提前派息、死者股份作废
+  ---
+  duration_ms: 2.0429
+  ...
+# Subtest: V25、V63–V65 终局优先、资产守恒、结构化记录与旧数据兼容
+ok 143 - V25、V63–V65 终局优先、资产守恒、结构化记录与旧数据兼容
+  ---
+  duration_ms: 5.6066
+  ...
+# Subtest: V33、V39、V41、V44 取整零贡献、三种拆房与债务续接不重复收租
+ok 144 - V33、V39、V41、V44 取整零贡献、三种拆房与债务续接不重复收租
+  ---
+  duration_ms: 0.9831
+  ...
+# Subtest: V46、V57、V64 窗口总额度、受影响报价与终局剩余奖金
+ok 145 - V46、V57、V64 窗口总额度、受影响报价与终局剩余奖金
+  ---
+  duration_ms: 1.1717
+  ...
+# Subtest: 建立固定输入与假时钟夹具
+ok 146 - 建立固定输入与假时钟夹具
+  ---
+  duration_ms: 7.4785
+  ...
+# Subtest: 接入真实租金与自救：优惠顺序、银行补足和托管收入
+ok 147 - 接入真实租金与自救：优惠顺序、银行补足和托管收入
+  ---
+  duration_ms: 10.8529
+  ...
+# Subtest: 接入普通建拆与募资拆房 / 主动远程施工：实付成本、失败原子性与保持回合
+ok 148 - 接入普通建拆与募资拆房 / 主动远程施工：实付成本、失败原子性与保持回合
+  ---
+  duration_ms: 1.0187
+  ...
+# Subtest: 接入机票优惠和原债务续接：付费优惠与免费额度
+ok 149 - 接入机票优惠和原债务续接：付费优惠与免费额度
+  ---
+  duration_ms: 1.9565
+  ...
+# Subtest: 接入起点额度与骰子来源：只刷新本人额度，不奖励机会卡位移
+ok 150 - 接入起点额度与骰子来源：只刷新本人额度，不奖励机会卡位移
+  ---
+  duration_ms: 1.2142
+  ...
+# Subtest: 同时选择与阶段续接：所有人完成后才发应急资金，超时只应用一次
+ok 151 - 同时选择与阶段续接：所有人完成后才发应急资金，超时只应用一次
+  ---
+  duration_ms: 0.8671
+  ...
+# Subtest: 完整轮接入 / 连续自动跳过 / 资讯与第二第三次选择时点
+ok 152 - 完整轮接入 / 连续自动跳过 / 资讯与第二第三次选择时点
+  ---
+  duration_ms: 1.6657
+  ...
+# Subtest: 产权前派息与新城主上限：保持实际建房成本、正常出售结束回合
+ok 153 - 产权前派息与新城主上限：保持实际建房成本、正常出售结束回合
+  ---
+  duration_ms: 1.2513
+  ...
+# Subtest: 协商股份转让：整单预检、拒绝不变及保留窗口买入额度
+ok 154 - 协商股份转让：整单预检、拒绝不变及保留窗口买入额度
+  ---
+  duration_ms: 1.49
+  ...
+# Subtest: 清算、重新经营与旧报价保护 / 最后存活者终局优先
+ok 155 - 清算、重新经营与旧报价保护 / 最后存活者终局优先
+  ---
+  duration_ms: 1.0871
+  ...
+# Subtest: 银行远程赎回正常Socket：重复、非本人、断线重连保留真实清偿与预算
+ok 156 - 银行远程赎回正常Socket：重复、非本人、断线重连保留真实清偿与预算
+  ---
+  duration_ms: 139.3949
+  ...
+# Subtest: 第三座抵押Socket重复请求仅放款一次，其他玩家和迟到决定不能成交
+ok 157 - 第三座抵押Socket重复请求仅放款一次，其他玩家和迟到决定不能成交
+  ---
+  duration_ms: 58.059
+  ...
+# Subtest: 重复创建同一房间不会导致已两人但无法开始
+ok 158 - 重复创建同一房间不会导致已两人但无法开始
+  ---
+  duration_ms: 22.7924
+  ...
+# Subtest: 逐人私有投影 / 六十秒时钟 / 迟到消息与同时提交
+ok 159 - 逐人私有投影 / 六十秒时钟 / 迟到消息与同时提交
+  ---
+  duration_ms: 61.3239
+  ...
+# Subtest: 换组选项不延长倒计时 / 断线暂停 / 重连保留选项和剩余秒数
+ok 160 - 换组选项不延长倒计时 / 断线暂停 / 重连保留选项和剩余秒数
+  ---
+  duration_ms: 62.3056
+  ...
+# Subtest: 普通动作封装 / 费用版本 / 去重缓存 / 新开局隔离 / 未确认选择终止
+ok 161 - 普通动作封装 / 费用版本 / 去重缓存 / 新开局隔离 / 未确认选择终止
+  ---
+  duration_ms: 80.6236
+  ...
+# Subtest: V1、V5 二至四人真实开局、健康检查与重新开局
+ok 162 - V1、V5 二至四人真实开局、健康检查与重新开局
+  ---
+  duration_ms: 196.2135
+  ...
+# Subtest: V66 已提交重连保留锁定、候选与剩余时间
+ok 163 - V66 已提交重连保留锁定、候选与剩余时间
+  ---
+  duration_ms: 56.6498
+  ...
+# Subtest: V46、V66、V67 股票重连不重置累计预算，成交重放一次
+ok 164 - V46、V66、V67 股票重连不重置累计预算，成交重放一次
+  ---
+  duration_ms: 53.4413
+  ...
+# Subtest: V26、V67 远程重放、报价过期、越权及成功缓存有界
+ok 165 - V26、V67 远程重放、报价过期、越权及成功缓存有界
+  ---
+  duration_ms: 378.1177
+  ...
+# Subtest: V64 暂停解散与闲置结束先派息，记录和重复终止一致
+ok 166 - V64 暂停解散与闲置结束先派息，记录和重复终止一致
+  ---
+  duration_ms: 126.6429
+  ...
+# Subtest: V4 缺新增信息旧对局认证重连后仍按旧规则，新开局升级
+ok 167 - V4 缺新增信息旧对局认证重连后仍按旧规则，新开局升级
+  ---
+  duration_ms: 67.4085
+  ...
+# Subtest: V49、V67 协商转让确认重放只转一次，不提前派息
+ok 168 - V49、V67 协商转让确认重放只转一次，不提前派息
+  ---
+  duration_ms: 52.6474
+  ...
+# Subtest: 可用性：报价、持股、额度及现金失效均原子拒绝且不延时
+ok 169 - 可用性：报价、持股、额度及现金失效均原子拒绝且不延时
+  ---
+  duration_ms: 74.0992
+  ...
+# Subtest: 扶持购城后可经营，真实重连保留额度与两次原请求结果
+ok 170 - 扶持购城后可经营，真实重连保留额度与两次原请求结果
+  ---
+  duration_ms: 106.3143
+  ...
+# Subtest: v4 remote build and active stock real requests deduplicate and preserve cooldown and clock
+ok 171 - v4 remote build and active stock real requests deduplicate and preserve cooldown and clock
+  ---
+  duration_ms: 83.3722
+  ...
+# Subtest: 初始化新规则状态及版本
+ok 172 - 初始化新规则状态及版本
+  ---
+  duration_ms: 7.9276
+  ...
+# Subtest: 端到端：创建/加入/开始/首个操作回合可运行
+ok 173 - 端到端：创建/加入/开始/首个操作回合可运行
+  ---
+  duration_ms: 496.3077
+  ...
+# Subtest: 子流程顺序：拍卖轮到非当前回合玩家时可正常出价
+ok 174 - 子流程顺序：拍卖轮到非当前回合玩家时可正常出价
+  ---
+  duration_ms: 1274.5189
+  ...
+# Subtest: 对局结束后房主可重新开始新对局
+ok 175 - 对局结束后房主可重新开始新对局
+  ---
+  duration_ms: 444.0171
+  ...
+# Subtest: 大厅掉线转移房主，仍有离线成员时按现行规则阻止开局
+ok 176 - 大厅掉线转移房主，仍有离线成员时按现行规则阻止开局
+  ---
+  duration_ms: 306.6022
+  ...
+# Subtest: 房主对局中掉线后凭令牌重连，恢复房主身份
+ok 177 - 房主对局中掉线后凭令牌重连，恢复房主身份
+  ---
+  duration_ms: 483.9413
+  ...
+# Subtest: 房间内昵称重复加入被拒
+ok 178 - 房间内昵称重复加入被拒
+  ---
+  duration_ms: 439.8758
+  ...
+# Subtest: 在线玩家可用令牌顶替重连（网络抖动/快速刷新恢复）
+ok 179 - 在线玩家可用令牌顶替重连（网络抖动/快速刷新恢复）
+  ---
+  duration_ms: 463.0685
+  ...
+# Subtest: AI counts upfront once, delayed principal and future bid liability rather than free action
+ok 180 - AI counts upfront once, delayed principal and future bid liability rather than free action
+  ---
+  duration_ms: 28.7396
+  ...
+# Subtest: AI cannot distinguish hidden bid/dice data and skips near quick seal
+ok 181 - AI cannot distinguish hidden bid/dice data and skips near quick seal
+  ---
+  duration_ms: 8.4737
+  ...
+# Subtest: changing only another seat secret bid cannot change the same own decision
+ok 182 - changing only another seat secret bid cannot change the same own decision
+  ---
+  duration_ms: 11.0119
+  ...
+# Subtest: new explicit version guard and historical v4 order schedule stay separate
+ok 183 - new explicit version guard and historical v4 order schedule stay separate
+  ---
+  duration_ms: 8.1852
+  ...
+# Subtest: real complete boundary closes once and publishes future period without resetting old advantage
+ok 184 - real complete boundary closes once and publishes future period without resetting old advantage
+  ---
+  duration_ms: 5.0634
+  ...
+# Subtest: city source changes terminate both pending bid and order even on return ownership
+ok 185 - city source changes terminate both pending bid and order even on return ownership
+  ---
+  duration_ms: 2.3449
+  ...
+# Subtest: quick sealing cancels unawarded price and unpaid principal, does not reveal secret
+ok 186 - quick sealing cancels unawarded price and unpaid principal, does not reveal secret
+  ---
+  duration_ms: 2.5871
+  ...
+# Subtest: private replay restores exact winner and public projection excludes pending private bids
+ok 187 - private replay restores exact winner and public projection excludes pending private bids
+  ---
+  duration_ms: 17.4163
+  ...
+# Subtest: rent final net cash decides rescue and continuing rescue never repeats dividend
+ok 188 - rent final net cash decides rescue and continuing rescue never repeats dividend
+  ---
+  duration_ms: 3.7725
+  ...
+# Subtest: pending and advantage capacity gate publication; ordinary improvements never reset hits
+ok 189 - pending and advantage capacity gate publication; ordinary improvements never reset hits
+  ---
+  duration_ms: 0.7418
+  ...
+# Subtest: new order pays correctly through actual frozen and skipped-jail prepare continuations
+ok 190 - new order pays correctly through actual frozen and skipped-jail prepare continuations
+  ---
+  duration_ms: 1.0266
+  ...
+# Subtest: ordinary end removes active license and unpaid order without refund; public record hides unawarded bids
+ok 191 - ordinary end removes active license and unpaid order without refund; public record hides unawarded bids
+  ---
+  duration_ms: 2.3137
+  ...
+# Subtest: all twenty cities and airport preserve principal, profit and quarter-first schedule
+ok 192 - all twenty cities and airport preserve principal, profit and quarter-first schedule
+  ---
+  duration_ms: 10.1246
+  ...
+# Subtest: new order pays actual two starts once, with principal only in tail and capped news bonus
+ok 193 - new order pays actual two starts once, with principal only in tail and capped news bonus
+  ---
+  duration_ms: 2.0671
+  ...
+# Subtest: cancel after first profit loses outstanding principal; source restoration never revives
+ok 194 - cancel after first profit loses outstanding principal; source restoration never revives
+  ---
+  duration_ms: 1.3847
+  ...
+# Subtest: once per lap, one live order, invalid quote readonly and remote build restrictions retained
+ok 195 - once per lap, one live order, invalid quote readonly and remote build restrictions retained
+  ---
+  duration_ms: 0.8586
+  ...
+# Subtest: dual sockets accept immutable hidden bids, reject stale requests, open once, rent and reconnect
+ok 196 - dual sockets accept immutable hidden bids, reject stale requests, open once, rent and reconnect
+  ---
+  duration_ms: 219.9685
+  ...
+# Subtest: missing capability is rejected on new start; bot uses the same authenticated new economy path
+ok 197 - missing capability is rejected on new start; bot uses the same authenticated new economy path
+  ---
+  duration_ms: 49.8439
+  ...
+# Subtest: quick cutoff before or across the closing action discards the uncommitted winning debit
+ok 198 - quick cutoff before or across the closing action discards the uncommitted winning debit
+  ---
+  duration_ms: 111.8884
+  ...
+# Subtest: v3 explicitly skipping spends no money or lap quota and cannot buy again until next turn
+ok 199 - v3 explicitly skipping spends no money or lap quota and cannot buy again until next turn
+  ---
+  duration_ms: 17.4899
+  ...
+# Subtest: skip is only legal for the current normal decision, and does not add time
+ok 200 - skip is only legal for the current normal decision, and does not add time
+  ---
+  duration_ms: 1.8088
+  ...
+# Subtest: v3 trusted timeout skips and rolls without investing, v2 retains its spending rule
+ok 201 - v3 trusted timeout skips and rolls without investing, v2 retains its spending rule
+  ---
+  duration_ms: 2.5826
+  ...
+# Subtest: AI may skip when every investment breaks its cash reserve, and old versions reject skip
+ok 202 - AI may skip when every investment breaks its cash reserve, and old versions reject skip
+  ---
+  duration_ms: 5.5283
+  ...
+# Subtest: v2门禁、无项目放行、失败原子性、旧局可跳过
+ok 203 - v2门禁、无项目放行、失败原子性、旧局可跳过
+  ---
+  duration_ms: 16.1667
+  ...
+# Subtest: v2三类费用、促销不替换、没有圈额度但保留20/4股
+ok 204 - v2三类费用、促销不替换、没有圈额度但保留20/4股
+  ---
+  duration_ms: 1.5418
+  ...
+# Subtest: 促销完整期限、3次上限、欠租清偿幂等和撤销
+ok 205 - 促销完整期限、3次上限、欠租清偿幂等和撤销
+  ---
+  duration_ms: 1.0274
+  ...
+# Subtest: 可信超时选择最低支出后掷骰；重放一致，普通请求不得伪造
+ok 206 - 可信超时选择最低支出后掷骰；重放一致，普通请求不得伪造
+  ---
+  duration_ms: 2.8379
+  ...
+# Subtest: 快速45秒/普通90秒，经营/查看不改变决定期限
+ok 207 - 快速45秒/普通90秒，经营/查看不改变决定期限
+  ---
+  duration_ms: 0.8469
+  ...
+# Subtest: H1 H2 H3：建设优惠30%总上限，前两次与连锁持续生效
+ok 208 - H1 H2 H3：建设优惠30%总上限，前两次与连锁持续生效
+  ---
+  duration_ms: 1.0965
+  ...
+# Subtest: H4 H5 H9 H10：真实股息、分散及航空/轻资产奖励
+ok 209 - H4 H5 H9 H10：真实股息、分散及航空/轻资产奖励
+  ---
+  duration_ms: 1.1258
+  ...
+# Subtest: H6 H11：股东25%再减30%，防御前两次、各自上限
+ok 210 - H6 H11：股东25%再减30%，防御前两次、各自上限
+  ---
+  duration_ms: 0.5268
+  ...
+# Subtest: H7 H8：两次航班优惠、60%合计上限，机场首访和跨圈访问
+ok 211 - H7 H8：两次航班优惠、60%合计上限，机场首访和跨圈访问
+  ---
+  duration_ms: 0.5018
+  ...
+# Subtest: H12新版金额、一次凭据、目录隐私与AI必做fallback
+ok 212 - H12新版金额、一次凭据、目录隐私与AI必做fallback
+  ---
+  duration_ms: 6.3176
+  ...
+# Subtest: 有限真实收益对照：0/1/3次客流，三类经营不混淆回报
+ok 213 - 有限真实收益对照：0/1/3次客流，三类经营不混淆回报
+  ---
+  duration_ms: 6.7809
+  ...
+# Subtest: phone identified without treating desktop narrow windows or tablets as phones
+ok 214 - phone identified without treating desktop narrow windows or tablets as phones
+  ---
+  duration_ms: 0.9811
+  ...
+# Subtest: physical portrait with a short keyboard viewport cannot pass landscape gate
+ok 215 - physical portrait with a short keyboard viewport cannot pass landscape gate
+  ---
+  duration_ms: 0.1663
+  ...
+# Subtest: remote redemption pays only that city principal and interest, restores rent, and preserves ownership, levels, quotas and turn
+ok 216 - remote redemption pays only that city principal and interest, restores rent, and preserves ownership, levels, quotas and turn
+  ---
+  duration_ms: 17.2994
+  ...
+# Subtest: insufficient funds, wrong owner/stage, bad interest and stale quote fail without partial mutation
+ok 217 - insufficient funds, wrong owner/stage, bad interest and stale quote fail without partial mutation
+  ---
+  duration_ms: 2.9502
+  ...
+# Subtest: private quotes show correct amounts and stage reasons only for the owners mortgages
+ok 218 - private quotes show correct amounts and stage reasons only for the owners mortgages
+  ---
+  duration_ms: 1.2638
+  ...
+# Subtest: unrelated public revisions do not invalidate unchanged repayment terms
+ok 219 - unrelated public revisions do not invalidate unchanged repayment terms
+  ---
+  duration_ms: 0.2246
+  ...
+# Subtest: normal and quick, legacy and current rules permit third and fourth city mortgages with exact cash
+ok 220 - normal and quick, legacy and current rules permit third and fourth city mortgages with exact cash
+  ---
+  duration_ms: 11.579
+  ...
+# Subtest: repeat mortgages, unowned/other cities and forbidden decisions never mint cash
+ok 221 - repeat mortgages, unowned/other cities and forbidden decisions never mint cash
+  ---
+  duration_ms: 1.9599
+  ...
+# Subtest: self rescue and city, airport or build fundraising permit third mortgages without prematurely confirming
+ok 222 - self rescue and city, airport or build fundraising permit third mortgages without prematurely confirming
+  ---
+  duration_ms: 2.2503
+  ...
+# Subtest: AI can evaluate and fall back to a third mortgage while current simulation funding includes every city
+ok 223 - AI can evaluate and fall back to a third mortgage while current simulation funding includes every city
+  ---
+  duration_ms: 20.6604
+  ...
+# Subtest: 抽取合法三候选组合 / 建立同时选择阶段
+ok 224 - 抽取合法三候选组合 / 建立同时选择阶段
+  ---
+  duration_ms: 13.3863
+  ...
+# Subtest: 锁定本人选择并判定全员完成 / 实现全局一次重选 / 统一应用全员或到期选择
+ok 225 - 锁定本人选择并判定全员完成 / 实现全局一次重选 / 统一应用全员或到期选择
+  ---
+  duration_ms: 0.7768
+  ...
+# Subtest: 管理个人每圈与机场额度
+ok 226 - 管理个人每圈与机场额度
+  ---
+  duration_ms: 0.7948
+  ...
+# Subtest: 两模式两类机遇60秒，同机会更新不补时，整局余8秒优先
+ok 227 - 两模式两类机遇60秒，同机会更新不补时，整局余8秒优先
+  ---
+  duration_ms: 7.597
+  ...
+# Subtest: S01 动作契约非法载荷越权与旧窗口
+ok 228 - S01 动作契约非法载荷越权与旧窗口
+  ---
+  duration_ms: 3.5734
+  ...
+# Subtest: S02 个人阶段只允许合法选择或服务端超时
+ok 229 - S02 个人阶段只允许合法选择或服务端超时
+  ---
+  duration_ms: 0.5726
+  ...
+# Subtest: S03 决定身份时间与暂停恢复
+ok 230 - S03 决定身份时间与暂停恢复
+  ---
+  duration_ms: 1.2105
+  ...
+# Subtest: S04 新页面能力门槛与普通开局
+ok 231 - S04 新页面能力门槛与普通开局
+  ---
+  duration_ms: 55.2253
+  ...
+# Subtest: S05 成交结果回执去重与非法请求不修改
+ok 232 - S05 成交结果回执去重与非法请求不修改
+  ---
+  duration_ms: 20.5409
+  ...
+# Subtest: S06 确认前及执行跨个人截止不提交副本
+ok 233 - S06 确认前及执行跨个人截止不提交副本
+  ---
+  duration_ms: 23.3488
+  ...
+# Subtest: S07 受控总时间提供者截止优先适配（非快速核心验收）
+ok 234 - S07 受控总时间提供者截止优先适配（非快速核心验收）
+  ---
+  duration_ms: 24.136
+  ...
+# Subtest: S08 受控时点仅登记一次且不改行动版本
+ok 235 - S08 受控时点仅登记一次且不改行动版本
+  ---
+  duration_ms: 11.6979
+  ...
+# Subtest: S08b 掷骰先提交后到时只排队，不撤销原股票流程
+ok 236 - S08b 掷骰先提交后到时只排队，不撤销原股票流程
+  ---
+  duration_ms: 19.0067
+  ...
+# Subtest: S09 重连恢复原候选与剩余时间
+ok 237 - S09 重连恢复原候选与剩余时间
+  ---
+  duration_ms: 27.9173
+  ...
+# Subtest: S10 旧能力重连可查看但新局动作要求更新，旧局仍可操作
+ok 238 - S10 旧能力重连可查看但新局动作要求更新，旧局仍可操作
+  ---
+  duration_ms: 34.5865
+  ...
+# Subtest: S11a 房间结束清理且记录重复获取不重复结算
+ok 239 - S11a 房间结束清理且记录重复获取不重复结算
+  ---
+  duration_ms: 14.9177
+  ...
+# Subtest: S11 普通两人真实初始阶段起点换路线与后续重连
+ok 240 - S11 普通两人真实初始阶段起点换路线与后续重连
+  ---
+  duration_ms: 288.9983
+  ...
+# Subtest: R22 私有候选与公共进度投影
+ok 241 - R22 私有候选与公共进度投影
+  ---
+  duration_ms: 12.1524
+  ...
+# Subtest: R23 记录仅存确定结果和版本
+ok 242 - R23 记录仅存确定结果和版本
+  ---
+  duration_ms: 1.4904
+  ...
+# Subtest: R01 新局显式版本和旧局隔离
+ok 243 - R01 新局显式版本和旧局隔离
+  ---
+  duration_ms: 0.5082
+  ...
+# Subtest: R02 首次奖励意图与领取事实
+ok 244 - R02 首次奖励意图与领取事实
+  ---
+  duration_ms: 0.4188
+  ...
+# Subtest: R03 第三阶段基准不追溯不漂移
+ok 245 - R03 第三阶段基准不追溯不漂移
+  ---
+  duration_ms: 0.5239
+  ...
+# Subtest: R04 有效圈门槛与合并维持原进度
+ok 246 - R04 有效圈门槛与合并维持原进度
+  ---
+  duration_ms: 0.3007
+  ...
+# Subtest: R05 快速初始时点0 5 10只登记不打断
+ok 247 - R05 快速初始时点0 5 10只登记不打断
+  ---
+  duration_ms: 0.4161
+  ...
+# Subtest: R06 快速15 22按来源登记一次
+ok 248 - R06 快速15 22按来源登记一次
+  ---
+  duration_ms: 0.2475
+  ...
+# Subtest: R07 28分钟只清未打开与结束取消幂等
+ok 249 - R07 28分钟只清未打开与结束取消幂等
+  ---
+  duration_ms: 0.6224
+  ...
+# Subtest: R08 三候选方向限制排除持有和已领奖
+ok 250 - R08 三候选方向限制排除持有和已领奖
+  ---
+  duration_ms: 0.3557
+  ...
+# Subtest: R09 安全入口和同回合只开一次
+ok 251 - R09 安全入口和同回合只开一次
+  ---
+  duration_ms: 0.2757
+  ...
+# Subtest: R10 非法替换无部分修改合法替换指定项
+ok 252 - R10 非法替换无部分修改合法替换指定项
+  ---
+  duration_ms: 1.2261
+  ...
+# Subtest: R11 主动跳过和超时原路线不变
+ok 253 - R11 主动跳过和超时原路线不变
+  ---
+  duration_ms: 1.0713
+  ...
+# Subtest: R12 换出再换回保留额度机场历史和真实成本
+ok 254 - R12 换出再换回保留额度机场历史和真实成本
+  ---
+  duration_ms: 1.8362
+  ...
+# Subtest: R13 原初始超时结算及H12首次事实
+ok 255 - R13 原初始超时结算及H12首次事实
+  ---
+  duration_ms: 2.8759
+  ...
+# Subtest: R12b 原引擎骰子机场奖励区别于飞行和机会位移
+ok 256 - R12b 原引擎骰子机场奖励区别于飞行和机会位移
+  ---
+  duration_ms: 3.6207
+  ...
+# Subtest: R14 真实起点先开股票不插入后续
+ok 257 - R14 真实起点先开股票不插入后续
+  ---
+  duration_ms: 0.6741
+  ...
+# Subtest: R14b 基准已两圈时第三第四第五圈真实结算
+ok 258 - R14b 基准已两圈时第三第四第五圈真实结算
+  ---
+  duration_ms: 0.7683
+  ...
+# Subtest: R21b 债务破产与结束取消排队且迟到确认无效
+ok 259 - R21b 债务破产与结束取消排队且迟到确认无效
+  ---
+  duration_ms: 0.8161
+  ...
+# Subtest: R15 普通与监狱掷骰记录当轮且不误开
+ok 260 - R15 普通与监狱掷骰记录当轮且不误开
+  ---
+  duration_ms: 0.7375
+  ...
+# Subtest: R16 回合安全入口不重复完成上一回合
+ok 261 - R16 回合安全入口不重复完成上一回合
+  ---
+  duration_ms: 0.2392
+  ...
+# Subtest: R17 冻结监狱决定处理后才打开
+ok 262 - R17 冻结监狱决定处理后才打开
+  ---
+  duration_ms: 0.8349
+  ...
+# Subtest: R18 自救和股票完成不删必要上下文
+ok 263 - R18 自救和股票完成不删必要上下文
+  ---
+  duration_ms: 0.3061
+  ...
+# Subtest: R19 后续首次应急资金原子到账
+ok 264 - R19 后续首次应急资金原子到账
+  ---
+  duration_ms: 0.6964
+  ...
+# Subtest: R20 跳过与超时恢复可继续掷骰
+ok 265 - R20 跳过与超时恢复可继续掷骰
+  ---
+  duration_ms: 0.7736
+  ...
+# Subtest: R21 原正常结束清理不补发未选奖励
+ok 266 - R21 原正常结束清理不补发未选奖励
+  ---
+  duration_ms: 0.2773
+  ...
+# Subtest: 私人计数、产权与经营按有序状态变更重建，公开记录不泄漏
+ok 267 - 私人计数、产权与经营按有序状态变更重建，公开记录不泄漏
+  ---
+  duration_ms: 28.0071
+  ...
+# Subtest: ordinary pool includes every unsold ordinary city and premium release depends only on ownership
+ok 268 - ordinary pool includes every unsold ordinary city and premium release depends only on ownership
+  ---
+  duration_ms: 8.338
+  ...
+# Subtest: a multi-city budget purchase validates before acquiring any city and completes once
+ok 269 - a multi-city budget purchase validates before acquiring any city and completes once
+  ---
+  duration_ms: 7.6142
+  ...
+# Subtest: one expensive city and mixed baskets fit budget; excessive, duplicate and invalid baskets fail without mutation
+ok 270 - one expensive city and mixed baskets fit budget; excessive, duplicate and invalid baskets fail without mutation
+  ---
+  duration_ms: 4.269
+  ...
+# Subtest: changing cash or any selected inventory invalidates prior basket, and premium baskets stay within budget
+ok 271 - changing cash or any selected inventory invalidates prior basket, and premium baskets stay within budget
+  ---
+  duration_ms: 1.2035
+  ...
+# Subtest: private view and historical single-city format remain distinct and AI uses budget action shape
+ok 272 - private view and historical single-city format remain distinct and AI uses budget action shape
+  ---
+  duration_ms: 9.4583
+  ...
+# Subtest: 六个有效回合、拒绝归零、重复和旧局隔离
+ok 273 - 六个有效回合、拒绝归零、重复和旧局隔离
+  ---
+  duration_ms: 5.1571
+  ...
+# Subtest: 原价购买原子、原圈额度、曾拥有与本人隐私
+ok 274 - 原价购买原子、原圈额度、曾拥有与本人隐私
+  ---
+  duration_ms: 13.0541
+  ...
+# Subtest: 库存、现金、阶段及报价变化无修改
+ok 275 - 库存、现金、阶段及报价变化无修改
+  ---
+  duration_ms: 0.6135
+  ...
+# Subtest: 拒绝可负担机会取消进度资格，机场与非正常回合不误计
+ok 276 - 拒绝可负担机会取消进度资格，机场与非正常回合不误计
+  ---
+  duration_ms: 0.2379
+  ...
+# Subtest: 真实骰子回合完成出口计数，冻结跳过和实际飞行不计
+ok 277 - 真实骰子回合完成出口计数，冻结跳过和实际飞行不计
+  ---
+  duration_ms: 1.3111
+  ...
+# Subtest: 四条真实产权获得路径永久结束扶持，出售不恢复
+ok 278 - 四条真实产权获得路径永久结束扶持，出售不恢复
+  ---
+  duration_ms: 1.9397
+  ...
+# Subtest: 现金不足按落点时判断，自救挂起不计直到原回合完成
+ok 279 - 现金不足按落点时判断，自救挂起不计直到原回合完成
+  ---
+  duration_ms: 1.2097
+  ...
+# Subtest: 候选排序、占用排除与各类失败均保留资格和完整状态
+ok 280 - 候选排序、占用排除与各类失败均保留资格和完整状态
+  ---
+  duration_ms: 2.4354
+  ...
+# Subtest: 监狱掷骰和放弃不计，解锁前正常回合也不计
+ok 281 - 监狱掷骰和放弃不计，解锁前正常回合也不计
+  ---
+  duration_ms: 0.6351
+  ...
+# Subtest: 有资格直接掷骰不阻塞，下次正常回合保留使用机会
+ok 282 - 有资格直接掷骰不阻塞，下次正常回合保留使用机会
+  ---
+  duration_ms: 1.1189
+  ...
+# Subtest: public sale snapshots include seller identity without publishing authoritative rescue context
+ok 283 - public sale snapshots include seller identity without publishing authoritative rescue context
+  ---
+  duration_ms: 10.9167
+  ...
+# Subtest: both purchase targets retain the decision after partial and sufficient stock liquidation, manual confirm acquires only then
+ok 284 - both purchase targets retain the decision after partial and sufficient stock liquidation, manual confirm acquires only then
+  ---
+  duration_ms: 7.1144
+  ...
+# Subtest: invalid purchase selling state, quantities and modern quotes leave all authoritative values unchanged
+ok 285 - invalid purchase selling state, quantities and modern quotes leave all authoritative values unchanged
+  ---
+  duration_ms: 4.8702
+  ...
+# Subtest: cancel retains proceeds without acquiring the purchase target
+ok 286 - cancel retains proceeds without acquiring the purchase target
+  ---
+  duration_ms: 1.8522
+  ...
+# Subtest: self rescue demolition and city sale preserve authoritative debt context and actually proceed
+ok 287 - self rescue demolition and city sale preserve authoritative debt context and actually proceed
+  ---
+  duration_ms: 4.1528
+  ...
+# Subtest: QC01: formal start owns one identity and excludes lobby time
+ok 288 - QC01: formal start owns one identity and excludes lobby time
+  ---
+  duration_ms: 1.3003
+  ...
+# Subtest: QC02: deadline boundaries, wall jumps, reads cannot extend
+ok 289 - QC02: deadline boundaries, wall jumps, reads cannot extend
+  ---
+  duration_ms: 0.1945
+  ...
+# Subtest: QC03: scheduled milestones catch up without repeat loops
+ok 290 - QC03: scheduled milestones catch up without repeat loops
+  ---
+  duration_ms: 0.6342
+  ...
+# Subtest: QC04: stopped time freezes and stale callbacks cannot affect restarted game
+ok 291 - QC04: stopped time freezes and stale callbacks cannot affect restarted game
+  ---
+  duration_ms: 0.147
+  ...
+# Subtest: QC05: quick decision durations, same identity tightening and paused budget
+ok 292 - QC05: quick decision durations, same identity tightening and paused budget
+  ---
+  duration_ms: 7.3506
+  ...
+# Subtest: QM01: net asset example, debt principal, negative values and original gross
+ok 293 - QM01: net asset example, debt principal, negative values and original gross
+  ---
+  duration_ms: 13.9732
+  ...
+# Subtest: QM02: retained fund excludes issued dividends; standard construction differs from expense
+ok 294 - QM02: retained fund excludes issued dividends; standard construction differs from expense
+  ---
+  duration_ms: 4.9858
+  ...
+# Subtest: QM03: quick version gating never migrates ordinary or legacy states
+ok 295 - QM03: quick version gating never migrates ordinary or legacy states
+  ---
+  duration_ms: 0.6543
+  ...
+# Subtest: QM04: unfinished sales, highest bids, transfers and rescue cannot create transactions
+ok 296 - QM04: unfinished sales, highest bids, transfers and rescue cannot create transactions
+  ---
+  duration_ms: 2.902
+  ...
+# Subtest: QM05: incomplete initial and route choices do not grant rewards or reveal candidates
+ok 297 - QM05: incomplete initial and route choices do not grant rewards or reveal candidates
+  ---
+  duration_ms: 0.5155
+  ...
+# Subtest: QM06: bankrupt residual ownership clears before ranking even with empty player city list
+ok 298 - QM06: bankrupt residual ownership clears before ranking even with empty player city list
+  ---
+  duration_ms: 1.1146
+  ...
+# Subtest: QM07: final dividend respects remaining H4 allowance and leaves round economics untouched
+ok 299 - QM07: final dividend respects remaining H4 allowance and leaves round economics untouched
+  ---
+  duration_ms: 0.3613
+  ...
+# Subtest: QM08: tied winners, rank 1/1/3 and reversed elimination with negative values
+ok 300 - QM08: tied winners, rank 1/1/3 and reversed elimination with negative values
+  ---
+  duration_ms: 0.8576
+  ...
+# Subtest: QM09: candidate failures never touch authoritative state; closure is idempotent
+ok 301 - QM09: candidate failures never touch authoritative state; closure is idempotent
+  ---
+  duration_ms: 1.9046
+  ...
+# Subtest: QM10: quick bankruptcy ends without new auction or premature final settlement
+ok 302 - QM10: quick bankruptcy ends without new auction or premature final settlement
+  ---
+  duration_ms: 4.882
+  ...
+# Subtest: QM11: public net values and frozen results omit private candidates and credentials
+ok 303 - QM11: public net values and frozen results omit private candidates and credentials
+  ---
+  duration_ms: 5.8867
+  ...
+# Subtest: QM12: records use one frozen end time and match net ranking without inventing old values
+ok 304 - QM12: records use one frozen end time and match net ranking without inventing old values
+  ---
+  duration_ms: 2.5999
+  ...
+# Subtest: QS01: room modes agree for two to four players and enforce owner permissions
+ok 305 - QS01: room modes agree for two to four players and enforce owner permissions
+  ---
+  duration_ms: 86.1155
+  ...
+# Subtest: QS02: capabilities and conflicting mode fail without replacing prior state
+ok 306 - QS02: capabilities and conflicting mode fail without replacing prior state
+  ---
+  duration_ms: 16.2372
+  ...
+# Subtest: QS03: real total clock begins with first choice and shares injected time source
+ok 307 - QS03: real total clock begins with first choice and shares injected time source
+  ---
+  duration_ms: 12.0509
+  ...
+# Subtest: QS04: atomic close can retry after failed economic checks with no partial authoritative mutation
+ok 308 - QS04: atomic close can retry after failed economic checks with no partial authoritative mutation
+  ---
+  duration_ms: 27.1911
+  ...
+# Subtest: QS05: skipped nodes, warning deduplication and late callbacks prioritize total deadline
+ok 309 - QS05: skipped nodes, warning deduplication and late callbacks prioritize total deadline
+  ---
+  duration_ms: 32.7996
+  ...
+# Subtest: QS04b: partial candidate clearing failure never commits to the real room
+ok 310 - QS04b: partial candidate clearing failure never commits to the real room
+  ---
+  duration_ms: 19.6164
+  ...
+# Subtest: QS06: committed action survives deadline; execution crossing cutoff discards candidate
+ok 311 - QS06: committed action survives deadline; execution crossing cutoff discards candidate
+  ---
+  duration_ms: 165.576
+  ...
+# Subtest: QS07: successful receipt remains queryable after closure while new requests fail
+ok 312 - QS07: successful receipt remains queryable after closure while new requests fail
+  ---
+  duration_ms: 29.203
+  ...
+# Subtest: QS08: same decision has no refill, simultaneous personal and total deadline only closes
+ok 313 - QS08: same decision has no refill, simultaneous personal and total deadline only closes
+  ---
+  duration_ms: 32.2608
+  ...
+# Subtest: QS09: stock quote updates keep budget; unconfirmed transfer is cancelled at deadline
+ok 314 - QS09: stock quote updates keep budget; unconfirmed transfer is cancelled at deadline
+  ---
+  duration_ms: 64.4615
+  ...
+# Subtest: QS10: due initial stages open safely in order without replaying turn preparation
+ok 315 - QS10: due initial stages open safely in order without replaying turn preparation
+  ---
+  duration_ms: 48.7452
+  ...
+# Subtest: QS11: later milestones queue once, active choice survives 28 then cancels at 30
+ok 316 - QS11: later milestones queue once, active choice survives 28 then cancels at 30
+  ---
+  duration_ms: 99.823
+  ...
+# Subtest: QS12: natural quick finish sends one identical record with frozen reason
+ok 317 - QS12: natural quick finish sends one identical record with frozen reason
+  ---
+  duration_ms: 58.9392
+  ...
+# Subtest: QS13: offline personal pause never pauses total deadline and reconnect receives record
+ok 318 - QS13: offline personal pause never pauses total deadline and reconnect receives record
+  ---
+  duration_ms: 69.0568
+  ...
+# Subtest: QS14: disband and idle cleanup preserve net ranking and actual termination reason
+ok 319 - QS14: disband and idle cleanup preserve net ranking and actual termination reason
+  ---
+  duration_ms: 40.6529
+  ...
+# Subtest: QS15: restart resets identity and old callbacks cannot touch next game
+ok 320 - QS15: restart resets identity and old callbacks cannot touch next game
+  ---
+  duration_ms: 21.8643
+  ...
+# Subtest: QS16: five-second heartbeat updates time without changing revision or decision
+ok 321 - QS16: five-second heartbeat updates time without changing revision or decision
+  ---
+  duration_ms: 48.332
+  ...
+# Subtest: QS17: finite real quick game grows, operates, skips routes and seals an unconfirmed purchase
+ok 322 - QS17: finite real quick game grows, operates, skips routes and seals an unconfirmed purchase
+  ---
+  duration_ms: 338.2278
+  ...
+# Subtest: QS18: real clock closes unopened routes at 28 and cancels active choice at 30
+ok 323 - QS18: real clock closes unopened routes at 28 and cancels active choice at 30
+  ---
+  duration_ms: 70.6654
+  ...
+# Subtest: QS19: actual route confirmation before at and across total cutoff is atomic
+ok 324 - QS19: actual route confirmation before at and across total cutoff is atomic
+  ---
+  duration_ms: 254.0302
+  ...
+# Subtest: 新经营与扶持提交遇快速截止：截止先到不成交，成功先到保留结果
+ok 325 - 新经营与扶持提交遇快速截止：截止先到不成交，成功先到保留结果
+  ---
+  duration_ms: 149.2452
+  ...
+# Subtest: 建房筹资真实Socket：重复只卖一次、决定不续期、快速封盘优先
+ok 326 - 建房筹资真实Socket：重复只卖一次、决定不续期、快速封盘优先
+  ---
+  duration_ms: 44.4627
+  ...
+# Subtest: 股票新窗口60秒、到期正常推进，整局仅剩8秒时同步封盘一次
+ok 327 - 股票新窗口60秒、到期正常推进，整局仅剩8秒时同步封盘一次
+  ---
+  duration_ms: 135.2816
+  ...
+# Subtest: unlimited self rescue does not auto-bankrupt but still respects the quick total deadline
+ok 328 - unlimited self rescue does not auto-bankrupt but still respects the quick total deadline
+  ---
+  duration_ms: 70.4377
+  ...
+# Subtest: 建房个人到期保留已变现股票收入，旧筹资请求不能继续卖
+ok 329 - 建房个人到期保留已变现股票收入，旧筹资请求不能继续卖
+  ---
+  duration_ms: 39.8582
+  ...
+# Subtest: 购买募资卖股真实Socket：两目标同请求只变现一次，个人超时及快速封盘阻止卖出
+ok 330 - 购买募资卖股真实Socket：两目标同请求只变现一次，个人超时及快速封盘阻止卖出
+  ---
+  duration_ms: 361.9771
+  ...
+# Subtest: 抵押远程赎回真实Socket：重复只扣一次、非本人拒绝、快速封盘优先且净资产一致
+ok 331 - 抵押远程赎回真实Socket：重复只扣一次、非本人拒绝、快速封盘优先且净资产一致
+  ---
+  duration_ms: 139.3995
+  ...
+# Subtest: 远航开支由真实事件汇总、记录修订，旧记录不补算
+ok 332 - 远航开支由真实事件汇总、记录修订，旧记录不补算
+  ---
+  duration_ms: 6.8703
+  ...
+# Subtest: computeStats：从事件文本统计关键动作
+ok 333 - computeStats：从事件文本统计关键动作
+  ---
+  duration_ms: 0.3126
+  ...
+# Subtest: buildGameRecord：生成完整对局记录
+ok 334 - buildGameRecord：生成完整对局记录
+  ---
+  duration_ms: 1.3324
+  ...
+# Subtest: 集成：中途解散房间时广播完整对局记录
+ok 335 - 集成：中途解散房间时广播完整对局记录
+  ---
+  duration_ms: 403.5443
+  ...
+# Subtest: tasks use real post-accept normal building, cash threshold, and one coupon; remote does not count
+ok 336 - tasks use real post-accept normal building, cash threshold, and one coupon; remote does not count
+  ---
+  duration_ms: 6.2408
+  ...
+# Subtest: paid flights complete, free flights and low remaining cash do not
+ok 337 - paid flights complete, free flights and low remaining cash do not
+  ---
+  duration_ms: 2.0093
+  ...
+# Subtest: coupon cuts share caps and remote floor; zero saving preserves coupon; old games have no missions
+ok 338 - coupon cuts share caps and remote floor; zero saving preserves coupon; old games have no missions
+  ---
+  duration_ms: 0.6005
+  ...
+# Subtest: flight coupons share 60 percent cap, no cashback on free ticket, once only
+ok 339 - flight coupons share 60 percent cap, no cashback on free ticket, once only
+  ---
+  duration_ms: 0.4583
+  ...
+# Subtest: task abandonment, two-go expiry, seal and out clear; no private progress or coupon asset value
+ok 340 - task abandonment, two-go expiry, seal and out clear; no private progress or coupon asset value
+  ---
+  duration_ms: 13.8123
+  ...
+# Subtest: invalid, stale and foreign mission requests do not modify state; original action flow handles real acceptance
+ok 341 - invalid, stale and foreign mission requests do not modify state; original action flow handles real acceptance
+  ---
+  duration_ms: 6.7515
+  ...
+# Subtest: all city rents and builds use new news caps, while historical games retain original effects
+ok 342 - all city rents and builds use new news caps, while historical games retain original effects
+  ---
+  duration_ms: 6.3907
+  ...
+# Subtest: stable news only rewards paid orders once, no cancellation payout or future asset inflation
+ok 343 - stable news only rewards paid orders once, no cancellation payout or future asset inflation
+  ---
+  duration_ms: 0.9238
+  ...
+# Subtest: offline grace is at most20s, is not replenished by reconnect, continuous disconnect has zero next wait
+ok 344 - offline grace is at most20s, is not replenished by reconnect, continuous disconnect has zero next wait
+  ---
+  duration_ms: 1.0948
+  ...
+# Subtest: nonactor disconnect does not pause, self rescue waits untimed, all offline stops defaults, old games pause
+ok 345 - nonactor disconnect does not pause, self rescue waits untimed, all offline stops defaults, old games pause
+  ---
+  duration_ms: 0.4561
+  ...
+# Subtest: synchronous defaults choose only offline left option; online choices keep full clock
+ok 346 - synchronous defaults choose only offline left option; online choices keep full clock
+  ---
+  duration_ms: 0.7445
+  ...
+# Subtest: offline frozen never pays, jailed rolls, short original deadline caps grace and stale callback is harmless
+ok 347 - offline frozen never pays, jailed rolls, short original deadline caps grace and stale callback is harmless
+  ---
+  duration_ms: 235.6065
+  ...
+# Subtest: two to four seats and bots keep online decisions available; all humans offline stops bots
+ok 348 - two to four seats and bots keep online decisions available; all humans offline stops bots
+  ---
+  duration_ms: 0.6506
+  ...
+# Subtest: mission success and new version rules round-trip through private replay without leaking progress
+ok 349 - mission success and new version rules round-trip through private replay without leaking progress
+  ---
+  duration_ms: 6.4775
+  ...
+# Subtest: nondecider disconnect still permits authenticated online action and forced defaults cannot be forged
+ok 350 - nondecider disconnect still permits authenticated online action and forced defaults cannot be forged
+  ---
+  duration_ms: 64.0145
+  ...
+# Subtest: offline current decider gets20s once then defaults; original deadline and reconnect budget stay intact
+ok 351 - offline current decider gets20s once then defaults; original deadline and reconnect budget stay intact
+  ---
+  duration_ms: 66.4893
+  ...
+# Subtest: all humans offline pauses without defaults; untimed offline self rescue also waits for reconnection
+ok 352 - all humans offline pauses without defaults; untimed offline self rescue also waits for reconnection
+  ---
+  duration_ms: 69.9831
+  ...
+# Subtest: offline synchronous participant chooses individually, online player retains60s and original selection
+ok 353 - offline synchronous participant chooses individually, online player retains60s and original selection
+  ---
+  duration_ms: 55.3449
+  ...
+# Subtest: mission acceptance receipt deduplicates, foreign action fails, reconnect preserves private task
+ok 354 - mission acceptance receipt deduplicates, foreign action fails, reconnect preserves private task
+  ---
+  duration_ms: 61.0099
+  ...
+# Subtest: new quick game keeps total deadline through all-human disconnect and returns final record on reconnect
+ok 355 - new quick game keeps total deadline through all-human disconnect and returns final record on reconnect
+  ---
+  duration_ms: 57.5641
+  ...
+# Subtest: 无租金无上涨优势时保留现金；旧策略实际盲买复现
+ok 356 - 无租金无上涨优势时保留现金；旧策略实际盲买复现
+  ---
+  duration_ms: 27.6403
+  ...
+# Subtest: 必要减持走实际银行价，不先折价5%向对手转让
+ok 357 - 必要减持走实际银行价，不先折价5%向对手转让
+  ---
+  duration_ms: 13.662
+  ...
+# Subtest: H5只补三座有效持股各一股，其他冷清股不增持
+ok 358 - H5只补三座有效持股各一股，其他冷清股不增持
+  ---
+  duration_ms: 10.1922
+  ...
+# Subtest: 公开收益正增益才买，股票额度和现金储备经过真实预检
+ok 359 - 公开收益正增益才买，股票额度和现金储备经过真实预检
+  ---
+  duration_ms: 15.2235
+  ...
+# Subtest: 转让接受按实际份数与储备，不额外计算已含股息
+ok 360 - 转让接受按实际份数与储备，不额外计算已含股息
+  ---
+  duration_ms: 6.6652
+  ...
+# Subtest: 候选39/40/79/80真实起点支付与文本同值，保留机遇与股息
+ok 361 - 候选39/40/79/80真实起点支付与文本同值，保留机遇与股息
+  ---
+  duration_ms: 21.6732
+  ...
+# Subtest: 已用窗口额度不重置，城主四股满额不继续买本人股
+ok 362 - 已用窗口额度不重置，城主四股满额不继续买本人股
+  ---
+  duration_ms: 6.0851
+  ...
+# Subtest: 候选不改旧v1起点奖励；新策略不修改输入或非股票决策
+ok 363 - 候选不改旧v1起点奖励；新策略不修改输入或非股票决策
+  ---
+  duration_ms: 5.1981
+  ...
+# Subtest: self rescue never times out, keeps identity and supports pause/resume in both modes
+ok 364 - self rescue never times out, keeps identity and supports pause/resume in both modes
+  ---
+  duration_ms: 4.7778
+  ...
+# Subtest: a canceled previous deadline cannot bankrupt an untimed rescue, even with no assets
+ok 365 - a canceled previous deadline cannot bankrupt an untimed rescue, even with no assets
+  ---
+  duration_ms: 4.5404
+  ...
+# Subtest: real rent and airport debts capture payer, recipient, source and original paid amount
+ok 366 - real rent and airport debts capture payer, recipient, source and original paid amount
+  ---
+  duration_ms: 5.1465
+  ...
+# Subtest: direct sale refusal preserves original debt facts and funded rescue continues without recharging
+ok 367 - direct sale refusal preserves original debt facts and funded rescue continues without recharging
+  ---
+  duration_ms: 1.5345
+  ...
+# Subtest: shouldSweepRoom：到期清理、有人在线与未到期不清理
+ok 368 - shouldSweepRoom：到期清理、有人在线与未到期不清理
+  ---
+  duration_ms: 1.0818
+  ...
+# Subtest: 集成：全员离线清扫删除房间并落盘 idle_timeout 记录
+ok 369 - 集成：全员离线清扫删除房间并落盘 idle_timeout 记录
+  ---
+  duration_ms: 216.9625
+  ...
+# Subtest: 集成：对局中有人在线时清扫不删除房间
+ok 370 - 集成：对局中有人在线时清扫不删除房间
+  ---
+  duration_ms: 240.7652
+  ...
+# Subtest: 集成：规则引擎异常时服务器不退出、房间保留、操作者收到提示
+ok 371 - 集成：规则引擎异常时服务器不退出、房间保留、操作者收到提示
+  ---
+  duration_ms: 168.9052
+  ...
+# Subtest: 集成：破产玩家断开不影响对局，存活玩家断开仍暂停
+ok 372 - 集成：破产玩家断开不影响对局，存活玩家断开仍暂停
+  ---
+  duration_ms: 709.905
+  ...
+# Subtest: 追踪本轮要求与回合完成 / 处理轮内出局与自动跳过
+ok 373 - 追踪本轮要求与回合完成 / 处理轮内出局与自动跳过
+  ---
+  duration_ms: 7.84
+  ...
+# Subtest: 公开规则资料准确、确定性生成且检查不写入
+ok 374 - 公开规则资料准确、确定性生成且检查不写入
+  ---
+  duration_ms: 5.4109
+  ...
+# Subtest: AI新股收益包含退出损失、真实股息，临近封盘不盲买
+ok 375 - AI新股收益包含退出损失、真实股息，临近封盘不盲买
+  ---
+  duration_ms: 21.634
+  ...
+# Subtest: AI可在非本人回合安全回复，自己的报价等待回复，调度能找到接收者
+ok 376 - AI可在非本人回合安全回复，自己的报价等待回复，调度能找到接收者
+  ---
+  duration_ms: 8.0707
+  ...
+# Subtest: 真实模块的80次建房卖股拆房对抗不能从银行套利
+ok 377 - 真实模块的80次建房卖股拆房对抗不能从银行套利
+  ---
+  duration_ms: 13.1011
+  ...
+# Subtest: 经营只保留订单/建设，普通股票买卖不使用经营机会，协议上下文不可绕过
+ok 378 - 经营只保留订单/建设，普通股票买卖不使用经营机会，协议上下文不可绕过
+  ---
+  duration_ms: 12.5689
+  ...
+# Subtest: 四种经营系数及抵押；房级变化使旧报价不能成交
+ok 379 - 四种经营系数及抵押；房级变化使旧报价不能成交
+  ---
+  duration_ms: 3.9082
+  ...
+# Subtest: 真实股息分配的0、余数、未发行和满额持有资金准确
+ok 380 - 真实股息分配的0、余数、未发行和满额持有资金准确
+  ---
+  duration_ms: 7.7045
+  ...
+# Subtest: H4额度只加租金来源；H6独立存在，抵押0租金无新收益
+ok 381 - H4额度只加租金来源；H6独立存在，抵押0租金无新收益
+  ---
+  duration_ms: 1.4609
+  ...
+# Subtest: 报价1200回收1080及下降后864，0元受让和FIFO整数一致
+ok 382 - 报价1200回收1080及下降后864，0元受让和FIFO整数一致
+  ---
+  duration_ms: 0.5833
+  ...
+# Subtest: 卖出再买回同一份编号，旧取得授权不能复活；低价再高价不抬上限
+ok 383 - 卖出再买回同一份编号，旧取得授权不能复活；低价再高价不抬上限
+  ---
+  duration_ms: 1.6085
+  ...
+# Subtest: 邀请不延长原期限，退出、掉线、超时、房价变化和取消竞争只生效一次
+ok 384 - 邀请不延长原期限，退出、掉线、超时、房价变化和取消竞争只生效一次
+  ---
+  duration_ms: 6.4733
+  ...
+# Subtest: 短账本回放含股息、玩家交易、银行回收及封盘净资产；公开记录无来源成本
+ok 385 - 短账本回放含股息、玩家交易、银行回收及封盘净资产；公开记录无来源成本
+  ---
+  duration_ms: 27.4955
+  ...
+# Subtest: 各募资目标支持指定股数并可在凑足后继续原建设或购买
+ok 386 - 各募资目标支持指定股数并可在凑足后继续原建设或购买
+  ---
+  duration_ms: 4.7971
+  ...
+# Subtest: 股息与租金原子净额，H4只奖励租金来源，GO不重复派息
+ok 387 - 股息与租金原子净额，H4只奖励租金来源，GO不重复派息
+  ---
+  duration_ms: 11.339
+  ...
+# Subtest: 旧局继续20股、城主4股、分红池及起点派息
+ok 388 - 旧局继续20股、城主4股、分红池及起点派息
+  ---
+  duration_ms: 9.6763
+  ...
+# Subtest: 时限、离线、原上下文、来源变化均使报价失效，错误回复无副作用
+ok 389 - 时限、离线、原上下文、来源变化均使报价失效，错误回复无副作用
+  ---
+  duration_ms: 14.3024
+  ...
+# Subtest: 只有对方能回复、受保护现金不能扣，重复接受不重复成交
+ok 390 - 只有对方能回复、受保护现金不能扣，重复接受不重复成交
+  ---
+  duration_ms: 1.171
+  ...
+# Subtest: 10股报价按标准建设资产与完整经营轮计价，旧20股不迁移
+ok 391 - 10股报价按标准建设资产与完整经营轮计价，旧20股不迁移
+  ---
+  duration_ms: 9.1305
+  ...
+# Subtest: 旧客户端缺少股票能力声明时不能开启新规则局
+ok 392 - 旧客户端缺少股票能力声明时不能开启新规则局
+  ---
+  duration_ms: 19.5316
+  ...
+# Subtest: 真实socket完成买入、股息、双向议价和部分回收，幂等与隐私正确
+ok 393 - 真实socket完成买入、股息、双向议价和部分回收，幂等与隐私正确
+  ---
+  duration_ms: 159.0225
+  ...
+# Subtest: 真实动作的四类募资可指定股数卖股；不足不提前完成
+ok 394 - 真实动作的四类募资可指定股数卖股；不足不提前完成
+  ---
+  duration_ms: 3.3932
+  ...
+# Subtest: 真实新局AI使用新股票并在非本人回合回复报价
+ok 395 - 真实新局AI使用新股票并在非本人回合回复报价
+  ---
+  duration_ms: 181.2046
+  ...
+# Subtest: 原子市场订单、FIFO变现、来源上限和真实净资产
+ok 396 - 原子市场订单、FIFO变现、来源上限和真实净资产
+  ---
+  duration_ms: 11.2806
+  ...
+# Subtest: 股数限制和产权超额减持统一按来源价，清算只支付一次
+ok 397 - 股数限制和产权超额减持统一按来源价，清算只支付一次
+  ---
+  duration_ms: 1.9783
+  ...
+# Subtest: 议价不占全局pending，来源继承，0元赠股回收0
+ok 398 - 议价不占全局pending，来源继承，0元赠股回收0
+  ---
+  duration_ms: 12.9535
+  ...
+# Subtest: 股票初始价 = 地价 ÷ 10 × 2；买入受 6 股/3 城/单城 2 股限制
+ok 399 - 股票初始价 = 地价 ÷ 10 × 2；买入受 6 股/3 城/单城 2 股限制
+  ---
+  duration_ms: 9.6551
+  ...
+# Subtest: 股价联动：购买城市 +10%，上限为初始的 2 倍
+ok 400 - 股价联动：购买城市 +10%，上限为初始的 2 倍
+  ---
+  duration_ms: 0.9198
+  ...
+# Subtest: 股息：所有者过起点时按总价值×10% 派发
+ok 401 - 股息：所有者过起点时按总价值×10% 派发
+  ---
+  duration_ms: 1.6841
+  ...
+# Subtest: 所有者持股上限：获得城市时超持强制卖出
+ok 402 - 所有者持股上限：获得城市时超持强制卖出
+  ---
+  duration_ms: 0.2334
+  ...
+# Subtest: 初始化股份与派生报价 / 更新三轮租金观察窗口 / 计算经营目标与每轮涨跌
+ok 403 - 初始化股份与派生报价 / 更新三轮租金观察窗口 / 计算经营目标与每轮涨跌
+  ---
+  duration_ms: 8.9781
+  ...
+# Subtest: 实现基础派息与保留收益 / 计算稳健股息额外奖励 / 统一新旧资产摘要
+ok 404 - 实现基础派息与保留收益 / 计算稳健股息额外奖励 / 统一新旧资产摘要
+  ---
+  duration_ms: 0.8998
+  ...
+# Subtest: 管理固定窗口与累计买入 / 预检并提交股票整单
+ok 405 - 管理固定窗口与累计买入 / 预检并提交股票整单
+  ---
+  duration_ms: 1.0897
+  ...
+# Subtest: 实现成功产权前派息 / 处理新城主股份上限 / 实现归银行股份清算 / 重新经营与报价例外保护
+ok 406 - 实现成功产权前派息 / 处理新城主股份上限 / 实现归银行股份清算 / 重新经营与报价例外保护
+  ---
+  duration_ms: 3.4819
+  ...
+# Subtest: 正常与极地回合收费一次，恰好付清不自救
+ok 407 - 正常与极地回合收费一次，恰好付清不自救
+  ---
+  duration_ms: 10.9387
+  ...
+# Subtest: 费用自救留在当前轮，抵押/拆房/卖股恢复不重复落点或收费
+ok 408 - 费用自救留在当前轮，抵押/拆房/卖股恢复不重复落点或收费
+  ---
+  duration_ms: 2.9386
+  ...
+# Subtest: 自动监禁收费自救只完成跳过，多人自动跳过正确推进完整轮
+ok 409 - 自动监禁收费自救只完成跳过，多人自动跳过正确推进完整轮
+  ---
+  duration_ms: 0.8996
+  ...
+# Subtest: 三回合监狱跳过与死亡玩家不漏收或多收
+ok 410 - 三回合监狱跳过与死亡玩家不漏收或多收
+  ---
+  duration_ms: 0.4509
+  ...
+# Subtest: 自救出售上下文由服务端补齐，直接成交/拒购、拍卖/流拍正确续接
+ok 411 - 自救出售上下文由服务端补齐，直接成交/拒购、拍卖/流拍正确续接
+  ---
+  duration_ms: 2.3657
+  ...
+# Subtest: 无资产收费债务按原破产结束，原落点自救仍可续接
+ok 412 - 无资产收费债务按原破产结束，原落点自救仍可续接
+  ---
+  duration_ms: 1.0339
+  ...
+# Subtest: 股票等待不收费，仅完成股票窗口时收取
+ok 413 - 股票等待不收费，仅完成股票窗口时收取
+  ---
+  duration_ms: 0.8761
+  ...
+# Subtest: 募资、股票转让确认和无主城拍卖等待均不提前收费
+ok 414 - 募资、股票转让确认和无主城拍卖等待均不提前收费
+  ---
+  duration_ms: 1.6199
+  ...
+# Subtest: 服务器非法/过期拒绝与成功动作重放均不产生重复费用
+ok 415 - 服务器非法/过期拒绝与成功动作重放均不产生重复费用
+  ---
+  duration_ms: 75.0724
+  ...
+# Subtest: 收费债务断线暂停、认证重连与自救一致
+ok 416 - 收费债务断线暂停、认证重连与自救一致
+  ---
+  duration_ms: 70.675
+  ...
+# Subtest: 直接出售与拍卖超时恢复收费自救，债务自救无时限且主动放弃终局仍只扣一次
+ok 417 - 直接出售与拍卖超时恢复收费自救，债务自救无时限且主动放弃终局仍只扣一次
+  ---
+  duration_ms: 147.7476
+  ...
+# Subtest: 完整轮收费与预告边界、2/3/4人同表
+ok 418 - 完整轮收费与预告边界、2/3/4人同表
+  ---
+  duration_ms: 8.167
+  ...
+# Subtest: 收费凭据幂等、下回合仍收费、死亡不收费
+ok 419 - 收费凭据幂等、下回合仍收费、死亡不收费
+  ---
+  duration_ms: 0.2131
+  ...
+# Subtest: 非法整数不产生部分修改
+ok 420 - 非法整数不产生部分修改
+  ---
+  duration_ms: 2.7331
+  ...
+# Subtest: 显式构造才启用，旧v1/v2后期不扣费，公开快照无内部凭据
+ok 421 - 显式构造才启用，旧v1/v2后期不扣费，公开快照无内部凭据
+  ---
+  duration_ms: 4.7968
+  ...
+# Subtest: 真实终局门槛拒绝低现金、缺组、丢失自然终局和不同前缀
+ok 422 - 真实终局门槛拒绝低现金、缺组、丢失自然终局和不同前缀
+  ---
+  duration_ms: 1.5121
+  ...
+# Subtest: 投资更早出局必须单列，2/3/4人配置及预算固定
+ok 423 - 投资更早出局必须单列，2/3/4人配置及预算固定
+  ---
+  duration_ms: 0.459
+  ...
+# Subtest: 已有累计预算不能重置，恢复累计到上限即停止
+ok 424 - 已有累计预算不能重置，恢复累计到上限即停止
+  ---
+  duration_ms: 5.6824
+  ...
+# Subtest: 前期只忽略声明元数据，真实收费与恢复银行流水对账
+ok 425 - 前期只忽略声明元数据，真实收费与恢复银行流水对账
+  ---
+  duration_ms: 15.6786
+  ...
+# Subtest: new capability gates start and reconnect before replacing the existing identity
+ok 426 - new capability gates start and reconnect before replacing the existing identity
+  ---
+  duration_ms: 41.7534
+  ...
+# Subtest: real roll is accepted once, stale actions fail without partial state and skip is committed with movement
+ok 427 - real roll is accepted once, stale actions fail without partial state and skip is committed with movement
+  ---
+  duration_ms: 55.8766
+  ...
+# Subtest: a full two-human round restores real private order receipts from committed events after reconnect
+ok 428 - a full two-human round restores real private order receipts from committed events after reconnect
+  ---
+  duration_ms: 99.2673
+  ...
+# Subtest: new games validate the version combination and expose an optional private history context
+ok 429 - new games validate the version combination and expose an optional private history context
+  ---
+  duration_ms: 12.3683
+  ...
+# Subtest: direct roll atomically skips unused management; legacy games still require a decision
+ok 430 - direct roll atomically skips unused management; legacy games still require a decision
+  ---
+  duration_ms: 4.2194
+  ...
+# Subtest: order receipts separate principal, profit and news; duplicate facts and rebuild never double count
+ok 431 - order receipts separate principal, profit and news; duplicate facts and rebuild never double count
+  ---
+  duration_ms: 2.8413
+  ...
+# Subtest: cancelled principal survives a replacement order and cache reconstruction
+ok 432 - cancelled principal survives a replacement order and cache reconstruction
+  ---
+  duration_ms: 0.7926
+  ...
+# Subtest: only remote construction is counted, with actual levels and cost; projection is read only
+ok 433 - only remote construction is counted, with actual levels and cost; projection is read only
+  ---
+  duration_ms: 1.6626
+  ...
+# Subtest: competition records a winning debit and nominal surcharge without double counting stock dividends
+ok 434 - competition records a winning debit and nominal surcharge without double counting stock dividends
+  ---
+  duration_ms: 2.5279
+  ...
+# Subtest: recent results are bounded, private and robust to incomplete or malformed historical facts
+ok 435 - recent results are bounded, private and robust to incomplete or malformed historical facts
+  ---
+  duration_ms: 1.1392
+  ...
+# Subtest: 经过自己城市进入 build_decide，可建房
+ok 436 - 经过自己城市进入 build_decide，可建房
+  ---
+  duration_ms: 10.1802
+  ...
+# Subtest: build_decide 可拆房并返还 36%
+ok 437 - build_decide 可拆房并返还 36%
+  ---
+  duration_ms: 0.3317
+  ...
+# Subtest: build_decide 放弃则直接结束回合
+ok 438 - build_decide 放弃则直接结束回合
+  ---
+  duration_ms: 0.4556
+  ...
+# Subtest: 空地皮且现金不足建房时经过自己城市直接结束（无弹窗阶段）
+ok 439 - 空地皮且现金不足建房时经过自己城市直接结束（无弹窗阶段）
+  ---
+  duration_ms: 0.1826
+  ...
+# Subtest: 抵押中的自己城市经过时不进入 build_decide
+ok 440 - 抵押中的自己城市经过时不进入 build_decide
+  ---
+  duration_ms: 0.2289
+  ...
+# Subtest: 购买资金不足 → 募集资金 → 抵押凑够 → 完成购买
+ok 441 - 购买资金不足 → 募集资金 → 抵押凑够 → 完成购买
+  ---
+  duration_ms: 0.4492
+  ...
+# Subtest: 募资后仍不足则无法确认购买，可取消（城市进入拍卖）
+ok 442 - 募资后仍不足则无法确认购买，可取消（城市进入拍卖）
+  ---
+  duration_ms: 0.7793
+  ...
+# Subtest: 机场购买资金不足 → 募集资金/取消购买
+ok 443 - 机场购买资金不足 → 募集资金/取消购买
+  ---
+  duration_ms: 0.3589
+  ...
+# Subtest: 冰冻支付资金不足时按跳过处理
+ok 444 - 冰冻支付资金不足时按跳过处理
+  ---
+  duration_ms: 0.2527
+  ...
+# Subtest: 冰冻支付资金充足时正常解除
+ok 445 - 冰冻支付资金充足时正常解除
+  ---
+  duration_ms: 0.2406
+  ...
+# Subtest: 实际机场扣款事实与本人投影 / 目的自有仍付票 / 免费航班后期费
+ok 446 - 实际机场扣款事实与本人投影 / 目的自有仍付票 / 免费航班后期费
+  ---
+  duration_ms: 18.3089
+  ...
+# Subtest: 缺旧资料不猜历史扣费 / 费用边界及原机场不足自救
+ok 447 - 缺旧资料不猜历史扣费 / 费用边界及原机场不足自救
+  ---
+  duration_ms: 2.1417
+  ...
+# Subtest: 实现五类袋与跨组限制 / 实现旺淡季独立地区袋
+ok 448 - 实现五类袋与跨组限制 / 实现旺淡季独立地区袋
+  ---
+  duration_ms: 7.7754
+  ...
+# Subtest: 实现资讯启动预告与切换
+ok 449 - 实现资讯启动预告与切换
+  ---
+  duration_ms: 0.4638
+  ...
+1..449
+# tests 449
+# suites 0
+# pass 449
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

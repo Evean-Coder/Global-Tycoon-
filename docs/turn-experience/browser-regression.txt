@@ -1,0 +1,75 @@
+TAP version 13
+# Subtest: roll then management ordering is shared across modes, viewports and stock continuation
+not ok 1 - roll then management ordering is shared across modes, viewports and stock continuation
+  ---
+  duration_ms: 7522.8733
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\action-button-order.spec.js:8:1'
+  failureType: 'testCodeFailure'
+  error: "locator.screenshot: UNKNOWN: unknown error, open 'C:\\Users\\Yifan\\Desktop\\game\\docs\\action-button-order\\evidence\\quick-568x320.png'"
+  code: 'UNKNOWN'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\action-button-order.spec.js:20:98)
+  ...
+# Subtest: news and ledger are equal separate panels inside the atlas on PC tablet and short landscape
+ok 2 - news and ledger are equal separate panels inside the atlas on PC tablet and short landscape
+  ---
+  duration_ms: 6382.9866
+  ...
+# Subtest: opponent broadcasts preserve news and asset reading while latest values and forced decisions update
+ok 3 - opponent broadcasts preserve news and asset reading while latest values and forced decisions update
+  ---
+  duration_ms: 243.6018
+  ...
+# Subtest: contextual rules open matching topics and subsections without changing stock draft or deadline
+ok 4 - contextual rules open matching topics and subsections without changing stock draft or deadline
+  ---
+  duration_ms: 873.4318
+  ...
+# Subtest: three routes, quarter/tail order and flagship scenarios are readable in four viewports
+ok 5 - three routes, quarter/tail order and flagship scenarios are readable in four viewports
+  ---
+  duration_ms: 4480.2842
+  ...
+# Subtest: negative scenario needs explicit second confirmation; stale quote preserves draft and never auto submits
+ok 6 - negative scenario needs explicit second confirmation; stale quote preserves draft and never auto submits
+  ---
+  duration_ms: 218.9137
+  ...
+# Subtest: no project does not open automatically and cash plan order works through real UI
+ok 7 - no project does not open automatically and cash plan order works through real UI
+  ---
+  duration_ms: 204.4121
+  ...
+# Subtest: keyboard, reduced motion and 200 percent equivalent tablet layout preserve reachable controls
+ok 8 - keyboard, reduced motion and 200 percent equivalent tablet layout preserve reachable controls
+  ---
+  duration_ms: 1017.4829
+  ...
+# Subtest: 三端交易、数量/展开/滚动稳定、资产和募资回收金额一致
+ok 9 - 三端交易、数量/展开/滚动稳定、资产和募资回收金额一致
+  ---
+  duration_ms: 4555.8544
+  ...
+# Subtest: 真实玩家议价双向成交，关闭不丢报价且全局决定不改变
+ok 10 - 真实玩家议价双向成交，关闭不丢报价且全局决定不改变
+  ---
+  duration_ms: 451.8643
+  ...
+# Subtest: 收购方向的0元受让有明确回收预览，四种尺寸收件可操作
+ok 11 - 收购方向的0元受让有明确回收预览，四种尺寸收件可操作
+  ---
+  duration_ms: 746.389
+  ...
+# Subtest: 新局经营只显示两路线，股票帮助按新规则定位且不丢草稿
+ok 12 - 新局经营只显示两路线，股票帮助按新规则定位且不丢草稿
+  ---
+  duration_ms: 153.985
+  ...
+1..12
+# tests 12
+# suites 0
+# pass 11
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0

@@ -1,25 +1,27 @@
 'use strict';
-const CACHE = 'global-tycoon-v44-management-economy';
+const CACHE = 'global-tycoon-v45-turn-experience';
 const CORE = [
   './',
   './index.html',
   './style.css',
   './client.js',
+  './turn-experience-view.js',
+  './turn-experience-view.js?v=20261018-turn-experience',
   './management-economy-view.js',
-  './management-economy-view.js?v=20261017-management-economy',
+  './management-economy-view.js?v=20261018-turn-experience',
   './stock-investment-view.js',
-  './stock-investment-view.js?v=20261017-management-economy',
+  './stock-investment-view.js?v=20261018-turn-experience',
   './board-layout.js',
   './board-presentation.js',
-  './board-presentation.js?v=20261017-management-economy',
-  './board-layout.js?v=20261017-management-economy',
+  './board-presentation.js?v=20261018-turn-experience',
+  './board-layout.js?v=20261018-turn-experience',
   './rules-catalog.js',
   './contextual-rules.js',
-  './contextual-rules.js?v=20261017-management-economy',
-  './rules-catalog.js?v=20261017-management-economy',
-  './style.css?v=20261017-management-economy',
-  './mobile-orientation.js?v=20261017-management-economy',
-  './client.js?v=20261017-management-economy',
+  './contextual-rules.js?v=20261018-turn-experience',
+  './rules-catalog.js?v=20261018-turn-experience',
+  './style.css?v=20261018-turn-experience',
+  './mobile-orientation.js?v=20261018-turn-experience',
+  './client.js?v=20261018-turn-experience',
   './socket.io/socket.io.js',
   './assets/board-world-map-v1.webp',
   './assets/atlas-background-v1.webp',
@@ -41,7 +43,7 @@ self.addEventListener('fetch', (e) => {
   // 联机握手和轮询不作为静态资源缓存；离线只提供页面外壳。
   if (url.pathname.startsWith('/socket.io/') && url.pathname !== '/socket.io/socket.io.js') return;
   const isNav = e.request.mode === 'navigate' || url.pathname === '/' || url.pathname.endsWith('/index.html');
-  const strictCore = /\/(?:client\.js|stock-investment-view\.js|style\.css|rules-catalog\.js|contextual-rules\.js|board-layout\.js)$/.test(url.pathname) || url.pathname === '/socket.io/socket.io.js';
+  const strictCore = /\/(?:client\.js|stock-investment-view\.js|management-economy-view\.js|turn-experience-view\.js|style\.css|rules-catalog\.js|contextual-rules\.js|board-layout\.js)$/.test(url.pathname) || url.pathname === '/socket.io/socket.io.js';
   if (isNav) {
     // HTML/导航：网络优先，失败回退缓存，保证更新即时生效
     e.respondWith(

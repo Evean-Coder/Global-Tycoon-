@@ -3,7 +3,7 @@ const test=require('node:test'),assert=require('node:assert/strict'),{io}=requir
 const sockets=[];let url,seq=0;
 const ack=(s,event,data={})=>new Promise(r=>s.emit(event,data,r));
 const until=async fn=>{const end=Date.now()+4000;while(!fn()){if(Date.now()>end)throw Error('经营Socket等待超时');await new Promise(r=>setTimeout(r,10));}};
-async function connect(cap=true){const s=io(url,{transports:['websocket'],auth:{clientRouteRevision:'opportunity-routes-v1',clientQuickRevision:'quick-mode-v1',stockInvestmentProtocol:2,...(cap?{managementEconomyProtocol:1}:{})}});sockets.push(s);s.on('gameState',g=>s.game=g);s.on('reconnectToken',t=>s.token=t.token);await new Promise(r=>s.once('connect',r));return s;}
+async function connect(cap=true){const s=io(url,{transports:['websocket'],auth:{clientRouteRevision:'opportunity-routes-v1',clientQuickRevision:'quick-mode-v1',stockInvestmentProtocol:2,...(cap?{managementEconomyProtocol:1,turnExperienceProtocol:1}:{})}});sockets.push(s);s.on('gameState',g=>s.game=g);s.on('reconnectToken',t=>s.token=t.token);await new Promise(r=>s.once('connect',r));return s;}
 const envelope=(s,a)=>({...a,gameId:s.game.gameId,actionId:'management-'+(++seq),decisionId:s.game.decision.decisionId,actorRevision:s.game.self.actorRevision});
 const act=(s,a)=>ack(s,'action',envelope(s,a));
 async function fixture(room,s){s.roomCode=room.code;s.players.forEach((p,i)=>{p.socketId=room.players[i].socketId;p.kind=room.players[i].kind||'human';});room.state=s;room.rng=f.rng();room.actionClock=createActionClock(f.fakeClock());api.emitGame(room);}

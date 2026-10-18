@@ -1,6 +1,6 @@
 # 回合体验整合 Tasks
 
-日期：2026-10-18。基于[Spec](spec.md)与[Plan](plan.md)，待最终开发确认；全部任务尚未实施。
+日期：2026-10-18。基于[Spec](spec.md)与[Plan](plan.md)，用户已批准开发；18项任务的实际状态见progress.md。
 
 ## 文件清单
 

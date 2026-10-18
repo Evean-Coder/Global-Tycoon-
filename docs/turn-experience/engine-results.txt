@@ -1,0 +1,79 @@
+TAP version 13
+# Subtest: new capability gates start and reconnect before replacing the existing identity
+ok 1 - new capability gates start and reconnect before replacing the existing identity
+  ---
+  duration_ms: 54.7032
+  ...
+# Subtest: real roll is accepted once, stale actions fail without partial state and skip is committed with movement
+ok 2 - real roll is accepted once, stale actions fail without partial state and skip is committed with movement
+  ---
+  duration_ms: 58.3653
+  ...
+# Subtest: a full two-human round restores real private order receipts from committed events after reconnect
+ok 3 - a full two-human round restores real private order receipts from committed events after reconnect
+  ---
+  duration_ms: 99.6146
+  ...
+# Subtest: one actual bot turn uses the new capability and returns control after its legal decisions
+ok 4 - one actual bot turn uses the new capability and returns control after its legal decisions
+  ---
+  duration_ms: 105.2221
+  ...
+# Subtest: quick cutoff before or during direct roll discards the candidate skip and movement together
+ok 5 - quick cutoff before or during direct roll discards the candidate skip and movement together
+  ---
+  duration_ms: 92.4609
+  ...
+# Subtest: new games validate the version combination and expose an optional private history context
+ok 6 - new games validate the version combination and expose an optional private history context
+  ---
+  duration_ms: 13.2523
+  ...
+# Subtest: direct roll atomically skips unused management; legacy games still require a decision
+ok 7 - direct roll atomically skips unused management; legacy games still require a decision
+  ---
+  duration_ms: 5.8048
+  ...
+# Subtest: order receipts separate principal, profit and news; duplicate facts and rebuild never double count
+ok 8 - order receipts separate principal, profit and news; duplicate facts and rebuild never double count
+  ---
+  duration_ms: 2.9222
+  ...
+# Subtest: cancelled principal survives a replacement order and cache reconstruction
+ok 9 - cancelled principal survives a replacement order and cache reconstruction
+  ---
+  duration_ms: 0.7539
+  ...
+# Subtest: real ownership transfer and final settlement both retain the cancelled principal fact
+ok 10 - real ownership transfer and final settlement both retain the cancelled principal fact
+  ---
+  duration_ms: 2.6863
+  ...
+# Subtest: timeout remains conservative and invalid historical cash data cannot mutate the game
+ok 11 - timeout remains conservative and invalid historical cash data cannot mutate the game
+  ---
+  duration_ms: 1.4178
+  ...
+# Subtest: only remote construction is counted, with actual levels and cost; projection is read only
+ok 12 - only remote construction is counted, with actual levels and cost; projection is read only
+  ---
+  duration_ms: 1.1679
+  ...
+# Subtest: competition records a winning debit and nominal surcharge without double counting stock dividends
+ok 13 - competition records a winning debit and nominal surcharge without double counting stock dividends
+  ---
+  duration_ms: 6.2079
+  ...
+# Subtest: recent results are bounded, private and robust to incomplete or malformed historical facts
+ok 14 - recent results are bounded, private and robust to incomplete or malformed historical facts
+  ---
+  duration_ms: 1.1459
+  ...
+1..14
+# tests 14
+# suites 0
+# pass 14
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

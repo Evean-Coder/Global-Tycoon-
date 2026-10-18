@@ -27,7 +27,7 @@ const BOT_AUTH = Symbol('internal-bot');
 
 const PORT = process.env.PORT || 3000;
 // 2026-10-05有限对照及投资压力审查通过，仅新局启用；旧局不迁移。
-const NEW_GAME_ECONOMY = { managementEconomyRevision:require('./src/managementEconomyRules').REVISION, stockInvestmentRevision:stockInvestment.REVISION, disconnectRevision:disconnectPolicy.REVISION, businessMissionRevision:require('./src/businessMissions').REVISION, worldRevision:require('./src/worldEvents').REVISION, economyRevision: 'travel-expense-v1', routeRevision: routes.REVISION, gameMode: 'normal', propertySupportRevision:require('./src/propertySupport').REVISION, activeManagementRevision:require('./src/activeManagement').REVISION };
+const NEW_GAME_ECONOMY = { turnExperienceRevision:require('./src/turnExperience').REVISION, managementEconomyRevision:require('./src/managementEconomyRules').REVISION, stockInvestmentRevision:stockInvestment.REVISION, disconnectRevision:disconnectPolicy.REVISION, businessMissionRevision:require('./src/businessMissions').REVISION, worldRevision:require('./src/worldEvents').REVISION, economyRevision: 'travel-expense-v1', routeRevision: routes.REVISION, gameMode: 'normal', propertySupportRevision:require('./src/propertySupport').REVISION, activeManagementRevision:require('./src/activeManagement').REVISION };
 const HOST_TRANSFER_MS = 10 * 60 * 1000;
 const LOBBY_IDLE_MS = 10 * 60 * 1000; // 大厅（未开局）空房保留时限
 const GAME_IDLE_MS = 30 * 60 * 1000; // 对局中/已结束房间无人保留时限
@@ -150,12 +150,13 @@ function emitGame(room, newDecision = false) {
   startTimer(room, newDecision);
   disconnectPolicy.sync(room,runAction,defaultAction);
   const thinking=botScheduler.sync(room,runBotDecision)||[];
+  const experience=require('./src/turnExperience').update(room);
   const evs = (room.lastEvents || []).map((e, i) => Object.assign({}, e, { id: (room.lastEventBase || 0) + i }));
   // 事件全局可见：每个客户端收到完整事件记录
   for (const rp of room.players) {
     const sock = io.sockets.sockets.get(rp.socketId);
     if (!sock) continue;
-    const base = snapshot(room.state, rp.id, room.actionClock.view(room.state.gameId));
+    const base = snapshot(room.state, rp.id, room.actionClock.view(room.state.gameId), {experience});
     if(routes.enabled(room.state)&&room.state.gameMode==='quick')base.quickTime=routeTime(room);
     for (const gp of base.players) gp.connected = room.players.find(p=>p.id===gp.id)?.connected !== false;
     for(const gp of base.players)gp.kind=room.players.find(p=>p.id===gp.id)?.kind||'human';
@@ -308,6 +309,7 @@ function fingerprint(value) {
 function appendEvents(room, events) {
   room.lastEvents=events;room.lastEventBase=room.eventSeq;
   for(const e of events){room.events.push({...e,id:room.eventSeq,ts:Date.now()});room.eventSeq++;}
+  require('./src/turnExperience').update(room);
 }
 function assertEconomy(state) {
   if(state.ruleVersion!==2)return;
@@ -389,7 +391,7 @@ function runBotDecision(room,id){
   if(!action){memory.blockedKey=room.state.gameId+'|'+room.actionClock.decisionId+'|'+id+'|'+room.state.actorRevision[id]+(stockInvestment.enabled(room.state)?'|'+room.state.revision:'');room.botMemory.set(id,memory);return;}
   memory.steps++;room.botMemory.set(id,memory);
   const envelope={...action,gameId:view.gameId,actionId:'bot:'+id+':'+view.revision+':'+memory.steps,decisionId:view.decision.decisionId,actorRevision:view.self.actorRevision};
-  const internalSocket={[BOT_AUTH]:id,handshake:{auth:{clientRouteRevision:routes.REVISION,clientQuickRevision:quick.REVISION,stockInvestmentProtocol:2,managementEconomyProtocol:1}},emit(){}};
+  const internalSocket={[BOT_AUTH]:id,handshake:{auth:{clientRouteRevision:routes.REVISION,clientQuickRevision:quick.REVISION,stockInvestmentProtocol:2,managementEconomyProtocol:1,turnExperienceProtocol:1}},emit(){}};
   const result=runAction(room,internalSocket,envelope);
   if(result.ok){
     memory.failures=0;
@@ -419,6 +421,7 @@ function runAction(room, socket, rawAction, source = 'player', offlineActorId = 
     if(quick.enabled(room.state) && socket.handshake?.auth?.clientQuickRevision !== quick.REVISION)return {ok:false,code:'UPDATE',error:'页面版本过旧，请刷新后重新连接'};
     if(stockInvestment.enabled(room.state)&&socket.handshake?.auth?.stockInvestmentProtocol!==2)return {ok:false,code:'UPDATE',error:'股票规则已升级，请更新页面后重连'};
     if(require('./src/managementEconomyRules').enabled(room.state)&&socket.handshake?.auth?.managementEconomyProtocol!==1)return {ok:false,code:'UPDATE',error:'经营规则已升级，请更新页面后重连'};
+    if(require('./src/turnExperience').enabled(room.state)&&socket.handshake?.auth?.turnExperienceProtocol!==1)return {ok:false,code:'UPDATE',error:'回合体验已升级，请更新页面后重连'};
   }
   let timeContext;
   try {
@@ -593,6 +596,7 @@ io.on('connection', (socket) => {
     if (!room) return cb && cb({ ok: false, error: '房间不存在' });
     const rp = room.players.find((p) => p.kind!=='bot' && p.token && p.name === data.name && p.token === data.token);
     if (!rp) return cb && cb({ ok: false, error: '重连校验失败' });
+    if(require('./src/turnExperience').enabled(room.state)&&socket.handshake?.auth?.turnExperienceProtocol!==1)return cb&&cb({ok:false,code:'UPDATE',error:'回合体验已升级，请更新页面后重连'});
     const oldSocketId = rp.socketId;
     // 令牌有效但旧连接仍标记在线（网络抖动自动重连、快速刷新竞态等）：
     // 先接管身份，再强制断开旧连接（顺序不可颠倒，否则旧连接的 disconnect 会误处理本玩家）
@@ -639,6 +643,7 @@ io.on('connection', (socket) => {
     if(mode==='quick' && room.players.filter(p=>p.kind!=='bot').some(p=>io.sockets.sockets.get(p.socketId)?.handshake.auth?.clientQuickRevision !== quick.REVISION))return cb && cb({ok:false,error:'快速模式需要所有玩家刷新页面后再开始'});
     if(room.players.filter(p=>p.kind!=='bot').some(p=>io.sockets.sockets.get(p.socketId)?.handshake.auth?.stockInvestmentProtocol!==2))return cb&&cb({ok:false,error:'股票规则已升级，请所有玩家更新页面后再开始'});
     if(room.players.filter(p=>p.kind!=='bot').some(p=>io.sockets.sockets.get(p.socketId)?.handshake.auth?.managementEconomyProtocol!==1))return cb&&cb({ok:false,error:'经营规则已升级，请所有玩家更新页面后再开始'});
+    if(room.players.filter(p=>p.kind!=='bot').some(p=>io.sockets.sockets.get(p.socketId)?.handshake.auth?.turnExperienceProtocol!==1))return cb&&cb({ok:false,error:'回合体验已升级，请所有玩家更新页面后再开始'});
     const startedAt = Date.now();
     const candidate = createGameState(room.code, room.players.map(p=>p.name), 2, {...NEW_GAME_ECONOMY,gameMode:mode,...(mode==='quick'?{quickRevision:quick.REVISION,startedAt}:{})});
     let clock = null;
@@ -667,7 +672,7 @@ io.on('connection', (socket) => {
       room.state.players[i].socketId = p.socketId;
       room.state.players[i].kind = p.kind||'human';
     });
-    room.events=[];room.lastEvents=[];room.eventSeq=0;room.lastEventBase=0;room.gameRecord=null;room.successfulActions=new Map();
+    room.experienceCache=null;room.events=[];room.lastEvents=[];room.eventSeq=0;room.lastEventBase=0;room.gameRecord=null;room.successfulActions=new Map();
     cb && cb({ ok: true });
     emitRoom(room);
     emitGame(room);

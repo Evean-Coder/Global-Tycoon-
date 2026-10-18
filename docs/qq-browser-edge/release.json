@@ -1,0 +1,92 @@
+{
+  "checkedAt": "2026-10-18T08:45:05.272Z",
+  "commit": "bc334352f039b0c3d26aeabc1b7997ecd65ff568",
+  "runtimeCommit": "f5bc337767f62679bf041965bf4ae50153fe1cf9",
+  "ci": {
+    "id": 39112308162,
+    "url": "https://github.com/Evean-Coder/Global-Tycoon-/actions/runs/39112308162",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "id": 117630845143,
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm ci",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm run lint",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm test 2>&1 | tee unit-results.txt",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npx playwright install --with-deps chromium",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm run test:e2e 2>&1 | tee browser-results.txt",
+            "conclusion": "success"
+          },
+          {
+            "name": "Report test failures",
+            "conclusion": "skipped"
+          },
+          {
+            "name": "Post Run actions/setup-node@v4",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "conclusion": "success"
+          }
+        ]
+      }
+    ]
+  },
+  "assets": [
+    {
+      "file": "index.html",
+      "status": 200,
+      "localHash": "ad55911c2127cd982fc8ab31620c98d0ab584a3088a2491b2677f3ec9250bec7",
+      "onlineHash": "ad55911c2127cd982fc8ab31620c98d0ab584a3088a2491b2677f3ec9250bec7",
+      "matches": true
+    },
+    {
+      "file": "style.css",
+      "status": 200,
+      "localHash": "b1653ad806fddea0c4b33fc01040d12108152b3bcf76d7316154065b4544f297",
+      "onlineHash": "b1653ad806fddea0c4b33fc01040d12108152b3bcf76d7316154065b4544f297",
+      "matches": true
+    },
+    {
+      "file": "sw.js",
+      "status": 200,
+      "localHash": "7ab180d2a12483672e5999aba66d0b30171a5e01541138bd7d4ada1dbfdeb2db",
+      "onlineHash": "7ab180d2a12483672e5999aba66d0b30171a5e01541138bd7d4ada1dbfdeb2db",
+      "matches": true,
+      "cache": "global-tycoon-v47-landscape-edge"
+    }
+  ],
+  "onlineGeometry": "render-layout.json",
+  "physicalHonorX50": "未实际测量；待用户复看"
+}

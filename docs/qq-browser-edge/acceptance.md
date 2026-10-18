@@ -19,7 +19,7 @@
 
 ## 发布
 
-本地验证完成，按默认自动推送约定发布；远端CI及Render最终资源核对另写release.json，未核对前不报告部署完成。
+开发及推送已完成。bc33435完整CI成功，Render三项资源哈希再核对一致；原始回执见release.json，线上临时房间已解散。最后的验收文档提交不再改变运行代码。
 
 ## 完整CI后续处理
 
@@ -30,3 +30,9 @@ f5bc337完整单测和Lint通过，浏览器阶段仅build-fundraising-stock文�
 Render v47的index/style/sw哈希已一致，实际线上临时房间模拟左40px，测得整页左padding0、顶栏0、棋盘/底栏4、42格且无横溢；已解散清理。证据见render-resources.json、render-layout.json及evidence/render-844x382.png。完整CI待本次测试夹具补推复验。
 
 4910aea远端在单测阶段退出，既有注释仅返回exit 1，未提供失败用例，不推测该次根因。相同门禁本地完整621/621通过（full-unit-recheck.txt）。为定位可能的远端问题，CI改为保留单测TAP并连同浏览器失败一起输出失败块及前文；bash pipefail保持，未忽略测试错误。报告脚本以模拟失败日志验证输出，等待远端复验。
+
+## 最终结果
+
+[bc33435完整CI](https://github.com/Evean-Coder/Global-Tycoon-/actions/runs/39112308162)成功，安装、Lint、完整单元测试和完整浏览器步骤全部通过。此前两次远端失败记录仍保留；未知的单测失败不追溯声称已定位。
+
+本轮11个不同相关浏览器用例通过、完整单测本地621/621通过；远端全流程结果另列，不与重复执行数量相加。Render v47资源及实际页面核对完成。Checklist 12/13，唯一未完成观察为用户荣耀X50／QQ实体机复看。

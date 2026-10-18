@@ -9,7 +9,7 @@
   "functionalRequirements": 5,
   "tasks": 7,
   "checklistItems": 13,
-  "passedObservationItems": 11,
+  "passedObservationItems": 12,
   "implementationStarted": true,
   "approval": "user directed universal phone-landscape left alignment on 2026-10-18",
   "actualDevice": "未测；仅用户截图与浏览器安全区模拟",
@@ -18,8 +18,16 @@
   "scope": "all compact phone landscape, left padding zero; top/right/bottom preserved",
   "implementationCompleted": true,
   "unverified": [
-    "C11 release verification",
     "C12 real Honor X50/QQ check"
   ],
-  "distinctBrowserTestsPassed": 9
+  "distinctBrowserTestsPassed": 11,
+  "fullUnitTestsPassed": 621,
+  "renderVerified": true,
+  "renderCache": "global-tycoon-v47-landscape-edge",
+  "ci": {
+    "runId": 39112308162,
+    "status": "completed",
+    "commit": "bc334352f039b0c3d26aeabc1b7997ecd65ff568",
+    "conclusion": "success"
+  }
 }

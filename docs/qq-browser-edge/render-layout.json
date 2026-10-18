@@ -1,0 +1,14 @@
+{
+  "checkedAt": "2026-10-18T08:26:55.977Z",
+  "commit": "f5bc337",
+  "scope": "Render实际页面，浏览器模拟横屏与左安全区40px；非荣耀实体机",
+  "geometry": {
+    "bodyPaddingLeft": "0px",
+    "headerLeft": 0,
+    "boardLeft": 4,
+    "actionLeft": 4,
+    "tiles": 42,
+    "overflow": false
+  },
+  "temporaryRoomCleanedUp": true
+}

@@ -1,0 +1,28 @@
+{
+  "checkedAt": "2026-10-18T08:26:18.077Z",
+  "commit": "f5bc337767f62679bf041965bf4ae50153fe1cf9",
+  "assets": [
+    {
+      "file": "index.html",
+      "status": 200,
+      "localHash": "ad55911c2127cd982fc8ab31620c98d0ab584a3088a2491b2677f3ec9250bec7",
+      "onlineHash": "ad55911c2127cd982fc8ab31620c98d0ab584a3088a2491b2677f3ec9250bec7",
+      "matches": true
+    },
+    {
+      "file": "style.css",
+      "status": 200,
+      "localHash": "b1653ad806fddea0c4b33fc01040d12108152b3bcf76d7316154065b4544f297",
+      "onlineHash": "b1653ad806fddea0c4b33fc01040d12108152b3bcf76d7316154065b4544f297",
+      "matches": true
+    },
+    {
+      "file": "sw.js",
+      "status": 200,
+      "localHash": "7ab180d2a12483672e5999aba66d0b30171a5e01541138bd7d4ada1dbfdeb2db",
+      "onlineHash": "7ab180d2a12483672e5999aba66d0b30171a5e01541138bd7d4ada1dbfdeb2db",
+      "matches": true,
+      "cache": "global-tycoon-v47-landscape-edge"
+    }
+  ]
+}

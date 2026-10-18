@@ -1,0 +1,7 @@
+{
+  "scope": "仅复现浏览器夹具将快速房间直接替换为普通局后残留真实heartbeat；非正常玩家操作",
+  "error": {
+    "message": "Cannot read properties of undefined (reading 'status')",
+    "stack": "TypeError: Cannot read properties of undefined (reading 'status')\n    at Timeout.heartbeat [as _onTimeout] (C:\\Users\\Yifan\\Desktop\\game\\server.js:226:88)\n    at listOnTimeout (node:internal/timers:581:17)\n    at process.processTimers (node:internal/timers:519:7)"
+  }
+}

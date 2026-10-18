@@ -1,7 +1,7 @@
 'use strict';
 /* global latestState */
 const test=require('node:test'),assert=require('node:assert/strict'),{boot}=require('./helpers/browserHarness'),f=require('../test/helpers/gameplayFixtures');
-let h;test.before(async()=>{h=await boot({mobile:true,viewport:{width:844,height:390},gameMode:'quick'});await h.choose();});test.after(async()=>{if(h)await h.close();});
+let h;test.before(async()=>{h=await boot({mobile:true,viewport:{width:844,height:390},gameMode:'quick',quickClockOptions:f.fakeClock()});await h.choose();});test.after(async()=>{if(h)await h.close();});
 test('build funding sells selected shares, keeps panel and deadline, then manually builds',{timeout:30000},async()=>{
  for(const mode of ['normal','quick'])for(const [width,height]of [[844,390],[768,1024],[1440,900]]){
  const s=require('../src/state').createGameState('FUND',['甲','乙'],2,{routeRevision:'opportunity-routes-v1',gameMode:mode,...(mode==='quick'?{quickRevision:'quick-mode-v1'}:{})});f.own(s,'p0','罗马');f.own(s,'p1','里约热内卢');s.players[0].cash=1000;s.players[0].position=s.board.find(x=>x.cityId==='罗马').id;s.phase='build_decide';s.pending={playerId:'p0',cityId:'罗马'};s.stocks['里约热内卢'].price=2000;s.stocks['里约热内卢'].holders.p0=4;s.players[0].stocks['里约热内卢']=4;await h.pages[0].setViewportSize({width,height});await h.fixture(s);

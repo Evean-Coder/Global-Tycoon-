@@ -20,3 +20,11 @@
 ## 发布
 
 本地验证完成，按默认自动推送约定发布；远端CI及Render最终资源核对另写release.json，未核对前不报告部署完成。
+
+## 完整CI后续处理
+
+f5bc337完整单测和Lint通过，浏览器阶段仅build-fundraising-stock文件级初始化退出，远端注释未包含更深堆栈。该文件本地单独复验2/2通过；继续以真实5秒心跳配合跨模式固定夹具复现，得到server heartbeat读取普通局不存在的quick.status异常，见ci-heartbeat-reproduction.json。
+
+该测试原本已经使用假的行动时钟，却仍使用真实整局心跳；修订为沿现有fakeClock控制快速整局时钟，消除与机器速度有关的异步任务。未修改服务端规则或跳过断言；资金测试再次2/2通过，见funding-ci-verified.txt。本轮不同浏览器检查增至11项，不把重复复验相加。
+
+Render v47的index/style/sw哈希已一致，实际线上临时房间模拟左40px，测得整页左padding0、顶栏0、棋盘/底栏4、42格且无横溢；已解散清理。证据见render-resources.json、render-layout.json及evidence/render-844x382.png。完整CI待本次测试夹具补推复验。

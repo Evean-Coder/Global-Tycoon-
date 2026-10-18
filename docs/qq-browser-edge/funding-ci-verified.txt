@@ -1,0 +1,19 @@
+TAP version 13
+# Subtest: build funding sells selected shares, keeps panel and deadline, then manually builds
+ok 1 - build funding sells selected shares, keeps panel and deadline, then manually builds
+  ---
+  duration_ms: 4337.2683
+  ...
+# Subtest: low-height funding preserves selected quantity, card and scroll through a quote update
+ok 2 - low-height funding preserves selected quantity, card and scroll through a quote update
+  ---
+  duration_ms: 597.3734
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

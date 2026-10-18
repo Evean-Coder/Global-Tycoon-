@@ -1,0 +1,105 @@
+{
+  "checkedAt": "2026-10-18T08:09:40.219Z",
+  "commit": "8ac50551af054f383aebca0a5c1ab9f4c4827013",
+  "runtimeCommit": "b0e8c6ff9875866fca579217e5b96c9d4f5f0530",
+  "ci": {
+    "id": 39110035304,
+    "url": "https://github.com/Evean-Coder/Global-Tycoon-/actions/runs/39110035304",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "id": 117623992214,
+        "conclusion": "success",
+        "steps": [
+          {
+            "name": "Set up job",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm ci",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm run lint",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm test",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npx playwright install --with-deps chromium",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm run test:e2e 2>&1 | tee browser-results.txt",
+            "conclusion": "success"
+          },
+          {
+            "name": "Report browser failures",
+            "conclusion": "skipped"
+          },
+          {
+            "name": "Post Run actions/setup-node@v4",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "conclusion": "success"
+          }
+        ]
+      }
+    ]
+  },
+  "assets": [
+    {
+      "file": "index.html",
+      "status": 200,
+      "localHash": "ad3a952e8d5978634800783bc6faf5e9bac1787264623627162359fe7d891620",
+      "onlineHash": "ad3a952e8d5978634800783bc6faf5e9bac1787264623627162359fe7d891620",
+      "matches": true
+    },
+    {
+      "file": "sw.js",
+      "status": 200,
+      "localHash": "fd4c01cd820425a03cd10dd53d78fd4dac9764bd8b9630f792b82e61c797e203",
+      "onlineHash": "fd4c01cd820425a03cd10dd53d78fd4dac9764bd8b9630f792b82e61c797e203",
+      "matches": true,
+      "cache": "global-tycoon-v46-turn-experience"
+    },
+    {
+      "file": "style.css",
+      "status": 200,
+      "localHash": "2e5a023187c9a6e051c3ceedb7894954f8559fa073f3fa59d2e795ddb6eb2aaf",
+      "onlineHash": "2e5a023187c9a6e051c3ceedb7894954f8559fa073f3fa59d2e795ddb6eb2aaf",
+      "matches": true
+    },
+    {
+      "file": "client.js",
+      "status": 200,
+      "localHash": "baa0bc795e5c459c2674709c95f30f4c70d3ca066d5706696ec97cade272ff7b",
+      "onlineHash": "baa0bc795e5c459c2674709c95f30f4c70d3ca066d5706696ec97cade272ff7b",
+      "matches": true
+    },
+    {
+      "file": "turn-experience-view.js",
+      "status": 200,
+      "localHash": "a00c863db50e31e426ca7844dccfbc00d7d1f46d780dbb1a2dbe7b77a4097c28",
+      "onlineHash": "a00c863db50e31e426ca7844dccfbc00d7d1f46d780dbb1a2dbe7b77a4097c28",
+      "matches": true
+    }
+  ],
+  "liveSmoke": "b0e8c6f-live-smoke.json"
+}

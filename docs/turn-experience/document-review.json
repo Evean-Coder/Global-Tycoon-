@@ -6,12 +6,20 @@
   "tasks": 18,
   "checklistItems": 36,
   "implementationStarted": true,
-  "localChecklistPassed": 33,
+  "localChecklistPassed": 34,
   "unverified": [
     "C25 real-device zoom",
-    "C35 human playtest",
-    "C36 publication verification pending"
+    "C35 human playtest"
   ],
   "errors": [],
-  "passed": true
+  "passed": true,
+  "implementationCompleted": true,
+  "publication": {
+    "ciCommit": "8ac50551af054f383aebca0a5c1ab9f4c4827013",
+    "ciRun": 39110035304,
+    "ciConclusion": "success",
+    "renderCache": "global-tycoon-v46-turn-experience",
+    "matchedAssets": 5,
+    "temporaryRoomCleanedUp": true
+  }
 }

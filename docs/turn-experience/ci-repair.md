@@ -35,4 +35,4 @@ b0e8c6f的Lint与完整单元测试通过，远端浏览器步骤仍失败。本
 - 银行和回顾截图补齐E2E_EVIDENCE_ROOT支持，避免重写旧图片。CI保留完整TAP，并把实际失败块作为检查注释输出，以便区分远端失败；显式bash pipefail保持失败门禁，未忽略错误或放宽断言。
 - Render v46的index／sw／style／client／回顾模块与本地一致；自有临时人机对局已核对新版历史可用、直接掷骰和解散清理，回执见artifacts/deployment/b0e8c6f-*.json。
 
-本次只调整测试同步和诊断，不修改运行规则。完整远端CI仍须记录实际结果。
+本次只调整测试同步和诊断，不修改运行规则。最终8ac5055完整远端CI成功（run 39110035304），包含安装、Lint、完整单测及完整浏览器清单。Render五项资源再核对一致，详见release.md和artifacts/deployment/8ac5055-release.json。此前失败日志保留，不追溯改成通过。

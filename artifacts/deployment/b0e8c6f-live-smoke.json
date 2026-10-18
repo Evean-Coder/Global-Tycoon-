@@ -1,0 +1,10 @@
+{
+  "sha": "b0e8c6ff9875866fca579217e5b96c9d4f5f0530",
+  "checkedAt": "2026-10-18T08:01:26.092Z",
+  "revision": "turn-experience-v1",
+  "historyAvailable": true,
+  "canRoll": true,
+  "directRollAccepted": true,
+  "phaseAfterRoll": "waiting_roll",
+  "cleanedUp": true
+}

@@ -1,0 +1,531 @@
+TAP version 13
+# Subtest: roll then management ordering is shared across modes, viewports and stock continuation
+ok 1 - roll then management ordering is shared across modes, viewports and stock continuation
+  ---
+  duration_ms: 8880.2532
+  ...
+# Subtest: per-turn hint is visible, cancel retains opportunity, successful promotion consumes it
+ok 2 - per-turn hint is visible, cancel retains opportunity, successful promotion consumes it
+  ---
+  duration_ms: 4808.8961
+  ...
+# Subtest: 三端强制决定沿原入口，纸色弹窗与回合摘要一致
+ok 3 - 三端强制决定沿原入口，纸色弹窗与回合摘要一致
+  ---
+  duration_ms: 4844.3949
+  ...
+# Subtest: 有限双人页面流程：买地、转让返回、股票成交、只读查看与结算
+ok 4 - 有限双人页面流程：买地、转让返回、股票成交、只读查看与结算
+  ---
+  duration_ms: 766.756
+  ...
+# Subtest: 卖股自救后当前缺口按实际现金减少，初始欠款与决定期限保持原值
+ok 5 - 卖股自救后当前缺口按实际现金减少，初始欠款与决定期限保持原值
+  ---
+  duration_ms: 161.6246
+  ...
+# Subtest: 卖股自救可选择部分股数、预览缺口并拒绝越界输入
+ok 6 - 卖股自救可选择部分股数、预览缺口并拒绝越界输入
+  ---
+  duration_ms: 157.3768
+  ...
+# Subtest: 建房资金不足可抵押其他城市后返回建房，待建房城市保留且时限不刷新
+ok 7 - 建房资金不足可抵押其他城市后返回建房，待建房城市保留且时限不刷新
+  ---
+  duration_ms: 347.4881
+  ...
+# Subtest: many bank assets stay readable with one outer scroll on portrait, short landscape, tablet and PC
+not ok 8 - many bank assets stay readable with one outer scroll on portrait, short landscape, tablet and PC
+  ---
+  duration_ms: 4284.4866
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\bank-mortgage-layout.spec.js:8:1'
+  failureType: 'testCodeFailure'
+  error: "UNKNOWN: unknown error, open 'C:\\Users\\Yifan\\Desktop\\game\\artifacts\\bank-mortgage-layout\\768x1024.png'"
+  code: 'UNKNOWN'
+  stack: |-
+    async open (node:internal/fs/promises:637:25)
+    async Object.writeFile (node:internal/fs/promises:1219:14)
+    async _Page.screenshot (C:\Users\Yifan\Desktop\game\node_modules\playwright-core\lib\coreBundle.js:61393:11)
+    async TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\bank-mortgage-layout.spec.js:15:267)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: mortgaging cities keeps ownership and deadline, updates the bank and permits more than two
+not ok 9 - mortgaging cities keeps ownership and deadline, updates the bank and permits more than two
+  ---
+  duration_ms: 30261.2363
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\bank-mortgage-layout.spec.js:19:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    locator.tap: Timeout 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('#btnBank')[22m
+    [2m    - locator resolved to <button id="btnBank" class="secondary">银行</button>[22m
+    [2m  - attempting tap action[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is visible, enabled and stable[22m
+    [2m      - scrolling into view if needed[22m
+    [2m      - done scrolling[22m
+    [2m      - <strong class="bank-mortgage-name">摩洛哥·卡萨布兰卡</strong> from <div id="modal" class="overlay">…</div> subtree intercepts pointer events[22m
+    [2m    - retrying tap action[22m
+    [2m    - waiting 20ms[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is visible, enabled and stable[22m
+    [2m      - scrolling into view if needed[22m
+    [2m      - done scrolling[22m
+    [2m      - <strong class="bank-mortgage-name">摩洛哥·卡萨布兰卡</strong> from <div id="modal" class="overlay">…</div> subtree intercepts pointer events[22m
+    [2m    - retrying tap action[22m
+    [2m      - waiting 100ms[22m
+    [2m    57 × waiting for element to be visible, enabled and stable[22m
+    [2m       - element is visible, enabled and stable[22m
+    [2m       - scrolling into view if needed[22m
+    [2m       - done scrolling[22m
+    [2m       - <strong class="bank-mortgage-name">摩洛哥·卡萨布兰卡</strong> from <div id="modal" class="overlay">…</div> subtree intercepts pointer events[22m
+    [2m     - retrying tap action[22m
+    [2m       - waiting 500ms[22m
+
+  code: 'ERR_TEST_FAILURE'
+  name: 'TimeoutError'
+  stack: |-
+    openBank (C:\Users\Yifan\Desktop\game\e2e\bank-mortgage-layout.spec.js:6:56)
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\bank-mortgage-layout.spec.js:20:112)
+  ...
+# Subtest: 三端一个真人添加/移除电脑、真实开局和思考提示
+ok 10 - 三端一个真人添加/移除电脑、真实开局和思考提示
+  ---
+  duration_ms: 6389.3533
+  ...
+# Subtest: build funding sells selected shares, keeps panel and deadline, then manually builds
+ok 11 - build funding sells selected shares, keeps panel and deadline, then manually builds
+  ---
+  duration_ms: 4302.8357
+  ...
+# Subtest: low-height funding preserves selected quantity, card and scroll through a quote update
+ok 12 - low-height funding preserves selected quantity, card and scroll through a quote update
+  ---
+  duration_ms: 582.0247
+  ...
+# Subtest: 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+ok 13 - 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+  ---
+  duration_ms: 6035.039
+  ...
+# Subtest: 端到端：创建→加入→开局→掷骰→解散→结算→回放
+ok 14 - 端到端：创建→加入→开局→掷骰→解散→结算→回放
+  ---
+  duration_ms: 4675.5479
+  ...
+# Subtest: 统一动作封装 / 同步机遇选择与重选 / 自然规则说明 / 资讯当前与预告
+ok 15 - 统一动作封装 / 同步机遇选择与重选 / 自然规则说明 / 资讯当前与预告
+  ---
+  duration_ms: 2235.1264
+  ...
+# Subtest: 已选机遇与主动入口 / 城市租金与资讯明细 / 建拆房最终费用 / 服务端资产摘要 / 机票与机场费用边界
+ok 16 - 已选机遇与主动入口 / 城市租金与资讯明细 / 建拆房最终费用 / 服务端资产摘要 / 机票与机场费用边界
+  ---
+  duration_ms: 596.2007
+  ...
+# Subtest: 股票成交回执 / 股票转让回执 / 报价原因与实际历史股息 / 失败订单保留草稿
+ok 17 - 股票成交回执 / 股票转让回执 / 报价原因与实际历史股息 / 失败订单保留草稿
+  ---
+  duration_ms: 567.3264
+  ...
+# Subtest: 结构化收益和旧记录 / 普通流程回归
+ok 18 - 结构化收益和旧记录 / 普通流程回归
+  ---
+  duration_ms: 86.1593
+  ...
+# Subtest: 远航预告→收费不足→抵押自救→换人→自然终局记录与回放
+ok 19 - 远航预告→收费不足→抵押自救→换人→自然终局记录与回放
+  ---
+  duration_ms: 513.5847
+  ...
+# Subtest: news and ledger are equal separate panels inside the atlas on PC tablet and short landscape
+not ok 20 - news and ledger are equal separate panels inside the atlas on PC tablet and short landscape
+  ---
+  duration_ms: 5567.6779
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\information-panels.spec.js:9:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+
+      assert.ok(r.atlasPanels.left>=r.boardMap.left&&r.atlasPanels.right<=r.boardMap.right+1)
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\information-panels.spec.js:14:161)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: opponent broadcasts preserve news and asset reading while latest values and forced decisions update
+ok 21 - opponent broadcasts preserve news and asset reading while latest values and forced decisions update
+  ---
+  duration_ms: 734.8192
+  ...
+# Subtest: contextual rules open matching topics and subsections without changing stock draft or deadline
+ok 22 - contextual rules open matching topics and subsections without changing stock draft or deadline
+  ---
+  duration_ms: 1784.0115
+  ...
+# Subtest: short landscape initial opportunities keep all three selections visible and complete long descriptions
+ok 23 - short landscape initial opportunities keep all three selections visible and complete long descriptions
+  ---
+  duration_ms: 3104.2474
+  ...
+# Subtest: short landscape stock workspace preserves list space, quantity, browsing and real transaction
+ok 24 - short landscape stock workspace preserves list space, quantity, browsing and real transaction
+  ---
+  duration_ms: 12651.9595
+  ...
+# Subtest: landscape management main and city pages keep fixed footer separate from long content
+ok 25 - landscape management main and city pages keep fixed footer separate from long content
+  ---
+  duration_ms: 3845.1567
+  ...
+# Subtest: all generic landscape dialog families retain natural rows, reachable actions and long bank rescue content
+ok 26 - all generic landscape dialog families retain natural rows, reachable actions and long bank rescue content
+  ---
+  duration_ms: 11167.9024
+  ...
+# Subtest: v4 three routes and construction cost/cooldown are usable on all screens and both modes
+ok 27 - v4 three routes and construction cost/cooldown are usable on all screens and both modes
+  ---
+  duration_ms: 19675.792
+  ...
+# Subtest: order targets include airports, callbacks deduplicate and two turn payments preserve cancellation rules
+ok 28 - order targets include airports, callbacks deduplicate and two turn payments preserve cancellation rules
+  ---
+  duration_ms: 500.6708
+  ...
+# Subtest: active investment selects four shares with no fee; reconnect and stale quote require explicit confirmation
+ok 29 - active investment selects four shares with no fee; reconnect and stale quote require explicit confirmation
+  ---
+  duration_ms: 352.4445
+  ...
+# Subtest: three routes, quarter/tail order and flagship scenarios are readable in four viewports
+ok 30 - three routes, quarter/tail order and flagship scenarios are readable in four viewports
+  ---
+  duration_ms: 5141.0754
+  ...
+# Subtest: negative scenario needs explicit second confirmation; stale quote preserves draft and never auto submits
+ok 31 - negative scenario needs explicit second confirmation; stale quote preserves draft and never auto submits
+  ---
+  duration_ms: 406.8281
+  ...
+# Subtest: no project does not open automatically and cash plan order works through real UI
+ok 32 - no project does not open automatically and cash plan order works through real UI
+  ---
+  duration_ms: 332.2055
+  ...
+# Subtest: keyboard, reduced motion and 200 percent equivalent tablet layout preserve reachable controls
+ok 33 - keyboard, reduced motion and 200 percent equivalent tablet layout preserve reachable controls
+  ---
+  duration_ms: 1223.1957
+  ...
+# Subtest: automatic management prompt: fixed left skip/right close, retained draft and idempotent skip
+ok 34 - automatic management prompt: fixed left skip/right close, retained draft and idempotent skip
+  ---
+  duration_ms: 7252.3742
+  ...
+# Subtest: 经营两级选择与唯一入口：四端真实请求、无项目和报价变更
+ok 35 - 经营两级选择与唯一入口：四端真实请求、无项目和报价变更
+  ---
+  duration_ms: 4775.2017
+  ...
+# Subtest: full42-square phone map fits five screens in both modes; short name and glyph remain readable
+ok 36 - full42-square phone map fits five screens in both modes; short name and glyph remain readable
+  ---
+  duration_ms: 4314.0926
+  ...
+# Subtest: details and More retain actual information, stock access and reading through broadcasts
+ok 37 - details and More retain actual information, stock access and reading through broadcasts
+  ---
+  duration_ms: 1298.5632
+  ...
+# Subtest: PC and tablet recover original board and information; stock draft survives orientation gate
+ok 38 - PC and tablet recover original board and information; stock draft survives orientation gate
+  ---
+  duration_ms: 820.4129
+  ...
+# Subtest: all tile categories retain focus and actual ownership through broadcasts; grouped pawns remain readable
+ok 39 - all tile categories retain focus and actual ownership through broadcasts; grouped pawns remain readable
+  ---
+  duration_ms: 5682.8779
+  ...
+# Subtest: real roll retains half-speed movement and small-space zoom is only a view change
+ok 40 - real roll retains half-speed movement and small-space zoom is only a view change
+  ---
+  duration_ms: 2384.5506
+  ...
+# Subtest: 手机横屏右侧信息真实可见且未被棋盘覆盖：human
+ok 41 - 手机横屏右侧信息真实可见且未被棋盘覆盖：human
+  ---
+  duration_ms: 2719.3537
+  ...
+# Subtest: 手机横屏右侧信息真实可见且未被棋盘覆盖：bot
+ok 42 - 手机横屏右侧信息真实可见且未被棋盘覆盖：bot
+  ---
+  duration_ms: 1538.7108
+  ...
+# Subtest: reference landscape composition stays operable on four screens in both modes
+ok 43 - reference landscape composition stays operable on four screens in both modes
+  ---
+  duration_ms: 16433.9704
+  ...
+# Subtest: portrait landscape portrait preserves stock draft, deadline and real piece positions
+ok 44 - portrait landscape portrait preserves stock draft, deadline and real piece positions
+  ---
+  duration_ms: 243.8872
+  ...
+# Subtest: save a clean two-player reference preview
+ok 45 - save a clean two-player reference preview
+  ---
+  duration_ms: 231.2923
+  ...
+# Subtest: phone landscape gate blocks start, all modals, direct actions and restores stock draft
+ok 46 - phone landscape gate blocks start, all modals, direct actions and restores stock draft
+  ---
+  duration_ms: 6004.425
+  ...
+# Subtest: mobile information pair fills a centered similar rectangle and preserves scrollable information
+ok 47 - mobile information pair fills a centered similar rectangle and preserves scrollable information
+  ---
+  duration_ms: 6717.9193
+  ...
+# Subtest: phone landscape and tablet allocate usable board, information and action areas
+ok 48 - phone landscape and tablet allocate usable board, information and action areas
+  ---
+  duration_ms: 8686.3528
+  ...
+# Subtest: resize while a route animation is running ends on the real square
+ok 49 - resize while a route animation is running ends on the real square
+  ---
+  duration_ms: 1703.7185
+  ...
+# Subtest: normal and quick on three screens redeem from bank away from the property, keep bank and real deadline
+ok 50 - normal and quick on three screens redeem from bank away from the property, keep bank and real deadline
+  ---
+  duration_ms: 4167.5702
+  ...
+# Subtest: asset row and city details redeem remotely; lack of cash or an unfinished decision visibly explains why
+ok 51 - asset row and city details redeem remotely; lack of cash or an unfinished decision visibly explains why
+  ---
+  duration_ms: 835.9653
+  ...
+# Subtest: same bank view updates interest and retains scroll, then a phase change replaces it with the required decision
+ok 52 - same bank view updates interest and retains scroll, then a phase change replaces it with the required decision
+  ---
+  duration_ms: 467.9554
+  ...
+# Subtest: normal and quick allow a third mortgage from bank, assets and details on all screens
+ok 53 - normal and quick allow a third mortgage from bank, assets and details on all screens
+  ---
+  duration_ms: 8427.6699
+  ...
+# Subtest: third mortgages work in rescue and city, airport and build fundraising on a phone
+ok 54 - third mortgages work in rescue and city, airport and build fundraising on a phone
+  ---
+  duration_ms: 1383.8653
+  ...
+# Subtest: two modes and three screens show 60 seconds for initial and later opportunities
+ok 55 - two modes and three screens show 60 seconds for initial and later opportunities
+  ---
+  duration_ms: 4759.6556
+  ...
+# normal 844x390: initial choice
+# normal 844x390: later choice
+# normal 768x1024: initial choice
+# normal 768x1024: later choice
+# normal 1440x900: initial choice
+# normal 1440x900: later choice
+# quick 844x390: initial choice
+# quick 844x390: later choice
+# quick 768x1024: initial choice
+# quick 768x1024: later choice
+# quick 1440x900: initial choice
+# quick 1440x900: later choice
+# Subtest: central map stretches across PC interior and follows resizing without blocking controls
+ok 56 - central map stretches across PC interior and follows resizing without blocking controls
+  ---
+  duration_ms: 4333.1236
+  ...
+# Subtest: half-speed movement preserves queued state, final position and reduced-motion behavior
+ok 57 - half-speed movement preserves queued state, final position and reduced-motion behavior
+  ---
+  duration_ms: 4107.0498
+  ...
+# Subtest: budget support is hidden normally, privately pushed and supports one atomic basket across screens
+ok 58 - budget support is hidden normally, privately pushed and supports one atomic basket across screens
+  ---
+  duration_ms: 2829.3171
+  ...
+# Subtest: cancel retains eligibility; quote changes require new selection and late receipts cannot close another window
+ok 59 - cancel retains eligibility; quote changes require new selection and late receipts cannot close another window
+  ---
+  duration_ms: 543.7765
+  ...
+# Subtest: two targets and modes on three screens sell chosen shares then manually buy, repeat cannot sell twice
+ok 60 - two targets and modes on three screens sell chosen shares then manually buy, repeat cannot sell twice
+  ---
+  duration_ms: 7425.5512
+  ...
+# Subtest: no shares gives a clear empty state and cancelling keeps liquidated cash
+ok 61 - no shares gives a clear empty state and cancelling keeps liquidated cash
+  ---
+  duration_ms: 715.9307
+  ...
+# Subtest: self rescue demolition works and selling shows seller waiting until buyer buys or refuses
+ok 62 - self rescue demolition works and selling shows seller waiting until buyer buys or refuses
+  ---
+  duration_ms: 569.951
+  ...
+# Subtest: normal and quick touch stock lists retain nodes, details, scroll and draft
+ok 63 - normal and quick touch stock lists retain nodes, details, scroll and draft
+  ---
+  duration_ms: 8311.8303
+  ...
+# Subtest: new stock windows start at the first city and same-window updates retain browsing
+ok 64 - new stock windows start at the first city and same-window updates retain browsing
+  ---
+  duration_ms: 3356.5562
+  ...
+# Subtest: stock countdown uses the existing clock on phone, tablet and PC
+ok 65 - stock countdown uses the existing clock on phone, tablet and PC
+  ---
+  duration_ms: 444.8337
+  ...
+# Subtest: task cards readable on desktop tablet and short phone landscape; explicit accept, help anchor and close
+ok 66 - task cards readable on desktop tablet and short phone landscape; explicit accept, help anchor and close
+  ---
+  duration_ms: 3606.8321
+  ...
+# Subtest: news details and task reader survive other broadcasts; costs and private progress update from state
+ok 67 - news details and task reader survive other broadcasts; costs and private progress update from state
+  ---
+  duration_ms: 312.2418
+  ...
+# Subtest: self-rescue identity and source are visible to both players; waiting and partial funding never expire
+not ok 68 - self-rescue identity and source are visible to both players; waiting and partial funding never expire
+  ---
+  duration_ms: 2525.2427
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\rescue-unlimited.spec.js:8:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+
+      assert.ok(box.y>=0&&box.y+box.height<=height)
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\rescue-unlimited.spec.js:11:264)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: PC宽屏布局 / 平板横竖布局 / 手机完整棋盘布局 / 长说明与按钮可达
+ok 69 - PC宽屏布局 / 平板横竖布局 / 手机完整棋盘布局 / 长说明与按钮可达
+  ---
+  duration_ms: 21441.8208
+  ...
+# Subtest: 九类视口股票确认及费用明细可达
+ok 70 - 九类视口股票确认及费用明细可达
+  ---
+  duration_ms: 2486.8498
+  ...
+# Subtest: 键盘焦点与减少动画 / 真正200%页面缩放完成选择详情及交易
+ok 71 - 键盘焦点与减少动画 / 真正200%页面缩放完成选择详情及交易
+  ---
+  duration_ms: 2551.8376
+  ...
+# Subtest: market is readable outside trading; assets share the bank portfolio on phone tablet and PC
+ok 72 - market is readable outside trading; assets share the bank portfolio on phone tablet and PC
+  ---
+  duration_ms: 7061.1706
+  ...
+# Subtest: readonly updates, opponent window, empty portfolio, forced stage and actual trading retain their semantics
+ok 73 - readonly updates, opponent window, empty portfolio, forced stage and actual trading retain their semantics
+  ---
+  duration_ms: 1149.5494
+  ...
+# Subtest: 三端交易、数量/展开/滚动稳定、资产和募资回收金额一致
+ok 74 - 三端交易、数量/展开/滚动稳定、资产和募资回收金额一致
+  ---
+  duration_ms: 5390.4147
+  ...
+# Subtest: 真实玩家议价双向成交，关闭不丢报价且全局决定不改变
+ok 75 - 真实玩家议价双向成交，关闭不丢报价且全局决定不改变
+  ---
+  duration_ms: 651.3141
+  ...
+# Subtest: 收购方向的0元受让有明确回收预览，四种尺寸收件可操作
+ok 76 - 收购方向的0元受让有明确回收预览，四种尺寸收件可操作
+  ---
+  duration_ms: 1127.3562
+  ...
+# Subtest: 新局经营只显示两路线，股票帮助按新规则定位且不丢草稿
+ok 77 - 新局经营只显示两路线，股票帮助按新规则定位且不丢草稿
+  ---
+  duration_ms: 269.3186
+  ...
+# Subtest: empty and cash-tight turns allow direct roll; a legal project can be closed without losing the choice
+ok 78 - empty and cash-tight turns allow direct roll; a legal project can be closed without losing the choice
+  ---
+  duration_ms: 2627.0141
+  ...
+# Subtest: reading defers one automatic reminder and reload does not repeat a seen turn
+ok 79 - reading defers one automatic reminder and reload does not repeat a seen turn
+  ---
+  duration_ms: 1023.8309
+  ...
+# Subtest: real buy and sale retain cleared holdings history; recap survives another player reply without stealing reading
+ok 80 - real buy and sale retain cleared holdings history; recap survives another player reply without stealing reading
+  ---
+  duration_ms: 1547.6921
+  ...
+# Subtest: six sizes keep original board and reach the costs, risks and recap controls
+not ok 81 - six sizes keep original board and reach the costs, risks and recap controls
+  ---
+  duration_ms: 1828.2965
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\turn-experience.spec.js:34:1'
+  failureType: 'testCodeFailure'
+  error: "UNKNOWN: unknown error, open 'C:\\Users\\Yifan\\Desktop\\game\\docs\\turn-experience\\evidence\\review-844x390.png'"
+  code: 'UNKNOWN'
+  stack: |-
+    async open (node:internal/fs/promises:637:25)
+    async Object.writeFile (node:internal/fs/promises:1219:14)
+    async _Page.screenshot (C:\Users\Yifan\Desktop\game\node_modules\playwright-core\lib\coreBundle.js:61393:11)
+    async TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\turn-experience.spec.js:38:1128)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: invalid targets, explicit skip and unavailable reminder storage keep controls and feedback reliable
+not ok 82 - invalid targets, explicit skip and unavailable reminder storage keep controls and feedback reliable
+  ---
+  duration_ms: 5068.1265
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\turn-experience.spec.js:42:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    page.waitForSelector: Timeout 5000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('#managementModal:not(.hidden)') to be visible[22m
+
+  code: 'ERR_TEST_FAILURE'
+  name: 'TimeoutError'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\turn-experience.spec.js:43:104)
+  ...
+1..82
+# tests 82
+# suites 0
+# pass 76
+# fail 6
+# cancelled 0
+# skipped 0
+# todo 0

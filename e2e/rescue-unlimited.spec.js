@@ -1,14 +1,14 @@
 'use strict';
 /* global game, socket */
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
-const {boot}=require('./helpers/browserHarness'),f=require('../test/helpers/gameplayFixtures'),stocks=require('../src/stocks'),{createActionClock}=require('../src/actionClock');
+const {boot,settleBoardLayout}=require('./helpers/browserHarness'),f=require('../test/helpers/gameplayFixtures'),stocks=require('../src/stocks'),{createActionClock}=require('../src/actionClock');
 const dir=process.env.E2E_EVIDENCE_ROOT?path.join(process.env.E2E_EVIDENCE_ROOT,'rescue-unlimited'):path.join(__dirname,'../docs/rescue-unlimited/evidence');let h;const time=f.fakeClock();
 test.before(async()=>{fs.mkdirSync(dir,{recursive:true});h=await boot({mobile:true});await h.choose();h.room.actionClock.clear();h.room.actionClock=createActionClock(time);});
 test.after(async()=>{if(h)await h.close();});
 test('self-rescue identity and source are visible to both players; waiting and partial funding never expire',{timeout:45000},async()=>{
  const p=h.pages[0],other=h.pages[1],s=f.game(2);f.own(s,'p1','上海');s.stocks['上海'].holders.p0=3;stocks.syncHolders(s);const price=s.stocks['上海'].price;s.players[0].cash=-3*price;s.players[0].name='甲<&>';s.phase='self_rescue';s.pending={playerId:'p0',kind:'self_rescue',due:3*price,reason:'支付租金',payment:{cityId:'上海',recipientId:'p1',amount:3*price+500}};await h.fixture(s);
  for(const [width,height]of [[1440,900],[768,1024],[844,280]]){
-  await p.setViewportSize({width,height});await p.waitForSelector('#modalTitle:text-is("自救")');const identity=p.locator('.rescue-identity');assert.match(await identity.textContent(),/甲<&>.*支付租金.*上海.*收款玩家：玩家1.*自救无时限/);const box=await identity.boundingBox();assert.ok(box.y>=0&&box.y+box.height<=height);assert.match(await p.locator('#timer').textContent(),/自救无时限/);await p.screenshot({path:path.join(dir,width+'x'+height+'.png')});
+  await p.setViewportSize({width,height});await settleBoardLayout(p);await p.waitForSelector('#modalTitle:text-is("自救")');const identity=p.locator('.rescue-identity');assert.match(await identity.textContent(),/甲<&>.*支付租金.*上海.*收款玩家：玩家1.*自救无时限/);const box=await identity.boundingBox();assert.ok(box.y>=0&&box.y+box.height<=height,JSON.stringify({width,height,box}));assert.match(await p.locator('#timer').textContent(),/自救无时限/);await p.screenshot({path:path.join(dir,width+'x'+height+'.png')});
  }
  await other.waitForFunction(()=>document.querySelector('#sideOthers .rescue-player-status'));assert.match(await other.locator('#sideOthers .rescue-player-status').textContent(),/甲<&>.*支付租金.*还差.*自救无时限/);assert.equal(await other.locator('#modal').isVisible(),false);
  const id=h.room.actionClock.decisionId,before=JSON.stringify(h.room.state);time.advance(600000);h.api.emitGame(h.room);assert.equal(JSON.stringify(h.room.state),before);assert.equal(h.room.actionClock.decisionId,id);assert.equal(h.room.actionClock.expired(),false);

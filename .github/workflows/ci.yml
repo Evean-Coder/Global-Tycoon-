@@ -17,4 +17,18 @@ jobs:
       - run: npm run lint
       - run: npm test
       - run: npx playwright install --with-deps chromium
-      - run: npm run test:e2e
+      - run: npm run test:e2e 2>&1 | tee browser-results.txt
+        shell: bash
+      - name: Report browser failures
+        if: failure()
+        run: |
+          node <<'NODE'
+          const fs = require('node:fs');
+          if (!fs.existsSync('browser-results.txt')) process.exit(0);
+          const log = fs.readFileSync('browser-results.txt', 'utf8');
+          const escape = text => text.replace(/%/g, '%25').replace(/\r/g, '%0D').replace(/\n/g, '%0A');
+          for (const block of log.split(/(?=^not ok \d)/m).slice(1)) {
+            const detail = block.split(/^# Subtest:/m)[0].slice(0, 6500);
+            console.log('::error title=Browser test failure::' + escape(detail));
+          }
+          NODE

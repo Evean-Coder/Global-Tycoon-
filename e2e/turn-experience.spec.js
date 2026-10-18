@@ -2,7 +2,7 @@
 /* global game, latestState, actionPending, stockDraft, TurnExperienceView */
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const {boot}=require('./helpers/browserHarness'),f=require('../test/helpers/managementEconomyFixtures'),{createGameState}=require('../src/state'),routes=require('../src/opportunityRoutes'),cc=require('../src/commercialCompetition'),inv=require('../src/stockInvestment');
-const dir=path.join(__dirname,'../docs/turn-experience/evidence');let h,turn=700;const observations=[];
+const dir=process.env.E2E_EVIDENCE_ROOT?path.join(process.env.E2E_EVIDENCE_ROOT,'turn-experience'):path.join(__dirname,'../docs/turn-experience/evidence');let h,turn=700;const observations=[];
 function fixture(empty=false){
  const s=createGameState('TE',['甲','乙'],2,{...f.options,turnExperienceRevision:'turn-experience-v1',routeRevision:routes.REVISION,gameMode:'normal'});s.turnId=++turn;s.firstRoundDone=true;s.diceBag=[1,1,1,1];s.players.forEach(p=>p.position=9);
  s.routeFlow.initialDueOrdinal=3;for(let i=1;i<=3;i++){s.opportunityStage={ordinal:i,resolved:true};routes.markInitialResolved(s,i);}s.world.status='running';s.world.roundsCompleted=2;

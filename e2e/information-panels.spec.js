@@ -1,7 +1,7 @@
 'use strict';
 /* global game, stockDraft, closeModal, closeManagement, finishRender */
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
-const {boot}=require('./helpers/browserHarness'),f=require('../test/helpers/gameplayFixtures'),stocks=require('../src/stocks'),{createGameState}=require('../src/state'),routes=require('../src/opportunityRoutes');
+const {boot,settleBoardLayout}=require('./helpers/browserHarness'),f=require('../test/helpers/gameplayFixtures'),stocks=require('../src/stocks'),{createGameState}=require('../src/state'),routes=require('../src/opportunityRoutes');
 const dir=process.env.E2E_EVIDENCE_ROOT?path.join(process.env.E2E_EVIDENCE_ROOT,'information-panels'):path.join(__dirname,'../docs/information-panels/evidence');let h;
 function fixture(options={}){const s=createGameState('READ',['玩家0','玩家1'],2,options);s.phase='waiting_roll';s.pending=null;s.firstRoundDone=true;f.own(s,'p0','巴黎','伦敦','上海');f.own(s,'p1','罗马');f.selected(s,'p0','H1','H4');s.world.status='running';s.world.active={id:1,type:'boom',name:'地区旺季',region:'欧洲',description:'欧洲标准租金增加15%，每笔最多3000。',remaining:2};s.world.preview={type:'aviation',name:'航空促销',region:null};return s;}
 test.before(async()=>{fs.mkdirSync(dir,{recursive:true});h=await boot({mobile:true});await h.pages[0].click('#btnChoiceRules');assert.equal(await h.pages[0].locator('#rules-topic-opportunities').getAttribute('open'),'');await h.pages[0].click('#btnRulesClose');await h.choose();for(const p of h.pages)p.setDefaultTimeout(5000);});test.after(async()=>{if(h)await h.close();});
@@ -9,7 +9,7 @@ test.beforeEach(async()=>{await h.pages[0].evaluate(()=>{closeModal();closeManag
 test('news and ledger are equal separate panels inside the atlas on PC tablet and short landscape',{timeout:45000},async()=>{
  const p=h.pages[0];await h.fixture(fixture());
  for(const [width,height] of [[1440,900],[768,1024],[844,280],[568,320]]){
-  await p.setViewportSize({width,height});await p.waitForFunction(()=>{const a=document.getElementById('atlasPanels').getBoundingClientRect(),m=document.getElementById('boardMap').getBoundingClientRect();return Math.abs(a.width/m.width-.86)<.01;});
+  await p.setViewportSize({width,height});await settleBoardLayout(p);await p.waitForFunction(()=>{const a=document.getElementById('atlasPanels').getBoundingClientRect(),m=document.getElementById('boardMap').getBoundingClientRect();return Math.abs(a.width/m.width-.86)<.01;});
   const r=await p.evaluate(()=>{const ids=['newsBar','ledger','boardMap','atlasPanels'];return Object.fromEntries(ids.map(id=>[id,document.getElementById(id).getBoundingClientRect().toJSON()]));});
   assert.ok(r.newsBar.right<r.ledger.left);assert.ok(Math.abs(r.newsBar.width-r.ledger.width)<1);assert.ok(Math.abs(r.newsBar.height-r.ledger.height)<1);assert.ok(r.atlasPanels.left>=r.boardMap.left&&r.atlasPanels.right<=r.boardMap.right+1);assert.ok(r.atlasPanels.top>=r.boardMap.top&&r.atlasPanels.bottom<=r.boardMap.bottom+1);
   assert.match(await p.textContent('#newsBar'),/本人的受影响城市：伦敦、巴黎/);assert.match(await p.textContent('#newsBar'),/下轮预告：航空促销/);assert.equal(await p.locator('#ledger #newsBar').count(),0);

@@ -1,0 +1,34 @@
+TAP version 13
+# Subtest: many bank assets stay readable with one outer scroll on portrait, short landscape, tablet and PC
+ok 1 - many bank assets stay readable with one outer scroll on portrait, short landscape, tablet and PC
+  ---
+  duration_ms: 5681.2042
+  ...
+# Subtest: mortgaging cities keeps ownership and deadline, updates the bank and permits more than two
+ok 2 - mortgaging cities keeps ownership and deadline, updates the bank and permits more than two
+  ---
+  duration_ms: 560.4275
+  ...
+# Subtest: news and ledger are equal separate panels inside the atlas on PC tablet and short landscape
+ok 3 - news and ledger are equal separate panels inside the atlas on PC tablet and short landscape
+  ---
+  duration_ms: 7202.9892
+  ...
+# Subtest: opponent broadcasts preserve news and asset reading while latest values and forced decisions update
+ok 4 - opponent broadcasts preserve news and asset reading while latest values and forced decisions update
+  ---
+  duration_ms: 604.4645
+  ...
+# Subtest: contextual rules open matching topics and subsections without changing stock draft or deadline
+ok 5 - contextual rules open matching topics and subsections without changing stock draft or deadline
+  ---
+  duration_ms: 1682.8041
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

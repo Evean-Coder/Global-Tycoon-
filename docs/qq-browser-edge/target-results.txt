@@ -1,0 +1,75 @@
+TAP version 13
+# Subtest: 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+ok 1 - 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+  ---
+  duration_ms: 6095.5264
+  ...
+# Subtest: full42-square phone map fits five screens in both modes; short name and glyph remain readable
+ok 2 - full42-square phone map fits five screens in both modes; short name and glyph remain readable
+  ---
+  duration_ms: 3661.4119
+  ...
+# Subtest: details and More retain actual information, stock access and reading through broadcasts
+ok 3 - details and More retain actual information, stock access and reading through broadcasts
+  ---
+  duration_ms: 1137.0048
+  ...
+# Subtest: PC and tablet recover original board and information; stock draft survives orientation gate
+ok 4 - PC and tablet recover original board and information; stock draft survives orientation gate
+  ---
+  duration_ms: 558.9351
+  ...
+# Subtest: all tile categories retain focus and actual ownership through broadcasts; grouped pawns remain readable
+ok 5 - all tile categories retain focus and actual ownership through broadcasts; grouped pawns remain readable
+  ---
+  duration_ms: 5197.5185
+  ...
+# Subtest: real roll retains half-speed movement and small-space zoom is only a view change
+ok 6 - real roll retains half-speed movement and small-space zoom is only a view change
+  ---
+  duration_ms: 2321.1116
+  ...
+# Subtest: phone landscape uses the freed left area at every reported inset, preserving full board and right edge
+not ok 7 - phone landscape uses the freed left area at every reported inset, preserving full board and right edge
+  ---
+  duration_ms: 2994.5095
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\mobile-landscape-edge.spec.js:24:1'
+  failureType: 'testCodeFailure'
+  error: '快速模式版本无效'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    createGameState (C:\Users\Yifan\Desktop\game\src\state.js:46:147)
+    fixture (C:\Users\Yifan\Desktop\game\e2e\mobile-landscape-edge.spec.js:8:10)
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\mobile-landscape-edge.spec.js:27:59)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: the same left alignment applies to QQ, other Android and iOS while other three safe edges survive
+ok 8 - the same left alignment applies to QQ, other Android and iOS while other three safe edges survive
+  ---
+  duration_ms: 201.929
+  ...
+# Subtest: left inset and opponent broadcasts keep stock quantity, reading state, game funds and deadline
+not ok 9 - left inset and opponent broadcasts keep stock quantity, reading state, game funds and deadline
+  ---
+  duration_ms: 30188.2171
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\mobile-landscape-edge.spec.js:53:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    locator.evaluate: Timeout 30000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('.stock-card details').first()[22m
+
+  code: 'ERR_TEST_FAILURE'
+  name: 'TimeoutError'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\mobile-landscape-edge.spec.js:55:132)
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 7
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0

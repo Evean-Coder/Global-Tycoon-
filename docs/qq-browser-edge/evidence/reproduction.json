@@ -1,0 +1,32 @@
+{
+  "scope": "Chromium模拟安全区变量；非荣耀X50或QQ真机测量",
+  "rows": [
+    {
+      "viewport": {
+        "width": 844,
+        "height": 382
+      },
+      "bodyPaddingLeft": "0px",
+      "boardLeft": 4,
+      "headerLeft": 0,
+      "actionLeft": 4,
+      "boardWidth": 622.5,
+      "overflow": false,
+      "squares": 42
+    },
+    {
+      "viewport": {
+        "width": 844,
+        "height": 382
+      },
+      "bodyPaddingLeft": "40px",
+      "boardLeft": 44,
+      "headerLeft": 40,
+      "actionLeft": 44,
+      "boardWidth": 592.5,
+      "overflow": false,
+      "squares": 42
+    }
+  ],
+  "errors": []
+}

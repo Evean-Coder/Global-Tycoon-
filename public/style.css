@@ -832,7 +832,7 @@ body.landscape-game #newsBar .news-personal{padding:7px}
 
 /* Phone whole-board view: display detail on demand, keep the entire route visible. */
 .compact-only{display:none!important}
-body.compact-game.game-active{--compact-safe-top:env(safe-area-inset-top,0px);--compact-safe-right:env(safe-area-inset-right,0px);--compact-safe-bottom:env(safe-area-inset-bottom,0px);--compact-safe-left:env(safe-area-inset-left,0px);padding:var(--compact-safe-top) var(--compact-safe-right) var(--compact-safe-bottom) var(--compact-safe-left)}
+body.compact-game.game-active{--compact-safe-top:env(safe-area-inset-top,0px);--compact-safe-right:env(safe-area-inset-right,0px);--compact-safe-bottom:env(safe-area-inset-bottom,0px);--compact-safe-left:env(safe-area-inset-left,0px);padding:var(--compact-safe-top) var(--compact-safe-right) var(--compact-safe-bottom) 0}
 body.compact-game.game-active header{height:44px;min-height:44px;padding:0 4px;border:0;gap:4px;flex-direction:row-reverse;box-shadow:0 2px 8px #68552e22}
 body.compact-game header .brand{display:none}
 body.compact-game header>#btnRules{height:44px;min-height:44px;min-width:44px;padding:0 6px;font-size:11px}

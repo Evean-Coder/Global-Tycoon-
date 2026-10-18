@@ -1,0 +1,36 @@
+TAP version 13
+# Subtest: phone landscape uses the freed left area at every reported inset, preserving full board and right edge
+not ok 1 - phone landscape uses the freed left area at every reported inset, preserving full board and right edge
+  ---
+  duration_ms: 2911.5751
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\mobile-landscape-edge.spec.js:24:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of null (reading 'read')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    startTimer (C:\Users\Yifan\Desktop\game\server.js:274:34)
+    Object.emitGame (C:\Users\Yifan\Desktop\game\server.js:150:3)
+    Object.fixture (C:\Users\Yifan\Desktop\game\e2e\helpers\browserHarness.js:40:43)
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\mobile-landscape-edge.spec.js:27:51)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: the same left alignment applies to QQ, other Android and iOS while other three safe edges survive
+ok 2 - the same left alignment applies to QQ, other Android and iOS while other three safe edges survive
+  ---
+  duration_ms: 187.9237
+  ...
+# Subtest: left inset and opponent broadcasts keep stock quantity, reading state, game funds and deadline
+ok 3 - left inset and opponent broadcasts keep stock quantity, reading state, game funds and deadline
+  ---
+  duration_ms: 366.9895
+  ...
+1..3
+# tests 3
+# suites 0
+# pass 2
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0

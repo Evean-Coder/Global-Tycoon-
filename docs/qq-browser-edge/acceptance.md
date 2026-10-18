@@ -28,3 +28,5 @@ f5bc337完整单测和Lint通过，浏览器阶段仅build-fundraising-stock文�
 该测试原本已经使用假的行动时钟，却仍使用真实整局心跳；修订为沿现有fakeClock控制快速整局时钟，消除与机器速度有关的异步任务。未修改服务端规则或跳过断言；资金测试再次2/2通过，见funding-ci-verified.txt。本轮不同浏览器检查增至11项，不把重复复验相加。
 
 Render v47的index/style/sw哈希已一致，实际线上临时房间模拟左40px，测得整页左padding0、顶栏0、棋盘/底栏4、42格且无横溢；已解散清理。证据见render-resources.json、render-layout.json及evidence/render-844x382.png。完整CI待本次测试夹具补推复验。
+
+4910aea远端在单测阶段退出，既有注释仅返回exit 1，未提供失败用例，不推测该次根因。相同门禁本地完整621/621通过（full-unit-recheck.txt）。为定位可能的远端问题，CI改为保留单测TAP并连同浏览器失败一起输出失败块及前文；bash pipefail保持，未忽略测试错误。报告脚本以模拟失败日志验证输出，等待远端复验。

@@ -2,7 +2,7 @@
 /* global socket, latestState, stockDraft, requestAnimationFrame */
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const {boot}=require('./helpers/browserHarness'),f=require('../test/helpers/gameplayFixtures'),stocks=require('../src/stocks');
-let h;const dir=path.join(__dirname,'../docs/stock-information/evidence');
+let h;const dir=process.env.E2E_EVIDENCE_ROOT?path.join(process.env.E2E_EVIDENCE_ROOT,'stock-information'):path.join(__dirname,'../docs/stock-information/evidence');
 test.before(async()=>{fs.mkdirSync(dir,{recursive:true});h=await boot({mobile:true,viewport:{width:844,height:280}});await h.choose();for(const p of h.pages)p.setDefaultTimeout(5000);});
 test.after(async()=>{if(h)await h.close();});
 function fixture(){const s=f.game(2);s.firstRoundDone=true;s.phase='waiting_roll';s.pending=null;f.own(s,'p0','内罗毕');f.own(s,'p1','上海');s.cities['内罗毕'].mortgaged=true;s.stocks['内罗毕'].holders.p0=2;s.players[0].stocks['内罗毕']=2;s.stocks['上海'].holders.p0=3;s.players[0].stocks['上海']=3;s.stocks['上海'].dividendFund=2000;s.stocks['上海'].lastDividendPerShare=125;stocks.refreshPrice(s,'上海','受控分红报价');s.stocks['悉尼'].clearing=true;return s;}

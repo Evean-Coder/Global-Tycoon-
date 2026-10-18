@@ -163,7 +163,9 @@ function requestPieceLayout() {
     renderPieces();
   });
 }
-if ('ResizeObserver' in window) new window.ResizeObserver(requestPieceLayout).observe($('board'));
+let boardGeometryObserver=null;
+if ('ResizeObserver' in window){boardGeometryObserver=new window.ResizeObserver(requestPieceLayout);boardGeometryObserver.observe($('board'));}
+document.fonts?.ready.then(requestPieceLayout);
 if ('ResizeObserver' in window) {
   const chromeLayout = new window.ResizeObserver(fitActionBarPadding);
   for (const id of ['newsBar', 'waitBanner', 'quickClockBar', 'actionBar']) chromeLayout.observe($(id));
@@ -343,6 +345,7 @@ function renderBoard() {
     else board.appendChild(div);
   }
   for(const tile of oldTiles.values())tile.remove();
+  if(boardGeometryObserver)for(const index of BoardLayout.geometry(layoutMode()).anchors)if(board.children[index])boardGeometryObserver.observe(board.children[index]);
 }
 
 // ---------- 掷骰 / 棋子移动动画 ----------

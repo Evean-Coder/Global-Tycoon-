@@ -1,0 +1,19 @@
+TAP version 13
+# Subtest: mobile information pair fills a centered similar rectangle and preserves scrollable information
+ok 1 - mobile information pair fills a centered similar rectangle and preserves scrollable information
+  ---
+  duration_ms: 6524.8876
+  ...
+# Subtest: central map stretches across PC interior and follows resizing without blocking controls
+ok 2 - central map stretches across PC interior and follows resizing without blocking controls
+  ---
+  duration_ms: 4040.3442
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

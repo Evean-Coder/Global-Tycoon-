@@ -1,7 +1,7 @@
 'use strict';
 /* global game, actionPending, socket */
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),{boot}=require('./helpers/browserHarness'),f=require('../test/helpers/managementEconomyFixtures'),{createGameState}=require('../src/state'),routes=require('../src/opportunityRoutes'),cc=require('../src/commercialCompetition');
-const dir=path.join(__dirname,'../docs/commercial-competition/evidence');let h,turn=400;const observations=[];
+const dir=process.env.E2E_EVIDENCE_ROOT?path.join(process.env.E2E_EVIDENCE_ROOT,'management-economy'):path.join(__dirname,'../docs/commercial-competition/evidence');let h,turn=400;const observations=[];
 function fixture(mode='normal'){
  const s=createGameState('ME',['甲','乙'],2,{...f.options,routeRevision:routes.REVISION,gameMode:mode,...(mode==='quick'?{quickRevision:'quick-mode-v1'}:{})});s.turnId=++turn;s.firstRoundDone=true;s.phase='waiting_roll';s.pending=null;
  s.routeFlow.initialDueOrdinal=mode==='quick'?1:3;for(let i=1;i<=s.routeFlow.initialDueOrdinal;i++){s.opportunityStage={ordinal:i,resolved:true};routes.markInitialResolved(s,i);}

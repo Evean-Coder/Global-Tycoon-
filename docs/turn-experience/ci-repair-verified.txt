@@ -1,0 +1,80 @@
+TAP version 13
+# Subtest: full42-square phone map fits five screens in both modes; short name and glyph remain readable
+not ok 1 - full42-square phone map fits five screens in both modes; short name and glyph remain readable
+  ---
+  duration_ms: 2234.3576
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\mobile-compact-board.spec.js:8:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+
+    260 !== 178
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 178
+  actual: 260
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\mobile-compact-board.spec.js:12:128)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: details and More retain actual information, stock access and reading through broadcasts
+ok 2 - details and More retain actual information, stock access and reading through broadcasts
+  ---
+  duration_ms: 1154.0691
+  ...
+# Subtest: PC and tablet recover original board and information; stock draft survives orientation gate
+ok 3 - PC and tablet recover original board and information; stock draft survives orientation gate
+  ---
+  duration_ms: 475.2464
+  ...
+# Subtest: all tile categories retain focus and actual ownership through broadcasts; grouped pawns remain readable
+ok 4 - all tile categories retain focus and actual ownership through broadcasts; grouped pawns remain readable
+  ---
+  duration_ms: 5045.7943
+  ...
+# Subtest: real roll retains half-speed movement and small-space zoom is only a view change
+ok 5 - real roll retains half-speed movement and small-space zoom is only a view change
+  ---
+  duration_ms: 2300.545
+  ...
+# Subtest: reference landscape composition stays operable on four screens in both modes
+ok 6 - reference landscape composition stays operable on four screens in both modes
+  ---
+  duration_ms: 15038.0273
+  ...
+# Subtest: portrait landscape portrait preserves stock draft, deadline and real piece positions
+ok 7 - portrait landscape portrait preserves stock draft, deadline and real piece positions
+  ---
+  duration_ms: 199.1168
+  ...
+# Subtest: save a clean two-player reference preview
+ok 8 - save a clean two-player reference preview
+  ---
+  duration_ms: 107.6132
+  ...
+# Subtest: mobile information pair fills a centered similar rectangle and preserves scrollable information
+ok 9 - mobile information pair fills a centered similar rectangle and preserves scrollable information
+  ---
+  duration_ms: 6690.3241
+  ...
+# Subtest: market is readable outside trading; assets share the bank portfolio on phone tablet and PC
+ok 10 - market is readable outside trading; assets share the bank portfolio on phone tablet and PC
+  ---
+  duration_ms: 6377.7818
+  ...
+# Subtest: readonly updates, opponent window, empty portfolio, forced stage and actual trading retain their semantics
+ok 11 - readonly updates, opponent window, empty portfolio, forced stage and actual trading retain their semantics
+  ---
+  duration_ms: 958.1505
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 10
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0

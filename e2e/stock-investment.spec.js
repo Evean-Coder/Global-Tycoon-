@@ -2,7 +2,7 @@
 /* global latestState,stockDraft,game,stockContext */
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const {boot}=require('./helpers/browserHarness'),{createGameState}=require('../src/state'),inv=require('../src/stockInvestment'),stocks=require('../src/stocks');
-let h;const dir=path.join(__dirname,'../docs/stock-investment-v2/evidence');
+let h;const dir=process.env.E2E_EVIDENCE_ROOT?path.join(process.env.E2E_EVIDENCE_ROOT,'stock-investment'):path.join(__dirname,'../docs/stock-investment-v2/evidence');
 function fixture(){const s=createGameState('ui',['浏览器甲','浏览器乙'],2,{stockInvestmentRevision:inv.REVISION});s.firstRoundDone=true;stocks.transferCity(s,{cityId:'开罗',newOwnerId:'p1'},[]);stocks.transferCity(s,{cityId:'内罗毕',newOwnerId:'p0'},[]);return s;}
 test.before(async()=>{fs.mkdirSync(dir,{recursive:true});h=await boot({mobile:true,viewport:{width:932,height:430}});await h.choose();for(const p of h.pages)p.setDefaultTimeout(5000);});
 test.after(async()=>{if(h)await h.close();});

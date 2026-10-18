@@ -29,6 +29,14 @@ async function boot(options={}){
   state.revision=room.state.revision+1;
   for(const [i,p]of state.players.entries())p.socketId=room.players[i].socketId;
   room.state=state;room.lastEvents=[];api.emitGame(room);await pages[0].waitForFunction(v=>document.querySelector('#board .sq')&&latestState?.revision>=v,state.revision);
+  // State acceptance precedes resize-observer layout; geometry assertions need a painted frame.
+  await pages[0].evaluate(()=>new Promise(resolve=>window.requestAnimationFrame(()=>window.requestAnimationFrame(resolve))));
+  await pages[0].waitForFunction(()=>{
+   const map=document.getElementById('boardMap').getBoundingClientRect(),tiles=document.getElementById('board').children;
+   if(!map.width||!tiles[21])return true;
+   const first=tiles[0].getBoundingClientRect(),right=tiles[11].getBoundingClientRect(),bottom=tiles[21].getBoundingClientRect(),inset=document.body.classList.contains('landscape-game')?2:0;
+   return Math.abs(map.left-first.right-inset)<.5&&Math.abs(map.top-first.bottom-inset)<.5&&Math.abs(map.right-right.left+inset)<.5&&Math.abs(map.bottom-bottom.top+inset)<.5;
+  });
  },async close(){for(const c of contexts)await c.close();await browser.close();for(const r of api.rooms.values()){api.stopQuickTimers(r);r.actionClock.clear();if(r.hostTimer)clearTimeout(r.hostTimer);}api.rooms.clear();await new Promise(r=>api.io.close(r));}};
 }
 module.exports={boot};

@@ -82,12 +82,17 @@ test('端到端：创建→加入→开局→掷骰→解散→结算→回放',
   assert.equal(await p1.locator('#rulesModal').isVisible(), true, '规则入口应打开规则速查');
   await p1.click('#btnRulesClose');
   assert.equal(await p1.locator('#rulesModal').isVisible(), false, '规则速查应可关闭');
-  const beforeStock = socketFrames.length;
+  const beforeStock = socketFrames.filter(frame => frame.includes('gameState')).length;
   await p1.click('#btnStock');
-  assert.equal(await p1.locator('#stockModal').isVisible(), true, '非股票阶段应打开只读市场');
-  assert.equal(await p1.locator('#btnStockConfirm').isHidden(), true, '只读市场不提供交易确认');
-  await p1.click('#btnStockClose');
-  assert.equal(socketFrames.length, beforeStock, '非股票阶段查看入口不应改变游戏状态');
+  assert.equal(await p1.locator('#stockModal').isVisible(), true, '正常掷骰前应可打开股票市场');
+  assert.equal(await p1.locator('#btnStockConfirm').isVisible(), true, '本人掷骰前提供交易确认');
+  assert.equal(await p1.locator('#btnStockConfirm').isDisabled(), true, '未选择订单不能提交交易');
+  await p1.click('#btnStockSkip');
+  await p2.click('#btnStock');
+  assert.equal(await p2.locator('#stockModal').isVisible(), true, '非本人回合可查看只读行情');
+  assert.equal(await p2.locator('#btnStockConfirm').isHidden(), true, '只读行情不提供交易确认');
+  await p2.click('#btnStockClose');
+  assert.equal(socketFrames.filter(frame => frame.includes('gameState')).length, beforeStock, '打开和关闭市场不应改变游戏状态');
 
   // 掷骰（当前行动玩家为甲）
   await p1.emulateMedia({ reducedMotion: 'reduce' });

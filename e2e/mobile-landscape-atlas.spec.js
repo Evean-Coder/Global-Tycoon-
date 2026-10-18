@@ -16,6 +16,8 @@ test('reference landscape composition stays operable on four screens in both mod
    const x=m.board.right-24,y=Math.max(m.board.top+20,Math.min(m.board.bottom-20,m.first.top+m.first.height/2));
    await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x,y}]});
    for(let step=1;step<=12;step++){await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:x-step*12,y}]});await p.waitForTimeout(16);}
+   // Hold at the drag endpoint to finish the gesture without native momentum.
+   await p.waitForTimeout(100);
    await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
    try{await p.waitForFunction(()=>document.getElementById('boardWrap').scrollLeft>20,null,{timeout:3000});}
    catch(err){throw new Error('touch drag '+JSON.stringify(await p.evaluate(({x,y})=>{let n=document.elementFromPoint(x,y),chain=[];while(n){chain.push({id:n.id,tag:n.tagName,action:getComputedStyle(n).touchAction});n=n.parentElement;}const b=document.getElementById('boardWrap');return {x,y,chain,width:b.clientWidth,scrollWidth:b.scrollWidth,scrollLeft:b.scrollLeft};},{x,y}))+' '+err.message);}

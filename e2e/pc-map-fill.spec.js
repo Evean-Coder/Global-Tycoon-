@@ -19,6 +19,8 @@ test('central map stretches across PC interior and follows resizing without bloc
   await page.evaluate(()=>new Promise(r=>window.requestAnimationFrame(()=>window.requestAnimationFrame(r))));
   const m=await page.locator('#boardMap').evaluate(async el=>{
    const style=window.getComputedStyle(el),image=new window.Image();image.src=style.backgroundImage.slice(5,-2);await image.decode();
+   // Image decoding can span a viewport resize; sample after layout observers run.
+   await new Promise(resolve=>window.requestAnimationFrame(()=>window.requestAnimationFrame(resolve)));
    const rect=id=>document.getElementById(id).getBoundingClientRect().toJSON();
    const tiles=document.getElementById('board').children;
    return {map:el.getBoundingClientRect().toJSON(),first:tiles[0].getBoundingClientRect().toJSON(),right:tiles[11].getBoundingClientRect().toJSON(),bottom:tiles[21].getBoundingClientRect().toJSON(),size:style.backgroundSize,repeat:style.backgroundRepeat,pointerEvents:style.pointerEvents,naturalWidth:image.naturalWidth,naturalHeight:image.naturalHeight,landscape:document.body.classList.contains('landscape-game'),overflow:document.documentElement.scrollWidth>window.innerWidth+1,squares:tiles.length,pieces:[...document.querySelectorAll('#pieces .piece')].map(p=>p.getBoundingClientRect().toJSON()),positions:[7,18].map(id=>tiles[id].getBoundingClientRect().toJSON()),ledger:rect('ledger')};

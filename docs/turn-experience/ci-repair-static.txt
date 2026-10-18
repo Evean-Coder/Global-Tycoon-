@@ -1,0 +1,16 @@
+Lint: PASS
+Rules catalog consistency: PASS
+warning: in the working copy of 'docs/turn-experience/acceptance.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/turn-experience/evidence/measurements.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/turn-experience/progress.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'e2e/management-economy.spec.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'e2e/mobile-landscape-atlas.spec.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'e2e/mobile-ledger-centered.spec.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'e2e/pc-map-fill.spec.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'e2e/property-support-budget.spec.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'e2e/stock-information.spec.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'e2e/stock-investment.spec.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'public/client.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'public/index.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'public/sw.js', LF will be replaced by CRLF the next time Git touches it
+Scoped diff check: PASS

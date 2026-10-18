@@ -1,7 +1,7 @@
 'use strict';
 /* global game, supportDraft, sendAction */
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),{boot}=require('./helpers/browserHarness'),{createGameState}=require('../src/state'),support=require('../src/propertySupport');
-const dir=path.join(__dirname,'../docs/property-support-budget/evidence');let h;
+const dir=process.env.E2E_EVIDENCE_ROOT?path.join(process.env.E2E_EVIDENCE_ROOT,'property-support-budget'):path.join(__dirname,'../docs/property-support-budget/evidence');let h;
 function state(eligible=true){const s=createGameState('BUDGET',['甲','乙'],2,{propertySupportRevision:support.REVISION});s.firstRoundDone=true;s.phase='waiting_roll';s.pending=null;s.players[0].propertySupport.eligible=eligible;s.players[0].propertySupport.missedPurchaseTurns=eligible?6:2;return s;}
 test.before(async()=>{fs.mkdirSync(dir,{recursive:true});h=await boot({mobile:true});await h.choose();});test.after(async()=>{if(h)await h.close();});
 test('budget support is hidden normally, privately pushed and supports one atomic basket across screens',{timeout:45000},async()=>{

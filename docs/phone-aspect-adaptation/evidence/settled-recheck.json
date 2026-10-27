@@ -1,0 +1,54 @@
+{
+  "scope": "300ms后重新采样，区分切换瞬态和持续缺陷；不是测试通过判据",
+  "rows": [
+    {
+      "width": 693,
+      "height": 390,
+      "original": "unexpected-forced-scroll",
+      "stable": {
+        "height": 390,
+        "actionBottom": 386,
+        "zoom": true,
+        "boardWidth": 507,
+        "boardHeight": 288
+      }
+    },
+    {
+      "width": 853,
+      "height": 380,
+      "original": "action-clipped",
+      "stable": {
+        "height": 380,
+        "actionBottom": 376,
+        "zoom": false,
+        "boardWidth": 627,
+        "boardHeight": 278
+      }
+    },
+    {
+      "width": 1061,
+      "height": 380,
+      "original": "action-clipped",
+      "stable": {
+        "height": 380,
+        "actionBottom": 376,
+        "zoom": false,
+        "boardWidth": 783,
+        "boardHeight": 278
+      }
+    },
+    {
+      "width": 888,
+      "height": 290,
+      "original": "action-clipped",
+      "stable": {
+        "height": 290,
+        "actionBottom": 286,
+        "zoom": false,
+        "boardWidth": 654,
+        "boardHeight": 188
+      }
+    }
+  ],
+  "errors": []
+}

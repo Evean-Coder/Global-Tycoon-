@@ -1,0 +1,122 @@
+Phone layout checks: chromium
+TAP version 13
+# {"engine":"chromium","verifiedLayouts":504}
+# Subtest: continuous phone geometry preserves the complete board and usable actions across the planned ratio matrix
+ok 1 - continuous phone geometry preserves the complete board and usable actions across the planned ratio matrix
+  ---
+  duration_ms: 39358.2048
+  ...
+# Subtest: phone dialog families retain natural rows and reachable final actions at short and wide sizes
+ok 2 - phone dialog families retain natural rows and reachable final actions at short and wide sizes
+  ---
+  duration_ms: 12209.5148
+  ...
+# Subtest: choice, route, management and support keep selection flows and fixed footer reachable
+ok 3 - choice, route, management and support keep selection flows and fixed footer reachable
+  ---
+  duration_ms: 6180.3763
+  ...
+# Subtest: normal stock purchase and quick fundraising use real requests without losing quantity or extending deadlines
+ok 4 - normal stock purchase and quick fundraising use real requests without losing quantity or extending deadlines
+  ---
+  duration_ms: 902.5722
+  ...
+# Subtest: automatic fitting recovers from a short viewport while manual map zoom remains an independent choice
+ok 5 - automatic fitting recovers from a short viewport while manual map zoom remains an independent choice
+  ---
+  duration_ms: 2521.209
+  ...
+# Subtest: visible keyboard rectangle keeps stock drafts, disclosure and funding controls through broadcasts
+ok 6 - visible keyboard rectangle keeps stock drafts, disclosure and funding controls through broadcasts
+  ---
+  duration_ms: 617.7043
+  ...
+# Subtest: real page pinch zoom is not undone, safe area is not doubled, and diagnostics contain layout only
+ok 7 - real page pinch zoom is not undone, safe area is not doubled, and diagnostics contain layout only
+  ---
+  duration_ms: 349.7293
+  ...
+# Subtest: entry pages remain scrollable with a keyboard-sized viewport and a new room can start after the orientation gate
+ok 8 - entry pages remain scrollable with a keyboard-sized viewport and a new room can start after the orientation gate
+  ---
+  duration_ms: 2617.1647
+  ...
+# Subtest: missing visual viewport and fullscreen APIs retain playable layout and keyboard access
+ok 9 - missing visual viewport and fullscreen APIs retain playable layout and keyboard access
+  ---
+  duration_ms: 165.6952
+  ...
+# Subtest: resize bursts coalesce and geometry settles without continuous recomputation
+ok 10 - resize bursts coalesce and geometry settles without continuous recomputation
+  ---
+  duration_ms: 979.2872
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 10
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+Phone layout checks: webkit
+TAP version 13
+# {"engine":"webkit","verifiedLayouts":32}
+# Subtest: continuous phone geometry preserves the complete board and usable actions across the planned ratio matrix
+ok 1 - continuous phone geometry preserves the complete board and usable actions across the planned ratio matrix
+  ---
+  duration_ms: 6417.8402
+  ...
+# Subtest: phone dialog families retain natural rows and reachable final actions at short and wide sizes
+ok 2 - phone dialog families retain natural rows and reachable final actions at short and wide sizes
+  ---
+  duration_ms: 33040.954
+  ...
+# Subtest: choice, route, management and support keep selection flows and fixed footer reachable
+ok 3 - choice, route, management and support keep selection flows and fixed footer reachable
+  ---
+  duration_ms: 18798.5034
+  ...
+# Subtest: normal stock purchase and quick fundraising use real requests without losing quantity or extending deadlines
+ok 4 - normal stock purchase and quick fundraising use real requests without losing quantity or extending deadlines
+  ---
+  duration_ms: 2012.1616
+  ...
+# Subtest: automatic fitting recovers from a short viewport while manual map zoom remains an independent choice
+ok 5 - automatic fitting recovers from a short viewport while manual map zoom remains an independent choice
+  ---
+  duration_ms: 3783.9317
+  ...
+# Subtest: visible keyboard rectangle keeps stock drafts, disclosure and funding controls through broadcasts
+ok 6 - visible keyboard rectangle keeps stock drafts, disclosure and funding controls through broadcasts
+  ---
+  duration_ms: 1614.1337
+  ...
+# Subtest: real page pinch zoom is not undone, safe area is not doubled, and diagnostics contain layout only
+ok 7 - real page pinch zoom is not undone, safe area is not doubled, and diagnostics contain layout only
+  ---
+  duration_ms: 844.7761
+  ...
+# Subtest: entry pages remain scrollable with a keyboard-sized viewport and a new room can start after the orientation gate
+ok 8 - entry pages remain scrollable with a keyboard-sized viewport and a new room can start after the orientation gate
+  ---
+  duration_ms: 3517.2145
+  ...
+# Subtest: missing visual viewport and fullscreen APIs retain playable layout and keyboard access
+ok 9 - missing visual viewport and fullscreen APIs retain playable layout and keyboard access
+  ---
+  duration_ms: 385.8961
+  ...
+# Subtest: resize bursts coalesce and geometry settles without continuous recomputation
+ok 10 - resize bursts coalesce and geometry settles without continuous recomputation
+  ---
+  duration_ms: 1010.0262
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 10
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

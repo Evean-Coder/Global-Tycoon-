@@ -1,0 +1,77 @@
+Phone layout checks: chromium
+TAP version 13
+# {"engine":"chromium","verifiedLayouts":504}
+# Subtest: continuous phone geometry preserves the complete board and usable actions across the planned ratio matrix
+ok 1 - continuous phone geometry preserves the complete board and usable actions across the planned ratio matrix
+  ---
+  duration_ms: 38597.7925
+  ...
+# Subtest: phone dialog families retain natural rows and reachable final actions at short and wide sizes
+ok 2 - phone dialog families retain natural rows and reachable final actions at short and wide sizes
+  ---
+  duration_ms: 12959.5999
+  ...
+# Subtest: choice, route, management and support keep selection flows and fixed footer reachable
+ok 3 - choice, route, management and support keep selection flows and fixed footer reachable
+  ---
+  duration_ms: 6382.1723
+  ...
+# Subtest: normal stock purchase and quick fundraising use real requests without losing quantity or extending deadlines
+not ok 4 - normal stock purchase and quick fundraising use real requests without losing quantity or extending deadlines
+  ---
+  duration_ms: 769.4095
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\phone-dialogs.spec.js:52:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+
+    149770 !== 149780
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 149780
+  actual: 149770
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\phone-dialogs.spec.js:54:1237)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: automatic fitting recovers from a short viewport while manual map zoom remains an independent choice
+ok 5 - automatic fitting recovers from a short viewport while manual map zoom remains an independent choice
+  ---
+  duration_ms: 2590.5983
+  ...
+# Subtest: visible keyboard rectangle keeps stock drafts, disclosure and funding controls through broadcasts
+ok 6 - visible keyboard rectangle keeps stock drafts, disclosure and funding controls through broadcasts
+  ---
+  duration_ms: 616.3464
+  ...
+# Subtest: real page pinch zoom is not undone, safe area is not doubled, and diagnostics contain layout only
+ok 7 - real page pinch zoom is not undone, safe area is not doubled, and diagnostics contain layout only
+  ---
+  duration_ms: 381.9222
+  ...
+# Subtest: entry pages remain scrollable with a keyboard-sized viewport and a new room can start after the orientation gate
+ok 8 - entry pages remain scrollable with a keyboard-sized viewport and a new room can start after the orientation gate
+  ---
+  duration_ms: 2649.6082
+  ...
+# Subtest: missing visual viewport and fullscreen APIs retain playable layout and keyboard access
+ok 9 - missing visual viewport and fullscreen APIs retain playable layout and keyboard access
+  ---
+  duration_ms: 167.9785
+  ...
+# Subtest: resize bursts coalesce and geometry settles without continuous recomputation
+ok 10 - resize bursts coalesce and geometry settles without continuous recomputation
+  ---
+  duration_ms: 979.0182
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 9
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0

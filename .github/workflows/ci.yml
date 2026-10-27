@@ -17,8 +17,10 @@ jobs:
       - run: npm run lint
       - run: npm test 2>&1 | tee unit-results.txt
         shell: bash
-      - run: npx playwright install --with-deps chromium
+      - run: npx playwright install --with-deps chromium webkit
       - run: npm run test:e2e 2>&1 | tee browser-results.txt
+        shell: bash
+      - run: npm run test:phone:webkit 2>&1 | tee webkit-results.txt
         shell: bash
       - name: Report test failures
         if: failure()
@@ -26,7 +28,7 @@ jobs:
           node <<'NODE'
           const fs = require('node:fs');
           const escape = text => text.replace(/%/g, '%25').replace(/\r/g, '%0D').replace(/\n/g, '%0A');
-          for (const file of ['unit-results.txt', 'browser-results.txt']) {
+          for (const file of ['unit-results.txt', 'browser-results.txt', 'webkit-results.txt']) {
             if (!fs.existsSync(file)) continue;
             const log = fs.readFileSync(file, 'utf8');
             for (const match of log.matchAll(/^not ok \d[^\n]*/gm)) {

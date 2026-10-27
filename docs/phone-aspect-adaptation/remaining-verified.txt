@@ -1,0 +1,80 @@
+TAP version 13
+# Subtest: full42-square phone map fits five screens in both modes; short name and glyph remain readable
+not ok 1 - full42-square phone map fits five screens in both modes; short name and glyph remain readable
+  ---
+  duration_ms: 2250.8854
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\mobile-compact-board.spec.js:8:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+
+    544 !== 481
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 481
+  actual: 544
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\mobile-compact-board.spec.js:12:86)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: details and More retain actual information, stock access and reading through broadcasts
+ok 2 - details and More retain actual information, stock access and reading through broadcasts
+  ---
+  duration_ms: 1191.7175
+  ...
+# Subtest: PC and tablet recover original board and information; stock draft survives orientation gate
+ok 3 - PC and tablet recover original board and information; stock draft survives orientation gate
+  ---
+  duration_ms: 720.362
+  ...
+# Subtest: all tile categories retain focus and actual ownership through broadcasts; grouped pawns remain readable
+ok 4 - all tile categories retain focus and actual ownership through broadcasts; grouped pawns remain readable
+  ---
+  duration_ms: 5028.8766
+  ...
+# Subtest: real roll retains half-speed movement and small-space zoom is only a view change
+ok 5 - real roll retains half-speed movement and small-space zoom is only a view change
+  ---
+  duration_ms: 2517.0248
+  ...
+# Subtest: 手机横屏右侧信息真实可见且未被棋盘覆盖：human
+ok 6 - 手机横屏右侧信息真实可见且未被棋盘覆盖：human
+  ---
+  duration_ms: 2468.9927
+  ...
+# Subtest: 手机横屏右侧信息真实可见且未被棋盘覆盖：bot
+ok 7 - 手机横屏右侧信息真实可见且未被棋盘覆盖：bot
+  ---
+  duration_ms: 1508.3206
+  ...
+# Subtest: phone landscape uses the freed left area at every reported inset, preserving full board and right edge
+ok 8 - phone landscape uses the freed left area at every reported inset, preserving full board and right edge
+  ---
+  duration_ms: 3914.466
+  ...
+# Subtest: the same left alignment applies to QQ, other Android and iOS while other three safe edges survive
+ok 9 - the same left alignment applies to QQ, other Android and iOS while other three safe edges survive
+  ---
+  duration_ms: 227.9251
+  ...
+# Subtest: left inset and opponent broadcasts keep stock quantity, reading state, game funds and deadline
+ok 10 - left inset and opponent broadcasts keep stock quantity, reading state, game funds and deadline
+  ---
+  duration_ms: 367.2716
+  ...
+# Subtest: self-rescue identity and source are visible to both players; waiting and partial funding never expire
+ok 11 - self-rescue identity and source are visible to both players; waiting and partial funding never expire
+  ---
+  duration_ms: 2921.9606
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 10
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0

@@ -1,0 +1,29 @@
+TAP version 13
+# Subtest: automatic fitting recovers from a short viewport while manual map zoom remains an independent choice
+ok 1 - automatic fitting recovers from a short viewport while manual map zoom remains an independent choice
+  ---
+  duration_ms: 4118.6805
+  ...
+# Subtest: visible keyboard rectangle keeps stock drafts, disclosure and funding controls through broadcasts
+ok 2 - visible keyboard rectangle keeps stock drafts, disclosure and funding controls through broadcasts
+  ---
+  duration_ms: 1664.9712
+  ...
+# Subtest: real page pinch zoom is not undone, safe area is not doubled, and diagnostics contain layout only
+ok 3 - real page pinch zoom is not undone, safe area is not doubled, and diagnostics contain layout only
+  ---
+  duration_ms: 800.6783
+  ...
+# Subtest: entry pages remain scrollable with a keyboard-sized viewport and a new room can start after the orientation gate
+ok 4 - entry pages remain scrollable with a keyboard-sized viewport and a new room can start after the orientation gate
+  ---
+  duration_ms: 3425.6884
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 4
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

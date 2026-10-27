@@ -1,0 +1,5075 @@
+{
+  "date": "2026-10-26",
+  "status": "planned; not executed against a new implementation",
+  "families": [
+    16,
+    18,
+    18.5,
+    19,
+    19.5,
+    19.6,
+    19.8,
+    19.9,
+    20,
+    20.1,
+    21,
+    22
+  ],
+  "shortSides": [
+    320,
+    360,
+    375,
+    390,
+    412,
+    430,
+    480
+  ],
+  "chromeLoss": [
+    0,
+    60,
+    100
+  ],
+  "total": 504,
+  "cases": [
+    {
+      "id": "normal-16-320-0",
+      "mode": "normal",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 569,
+      "height": 320,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-16-320-60",
+      "mode": "normal",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 569,
+      "height": 260,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-16-320-100",
+      "mode": "normal",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 569,
+      "height": 220,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-16-360-0",
+      "mode": "normal",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 640,
+      "height": 360,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-16-360-60",
+      "mode": "normal",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 640,
+      "height": 300,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-16-360-100",
+      "mode": "normal",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 640,
+      "height": 260,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-16-375-0",
+      "mode": "normal",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 667,
+      "height": 375,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-16-375-60",
+      "mode": "normal",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 667,
+      "height": 315,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-16-375-100",
+      "mode": "normal",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 667,
+      "height": 275,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-16-390-0",
+      "mode": "normal",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 693,
+      "height": 390,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-16-390-60",
+      "mode": "normal",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 693,
+      "height": 330,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-16-390-100",
+      "mode": "normal",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 693,
+      "height": 290,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-16-412-0",
+      "mode": "normal",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 732,
+      "height": 412,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-16-412-60",
+      "mode": "normal",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 732,
+      "height": 352,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-16-412-100",
+      "mode": "normal",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 732,
+      "height": 312,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-16-430-0",
+      "mode": "normal",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 764,
+      "height": 430,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-16-430-60",
+      "mode": "normal",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 764,
+      "height": 370,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-16-430-100",
+      "mode": "normal",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 764,
+      "height": 330,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-16-480-0",
+      "mode": "normal",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 853,
+      "height": 480,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-16-480-60",
+      "mode": "normal",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 853,
+      "height": 420,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-16-480-100",
+      "mode": "normal",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 853,
+      "height": 380,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18-320-0",
+      "mode": "normal",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 640,
+      "height": 320,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18-320-60",
+      "mode": "normal",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 640,
+      "height": 260,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18-320-100",
+      "mode": "normal",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 640,
+      "height": 220,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18-360-0",
+      "mode": "normal",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 720,
+      "height": 360,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18-360-60",
+      "mode": "normal",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 720,
+      "height": 300,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18-360-100",
+      "mode": "normal",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 720,
+      "height": 260,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18-375-0",
+      "mode": "normal",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 750,
+      "height": 375,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18-375-60",
+      "mode": "normal",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 750,
+      "height": 315,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18-375-100",
+      "mode": "normal",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 750,
+      "height": 275,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18-390-0",
+      "mode": "normal",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 780,
+      "height": 390,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18-390-60",
+      "mode": "normal",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 780,
+      "height": 330,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18-390-100",
+      "mode": "normal",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 780,
+      "height": 290,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18-412-0",
+      "mode": "normal",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 824,
+      "height": 412,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18-412-60",
+      "mode": "normal",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 824,
+      "height": 352,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18-412-100",
+      "mode": "normal",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 824,
+      "height": 312,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18-430-0",
+      "mode": "normal",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 860,
+      "height": 430,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18-430-60",
+      "mode": "normal",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 860,
+      "height": 370,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18-430-100",
+      "mode": "normal",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 860,
+      "height": 330,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18-480-0",
+      "mode": "normal",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 960,
+      "height": 480,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18-480-60",
+      "mode": "normal",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 960,
+      "height": 420,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18-480-100",
+      "mode": "normal",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 960,
+      "height": 380,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18.5-320-0",
+      "mode": "normal",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 658,
+      "height": 320,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18.5-320-60",
+      "mode": "normal",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 658,
+      "height": 260,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18.5-320-100",
+      "mode": "normal",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 658,
+      "height": 220,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18.5-360-0",
+      "mode": "normal",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 740,
+      "height": 360,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18.5-360-60",
+      "mode": "normal",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 740,
+      "height": 300,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18.5-360-100",
+      "mode": "normal",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 740,
+      "height": 260,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18.5-375-0",
+      "mode": "normal",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 771,
+      "height": 375,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18.5-375-60",
+      "mode": "normal",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 771,
+      "height": 315,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18.5-375-100",
+      "mode": "normal",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 771,
+      "height": 275,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18.5-390-0",
+      "mode": "normal",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 802,
+      "height": 390,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18.5-390-60",
+      "mode": "normal",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 802,
+      "height": 330,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18.5-390-100",
+      "mode": "normal",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 802,
+      "height": 290,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18.5-412-0",
+      "mode": "normal",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 847,
+      "height": 412,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18.5-412-60",
+      "mode": "normal",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 847,
+      "height": 352,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18.5-412-100",
+      "mode": "normal",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 847,
+      "height": 312,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18.5-430-0",
+      "mode": "normal",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 884,
+      "height": 430,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18.5-430-60",
+      "mode": "normal",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 884,
+      "height": 370,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18.5-430-100",
+      "mode": "normal",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 884,
+      "height": 330,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18.5-480-0",
+      "mode": "normal",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 987,
+      "height": 480,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18.5-480-60",
+      "mode": "normal",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 987,
+      "height": 420,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-18.5-480-100",
+      "mode": "normal",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 987,
+      "height": 380,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19-320-0",
+      "mode": "normal",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 676,
+      "height": 320,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19-320-60",
+      "mode": "normal",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 676,
+      "height": 260,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19-320-100",
+      "mode": "normal",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 676,
+      "height": 220,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19-360-0",
+      "mode": "normal",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 760,
+      "height": 360,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19-360-60",
+      "mode": "normal",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 760,
+      "height": 300,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19-360-100",
+      "mode": "normal",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 760,
+      "height": 260,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19-375-0",
+      "mode": "normal",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 792,
+      "height": 375,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19-375-60",
+      "mode": "normal",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 792,
+      "height": 315,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19-375-100",
+      "mode": "normal",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 792,
+      "height": 275,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19-390-0",
+      "mode": "normal",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 823,
+      "height": 390,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19-390-60",
+      "mode": "normal",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 823,
+      "height": 330,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19-390-100",
+      "mode": "normal",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 823,
+      "height": 290,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19-412-0",
+      "mode": "normal",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 870,
+      "height": 412,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19-412-60",
+      "mode": "normal",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 870,
+      "height": 352,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19-412-100",
+      "mode": "normal",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 870,
+      "height": 312,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19-430-0",
+      "mode": "normal",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 908,
+      "height": 430,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19-430-60",
+      "mode": "normal",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 908,
+      "height": 370,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19-430-100",
+      "mode": "normal",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 908,
+      "height": 330,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19-480-0",
+      "mode": "normal",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 1013,
+      "height": 480,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19-480-60",
+      "mode": "normal",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 1013,
+      "height": 420,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19-480-100",
+      "mode": "normal",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 1013,
+      "height": 380,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.5-320-0",
+      "mode": "normal",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 693,
+      "height": 320,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.5-320-60",
+      "mode": "normal",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 693,
+      "height": 260,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.5-320-100",
+      "mode": "normal",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 693,
+      "height": 220,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.5-360-0",
+      "mode": "normal",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 780,
+      "height": 360,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.5-360-60",
+      "mode": "normal",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 780,
+      "height": 300,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.5-360-100",
+      "mode": "normal",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 780,
+      "height": 260,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.5-375-0",
+      "mode": "normal",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 813,
+      "height": 375,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.5-375-60",
+      "mode": "normal",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 813,
+      "height": 315,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.5-375-100",
+      "mode": "normal",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 813,
+      "height": 275,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.5-390-0",
+      "mode": "normal",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 845,
+      "height": 390,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.5-390-60",
+      "mode": "normal",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 845,
+      "height": 330,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.5-390-100",
+      "mode": "normal",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 845,
+      "height": 290,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.5-412-0",
+      "mode": "normal",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 893,
+      "height": 412,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.5-412-60",
+      "mode": "normal",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 893,
+      "height": 352,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.5-412-100",
+      "mode": "normal",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 893,
+      "height": 312,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.5-430-0",
+      "mode": "normal",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 932,
+      "height": 430,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.5-430-60",
+      "mode": "normal",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 932,
+      "height": 370,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.5-430-100",
+      "mode": "normal",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 932,
+      "height": 330,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.5-480-0",
+      "mode": "normal",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 1040,
+      "height": 480,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.5-480-60",
+      "mode": "normal",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 1040,
+      "height": 420,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.5-480-100",
+      "mode": "normal",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 1040,
+      "height": 380,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.6-320-0",
+      "mode": "normal",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 697,
+      "height": 320,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.6-320-60",
+      "mode": "normal",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 697,
+      "height": 260,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.6-320-100",
+      "mode": "normal",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 697,
+      "height": 220,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.6-360-0",
+      "mode": "normal",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 784,
+      "height": 360,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.6-360-60",
+      "mode": "normal",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 784,
+      "height": 300,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.6-360-100",
+      "mode": "normal",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 784,
+      "height": 260,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.6-375-0",
+      "mode": "normal",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 817,
+      "height": 375,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.6-375-60",
+      "mode": "normal",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 817,
+      "height": 315,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.6-375-100",
+      "mode": "normal",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 817,
+      "height": 275,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.6-390-0",
+      "mode": "normal",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 849,
+      "height": 390,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.6-390-60",
+      "mode": "normal",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 849,
+      "height": 330,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.6-390-100",
+      "mode": "normal",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 849,
+      "height": 290,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.6-412-0",
+      "mode": "normal",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 897,
+      "height": 412,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.6-412-60",
+      "mode": "normal",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 897,
+      "height": 352,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.6-412-100",
+      "mode": "normal",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 897,
+      "height": 312,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.6-430-0",
+      "mode": "normal",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 936,
+      "height": 430,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.6-430-60",
+      "mode": "normal",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 936,
+      "height": 370,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.6-430-100",
+      "mode": "normal",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 936,
+      "height": 330,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.6-480-0",
+      "mode": "normal",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 1045,
+      "height": 480,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.6-480-60",
+      "mode": "normal",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 1045,
+      "height": 420,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.6-480-100",
+      "mode": "normal",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 1045,
+      "height": 380,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.8-320-0",
+      "mode": "normal",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 704,
+      "height": 320,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.8-320-60",
+      "mode": "normal",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 704,
+      "height": 260,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.8-320-100",
+      "mode": "normal",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 704,
+      "height": 220,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.8-360-0",
+      "mode": "normal",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 792,
+      "height": 360,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.8-360-60",
+      "mode": "normal",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 792,
+      "height": 300,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.8-360-100",
+      "mode": "normal",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 792,
+      "height": 260,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.8-375-0",
+      "mode": "normal",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 825,
+      "height": 375,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.8-375-60",
+      "mode": "normal",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 825,
+      "height": 315,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.8-375-100",
+      "mode": "normal",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 825,
+      "height": 275,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.8-390-0",
+      "mode": "normal",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 858,
+      "height": 390,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.8-390-60",
+      "mode": "normal",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 858,
+      "height": 330,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.8-390-100",
+      "mode": "normal",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 858,
+      "height": 290,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.8-412-0",
+      "mode": "normal",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 906,
+      "height": 412,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.8-412-60",
+      "mode": "normal",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 906,
+      "height": 352,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.8-412-100",
+      "mode": "normal",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 906,
+      "height": 312,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.8-430-0",
+      "mode": "normal",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 946,
+      "height": 430,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.8-430-60",
+      "mode": "normal",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 946,
+      "height": 370,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.8-430-100",
+      "mode": "normal",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 946,
+      "height": 330,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.8-480-0",
+      "mode": "normal",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 1056,
+      "height": 480,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.8-480-60",
+      "mode": "normal",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 1056,
+      "height": 420,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.8-480-100",
+      "mode": "normal",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 1056,
+      "height": 380,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.9-320-0",
+      "mode": "normal",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 708,
+      "height": 320,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.9-320-60",
+      "mode": "normal",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 708,
+      "height": 260,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.9-320-100",
+      "mode": "normal",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 708,
+      "height": 220,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.9-360-0",
+      "mode": "normal",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 796,
+      "height": 360,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.9-360-60",
+      "mode": "normal",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 796,
+      "height": 300,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.9-360-100",
+      "mode": "normal",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 796,
+      "height": 260,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.9-375-0",
+      "mode": "normal",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 829,
+      "height": 375,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.9-375-60",
+      "mode": "normal",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 829,
+      "height": 315,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.9-375-100",
+      "mode": "normal",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 829,
+      "height": 275,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.9-390-0",
+      "mode": "normal",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 862,
+      "height": 390,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.9-390-60",
+      "mode": "normal",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 862,
+      "height": 330,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.9-390-100",
+      "mode": "normal",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 862,
+      "height": 290,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.9-412-0",
+      "mode": "normal",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 911,
+      "height": 412,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.9-412-60",
+      "mode": "normal",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 911,
+      "height": 352,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.9-412-100",
+      "mode": "normal",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 911,
+      "height": 312,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.9-430-0",
+      "mode": "normal",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 951,
+      "height": 430,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.9-430-60",
+      "mode": "normal",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 951,
+      "height": 370,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.9-430-100",
+      "mode": "normal",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 951,
+      "height": 330,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.9-480-0",
+      "mode": "normal",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 1061,
+      "height": 480,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.9-480-60",
+      "mode": "normal",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 1061,
+      "height": 420,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-19.9-480-100",
+      "mode": "normal",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 1061,
+      "height": 380,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20-320-0",
+      "mode": "normal",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 711,
+      "height": 320,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20-320-60",
+      "mode": "normal",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 711,
+      "height": 260,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20-320-100",
+      "mode": "normal",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 711,
+      "height": 220,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20-360-0",
+      "mode": "normal",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 800,
+      "height": 360,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20-360-60",
+      "mode": "normal",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 800,
+      "height": 300,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20-360-100",
+      "mode": "normal",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 800,
+      "height": 260,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20-375-0",
+      "mode": "normal",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 833,
+      "height": 375,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20-375-60",
+      "mode": "normal",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 833,
+      "height": 315,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20-375-100",
+      "mode": "normal",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 833,
+      "height": 275,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20-390-0",
+      "mode": "normal",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 867,
+      "height": 390,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20-390-60",
+      "mode": "normal",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 867,
+      "height": 330,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20-390-100",
+      "mode": "normal",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 867,
+      "height": 290,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20-412-0",
+      "mode": "normal",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 916,
+      "height": 412,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20-412-60",
+      "mode": "normal",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 916,
+      "height": 352,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20-412-100",
+      "mode": "normal",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 916,
+      "height": 312,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20-430-0",
+      "mode": "normal",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 956,
+      "height": 430,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20-430-60",
+      "mode": "normal",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 956,
+      "height": 370,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20-430-100",
+      "mode": "normal",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 956,
+      "height": 330,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20-480-0",
+      "mode": "normal",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 1067,
+      "height": 480,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20-480-60",
+      "mode": "normal",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 1067,
+      "height": 420,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20-480-100",
+      "mode": "normal",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 1067,
+      "height": 380,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20.1-320-0",
+      "mode": "normal",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 715,
+      "height": 320,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20.1-320-60",
+      "mode": "normal",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 715,
+      "height": 260,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20.1-320-100",
+      "mode": "normal",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 715,
+      "height": 220,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20.1-360-0",
+      "mode": "normal",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 804,
+      "height": 360,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20.1-360-60",
+      "mode": "normal",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 804,
+      "height": 300,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20.1-360-100",
+      "mode": "normal",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 804,
+      "height": 260,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20.1-375-0",
+      "mode": "normal",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 838,
+      "height": 375,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20.1-375-60",
+      "mode": "normal",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 838,
+      "height": 315,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20.1-375-100",
+      "mode": "normal",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 838,
+      "height": 275,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20.1-390-0",
+      "mode": "normal",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 871,
+      "height": 390,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20.1-390-60",
+      "mode": "normal",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 871,
+      "height": 330,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20.1-390-100",
+      "mode": "normal",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 871,
+      "height": 290,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20.1-412-0",
+      "mode": "normal",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 920,
+      "height": 412,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20.1-412-60",
+      "mode": "normal",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 920,
+      "height": 352,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20.1-412-100",
+      "mode": "normal",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 920,
+      "height": 312,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20.1-430-0",
+      "mode": "normal",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 960,
+      "height": 430,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20.1-430-60",
+      "mode": "normal",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 960,
+      "height": 370,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20.1-430-100",
+      "mode": "normal",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 960,
+      "height": 330,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20.1-480-0",
+      "mode": "normal",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 1072,
+      "height": 480,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20.1-480-60",
+      "mode": "normal",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 1072,
+      "height": 420,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-20.1-480-100",
+      "mode": "normal",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 1072,
+      "height": 380,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-21-320-0",
+      "mode": "normal",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 747,
+      "height": 320,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-21-320-60",
+      "mode": "normal",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 747,
+      "height": 260,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-21-320-100",
+      "mode": "normal",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 747,
+      "height": 220,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-21-360-0",
+      "mode": "normal",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 840,
+      "height": 360,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-21-360-60",
+      "mode": "normal",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 840,
+      "height": 300,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-21-360-100",
+      "mode": "normal",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 840,
+      "height": 260,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-21-375-0",
+      "mode": "normal",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 875,
+      "height": 375,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-21-375-60",
+      "mode": "normal",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 875,
+      "height": 315,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-21-375-100",
+      "mode": "normal",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 875,
+      "height": 275,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-21-390-0",
+      "mode": "normal",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 910,
+      "height": 390,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-21-390-60",
+      "mode": "normal",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 910,
+      "height": 330,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-21-390-100",
+      "mode": "normal",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 910,
+      "height": 290,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-21-412-0",
+      "mode": "normal",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 961,
+      "height": 412,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-21-412-60",
+      "mode": "normal",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 961,
+      "height": 352,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-21-412-100",
+      "mode": "normal",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 961,
+      "height": 312,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-21-430-0",
+      "mode": "normal",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 1003,
+      "height": 430,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-21-430-60",
+      "mode": "normal",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 1003,
+      "height": 370,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-21-430-100",
+      "mode": "normal",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 1003,
+      "height": 330,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-21-480-0",
+      "mode": "normal",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 1120,
+      "height": 480,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-21-480-60",
+      "mode": "normal",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 1120,
+      "height": 420,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-21-480-100",
+      "mode": "normal",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 1120,
+      "height": 380,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-22-320-0",
+      "mode": "normal",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 782,
+      "height": 320,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-22-320-60",
+      "mode": "normal",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 782,
+      "height": 260,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-22-320-100",
+      "mode": "normal",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 782,
+      "height": 220,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-22-360-0",
+      "mode": "normal",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 880,
+      "height": 360,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-22-360-60",
+      "mode": "normal",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 880,
+      "height": 300,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-22-360-100",
+      "mode": "normal",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 880,
+      "height": 260,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-22-375-0",
+      "mode": "normal",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 917,
+      "height": 375,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-22-375-60",
+      "mode": "normal",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 917,
+      "height": 315,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-22-375-100",
+      "mode": "normal",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 917,
+      "height": 275,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-22-390-0",
+      "mode": "normal",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 953,
+      "height": 390,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-22-390-60",
+      "mode": "normal",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 953,
+      "height": 330,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-22-390-100",
+      "mode": "normal",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 953,
+      "height": 290,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-22-412-0",
+      "mode": "normal",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 1007,
+      "height": 412,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-22-412-60",
+      "mode": "normal",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 1007,
+      "height": 352,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-22-412-100",
+      "mode": "normal",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 1007,
+      "height": 312,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-22-430-0",
+      "mode": "normal",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 1051,
+      "height": 430,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-22-430-60",
+      "mode": "normal",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 1051,
+      "height": 370,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-22-430-100",
+      "mode": "normal",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 1051,
+      "height": 330,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-22-480-0",
+      "mode": "normal",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 1173,
+      "height": 480,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-22-480-60",
+      "mode": "normal",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 1173,
+      "height": 420,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "normal-22-480-100",
+      "mode": "normal",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 1173,
+      "height": 380,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-16-320-0",
+      "mode": "quick",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 569,
+      "height": 320,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-16-320-60",
+      "mode": "quick",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 569,
+      "height": 260,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-16-320-100",
+      "mode": "quick",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 569,
+      "height": 220,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-16-360-0",
+      "mode": "quick",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 640,
+      "height": 360,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-16-360-60",
+      "mode": "quick",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 640,
+      "height": 300,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-16-360-100",
+      "mode": "quick",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 640,
+      "height": 260,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-16-375-0",
+      "mode": "quick",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 667,
+      "height": 375,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-16-375-60",
+      "mode": "quick",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 667,
+      "height": 315,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-16-375-100",
+      "mode": "quick",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 667,
+      "height": 275,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-16-390-0",
+      "mode": "quick",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 693,
+      "height": 390,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-16-390-60",
+      "mode": "quick",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 693,
+      "height": 330,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-16-390-100",
+      "mode": "quick",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 693,
+      "height": 290,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-16-412-0",
+      "mode": "quick",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 732,
+      "height": 412,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-16-412-60",
+      "mode": "quick",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 732,
+      "height": 352,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-16-412-100",
+      "mode": "quick",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 732,
+      "height": 312,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-16-430-0",
+      "mode": "quick",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 764,
+      "height": 430,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-16-430-60",
+      "mode": "quick",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 764,
+      "height": 370,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-16-430-100",
+      "mode": "quick",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 764,
+      "height": 330,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-16-480-0",
+      "mode": "quick",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 853,
+      "height": 480,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-16-480-60",
+      "mode": "quick",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 853,
+      "height": 420,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-16-480-100",
+      "mode": "quick",
+      "ratio": "16:9",
+      "ratioKind": "coverage",
+      "width": 853,
+      "height": 380,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18-320-0",
+      "mode": "quick",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 640,
+      "height": 320,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18-320-60",
+      "mode": "quick",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 640,
+      "height": 260,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18-320-100",
+      "mode": "quick",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 640,
+      "height": 220,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18-360-0",
+      "mode": "quick",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 720,
+      "height": 360,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18-360-60",
+      "mode": "quick",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 720,
+      "height": 300,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18-360-100",
+      "mode": "quick",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 720,
+      "height": 260,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18-375-0",
+      "mode": "quick",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 750,
+      "height": 375,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18-375-60",
+      "mode": "quick",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 750,
+      "height": 315,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18-375-100",
+      "mode": "quick",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 750,
+      "height": 275,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18-390-0",
+      "mode": "quick",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 780,
+      "height": 390,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18-390-60",
+      "mode": "quick",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 780,
+      "height": 330,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18-390-100",
+      "mode": "quick",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 780,
+      "height": 290,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18-412-0",
+      "mode": "quick",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 824,
+      "height": 412,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18-412-60",
+      "mode": "quick",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 824,
+      "height": 352,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18-412-100",
+      "mode": "quick",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 824,
+      "height": 312,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18-430-0",
+      "mode": "quick",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 860,
+      "height": 430,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18-430-60",
+      "mode": "quick",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 860,
+      "height": 370,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18-430-100",
+      "mode": "quick",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 860,
+      "height": 330,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18-480-0",
+      "mode": "quick",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 960,
+      "height": 480,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18-480-60",
+      "mode": "quick",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 960,
+      "height": 420,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18-480-100",
+      "mode": "quick",
+      "ratio": "18:9",
+      "ratioKind": "coverage",
+      "width": 960,
+      "height": 380,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18.5-320-0",
+      "mode": "quick",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 658,
+      "height": 320,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18.5-320-60",
+      "mode": "quick",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 658,
+      "height": 260,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18.5-320-100",
+      "mode": "quick",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 658,
+      "height": 220,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18.5-360-0",
+      "mode": "quick",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 740,
+      "height": 360,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18.5-360-60",
+      "mode": "quick",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 740,
+      "height": 300,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18.5-360-100",
+      "mode": "quick",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 740,
+      "height": 260,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18.5-375-0",
+      "mode": "quick",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 771,
+      "height": 375,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18.5-375-60",
+      "mode": "quick",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 771,
+      "height": 315,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18.5-375-100",
+      "mode": "quick",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 771,
+      "height": 275,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18.5-390-0",
+      "mode": "quick",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 802,
+      "height": 390,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18.5-390-60",
+      "mode": "quick",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 802,
+      "height": 330,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18.5-390-100",
+      "mode": "quick",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 802,
+      "height": 290,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18.5-412-0",
+      "mode": "quick",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 847,
+      "height": 412,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18.5-412-60",
+      "mode": "quick",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 847,
+      "height": 352,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18.5-412-100",
+      "mode": "quick",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 847,
+      "height": 312,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18.5-430-0",
+      "mode": "quick",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 884,
+      "height": 430,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18.5-430-60",
+      "mode": "quick",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 884,
+      "height": 370,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18.5-430-100",
+      "mode": "quick",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 884,
+      "height": 330,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18.5-480-0",
+      "mode": "quick",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 987,
+      "height": 480,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18.5-480-60",
+      "mode": "quick",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 987,
+      "height": 420,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-18.5-480-100",
+      "mode": "quick",
+      "ratio": "18.5:9",
+      "ratioKind": "coverage",
+      "width": 987,
+      "height": 380,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19-320-0",
+      "mode": "quick",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 676,
+      "height": 320,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19-320-60",
+      "mode": "quick",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 676,
+      "height": 260,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19-320-100",
+      "mode": "quick",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 676,
+      "height": 220,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19-360-0",
+      "mode": "quick",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 760,
+      "height": 360,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19-360-60",
+      "mode": "quick",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 760,
+      "height": 300,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19-360-100",
+      "mode": "quick",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 760,
+      "height": 260,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19-375-0",
+      "mode": "quick",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 792,
+      "height": 375,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19-375-60",
+      "mode": "quick",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 792,
+      "height": 315,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19-375-100",
+      "mode": "quick",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 792,
+      "height": 275,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19-390-0",
+      "mode": "quick",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 823,
+      "height": 390,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19-390-60",
+      "mode": "quick",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 823,
+      "height": 330,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19-390-100",
+      "mode": "quick",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 823,
+      "height": 290,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19-412-0",
+      "mode": "quick",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 870,
+      "height": 412,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19-412-60",
+      "mode": "quick",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 870,
+      "height": 352,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19-412-100",
+      "mode": "quick",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 870,
+      "height": 312,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19-430-0",
+      "mode": "quick",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 908,
+      "height": 430,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19-430-60",
+      "mode": "quick",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 908,
+      "height": 370,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19-430-100",
+      "mode": "quick",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 908,
+      "height": 330,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19-480-0",
+      "mode": "quick",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 1013,
+      "height": 480,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19-480-60",
+      "mode": "quick",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 1013,
+      "height": 420,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19-480-100",
+      "mode": "quick",
+      "ratio": "19:9",
+      "ratioKind": "coverage",
+      "width": 1013,
+      "height": 380,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.5-320-0",
+      "mode": "quick",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 693,
+      "height": 320,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.5-320-60",
+      "mode": "quick",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 693,
+      "height": 260,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.5-320-100",
+      "mode": "quick",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 693,
+      "height": 220,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.5-360-0",
+      "mode": "quick",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 780,
+      "height": 360,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.5-360-60",
+      "mode": "quick",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 780,
+      "height": 300,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.5-360-100",
+      "mode": "quick",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 780,
+      "height": 260,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.5-375-0",
+      "mode": "quick",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 813,
+      "height": 375,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.5-375-60",
+      "mode": "quick",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 813,
+      "height": 315,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.5-375-100",
+      "mode": "quick",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 813,
+      "height": 275,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.5-390-0",
+      "mode": "quick",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 845,
+      "height": 390,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.5-390-60",
+      "mode": "quick",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 845,
+      "height": 330,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.5-390-100",
+      "mode": "quick",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 845,
+      "height": 290,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.5-412-0",
+      "mode": "quick",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 893,
+      "height": 412,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.5-412-60",
+      "mode": "quick",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 893,
+      "height": 352,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.5-412-100",
+      "mode": "quick",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 893,
+      "height": 312,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.5-430-0",
+      "mode": "quick",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 932,
+      "height": 430,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.5-430-60",
+      "mode": "quick",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 932,
+      "height": 370,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.5-430-100",
+      "mode": "quick",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 932,
+      "height": 330,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.5-480-0",
+      "mode": "quick",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 1040,
+      "height": 480,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.5-480-60",
+      "mode": "quick",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 1040,
+      "height": 420,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.5-480-100",
+      "mode": "quick",
+      "ratio": "19.5:9",
+      "ratioKind": "coverage",
+      "width": 1040,
+      "height": 380,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.6-320-0",
+      "mode": "quick",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 697,
+      "height": 320,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.6-320-60",
+      "mode": "quick",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 697,
+      "height": 260,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.6-320-100",
+      "mode": "quick",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 697,
+      "height": 220,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.6-360-0",
+      "mode": "quick",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 784,
+      "height": 360,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.6-360-60",
+      "mode": "quick",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 784,
+      "height": 300,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.6-360-100",
+      "mode": "quick",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 784,
+      "height": 260,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.6-375-0",
+      "mode": "quick",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 817,
+      "height": 375,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.6-375-60",
+      "mode": "quick",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 817,
+      "height": 315,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.6-375-100",
+      "mode": "quick",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 817,
+      "height": 275,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.6-390-0",
+      "mode": "quick",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 849,
+      "height": 390,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.6-390-60",
+      "mode": "quick",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 849,
+      "height": 330,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.6-390-100",
+      "mode": "quick",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 849,
+      "height": 290,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.6-412-0",
+      "mode": "quick",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 897,
+      "height": 412,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.6-412-60",
+      "mode": "quick",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 897,
+      "height": 352,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.6-412-100",
+      "mode": "quick",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 897,
+      "height": 312,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.6-430-0",
+      "mode": "quick",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 936,
+      "height": 430,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.6-430-60",
+      "mode": "quick",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 936,
+      "height": 370,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.6-430-100",
+      "mode": "quick",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 936,
+      "height": 330,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.6-480-0",
+      "mode": "quick",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 1045,
+      "height": 480,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.6-480-60",
+      "mode": "quick",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 1045,
+      "height": 420,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.6-480-100",
+      "mode": "quick",
+      "ratio": "19.6:9",
+      "ratioKind": "coverage",
+      "width": 1045,
+      "height": 380,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.8-320-0",
+      "mode": "quick",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 704,
+      "height": 320,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.8-320-60",
+      "mode": "quick",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 704,
+      "height": 260,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.8-320-100",
+      "mode": "quick",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 704,
+      "height": 220,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.8-360-0",
+      "mode": "quick",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 792,
+      "height": 360,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.8-360-60",
+      "mode": "quick",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 792,
+      "height": 300,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.8-360-100",
+      "mode": "quick",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 792,
+      "height": 260,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.8-375-0",
+      "mode": "quick",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 825,
+      "height": 375,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.8-375-60",
+      "mode": "quick",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 825,
+      "height": 315,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.8-375-100",
+      "mode": "quick",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 825,
+      "height": 275,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.8-390-0",
+      "mode": "quick",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 858,
+      "height": 390,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.8-390-60",
+      "mode": "quick",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 858,
+      "height": 330,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.8-390-100",
+      "mode": "quick",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 858,
+      "height": 290,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.8-412-0",
+      "mode": "quick",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 906,
+      "height": 412,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.8-412-60",
+      "mode": "quick",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 906,
+      "height": 352,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.8-412-100",
+      "mode": "quick",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 906,
+      "height": 312,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.8-430-0",
+      "mode": "quick",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 946,
+      "height": 430,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.8-430-60",
+      "mode": "quick",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 946,
+      "height": 370,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.8-430-100",
+      "mode": "quick",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 946,
+      "height": 330,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.8-480-0",
+      "mode": "quick",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 1056,
+      "height": 480,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.8-480-60",
+      "mode": "quick",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 1056,
+      "height": 420,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.8-480-100",
+      "mode": "quick",
+      "ratio": "19.8:9",
+      "ratioKind": "coverage",
+      "width": 1056,
+      "height": 380,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.9-320-0",
+      "mode": "quick",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 708,
+      "height": 320,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.9-320-60",
+      "mode": "quick",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 708,
+      "height": 260,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.9-320-100",
+      "mode": "quick",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 708,
+      "height": 220,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.9-360-0",
+      "mode": "quick",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 796,
+      "height": 360,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.9-360-60",
+      "mode": "quick",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 796,
+      "height": 300,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.9-360-100",
+      "mode": "quick",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 796,
+      "height": 260,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.9-375-0",
+      "mode": "quick",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 829,
+      "height": 375,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.9-375-60",
+      "mode": "quick",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 829,
+      "height": 315,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.9-375-100",
+      "mode": "quick",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 829,
+      "height": 275,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.9-390-0",
+      "mode": "quick",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 862,
+      "height": 390,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.9-390-60",
+      "mode": "quick",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 862,
+      "height": 330,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.9-390-100",
+      "mode": "quick",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 862,
+      "height": 290,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.9-412-0",
+      "mode": "quick",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 911,
+      "height": 412,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.9-412-60",
+      "mode": "quick",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 911,
+      "height": 352,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.9-412-100",
+      "mode": "quick",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 911,
+      "height": 312,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.9-430-0",
+      "mode": "quick",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 951,
+      "height": 430,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.9-430-60",
+      "mode": "quick",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 951,
+      "height": 370,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.9-430-100",
+      "mode": "quick",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 951,
+      "height": 330,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.9-480-0",
+      "mode": "quick",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 1061,
+      "height": 480,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.9-480-60",
+      "mode": "quick",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 1061,
+      "height": 420,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-19.9-480-100",
+      "mode": "quick",
+      "ratio": "19.9:9",
+      "ratioKind": "coverage",
+      "width": 1061,
+      "height": 380,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20-320-0",
+      "mode": "quick",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 711,
+      "height": 320,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20-320-60",
+      "mode": "quick",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 711,
+      "height": 260,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20-320-100",
+      "mode": "quick",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 711,
+      "height": 220,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20-360-0",
+      "mode": "quick",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 800,
+      "height": 360,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20-360-60",
+      "mode": "quick",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 800,
+      "height": 300,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20-360-100",
+      "mode": "quick",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 800,
+      "height": 260,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20-375-0",
+      "mode": "quick",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 833,
+      "height": 375,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20-375-60",
+      "mode": "quick",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 833,
+      "height": 315,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20-375-100",
+      "mode": "quick",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 833,
+      "height": 275,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20-390-0",
+      "mode": "quick",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 867,
+      "height": 390,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20-390-60",
+      "mode": "quick",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 867,
+      "height": 330,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20-390-100",
+      "mode": "quick",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 867,
+      "height": 290,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20-412-0",
+      "mode": "quick",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 916,
+      "height": 412,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20-412-60",
+      "mode": "quick",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 916,
+      "height": 352,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20-412-100",
+      "mode": "quick",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 916,
+      "height": 312,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20-430-0",
+      "mode": "quick",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 956,
+      "height": 430,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20-430-60",
+      "mode": "quick",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 956,
+      "height": 370,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20-430-100",
+      "mode": "quick",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 956,
+      "height": 330,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20-480-0",
+      "mode": "quick",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 1067,
+      "height": 480,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20-480-60",
+      "mode": "quick",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 1067,
+      "height": 420,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20-480-100",
+      "mode": "quick",
+      "ratio": "20:9",
+      "ratioKind": "coverage",
+      "width": 1067,
+      "height": 380,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20.1-320-0",
+      "mode": "quick",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 715,
+      "height": 320,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20.1-320-60",
+      "mode": "quick",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 715,
+      "height": 260,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20.1-320-100",
+      "mode": "quick",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 715,
+      "height": 220,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20.1-360-0",
+      "mode": "quick",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 804,
+      "height": 360,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20.1-360-60",
+      "mode": "quick",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 804,
+      "height": 300,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20.1-360-100",
+      "mode": "quick",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 804,
+      "height": 260,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20.1-375-0",
+      "mode": "quick",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 838,
+      "height": 375,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20.1-375-60",
+      "mode": "quick",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 838,
+      "height": 315,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20.1-375-100",
+      "mode": "quick",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 838,
+      "height": 275,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20.1-390-0",
+      "mode": "quick",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 871,
+      "height": 390,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20.1-390-60",
+      "mode": "quick",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 871,
+      "height": 330,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20.1-390-100",
+      "mode": "quick",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 871,
+      "height": 290,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20.1-412-0",
+      "mode": "quick",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 920,
+      "height": 412,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20.1-412-60",
+      "mode": "quick",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 920,
+      "height": 352,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20.1-412-100",
+      "mode": "quick",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 920,
+      "height": 312,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20.1-430-0",
+      "mode": "quick",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 960,
+      "height": 430,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20.1-430-60",
+      "mode": "quick",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 960,
+      "height": 370,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20.1-430-100",
+      "mode": "quick",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 960,
+      "height": 330,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20.1-480-0",
+      "mode": "quick",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 1072,
+      "height": 480,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20.1-480-60",
+      "mode": "quick",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 1072,
+      "height": 420,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-20.1-480-100",
+      "mode": "quick",
+      "ratio": "20.1:9",
+      "ratioKind": "coverage",
+      "width": 1072,
+      "height": 380,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-21-320-0",
+      "mode": "quick",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 747,
+      "height": 320,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-21-320-60",
+      "mode": "quick",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 747,
+      "height": 260,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-21-320-100",
+      "mode": "quick",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 747,
+      "height": 220,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-21-360-0",
+      "mode": "quick",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 840,
+      "height": 360,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-21-360-60",
+      "mode": "quick",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 840,
+      "height": 300,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-21-360-100",
+      "mode": "quick",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 840,
+      "height": 260,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-21-375-0",
+      "mode": "quick",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 875,
+      "height": 375,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-21-375-60",
+      "mode": "quick",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 875,
+      "height": 315,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-21-375-100",
+      "mode": "quick",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 875,
+      "height": 275,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-21-390-0",
+      "mode": "quick",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 910,
+      "height": 390,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-21-390-60",
+      "mode": "quick",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 910,
+      "height": 330,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-21-390-100",
+      "mode": "quick",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 910,
+      "height": 290,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-21-412-0",
+      "mode": "quick",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 961,
+      "height": 412,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-21-412-60",
+      "mode": "quick",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 961,
+      "height": 352,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-21-412-100",
+      "mode": "quick",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 961,
+      "height": 312,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-21-430-0",
+      "mode": "quick",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 1003,
+      "height": 430,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-21-430-60",
+      "mode": "quick",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 1003,
+      "height": 370,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-21-430-100",
+      "mode": "quick",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 1003,
+      "height": 330,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-21-480-0",
+      "mode": "quick",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 1120,
+      "height": 480,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-21-480-60",
+      "mode": "quick",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 1120,
+      "height": 420,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-21-480-100",
+      "mode": "quick",
+      "ratio": "21:9",
+      "ratioKind": "coverage",
+      "width": 1120,
+      "height": 380,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-22-320-0",
+      "mode": "quick",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 782,
+      "height": 320,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-22-320-60",
+      "mode": "quick",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 782,
+      "height": 260,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-22-320-100",
+      "mode": "quick",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 782,
+      "height": 220,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-22-360-0",
+      "mode": "quick",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 880,
+      "height": 360,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-22-360-60",
+      "mode": "quick",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 880,
+      "height": 300,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-22-360-100",
+      "mode": "quick",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 880,
+      "height": 260,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-22-375-0",
+      "mode": "quick",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 917,
+      "height": 375,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-22-375-60",
+      "mode": "quick",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 917,
+      "height": 315,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-22-375-100",
+      "mode": "quick",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 917,
+      "height": 275,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-22-390-0",
+      "mode": "quick",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 953,
+      "height": 390,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-22-390-60",
+      "mode": "quick",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 953,
+      "height": 330,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-22-390-100",
+      "mode": "quick",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 953,
+      "height": 290,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-22-412-0",
+      "mode": "quick",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 1007,
+      "height": 412,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-22-412-60",
+      "mode": "quick",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 1007,
+      "height": 352,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-22-412-100",
+      "mode": "quick",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 1007,
+      "height": 312,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-22-430-0",
+      "mode": "quick",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 1051,
+      "height": 430,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-22-430-60",
+      "mode": "quick",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 1051,
+      "height": 370,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-22-430-100",
+      "mode": "quick",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 1051,
+      "height": 330,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-22-480-0",
+      "mode": "quick",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 1173,
+      "height": 480,
+      "chromeLoss": 0,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-22-480-60",
+      "mode": "quick",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 1173,
+      "height": 420,
+      "chromeLoss": 60,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    },
+    {
+      "id": "quick-22-480-100",
+      "mode": "quick",
+      "ratio": "22:9",
+      "ratioKind": "stress",
+      "width": 1173,
+      "height": 380,
+      "chromeLoss": 100,
+      "source": "synthesized CSS viewport, not a physical-device specification"
+    }
+  ]
+}

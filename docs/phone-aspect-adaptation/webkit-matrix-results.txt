@@ -1,0 +1,15 @@
+TAP version 13
+# {"engine":"webkit","verifiedLayouts":32}
+# Subtest: continuous phone geometry preserves the complete board and usable actions across the planned ratio matrix
+ok 1 - continuous phone geometry preserves the complete board and usable actions across the planned ratio matrix
+  ---
+  duration_ms: 8071.7343
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

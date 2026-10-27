@@ -1,0 +1,32 @@
+TAP version 13
+# Subtest: phone landscape uses the freed left area at every reported inset, preserving full board and right edge
+ok 1 - phone landscape uses the freed left area at every reported inset, preserving full board and right edge # SKIP test name does not match pattern
+  ---
+  duration_ms: 2023.6836
+  ...
+# Subtest: the same left alignment applies to QQ, other Android and iOS while other three safe edges survive
+not ok 2 - the same left alignment applies to QQ, other Android and iOS while other three safe edges survive
+  ---
+  duration_ms: 2063.7769
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\mobile-landscape-edge.spec.js:40:1'
+  failureType: 'testCodeFailure'
+  error: 'page.waitForFunction: Timeout 2000ms exceeded. {"phone":true,"physicalLandscape":true,"layoutWidth":844,"layoutHeight":382,"visibleWidth":844,"visibleHeight":382,"offsetLeft":0,"offsetTop":0,"scale":1,"safeTop":0,"safeRight":0,"safeBottom":0,"userZoom":false,"previousUnzoomedSize":{"width":844,"height":382}}'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\mobile-landscape-edge.spec.js:47:415)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: left inset and opponent broadcasts keep stock quantity, reading state, game funds and deadline
+ok 3 - left inset and opponent broadcasts keep stock quantity, reading state, game funds and deadline # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.4573
+  ...
+1..3
+# tests 3
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 2
+# todo 0

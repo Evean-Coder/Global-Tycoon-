@@ -1,0 +1,35 @@
+TAP version 13
+# Subtest: 手机横屏右侧信息真实可见且未被棋盘覆盖：human
+not ok 1 - 手机横屏右侧信息真实可见且未被棋盘覆盖：human
+  ---
+  duration_ms: 2146.0033
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\mobile-information.spec.js:10:39'
+  failureType: 'testCodeFailure'
+  error: |-
+    390px 长昵称、房屋及抵押标记均在格内 {"inside":false,"outside":[{"id":"0","child":"nm","rect":{"x":7,"y":61,"width":49.90625,"height":12,"top":61,"right":56.90625,"bottom":73,"left":7},"box":{"x":6,"y":50,"width":51.90625,"height":18.71875,"top":50,"right":57.90625,"bottom":68.71875,"left":6}},{"id":"1","child":"nm","rect":{"x":59.90625,"y":61,"width":49.90625,"height":12,"top":61,"right":109.8125,"bottom":73,"left":59.90625},"box":{"x":58.90625,"y":50,"width":51.90625,"height":18.71875,"top":50,"right":110.8125,"bottom":68.71875,"left":58.90625}}],"state":{"style":"--phone-frame-width: 844px; --phone-frame-height: 390px; --phone-safe-top: 0px; --phone-safe-right: 0px; --phone-safe-bottom: 0px; --phone-header-height: 44px; --phone-footer-height: 44px; --phone-side-width: 194.12px; --phone-board-height: 290px; --phone-map-min-width: 0px; --phone-map-min-height: 0px; --phone-label-font: 12px; --phone-number-font: 9.5px; --phone-number-width: 12px; --phone-glyph-size: 8px; --phone-modal-left: 0px; --phone-modal-top: 0px; --phone-modal-width: 844px; --phone-modal-height: 390px; --phone-card-columns: 3;","dataset":{"economyRevision":"travel-expense-v1","phoneDensity":"standard","phoneTile":"stacked","phoneMap":"overview","phoneActions":"1","phoneSidebar":"normal"},"viewport":390,"main":{"x":4,"y":48,"width":836,"height":220,"top":48,"right":840,"bottom":268,"left":4},"scale":{"x":5,"y":49,"width":635.890625,"height":218,"top":49,"right":640.890625,"bottom":267,"left":5}}}
+
+    false !== true
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\mobile-information.spec.js:36:11)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: 手机横屏右侧信息真实可见且未被棋盘覆盖：bot
+ok 2 - 手机横屏右侧信息真实可见且未被棋盘覆盖：bot # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.5318
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 1
+# todo 0

@@ -11,8 +11,8 @@ function fixture(mode='normal'){
  return s;
 }
 async function setInsets(page,insets){
- await page.evaluate(values=>{for(const [edge,value]of Object.entries(values))document.body.style.setProperty('--compact-safe-'+edge,value+'px');},insets);
- await settleBoardLayout(page);
+ await page.evaluate(values=>{for(const [edge,value]of Object.entries(values))document.body.style.setProperty('--compact-safe-'+edge,value+'px');window.dispatchEvent(new window.Event('resize'));},insets);
+ await page.waitForFunction(values=>{const css=window.getComputedStyle(document.body);return Object.entries(values).every(([edge,value])=>edge==='left'||css['padding'+edge[0].toUpperCase()+edge.slice(1)]===value+'px');},insets,{timeout:2000});await settleBoardLayout(page);
 }
 async function geometry(page){return page.evaluate(()=>{
  const ids=['boardWrap','actionBar','boardMap','side'],rects=Object.fromEntries(ids.map(id=>[id,document.getElementById(id).getBoundingClientRect().toJSON()]));
@@ -45,7 +45,7 @@ test('the same left alignment applies to QQ, other Android and iOS while other t
   'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 Version/17.0 Mobile/15E148 Safari/604.1'
  ]){
   await cdp.send('Emulation.setUserAgentOverride',{userAgent});await p.evaluate(()=>window.dispatchEvent(new window.Event('resize')));await setInsets(p,{left:40,right:24,top:12,bottom:20});const m=await geometry(p);
-  assert.deepEqual(m.padding,['12px','24px','20px','0px']);assert.equal(m.header.left,0);assert.ok(Math.abs(m.boardWrap.left-4)<.5);assert.equal(m.header.right,820);assert.ok(m.actionBar.right<=820&&m.actionBar.bottom<=362);assert.equal(m.overflow,false);measurements.push({userAgent,...m});
+  assert.deepEqual(m.padding,['12px','24px','20px','0px'],JSON.stringify(m));assert.equal(m.header.left,0);assert.ok(Math.abs(m.boardWrap.left-4)<.5);assert.equal(m.header.right,820);assert.ok(m.actionBar.right<=820&&m.actionBar.bottom<=362);assert.equal(m.overflow,false);measurements.push({userAgent,...m});
  }}finally{await cdp.detach();}
  assert.deepEqual(h.errors,[]);
 });

@@ -1,0 +1,49 @@
+TAP version 13
+# Subtest: full42-square phone map fits five screens in both modes; short name and glyph remain readable
+ok 1 - full42-square phone map fits five screens in both modes; short name and glyph remain readable
+  ---
+  duration_ms: 3580.0483
+  ...
+# Subtest: details and More retain actual information, stock access and reading through broadcasts
+ok 2 - details and More retain actual information, stock access and reading through broadcasts
+  ---
+  duration_ms: 1126.4797
+  ...
+# Subtest: PC and tablet recover original board and information; stock draft survives orientation gate
+ok 3 - PC and tablet recover original board and information; stock draft survives orientation gate
+  ---
+  duration_ms: 659.3668
+  ...
+# Subtest: all tile categories retain focus and actual ownership through broadcasts; grouped pawns remain readable
+ok 4 - all tile categories retain focus and actual ownership through broadcasts; grouped pawns remain readable
+  ---
+  duration_ms: 5040.7471
+  ...
+# Subtest: real roll retains half-speed movement and small-space zoom is only a view change
+ok 5 - real roll retains half-speed movement and small-space zoom is only a view change
+  ---
+  duration_ms: 2576.6633
+  ...
+# Subtest: phone landscape uses the freed left area at every reported inset, preserving full board and right edge
+ok 6 - phone landscape uses the freed left area at every reported inset, preserving full board and right edge
+  ---
+  duration_ms: 3984.9722
+  ...
+# Subtest: the same left alignment applies to QQ, other Android and iOS while other three safe edges survive
+ok 7 - the same left alignment applies to QQ, other Android and iOS while other three safe edges survive
+  ---
+  duration_ms: 226.2525
+  ...
+# Subtest: left inset and opponent broadcasts keep stock quantity, reading state, game funds and deadline
+ok 8 - left inset and opponent broadcasts keep stock quantity, reading state, game funds and deadline
+  ---
+  duration_ms: 386.0052
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 8
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

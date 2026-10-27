@@ -1,0 +1,64 @@
+TAP version 13
+# Subtest: full42-square phone map fits five screens in both modes; short name and glyph remain readable
+ok 1 - full42-square phone map fits five screens in both modes; short name and glyph remain readable
+  ---
+  duration_ms: 3644.9534
+  ...
+# Subtest: details and More retain actual information, stock access and reading through broadcasts
+ok 2 - details and More retain actual information, stock access and reading through broadcasts
+  ---
+  duration_ms: 1160.5346
+  ...
+# Subtest: PC and tablet recover original board and information; stock draft survives orientation gate
+ok 3 - PC and tablet recover original board and information; stock draft survives orientation gate
+  ---
+  duration_ms: 755.7385
+  ...
+# Subtest: all tile categories retain focus and actual ownership through broadcasts; grouped pawns remain readable
+ok 4 - all tile categories retain focus and actual ownership through broadcasts; grouped pawns remain readable
+  ---
+  duration_ms: 5044.9677
+  ...
+# Subtest: real roll retains half-speed movement and small-space zoom is only a view change
+ok 5 - real roll retains half-speed movement and small-space zoom is only a view change
+  ---
+  duration_ms: 2475.6296
+  ...
+# Subtest: 手机横屏右侧信息真实可见且未被棋盘覆盖：human
+ok 6 - 手机横屏右侧信息真实可见且未被棋盘覆盖：human
+  ---
+  duration_ms: 2600.5171
+  ...
+# Subtest: 手机横屏右侧信息真实可见且未被棋盘覆盖：bot
+ok 7 - 手机横屏右侧信息真实可见且未被棋盘覆盖：bot
+  ---
+  duration_ms: 1638.7772
+  ...
+# Subtest: phone landscape uses the freed left area at every reported inset, preserving full board and right edge
+ok 8 - phone landscape uses the freed left area at every reported inset, preserving full board and right edge
+  ---
+  duration_ms: 4017.3479
+  ...
+# Subtest: the same left alignment applies to QQ, other Android and iOS while other three safe edges survive
+ok 9 - the same left alignment applies to QQ, other Android and iOS while other three safe edges survive
+  ---
+  duration_ms: 242.8239
+  ...
+# Subtest: left inset and opponent broadcasts keep stock quantity, reading state, game funds and deadline
+ok 10 - left inset and opponent broadcasts keep stock quantity, reading state, game funds and deadline
+  ---
+  duration_ms: 401.1894
+  ...
+# Subtest: self-rescue identity and source are visible to both players; waiting and partial funding never expire
+ok 11 - self-rescue identity and source are visible to both players; waiting and partial funding never expire
+  ---
+  duration_ms: 2946.4255
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 11
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

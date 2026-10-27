@@ -1,0 +1,1554 @@
+{
+  "engine": "webkit",
+  "observations": [
+    {
+      "label": "buy-568",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 556,
+        "height": 248,
+        "top": 6,
+        "right": 562,
+        "bottom": 254,
+        "left": 6
+      },
+      "width": 568,
+      "height": 260,
+      "overflow": false
+    },
+    {
+      "label": "buy_airport-568",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 556,
+        "height": 248,
+        "top": 6,
+        "right": 562,
+        "bottom": 254,
+        "left": 6
+      },
+      "width": 568,
+      "height": 260,
+      "overflow": false
+    },
+    {
+      "label": "build_decide-568",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 556,
+        "height": 248,
+        "top": 6,
+        "right": 562,
+        "bottom": 254,
+        "left": 6
+      },
+      "width": 568,
+      "height": 260,
+      "overflow": false
+    },
+    {
+      "label": "flight-568",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 556,
+        "height": 248,
+        "top": 6,
+        "right": 562,
+        "bottom": 254,
+        "left": 6
+      },
+      "width": 568,
+      "height": 260,
+      "overflow": false
+    },
+    {
+      "label": "jail_turn-568",
+      "rect": {
+        "x": 6,
+        "y": 38,
+        "width": 556,
+        "height": 184,
+        "top": 38,
+        "right": 562,
+        "bottom": 222,
+        "left": 6
+      },
+      "width": 568,
+      "height": 260,
+      "overflow": false
+    },
+    {
+      "label": "frozen_turn-568",
+      "rect": {
+        "x": 6,
+        "y": 33.25,
+        "width": 556,
+        "height": 193.5,
+        "top": 33.25,
+        "right": 562,
+        "bottom": 226.75,
+        "left": 6
+      },
+      "width": 568,
+      "height": 260,
+      "overflow": false
+    },
+    {
+      "label": "auction_bid-568",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 556,
+        "height": 248,
+        "top": 6,
+        "right": 562,
+        "bottom": 254,
+        "left": 6
+      },
+      "width": 568,
+      "height": 260,
+      "overflow": false
+    },
+    {
+      "label": "direct_sale_ask-568",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 556,
+        "height": 248,
+        "top": 6,
+        "right": 562,
+        "bottom": 254,
+        "left": 6
+      },
+      "width": 568,
+      "height": 260,
+      "overflow": false
+    },
+    {
+      "label": "self_rescue-568",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 556,
+        "height": 248,
+        "top": 6,
+        "right": 562,
+        "bottom": 254,
+        "left": 6
+      },
+      "width": 568,
+      "height": 260,
+      "overflow": false
+    },
+    {
+      "label": "btnBank-568",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 556,
+        "height": 248,
+        "top": 6,
+        "right": 562,
+        "bottom": 254,
+        "left": 6
+      },
+      "width": 568,
+      "height": 260,
+      "overflow": false
+    },
+    {
+      "label": "btnAssets-568",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 556,
+        "height": 248,
+        "top": 6,
+        "right": 562,
+        "bottom": 254,
+        "left": 6
+      },
+      "width": 568,
+      "height": 260,
+      "overflow": false
+    },
+    {
+      "label": "rules-568",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 556,
+        "height": 248,
+        "top": 6,
+        "right": 562,
+        "bottom": 254,
+        "left": 6
+      },
+      "width": 568,
+      "height": 260,
+      "overflow": false
+    },
+    {
+      "label": "buy-844",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 832,
+        "height": 268,
+        "top": 6,
+        "right": 838,
+        "bottom": 274,
+        "left": 6
+      },
+      "width": 844,
+      "height": 280,
+      "overflow": false
+    },
+    {
+      "label": "buy_airport-844",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 832,
+        "height": 268,
+        "top": 6,
+        "right": 838,
+        "bottom": 274,
+        "left": 6
+      },
+      "width": 844,
+      "height": 280,
+      "overflow": false
+    },
+    {
+      "label": "build_decide-844",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 832,
+        "height": 268,
+        "top": 6,
+        "right": 838,
+        "bottom": 274,
+        "left": 6
+      },
+      "width": 844,
+      "height": 280,
+      "overflow": false
+    },
+    {
+      "label": "flight-844",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 832,
+        "height": 268,
+        "top": 6,
+        "right": 838,
+        "bottom": 274,
+        "left": 6
+      },
+      "width": 844,
+      "height": 280,
+      "overflow": false
+    },
+    {
+      "label": "jail_turn-844",
+      "rect": {
+        "x": 6,
+        "y": 57,
+        "width": 832,
+        "height": 166,
+        "top": 57,
+        "right": 838,
+        "bottom": 223,
+        "left": 6
+      },
+      "width": 844,
+      "height": 280,
+      "overflow": false
+    },
+    {
+      "label": "frozen_turn-844",
+      "rect": {
+        "x": 6,
+        "y": 43.25,
+        "width": 832,
+        "height": 193.5,
+        "top": 43.25,
+        "right": 838,
+        "bottom": 236.75,
+        "left": 6
+      },
+      "width": 844,
+      "height": 280,
+      "overflow": false
+    },
+    {
+      "label": "auction_bid-844",
+      "rect": {
+        "x": 6,
+        "y": 9.75,
+        "width": 832,
+        "height": 260.5,
+        "top": 9.75,
+        "right": 838,
+        "bottom": 270.25,
+        "left": 6
+      },
+      "width": 844,
+      "height": 280,
+      "overflow": false
+    },
+    {
+      "label": "direct_sale_ask-844",
+      "rect": {
+        "x": 6,
+        "y": 11.75,
+        "width": 832,
+        "height": 256.5,
+        "top": 11.75,
+        "right": 838,
+        "bottom": 268.25,
+        "left": 6
+      },
+      "width": 844,
+      "height": 280,
+      "overflow": false
+    },
+    {
+      "label": "self_rescue-844",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 832,
+        "height": 268,
+        "top": 6,
+        "right": 838,
+        "bottom": 274,
+        "left": 6
+      },
+      "width": 844,
+      "height": 280,
+      "overflow": false
+    },
+    {
+      "label": "btnBank-844",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 832,
+        "height": 268,
+        "top": 6,
+        "right": 838,
+        "bottom": 274,
+        "left": 6
+      },
+      "width": 844,
+      "height": 280,
+      "overflow": false
+    },
+    {
+      "label": "btnAssets-844",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 832,
+        "height": 268,
+        "top": 6,
+        "right": 838,
+        "bottom": 274,
+        "left": 6
+      },
+      "width": 844,
+      "height": 280,
+      "overflow": false
+    },
+    {
+      "label": "rules-844",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 832,
+        "height": 268,
+        "top": 6,
+        "right": 838,
+        "bottom": 274,
+        "left": 6
+      },
+      "width": 844,
+      "height": 280,
+      "overflow": false
+    },
+    {
+      "label": "buy-932",
+      "rect": {
+        "x": 36,
+        "y": 29,
+        "width": 860,
+        "height": 372,
+        "top": 29,
+        "right": 896,
+        "bottom": 401,
+        "left": 36
+      },
+      "width": 932,
+      "height": 430,
+      "overflow": false
+    },
+    {
+      "label": "buy_airport-932",
+      "rect": {
+        "x": 36,
+        "y": 67.5,
+        "width": 860,
+        "height": 295,
+        "top": 67.5,
+        "right": 896,
+        "bottom": 362.5,
+        "left": 36
+      },
+      "width": 932,
+      "height": 430,
+      "overflow": false
+    },
+    {
+      "label": "build_decide-932",
+      "rect": {
+        "x": 36,
+        "y": 67.5,
+        "width": 860,
+        "height": 295,
+        "top": 67.5,
+        "right": 896,
+        "bottom": 362.5,
+        "left": 36
+      },
+      "width": 932,
+      "height": 430,
+      "overflow": false
+    },
+    {
+      "label": "flight-932",
+      "rect": {
+        "x": 36,
+        "y": 6,
+        "width": 860,
+        "height": 418,
+        "top": 6,
+        "right": 896,
+        "bottom": 424,
+        "left": 36
+      },
+      "width": 932,
+      "height": 430,
+      "overflow": false
+    },
+    {
+      "label": "jail_turn-932",
+      "rect": {
+        "x": 36,
+        "y": 132,
+        "width": 860,
+        "height": 166,
+        "top": 132,
+        "right": 896,
+        "bottom": 298,
+        "left": 36
+      },
+      "width": 932,
+      "height": 430,
+      "overflow": false
+    },
+    {
+      "label": "frozen_turn-932",
+      "rect": {
+        "x": 36,
+        "y": 118.25,
+        "width": 860,
+        "height": 193.5,
+        "top": 118.25,
+        "right": 896,
+        "bottom": 311.75,
+        "left": 36
+      },
+      "width": 932,
+      "height": 430,
+      "overflow": false
+    },
+    {
+      "label": "auction_bid-932",
+      "rect": {
+        "x": 36,
+        "y": 84.75,
+        "width": 860,
+        "height": 260.5,
+        "top": 84.75,
+        "right": 896,
+        "bottom": 345.25,
+        "left": 36
+      },
+      "width": 932,
+      "height": 430,
+      "overflow": false
+    },
+    {
+      "label": "direct_sale_ask-932",
+      "rect": {
+        "x": 36,
+        "y": 86.75,
+        "width": 860,
+        "height": 256.5,
+        "top": 86.75,
+        "right": 896,
+        "bottom": 343.25,
+        "left": 36
+      },
+      "width": 932,
+      "height": 430,
+      "overflow": false
+    },
+    {
+      "label": "self_rescue-932",
+      "rect": {
+        "x": 36,
+        "y": 6,
+        "width": 860,
+        "height": 418,
+        "top": 6,
+        "right": 896,
+        "bottom": 424,
+        "left": 36
+      },
+      "width": 932,
+      "height": 430,
+      "overflow": false
+    },
+    {
+      "label": "btnBank-932",
+      "rect": {
+        "x": 36,
+        "y": 6,
+        "width": 860,
+        "height": 418,
+        "top": 6,
+        "right": 896,
+        "bottom": 424,
+        "left": 36
+      },
+      "width": 932,
+      "height": 430,
+      "overflow": false
+    },
+    {
+      "label": "btnAssets-932",
+      "rect": {
+        "x": 36,
+        "y": 6,
+        "width": 860,
+        "height": 418,
+        "top": 6,
+        "right": 896,
+        "bottom": 424,
+        "left": 36
+      },
+      "width": 932,
+      "height": 430,
+      "overflow": false
+    },
+    {
+      "label": "rules-932",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 920,
+        "height": 418,
+        "top": 6,
+        "right": 926,
+        "bottom": 424,
+        "left": 6
+      },
+      "width": 932,
+      "height": 430,
+      "overflow": false
+    },
+    {
+      "label": "buy-1280",
+      "rect": {
+        "x": 120,
+        "y": 63,
+        "width": 1040,
+        "height": 414,
+        "top": 63,
+        "right": 1160,
+        "bottom": 477,
+        "left": 120
+      },
+      "width": 1280,
+      "height": 540,
+      "overflow": false
+    },
+    {
+      "label": "buy_airport-1280",
+      "rect": {
+        "x": 120,
+        "y": 108,
+        "width": 1040,
+        "height": 324,
+        "top": 108,
+        "right": 1160,
+        "bottom": 432,
+        "left": 120
+      },
+      "width": 1280,
+      "height": 540,
+      "overflow": false
+    },
+    {
+      "label": "build_decide-1280",
+      "rect": {
+        "x": 120,
+        "y": 108,
+        "width": 1040,
+        "height": 324,
+        "top": 108,
+        "right": 1160,
+        "bottom": 432,
+        "left": 120
+      },
+      "width": 1280,
+      "height": 540,
+      "overflow": false
+    },
+    {
+      "label": "flight-1280",
+      "rect": {
+        "x": 120,
+        "y": 6,
+        "width": 1040,
+        "height": 528,
+        "top": 6,
+        "right": 1160,
+        "bottom": 534,
+        "left": 120
+      },
+      "width": 1280,
+      "height": 540,
+      "overflow": false
+    },
+    {
+      "label": "jail_turn-1280",
+      "rect": {
+        "x": 120,
+        "y": 191.90625,
+        "width": 1040,
+        "height": 156.1875,
+        "top": 191.90625,
+        "right": 1160,
+        "bottom": 348.09375,
+        "left": 120
+      },
+      "width": 1280,
+      "height": 540,
+      "overflow": false
+    },
+    {
+      "label": "frozen_turn-1280",
+      "rect": {
+        "x": 120,
+        "y": 170,
+        "width": 1040,
+        "height": 200,
+        "top": 170,
+        "right": 1160,
+        "bottom": 370,
+        "left": 120
+      },
+      "width": 1280,
+      "height": 540,
+      "overflow": false
+    },
+    {
+      "label": "auction_bid-1280",
+      "rect": {
+        "x": 120,
+        "y": 128.5,
+        "width": 1040,
+        "height": 283,
+        "top": 128.5,
+        "right": 1160,
+        "bottom": 411.5,
+        "left": 120
+      },
+      "width": 1280,
+      "height": 540,
+      "overflow": false
+    },
+    {
+      "label": "direct_sale_ask-1280",
+      "rect": {
+        "x": 120,
+        "y": 130.5,
+        "width": 1040,
+        "height": 279,
+        "top": 130.5,
+        "right": 1160,
+        "bottom": 409.5,
+        "left": 120
+      },
+      "width": 1280,
+      "height": 540,
+      "overflow": false
+    },
+    {
+      "label": "self_rescue-1280",
+      "rect": {
+        "x": 120,
+        "y": 6,
+        "width": 1040,
+        "height": 528,
+        "top": 6,
+        "right": 1160,
+        "bottom": 534,
+        "left": 120
+      },
+      "width": 1280,
+      "height": 540,
+      "overflow": false
+    },
+    {
+      "label": "btnBank-1280",
+      "rect": {
+        "x": 120,
+        "y": 6,
+        "width": 1040,
+        "height": 528,
+        "top": 6,
+        "right": 1160,
+        "bottom": 534,
+        "left": 120
+      },
+      "width": 1280,
+      "height": 540,
+      "overflow": false
+    },
+    {
+      "label": "btnAssets-1280",
+      "rect": {
+        "x": 120,
+        "y": 6,
+        "width": 1040,
+        "height": 528,
+        "top": 6,
+        "right": 1160,
+        "bottom": 534,
+        "left": 120
+      },
+      "width": 1280,
+      "height": 540,
+      "overflow": false
+    },
+    {
+      "label": "rules-1280",
+      "rect": {
+        "x": 120,
+        "y": 6,
+        "width": 1040,
+        "height": 528,
+        "top": 6,
+        "right": 1160,
+        "bottom": 534,
+        "left": 120
+      },
+      "width": 1280,
+      "height": 540,
+      "overflow": false
+    },
+    {
+      "label": "buy-1467",
+      "rect": {
+        "x": 213.5,
+        "y": 93,
+        "width": 1040,
+        "height": 414,
+        "top": 93,
+        "right": 1253.5,
+        "bottom": 507,
+        "left": 213.5
+      },
+      "width": 1467,
+      "height": 600,
+      "overflow": false
+    },
+    {
+      "label": "buy_airport-1467",
+      "rect": {
+        "x": 213.5,
+        "y": 138,
+        "width": 1040,
+        "height": 324,
+        "top": 138,
+        "right": 1253.5,
+        "bottom": 462,
+        "left": 213.5
+      },
+      "width": 1467,
+      "height": 600,
+      "overflow": false
+    },
+    {
+      "label": "build_decide-1467",
+      "rect": {
+        "x": 213.5,
+        "y": 138,
+        "width": 1040,
+        "height": 324,
+        "top": 138,
+        "right": 1253.5,
+        "bottom": 462,
+        "left": 213.5
+      },
+      "width": 1467,
+      "height": 600,
+      "overflow": false
+    },
+    {
+      "label": "flight-1467",
+      "rect": {
+        "x": 213.5,
+        "y": 13.21875,
+        "width": 1040,
+        "height": 573.5625,
+        "top": 13.21875,
+        "right": 1253.5,
+        "bottom": 586.78125,
+        "left": 213.5
+      },
+      "width": 1467,
+      "height": 600,
+      "overflow": false
+    },
+    {
+      "label": "jail_turn-1467",
+      "rect": {
+        "x": 213.5,
+        "y": 221.90625,
+        "width": 1040,
+        "height": 156.1875,
+        "top": 221.90625,
+        "right": 1253.5,
+        "bottom": 378.09375,
+        "left": 213.5
+      },
+      "width": 1467,
+      "height": 600,
+      "overflow": false
+    },
+    {
+      "label": "frozen_turn-1467",
+      "rect": {
+        "x": 213.5,
+        "y": 200,
+        "width": 1040,
+        "height": 200,
+        "top": 200,
+        "right": 1253.5,
+        "bottom": 400,
+        "left": 213.5
+      },
+      "width": 1467,
+      "height": 600,
+      "overflow": false
+    },
+    {
+      "label": "auction_bid-1467",
+      "rect": {
+        "x": 213.5,
+        "y": 158.5,
+        "width": 1040,
+        "height": 283,
+        "top": 158.5,
+        "right": 1253.5,
+        "bottom": 441.5,
+        "left": 213.5
+      },
+      "width": 1467,
+      "height": 600,
+      "overflow": false
+    },
+    {
+      "label": "direct_sale_ask-1467",
+      "rect": {
+        "x": 213.5,
+        "y": 160.5,
+        "width": 1040,
+        "height": 279,
+        "top": 160.5,
+        "right": 1253.5,
+        "bottom": 439.5,
+        "left": 213.5
+      },
+      "width": 1467,
+      "height": 600,
+      "overflow": false
+    },
+    {
+      "label": "self_rescue-1467",
+      "rect": {
+        "x": 213.5,
+        "y": 6,
+        "width": 1040,
+        "height": 588,
+        "top": 6,
+        "right": 1253.5,
+        "bottom": 594,
+        "left": 213.5
+      },
+      "width": 1467,
+      "height": 600,
+      "overflow": false
+    },
+    {
+      "label": "btnBank-1467",
+      "rect": {
+        "x": 213.5,
+        "y": 6,
+        "width": 1040,
+        "height": 588,
+        "top": 6,
+        "right": 1253.5,
+        "bottom": 594,
+        "left": 213.5
+      },
+      "width": 1467,
+      "height": 600,
+      "overflow": false
+    },
+    {
+      "label": "btnAssets-1467",
+      "rect": {
+        "x": 213.5,
+        "y": 6,
+        "width": 1040,
+        "height": 588,
+        "top": 6,
+        "right": 1253.5,
+        "bottom": 594,
+        "left": 213.5
+      },
+      "width": 1467,
+      "height": 600,
+      "overflow": false
+    },
+    {
+      "label": "rules-1467",
+      "rect": {
+        "x": 213.5,
+        "y": 6,
+        "width": 1040,
+        "height": 588,
+        "top": 6,
+        "right": 1253.5,
+        "bottom": 594,
+        "left": 213.5
+      },
+      "width": 1467,
+      "height": 600,
+      "overflow": false
+    },
+    {
+      "label": "buy-480",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 468,
+        "height": 208,
+        "top": 6,
+        "right": 474,
+        "bottom": 214,
+        "left": 6
+      },
+      "width": 480,
+      "height": 220,
+      "overflow": false
+    },
+    {
+      "label": "buy_airport-480",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 468,
+        "height": 208,
+        "top": 6,
+        "right": 474,
+        "bottom": 214,
+        "left": 6
+      },
+      "width": 480,
+      "height": 220,
+      "overflow": false
+    },
+    {
+      "label": "build_decide-480",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 468,
+        "height": 208,
+        "top": 6,
+        "right": 474,
+        "bottom": 214,
+        "left": 6
+      },
+      "width": 480,
+      "height": 220,
+      "overflow": false
+    },
+    {
+      "label": "flight-480",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 468,
+        "height": 208,
+        "top": 6,
+        "right": 474,
+        "bottom": 214,
+        "left": 6
+      },
+      "width": 480,
+      "height": 220,
+      "overflow": false
+    },
+    {
+      "label": "jail_turn-480",
+      "rect": {
+        "x": 6,
+        "y": 18,
+        "width": 468,
+        "height": 184,
+        "top": 18,
+        "right": 474,
+        "bottom": 202,
+        "left": 6
+      },
+      "width": 480,
+      "height": 220,
+      "overflow": false
+    },
+    {
+      "label": "frozen_turn-480",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 468,
+        "height": 208,
+        "top": 6,
+        "right": 474,
+        "bottom": 214,
+        "left": 6
+      },
+      "width": 480,
+      "height": 220,
+      "overflow": false
+    },
+    {
+      "label": "auction_bid-480",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 468,
+        "height": 208,
+        "top": 6,
+        "right": 474,
+        "bottom": 214,
+        "left": 6
+      },
+      "width": 480,
+      "height": 220,
+      "overflow": false
+    },
+    {
+      "label": "direct_sale_ask-480",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 468,
+        "height": 208,
+        "top": 6,
+        "right": 474,
+        "bottom": 214,
+        "left": 6
+      },
+      "width": 480,
+      "height": 220,
+      "overflow": false
+    },
+    {
+      "label": "self_rescue-480",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 468,
+        "height": 208,
+        "top": 6,
+        "right": 474,
+        "bottom": 214,
+        "left": 6
+      },
+      "width": 480,
+      "height": 220,
+      "overflow": false
+    },
+    {
+      "label": "btnBank-480",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 468,
+        "height": 208,
+        "top": 6,
+        "right": 474,
+        "bottom": 214,
+        "left": 6
+      },
+      "width": 480,
+      "height": 220,
+      "overflow": false
+    },
+    {
+      "label": "btnAssets-480",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 468,
+        "height": 208,
+        "top": 6,
+        "right": 474,
+        "bottom": 214,
+        "left": 6
+      },
+      "width": 480,
+      "height": 220,
+      "overflow": false
+    },
+    {
+      "label": "rules-480",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 468,
+        "height": 208,
+        "top": 6,
+        "right": 474,
+        "bottom": 214,
+        "left": 6
+      },
+      "width": 480,
+      "height": 220,
+      "overflow": false
+    },
+    {
+      "label": "choice-568",
+      "rect": {
+        "x": 6,
+        "y": 10.40625,
+        "width": 556,
+        "height": 239.1875,
+        "top": 10.40625,
+        "right": 562,
+        "bottom": 249.59375,
+        "left": 6
+      },
+      "width": 568,
+      "height": 260,
+      "overflow": false
+    },
+    {
+      "label": "route-568",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 556,
+        "height": 248,
+        "top": 6,
+        "right": 562,
+        "bottom": 254,
+        "left": 6
+      },
+      "width": 568,
+      "height": 260,
+      "overflow": false
+    },
+    {
+      "label": "management-568",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 556,
+        "height": 248,
+        "top": 6,
+        "right": 562,
+        "bottom": 254,
+        "left": 6
+      },
+      "width": 568,
+      "height": 260,
+      "overflow": false
+    },
+    {
+      "label": "support-568",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 556,
+        "height": 248,
+        "top": 6,
+        "right": 562,
+        "bottom": 254,
+        "left": 6
+      },
+      "width": 568,
+      "height": 260,
+      "overflow": false
+    },
+    {
+      "label": "choice-844",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 832,
+        "height": 268,
+        "top": 6,
+        "right": 838,
+        "bottom": 274,
+        "left": 6
+      },
+      "width": 844,
+      "height": 280,
+      "overflow": false
+    },
+    {
+      "label": "route-844",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 832,
+        "height": 268,
+        "top": 6,
+        "right": 838,
+        "bottom": 274,
+        "left": 6
+      },
+      "width": 844,
+      "height": 280,
+      "overflow": false
+    },
+    {
+      "label": "management-844",
+      "rect": {
+        "x": 6,
+        "y": 10.65625,
+        "width": 832,
+        "height": 258.6875,
+        "top": 10.65625,
+        "right": 838,
+        "bottom": 269.34375,
+        "left": 6
+      },
+      "width": 844,
+      "height": 280,
+      "overflow": false
+    },
+    {
+      "label": "support-844",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 832,
+        "height": 268,
+        "top": 6,
+        "right": 838,
+        "bottom": 274,
+        "left": 6
+      },
+      "width": 844,
+      "height": 280,
+      "overflow": false
+    },
+    {
+      "label": "choice-932",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 920,
+        "height": 418,
+        "top": 6,
+        "right": 926,
+        "bottom": 424,
+        "left": 6
+      },
+      "width": 932,
+      "height": 430,
+      "overflow": false
+    },
+    {
+      "label": "route-932",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 920,
+        "height": 418,
+        "top": 6,
+        "right": 926,
+        "bottom": 424,
+        "left": 6
+      },
+      "width": 932,
+      "height": 430,
+      "overflow": false
+    },
+    {
+      "label": "management-932",
+      "rect": {
+        "x": 16,
+        "y": 85.65625,
+        "width": 900,
+        "height": 258.6875,
+        "top": 85.65625,
+        "right": 916,
+        "bottom": 344.34375,
+        "left": 16
+      },
+      "width": 932,
+      "height": 430,
+      "overflow": false
+    },
+    {
+      "label": "support-932",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 920,
+        "height": 418,
+        "top": 6,
+        "right": 926,
+        "bottom": 424,
+        "left": 6
+      },
+      "width": 932,
+      "height": 430,
+      "overflow": false
+    },
+    {
+      "label": "choice-1280",
+      "rect": {
+        "x": 120,
+        "y": 6,
+        "width": 1040,
+        "height": 528,
+        "top": 6,
+        "right": 1160,
+        "bottom": 534,
+        "left": 120
+      },
+      "width": 1280,
+      "height": 540,
+      "overflow": false
+    },
+    {
+      "label": "route-1280",
+      "rect": {
+        "x": 120,
+        "y": 6,
+        "width": 1040,
+        "height": 528,
+        "top": 6,
+        "right": 1160,
+        "bottom": 534,
+        "left": 120
+      },
+      "width": 1280,
+      "height": 540,
+      "overflow": false
+    },
+    {
+      "label": "management-1280",
+      "rect": {
+        "x": 120,
+        "y": 133.65625,
+        "width": 1040,
+        "height": 272.6875,
+        "top": 133.65625,
+        "right": 1160,
+        "bottom": 406.34375,
+        "left": 120
+      },
+      "width": 1280,
+      "height": 540,
+      "overflow": false
+    },
+    {
+      "label": "support-1280",
+      "rect": {
+        "x": 120,
+        "y": 6,
+        "width": 1040,
+        "height": 528,
+        "top": 6,
+        "right": 1160,
+        "bottom": 534,
+        "left": 120
+      },
+      "width": 1280,
+      "height": 540,
+      "overflow": false
+    },
+    {
+      "label": "choice-1467",
+      "rect": {
+        "x": 213.5,
+        "y": 6,
+        "width": 1040,
+        "height": 588,
+        "top": 6,
+        "right": 1253.5,
+        "bottom": 594,
+        "left": 213.5
+      },
+      "width": 1467,
+      "height": 600,
+      "overflow": false
+    },
+    {
+      "label": "route-1467",
+      "rect": {
+        "x": 213.5,
+        "y": 6,
+        "width": 1040,
+        "height": 588,
+        "top": 6,
+        "right": 1253.5,
+        "bottom": 594,
+        "left": 213.5
+      },
+      "width": 1467,
+      "height": 600,
+      "overflow": false
+    },
+    {
+      "label": "management-1467",
+      "rect": {
+        "x": 213.5,
+        "y": 163.65625,
+        "width": 1040,
+        "height": 272.6875,
+        "top": 163.65625,
+        "right": 1253.5,
+        "bottom": 436.34375,
+        "left": 213.5
+      },
+      "width": 1467,
+      "height": 600,
+      "overflow": false
+    },
+    {
+      "label": "support-1467",
+      "rect": {
+        "x": 213.5,
+        "y": 6,
+        "width": 1040,
+        "height": 588,
+        "top": 6,
+        "right": 1253.5,
+        "bottom": 594,
+        "left": 213.5
+      },
+      "width": 1467,
+      "height": 600,
+      "overflow": false
+    },
+    {
+      "label": "choice-480",
+      "rect": {
+        "x": 6,
+        "y": 8.796875,
+        "width": 468,
+        "height": 202.390625,
+        "top": 8.796875,
+        "right": 474,
+        "bottom": 211.1875,
+        "left": 6
+      },
+      "width": 480,
+      "height": 220,
+      "overflow": false
+    },
+    {
+      "label": "route-480",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 468,
+        "height": 208,
+        "top": 6,
+        "right": 474,
+        "bottom": 214,
+        "left": 6
+      },
+      "width": 480,
+      "height": 220,
+      "overflow": false
+    },
+    {
+      "label": "management-480",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 468,
+        "height": 208,
+        "top": 6,
+        "right": 474,
+        "bottom": 214,
+        "left": 6
+      },
+      "width": 480,
+      "height": 220,
+      "overflow": false
+    },
+    {
+      "label": "support-480",
+      "rect": {
+        "x": 6,
+        "y": 6,
+        "width": 468,
+        "height": 208,
+        "top": 6,
+        "right": 474,
+        "bottom": 214,
+        "left": 6
+      },
+      "width": 480,
+      "height": 220,
+      "overflow": false
+    },
+    {
+      "flow": "normal two human sockets: purchase and accepted share transfer",
+      "shares": 1,
+      "transferCash": 500,
+      "sellerFee": 10,
+      "deadlinePreserved": true
+    },
+    {
+      "flow": "quick human/bot room funding request",
+      "sharesSold": 2,
+      "cash": 2296,
+      "deadlinePreserved": true
+    }
+  ]
+}

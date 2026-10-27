@@ -1,7 +1,8 @@
-/* global latestState, innerWidth, requestAnimationFrame, getComputedStyle */
+/* global latestState, innerWidth, getComputedStyle */
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict');
 const fs=require('node:fs'),path=require('node:path');
+const {settleBoardLayout}=require('./helpers/browserHarness');
 const {chromium}=require('playwright'),api=require('../server'),bots=require('../src/botScheduler');
 let browser,url;const contexts=[],errors=[];
 test.before(async()=>{await new Promise(r=>api.server.listen(0,'127.0.0.1',r));url='http://127.0.0.1:'+api.server.address().port;browser=await chromium.launch({channel:process.env.CI?undefined:'msedge',headless:true});});
@@ -27,12 +28,12 @@ for(const opponent of ['human','bot'])test('手机横屏右侧信息真实可见
  const measurements=[];
  for(const width of [320,390,430,768]){
   await p.setViewportSize(width<=600?{width:844,height:width}:{width,height:1024});
-  await p.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))));
+  await settleBoardLayout(p);
   const layout=await p.evaluate(()=>{const board=document.getElementById('boardWrap').getBoundingClientRect(),side=document.getElementById('side').getBoundingClientRect();return {boardHeight:board.height,sideAfterBoard:side.top>=board.bottom,overflow:document.documentElement.scrollWidth>innerWidth+1};});
   if(width>600)assert.equal(layout.sideAfterBoard,true,width+'px 平板信息在棋盘后');assert.equal(layout.overflow,false);
   if(width<=600){
-   const content=await p.evaluate(()=>({inside:[...document.querySelectorAll('#board .sq')].every(el=>{const box=el.getBoundingClientRect();return [...el.querySelectorAll('.nm,.own,.sq-amount,.subrow')].every(child=>{const r=child.getBoundingClientRect();return r.top>=box.top&&r.bottom<=box.bottom&&r.left>=box.left&&r.right<=box.right;});})}));
-   assert.equal(content.inside,true,width+'px 长昵称、房屋及抵押标记均在格内');
+   const content=await p.evaluate(()=>{const outside=[];for(const el of document.querySelectorAll('#board .sq')){const box=el.getBoundingClientRect();for(const child of el.querySelectorAll('.nm,.own,.sq-amount,.subrow')){const r=child.getBoundingClientRect();if(r.top<box.top||r.bottom>box.bottom||r.left<box.left||r.right>box.right)outside.push({id:el.dataset.squareId,child:child.className,rect:r.toJSON(),box:box.toJSON()});}}return {inside:!outside.length,outside:outside.slice(0,2),state:{style:document.body.getAttribute('style'),dataset:{...document.body.dataset},viewport:window.innerHeight,heights:['view-game','gameMain','boardWrap'].map(id=>{const e=document.getElementById(id),c=window.getComputedStyle(e);return {id,style:e.getAttribute('style'),height:c.height,max:c.maxHeight,phone:c.getPropertyValue('--phone-board-height'),flex:c.flex,scroll:e.scrollTop};}),main:document.getElementById('gameMain').getBoundingClientRect().toJSON(),scale:document.getElementById('boardScale').getBoundingClientRect().toJSON()}};});
+   assert.equal(content.inside,true,width+'px 长昵称、房屋及抵押标记均在格内 '+JSON.stringify(content));
   }
   const rows=[];
   for(const id of ['ledger','newsBar','sidePlayer','sideOthers','log']){

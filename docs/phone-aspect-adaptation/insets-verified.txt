@@ -1,0 +1,32 @@
+TAP version 13
+# Subtest: phone landscape uses the freed left area at every reported inset, preserving full board and right edge
+ok 1 - phone landscape uses the freed left area at every reported inset, preserving full board and right edge
+  ---
+  duration_ms: 3915.7906
+  ...
+# Subtest: the same left alignment applies to QQ, other Android and iOS while other three safe edges survive
+not ok 2 - the same left alignment applies to QQ, other Android and iOS while other three safe edges survive
+  ---
+  duration_ms: 2071.1983
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\mobile-landscape-edge.spec.js:40:1'
+  failureType: 'testCodeFailure'
+  error: 'page.waitForFunction: Timeout 2000ms exceeded.'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TimeoutError'
+  stack: |-
+    setInsets (C:\Users\Yifan\Desktop\game\e2e\mobile-landscape-edge.spec.js:15:13)
+    async TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\mobile-landscape-edge.spec.js:47:135)
+  ...
+# Subtest: left inset and opponent broadcasts keep stock quantity, reading state, game funds and deadline
+ok 3 - left inset and opponent broadcasts keep stock quantity, reading state, game funds and deadline
+  ---
+  duration_ms: 425.6807
+  ...
+1..3
+# tests 3
+# suites 0
+# pass 2
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0

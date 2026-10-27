@@ -1,0 +1,35 @@
+TAP version 13
+# Subtest: automatic fitting recovers from a short viewport while manual map zoom remains an independent choice
+ok 1 - automatic fitting recovers from a short viewport while manual map zoom remains an independent choice
+  ---
+  duration_ms: 2524.7506
+  ...
+# Subtest: visible keyboard rectangle keeps stock drafts, disclosure and funding controls through broadcasts
+ok 2 - visible keyboard rectangle keeps stock drafts, disclosure and funding controls through broadcasts
+  ---
+  duration_ms: 651.4464
+  ...
+# Subtest: real page pinch zoom is not undone, safe area is not doubled, and diagnostics contain layout only
+ok 3 - real page pinch zoom is not undone, safe area is not doubled, and diagnostics contain layout only
+  ---
+  duration_ms: 348.5643
+  ...
+# Subtest: entry pages remain scrollable with a keyboard-sized viewport and a new room can start after the orientation gate
+not ok 4 - entry pages remain scrollable with a keyboard-sized viewport and a new room can start after the orientation gate
+  ---
+  duration_ms: 1142.3896
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\phone-viewport.spec.js:51:1'
+  failureType: 'testCodeFailure'
+  error: 'page.setViewportSize: Protocol error (Browser.setWindowBounds): To resize minimized/maximized/fullscreen window, restore it to normal state first.'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\phone-viewport.spec.js:55:95)
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 3
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0

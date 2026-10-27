@@ -1,0 +1,152 @@
+TAP version 13
+# Subtest: 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+ok 1 - 静态缓存升级 / 本地海面地图 / 旧协议提示 / 离线壳
+  ---
+  duration_ms: 5929.4783
+  ...
+# Subtest: 端到端：创建→加入→开局→掷骰→解散→结算→回放
+ok 2 - 端到端：创建→加入→开局→掷骰→解散→结算→回放
+  ---
+  duration_ms: 4560.7609
+  ...
+# Subtest: short landscape initial opportunities keep all three selections visible and complete long descriptions
+ok 3 - short landscape initial opportunities keep all three selections visible and complete long descriptions
+  ---
+  duration_ms: 2840.6909
+  ...
+# Subtest: short landscape stock workspace preserves list space, quantity, browsing and real transaction
+ok 4 - short landscape stock workspace preserves list space, quantity, browsing and real transaction
+  ---
+  duration_ms: 11894.9564
+  ...
+# Subtest: landscape management main and city pages keep fixed footer separate from long content
+ok 5 - landscape management main and city pages keep fixed footer separate from long content
+  ---
+  duration_ms: 4219.1464
+  ...
+# Subtest: all generic landscape dialog families retain natural rows, reachable actions and long bank rescue content
+ok 6 - all generic landscape dialog families retain natural rows, reachable actions and long bank rescue content
+  ---
+  duration_ms: 9403.4621
+  ...
+# Subtest: full42-square phone map fits five screens in both modes; short name and glyph remain readable
+ok 7 - full42-square phone map fits five screens in both modes; short name and glyph remain readable
+  ---
+  duration_ms: 3502.4884
+  ...
+# Subtest: details and More retain actual information, stock access and reading through broadcasts
+ok 8 - details and More retain actual information, stock access and reading through broadcasts
+  ---
+  duration_ms: 1131.2856
+  ...
+# Subtest: PC and tablet recover original board and information; stock draft survives orientation gate
+not ok 9 - PC and tablet recover original board and information; stock draft survives orientation gate
+  ---
+  duration_ms: 56.8477
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\mobile-compact-board.spec.js:24:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+
+    false !== true
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\mobile-compact-board.spec.js:25:269)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: all tile categories retain focus and actual ownership through broadcasts; grouped pawns remain readable
+ok 10 - all tile categories retain focus and actual ownership through broadcasts; grouped pawns remain readable
+  ---
+  duration_ms: 5144.6841
+  ...
+# Subtest: real roll retains half-speed movement and small-space zoom is only a view change
+ok 11 - real roll retains half-speed movement and small-space zoom is only a view change
+  ---
+  duration_ms: 2502.1485
+  ...
+# Subtest: phone landscape uses the freed left area at every reported inset, preserving full board and right edge
+ok 12 - phone landscape uses the freed left area at every reported inset, preserving full board and right edge
+  ---
+  duration_ms: 3903.9232
+  ...
+# Subtest: the same left alignment applies to QQ, other Android and iOS while other three safe edges survive
+not ok 13 - the same left alignment applies to QQ, other Android and iOS while other three safe edges survive
+  ---
+  duration_ms: 102.6872
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\mobile-landscape-edge.spec.js:40:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+
+      [
+    +   '0px',
+    +   '0px',
+    +   '0px',
+    -   '12px',
+    -   '24px',
+    -   '20px',
+        '0px'
+      ]
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    0: '12px'
+    1: '24px'
+    2: '20px'
+    3: '0px'
+  actual:
+    0: '0px'
+    1: '0px'
+    2: '0px'
+    3: '0px'
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\mobile-landscape-edge.spec.js:48:10)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: left inset and opponent broadcasts keep stock quantity, reading state, game funds and deadline
+ok 14 - left inset and opponent broadcasts keep stock quantity, reading state, game funds and deadline
+  ---
+  duration_ms: 316.2981
+  ...
+# Subtest: empty and cash-tight turns allow direct roll; a legal project can be closed without losing the choice
+ok 15 - empty and cash-tight turns allow direct roll; a legal project can be closed without losing the choice
+  ---
+  duration_ms: 2477.1849
+  ...
+# Subtest: reading defers one automatic reminder and reload does not repeat a seen turn
+ok 16 - reading defers one automatic reminder and reload does not repeat a seen turn
+  ---
+  duration_ms: 994.1273
+  ...
+# Subtest: real buy and sale retain cleared holdings history; recap survives another player reply without stealing reading
+ok 17 - real buy and sale retain cleared holdings history; recap survives another player reply without stealing reading
+  ---
+  duration_ms: 1415.8349
+  ...
+# Subtest: six sizes keep original board and reach the costs, risks and recap controls
+ok 18 - six sizes keep original board and reach the costs, risks and recap controls
+  ---
+  duration_ms: 2333.4862
+  ...
+# Subtest: invalid targets, explicit skip and unavailable reminder storage keep controls and feedback reliable
+ok 19 - invalid targets, explicit skip and unavailable reminder storage keep controls and feedback reliable
+  ---
+  duration_ms: 459.1409
+  ...
+1..19
+# tests 19
+# suites 0
+# pass 17
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0

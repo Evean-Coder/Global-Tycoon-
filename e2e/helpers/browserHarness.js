@@ -1,10 +1,16 @@
-/* global latestState */
+/* global latestState, phoneLayout */
 'use strict';
-const {chromium}=require('playwright'),api=require('../../server');
+const {chromium,webkit}=require('playwright'),api=require('../../server');
 const {createRng}=require('../../src/random'),{fakeClock}=require('../../test/helpers/gameplayFixtures'),{createActionClock}=require('../../src/actionClock');
 async function settleBoardLayout(page){
  await page.evaluate(()=>new Promise(resolve=>window.requestAnimationFrame(()=>window.requestAnimationFrame(resolve))));
  await page.waitForFunction(()=>{
+  if(document.body.classList.contains('compact-game')&&typeof phoneLayout!=='undefined'&&phoneLayout){
+   const main=document.getElementById('gameMain').getBoundingClientRect();
+   if(!phoneLayout.magnified&&(Math.abs(phoneLayout.width-document.documentElement.clientWidth)>.5||Math.abs(phoneLayout.height-document.documentElement.clientHeight)>.5))return false;
+   if(Math.abs(main.height-phoneLayout.boardHeight)>.5)return false;
+   if(phoneLayout.mapMode==='overview'){const wrap=document.getElementById('boardWrap');if(wrap.scrollWidth>wrap.clientWidth+1||wrap.scrollHeight>wrap.clientHeight+1)return false;}
+  }
   const map=document.getElementById('boardMap').getBoundingClientRect(),tiles=document.getElementById('board').children;
   if(!map.width||!tiles[21])return true;
   const first=tiles[0].getBoundingClientRect(),right=tiles[11].getBoundingClientRect(),bottom=tiles[21].getBoundingClientRect(),inset=document.body.classList.contains('landscape-game')?2:0;
@@ -14,7 +20,9 @@ async function settleBoardLayout(page){
 async function boot(options={}){
  await new Promise(r=>api.server.listen(0,'127.0.0.1',r));
  const url='http://127.0.0.1:'+api.server.address().port;
- const browser=await chromium.launch({channel:process.env.CI?undefined:'msedge',headless:true});
+ const browserName=options.browserName||process.env.PHONE_TEST_BROWSER||'chromium';
+ if(!['chromium','webkit'].includes(browserName))throw new Error('Unknown test browser');
+ const browser=await (browserName==='webkit'?webkit:chromium).launch({channel:browserName==='chromium'&&!process.env.CI?'msedge':undefined,headless:true});
  const contexts=[],pages=[],errors=[],prestart={};
  for(let i=0;i<2;i++){const context=await browser.newContext({viewport:options.viewport||{width:1440,height:900},isMobile:!!options.mobile,hasTouch:!!options.mobile,reducedMotion:'reduce'}),page=await context.newPage();contexts.push(context);pages.push(page);page.on('pageerror',e=>errors.push(e.message));page.on('dialog',d=>d.accept());await page.goto(url,{waitUntil:'networkidle'});await page.fill('#nickname',i?'浏览器乙':'浏览器甲');}
  prestart.lobbyHint=await pages[0].locator('#view-lobby .orientation-hint').isVisible();

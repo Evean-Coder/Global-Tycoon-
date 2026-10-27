@@ -1,0 +1,145 @@
+{
+  "rows": [
+    {
+      "width": 568,
+      "height": 260,
+      "mode": "overview",
+      "density": "short",
+      "scale": 1,
+      "board": {
+        "x": 4,
+        "y": 28,
+        "width": 483,
+        "height": 180,
+        "top": 28,
+        "right": 487,
+        "bottom": 208,
+        "left": 4
+      },
+      "bar": {
+        "x": 4,
+        "y": 212,
+        "width": 560,
+        "height": 44,
+        "top": 212,
+        "right": 564,
+        "bottom": 256,
+        "left": 4
+      },
+      "labels": []
+    },
+    {
+      "width": 693,
+      "height": 390,
+      "mode": "overview",
+      "density": "standard",
+      "scale": 1,
+      "board": {
+        "x": 4,
+        "y": 48,
+        "width": 521.625,
+        "height": 290,
+        "top": 48,
+        "right": 525.625,
+        "bottom": 338,
+        "left": 4
+      },
+      "bar": {
+        "x": 4,
+        "y": 342,
+        "width": 685,
+        "height": 44,
+        "top": 342,
+        "right": 689,
+        "bottom": 386,
+        "left": 4
+      },
+      "labels": []
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "mode": "overview",
+      "density": "standard",
+      "scale": 1,
+      "board": {
+        "x": 4,
+        "y": 48,
+        "width": 637.890625,
+        "height": 290,
+        "top": 48,
+        "right": 641.890625,
+        "bottom": 338,
+        "left": 4
+      },
+      "bar": {
+        "x": 4,
+        "y": 342,
+        "width": 836,
+        "height": 44,
+        "top": 342,
+        "right": 840,
+        "bottom": 386,
+        "left": 4
+      },
+      "labels": []
+    },
+    {
+      "width": 932,
+      "height": 430,
+      "mode": "overview",
+      "density": "standard",
+      "scale": 1,
+      "board": {
+        "x": 4,
+        "y": 48,
+        "width": 705.640625,
+        "height": 330,
+        "top": 48,
+        "right": 709.640625,
+        "bottom": 378,
+        "left": 4
+      },
+      "bar": {
+        "x": 4,
+        "y": 382,
+        "width": 924,
+        "height": 44,
+        "top": 382,
+        "right": 928,
+        "bottom": 426,
+        "left": 4
+      },
+      "labels": []
+    },
+    {
+      "width": 569,
+      "height": 220,
+      "mode": "scroll",
+      "density": "constrained",
+      "scale": 1,
+      "board": {
+        "x": 4,
+        "y": 28,
+        "width": 483,
+        "height": 140,
+        "top": 28,
+        "right": 487,
+        "bottom": 168,
+        "left": 4
+      },
+      "bar": {
+        "x": 4,
+        "y": 172,
+        "width": 561,
+        "height": 44,
+        "top": 172,
+        "right": 565,
+        "bottom": 216,
+        "left": 4
+      },
+      "labels": []
+    }
+  ],
+  "errors": []
+}

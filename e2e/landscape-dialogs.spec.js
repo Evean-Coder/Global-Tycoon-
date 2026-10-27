@@ -1,5 +1,5 @@
 'use strict';
-/* global latestState, stockDraft, getComputedStyle, innerWidth, innerHeight, requestAnimationFrame */
+/* global latestState, stockDraft, innerWidth, innerHeight, requestAnimationFrame */
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const {boot}=require('./helpers/browserHarness'),f=require('../test/helpers/gameplayFixtures'),stocks=require('../src/stocks');
 const dir=process.env.E2E_EVIDENCE_ROOT?path.join(process.env.E2E_EVIDENCE_ROOT,'landscape-dialogs'):path.join(__dirname,'../docs/landscape-dialogs/evidence');
@@ -22,7 +22,7 @@ test('short landscape initial opportunities keep all three selections visible an
  for(const [width,height]of screens){
   await setScreen(p,width,height);await measure(p,'#choiceModal','choice-'+width);
   for(const button of await p.locator('#choiceCards button').all())await reachable(button,'#choiceCards');
-  const descriptions=await p.locator('#choiceCards p').evaluateAll(nodes=>nodes.map(el=>({text:el.textContent,height:el.clientHeight,scroll:el.scrollHeight,canRead:getComputedStyle(el).overflowY==='auto'})));assert.ok(descriptions.every(d=>d.height>=20&&d.canRead&&d.text.length>0),JSON.stringify(descriptions));
+  const descriptions=await p.locator('#choiceCards p').evaluateAll(nodes=>nodes.map(el=>({text:el.textContent,height:el.clientHeight,scroll:el.scrollHeight,canRead:el.scrollHeight<=el.clientHeight+1})));assert.ok(descriptions.every(d=>d.height>=20&&d.canRead&&d.text.length>0),JSON.stringify(descriptions));
   await p.locator('#choiceCards p').first().focus();await p.keyboard.press('End');await screenshot(p,'choice-'+width+'x'+height+'.png');
  }
  await p.click('#btnReroll');await p.waitForFunction(()=>latestState.self.choice.candidateVersion===2);await h.choose();assert.equal(h.room.state.phase,'waiting_roll');assert.deepEqual(h.errors,[]);

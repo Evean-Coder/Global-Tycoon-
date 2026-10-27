@@ -1,5 +1,5 @@
 'use strict';
-/* global ContextualRules, BoardLayout, BoardPresentation, MobileOrientation, StockInvestmentView, ManagementEconomyView, TurnExperienceView */
+/* global ContextualRules, BoardLayout, BoardPresentation, MobileOrientation, PhoneLayout, StockInvestmentView, ManagementEconomyView, TurnExperienceView */
 
 /* exported afterReceipt, emitAct, downloadRecord, openReplay, replayPrev, replayNext, replayPlay, replayClose, clickTransferEntry, submitTransfer, returnFromTransfer, resumeStockView, startSelectedGame, returnToRoom, openBank */
 
@@ -65,8 +65,52 @@ let moveTimer = null, diceTimer = null, diceFinishTimer = null;
 let animationGeneration = 0, quickTimerIv = null, quickTimeAnchor = null;
 let bankContext = null, bankDraft = {}, bankRequest = null, stockRenderKey = null, stockScroll = null, boardLayoutMode = null, modalReadContext=null;
 let compactMapZoom=false;
+let phoneLayout=null,phoneUnzoomedSize=null,phoneOrientationKey=null,phoneFeedbackPaused=false,phoneFeedbackCount=0,phoneFeedbackAt=0;
 function layoutMode() { return BoardLayout.mode(window.innerWidth,window.innerHeight,orientationController.isPhone()); }
 function compactBoard(){return layoutMode()==='compact-landscape';}
+function syncPhoneLayout(){
+ if(typeof PhoneLayout==='undefined')return null;
+ const phone=orientationController.isPhone(),orientation=window.screen.orientation?.type||String(window.innerWidth>window.innerHeight);
+ if(orientation!==phoneOrientationKey){phoneOrientationKey=orientation;phoneUnzoomedSize=null;}
+ let probe=$('phoneSafeProbe');
+ if(!probe){
+  probe=document.createElement('span');probe.id='phoneSafeProbe';probe.setAttribute('aria-hidden','true');document.body.append(probe);
+  // Insets can change without a layout viewport resize (browser chrome or a
+  // cutout update). Observe the padding box, not its always-zero content box.
+  if('ResizeObserver' in window)new window.ResizeObserver(requestPieceLayout).observe(probe,{box:'border-box'});
+ }
+ const css=window.getComputedStyle(probe),visual=window.visualViewport;
+ const sample={phone,physicalLandscape:orientationController.isLandscape(),layoutWidth:document.documentElement.clientWidth||window.innerWidth,layoutHeight:document.documentElement.clientHeight||window.innerHeight,
+  visibleWidth:visual?.width,visibleHeight:visual?.height,offsetLeft:visual?.offsetLeft,offsetTop:visual?.offsetTop,scale:visual?.scale,
+  safeTop:parseFloat(css.paddingTop),safeRight:parseFloat(css.paddingRight),safeBottom:parseFloat(css.paddingBottom),userZoom:compactMapZoom,previousUnzoomedSize:phoneUnzoomedSize};
+ phoneLayout=PhoneLayout.compute(sample);
+ if(phoneFeedbackPaused&&phoneLayout.active&&!compactMapZoom)Object.assign(phoneLayout,{mapMode:'scroll',reasonCode:'layout_feedback',minBoardWidth:Math.max(483,phoneLayout.minBoardWidth),minBoardHeight:Math.max(180,phoneLayout.minBoardHeight)});
+ if(!phoneLayout.magnified)phoneUnzoomedSize={width:phoneLayout.width,height:phoneLayout.height};
+ document.body.classList.toggle('phone-screen',phone);
+ const properties={'frame-width':phoneLayout.frameWidth,'frame-height':phoneLayout.frameHeight,'safe-top':phoneLayout.safeTop,'safe-right':phoneLayout.safeRight,'safe-bottom':phoneLayout.safeBottom,
+  'header-height':phoneLayout.headerHeight,'footer-height':phoneLayout.footerHeight,'side-width':phoneLayout.sideWidth,'board-height':phoneLayout.boardHeight,'map-min-width':phoneLayout.minBoardWidth,'map-min-height':phoneLayout.minBoardHeight,
+  'label-font':phoneLayout.labelFont,'number-font':phoneLayout.numberFont,'number-width':phoneLayout.numberWidth,'glyph-size':phoneLayout.glyphSize,
+  'modal-left':phoneLayout.modalRect.left,'modal-top':phoneLayout.modalRect.top,'modal-width':phoneLayout.modalRect.width,'modal-height':phoneLayout.modalRect.height};
+ for(const [key,value]of Object.entries(properties)){const name='--phone-'+key,text=value+'px';if(document.body.style.getPropertyValue(name)!==text)document.body.style.setProperty(name,text);}
+ const columns=String(phoneLayout.availableWidth>=720?3:phoneLayout.availableWidth>=520?2:1);
+ if(document.body.style.getPropertyValue('--phone-card-columns')!==columns)document.body.style.setProperty('--phone-card-columns',columns);
+ for(const [key,value]of Object.entries({phoneDensity:phoneLayout.density,phoneTile:phoneLayout.tileLayout,phoneMap:phoneLayout.mapMode,phoneActions:phoneLayout.footerHeight===44?'1':'2',phoneSidebar:phoneLayout.sideWidth<96?'narrow':'normal'}))if(document.body.dataset[key]!==value)document.body.dataset[key]=value;
+ if($('phoneFitStatus')&&$('phoneFitStatus').textContent!==PhoneLayout.reason(phoneLayout.reasonCode))$('phoneFitStatus').textContent=PhoneLayout.reason(phoneLayout.reasonCode);
+ return phoneLayout;
+}
+function phoneDiagnostic(){return phoneLayout?{revision:'phone-fit-v1',...PhoneLayout.diagnostic(phoneLayout),features:{visualViewport:!!window.visualViewport,fullscreen:typeof document.documentElement.requestFullscreen==='function'}}:null;}
+async function copyPhoneDiagnostic(){
+ const data=phoneDiagnostic();if(!data)return;const text=JSON.stringify(data,null,2);$('phoneDiagnosticText').textContent=text;
+ try{if(!navigator.clipboard)throw new Error('clipboard unavailable');await navigator.clipboard.writeText(text);toast('屏幕适配信息已复制');}
+ catch{$('phoneDiagnostic').open=true;toast('可长按选取下方适配信息');}
+}
+async function requestPhoneFullscreen(){
+ if(typeof document.documentElement.requestFullscreen!=='function'){toast('此浏览器不支持全屏，可收起工具栏或放大地图查看');return;}
+ const button=$('btnPhoneFullscreen');button.disabled=true;let timer;
+ try{await Promise.race([document.documentElement.requestFullscreen(),new Promise((_,reject)=>{timer=window.setTimeout(()=>reject(new Error('fullscreen timeout')),2000);})]);}
+ catch{toast('未能进入全屏，仍可继续当前对局');}
+ finally{window.clearTimeout(timer);button.disabled=false;requestPieceLayout();}
+}
 function placeBoardSurfaces(){
   if(!game)return;
   const anchors=BoardLayout.geometry(layoutMode()).anchors,scale=$('boardScale').getBoundingClientRect(),first=$('board').children[anchors[0]]?.getBoundingClientRect(),lastTop=$('board').children[anchors[1]]?.getBoundingClientRect(),lastBottom=$('board').children[anchors[2]]?.getBoundingClientRect();
@@ -78,6 +122,7 @@ function placeBoardSurfaces(){
   Object.assign($('atlasPanels').style,{left:(left+width*.07)+'px',top:(top+height*.14)+'px',width:(width*.86)+'px',height:(height*.72)+'px'});
 }
 function syncResponsiveLayout() {
+  const fit=syncPhoneLayout();
   const compact=compactBoard(),landscape=layoutMode()!=='perimeter';
   document.body.classList.toggle('landscape-game',landscape);
   document.body.classList.toggle('compact-game',compact);
@@ -89,21 +134,23 @@ function syncResponsiveLayout() {
     $('actionBar').insertBefore($('turnInfo'),$('actionBar').querySelector('.spacer'));$('actionBar').insertBefore($('managementStatus'),$('dice'));$('actionBar').append($('timer'));$('view-game').insertBefore($('waitBanner'),$('view-game').firstElementChild);
     restoreCompactPanels();hideOverlay('compactInfoModal');
   }
-  document.body.classList.toggle('compact-map-zoom',compact&&(compactMapZoom||$('boardWrap').clientHeight<177||$('boardWrap').clientWidth<405));
+  document.body.classList.toggle('compact-map-zoom',compact&&(fit?fit.mapMode==='zoom':compactMapZoom));
+  document.body.classList.toggle('compact-map-scroll',compact&&(fit?fit.mapMode==='scroll':$('boardWrap').clientHeight<177||$('boardWrap').clientWidth<405));
   $('actionBar').insertBefore($('btnManagement'),$('btnAssets'));
   $('actionBar').insertBefore($('btnBank'),$('btnEndTurn'));
   $('boardScale').insertBefore($('boardMap'),$('pieces'));
   if(landscape){$('side').prepend($('mapScrollHint'));}
   else {$('view-game').insertBefore($('mapScrollHint'),$('gameMain'));for(const property of ['left','right','top','bottom','width','height','max-height'])$('boardMap').style.removeProperty(property);}
-  $('mapScrollHint').textContent=compact?'完整42格 · 点击地块查看详情':'棋盘可独立滑动 · 点地块看详情';
+  $('mapScrollHint').textContent=compact&&fit?PhoneLayout.reason(fit.reasonCode):compact?'完整42格 · 点击地块查看详情':'棋盘可独立滑动 · 点地块看详情';
   syncCompactControls();
   placeBoardSurfaces();
   orientationController.sync();
 }
 
 function syncCompactControls(){
- $('turnInfo').tabIndex=compactBoard()?0:-1;$('turnInfo').setAttribute('role',compactBoard()?'button':'status');
- $('btnZoomMap').textContent=document.body.classList.contains('compact-map-zoom')?'缩回全图':'放大地图';
+ const interactive=compactBoard()&&phoneLayout?.headerHeight!==24;
+ $('turnInfo').tabIndex=interactive?0:-1;$('turnInfo').setAttribute('role',interactive?'button':'status');
+ $('btnZoomMap').textContent=compactMapZoom?'恢复默认视图':'放大地图';
 }
 function restoreCompactPanels(){
  if($('newsBar').parentElement!==$('atlasPanels'))$('atlasPanels').prepend($('newsBar'));
@@ -153,10 +200,18 @@ $('btnManagement').onclick=()=>openActiveManagement();
 $('btnManagementRules').onclick=()=>{document.body.classList.add('management-help');openRulesTopic('property','management');};
 $('btnLocate').onclick=()=>{const position=playerById(me.gameId)?.position;document.querySelector('#board [data-square-id="'+position+'"]')?.scrollIntoView({block:'center',inline:'nearest'});};
 let pieceResizeFrame = 0;
-function requestPieceLayout() {
-  if (!game || pieceResizeFrame) return;
+function requestPieceLayout(source) {
+  // ResizeObserver feedback has a bounded budget; a real viewport event or a
+  // player view action starts a fresh attempt. Keep a readable map if it loops.
+  if(Array.isArray(source)){
+    if(phoneFeedbackPaused)return;
+    const now=window.performance.now();if(now-phoneFeedbackAt>100)phoneFeedbackCount=0;phoneFeedbackAt=now;
+    if(++phoneFeedbackCount>24)phoneFeedbackPaused=true;
+  }else{phoneFeedbackCount=0;phoneFeedbackPaused=false;}
+  if (pieceResizeFrame) return;
   pieceResizeFrame = window.requestAnimationFrame(() => {
     pieceResizeFrame = 0;
+    if(!game||!document.body.classList.contains('game-active')){syncPhoneLayout();return;}
     syncResponsiveLayout();
     if(boardLayoutMode!==layoutMode())renderBoard();
     placeBoardSurfaces();
@@ -170,11 +225,15 @@ if ('ResizeObserver' in window) {
   const chromeLayout = new window.ResizeObserver(fitActionBarPadding);
   for (const id of ['newsBar', 'waitBanner', 'quickClockBar', 'actionBar']) chromeLayout.observe($(id));
 }
-window.addEventListener('resize', requestPieceLayout);window.visualViewport?.addEventListener('resize',requestPieceLayout);
+for(const event of ['resize','orientationchange','load'])window.addEventListener(event,requestPieceLayout);
+for(const event of ['resize','scroll'])window.visualViewport?.addEventListener(event,requestPieceLayout);
+document.addEventListener('fullscreenchange',requestPieceLayout);
 
 function show(id) {
   ['view-lobby', 'view-room', 'view-game'].forEach((v) => $(v).classList.toggle('hidden', v !== id));
   document.body.classList.toggle('game-active', id === 'view-game');
+  if(id!=='view-game')for(const name of ['compact-game','landscape-game','compact-map-zoom','compact-map-scroll'])document.body.classList.remove(name);
+  syncPhoneLayout();
   fitActionBarPadding();
   orientationController.sync();
 }
@@ -1720,10 +1779,12 @@ function setupLobby() {
   $('btnCompactInfo').onclick=()=>openCompactInfo();
   $('btnCompactInfoClose').onclick=()=>hideOverlay('compactInfoModal');
   $('btnCompactInfoRules').onclick=()=>openRulesTopic('connection');
-  $('btnZoomMap').onclick=()=>{if($('boardWrap').clientHeight<177){toast('当前可用空间较小，已启用放大地图；增加空间后可回全图。');return;}compactMapZoom=!compactMapZoom;hideOverlay('compactInfoModal');requestPieceLayout();};
+  $('btnZoomMap').onclick=()=>{compactMapZoom=!compactMapZoom;hideOverlay('compactInfoModal');requestPieceLayout();};
+  if($('btnCopyPhoneFit'))$('btnCopyPhoneFit').onclick=copyPhoneDiagnostic;
+  if($('btnPhoneFullscreen'))$('btnPhoneFullscreen').onclick=requestPhoneFullscreen;
   for(const b of document.querySelectorAll('[data-info-target]'))b.onclick=()=>$(b.dataset.infoTarget).scrollIntoView({block:'start'});
-  $('turnInfo').onclick=()=>{if(compactBoard())openCompactInfo('sidePlayer');};
-  $('turnInfo').onkeydown=e=>{if(compactBoard()&&(e.key==='Enter'||e.key===' ')){e.preventDefault();openCompactInfo('sidePlayer');}};
+  $('turnInfo').onclick=()=>{if(compactBoard()&&phoneLayout?.headerHeight!==24)openCompactInfo('sidePlayer');};
+  $('turnInfo').onkeydown=e=>{if(compactBoard()&&phoneLayout?.headerHeight!==24&&(e.key==='Enter'||e.key===' ')){e.preventDefault();openCompactInfo('sidePlayer');}};
   $('btnMissions').onclick = openMissions;
   $('btnStock').onclick = openStockMarket;
   $('btnStockClose').onclick=()=>hideOverlay('stockModal');
@@ -1804,7 +1865,7 @@ socket.on('roomState', (rs) => {
 socket.on('gameState', (state) => {
   if (state.gameId === latestState?.gameId && state.revision < latestState.revision) return;
   if(state.gameId===latestState?.gameId && latestState?.phase==='game_over' && state.phase!=='game_over')return;
-  if (state.gameId && state.gameId !== latestState?.gameId) { stopVisualAnimations();for(const el of document.querySelectorAll('.overlay:not(.hidden)'))hideOverlay(el.id);lastPos={};lastEventId=-1;clientLog=[];lastGameJson='';lastRecord=null;stockDraft={};choiceRenderKey='';receiptPending=false;quickTimeAnchor=null; }
+  if (state.gameId && state.gameId !== latestState?.gameId) { compactMapZoom=false;stopVisualAnimations();for(const el of document.querySelectorAll('.overlay:not(.hidden)'))hideOverlay(el.id);lastPos={};lastEventId=-1;clientLog=[];lastGameJson='';lastRecord=null;stockDraft={};choiceRenderKey='';receiptPending=false;quickTimeAnchor=null; }
   latestState = state;
   updateQuickTime(state.quickTime);
   if (lobbyRequest?.event === 'startGame') { lobbyRequest=null; lobbyFeedback=''; }

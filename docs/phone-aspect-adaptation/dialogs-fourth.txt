@@ -1,0 +1,24 @@
+TAP version 13
+# Subtest: phone dialog families retain natural rows and reachable final actions at short and wide sizes
+ok 1 - phone dialog families retain natural rows and reachable final actions at short and wide sizes
+  ---
+  duration_ms: 12257.5976
+  ...
+# Subtest: choice, route, management and support keep selection flows and fixed footer reachable
+ok 2 - choice, route, management and support keep selection flows and fixed footer reachable
+  ---
+  duration_ms: 6328.8593
+  ...
+# Subtest: normal stock purchase and quick fundraising use real requests without losing quantity or extending deadlines
+ok 3 - normal stock purchase and quick fundraising use real requests without losing quantity or extending deadlines
+  ---
+  duration_ms: 918.3115
+  ...
+1..3
+# tests 3
+# suites 0
+# pass 3
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0

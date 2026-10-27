@@ -1,0 +1,19 @@
+TAP version 13
+# Subtest: 手机横屏右侧信息真实可见且未被棋盘覆盖：human
+ok 1 - 手机横屏右侧信息真实可见且未被棋盘覆盖：human
+  ---
+  duration_ms: 2355.2357
+  ...
+# Subtest: 手机横屏右侧信息真实可见且未被棋盘覆盖：bot
+ok 2 - 手机横屏右侧信息真实可见且未被棋盘覆盖：bot # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.1951
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 1
+# todo 0

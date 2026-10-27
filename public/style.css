@@ -938,3 +938,84 @@ body.landscape-game .management-economy-body .management-city{padding:8px;margin
  .experience-review .row{display:flex;flex-wrap:wrap;gap:6px}
  .experience-review button,.holdings-tabs button{min-height:36px;min-width:44px;font-size:12px;padding:6px 10px}
 }
+
+/* Continuous phone layout: geometry is derived from the actual visible rectangle. */
+#phoneSafeProbe{position:fixed;visibility:hidden;pointer-events:none;width:0;height:0;box-sizing:content-box;padding:var(--compact-safe-top,env(safe-area-inset-top,0px)) var(--compact-safe-right,env(safe-area-inset-right,0px)) var(--compact-safe-bottom,env(safe-area-inset-bottom,0px)) 0}
+body.phone-screen:not(.game-active){height:auto;min-height:var(--phone-frame-height,100vh);overflow-x:hidden;overflow-y:auto}
+body.phone-screen:not(.game-active) .view{max-width:100%;min-height:0}
+body.phone-screen input,body.phone-screen select{font-size:16px;min-height:44px}
+body.phone-screen.game-active{height:var(--phone-frame-height,100dvh);min-height:0;width:var(--phone-frame-width,100%)}
+body.phone-screen.compact-game.game-active{padding:var(--phone-safe-top,0px) var(--phone-safe-right,0px) var(--phone-safe-bottom,0px) 0}
+body.compact-game.game-active header{height:var(--phone-header-height,44px);min-height:var(--phone-header-height,44px)}
+body.compact-game #compactStatus,body.compact-game #compactTurn{height:var(--phone-header-height,44px);min-height:0}
+body.compact-game[data-phone-density=short] header>#btnRules,body.compact-game[data-phone-density=constrained] header>#btnRules{display:none}
+body.compact-game[data-phone-density=short] #compactTurn,body.compact-game[data-phone-density=constrained] #compactTurn{gap:0}
+body.compact-game #compactStatus #turnInfo{line-height:12px;min-height:0}
+body.compact-game #compactStatus #managementStatus,body.compact-game #compactStatus #waitBanner{line-height:12px}
+body.compact-game.game-active #gameMain{flex:none;height:var(--phone-board-height);grid-template-columns:minmax(0,1fr) var(--phone-side-width,25%);gap:4px;min-height:0}
+body.compact-game #boardWrap{min-height:0;max-width:none;border-radius:3px}
+body.compact-game #boardScale{min-width:var(--phone-map-min-width,0px);min-height:var(--phone-map-min-height,0px)}
+body.compact-game #board{min-width:0;min-height:0;grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:repeat(11,minmax(0,1fr))}
+body.compact-game.compact-map-scroll #boardWrap,body.compact-game.compact-map-zoom #boardWrap{overflow:auto;overscroll-behavior:contain}
+body.compact-game #board .sq{grid-template-columns:var(--phone-number-width,8px) minmax(0,1fr) var(--phone-glyph-size,5px);grid-template-rows:minmax(0,1fr);gap:0}
+body.compact-game #board .sq .num{width:var(--phone-number-width,8px);font-family:var(--mono);font-size:var(--phone-number-font,6.5px);line-height:10px;white-space:nowrap;word-break:normal;grid-column:1;grid-row:1;overflow:visible}
+body.compact-game #board .sq .glyph{width:var(--phone-glyph-size,5px);height:var(--phone-glyph-size,5px);grid-column:3;grid-row:1}
+body.compact-game #board .sq .nm{font-size:var(--phone-label-font,8px);line-height:12px;letter-spacing:-.3px;grid-column:2;grid-row:1;white-space:nowrap}
+body.compact-game[data-phone-tile=stacked] #board .sq{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:10px minmax(12px,1fr)}
+body.compact-game[data-phone-tile=stacked] #board .sq .num{grid-column:1;grid-row:1;justify-self:start;margin-left:1px}
+body.compact-game[data-phone-tile=stacked] #board .sq .glyph{grid-column:2;grid-row:1;justify-self:end;margin-right:1px}
+body.compact-game[data-phone-tile=stacked] #board .sq .nm{grid-column:1/-1;grid-row:2}
+body.compact-game #side .asset-row,body.compact-game #side .kv{flex-wrap:wrap;overflow-wrap:anywhere}
+body.compact-game #side .asset-row b,body.compact-game #side .kv b{min-width:0;max-width:100%;overflow-wrap:anywhere;letter-spacing:0}
+body.compact-game[data-phone-sidebar=narrow] #side .side-ops{grid-template-columns:minmax(0,1fr)}
+body.compact-game[data-phone-sidebar=narrow] #side .kv,body.compact-game[data-phone-sidebar=narrow] #side .asset-row{display:flex;flex-direction:column;align-items:flex-start;gap:0}
+body.compact-game #side h3{overflow-wrap:anywhere}
+body.compact-game.game-active #actionBar{height:var(--phone-footer-height,44px);min-height:var(--phone-footer-height,44px);grid-template-rows:44px;flex:none}
+body.compact-game[data-phone-actions="2"] #actionBar{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(2,44px)}
+body.compact-game[data-phone-actions="2"] #actionBar button{grid-column:auto!important;grid-row:auto}
+.phone-fit-panel{padding:10px;margin:0 0 8px;border:1px solid var(--line);background:var(--card);font-size:12px;line-height:1.5}
+.phone-fit-panel h4{font-size:14px}.phone-fit-panel p{margin:6px 0}.phone-fit-actions{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.phone-fit-actions button{min-height:44px;font-size:12px;padding:4px 10px}
+#phoneDiagnostic summary{min-height:44px;line-height:44px;cursor:pointer}#phoneDiagnosticText{font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere;user-select:text}
+body.phone-screen .overlay{left:var(--phone-modal-left,0px);top:var(--phone-modal-top,0px);right:auto;bottom:auto;width:var(--phone-modal-width,100vw);height:var(--phone-modal-height,100dvh);padding:6px;align-items:center;overflow:hidden;--phone-controls-max:clamp(44px,calc(var(--phone-modal-height,100dvh) - 138px),88px)}
+body.phone-screen .overlay>.modal,body.phone-screen .orientation-dialog{width:100%;max-width:1040px;max-height:calc(var(--phone-modal-height,100dvh) - 12px);min-height:0;border-radius:6px}
+body.phone-screen .overlay>.modal{display:flex;flex-direction:column;overflow:hidden;font-size:12px}
+body.phone-screen .modal>.mh{flex:none;min-height:44px;margin:0;padding:0 8px;gap:6px}
+body.phone-screen .modal>.mh h3{font-size:17px;line-height:22px;min-width:0;overflow-wrap:anywhere}
+body.phone-screen .modal>.mh button{min-height:44px;font-size:12px;padding:2px 6px;flex:none}
+body.phone-screen .modal>.mf,body.phone-screen .management-footer,body.phone-screen .support-footer{flex:none;max-height:var(--phone-controls-max);overflow:auto;margin:0;padding:0 6px;gap:4px;overscroll-behavior:contain}
+body.phone-screen .modal .mf button,body.phone-screen .management-footer button,body.phone-screen .support-footer button{min-height:44px;min-width:44px;font-size:12px;padding:4px 8px;white-space:normal}
+body.phone-screen .modal>.mf{flex-wrap:wrap}
+body.phone-screen #modalBody,body.phone-screen #rulesBody,body.phone-screen #managementBody,body.phone-screen .route-body,body.phone-screen .support-body,body.phone-screen #compactInfoBody{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;font-size:12px;padding:8px 12px}
+body.phone-screen #modalBody>*{flex:0 0 auto;min-width:0}
+body.phone-screen #modalBody .row{flex-wrap:wrap;gap:6px;padding:6px 0}
+body.phone-screen #modalBody .row button,body.phone-screen #modalBody .lrow>button{min-height:44px;min-width:44px;height:auto;padding:6px;font-size:12px;white-space:normal}
+body.phone-screen #modalBody .lrow:has(>button){display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;padding:8px}
+body.phone-screen #modalBody .lrow>.nm,body.phone-screen #modalBody .lrow>.info{grid-column:1/-1;white-space:normal;overflow-wrap:anywhere;font-size:13px}
+body.phone-screen #stockModal .modal,body.phone-screen #choiceModal .choice-dialog{height:calc(var(--phone-modal-height,100dvh) - 12px)}
+body.phone-screen #stockModal .stock-workspace{display:grid;grid-template-columns:minmax(0,1fr) clamp(136px,24vw,230px);flex:1;min-height:0}
+body.phone-screen #stockList{order:0;min-width:0;min-height:0;overflow:auto;margin:0;padding:6px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));align-content:start;grid-auto-rows:max-content;gap:6px}
+body.phone-screen #stockModal .stock-sidebar{display:flex;flex-direction:column;order:1;min-width:0;min-height:0;overflow:hidden;border-left:1px solid var(--line);background:var(--card2)}
+body.phone-screen #stockModal .stock-overview{display:block;flex:1;min-height:0;overflow:auto;padding:6px;font-size:12px}
+body.phone-screen #stockHint,body.phone-screen #stockSummary{margin:0;padding:0;font-size:12px;overflow-wrap:anywhere}
+body.phone-screen #stockModal .stock-sidebar>.mf{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));flex:none;min-height:44px;max-height:var(--phone-controls-max);overflow:auto;gap:4px;margin:0;padding:0 4px}
+body.phone-screen #stockModal .stock-sidebar>.mf button{min-width:0;min-height:44px;padding:4px;font-size:12px;white-space:normal}
+body.phone-screen #stockList .stock-item{min-width:0;padding:8px;font-size:12px;gap:4px;overflow-wrap:anywhere}
+body.phone-screen #stockList .stock-item .stepper{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(116px,100%),1fr));gap:4px}
+body.phone-screen #stockList .srow{display:flex;justify-content:space-between;gap:2px;flex-wrap:nowrap}
+body.phone-screen #stockList .srow button,body.phone-screen #stockList .stock-help{min-width:44px;min-height:44px;height:44px;padding:0 3px}
+body.phone-screen #choiceCards{flex:1;min-height:0;overflow:auto;display:grid;grid-template-columns:repeat(var(--phone-card-columns,3),minmax(0,1fr));grid-template-rows:none;grid-auto-rows:max-content;align-content:start;padding:6px 12px;gap:6px}
+body.phone-screen #choiceModal .choice-meta,body.phone-screen #routeModal .route-meta{flex:none;margin:0;padding:2px 12px;font-size:12px;line-height:16px}
+body.phone-screen #choiceModal .choice-dialog>.hint{flex:none;margin:0;padding:2px 12px;font-size:12px;line-height:16px}
+body.phone-screen .route-cards,body.phone-screen .management-types,body.phone-screen .support-cities{grid-template-columns:repeat(var(--phone-card-columns,3),minmax(0,1fr));gap:6px}
+body.phone-screen #choiceCards .opportunity-card,body.phone-screen .route-cards .opportunity-card{display:flex;flex-direction:column;gap:6px;min-width:0;min-height:0;padding:10px;overflow:visible}
+body.phone-screen #choiceCards .opportunity-card p,body.phone-screen .route-cards .opportunity-card p{height:auto;max-height:none;min-height:0;overflow:visible;font-size:12px;line-height:1.5}
+body.phone-screen #choiceCards .opportunity-card h4,body.phone-screen .route-cards .opportunity-card h4{font-size:16px}
+body.phone-screen #choiceCards .opportunity-card button,body.phone-screen .route-cards .opportunity-card button{min-height:44px;margin:0;padding:4px;font-size:12px}
+body.phone-screen .management-type{min-height:104px;padding:10px;font-size:12px;gap:6px}
+body.phone-screen .management-type strong{font-size:15px}
+body.phone-screen .management-city,body.phone-screen .bank-stock-card,body.phone-screen .rescue-stock{margin:6px 0;padding:10px;font-size:12px}
+body.phone-screen .management-footer{grid-template-columns:repeat(2,minmax(0,1fr))}
+body.phone-screen #compactInfoBody #side{grid-template-columns:repeat(var(--phone-card-columns,2),minmax(0,1fr))}
+body.phone-screen #rulesBody,body.phone-screen .experience-assets,body.phone-screen .experience-review{font-size:12px;line-height:1.5}
+body.phone-screen .orientation-dialog{max-width:420px;overflow:auto;padding:16px}
+body.phone-screen .orientation-dialog h2{font-size:21px;margin:6px 0}body.phone-screen .orientation-dialog p{margin:6px 0;font-size:13px}.phone-screen .rotate-symbol{font-size:32px}

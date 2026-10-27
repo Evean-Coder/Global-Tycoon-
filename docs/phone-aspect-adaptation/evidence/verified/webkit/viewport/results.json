@@ -1,0 +1,43 @@
+{
+  "engine": "webkit",
+  "scope": "浏览器API／界面验证；非实体机系统键盘",
+  "observations": [
+    {
+      "automaticRecovery": true,
+      "manualZoomPreserved": true
+    },
+    {
+      "keyboard": "controlled VisualViewport API",
+      "draftPreserved": true,
+      "modal": {
+        "x": 6,
+        "y": 36,
+        "width": 832,
+        "height": 208
+      }
+    },
+    {
+      "pinch": "controlled WebKit VisualViewport input, not physical gesture"
+    },
+    {
+      "entryPortraitWithKeyboard": true,
+      "roomMode": true,
+      "landscapeStart": true,
+      "realHumanBotRoll": true
+    },
+    {
+      "missingVisualViewport": true,
+      "missingFullscreen": true,
+      "keyboardControl": true
+    },
+    {
+      "resizeEvents": 200,
+      "computeCalls": 1,
+      "stableAfterMs": 400
+    },
+    {
+      "observerLoopBounded": true,
+      "externalEventRecovers": true
+    }
+  ]
+}

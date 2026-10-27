@@ -1,0 +1,56 @@
+TAP version 13
+# Subtest: phone landscape uses the freed left area at every reported inset, preserving full board and right edge
+ok 1 - phone landscape uses the freed left area at every reported inset, preserving full board and right edge # SKIP test name does not match pattern
+  ---
+  duration_ms: 2009.9192
+  ...
+# Subtest: the same left alignment applies to QQ, other Android and iOS while other three safe edges survive
+not ok 2 - the same left alignment applies to QQ, other Android and iOS while other three safe edges survive
+  ---
+  duration_ms: 92.7667
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\mobile-landscape-edge.spec.js:40:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    {"userAgent":"Mozilla/5.0 (Linux; Android 13; TEST) AppleWebKit/537.36 Chrome/120.0.0.0 Mobile Safari/537.36 MQQBrowser/15.0","m":{"boardWrap":{"x":4,"y":48,"width":637.890625,"height":282,"top":48,"right":641.890625,"bottom":330,"left":4},"actionBar":{"x":4,"y":334,"width":836,"height":44,"top":334,"right":840,"bottom":378,"left":4},"boardMap":{"x":59.90625,"y":76.359375,"width":526.0625,"height":225.265625,"top":76.359375,"right":585.96875,"bottom":301.625,"left":59.90625},"side":{"x":645.890625,"y":48,"width":194.109375,"height":282,"top":48,"right":840,"bottom":330,"left":645.890625},"header":{"x":0,"y":0,"width":844,"height":44,"top":0,"right":844,"bottom":44,"left":0},"padding":["0px","0px","0px","0px"],"width":844,"height":382,"overflow":false,"tiles":42,"boardScroll":0},"probe":{"top":"12px","right":"24px","bottom":"20px","body":"phone-screen game-active landscape-game compact-game","css":"--phone-frame-width: 844px; --phone-frame-height: 382px; --phone-safe-top: 0px; --phone-safe-right: 0px; --phone-safe-bottom: 0px; --phone-header-height: 44px; --phone-footer-height: 44px; --phone-side-width: 194.12px; --phone-board-height: 282px; --phone-map-min-width: 0px; --phone-map-min-height: 0px; --phone-label-font: 12px; --phone-number-font: 9.5px; --phone-number-width: 12px; --phone-glyph-size: 8px; --phone-modal-left: 0px; --phone-modal-top: 0px; --phone-modal-width: 844px; --phone-modal-height: 382px; --phone-card-columns: 3; --compact-safe-left: 40px; --compact-safe-right: 24px; --compact-safe-top: 12px; --compact-safe-bottom: 20px;","vv":{"width":844,"height":382,"scale":1},"layout":{"width":844,"height":382}}}
+    + actual - expected
+
+      [
+    +   '0px',
+    +   '0px',
+    +   '0px',
+    -   '12px',
+    -   '24px',
+    -   '20px',
+        '0px'
+      ]
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    0: '12px'
+    1: '24px'
+    2: '20px'
+    3: '0px'
+  actual:
+    0: '0px'
+    1: '0px'
+    2: '0px'
+    3: '0px'
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\mobile-landscape-edge.spec.js:48:10)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: left inset and opponent broadcasts keep stock quantity, reading state, game funds and deadline
+ok 3 - left inset and opponent broadcasts keep stock quantity, reading state, game funds and deadline # SKIP test name does not match pattern
+  ---
+  duration_ms: 0.5095
+  ...
+1..3
+# tests 3
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 2
+# todo 0

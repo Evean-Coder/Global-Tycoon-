@@ -1,0 +1,81 @@
+TAP version 13
+# Subtest: full42-square phone map fits five screens in both modes; short name and glyph remain readable
+ok 1 - full42-square phone map fits five screens in both modes; short name and glyph remain readable
+  ---
+  duration_ms: 3724.8185
+  ...
+# Subtest: details and More retain actual information, stock access and reading through broadcasts
+ok 2 - details and More retain actual information, stock access and reading through broadcasts
+  ---
+  duration_ms: 1146.0115
+  ...
+# Subtest: PC and tablet recover original board and information; stock draft survives orientation gate
+ok 3 - PC and tablet recover original board and information; stock draft survives orientation gate
+  ---
+  duration_ms: 715.3559
+  ...
+# Subtest: all tile categories retain focus and actual ownership through broadcasts; grouped pawns remain readable
+ok 4 - all tile categories retain focus and actual ownership through broadcasts; grouped pawns remain readable
+  ---
+  duration_ms: 5028.9749
+  ...
+# Subtest: real roll retains half-speed movement and small-space zoom is only a view change
+ok 5 - real roll retains half-speed movement and small-space zoom is only a view change
+  ---
+  duration_ms: 2492.4162
+  ...
+# Subtest: phone landscape uses the freed left area at every reported inset, preserving full board and right edge
+ok 6 - phone landscape uses the freed left area at every reported inset, preserving full board and right edge
+  ---
+  duration_ms: 4174.8455
+  ...
+# Subtest: the same left alignment applies to QQ, other Android and iOS while other three safe edges survive
+not ok 7 - the same left alignment applies to QQ, other Android and iOS while other three safe edges survive
+  ---
+  duration_ms: 90.4375
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\mobile-landscape-edge.spec.js:40:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+
+      [
+    +   '0px',
+    +   '0px',
+    +   '0px',
+    -   '12px',
+    -   '24px',
+    -   '20px',
+        '0px'
+      ]
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    0: '12px'
+    1: '24px'
+    2: '20px'
+    3: '0px'
+  actual:
+    0: '0px'
+    1: '0px'
+    2: '0px'
+    3: '0px'
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\mobile-landscape-edge.spec.js:48:10)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: left inset and opponent broadcasts keep stock quantity, reading state, game funds and deadline
+ok 8 - left inset and opponent broadcasts keep stock quantity, reading state, game funds and deadline
+  ---
+  duration_ms: 384.2577
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 7
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0

@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>环球大亨 · 资本博弈</title>
-  <link rel="stylesheet" href="style.css?v=20261018-landscape-edge" />
+  <link rel="stylesheet" href="style.css?v=20261026-phone-fit" />
   <meta name="theme-color" content="#e9dfc5" />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" type="image/svg+xml" href="icon.svg" />
@@ -134,7 +134,13 @@
     <section class="modal wide compact-info-dialog" role="dialog" aria-modal="true" aria-labelledby="compactInfoTitle">
       <div class="mh"><h3 id="compactInfoTitle">对局信息</h3><button id="btnCompactInfoRules" class="textbtn" type="button">规则速查</button></div>
       <nav class="compact-info-nav" aria-label="资料主题"><button data-info-target="newsBar" type="button">资讯</button><button data-info-target="sidePlayer" type="button">玩家</button><button data-info-target="infoEvents" type="button">事件</button><button id="btnZoomMap" type="button">放大地图</button></nav>
-      <div id="compactInfoBody"><p id="compactInfoNotice" class="hidden" role="status"></p></div>
+      <div id="compactInfoBody"><p id="compactInfoNotice" class="hidden" role="status"></p>
+        <section class="phone-fit-panel" aria-labelledby="phoneFitTitle">
+          <h4 id="phoneFitTitle">屏幕适配</h4><p id="phoneFitStatus" role="status"></p>
+          <div class="phone-fit-actions"><button id="btnPhoneFullscreen" type="button">尝试全屏</button><button id="btnCopyPhoneFit" type="button">复制适配信息</button></div>
+          <details id="phoneDiagnostic"><summary>查看只读适配信息</summary><pre id="phoneDiagnosticText"></pre></details>
+        </section>
+      </div>
       <div class="mf"><button id="btnCompactInfoClose" class="primary" type="button">返回地图</button></div>
     </section>
   </div>
@@ -233,14 +239,15 @@
   <div id="toast" class="hidden"></div>
 
   <script src="/socket.io/socket.io.js"></script>
-  <script src="rules-catalog.js?v=20261018-landscape-edge"></script>
-  <script src="contextual-rules.js?v=20261018-landscape-edge"></script>
-  <script src="board-layout.js?v=20261018-landscape-edge"></script>
-  <script src="board-presentation.js?v=20261018-landscape-edge"></script>
-  <script src="mobile-orientation.js?v=20261018-landscape-edge"></script>
-  <script src="stock-investment-view.js?v=20261018-landscape-edge"></script>
-  <script src="turn-experience-view.js?v=20261018-landscape-edge"></script>
-  <script src="management-economy-view.js?v=20261018-landscape-edge"></script>
-  <script src="client.js?v=20261018-landscape-edge"></script>
+  <script src="rules-catalog.js?v=20261026-phone-fit"></script>
+  <script src="contextual-rules.js?v=20261026-phone-fit"></script>
+  <script src="board-layout.js?v=20261026-phone-fit"></script>
+  <script src="phone-layout.js?v=20261026-phone-fit"></script>
+  <script src="board-presentation.js?v=20261026-phone-fit"></script>
+  <script src="mobile-orientation.js?v=20261026-phone-fit"></script>
+  <script src="stock-investment-view.js?v=20261026-phone-fit"></script>
+  <script src="turn-experience-view.js?v=20261026-phone-fit"></script>
+  <script src="management-economy-view.js?v=20261026-phone-fit"></script>
+  <script src="client.js?v=20261026-phone-fit"></script>
 </body>
 </html>

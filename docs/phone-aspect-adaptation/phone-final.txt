@@ -1,0 +1,67 @@
+Phone layout checks: chromium
+TAP version 13
+# {"engine":"chromium","verifiedLayouts":504}
+# Subtest: continuous phone geometry preserves the complete board and usable actions across the planned ratio matrix
+ok 1 - continuous phone geometry preserves the complete board and usable actions across the planned ratio matrix
+  ---
+  duration_ms: 39983.9508
+  ...
+# Subtest: phone dialog families retain natural rows and reachable final actions at short and wide sizes
+ok 2 - phone dialog families retain natural rows and reachable final actions at short and wide sizes
+  ---
+  duration_ms: 12820.0405
+  ...
+# Subtest: choice, route, management and support keep selection flows and fixed footer reachable
+not ok 3 - choice, route, management and support keep selection flows and fixed footer reachable
+  ---
+  duration_ms: 5804.7568
+  location: 'C:\\Users\\Yifan\\Desktop\\game\\e2e\\phone-dialogs.spec.js:38:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    locator.click: Timeout 5000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('[data-competition-city="上海"]')[22m
+
+  code: 'ERR_TEST_FAILURE'
+  name: 'TimeoutError'
+  stack: |-
+    TestContext.<anonymous> (C:\Users\Yifan\Desktop\game\e2e\phone-dialogs.spec.js:46:334)
+  ...
+# Subtest: normal stock purchase and quick fundraising use real requests without losing quantity or extending deadlines
+ok 4 - normal stock purchase and quick fundraising use real requests without losing quantity or extending deadlines
+  ---
+  duration_ms: 846.0271
+  ...
+# Subtest: automatic fitting recovers from a short viewport while manual map zoom remains an independent choice
+ok 5 - automatic fitting recovers from a short viewport while manual map zoom remains an independent choice
+  ---
+  duration_ms: 2459.2099
+  ...
+# Subtest: visible keyboard rectangle keeps stock drafts, disclosure and funding controls through broadcasts
+ok 6 - visible keyboard rectangle keeps stock drafts, disclosure and funding controls through broadcasts
+  ---
+  duration_ms: 600.5817
+  ...
+# Subtest: real page pinch zoom is not undone, safe area is not doubled, and diagnostics contain layout only
+ok 7 - real page pinch zoom is not undone, safe area is not doubled, and diagnostics contain layout only
+  ---
+  duration_ms: 369.4361
+  ...
+# Subtest: entry pages remain scrollable with a keyboard-sized viewport and a new room can start after the orientation gate
+ok 8 - entry pages remain scrollable with a keyboard-sized viewport and a new room can start after the orientation gate
+  ---
+  duration_ms: 2563.9289
+  ...
+# Subtest: resize bursts coalesce and geometry settles without continuous recomputation
+ok 9 - resize bursts coalesce and geometry settles without continuous recomputation
+  ---
+  duration_ms: 712.4742
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 8
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
